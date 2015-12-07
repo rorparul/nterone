@@ -1,0 +1,10 @@
+= form_for :exam_and_course_dynamic, url: select_to_edit_platform_exam_and_course_dynamics_path(platform.id), remote: true do |f|
+  .form-group
+    = f.label :id, "Exam-Courses"
+    br
+    = f.select :id, exam_and_course_dynamics.order('lower(label)').collect { |exam_and_course_dynamic| [exam_and_course_dynamic.label, exam_and_course_dynamic.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = { class: "form-control sub-select" }
+
+javascript:
+  $('.sub-select').on('change', function() {
+    $(this).closest('form').submit();
+  });

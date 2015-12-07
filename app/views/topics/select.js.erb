@@ -1,0 +1,5 @@
+$('.modal-title').html('Edit Topic');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: { topics: @topics }) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: { topic: @topic }) %>");
+$('#myModal').modal('show');

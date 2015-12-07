@@ -1,0 +1,15 @@
+- content_for :page_title do
+  span.fa.fa-gear
+  a href="#{main_app.edit_user_registration_path}"
+    | Settings
+
+.row#settings
+  .col-xs-12
+    .group
+      .group-heading
+        h6 Personal Info
+      .group-body
+        = render 'form'
+
+javascript:
+  $('.settings-tab').addClass('active');

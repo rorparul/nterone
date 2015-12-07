@@ -1,0 +1,60 @@
+- content_for :page_title do
+  span.fa.fa-check-square-o
+  a href="#{root_path}"
+    | Platforms
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+
+- content_for :actions do
+  - if current_user.any_admin?
+    li = link_to new_platform_category_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Category
+    li = link_to select_platform_categories_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Category
+    li = link_to new_platform_subject_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Certification
+    li = link_to select_platform_subjects_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Certification
+    li = link_to new_platform_exam_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Exam
+    li = link_to select_platform_exams_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Exam
+    li = link_to new_platform_course_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Course
+    li = link_to select_platform_courses_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Course
+    li = link_to new_platform_exam_and_course_dynamic_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Exam-Course
+    li = link_to select_platform_exam_and_course_dynamics_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Exam-Course
+    li = link_to new_platform_divider_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Divider
+    li = link_to select_platform_dividers_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Divider
+    li = link_to new_platform_custom_item_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Custom Item
+    li = link_to select_platform_custom_items_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Custom Item
+      
+= render 'categories_menu'
+
+.row.subjects
+
+javascript:
+  $('.certifications-tab').addClass('active');

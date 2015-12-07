@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    title
+      - if defined?(brand)
+        = brand.title
+      - else
+        NterOne
+    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'
+    = javascript_include_tag 'application'
+    = yield :javascript_includes
+    = csrf_meta_tags
+    - if brand.brand_favicon.present?
+      - if brand.brand_favicon.favicon.present? && brand.brand_favicon.favicon.file.present?
+        link rel="icon" href="#{brand.brand_favicon.favicon.file_url(:favicon)}"
+    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    css:
+      .gradient-1 {
+        background-image: -webkit-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
+        background-image: -moz-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
+        background-image: -ms-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
+        background-image: -o-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
+        background-image: linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
+      }
+      .gradient-1.active {
+        background-image: -webkit-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
+        background-image: -moz-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
+        background-image: -ms-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
+        background-image: -o-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
+        background-image: linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
+      }
+  body
+    = render 'layouts/modal'
+    = render 'layouts/header'
+    = render 'layouts/sidebar'
+    = yield  :sub_sidebar
+    .container-fluid
+      .content-top
+        i#menu-toggle.fa.fa-bars
+        #search-and-menu-container
+          .page-title
+            = yield :page_title
+          - if content_for(:actions)
+            #action-menu.dropdown.btn-actions
+              button#actions.btn.dropdown-toggle type="button" data-toggle="dropdown"
+                span.glyphicon.glyphicon-cog
+                span Actions
+                span.caret
+              ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
+                = yield :actions
+          span#universal-search
+            = link_to new_search_path, remote: true do
+              i.fa.fa-search
+              | Search
+      hr
+      .content
+        = render 'layouts/notifications'
+        = yield
+    = render 'layouts/footer'

@@ -1,0 +1,32 @@
+.form-container
+  = form_for [platform, course] do |f|
+    - if course.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(course.errors.count, 'error')} prohibited this category from being saved:"
+        ul
+          - course.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :title
+      br
+      = f.text_field :title, class: 'form-control'
+      
+    .form-group
+      = f.label :url, "URL"
+      br
+      = f.text_field :url, class: 'form-control'
+      
+    .form-group
+      = f.label :price
+      br
+      .input-group
+        span.input-group-addon $
+        = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control'
+        span.input-group-addon .00
+      
+    .actions
+      button.btn.btn-success type="submit" Save
+      button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+      - if course.id
+        = link_to 'Delete', platform_course_path(platform, course), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'

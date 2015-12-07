@@ -1,0 +1,7 @@
+h3 New brand
+
+= form_wraper do
+  = render 'form'
+
+  - if policy(@brand).index?
+    = link_to 'Back', brands_path, class: 'btn btn-default'

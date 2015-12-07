@@ -1,0 +1,83 @@
+- content_for :page_title do
+  span.fa.fa-comments-o
+  a href="#{forums_path}"
+    | Forums
+
+- content_for :actions do
+  - if current_user.any_admin?
+    li = link_to new_forum_path, remote: true do
+      i.fa.fa-plus
+      | Add Category
+    li = link_to select_forums_path, remote: true do
+      i.fa.fa-pencil
+      | Edit Category
+  li = link_to new_topic_path, remote: true do
+    i.fa.fa-plus
+    | Add Topic
+  - if current_user.any_admin?
+    li = link_to select_topics_path, remote: true do
+      i.fa.fa-pencil
+      | Edit Topic
+
+- content_for :sub_sidebar do
+  .sub-sidebar
+    h1.sub-sidebar-heading Categories
+    .forums-select
+      = render partial: 'filter'
+    .divider.sub-divider
+      span
+    ul.topics
+      = render partial: 'topics/topics', locals: {topics: @topics}
+    - if brand.footer 
+      footer.mobile-forums-footer.visible-xs
+        = brand.footer.html_safe
+
+javascript:
+  var currentView = 'topics';
+
+  $('.forums-tab').addClass('active');
+
+  $(window).on('resize', function() {
+    calibrateMargins();
+  });
+
+  $(document).on('click', '#back', function() {
+    currentView = 'topics';
+    if(window.innerWidth <= 767) {
+      $('.content').fadeOut();
+      $('.sub-sidebar').fadeIn(1000);
+    }
+  });
+
+  $(document).on('click', '.topic-form', function() {
+    currentView = 'posts';
+    if(window.innerWidth <= 767) {
+      $('.sub-sidebar').fadeOut();
+      $('.content').fadeIn(1000);
+    }
+  });
+
+  function calibrateMargins() {
+    if(window.innerWidth <= 767) {
+      $('.container-fluid, .top, .general-footer').css('margin-left', '15px');
+      if(currentView == 'topics') {
+        $('.content').hide();
+        $('.sub-sidebar').show();
+      } else if(currentView == 'posts') {
+        $('.sub-sidebar').hide();
+        $('.content').show();
+      }
+    } else {
+      $('.container-fluid, .top, .general-footer').css('margin-left', '355px');
+      $('.sub-sidebar').show();
+      $('.content').show();
+    }
+  }
+
+  $('.forums-select').on('change', '.sub-select', function() {
+    $(this).parent('form').submit();
+  });
+
+  $(document).on('ready', function() {
+    calibrateMargins();
+  });

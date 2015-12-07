@@ -1,0 +1,9 @@
+.row.top
+  .hidden-xs
+    = link_to root_path, class: 'logo' do
+      = image_tag brand.logo.file_url(:brand_logo)
+  .visible-xs
+    = link_to root_path, class: 'logo' do
+      = image_tag brand.logo.file_url(:brand_mobile_logo)
+  a.iTop title=''
+  .clear

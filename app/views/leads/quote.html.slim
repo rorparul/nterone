@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    meta charset='utf-8'
+    / = wicked_pdf_stylesheet_link_tag "pdf"
+    / = wicked_pdf_javascript_include_tag "number_pages"
+  body onload='number_pages'
+    #header style="float: right;"
+      div style="float: right; display: inline-block;"
+        - if brand.visual_asset.email_logo.present? && brand.visual_asset.email_logo.file.present?
+          = wicked_pdf_image_tag brand.visual_asset.email_logo.file_url(:email_logo)
+        - if brand.general_street
+          h4 Corporate Headquarters:
+        address
+          = brand.title
+          br
+          = brand.general_street
+          br
+          = "#{brand.general_city}, #{brand.general_state} #{brand.general_zipcode}"
+        - if brand.payment_street
+          h4 Payment:
+        address
+          = brand.title
+          br
+          = brand.payment_street
+          br
+          = "#{brand.payment_city}, #{brand.payment_state} #{brand.payment_zipcode}"
+          
+    #content style="clear: both;"
+      p = "Hello #{lead.buyer.full_name},"
+      
+      p Here is a list of each of your chosen course(s):
+      ul
+        - lead.buyer.planned_unattended_courses.each do |course|
+          li = course.title
+          
+      - if lead.discount.to_f.zero?
+        p = "Price: $#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+      - else
+        p = "Regular Price:    $#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+        p = "Discount:         #{lead.discount}%"
+        p = "Discounted Price: $#{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
+      
+      p Regards,
+
+      p Sales Team
+      p = brand.title

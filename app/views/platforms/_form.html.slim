@@ -1,0 +1,33 @@
+= form_for(@platform) do |f|
+  - if @platform.errors.any?
+    .error_explanation
+      h4 = "#{pluralize(@platform.errors.count, 'error')} prohibited this platform from being saved:"
+      ul
+        - @platform.errors.full_messages.each do |msg|
+          li = msg
+
+  .form-group
+    = f.label :title
+    br
+    = f.text_field :title, class: 'form-control'
+    
+  .form-group
+    = f.label :url, "URL To Find Test Center"
+    br
+    = f.text_field :url, class: 'form-control'
+    
+  .form-group
+    - if @platform.image.present? && @platform.image.file.present?
+      = image_tag @platform.image.file.platform_icon.url
+      br
+    = f.fields_for :image do |icon|
+      = icon.label :file, "Image"
+      br
+      = icon.file_field :file
+      = icon.hidden_field :file_cache
+      
+  .actions
+    button.btn.btn-success type="submit" Save
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    - if @platform.id
+      = link_to 'Delete', platform_path(@platform), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

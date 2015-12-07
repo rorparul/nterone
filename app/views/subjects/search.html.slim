@@ -1,0 +1,11 @@
+.row
+  = render partial: "platforms/subjects", locals: {subjects: @subjects}
+  
+.row
+  .col-xs-12
+    button#back Back
+
+javascript:
+  $('#back').on('click', function() {
+    window.history.back();
+  });

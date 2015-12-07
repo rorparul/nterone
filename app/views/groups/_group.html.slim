@@ -1,0 +1,176 @@
+.col-xs-12.col-lg-4
+  .group.my-plan
+    .group-heading
+      h6 = group.header
+      - if current_user.any_admin? && controller_name == 'subjects'
+        .group-actions-overlay
+          = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
+            i.fa.fa-pencil
+            | Edit
+    .group-body
+      .table-responsive
+        table.table
+          tbody
+            - group.group_items.sort_by(&:position).each do |group_item|
+              - case group_item.groupable_type
+              - when 'Subject'
+                tr.subject-group-item
+                  - if group_item.groupable.image.file_url != nil
+                    td = image_tag group_item.groupable.image.file_url(:subject_small_icon) if group_item.groupable.image.present?
+                  td colspan="6"
+                    a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
+                      = group_item.groupable.title
+                      span = " (#{group_item.groupable.abbreviation})"
+              - when 'Course'
+                tr.course-group-item
+                  td
+                    a href="http://#{group_item.groupable.url}" target="_blank"
+                      = group_item.groupable.title
+                  td.fit
+                    - if group_item.groupable.price == '0' || group_item.groupable.price == ''
+                      | See Link
+                    - else
+                      = "$#{number_with_delimiter(number_with_precision(group_item.groupable.price, precision: 2))}"
+                  - unless controller_name == 'subjects'
+                    td.fit.center-align
+                      = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
+                        = f.hidden_field :user_id, value: user.id
+                        = f.hidden_field :course_id, value: group_item.groupable.id
+                        span.mini-title Planned
+                        br
+                        - if planned_course(user, group_item.groupable)
+                          button class="course-toggle-active-#{group_item.groupable.id}" type="submit"
+                            span.fa.fa-check-square-o
+                        - else
+                          button class="course-toggle-active-#{group_item.groupable.id}" type="submit"
+                            span.fa.fa-square-o
+                    td.fit.center-align
+                      = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
+                        = f.hidden_field :user_id, value: user.id
+                        = f.hidden_field :course_id, value: group_item.groupable.id
+                        span.mini-title Attended
+                        br
+                        - if attended_course(user, group_item.groupable)
+                          button class="course-toggle-attended-#{group_item.groupable.id}" type="submit"
+                            span.fa.fa-check-square-o
+                        - else
+                          button class="course-toggle-attended-#{group_item.groupable.id}" type="submit"
+                            span.fa.fa-square-o
+              - when 'ExamAndCourseDynamic'
+                - if group_item.groupable.courses.count == 1 && group_item.groupable.exams.count == 1
+                  tr.exam-group-item
+                    td
+                      a href="http://#{group_item.groupable.courses.first.url}" target="_blank"
+                        = group_item.groupable.courses.first.title
+                    td.fit
+                      - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
+                        | See Link
+                      - else
+                        = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                    - unless controller_name == 'subjects'
+                      td.fit.center-align
+                        = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
+                          = f.hidden_field :user_id, value: user.id
+                          = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
+                          span.mini-title Planned
+                          br
+                          - if planned_course(user, group_item.groupable.courses.first)
+                            button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
+                              span.fa.fa-check-square-o
+                          - else
+                            button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
+                              span.fa.fa-square-o
+                      td.fit.center-align rowspan=group_item.groupable.exams.count
+                        = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
+                          = f.hidden_field :user_id, value: user.id
+                          = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
+                          span.mini-title Attended
+                          br
+                          - if attended_course(user, group_item.groupable.courses.first)
+                            button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
+                              span.fa.fa-check-square-o
+                          - else
+                            button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
+                              span.fa.fa-square-o
+                    td.fit = group_item.groupable.exams.first.title
+                    - unless controller_name == 'subjects'
+                      td.fit.center-align
+                        = form_for :passed_exam, url: toggle_passed_exam_path, html: {}, remote: true do |f|
+                          = f.hidden_field :user_id, value: user.id
+                          = f.hidden_field :exam_id, value: group_item.groupable.exams.first.id
+                          span.mini-title Passed
+                          br
+                          - if passed_exam(user, group_item.groupable.exams.first)
+                            button class="exam-toggle-passed-#{group_item.groupable.exams.first.id}" type="submit"
+                              span.fa.fa-check-square-o
+                          - else
+                            button class="exam-toggle-passed-#{group_item.groupable.exams.first.id}" type="submit"
+                              span.fa.fa-square-o
+                - if group_item.groupable.courses.count == 1 && group_item.groupable.exams.count > 1
+                    - group_item.groupable.exams.each do |exam|
+                      tr.exam-group-item
+                        - if exam == group_item.groupable.exams.first
+                          td rowspan=group_item.groupable.exams.count
+                            a href="http://#{group_item.groupable.courses.first.url}" target="_blank"
+                              = group_item.groupable.courses.first.title
+                          td.fit rowspan=group_item.groupable.exams.count
+                            - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
+                              | See Link
+                            - else
+                              = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                          - unless controller_name == 'subjects'
+                            td.fit.center-align rowspan=group_item.groupable.exams.count
+                              = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
+                                = f.hidden_field :user_id, value: user.id
+                                = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
+                                span.mini-title Planned
+                                br
+                                - if planned_course(user, group_item.groupable.courses.first)
+                                  button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
+                                    span.fa.fa-check-square-o
+                                - else
+                                  button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
+                                    span.fa.fa-square-o
+                            td.fit.center-align rowspan=group_item.groupable.exams.count
+                              = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
+                                = f.hidden_field :user_id, value: user.id
+                                = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
+                                span.mini-title Attended
+                                br
+                                - if attended_course(user, group_item.groupable.courses.first)
+                                  button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
+                                    span.fa.fa-check-square-o
+                                - else
+                                  button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
+                                    span.fa.fa-square-o
+                        td.fit = exam.title
+                        - unless controller_name == 'subjects'
+                          td.fit.center-align
+                            = form_for :passed_exam, url: toggle_passed_exam_path, html: {}, remote: true do |f|
+                              = f.hidden_field :user_id, value: user.id
+                              = f.hidden_field :exam_id, value: exam.id
+                              span.mini-title Passed
+                              br
+                              - if passed_exam(user, exam)
+                                button class="exam-toggle-passed-#{exam.id}" type="submit"
+                                  span.fa.fa-check-square-o
+                              - else
+                                button class="exam-toggle-passed-#{exam.id}" type="submit"
+                                  span.fa.fa-square-o
+                - if group_item.groupable.courses.count > 1 && group_item.groupable.exams.count == 1
+                - if group_item.groupable.courses.count > 1 && group_item.groupable.exams.count > 1
+              - when 'Divider'
+                tr.header-group-item
+                  td colspan="6" = group_item.groupable.content
+              - when 'CustomItem'
+                - if group_item.groupable.is_header?
+                  tr.header-group-item
+                    td colspan="6" = group_item.groupable.content
+                -else
+                  tr.custom-item-group-item
+                    td colspan="6"
+                      - if group_item.groupable.url.blank?
+                        = group_item.groupable.content.html_safe
+                      - else
+                        a href="http://#{group_item.groupable.url}" target="_blank"
+                          = group_item.groupable.content.html_safe

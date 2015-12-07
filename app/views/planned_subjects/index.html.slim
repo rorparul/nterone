@@ -1,0 +1,57 @@
+- content_for :page_title do
+  span.fa.fa-graduation-cap
+  a href="#{planned_subjects_path}"
+    | My Plan
+
+- unless @planned_subjects.any?
+  .row
+    .col-xs-12
+      .button-container
+        a href="#{platforms_path}"
+          button type="submit"
+            span.fa.fa-check-square-o
+            span Build My Training Plan
+- else
+  - @planned_subjects.each do |planned_subject|
+    .row#subject-description.my-plan
+      .col-xs-12
+        h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+    .row#subject-groups
+      - planned_subject.subject.groups.each do |group|
+        = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
+        
+    .row
+      .col-xs-12
+        - if planned_subject.subject.platform.url
+          a href="#{planned_subject.subject.platform.url}" target="_blank"
+            button#find-testing-center
+              span.fa.fa-location-arrow
+              span Find Testing Center
+          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+            = f.hidden_field :user_id, value: current_user.id
+            = f.hidden_field :subject_id, value: planned_subject.subject.id
+            button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
+              span.fa.fa-minus
+              span Remove from My Plan
+    hr
+
+  = form_for :lead, url: request_quote_path, html: {} do |f|
+    = f.hidden_field :buyer_id, value: current_user.id
+    button#request-quote type="submit"
+      span.fa.fa-envelope-o
+      span Request Formal Quote
+
+  #grand-total
+    span
+      = "Grand Total: $#{number_with_delimiter(number_with_precision(current_user.my_plan_grand_total, precision: 2))}"
+
+.row
+  .col-xs-12
+    #activity-history
+      h1 My Plan History
+      hr
+      ul
+        = render_activities(@activities, fallback: 'default')
+
+javascript:
+  $('.my-plan-tab').addClass('active');

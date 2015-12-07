@@ -1,0 +1,15 @@
+- content_for :page_title do
+  span.fa.fa-gear
+  a href="#{main_app.edit_brand_path(brand)}"
+    | Settings
+
+.row#settings
+  .col-xs-12
+    .group
+      .group-heading
+        h6 Company Info
+      .group-body
+        = render 'form'
+
+javascript:
+  $('.company-tab').addClass('active');

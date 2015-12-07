@@ -1,0 +1,35 @@
+- content_for :page_title do
+  span.fa.fa-coffee
+  a href="#{leads_path}" My Queue
+  
+- content_for :actions do
+  li
+    = link_to new_user_invitation_path, remote: true do
+      i.fa.fa-plus
+      | Add Member
+
+- if current_user.sales_manager? || current_user.any_admin?
+  = render partial: 'group', locals: {leads:       @assigned_leads,
+                                      type:        'Assigned Lead',
+                                      sales_force: @sales_force}
+  = render partial: 'group', locals: {leads:       @unassigned_leads,
+                                      type:        'Unassigned Lead',
+                                      sales_force: @sales_force}
+  = render partial: 'group', locals: {leads:       @archived_leads,
+                                      type:        'Archived Lead',
+                                      sales_force: @sales_force}
+
+- if current_user.sales?
+  = render partial: 'group', locals: {leads: @assigned_leads,
+                                      type:  'Assigned Lead'}
+  = render partial: 'group', locals: {leads: @unassigned_leads,
+                                      type:  'Unassigned Lead'}
+  = render partial: 'group', locals: {leads: @archived_leads,
+                                      type:  'Archived Lead'}
+
+javascript:
+  $('.my-queue-tab').addClass('active');
+  
+  $('.seller_selector').on('change', function() {
+    $(this).closest('form').submit();
+  });

@@ -1,0 +1,27 @@
+ul.post class=('current-user' if current_user.posts.include? post) id="post-#{post.id}"
+  li.post-content
+    a
+      img src=image_url("defaults/noimage.png") alt=""
+    .post-message
+      span.aro
+      .post-info
+        span.name
+          strong
+            - if post.user
+              - if post.user.first_name || post.user.last_name
+                = "#{post.user.first_name} #{post.user.last_name} "
+              - else
+                = "Anonymous "
+            - else
+              = "Anonymous "
+          | says:
+        span.time
+          = post.created_at.strftime("%B %d, %Y, %l:%M %P")
+        - if current_user.any_admin? || current_user.posts.include?(post)
+          .post-actions-overlay
+            = link_to edit_post_path(post), remote: true do
+              i.fa.fa-pencil Edit
+      .post-main
+        = post.content
+  li.divider
+    span

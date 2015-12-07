@@ -1,0 +1,3 @@
+$('.modal-title').html('Add Divider');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, divider: @divider }) %>");
+$('#myModal').modal('show');

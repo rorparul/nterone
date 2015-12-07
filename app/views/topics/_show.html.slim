@@ -1,0 +1,14 @@
+#post-form
+  = render partial: 'posts/form', locals: {topic: topic, post: post}
+
+#topic-posts
+  #topic-posts-header-container
+    h1#topic-posts-header Topic Posts
+  #topic-posts-container
+    - topic.posts.order(created_at: :desc).each do |post|
+      = render partial: 'posts/post', locals: {post: post}
+
+.row
+  .col-xs-12.hidden-sm.hidden-md.hidden-lg.hidden-xl
+    button#back.posts-back
+      | Back

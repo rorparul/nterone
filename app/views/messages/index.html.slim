@@ -1,0 +1,24 @@
+- content_for :page_title do
+  span.fa.fa-envelope-o
+  a href="#{messages_path}" Messages
+
+- content_for :actions do
+  / - if current_user.any_admin?
+  /   li
+  /     = link_to new_platform_path, remote: true do
+  /       i.fa.fa-plus
+  /       | Add Platform
+
+.row#messages
+  .col-xs-12
+    .group
+      .group-heading
+        h6 = "#{pluralize(@messages.count, 'Message')}"
+      .group-body
+        table
+          - @messages.each do |message|
+            tr
+              td = "#{message.created_at.strftime("%B %d, %Y")} - #{message.content}"
+
+javascript:
+  $('.messages-tab').addClass('active');

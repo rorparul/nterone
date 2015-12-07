@@ -1,0 +1,3 @@
+$('.modal-title').html('Add Exam-Course');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, exam_and_course_dynamic: @exam_and_course_dynamic }) %>");
+$('#myModal').modal('show');

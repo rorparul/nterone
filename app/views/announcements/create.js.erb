@@ -1,0 +1,3 @@
+$('#announcements tbody').prepend("<%= escape_javascript( render partial: 'announcement', locals: {announcement: @announcement} ) %>");
+
+$('#announcement_content').val('');

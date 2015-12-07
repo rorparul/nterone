@@ -1,0 +1,126 @@
+.devise-container {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.devise-logo {
+  margin-bottom: 13px;
+  text-align: center;
+}
+.devise_actions {
+  background-color: #fff !important;
+  margin: 0 auto;
+  max-width: 330px;
+  padding: 17px 15px 18px;
+  -moz-box-shadow: 0 0 19px -7px #888;
+  -webkit-box-shadow: 0 0 19px -7px #888;
+  box-shadow: 0 0 19px -7px #888888;
+  border-radius: 7px 7px 7px 7px;
+  border: 1px solid #CFCFCF;
+}
+.devise_actions .devise_actions-heading, .devise_actions .checkbox {
+  margin-bottom: 10px;
+}
+.devise_actions .form-control {
+  position: relative;
+  font-size: 14px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.devise_actions .form-control:focus {
+  z-index: 2;
+}
+.devise_actions input[type="email"] {
+  text-align: center;
+  outline: medium none !important;
+  font-family: 'Roboto', sans-serif;
+}
+.devise_actions input:focus {
+  outline: none;
+}
+.devise_actions input[type="password"] {
+  text-align: center;
+  outline: medium none !important;
+}
+
+.btn-lg {
+  border-radius: 7px 7px 7px 7px;
+  margin-top: 12px;
+}
+
+.forgot {
+  color: #B3B3B3;
+  font-size: 13px;
+  margin-top: 6px;
+  text-align: center;
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.or {
+  margin-top: -10px;
+  text-align: center;
+}
+
+#newUser {
+  color: #ffffff;
+  background-color: #96c161;
+  background-repeat: repeat-x; /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#96c161), to(#609c3d)); /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #96c161, #609c3d); /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #96c161, #609c3d); /* IE 10 */
+  background: -ms-linear-gradient(top, #96c161, #609c3d); /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #96c161, #609c3d);
+  border: medium none;
+}
+
+#LogIn-bt {
+  color: #ffffff;
+  background-color: #4e95ca;
+  background-repeat: repeat-x; /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4e95ca), to(#2d87ca)); /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #4e95ca, #2d87ca); /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #4e95ca, #2d87ca); /* IE 10 */
+  background: -ms-linear-gradient(top, #4e95ca, #2d87ca); /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #4e95ca, #2d87ca);
+  border: medium none;
+}
+
+.session-input {
+  border-radius: 0;
+  margin: 0 0 -2px 0;
+  &:first-child {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  &:last-child {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+}
+
+.parsley-errors-list {
+  margin: 0;
+  .parsley-required {
+    margin: 4px 0 8px 0;
+  }
+}
+
+#password {
+  margin-bottom: -2px;
+  outline: medium none !important;
+  text-align: center;
+}
+
+#enter-email {
+  border-radius: 4px;
+}

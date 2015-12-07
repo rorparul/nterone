@@ -1,0 +1,15 @@
+= form_for :contact_us, url: contact_us_path, method: :post do |f|
+  p Fill out either or both sections. The contact information associated with your account will be automatically included.
+  .form-group
+    = f.label :inquiry, "Inquiries - How can we help you?"
+    br
+    = f.text_area :inquiry, class: 'form-control'
+    
+  .form-group
+    = f.label :feedback, "Feedback – How can we make your experience better?"
+    br
+    = f.text_area :feedback, class: 'form-control'
+    
+  .actions
+    button.btn.btn-success type="submit" Send
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel

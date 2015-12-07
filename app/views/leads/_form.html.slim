@@ -1,0 +1,19 @@
+.form-container
+  = form_for lead do |f|
+    - if lead.errors.any?
+      .error_explanation
+        h4 = "#{pluralize(topic.errors.count, 'error')} prohibited this forum from being saved:"
+        ul
+          - topic.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :discount, "Discount Percent"
+      br
+      .input-group
+        = f.text_field :discount, data: { autonumeric: { mDec: 0, vMin: 0, vMax: 100 } }, class: "form-control"
+        span.input-group-addon %
+      
+    .actions
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Close

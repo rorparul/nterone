@@ -1,0 +1,75 @@
+.form-container
+  = form_for [platform, subject, group], html: {"data-parsley-validate" => true} do |f|
+    - if group.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(group.errors.count, 'error')} prohibited this category from being saved:"
+        ul
+          - group.errors.full_messages.each do |msg|
+            li = msg
+
+    = f.hidden_field :subject_ids, value: subject.id
+
+    .form-group
+      = f.label :header, "Header"
+      br
+      = f.text_field :header, class: 'form-control disableable', required: true
+
+    label.group-items-header Table Items
+    hr.group-items-divider
+    - if group.id
+      ul#group-items
+        = f.fields_for :group_items, group.group_items.sort_by(&:position), include_id: false do |group_item|
+          = render 'group_item_fields', f: group_item,
+                                        type: group_item.object.groupable_type,
+                                        subjects: subjects,
+                                        courses: courses,
+                                        exam_and_course_dynamics: exam_and_course_dynamics,
+                                        dividers: dividers,
+                                        custom_items: custom_items
+        .links
+          = link_to_add_association 'Insert Certification',         f, :group_items,
+            render_options: {locals: {type: 'Subject',              subjects: subjects}}
+          = link_to_add_association 'Insert Course',                f, :group_items,
+            render_options: {locals: {type: 'Course',               courses: courses}}
+          = link_to_add_association 'Insert Exam-Course',           f, :group_items,
+            render_options: {locals: {type: 'ExamAndCourseDynamic', exam_and_course_dynamics: exam_and_course_dynamics}}
+          = link_to_add_association 'Insert Divider',               f, :group_items,
+            render_options: {locals: {type: 'Divider',              dividers: dividers}}
+          = link_to_add_association 'Insert Custom Item',           f, :group_items,
+            render_options: {locals: {type: 'CustomItem',           custom_items: custom_items}}
+    - else
+      ul#group-items
+        = f.fields_for :group_items, include_id: false do |group_item|
+          = render 'group_item_fields', f: group_item,
+                                        type: nil
+        .links
+          = link_to_add_association 'Insert Certification',         f, :group_items,
+            render_options: {locals: {type: 'Subject',              subjects: subjects}}
+          = link_to_add_association 'Insert Course',                f, :group_items,
+            render_options: {locals: {type: 'Course',               courses: courses}}
+          = link_to_add_association 'Insert Exam-Course',           f, :group_items,
+            render_options: {locals: {type: 'ExamAndCourseDynamic', exam_and_course_dynamics: exam_and_course_dynamics}}
+          = link_to_add_association 'Insert Divider',               f, :group_items,
+            render_options: {locals: {type: 'Divider',              dividers: dividers}}
+          = link_to_add_association 'Insert Custom Item',           f, :group_items,
+            render_options: {locals: {type: 'CustomItem',           custom_items: custom_items}}
+
+    .actions
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if group.id
+        = link_to 'Delete', platform_subject_group_path(platform, subject, group), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+
+javascript:
+  $("#group-items").sortable({
+    handle: "span.fa.fa-bars",
+    cursor: "move"
+  });
+
+  $("button[type='submit']").on('click', function(e) {
+    e.preventDefault();
+    $.each($('.position'), function(k, v) {
+      $(v).val(k);
+    });
+    $(this).closest('form').submit();
+  });

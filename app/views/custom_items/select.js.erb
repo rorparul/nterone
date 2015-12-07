@@ -1,0 +1,7 @@
+$('.modal-title').html('Edit Custom Item');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, custom_item: @custom_item, custom_items: @custom_items}) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, custom_item: @custom_item}) %>");
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('id', 'disabledInput');
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('disabled', 'true');
+$('#myModal').modal('show');

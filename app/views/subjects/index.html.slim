@@ -1,0 +1,26 @@
+h3 Listing subjects
+
+table.table
+  thead
+    tr
+      th Title
+      th Body
+      th Link
+      th
+      th
+      th
+  tbody
+    - @subjects.each do |subject|
+      tr
+        td = subject.title
+        td = subject.body
+        td = subject.link
+        td = link_to 'Show', category_subject_path(@category, subject)
+        - if user_signed_in? && policy(subject).edit?
+          td = link_to 'Edit', edit_category_subject_path(@category, subject)
+        - if user_signed_in? && policy(subject).destroy?
+          td = link_to 'Destroy', category_subject_path(@category, subject), method: :delete, data: { confirm: 'Are you sure?' }
+br
+
+- if user_signed_in? && policy(Subject.new).new?
+  = link_to 'New Subject', new_category_subject_path

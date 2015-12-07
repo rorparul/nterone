@@ -1,0 +1,60 @@
+- content_for :page_title do
+  span.fa.fa-check-square-o
+  a href="#{root_path}"
+    | Platforms
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#{platform_subject_path(@platform, @subject)}"
+    = "#{@subject.abbreviation}"
+
+- content_for :actions do
+  - if current_user.any_admin?
+    li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
+      i.fa.fa-plus
+      | Add Table
+
+.row#subject-description
+  .col-xs-12
+    h4 = "#{@subject.title} (#{@subject.abbreviation})"
+    = @subject.description.html_safe
+.row#subject-groups
+  - @subject.groups.each do |group|
+    = render partial: 'groups/group', locals: { platform: @platform, subject: @subject, group: group }
+
+.row
+  .col-xs-12
+    button#back Back
+    - if current_user.member?
+      - if @platform.url
+        a href="#{@platform.url}" target="_blank"
+          button#find-testing-center
+            span.fa.fa-location-arrow
+            span Find Testing Center
+      = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :subject_id, value: @subject.id
+        - if current_user.planned.include? @subject
+          button.active id="subject-toggle-#{@subject.id}" type="submit"
+            span.fa.fa-minus
+            span Remove from My Plan
+        - else
+          button.inactive id="subject-toggle-#{@subject.id}" type="submit"
+            span.fa.fa-plus
+            span Add to My Plan
+    - if current_user.any_sales?
+      = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+        = f.hidden_field :subject_id, value: @subject.id
+        button.inactive id="subject-toggle-#{@subject.id}" type="submit"
+          span Toggle
+        = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
+
+javascript:
+  $('.certifications-tab').addClass('active');
+  
+  $('#back').on('click', function() {
+    window.history.back();
+  });

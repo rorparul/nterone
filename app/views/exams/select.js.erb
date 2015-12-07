@@ -1,0 +1,7 @@
+$('.modal-title').html('Edit Exam');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, exam: @exam, exams: @exams}) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, exam: @exam}) %>");
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('id', 'disabledInput');
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('disabled', 'true');
+$('#myModal').modal('show');

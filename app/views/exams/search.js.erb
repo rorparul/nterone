@@ -1,0 +1,9 @@
+$('.search-results').empty();
+<% if @exams.empty? %>
+  $('.exam-title-field:focus').next('.search-results').hide();
+<% elsif %>
+  $('.exam-title-field:focus').next('.search-results').show();
+  <% @exams.each do |exam| %>
+    $('.search-results').append("<a class='exam-result' href='#'><li><%= exam.title %></li></a>");
+  <% end %>
+<% end %>

@@ -1,0 +1,19 @@
+- content_for :page_title do
+  span.fa.fa-users
+  a href="#{users_path}"
+    | People
+  span.seperator
+    | /
+  a href="#"
+    | New Person
+
+.row#settings
+  .col-xs-12
+    .group
+      .group-heading
+        h6 User Info
+      .group-body
+        = render 'form', user: @user
+
+javascript:
+  $('.people-tab').addClass('active');

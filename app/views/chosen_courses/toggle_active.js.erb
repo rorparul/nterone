@@ -1,0 +1,13 @@
+<% if @course.planned == true %>
+  $('.course-toggle-active-<%= @course.course.id %>').html(
+    "<span class='fa fa-check-square-o'></span>"
+  );
+<% end %>
+
+<% if @course.planned == false %>
+  $('.course-toggle-active-<%= @course.course.id %>').html(
+    "<span class='fa fa-square-o'></span>"
+  );
+<% end %>
+
+$('#grand-total').html("<span>Grand Total: $<%= number_with_delimiter(number_with_precision(@grand_total, precision: 2)) %></span>");

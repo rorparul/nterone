@@ -1,0 +1,28 @@
+h3 All Brands
+
+- if @brands.present?
+  table.table
+    thead
+      tr
+        th Title
+        th Header
+        th Url
+        th Status
+        th
+        th
+    tbody
+      - @brands.each do |brand|
+        tr
+          td = brand.title
+          td = brand.header
+          td = brand.url
+          td Active
+          td = link_to 'Show', brand_path(brand), class: 'btn btn-sm btn-default'
+          - if user_signed_in? && policy(brand).edit?
+            td = link_to 'Edit', edit_brand_path(brand), class: 'btn btn-sm btn-default'
+- else
+  h3 There is no Brands.
+br
+
+- if user_signed_in? && policy(Brand.new).new?
+  = link_to 'New Brand', new_brand_path, class: 'btn btn-default'

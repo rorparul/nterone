@@ -1,0 +1,87 @@
+.categories#accordion.hidden-xs
+  .row.text-center
+    - @categories.each do |category|
+      - if category.children.present?
+        = link_to category.title,
+                  "#category_#{category.id}",
+                  class: "btn add-right-space btn-category category",
+                  data: { toggle: 'collapse', parent: '#accordion' }
+      - else
+        = link_to category.title,
+                  platform_path(@platform, cat: category.id),
+                  class: "btn add-right-space btn-category not-accordion category",
+                  remote: true
+  hr
+  - @categories.each do |parent_category|
+    .row class='text-center collapse sub-categories' id='category_#{parent_category.id}'
+      = link_to 'Show All',
+                platform_path(@platform, cat: parent_category.id, type: 'all'),
+                class: "btn add-right-space btn-child-category sub-category",
+                remote: true
+      - parent_category.children.each do |child|
+        = link_to child.title,
+                  platform_path(@platform, cat: child.id),
+                  class: "btn add-right-space btn-child-category sub-category #{'active-category' if child == @child_category}",
+                  remote: true
+
+.categories-mobile.visible-xs
+  .panel-group#mobile-accordion role='tablist' aria-multiselectable='true'
+    - @categories.each do |category|
+      - if category.children.present?
+        .panel.panel-default
+          .panel-heading role='tab' id="mobile_head_#{category.id}"
+            = link_to category.title,
+                      "#mobile_category_#{category.id}",
+                      class: "btn btn-category",
+                      data: { toggle: 'collapse', parent: '#mobile-accordion'},
+                      aria: { expanded: 'false', controls: "mobile_category_#{category.id}" }
+          .panel-collapse.collapse role='tabpanel' aria-labelledby="mobile_head_#{category.id}" id='mobile_category_#{category.id}'
+            = link_to 'Show All',
+                      platform_path(@platform, cat: category.id, type: 'all'),
+                      class: "btn btn-child-category sub-category",
+                      remote: true
+            - category.children.each do |child|
+              = link_to child.title,
+                        platform_path(@platform, cat: child.id),
+                        class: "btn btn-child-category sub-category",
+                        remote: true
+      - else
+        = link_to category.title,
+                  platform_path(@platform, cat: category.id),
+                  class: "btn btn-category not-accordion",
+                  remote: true
+
+javascript:
+  $(document).on('ready', function() {
+    if (sessionStorage.category) {
+      $(".category:contains(" + sessionStorage.category + ")").click();
+      if (sessionStorage.subCategory) {
+        setTimeout(function() {
+          var index = $('.category').index($(".category:contains(" + sessionStorage.category + ")"));
+          $($($('.sub-categories')[index]).find($($(".sub-category:contains(" + sessionStorage.subCategory + ")")))).click();
+        }, 50);
+      }
+    } else {
+      $('.categories .row:first-child .btn-category:first-child').click();
+      $('.categories .row:nth-child(3) .btn-child-category:first-child').click();
+    };
+  });
+
+  $('.category').on('click', function() {
+    if ($(this).html() != sessionStorage.category) {
+      var index = $('.category').index($(this));
+      setTimeout(function(){
+          $($($('.sub-categories')[index]).find('a')[0]).click();
+      }, 50);
+    };
+    
+    setTimeout(function(){
+      sessionStorage.category = $($('.active-category')[0]).html().replace('&amp;', '&');;
+    }, 50);
+  });
+
+  $('.sub-category').on('click', function() {
+    setTimeout(function(){
+      sessionStorage.subCategory = $($('.active-category')[1]).html().replace('&amp;', '&');;
+    }, 50);
+  });

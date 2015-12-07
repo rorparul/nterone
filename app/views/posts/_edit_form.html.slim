@@ -1,0 +1,14 @@
+= form_for post, url: post_path, html: {}, remote: true do |f|
+  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :topic_id, value: post.topic.id
+  
+  .form-group
+    = f.label :content
+    br
+    = f.text_field :content, class: 'form-control'
+    
+  .actions
+    button.btn.btn-success type="submit" Save
+    button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+    - if post.id
+      = link_to 'Delete', post_path(post), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger', remote: true

@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
+  body
+    - if @lead.buyer.full_name
+      h6 Name
+      p = @lead.buyer.full_name
+    h6 Email
+    p = @lead.buyer.email
+    h6 Phone
+    p = @lead.buyer.contact_number
+    h6 Estimated Total
+    p = "$#{number_with_delimiter(number_with_precision(@lead.buyer.my_plan_grand_total, precision: 2))}"
+    br
+    = link_to "Go to My Queue", @url

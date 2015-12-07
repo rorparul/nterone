@@ -1,0 +1,5 @@
+li = "#{activity.owner == current_user ? "You" : activity.owner.full_name} updated #{activity.trackable.buyer.full_name}'s quote to a #{activity.parameters[:discount] + "% discounted " if activity.parameters[:discount].to_i > 0}quote of $#{number_with_delimiter(number_with_precision(activity.parameters[:quote], precision: 2))} #{time_ago_in_words(activity.created_at)} ago for the following course(s):"
+ul.inner
+  - activity.parameters[:course_titles].each do |course_title|
+    li.inner = course_title
+br

@@ -1,0 +1,12 @@
+.nested-fields
+  = f.hidden_field :id, class: 'exam-id'
+
+  .form-group.ui-front
+    = f.label :title
+    br
+    = f.autocomplete_field :title,
+                           autocomplete_exam_title_platform_exams_path,
+                           update_elements: { id: '#exam-id' },
+                           class: 'form-control title-search'
+                           
+  = link_to_remove_association 'remove exam', f

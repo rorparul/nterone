@@ -1,0 +1,19 @@
+.form-container
+  = form_for [platform, exam] do |f|
+    - if exam.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(exam.errors.count, 'error')} prohibited this category from being saved:"
+        ul
+          - exam.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :title
+      br
+      = f.text_field :title, class: 'form-control'
+      
+    .actions
+      button.btn.btn-success type="submit" Save
+      button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+      - if exam.id
+        = link_to 'Delete', platform_exam_path(platform, exam), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

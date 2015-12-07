@@ -1,0 +1,7 @@
+$('.modal-title').html('Edit Course');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, course: @course, courses: @courses}) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, course: @course}) %>");
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('id', 'disabledInput');
+// $('.modal-body .form-container select, .modal-body .form-container input').attr('disabled', 'true');
+$('#myModal').modal('show');

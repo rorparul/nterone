@@ -1,0 +1,62 @@
+.form-container
+  = form_for [platform, exam_and_course_dynamic] do |f|
+    - if exam_and_course_dynamic.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(exam_and_course_dynamic.errors.count, 'error')} prohibited this category from being saved:"
+        ul
+          - exam_and_course_dynamic.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :label
+      br
+      = f.text_field :label, class: 'form-control'
+      
+    .form-group
+      = f.label :course_ids, "Courses"
+      br
+      = f.select :course_ids, platform.courses.order(:title).collect { |course| [course.title, course.id] }, {}, html_options = {class: 'form-control', multiple: 'true'}
+      p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
+    / h3 Courses
+    / #courses
+    /   = f.fields_for :courses do |course|
+    /     = render 'course_fields', f: course
+    /   .links
+    /     = link_to_add_association 'add course', f, :courses
+    
+    .form-group
+      = f.label :exam_ids, "Exams"
+      br
+      = f.select :exam_ids, platform.exams.order(:title).collect { |exam| [exam.title, exam.id] }, {}, html_options = {class: 'form-control', multiple: 'true'}
+      p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
+    / h3 Exams
+    / #exams
+    /   = f.fields_for :exams do |exam|
+    /     = render 'exam_fields', f: exam
+    /   .links
+    /     = link_to_add_association 'add exam', f, :exams
+      
+    .actions
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if exam_and_course_dynamic.id
+        = link_to 'Delete', platform_exam_and_course_dynamic_path(platform, exam_and_course_dynamic), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+        
+/ javascript:
+/   $('#courses').on('cocoon:before-insert', function(e, insertedItem) {
+/     var id = $($(insertedItem).find('.course-id')).attr('id');
+/     var url = $($(insertedItem).find('.course-url')).attr('id');
+/     var price = $($(insertedItem).find('.course-price')).attr('id');
+/     $($(insertedItem).find('.ui-front input')).data('update-elements').id = '#' + id;
+/     $($(insertedItem).find('.ui-front input')).data('update-elements').url = '#' + url;
+/     $($(insertedItem).find('.ui-front input')).data('update-elements').price = '#' + price;
+/     var stringObject = JSON.stringify($($(insertedItem).find('.ui-front input')).data('update-elements'));
+/     $($(insertedItem).find('.ui-front input')).attr('data-update-elements', stringObject);
+/   });
+/   
+/   $('#exams').on('cocoon:before-insert', function(e, insertedItem) {
+/     var id = $($(insertedItem).find('.exam-id')).attr('id');
+/     $($(insertedItem).find('.ui-front input')).data('update-elements').id = '#' + id;
+/     var stringObject = JSON.stringify($($(insertedItem).find('.ui-front input')).data('update-elements'));
+/     $($(insertedItem).find('.ui-front input')).attr('data-update-elements', stringObject);
+/   });

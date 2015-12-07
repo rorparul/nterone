@@ -1,0 +1,35 @@
+- content_for :page_title do
+  span.fa.fa-volume-up
+  a href="#{announcements_path}"
+    | Announcements
+
+.row#messages
+  .col-xs-12
+    .group
+      .group-heading
+        h6 = "New Announcement"
+      .group-body
+        #announcement-form
+          = render partial: 'form'
+
+.row#messages
+  .col-xs-12
+    .group
+      .group-heading
+        h6 = "Announcements"
+      .group-body
+        .table-responsive
+          table.table#announcements
+            thead
+              tr
+                th Announcement
+                th Target
+                - if current_user.any_admin?
+                  th Poster
+                th colspan="2" Actions
+            tbody
+              - @announcements.each do |announcement|
+                = render partial: 'announcement', locals: {announcement: announcement}
+
+javascript:
+  $('.announce-tab').addClass('active');

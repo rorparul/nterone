@@ -1,0 +1,5 @@
+$('.modal-title').html('Edit Exam-Course');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, exam_and_course_dynamic: @exam_and_course_dynamic, exam_and_course_dynamics: @exam_and_course_dynamics}) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, exam_and_course_dynamic: @exam_and_course_dynamic}) %>");
+$('#myModal').modal('show');

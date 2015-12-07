@@ -1,0 +1,12 @@
+<p>Welcome <%= "#{@user.first_name} #{@user.last_name}" %>!</p>
+
+<p>Please click on the link below to confirm your account.</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>Thank you for registering!</p>
+
+<p>Regards,</p>
+
+<p>Sales Team</p>
+<p><%= Brand.find_by(url: ActionMailer::Base.default_url_options[:host]).title %></p>

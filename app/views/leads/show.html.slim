@@ -1,0 +1,45 @@
+- content_for :page_title do
+  span.fa.fa-coffee
+  a href="#{leads_path}" My Queue
+  span.seperator = "/"
+  a href="#{lead_path(@buyer)}" = @buyer.full_name
+
+
+- @planned_subjects.each do |planned_subject|
+  .row#subject-description.my-plan
+    .col-xs-12
+      h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+  .row#subject-groups
+    - planned_subject.subject.groups.each do |group|
+      = render partial: 'groups/group', locals: { group: group , planned_subject: planned_subject, subject: planned_subject.subject, user: @buyer }
+      
+  .row
+    .col-xs-12
+      - if planned_subject.subject.platform.url
+        a href="#{planned_subject.subject.platform.url}" target="_blank"
+          button#find-testing-center
+            span.fa.fa-location-arrow
+            span Find Testing Center
+        = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+          = f.hidden_field :user_id, value: @buyer.id
+          = f.hidden_field :subject_id, value: planned_subject.subject.id
+          button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
+            span.fa.fa-minus
+            span Remove from My Plan
+  hr
+
+#grand-total
+  span
+    = "Grand Total: $#{number_with_delimiter(number_with_precision(@buyer.my_plan_grand_total, precision: 2))}"
+    
+.row
+  .col-xs-12
+    #activity-history
+      h1 Lead History
+      hr
+      ul
+        = render_activities(@activities, fallback: 'default')
+
+
+javascript:
+  $('.my-queue-tab').addClass('active');

@@ -1,0 +1,10 @@
+= form_for :divider, url: select_to_edit_platform_dividers_path(platform.id), remote: true do |f|
+  .form-group
+    = f.label :id, "Divider"
+    br
+    = f.select :id, dividers.order('lower(content)').collect {|divider| [divider.content, divider.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select"}
+
+javascript:
+  $('.sub-select').on('change', function() {
+    $(this).closest('form').submit();
+  });

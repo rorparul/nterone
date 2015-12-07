@@ -1,0 +1,15 @@
+.form-container
+  = form_tag search_path, method: :get, "data-parsley-validate" => true do
+
+    .form-group
+      .input-group
+        = text_field_tag :query, params[:query], class: 'form-control', autofocus: true, required: true, placeholder: "Search certificates by title, course, or exam"
+        span#search-submit-button.input-group-addon Go
+
+    .actions
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      
+javascript:
+  $('#search-submit-button').on('click', function() {
+    $(this).closest('form').submit();
+  });

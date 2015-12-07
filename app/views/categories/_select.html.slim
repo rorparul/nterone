@@ -1,0 +1,10 @@
+= form_for :category, url: select_to_edit_platform_categories_path(platform.id), remote: true do |f|
+  .form-group
+    = f.label :id, "Category"
+    br
+    = f.select :id, categories.collect {|category| [category.parent ? "#{category.parent.title} > #{category.title}" : category.title, category.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select"}
+
+javascript:
+  $('.sub-select').on('change', function() {
+    $(this).closest('form').submit();
+  });

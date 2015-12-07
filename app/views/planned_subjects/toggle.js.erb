@@ -1,0 +1,14 @@
+<% if @action == 'remove' %>
+  $(".planned-subject-<%= @planned_subject.id %>").remove();
+<% end %>
+
+<% if current_user.member? %>
+  <% if @my_plan_count > 0 %>
+    $('.my-plan-count').remove();
+    $('.my-plan-tab').prepend("<span class='badge my-plan-count'><%= @my_plan_count %></span>");
+  <% else %>
+    $('.my-plan-count').remove();
+  <% end %>
+<% end %>
+
+$('#grand-total').html("<span>Grand Total: <%= number_with_delimiter(number_with_precision(@grand_total, precision: 2)) %></span>");

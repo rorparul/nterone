@@ -1,0 +1,3 @@
+$("#post-<%= @post.id %> .time").html("<%= @post.updated_at.strftime("%B %d, %Y, %l:%M %P") %>");
+$("#post-<%= @post.id %> .post-main").html("<%= @post.content %>");
+$('#myModal').modal('hide');

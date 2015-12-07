@@ -1,0 +1,61 @@
+- case type
+- when 'Subject'
+  li.nested-fields
+    span.fa.fa-bars
+    .form-group
+      = f.hidden_field :id
+      = f.hidden_field :position, class: 'position'
+      = f.hidden_field :groupable_type, value: 'Subject'
+      = f.label :groupable_id, 'Certifications'
+      br
+      = f.select :groupable_id, subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] }, {},
+        html_options = {class: "form-control sub-select", required: true}
+    = link_to_remove_association 'Remove Item', f
+- when 'Course'
+  li.nested-fields
+    span.fa.fa-bars
+    .form-group
+      = f.hidden_field :id
+      = f.hidden_field :position, class: 'position'
+      = f.hidden_field :groupable_type, value: 'Course'
+      = f.label :groupable_id, 'Courses'
+      br
+      = f.select :groupable_id, courses.order('lower(title)').collect { |course| [course.title, course.id] }, {},
+        html_options = {class: "form-control sub-select", required: true}
+    = link_to_remove_association 'Remove Item', f
+- when 'ExamAndCourseDynamic'
+  li.nested-fields
+    span.fa.fa-bars
+    .form-group
+      = f.hidden_field :id
+      = f.hidden_field :position, class: 'position'
+      = f.hidden_field :groupable_type, value: 'ExamAndCourseDynamic'
+      = f.label :groupable_id, 'Exam-Course'
+      br
+      = f.select :groupable_id, exam_and_course_dynamics.order('lower(label)').collect { |exam_and_course_dynamic| [exam_and_course_dynamic.label, exam_and_course_dynamic.id] }, {},
+        html_options = {class: "form-control sub-select", required: true}
+    = link_to_remove_association 'Remove Item', f
+- when 'Divider'
+  li.nested-fields
+    span.fa.fa-bars
+    .form-group
+      = f.hidden_field :id
+      = f.hidden_field :position, class: 'position'
+      = f.hidden_field :groupable_type, value: 'Divider'
+      = f.label :groupable_id, 'Dividers'
+      br
+      = f.select :groupable_id, dividers.order('lower(content)').collect { |divider| [divider.content, divider.id] }, {},
+        html_options = {class: "form-control sub-select", required: true}
+    = link_to_remove_association 'Remove Item', f
+- when 'CustomItem'
+  li.nested-fields
+    span.fa.fa-bars
+    .form-group
+      = f.hidden_field :id
+      = f.hidden_field :position, class: 'position'
+      = f.hidden_field :groupable_type, value: 'CustomItem'
+      = f.label :groupable_id, 'Custom Items'
+      br
+      = f.select :groupable_id, custom_items.order('lower(shortname)').collect { |custom_item| [custom_item.shortname.blank? ? custom_item.content[0..49] : custom_item.shortname, custom_item.id] }, {},
+        html_options = {class: "form-control sub-select", required: true}
+    = link_to_remove_association 'Remove Item', f
