@@ -14,6 +14,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @planned_subjects = @user.planned_subjects.where(active: true)
+    @user.planned_subjects.where(active: true).update_all(read: true)
+    @my_plan_count = @user.new_my_plan_count
+    @activities = PublicActivity::Activity.where("owner_id = ? OR recipient_id = ?", @user.id, @user.id).order(created_at: :desc)
   end
 
   def edit

@@ -1,0 +1,34 @@
+.form-container
+  = form_for testimonial do |f|
+    - if testimonial.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(testimonial.errors.count, 'error')} prohibited this category from being saved:"
+        ul
+          - testimonial.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :quotation
+      br
+      = f.text_area :quotation, class: 'form-control'
+    
+    .form-group
+      = f.label :author
+      br
+      = f.text_field :author, class: 'form-control'
+      
+    .form-group
+      = f.label :company
+      br
+      = f.text_field :company, class: 'form-control'
+    
+    .form-group
+      = f.label :id, "Course Attended"
+      br
+      = f.select :id, @courses.collect {|course| [course.title, course.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select"}
+      
+    .actions
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if testimonial.id
+        = link_to 'Delete', testimonial_path(testimonial), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'

@@ -1,8 +1,9 @@
 Nci::Application.routes.draw do
-  root to: 'platforms#index'
+  root to: 'general#welcome'
 
   devise_for :users, controllers: { registrations: 'users/registrations',
                                     invitations:   'users/invitations' }
+
   resources :users, only: [:index, :edit, :update, :show, :destroy] do
     post :toggle_archived, on: :member
     collection do
@@ -19,16 +20,30 @@ Nci::Application.routes.draw do
       post 'select_to_edit'
     end
   end
+
   resources :topics, except: [:index, :edit] do
     collection do
       get  'select'
       post 'select_to_edit'
     end
+    resources :posts, except: [:index, :new, :show]
   end
-  resources :posts, except: [:index, :new, :show]
 
   resources :announcements, except: [:new, :show]
+
   resources :messages, only: [:index]
+
+  resources :testimonials, except: [:show] do
+    collection do
+      get 'page'
+    end
+  end
+
+  resources :carousel_items do
+    collection do
+      get 'page'
+    end
+  end
 
   resources :leads, only: [:index, :edit, :update, :show], path: 'my-queue' do
     collection do
@@ -43,7 +58,7 @@ Nci::Application.routes.draw do
     end
   end
 
-  resources :platforms do
+  resources :platforms, path: 'training' do
     resources :categories, except: [:edit] do
       collection do
         get  'select'
@@ -93,7 +108,19 @@ Nci::Application.routes.draw do
     end
   end
 
-  resources :brands, except: :destroy
+  controller :my_admin do
+    get 'my-admin/overview', as: :my_admin_overview
+    get 'my-admin/website',  as: :my_admin_website
+  end
+
+  # resources :brands, except: :destroy
+  get  'about-us'                                    => 'general#about_us'
+  get  'testimonials'                                => 'general#testimonials'
+  get  'consulting'                                  => 'general#consulting'
+  get  'partners'                                    => 'general#partners'
+  get  'labs'                                        => 'general#labs'
+  get  'my-queue'                                    => 'general#my_queue'
+  # get  'my-admin'                                    => 'general#my_admin'
 
   get  'new-search'                                  => 'subjects#new_search'
   get  'search'                                      => 'subjects#search'
@@ -101,8 +128,8 @@ Nci::Application.routes.draw do
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
-  post 'brand_users/change_role'                     => 'brand_users#change_role',        as: :change_role
-  get  'brand_users/roles/:id'                       => 'brand_users#roles',              as: :roles
+  # post 'brand_users/change_role'                     => 'brand_users#change_role',        as: :change_role
+  # get  'brand_users/roles/:id'                       => 'brand_users#roles',              as: :roles
   post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',   as: :toggle_chosen_course_active
   post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended', as: :toggle_chosen_course_attended
   post 'passed_exams/toggle'                         => 'passed_exams#toggle',            as: :toggle_passed_exam

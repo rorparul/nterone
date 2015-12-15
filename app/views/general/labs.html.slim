@@ -1,0 +1,49 @@
+- content_for :page_title do
+  a href="#{labs_path}"
+    span.fa.fa-flask
+    | Labs
+    
+.row
+  .col-sm-12.col-md-9
+    p NterOne can provide Cisco remote lab rentals for your local classroom, onsite, or remote deliveries in 1:1 student/pod ratio or 2:1 sharing scenarios.
+    p We have the following labs available for remote lab rental:
+    p
+      strong Cisco UCS: 
+      | DCUCI, DCUCD, DCUCT, DCICT, DCUCS, DCUCSCTS, UCS Director, FlexPod, UC on UCS
+    p
+      strong Cisco Nexus: 
+      | DCINX9K, DCAC9K, DCUFI, DCUFD, DCUFT, DCICN, DCNX7k, DCNX5k, DCNX1k
+    p
+      strong Cisco Voice/Contact Center: 
+      | ICOMM, CVOICE, CIPT1, CIPT2, TVOICE, CAPPS, QOS, IUC, UCCX, UCCXA
+    p
+      strong Cisco Security: 
+      | IINS, FIREWALL, SECURE, VPN, IPS, SENSS, SISAS, SITCS, SIMOS, SASAC, SASAA
+    p
+      strong Cisco Wireless: 
+      | IUWNE, CUWN, WDBDL, WDADL, WMNGI
+    p
+      strong VMware vSphere: 
+      | vSphere: ICM, vSphere: FT, vSphere: What's New, vSphere: Troubleshooting
+    p
+      strong VMware SDDC: 
+      | NSX: ICM, NSX: Fast Track, VSAN: Deploy and Manage
+    p
+      strong VMware Cloudtextile: 
+      | vCloud Automation Center: ICM, vCloud Director: ICM, vCloud Automation And Extensibility
+    p
+      strong VMware EUC: 
+      | Horizon View: ICM, Mirage: ICM, Mirage and Horizon with View Fast Track
+    p
+      strong VMware vCenter Mgmt: 
+      | SRM: ICM, vRealize: ICM, vCOPS: Analyze And Predict, vCOPS: AUDD, vCenter Configuration Manager: ICM
+    p And many more. If you don't see it listed, please ask anyway!
+    p
+      | Please contact us for pricing, availability, and scheduling at 
+      a href="mailto:sales@nterone.com" sales@nterone.com 
+    
+  .col-sm-12.col-md-3
+    = render 'courses/guaranteed_to_run'
+    
+javascript:
+  $('.labs-tab').addClass('active');

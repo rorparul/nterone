@@ -1,20 +1,19 @@
 - content_for :page_title do
-  span.fa.fa-comments-o
   a href="#{forums_path}"
+    span.fa.fa-comments-o
     | Forums
 
 - content_for :actions do
-  - if current_user.any_admin?
+  - if user_signed_in? && current_user.employee?
     li = link_to new_forum_path, remote: true do
       i.fa.fa-plus
       | Add Category
     li = link_to select_forums_path, remote: true do
       i.fa.fa-pencil
       | Edit Category
-  li = link_to new_topic_path, remote: true do
-    i.fa.fa-plus
-    | Add Topic
-  - if current_user.any_admin?
+    li = link_to new_topic_path, remote: true do
+      i.fa.fa-plus
+      | Add Topic
     li = link_to select_topics_path, remote: true do
       i.fa.fa-pencil
       | Edit Topic
@@ -28,9 +27,8 @@
       span
     ul.topics
       = render partial: 'topics/topics', locals: {topics: @topics}
-    - if brand.footer 
-      footer.mobile-forums-footer.visible-xs
-        = brand.footer.html_safe
+    footer.mobile-forums-footer.visible-xs
+      = render 'layouts/footer'
 
 javascript:
   var currentView = 'topics';
@@ -71,6 +69,34 @@ javascript:
       $('.container-fluid, .top, .general-footer').css('margin-left', '355px');
       $('.sub-sidebar').show();
       $('.content').show();
+    }
+    
+    if($('.container-fluid').width() <= 979) {
+      $('.partner.veteran').hide();
+    } else if($('.container-fluid').width() > 979) {
+      $('.partner.veteran').show();
+    }
+    
+    if($('.container-fluid').width() <= 794) {
+      $('.partner.gsa').hide();
+    } else if($('.container-fluid').width() > 794) {
+      $('.partner.gsa').show();
+    }
+    
+    if($('.container-fluid').width() <= 705) {
+      $('.partner.cisco').hide();
+    } else if($('.container-fluid').width() > 705) {
+      $('.partner.cisco').show();
+    }
+    
+    if($('.container-fluid').width() <= 616) {
+      $('.partner.vmware').hide();
+      $('.logo-with-tagline-large img').width(280);
+      $('.logo-with-tagline-large img').css('margin-top', '30px');
+    } else if($('.container-fluid').width() > 616) {
+      $('.partner.vmware').show();
+      $('.logo-with-tagline-large img').width(500);
+      $('.logo-with-tagline-large img').css('margin-top', '0px');
     }
   }
 

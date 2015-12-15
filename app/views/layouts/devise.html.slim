@@ -1,37 +1,20 @@
 doctype html
 html
   head
-    title
-      - if defined?(brand)
-        = brand.title
-      - else
-        | NterOne
-    = favicon_link_tag 'nterone-favicon.png'
+    title NterOne
+    = favicon_link_tag 'favicon.png'
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-    - if brand.brand_favicon.present?
-      - if brand.brand_favicon.favicon.present? && brand.brand_favicon.favicon.file.present?
-        link rel="icon" href="#{brand.brand_favicon.favicon.file_url(:favicon)}"
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    css:
-      .gradient-1 {
-        background-image: -webkit-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -moz-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -ms-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -o-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-      }
-      .gradient-1.active {
-        background-image: -webkit-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -moz-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -ms-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -o-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-      }
   body
     .devise-container
       .devise-logo
-        = image_tag brand.logo.file_url(:brand_logo)
+        .hidden-xs
+          = link_to root_path do
+            = image_tag 'logo-with-tagline.png'
+        .visible-xs
+          = link_to root_path do
+            = image_tag 'logo-with-tagline.png'
       .devise_actions
         = yield

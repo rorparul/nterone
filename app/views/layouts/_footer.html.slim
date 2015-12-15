@@ -1,3 +1,11 @@
-- if brand.footer 
-  footer.general-footer style="text-align: center;"
-    = brand.footer.html_safe
+footer.general-footer style="text-align: center;"
+  .social-icons
+    = link_to 'https://www.facebook.com/NterOne', target: '_blank', class: 'facebook' do
+      span.fa.fa-facebook-square
+    = link_to 'https://twitter.com/NterOne', target: '_blank', class: 'twitter' do
+      span.fa.fa-twitter-square
+    = link_to 'https://www.linkedin.com/company/nterone', target: '_blank', class: 'linkedin' do
+      span.fa.fa-linkedin-square
+    = link_to 'https://plus.google.com/+Nterone', target: '_blank', class: 'google' do
+      span.fa.fa-google-plus-square
+  p#copyright Copyright 2015 NterOne Corporation. All rights reserved.

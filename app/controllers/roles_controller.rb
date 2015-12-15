@@ -1,4 +1,4 @@
-class BrandUsersController < ApplicationController
+class RolesController < ApplicationController
   respond_to :html
 
   def roles

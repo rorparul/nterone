@@ -32,7 +32,7 @@ class ForumsController < ApplicationController
   end
 
   def index
-    @topics = brand.topics
+    @topics = Topic.all
   end
 
   def show

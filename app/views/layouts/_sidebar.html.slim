@@ -1,111 +1,14 @@
-.sidebar.hidden-xs.gradient-1
-  .mainNav
-    .user.cell.gradient-1
-      span.welcome-mob Welcome
-      - if !current_user.first_name.blank?
-        span = current_user.first_name.capitalize
-      - else
-        - if current_user.any_admin?
-          span Admin
-        - elsif current_user.any_sales?
-          span Sales
-        - else
-          span Guest
-    ul.nav.nav-pills.nav-stacked
-      li = link_to platforms_path, class: 'certifications-tab gradient-1' do
-        span.fa.fa-check-square-o
-        span Certifications
-      - if !current_user.any_admin?
-        li = link_to messages_path, class: 'messages-tab gradient-1' do
-          - if @message_count > 0
-            span.badge = @message_count
-          span.fa.fa-envelope-o
-          span Messages
-      - if current_user.member?
-        li = link_to planned_subjects_path, class: "my-plan-tab gradient-1" do
-          - if @my_plan_count > 0
-            span.badge.my-plan-count = @my_plan_count
-          span.fa.fa-graduation-cap
-          span My Plan
-      - if current_user.any_sales_or_admin?
-        li = link_to leads_path, class: "my-queue-tab gradient-1" do
-          - if @lead_count > 0
-            span.badge = @lead_count
-          span.fa.fa-coffee
-          span My Queue
-      - if current_user.any_admin?
-        li = link_to users_path, class: "people-tab gradient-1" do
-          span.fa.fa-users
-          span People
-      - if current_user.any_admin? || current_user.sales_manager?
-        li = link_to announcements_path, class: "announce-tab gradient-1" do
-          span.fa.fa-volume-up
-          span Announce
-      - if policy(brand).edit?
-        li = link_to main_app.edit_brand_path(brand), class: "company-tab gradient-1" do
-          span.fa.fa-building-o
-          span Company
-      li = link_to forums_path, class: "forums-tab gradient-1" do
-        span.fa.fa-comments-o
-        span Forums
-      - if current_user.member?
-        li = link_to contact_us_path, class: "contact-us-tab gradient-1", remote: true do
-          span.fa.fa-info-circle
-          span Contact Us
-      li = link_to main_app.edit_user_registration_path, class: "settings-tab gradient-1" do
-        span.fa.fa-gear
-        span Settings
-      li.logout-sidebar = link_to main_app.destroy_user_session_path, class: "gradient-1", method: :delete do
-        span.fa.fa-power-off
-        span Logout
-  p v1.0.0
+.sidebar.hidden-xs
+  ul.nav
+    li = link_to root_path, class: 'home-tab' do
+      = personal_greeting
+    = render 'layouts/sidebar_items'
 
-.sidebar-mobile.visible-xs.gradient-1
+.sidebar-mobile.visible-xs
   .sidebar-content
     ul.nav
-      li.gradient-1
-      li = link_to platforms_path, class: 'certifications-tab gradient-1' do
-        span.fa.fa-check-square-o
-        span Certifications
-      li = link_to messages_path, class: 'messages-tab gradient-1' do
-        - if @message_count > 0
-          span.badge = @message_count
-        span.fa.fa-envelope-o
-        span Messages
-      - if current_user.member?
-        li = link_to planned_subjects_path, class: "my-plan-tab gradient-1" do
-          - if @my_plan_count > 0
-            span.badge.my-plan-count = @my_plan_count
-          span.fa.fa-graduation-cap
-          span My Plan
-      - if current_user.any_sales_or_admin?
-        li = link_to leads_path, class: "my-queue-tab gradient-1" do
-          - if @lead_count > 0
-            span.badge = @lead_count
-          span.fa.fa-coffee
-          span My Queue
-      - if current_user.any_admin?
-        li = link_to users_path, class: "people-tab gradient-1" do
-          span.fa.fa-users
-          span People
-      - if current_user.any_admin?
-        li = link_to announcements_path, class: "announce-tab gradient-1" do
-          span.fa.fa-volume-up
-          span Announce
-      - if policy(brand).edit?
-        li = link_to main_app.edit_brand_path(brand), class: "company-tab gradient-1" do
-          span.fa.fa-building-o
-          span Company
-      li = link_to forums_path, class: "forums-tab gradient-1" do
-        span.fa.fa-comments-o
-        span Forums
-      - if current_user.member?
-        li = link_to contact_us_path, class: "contact-us-tab gradient-1", remote: true do
-          span.fa.fa-info-circle
-          span Contact Us
-      li = link_to main_app.edit_user_registration_path, class: "settings-tab gradient-1" do
-        span.fa.fa-gear
-        span Settings
-      li.logout-sidebar = link_to main_app.destroy_user_session_path, class: "gradient-1", method: :delete do
-        span.fa.fa-power-off
-        span Logout
+      li
+      li = link_to root_path, class: 'home-tab' do
+        span.fa.fa-home
+        span Home
+      = render 'layouts/sidebar_items'

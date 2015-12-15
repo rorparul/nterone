@@ -4,7 +4,7 @@
       = image_tag platform.image.file.platform_icon.url
     - else
       = platform.title
-  - if current_user.any_admin?
+  - if current_user.admin?
     .actions-overlay
       = link_to edit_platform_path(platform), remote: true do
         i.fa.fa-pencil

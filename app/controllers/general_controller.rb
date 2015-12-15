@@ -1,10 +1,26 @@
 class GeneralController < ApplicationController
   def welcome
-    if user_signed_in?
-      @platforms = brand.platforms.eager_load(:image)
-    else
-      redirect_to new_user_session_path
-    end
+    @carousel_items = CarouselItem.all_active
+  end
+
+  def about_us
+
+  end
+
+  def consulting
+
+  end
+
+  def partners
+
+  end
+
+  def labs
+
+  end
+
+  def my_admin
+
   end
 
   def contact_us_new

@@ -1,70 +1,129 @@
 - content_for :page_title do
-  span.fa.fa-coffee
-  a href="#{leads_path}"
-    | My Queue
-  - if @user.full_name
-    span.seperator
-      | /
-    a href="#{user_path(@user)}"
-      = @user.full_name
-      
-.row#user-info
-  .col-xs-12
-    .group
-      .group-heading
-        h6 User Info
-        .group-actions-overlay
-          = link_to edit_from_my_queue_users_path(@user) do
-            i.fa.fa-pencil
-            | Edit
-      .group-body
-        .table-responsive
-          table.table
-            tbody
-              tr
-                td.fit
-                  span Company:
-                  = @user.company_name
-              tr
-                td.fit
-                  span Full Name:
-                  = @user.full_name
-              tr
-                td.fit
-                  span Email:
-                  = @user.email
-              tr
-                td.fit
-                  span Contact Number:
-                  = @user.contact_number
-              tr
-                td.fit
-                  span Street:
-                  = @user.street
-              tr
-                td.fit
-                  span City:
-                  = @user.city
-              tr
-                td.fit
-                  span State:
-                  = @user.state
-              tr
-                td.fit
-                  span Zip Code:
-                  = @user.zipcode
+  a href="#{planned_subjects_path}"
+    span.fa.fa-user
+    | My Account
 
-.row#settings
+- unless @planned_subjects.any?
+  .row
+    .col-xs-12
+      .button-container
+        a href="#{platforms_path}"
+          button type="submit"
+            span.fa.fa-check-square-o
+            span Build My Training Plan
+- else
+  - @planned_subjects.each do |planned_subject|
+    .row#subject-description.my-plan
+      .col-xs-12
+        h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+    .row#subject-groups
+      - planned_subject.subject.groups.each do |group|
+        = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
+        
+    .row
+      .col-xs-12
+        - if planned_subject.subject.platform.url
+          a href="#{planned_subject.subject.platform.url}" target="_blank"
+            button#find-testing-center
+              span.fa.fa-location-arrow
+              span Find Testing Center
+          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+            = f.hidden_field :user_id, value: current_user.id
+            = f.hidden_field :subject_id, value: planned_subject.subject.id
+            button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
+              span.fa.fa-minus
+              span Remove from My Plan
+    hr
+
+  = form_for :lead, url: request_quote_path, html: {} do |f|
+    = f.hidden_field :buyer_id, value: current_user.id
+    button#request-quote type="submit"
+      span.fa.fa-envelope-o
+      span Request Formal Quote
+
+  #grand-total
+    span
+      = "Grand Total: $#{number_with_delimiter(number_with_precision(current_user.my_plan_grand_total, precision: 2))}"
+
+.row
   .col-xs-12
-    button#back Back
-    = form_for @user, url: password_path(@user), html: { method: :post }, data: {confirm: "Are you sure?", remote: true} do |f|
-      = render 'layouts/notifications'
-      = f.hidden_field :email, value: @user.email
-      = f.submit "Reset Password", class: 'btn btn-lg btn-primary password-reset', id: 'submit'
-  
+    #activity-history
+      h1 Activity History
+      hr.hr-sub
+      ul
+        = render_activities(@activities, fallback: 'default')
+
 javascript:
-  $('.my-queue-tab').addClass('active');
-  
-  $('#back').on('click', function() {
-    window.history.back();
-  });
+  $('.my-account-tab').addClass('active');
+
+
+/ - content_for :page_title do
+/   span.fa.fa-coffee
+/   a href="#{leads_path}"
+/     | My Queue
+/   - if @user.full_name
+/     span.seperator
+/       | /
+/     a href="#{user_path(@user)}"
+/       = @user.full_name
+/       
+/ .row#user-info
+/   .col-xs-12
+/     .group
+/       .group-heading
+/         h6 User Info
+/         .group-actions-overlay
+/           = link_to edit_from_my_queue_users_path(@user) do
+/             i.fa.fa-pencil
+/             | Edit
+/       .group-body
+/         .table-responsive
+/           table.table
+/             tbody
+/               tr
+/                 td.fit
+/                   span Company:
+/                   = @user.company_name
+/               tr
+/                 td.fit
+/                   span Full Name:
+/                   = @user.full_name
+/               tr
+/                 td.fit
+/                   span Email:
+/                   = @user.email
+/               tr
+/                 td.fit
+/                   span Contact Number:
+/                   = @user.contact_number
+/               tr
+/                 td.fit
+/                   span Street:
+/                   = @user.street
+/               tr
+/                 td.fit
+/                   span City:
+/                   = @user.city
+/               tr
+/                 td.fit
+/                   span State:
+/                   = @user.state
+/               tr
+/                 td.fit
+/                   span Zip Code:
+/                   = @user.zipcode
+/ 
+/ .row#settings
+/   .col-xs-12
+/     button#back Back
+/     = form_for @user, url: password_path(@user), html: { method: :post }, data: {confirm: "Are you sure?", remote: true} do |f|
+/       = render 'layouts/notifications'
+/       = f.hidden_field :email, value: @user.email
+/       = f.submit "Reset Password", class: 'btn btn-lg btn-primary password-reset', id: 'submit'
+/   
+/ javascript:
+/   $('.my-queue-tab').addClass('active');
+/   
+/   $('#back').on('click', function() {
+/     window.history.back();
+/   });

@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :exam_and_course_dynamics, through: :course_dynamics
   has_many :chosen_courses,           dependent: :destroy
   has_many :users,                    through: :chosen_courses
+  has_many :testimonials
 
   before_save :format_url
 

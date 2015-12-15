@@ -2,14 +2,14 @@ class LeadsController < ApplicationController
   before_action :check_clearance, only: [:index]
 
   def request_quote
-    lead = brand.leads.new(lead_params)
+    lead = Lead.new(lead_params)
     if lead.save
       lead.create_activity(key: 'lead.quote_requested',
                             owner: current_user,
                             parameters: { discount: lead.discount, quote: lead.discounted_price, course_titles: lead.planned_unattended_courses_titles })
       flash[:success] = "Thank you for your inquiry. Someone will be in contact with
                        you soon! Feel free to #{view_context.link_to('contact us',
-                       brand.contact_us_link, html_options = {target: 'none'})}
+                       'http://www.nterone.com/contact-us/', html_options = {target: 'none'})}
                        if you have any questions in the meantime.".html_safe
     else
       falsh[:alert] = "Request failed to send!"
@@ -18,15 +18,15 @@ class LeadsController < ApplicationController
   end
 
   def index
-    if current_user.sales_manager? || current_user.any_admin?
-      @sales_force      = BrandUser.where(brand_id: brand.id, role: 2)
+    if current_user.sales_manager? || current_user.admin?
+      @sales_force      = Role.where(role: 3)
       @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0]).order(created_at: :asc)
       @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-      @archived_leads   = Lead.where(brand_id: brand.id, status: 'archived').order(created_at: :desc)
-    elsif current_user.sales?
+      @archived_leads   = Lead.where(status: 'archived').order(created_at: :desc)
+    elsif current_user.sales_rep?
       @assigned_leads   = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc)
       @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-      @archived_leads   = Lead.where(brand_id: brand.id, seller_id: current_user.id, status: 'archived').order(created_at: :desc)
+      @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').order(created_at: :desc)
     end
   end
 
@@ -67,7 +67,7 @@ class LeadsController < ApplicationController
     pdf = render_to_string(pdf: 'quote',
                            margin: { bottom: 32 },
                            template: 'leads/quote.html.slim',
-                           locals: { brand: brand, lead: @lead },
+                           locals: { lead: @lead },
                            footer:  { html: { template:'layouts/_footer.html.slim'}})
 
 
@@ -80,7 +80,7 @@ class LeadsController < ApplicationController
 
   def email_quote
     @lead = Lead.find(params[:id])
-    if QuoteMailer.pdf_attachment(brand, @lead).deliver_now
+    if QuoteMailer.pdf_attachment(@lead).deliver_now
       flash[:success] = "Email successfully sent!"
       @lead.create_activity(key: 'lead.quote_emailed',
                             owner: current_user,

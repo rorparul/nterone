@@ -35,9 +35,10 @@ class CategoriesController < ApplicationController
   def create
     @category = Platform.find(params[:platform_id]).categories.build(category_params)
     if @category.save
-      flash[:notice] = 'You have successfully created category.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:notice] = 'Category successfully created!'
+      redirect_to :back
     else
+      flash[:alert] = 'Category unsuccessfully created!'
       render 'new'
     end
   end
@@ -77,5 +78,5 @@ class CategoriesController < ApplicationController
       @category ||= Category.new
       authorize @category
     end
-    
+
 end

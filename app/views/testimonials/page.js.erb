@@ -1,0 +1,2 @@
+$('#testimonials').html("<%= escape_javascript(render partial: 'testimonials', locals: { testimonials: @testimonials }) %>");
+$('#testimonials-page-control').html("<%= escape_javascript(render partial: 'page_controls', locals: { testimonials: @testimonials }) %>");

@@ -1,10 +1,10 @@
 - content_for :page_title do
-  span.fa.fa-check-square-o
-  a href="#{root_path}"
-    | Platforms
+  a href="#{platforms_path}"
+    span.fa.fa-book
+    | Training
 
 - content_for :actions do
-  - if current_user.any_admin?
+  - if current_user && current_user.admin?
     li
       = link_to new_platform_path, remote: true do
         i.fa.fa-plus
@@ -13,7 +13,7 @@
 .row.platforms
   - if @platforms
     - @platforms.each do |platform|
-      = render partial: 'platforms/platform', locals: {platform: platform}
+      = render partial: 'platforms/platform', locals: { platform: platform }
 
 javascript:
-  $('.certifications-tab').addClass('active');
+  $('.training-tab').addClass('active');

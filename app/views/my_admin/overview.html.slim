@@ -1,0 +1,12 @@
+- content_for :page_title do
+  a href="#{my_admin_overview_path}"
+    span.fa.fa-gear
+    | My Admin
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+javascript:
+  $('.my-admin-tab').addClass('active');
+  $('.nav-tabs .overview').addClass('active');

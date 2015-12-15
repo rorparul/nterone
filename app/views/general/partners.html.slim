@@ -1,0 +1,29 @@
+- content_for :page_title do
+  a href="#{partners_path}"
+    span.fa.fa-users
+    | Partners
+    
+.row
+  .col-sm-12.col-md-9
+    #partners
+      p The NterOne Partner Program is designed for all Cisco and VMware Channel, Distribution, and/or Training partners globally who are interested reselling our IT Training Solutions to their customers. We currently partner in over 35 countries today with a range of businesses from small regional focused, to global multi-billion dollar public companies.
+      p NterOne Corporation offers its Channel Partner Program to resellers who want to join us and become an extension of NterOne by proactively generating demand and delivering NterOne’s training solutions to the market. Our partners maximize their sales and margins with our proven solutions for Authorized Cisco and VMware training. We have been in business for over 7 years and remain committed to our resellers in helping them achieve new revenue streams and meeting customer requirements.
+      p Our partners also leverage NterOne’s proven marketing, sales, and training programs to take advantage of direct access to our top-notch support and account management team.
+      p Key Program Benefits:
+      ul
+        li Access to NterOne sales and technical experts for assistance during the entire sales cycle
+        li Lead distribution
+        li Aggressive margins with additional discounts for registered deals
+        li Top-rated, highly competitive training that complement your existing offerings and your customers’ existing infrastructure, enabling rapid adoption into your sales pipeline
+        li Joint lead generation activities and marketing support
+        li Extensive award-winning technology in our company owned and operated data center
+      p
+        | Please contact us at 703.972.2288, or 
+        a href="emailto:sales@nterone.com" sales@nterone.com
+        | , for more information.
+  
+  .col-sm-12.col-md-3
+    = render 'courses/guaranteed_to_run'
+    
+javascript:
+  $('.partners-tab').addClass('active');

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113004002) do
+ActiveRecord::Schema.define(version: 20151215000111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,14 +49,6 @@ ActiveRecord::Schema.define(version: 20151113004002) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "brand_users", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "brand_id"
-    t.integer  "role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "brands", force: :cascade do |t|
     t.string   "title"
     t.string   "header"
@@ -81,6 +73,13 @@ ActiveRecord::Schema.define(version: 20151113004002) do
     t.string   "color3"
     t.string   "color4"
     t.string   "confirmation_subject"
+  end
+
+  create_table "carousel_items", force: :cascade do |t|
+    t.string   "caption"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "active",     default: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -125,9 +124,17 @@ ActiveRecord::Schema.define(version: 20151113004002) do
     t.string   "title"
     t.string   "url"
     t.string   "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "platform_id"
+    t.boolean  "active",            default: true
+    t.string   "abbreviation"
+    t.string   "sku"
+    t.string   "length"
+    t.text     "intro"
+    t.text     "overview"
+    t.text     "outline"
+    t.text     "intended_audience"
   end
 
   create_table "custom_items", force: :cascade do |t|
@@ -271,6 +278,14 @@ ActiveRecord::Schema.define(version: 20151113004002) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "brand_id"
+    t.integer  "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "subject_groups", force: :cascade do |t|
     t.integer  "subject_id"
     t.integer  "group_id"
@@ -286,6 +301,15 @@ ActiveRecord::Schema.define(version: 20151113004002) do
     t.datetime "updated_at"
     t.string   "abbreviation"
     t.integer  "platform_id"
+  end
+
+  create_table "testimonials", force: :cascade do |t|
+    t.string   "quotation"
+    t.string   "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "company"
+    t.integer  "course_id"
   end
 
   create_table "topics", force: :cascade do |t|

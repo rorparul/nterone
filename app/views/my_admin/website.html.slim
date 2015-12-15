@@ -1,0 +1,58 @@
+- content_for :page_title do
+  a href="#{my_admin_website_path}"
+    span.fa.fa-gear
+    | My Admin
+
+- content_for :actions do
+  li = link_to new_carousel_item_path, remote: true do
+    i.fa.fa-plus
+    | Add Carousel Item
+  li = link_to new_testimonial_path, remote: true do
+    i.fa.fa-plus
+    | Add Testimonial
+  / li = link_to '#', remote: true do
+  /   i.fa.fa-plus
+  /   | Add Graphic
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+.row
+  .col-xs-12
+    h3 Carousel Items
+    .table-responsive
+      table.table.table-compact
+        thead
+          tr
+            th Image
+            th Caption
+            th Active?
+            th.fit Actions
+        tbody#carousel-items
+          = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }
+    #carousel-items-page-control
+      = render partial: 'carousel_items/page_controls', locals: { carousel_items: @carousel_items }
+        
+hr.hr-sub
+
+.row
+  .col-xs-12
+    h3 Testimonials
+    .table-responsive
+      table.table.table-compact
+        thead
+          tr
+            th Quotation
+            th Author
+            th Company
+            th Course
+            th.fit Actions
+        tbody#testimonials
+          = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
+    #testimonials-page-control
+      = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
+    
+javascript:
+  $('.my-admin-tab').addClass('active');
+  $('.nav-tabs .website').addClass('active');

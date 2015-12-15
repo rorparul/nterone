@@ -1,35 +1,14 @@
 doctype html
 html
   head
-    title
-      - if defined?(brand)
-        = brand.title
-      - else
-        NterOne
+    title NterOne
+    = favicon_link_tag 'favicon.png'
     = stylesheet_link_tag 'application'
     = stylesheet_link_tag 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'
     = javascript_include_tag 'application'
     = yield :javascript_includes
     = csrf_meta_tags
-    - if brand.brand_favicon.present?
-      - if brand.brand_favicon.favicon.present? && brand.brand_favicon.favicon.file.present?
-        link rel="icon" href="#{brand.brand_favicon.favicon.file_url(:favicon)}"
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    css:
-      .gradient-1 {
-        background-image: -webkit-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -moz-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -ms-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: -o-linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-        background-image: linear-gradient(top, #{brand.color1} 0%, #{brand.color2} 100%) !important;
-      }
-      .gradient-1.active {
-        background-image: -webkit-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -moz-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -ms-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: -o-linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-        background-image: linear-gradient(top, #{brand.color3} 0%, #{brand.color4} 100%) !important;
-      }
   body
     = render 'layouts/modal'
     = render 'layouts/header'
@@ -38,7 +17,7 @@ html
     .container-fluid
       .content-top
         i#menu-toggle.fa.fa-bars
-        #search-and-menu-container
+        #header-nav
           .page-title
             = yield :page_title
           - if content_for(:actions)
@@ -53,6 +32,11 @@ html
             = link_to new_search_path, remote: true do
               i.fa.fa-search
               | Search
+            - if !user_signed_in? || (user_signed_in? && current_user.member?)
+              = link_to new_search_path, remote: true do
+                i.fa.fa-shopping-cart
+                | Cart
+                span.badge 0
       hr
       .content
         = render 'layouts/notifications'

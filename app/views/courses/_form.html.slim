@@ -12,10 +12,28 @@
       br
       = f.text_field :title, class: 'form-control'
       
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :abbreviation
+          br
+          = f.text_field :abbreviation, class: 'form-control'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :sku, "SKU"
+          br
+          = f.text_field :sku, class: 'form-control'
+    
     .form-group
-      = f.label :url, "URL"
+      = f.label :intro, "Introduction"
       br
-      = f.text_field :url, class: 'form-control'
+      = f.text_area :intro, class: 'form-control wysihtml5'
+      
+    / .form-group
+    /   = f.label :url, "URL"
+    /   br
+    /   = f.text_field :url, class: 'form-control'
+  
       
     .form-group
       = f.label :price
@@ -24,9 +42,31 @@
         span.input-group-addon $
         = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control'
         span.input-group-addon .00
+        
+    .form-group
+      = f.label :active, "Active?"
+      br
+      = f.check_box :active
       
     .actions
       button.btn.btn-success type="submit" Save
-      button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if course.id
         = link_to 'Delete', platform_course_path(platform, course), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'
+        
+javascript:
+  $('.wysihtml5').wysihtml5({
+    toolbar: {
+      'font-styles': true,
+      'color': false,
+      'emphasis': {
+        'small': true
+      },
+      'blockquote': false,
+      'lists': true,
+      'html': false,
+      'link': false,
+      'image': false,
+      'smallmodals': false
+    }
+  });

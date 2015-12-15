@@ -8,6 +8,11 @@
 .devise-logo {
   margin-bottom: 13px;
   text-align: center;
+  .visible-xs {
+    img {
+      width: 300px;
+    }
+  }
 }
 .devise_actions {
   background-color: #fff !important;

@@ -17,20 +17,9 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :brand_logo, if: :brand? do
-    process resize_to_limit: [200, 100]
-  end
-
-  version :brand_mobile_logo, if: :brand? do
-    process resize_to_limit: [150, 75]
-  end
-
-  version :email_logo, if: :visual_asset? do
-    process resize_to_limit: [200, 100]
-  end
-
-  version :favicon, if: :brand_favicon? do
-    process resize_to_limit: [100, 100]
+  version :processed_image, if: :carousel_item? do
+    # process resize_to_fill: [1280, 720]
+    process resize_to_fill: [745, 330]
   end
 
   version :platform_icon, if: :platform? do
@@ -47,16 +36,8 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   private
 
-  def brand?(picture)
-    model.imageable_type == 'Brand'
-  end
-
-  def visual_asset?(picture)
-    model.imageable_type == 'VisualAsset'
-  end
-
-  def brand_favicon?(picture)
-    model.imageable_type == 'BrandFavicon'
+  def carousel_item?(picture)
+    model.imageable_type == 'CarouselItem'
   end
 
   def platform?(picture)

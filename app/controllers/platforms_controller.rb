@@ -1,11 +1,11 @@
 class PlatformsController < ApplicationController
   before_action :set_platform, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_platform, except: [:index, :show]
-  after_action  :verify_authorized,  except: [:index, :show]
+  # before_action :authorize_platform, except: [:index, :show]
+  # after_action  :verify_authorized,  except: [:index, :show]
 
   def index
-    @platforms = brand.platforms.eager_load(:image)
+    @platforms = Platform.all.eager_load(:image)
   end
 
   def show
@@ -30,11 +30,11 @@ class PlatformsController < ApplicationController
 
   def edit
     @platform.build_image unless @platform.image.present?
-    @platform = @platform
+    # @platform = @platform
   end
 
   def create
-    @platform = brand.platforms.build(platform_params)
+    @platform = Platform.new(platform_params)
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
       flash[:success] = "Platform successfully created!"
@@ -49,10 +49,11 @@ class PlatformsController < ApplicationController
     @platform.assign_attributes(platform_params)
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
-      flash[:notice] = 'You have successfully updated platform.'
+      flash[:notice] = 'Platform successfully updated!'
       redirect_to(root_path)
     else
-      render('edit')
+      flash[:alert] = 'Platform unsuccessfully updated!'
+      render 'edit'
     end
   end
 

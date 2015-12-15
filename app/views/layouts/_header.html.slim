@@ -1,9 +1,18 @@
 .row.top
   .hidden-xs
-    = link_to root_path, class: 'logo' do
-      = image_tag brand.logo.file_url(:brand_logo)
+    = link_to root_path, class: 'logo-with-tagline-large' do
+      = image_tag 'logo-with-tagline.png'
+    = link_to root_path, class: 'partner vmware' do
+      = image_tag 'vmware-partner.png'
+    = link_to root_path, class: 'partner cisco' do
+      = image_tag 'cisco-partner.jpg'
+    = link_to root_path, class: 'partner gsa' do
+      = image_tag 'gsa-partner.jpg'
+    .partner.veteran
+      p A Veteran-Owned Business
+      p Contact Us at 703.972.2288
   .visible-xs
-    = link_to root_path, class: 'logo' do
-      = image_tag brand.logo.file_url(:brand_mobile_logo)
+    = link_to root_path, class: 'logo-with-tagline-small' do
+      = image_tag 'logo-with-tagline.png'
   a.iTop title=''
   .clear

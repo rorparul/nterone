@@ -1,0 +1,16 @@
+- content_for :page_title do
+  a href="#{testimonials_path}"
+    span.fa.fa-thumbs-o-up
+    | Testimonials
+    
+.row
+  .col-sm-12.col-md-9
+    #testimonials
+      - @testimonials.each do |testimonial|
+        = render partial: 'testimonial', locals: { testimonial: testimonial }
+  
+  .col-sm-12.col-md-3
+    = render 'courses/guaranteed_to_run'
+    
+javascript:
+  $('.testimonials-tab').addClass('active');

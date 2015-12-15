@@ -1,0 +1,26 @@
+= form_for @carousel_item do |f|
+  .form-group
+    - if @carousel_item.image.present? && @carousel_item.image.file.present?
+      = image_tag @carousel_item.image.file.processed_image.url, class: 'carousel-item-for-form'
+      br
+    = f.fields_for :image do |ff|
+      = ff.label :file, 'Image'
+      br
+      = ff.file_field :file
+      = ff.hidden_field :file_cache
+
+  .form-group
+    = f.label :caption
+    br
+    = f.text_field :caption, class: 'form-control'
+  
+  .form-group
+    = f.label :active, "Active?"
+    br
+    = f.check_box :active
+      
+  .actions
+    button.btn.btn-success type="submit" Save
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    - if @carousel_item.id
+      = link_to 'Delete', carousel_item_path(@carousel_item), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

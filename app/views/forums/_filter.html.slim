@@ -1,2 +1,2 @@
 = form_for :forum, url: filter_forums_path, html: {method: "GET"}, remote: true do |f|
-  = f.select(:forum_id, brand.forums.collect { |forum| [forum.title, forum.id] }.unshift(["All", "all"]), options = {selected: "All"}, html_options = {class: "form-control sub-select"})
+  = f.select(:forum_id, Forum.all.collect { |forum| [forum.title, forum.id] }.unshift(["All", "all"]), options = {selected: "All"}, html_options = {class: "form-control sub-select"})
