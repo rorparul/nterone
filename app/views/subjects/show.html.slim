@@ -1,7 +1,7 @@
 - content_for :page_title do
   a href="#{root_path}"
     span.fa.fa-check-square-o
-    | Platforms
+    | Training
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -53,7 +53,7 @@
         = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
 
 javascript:
-  $('.certifications-tab').addClass('active');
+  $('.training-tab').addClass('active');
   
   $('#back').on('click', function() {
     window.history.back();
