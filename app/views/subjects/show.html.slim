@@ -1,6 +1,6 @@
 - content_for :page_title do
-  span.fa.fa-check-square-o
   a href="#{root_path}"
+    span.fa.fa-check-square-o
     | Platforms
   span.seperator
     | /
@@ -12,7 +12,7 @@
     = "#{@subject.abbreviation}"
 
 - content_for :actions do
-  - if current_user.any_admin?
+  - if user_signed_in? && current_user.admin?
     li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
       i.fa.fa-plus
       | Add Table
@@ -28,7 +28,7 @@
 .row
   .col-xs-12
     button#back Back
-    - if current_user.member?
+    - if user_signed_in? && current_user.member?
       - if @platform.url
         a href="#{@platform.url}" target="_blank"
           button#find-testing-center
@@ -37,7 +37,7 @@
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :subject_id, value: @subject.id
-        - if current_user.planned.include? @subject
+        - if user_signed_in? && current_user.planned.include?
           button.active id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-minus
             span Remove from My Plan
@@ -45,7 +45,7 @@
           button.inactive id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-plus
             span Add to My Plan
-    - if current_user.any_sales?
+    - if user_signed_in? && current_user.sales?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :subject_id, value: @subject.id
         button.inactive id="subject-toggle-#{@subject.id}" type="submit"

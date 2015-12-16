@@ -2,7 +2,7 @@
   .group.my-plan
     .group-heading
       h6 = group.header
-      - if current_user.any_admin? && controller_name == 'subjects'
+      - if user_signed_in? && current_user.admin? && controller_name == 'subjects'
         .group-actions-overlay
           = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
             i.fa.fa-pencil
