@@ -1268,9 +1268,9 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   color: rgb(60, 118, 61);
 }
 
-.subjects {
-  margin-top: 10px;
-}
+// .subjects {
+//   margin-top: 10px;
+// }
 
 li.break {
   height: 1px;
@@ -1404,6 +1404,10 @@ input[type='file'] {
 
 .carousel-item-for-form {
   width: 100%;
+}
+
+.btn-child-category {
+  margin-bottom: 10px;
 }
 
 hr {
