@@ -32,6 +32,9 @@ class CoursesController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = @platform.courses.build
     @courses  = Course.where(platform_id: @platform.id)
+    @categories = Category.where(platform_id: @platform.id).select do |category|
+      category if category.parent
+    end
   end
 
   def  select_to_edit
@@ -40,6 +43,9 @@ class CoursesController < ApplicationController
     else
       @platform = Platform.find(params[:platform_id])
       @course   = Course.find(course_params[:id])
+      @categories = Category.where(platform_id: @platform.id).select do |category|
+        category if category.parent
+      end
     end
   end
 
@@ -60,6 +66,18 @@ class CoursesController < ApplicationController
     redirect_to platform_path(params[:platform_id])
   end
 
+  def download
+    course = Course.find(params[:id])
+    course_info = course.course_info
+    send_file(course_info.current_path,
+              filename: "#{course.abbreviation}.pdf",
+              type: "application/pdf")
+  end
+
+  def video_preview
+    @course = Course.find(params[:id])
+  end
+
   private
 
   def course_params
@@ -75,6 +93,8 @@ class CoursesController < ApplicationController
                                    :overview,
                                    :outline,
                                    :intended_audience,
+                                   :course_info,
+                                   :video_preview,
                                    category_ids: [])
   end
 end

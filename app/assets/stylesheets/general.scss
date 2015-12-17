@@ -214,7 +214,6 @@ body {
     vertical-align: middle;
     .modal-content {
       @include value-prefix(background-image, linear-gradient(top, rgb(249, 249, 249) 0%, rgb(242, 242, 242) 100%));
-      // border: 3px solid rgb(128, 128, 128);
       border: 1px solid rgb(174, 174, 174);
       border-radius: 4px;
       .modal-header {
@@ -302,6 +301,13 @@ body {
     overflow: hidden;
     text-overflow: clip;
   }
+}
+
+.wistia_embed {
+  width: 100% !important;
+  // img {
+  //   width: 100% !important;
+  // }
 }
 
 .social-icons {
@@ -574,6 +580,9 @@ div.instructor-bios, div.news {
       }
     }
     .categories-mobile {
+      .btn-category {
+        margin: 0 0 10px 0;
+      }
       .panel {
         border: 0;
         margin: 0;
@@ -651,12 +660,54 @@ div.instructor-bios, div.news {
   }
 }
 
-.well-course {
-  min-height: 150px;
+.green {
+  color: rgb(150, 193, 97);
+  // color: rgb(96, 156, 61);
+}
+
+.gray {
+  color: lightgray;
+}
+
+.red {
+  color: red;
+}
+
+#course {
+  .title {
+    color: rgb(95, 95, 95);
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+  }
+  #degrees {
+    text-align: center;
+    margin-bottom: 10px;
+    img {
+      max-width: 100%;
+    }
+  }
+  .well-course {
+    padding: 10px;
+    margin-bottom: 10px;
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: bold;
+    }
+    .resource {
+      h1, h2, h3, h4, h5, h6 {
+        color: #337ab7;
+      }
+    }
+  }
 }
 
 .fa-file-pdf-o {
-  font-size: 50px;
+  font-size: 40px;
+  margin: 5px;
+}
+
+.fa-file-video-o {
+  font-size: 40px;
   margin: 5px;
 }
 

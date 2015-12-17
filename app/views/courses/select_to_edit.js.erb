@@ -1,1 +1,1 @@
-$('.modal-body .form-container').html("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, course: @course}) %>");
+$('.modal-body .form-container').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, course: @course, categories: @categories }) %>");

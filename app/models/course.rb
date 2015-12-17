@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+  mount_uploader :course_info, CourseInfoUploader
+
   belongs_to :platform
 
   has_many :category_courses,         dependent: :destroy
