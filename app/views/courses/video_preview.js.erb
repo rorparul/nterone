@@ -1,0 +1,3 @@
+$('.modal-title').html('Video Preview');
+$('.modal-body').html("<%= escape_javascript(@course.video_preview).html_safe %>");
+$('#myModal').modal('show');

@@ -4,24 +4,24 @@
       - if category.children.present?
         = link_to category.title,
                   "#category_#{category.id}",
-                  class: "btn add-right-space btn-category category",
+                  class: "btn btn-category category",
                   data: { toggle: 'collapse', parent: '#accordion' }
       - else
         = link_to category.title,
                   platform_path(@platform, cat: category.id),
-                  class: "btn add-right-space btn-category not-accordion category",
+                  class: "btn btn-category not-accordion category",
                   remote: true
   hr
   - @categories.each do |parent_category|
     .row class='text-center collapse sub-categories' id='category_#{parent_category.id}'
       = link_to 'Show All',
                 platform_path(@platform, cat: parent_category.id, type: 'all'),
-                class: "btn add-right-space btn-child-category sub-category",
+                class: "btn btn-child-category sub-category",
                 remote: true
       - parent_category.children.each do |child|
         = link_to child.title,
                   platform_path(@platform, cat: child.id),
-                  class: "btn add-right-space btn-child-category sub-category #{'active-category' if child == @child_category}",
+                  class: "btn btn-child-category sub-category #{'active-category' if child == @child_category}",
                   remote: true
 
 .categories-mobile.visible-xs

@@ -47,6 +47,16 @@
         span.input-group-addon $
         = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control'
         span.input-group-addon .00
+    
+    .form-group
+      = f.label :course_info, "Course PDF"
+      br
+      = f.file_field :course_info
+    
+    .form-group
+      = f.label :video_preview, "Video Preview (Inline Embed)"
+      br
+      = f.text_area :video_preview, class: 'form-control'
         
     .form-group
       = f.label :active, "Active?"

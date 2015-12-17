@@ -99,6 +99,8 @@ Nci::Application.routes.draw do
         post 'select_to_edit'
         get  'autocomplete_course_title'
         get  'return_all'
+        get  'courses/:id/download'      => 'courses#download',      as: :course_download
+        get  'courses/:id/video_preview' => 'courses#video_preview', as: :course_video_preview
       end
     end
     resources :custom_items, except: [:index, :edit, :show] do

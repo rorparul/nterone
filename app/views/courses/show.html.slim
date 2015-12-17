@@ -8,6 +8,10 @@
     = @platform.title
   span.seperator
     | /
+  a href="#"
+    | Courses
+  span.seperator
+    | /
   a href="#{platform_course_path(@platform, @course)}"
     = "#{@course.abbreviation}"
     
@@ -20,17 +24,78 @@
 .row
   .col-xs-12.col-md-9
     #course
-      h4 = "#{@course.title} (#{@course.abbreviation})"
-      h5 = "Price: $#{@course.price}"
+      h4.title = "#{@course.title} (#{@course.abbreviation})"
       .row
         .col-xs-12.col-md-9
-          .well.well-course
-            h5 Upcoming Classes
+          .row
+            .col-xs-12
+              .well.well-course
+                .table-responsive
+                  table.table.table-compact
+                    thead
+                      tr
+                        th Date
+                        th Location
+                        th Status
+                        th Guaranteed
+                        th Price
+                        th
+                    tbody#upcoming-classes
+                      tr
+                        td Jan 11 2016 - Jan 15 2016
+                        td Live Online
+                        td.red Full
+                        td.green Yes
+                        td $3,995.00
+                        td.gray Add to cart
+                      tr
+                        td Feb 22 2016 - Feb 26 2016
+                        td Live Online
+                        td.green Available
+                        td No
+                        td $3,995.00
+                        td = link_to 'Add to cart', '#'
+                      tr
+                        td Mar 28 2016 - Apr 01 2016
+                        td Live Online
+                        td.green Available
+                        td.green Yes
+                        td $3,995.00
+                        td = link_to 'Add to cart', '#'
+          .row
+            .col-xs-12
+              #degrees
+                = image_tag '360-degrees.png', class: 'degrees'
+          .row
+            .col-xs-12
+              #intro
+                = @course.intro.html_safe
         .col-xs-12.col-md-3
-          .well.well-course.text-center
-            h5 Download
-            span.fa.fa-file-pdf-o
-      = image_tag '360-degrees.png'
+          .row
+            .col-xs-12
+              .well.well-course
+                .row
+                  .col-xs-6
+                    .resource.text-center
+                      = link_to course_download_platform_courses_path(@platform, @course) do
+                        span.fa.fa-file-pdf-o
+                      h5 Download
+                  .col-xs-6
+                    .resource.text-center
+                      = link_to course_video_preview_platform_courses_path(@platform, @course), remote: true do
+                        span.fa.fa-file-video-o
+                      h5 Preview
+                .row
+                  .col-xs-12
+                    h5 Questions?
+                    p The NterOne team will be happy to answer your questions.
+                    p
+                      | Email: 
+                      a href="mailto:sales@nterone.com" sales@nterone.com
+                    p Phone: 703.972.2288
+          / .row
+          /   .col-xs-12
+          /     = image_tag '360-degrees.png', class: 'degrees'
 
   .col-xs-12.col-md-3
     = render 'courses/guaranteed_to_run'

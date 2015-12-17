@@ -1,11 +1,15 @@
 - content_for :page_title do
-  a href="#{root_path}"
+  a href="#{platforms_path}"
     span.fa.fa-check-square-o
     | Training
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
     = @platform.title
+  span.seperator
+    | /
+  a href="#"
+    | Certificates
   span.seperator
     | /
   a href="#{platform_subject_path(@platform, @subject)}"
