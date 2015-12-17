@@ -28,7 +28,7 @@
             th Image
             th Caption
             th Active?
-            th.fit Actions
+            th
         tbody#carousel-items
           = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }
     #carousel-items-page-control
@@ -47,7 +47,7 @@ hr.hr-sub
             th Author
             th Company
             th Course
-            th.fit Actions
+            th
         tbody#testimonials
           = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
     #testimonials-page-control
@@ -55,4 +55,4 @@ hr.hr-sub
     
 javascript:
   $('.my-admin-tab').addClass('active');
-  $('.nav-tabs .website').addClass('active');
+  $('.categories .website').addClass('active-category');

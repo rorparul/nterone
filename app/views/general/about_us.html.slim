@@ -5,13 +5,12 @@
     
 .row
   .col-sm-12.col-md-9
-    ul.nav.nav-tabs.nav-justified.sub-section-tabs
-      li.executive-bios.active role="presentation"
-        a href="#" Executive Bios
-      li.instructor-bios role="presentation"
-        a href="#" Instructor Bios
-      li.news role="presentation"
-        a href="#" News
+    .categories
+      .row.text-center
+        .col-sm-12
+          a.btn.category.btn-category.active-category.executive-bios href="#" Executive Bios
+          a.btn.category.btn-category.instructor-bios href="#" Instructor Bios
+          a.btn.category.btn-category.news href="#" News
         
     .executive-bios
       h3 Dale Pederson, VP of Sales
@@ -64,10 +63,10 @@
 javascript:
   $('.about-us-tab').addClass('active');
   
-  $('.sub-section-tabs li').on('click', function() {
+  $('.categories .btn-category').on('click', function() {
     $('div.executive-bios, div.instructor-bios, div.news').hide();
-    $('li').removeClass('active');
-    $(this).addClass('active');
+    $('.btn-category').removeClass('active-category');
+    $(this).addClass('active-category');
     if($(this).hasClass('executive-bios')) {
       $('div.executive-bios').show();
     } else if($(this).hasClass('instructor-bios')) {

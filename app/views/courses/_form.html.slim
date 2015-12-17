@@ -8,6 +8,11 @@
             li = msg
             
     .form-group
+      = f.label :category_ids, 'Categories'
+      br
+      = f.select :category_ids, categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] }, {}, html_options = {class: "form-control sub-select disableable", multiple: 'true'}
+            
+    .form-group
       = f.label :title
       br
       = f.text_field :title, class: 'form-control'
@@ -20,12 +25,12 @@
           = f.text_field :abbreviation, class: 'form-control'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :sku, "SKU"
+          = f.label :sku, 'SKU'
           br
           = f.text_field :sku, class: 'form-control'
     
     .form-group
-      = f.label :intro, "Introduction"
+      = f.label :intro, 'Introduction'
       br
       = f.text_area :intro, class: 'form-control wysihtml5'
       

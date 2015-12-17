@@ -8,6 +8,7 @@ Nci::Application.routes.draw do
     post :toggle_archived, on: :member
     collection do
       get '/users/:id/edit_from_my_queue' => 'users#edit_from_my_queue', as: :edit_from_my_queue
+      get 'page'
     end
   end
 
@@ -92,7 +93,7 @@ Nci::Application.routes.draw do
         get  'return_all'
       end
     end
-    resources :courses, except: [:index, :edit, :show] do
+    resources :courses, except: [:index, :edit] do
       collection do
         get  'select'
         post 'select_to_edit'
@@ -110,6 +111,7 @@ Nci::Application.routes.draw do
 
   controller :my_admin do
     get 'my-admin/overview', as: :my_admin_overview
+    get 'my-admin/people',   as: :my_admin_people
     get 'my-admin/website',  as: :my_admin_website
   end
 
@@ -128,7 +130,7 @@ Nci::Application.routes.draw do
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
-  # post 'brand_users/change_role'                     => 'brand_users#change_role',        as: :change_role
+  post 'roles/change_role'                           => 'roles#change_role',              as: :change_role
   # get  'brand_users/roles/:id'                       => 'brand_users#roles',              as: :roles
   post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',   as: :toggle_chosen_course_active
   post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended', as: :toggle_chosen_course_attended

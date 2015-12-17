@@ -3,4 +3,4 @@
     td = image_tag carousel_item.image.file.processed_image.url
     td = carousel_item.caption
     td = carousel_item.active
-    td = link_to "Edit", edit_carousel_item_path(carousel_item), remote: true
+    td.fit = link_to "Edit", edit_carousel_item_path(carousel_item), remote: true

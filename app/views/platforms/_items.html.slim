@@ -1,0 +1,18 @@
+- if items.present?
+  - items.each do |item|
+    - if item.class == Subject
+      - if item.image.file_url != nil
+        .col-xs-12.col-md-6
+          = link_to platform_subject_path(item.platform, item), class: 'subject with-image' do
+            = image_tag item.image.file_url(:subject_icon)
+            p = "#{item.title} (#{item.abbreviation})"
+      - else
+        .col-xs-12.col-md-6
+          = link_to platform_subject_path(item.platform, item), class: 'subject without-image' do
+            p = "#{item.title} (#{item.abbreviation})"
+    - elsif item.class == Course
+      .col-xs-12.col-md-6
+        = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
+          p = "#{item.title} (#{item.abbreviation})"
+- else
+  p.text-center No Matches Found

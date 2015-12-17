@@ -4,7 +4,7 @@ class Subject < ActiveRecord::Base
   belongs_to :platform
 
   has_many :category_subjects, dependent: :destroy
-  has_many :categories,        through: :category_subjects, dependent: :destroy
+  has_many :categories,        through: :category_subjects
   has_many :subject_groups,    dependent: :destroy
   has_many :groups,            through: :subject_groups
   has_many :planned_subjects,  dependent: :destroy

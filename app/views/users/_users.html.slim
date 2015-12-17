@@ -1,0 +1,14 @@
+- users.each do |user|
+  tr.user
+    td = user.first_name
+    td = user.last_name
+    td = user.email
+    td = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
+    td.actions-column.fit
+      = form_for user.roles.first, url: change_role_path, method: :post, html: {} do |f|
+        = f.hidden_field :user_id, value: user.id
+        = f.select :role, Role.selectable_roles.each { |role| role }, {}, class: "form-control role-selector"
+    td.actions-column.fit
+      = link_to "Edit", edit_user_path(user)
+      = " | "
+      = link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }

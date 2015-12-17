@@ -1,0 +1,30 @@
+/ - content_for :page_title do
+/   span.fa.fa-users
+/   a href="#{users_path}"
+/     | People
+
+.row
+  .col-xs-12
+    h3 = "#{pluralize(@user_count, 'User')}"
+    -if users.any?
+        .table-responsive
+          table.table.table-compact
+            thead
+              tr
+                th title="First Name" First Name
+                th title="Last Name" Last Name
+                th title="Email" Email
+                th title="Last Active" Last Active
+                th title="Role" Role
+                th
+            tbody#users
+              = render partial: 'users/users', locals: { users: users }
+        #users-page-control
+          = render partial: 'users/page_controls', locals: { users: users }
+
+javascript:
+  $('.people-tab').addClass('active');
+  
+  $('.role-selector').on('change', function() {
+    $(this).closest('form').submit();
+  });

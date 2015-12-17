@@ -15,9 +15,9 @@ class PlatformsController < ApplicationController
       end
       format.js do
         if params['type'] == 'all'
-          @subjects = Category.find(params['cat']).children_subjects
+          @items = Category.find(params['cat']).children_items
         else
-          @subjects = Category.find(params['cat']).subjects
+          @items = Category.find(params['cat']).items
         end
       end
     end
