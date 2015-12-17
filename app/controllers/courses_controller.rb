@@ -8,6 +8,14 @@ class CoursesController < ApplicationController
   def new
     @platform = Platform.find(params[:platform_id])
     @course   = Course.new
+    @categories = Category.where(platform_id: @platform.id).select do |category|
+      category if category.parent
+    end
+  end
+
+  def show
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:id])
   end
 
   def create
@@ -66,6 +74,7 @@ class CoursesController < ApplicationController
                                    :intro,
                                    :overview,
                                    :outline,
-                                   :intended_audience)
+                                   :intended_audience,
+                                   category_ids: [])
   end
 end

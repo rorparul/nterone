@@ -1,0 +1,45 @@
+- content_for :page_title do
+  a href="#{root_path}"
+    span.fa.fa-book
+    | Training
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#{platform_course_path(@platform, @course)}"
+    = "#{@course.abbreviation}"
+    
+/ - content_for :actions do
+/   - if user_signed_in? && current_user.admin?
+/     li = link_to new_platform_subject_group_path(@platform, @course), remote: true do
+/       i.fa.fa-plus
+/       | Add Table
+      
+.row
+  .col-xs-12.col-md-9
+    #course
+      h4 = "#{@course.title} (#{@course.abbreviation})"
+      h5 = "Price: $#{@course.price}"
+      .row
+        .col-xs-12.col-md-9
+          .well.well-course
+            h5 Upcoming Classes
+        .col-xs-12.col-md-3
+          .well.well-course.text-center
+            h5 Download
+            span.fa.fa-file-pdf-o
+      = image_tag '360-degrees.png'
+
+  .col-xs-12.col-md-3
+    = render 'courses/guaranteed_to_run'
+    
+
+    
+javascript:
+  $('.training-tab').addClass('active');
+  
+  $('#back').on('click', function() {
+    window.history.back();
+  });

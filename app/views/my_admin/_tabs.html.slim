@@ -1,13 +1,19 @@
-ul.nav.nav-tabs.nav-justified
-  li.overview role="presentation"
-    a href="#{my_admin_overview_path}" Overview
-  li.reports role="presentation"
-    a href="#" Reports
-  li.announcements role="presentation"
-    a href="#" Announcements
-  li.people role="presentation"
-    a href="#" People
-  li.website role="presentation"
-    a href="#{my_admin_website_path}" Website
-  li.settings role="presentation"
-    a href="#" Settings
+.categories.hidden-xs
+  .row.text-center
+    .col-sm-12
+      a.btn.category.btn-category.overview href="#{my_admin_overview_path}" Overview
+      a.btn.category.btn-category.reports href="#" Reports
+      a.btn.category.btn-category.announcements href="#" Announcements
+      a.btn.category.btn-category.people href="#{my_admin_people_path}" People
+      a.btn.category.btn-category.website href="#{my_admin_website_path}" Website
+      a.btn.category.btn-category.settings href="#" Settings
+      
+.categories-mobile.visible-xs
+  .row.text-center
+    .col-sm-12
+      a.btn.category.btn-category.overview href="#{my_admin_overview_path}" Overview
+      a.btn.category.btn-category.reports href="#" Reports
+      a.btn.category.btn-category.announcements href="#" Announcements
+      a.btn.category.btn-category.people href="#{my_admin_people_path}" People
+      a.btn.category.btn-category.website href="#{my_admin_website_path}" Website
+      a.btn.category.btn-category.settings href="#" Settings

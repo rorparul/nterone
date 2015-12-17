@@ -7,15 +7,31 @@ class Category < ActiveRecord::Base
   has_many   :children, class_name: 'Category', foreign_key: 'parent_id'
   has_many   :category_subjects, dependent: :destroy
   has_many   :subjects, through: :category_subjects
+  has_many   :category_courses, dependent: :destroy
+  has_many   :courses, through: :category_courses
 
-  def children_subjects
-    subjects = []
+  def items
+    items = []
+    self.subjects.each do |subject|
+      items << subject if subjects.exclude?(subject)
+    end
+    self.courses.each do |course|
+      items << course if courses.exclude?(course)
+    end
+    items
+  end
+
+  def children_items
+    items = []
     self.children.each do |child|
       child.subjects.each do |subject|
-        subjects << subject if subjects.exclude?(subject)
+        items << subject if subjects.exclude?(subject)
+      end
+      child.courses.each do |course|
+        items << course if courses.exclude?(course)
       end
     end
-    subjects
+    items
   end
 
   private

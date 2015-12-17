@@ -7,6 +7,8 @@
   .col-xs-12
     = render 'tabs'
     
+= render partial: 'users/index', locals: { users: @users }
+    
 javascript:
   $('.my-admin-tab').addClass('active');
-  $('.categories .overview').addClass('active-category');
+  $('.categories .people').addClass('active-category');

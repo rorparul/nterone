@@ -1,6 +1,8 @@
 class Course < ActiveRecord::Base
   belongs_to :platform
 
+  has_many :category_courses,         dependent: :destroy
+  has_many :categories,               through: :category_courses
   has_many :group_items,              as: :groupable, dependent: :destroy
   has_many :course_dynamics,          dependent: :destroy
   has_many :exam_and_course_dynamics, through: :course_dynamics
