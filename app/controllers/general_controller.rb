@@ -1,4 +1,12 @@
 class GeneralController < ApplicationController
+  def new_search
+
+  end
+
+  def search
+    @items = Subject.search(params[:query]) + Course.where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%")
+  end
+
   def welcome
     @carousel_items = CarouselItem.all_active
   end

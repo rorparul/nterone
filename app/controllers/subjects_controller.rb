@@ -5,14 +5,6 @@ class SubjectsController < ApplicationController
   # before_action :authorize_subject, except: [:index, :show, :autocomplete]
   # after_action  :verify_authorized, except: [:index, :show, :autocomplete]
 
-  def new_search
-
-  end
-
-  def search
-    @subjects = Subject.search(params[:query])
-  end
-
   def index
     @subjects = @category.subjects
   end

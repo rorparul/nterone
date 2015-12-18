@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def select
-    @topics = brand.topics
+    @topics = Topic.all
     @topic  = Topic.new
   end
 

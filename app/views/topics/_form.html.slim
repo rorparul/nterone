@@ -10,7 +10,7 @@
     .form-group
       = f.label :forum_id, "Category"
       br
-      = f.select :forum_id, brand.forums.collect { |forum| [forum.title, forum.id] }, {}, html_options = { class: "form-control sub-select", required: true }
+      = f.select :forum_id, Forum.all.collect { |forum| [forum.title, forum.id] }, {}, html_options = { class: "form-control sub-select", required: true }
       
     .form-group
       = f.label :title
@@ -21,4 +21,4 @@
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Close
       - if topic.id
-        = link_to 'Delete', topic_path(topic), method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: 'text-danger'
+        = link_to 'Delete', topic_path(topic), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

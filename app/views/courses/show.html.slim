@@ -69,22 +69,25 @@
           .row
             .col-xs-12
               #intro
-                = @course.intro.html_safe
+                p = @course.intro.html_safe
         .col-xs-12.col-md-3
           .row
             .col-xs-12
               .well.well-course
                 .row
-                  .col-xs-6
+                  .col-xs-12
+                    .resource.text-center
+                      = @course.video_preview.html_safe
+                  .col-xs-12
                     .resource.text-center
                       = link_to course_download_platform_courses_path(@platform, @course) do
                         span.fa.fa-file-pdf-o
-                      h5 Download
-                  .col-xs-6
-                    .resource.text-center
-                      = link_to course_video_preview_platform_courses_path(@platform, @course), remote: true do
-                        span.fa.fa-file-video-o
-                      h5 Preview
+                        | Download
+                  / .col-xs-6
+                  /   .resource.text-center
+                  /     = link_to course_video_preview_platform_courses_path(@platform, @course), remote: true do
+                  /       span.fa.fa-file-video-o
+                  /     h5 Preview
                 .row
                   .col-xs-12
                     h5 Questions?
@@ -100,7 +103,9 @@
   .col-xs-12.col-md-3
     = render 'courses/guaranteed_to_run'
     
-
+.row
+  .col-xs-12
+    button#back Back
     
 javascript:
   $('.training-tab').addClass('active');
