@@ -13,10 +13,10 @@ class Category < ActiveRecord::Base
   def items
     items = []
     self.subjects.each do |subject|
-      items << subject if subjects.exclude?(subject)
+      items << subject if items.exclude?(subject)
     end
     self.courses.each do |course|
-      items << course if courses.exclude?(course)
+      items << course if items.exclude?(course)
     end
     items
   end
@@ -25,10 +25,10 @@ class Category < ActiveRecord::Base
     items = []
     self.children.each do |child|
       child.subjects.each do |subject|
-        items << subject if subjects.exclude?(subject)
+        items << subject if items.exclude?(subject)
       end
       child.courses.each do |course|
-        items << course if courses.exclude?(course)
+        items << course if items.exclude?(course)
       end
     end
     items

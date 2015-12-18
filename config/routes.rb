@@ -27,8 +27,9 @@ Nci::Application.routes.draw do
       get  'select'
       post 'select_to_edit'
     end
-    resources :posts, except: [:index, :new, :show]
   end
+
+  resources :posts, except: [:index, :new, :show]
 
   resources :announcements, except: [:new, :show]
 
@@ -126,8 +127,8 @@ Nci::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   # get  'my-admin'                                    => 'general#my_admin'
 
-  get  'new-search'                                  => 'subjects#new_search'
-  get  'search'                                      => 'subjects#search'
+  get  'new-search'                                  => 'general#new_search'
+  get  'search'                                      => 'general#search'
   get  'contact_us'                                  => 'general#contact_us_new'
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search

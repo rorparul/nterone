@@ -1,14 +1,14 @@
 class ForumsController < ApplicationController
   def filter
     if forum_params[:forum_id] == 'all'
-      @topics = brand.topics
+      @topics = Topic.all
     else
       @topics = Forum.find(forum_params[:forum_id]).topics
     end
   end
 
   def select
-    @forums = brand.forums
+    @forums = Forum.all
     @forum  = Forum.new
   end
 
@@ -44,7 +44,7 @@ class ForumsController < ApplicationController
   end
 
   def create
-    @forum = brand.forums.create(forum_params)
+    @forum = Forum.create(forum_params)
   end
 
   def destroy

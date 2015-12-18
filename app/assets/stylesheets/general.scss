@@ -304,10 +304,31 @@ body {
 }
 
 .wistia_embed {
+  height: auto !important;
   width: 100% !important;
-  // img {
-  //   width: 100% !important;
-  // }
+  display: block !important;
+  margin-bottom: 10px;
+  div {
+    height: auto !important;
+    width: 100% !important;
+    div {
+      height: auto !important;
+      width: 100% !important;
+      // div {
+      //
+      // }
+      // div {
+      //
+      // }
+      img {
+        height: auto !important;
+        width: 100% !important;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+      }
+    }
+  }
 }
 
 .social-icons {
@@ -697,12 +718,16 @@ div.instructor-bios, div.news {
       h1, h2, h3, h4, h5, h6 {
         color: #337ab7;
       }
+      span {
+        color: #337ab7;
+        // padding: 7px 0;
+      }
     }
   }
 }
 
 .fa-file-pdf-o {
-  font-size: 40px;
+  font-size: 20px;
   margin: 5px;
 }
 
