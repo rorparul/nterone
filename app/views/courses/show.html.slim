@@ -29,47 +29,74 @@
         .col-xs-12.col-md-9
           .row
             .col-xs-12
-              .well.well-course
-                .table-responsive
-                  table.table.table-compact
-                    thead
-                      tr
-                        th Date
-                        th Location
-                        th Status
-                        th Guaranteed
-                        th Price
-                        th
-                    tbody#upcoming-classes
-                      tr
-                        td Jan 11 2016 - Jan 15 2016
-                        td Live Online
-                        td.red Full
-                        td.green Yes
-                        td $3,995.00
-                        td.gray Add to cart
-                      tr
-                        td Feb 22 2016 - Feb 26 2016
-                        td Live Online
-                        td.green Available
-                        td No
-                        td $3,995.00
-                        td = link_to 'Add to cart', '#'
-                      tr
-                        td Mar 28 2016 - Apr 01 2016
-                        td Live Online
-                        td.green Available
-                        td.green Yes
-                        td $3,995.00
-                        td = link_to 'Add to cart', '#'
+              p = @course.intro.html_safe
+          .row
+            .col-xs-12
+              #upcoming-classes
+                .well.well-course
+                  .table-responsive
+                    table.table.table-compact
+                      thead
+                        tr
+                          th Date
+                          th Location
+                          th Status
+                          th Guaranteed
+                          th Price
+                          th
+                      tbody
+                        tr
+                          td Jan 11 2016 - Jan 15 2016
+                          td Live Online
+                          td.red Full
+                          td.green Yes
+                          td $3,995.00
+                          td.gray Add to cart
+                        tr
+                          td Feb 22 2016 - Feb 26 2016
+                          td Live Online
+                          td.green Available
+                          td No
+                          td $3,995.00
+                          td = link_to 'Add to cart', '#'
+                        tr
+                          td Mar 28 2016 - Apr 01 2016
+                          td Live Online
+                          td.green Available
+                          td.green Yes
+                          td $3,995.00
+                          td = link_to 'Add to cart', '#'
+          .row
+            .col-xs-12
+              #accordion.panel-group role="tablist" aria-multiselectable="true"
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingOne"
+                    h4.panel-title
+                      a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                        | Overview
+                  #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+                    .panel-body
+                      = @course.overview.html_safe
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingTwo"
+                    h4.panel-title
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                        | Outline
+                  #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+                    .panel-body
+                      = @course.outline.html_safe
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingThree"
+                    h4.panel-title
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                        | Who Should Attend
+                  #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+                    .panel-body
+                      = @course.intended_audience.html_safe
           .row
             .col-xs-12
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
-          .row
-            .col-xs-12
-              #intro
-                p = @course.intro.html_safe
         .col-xs-12.col-md-3
           .row
             .col-xs-12
@@ -83,11 +110,6 @@
                       = link_to course_download_platform_courses_path(@platform, @course) do
                         span.fa.fa-file-pdf-o
                         | Download
-                  / .col-xs-6
-                  /   .resource.text-center
-                  /     = link_to course_video_preview_platform_courses_path(@platform, @course), remote: true do
-                  /       span.fa.fa-file-video-o
-                  /     h5 Preview
                 .row
                   .col-xs-12
                     h5 Questions?
@@ -96,9 +118,6 @@
                       | Email: 
                       a href="mailto:sales@nterone.com" sales@nterone.com
                     p Phone: 703.972.2288
-          / .row
-          /   .col-xs-12
-          /     = image_tag '360-degrees.png', class: 'degrees'
 
   .col-xs-12.col-md-3
     = render 'courses/guaranteed_to_run'
