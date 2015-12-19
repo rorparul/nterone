@@ -95,6 +95,9 @@ class CoursesController < ApplicationController
                                    :intended_audience,
                                    :course_info,
                                    :video_preview,
+                                   :time_unit_quantity,
+                                   :time_unit,
+                                   :availabilities,
                                    category_ids: [])
   end
 end
