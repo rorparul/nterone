@@ -41,7 +41,7 @@
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :subject_id, value: @subject.id
-        - if user_signed_in? && current_user.planned.include?
+        - if user_signed_in? && current_user.planned.include?(@subject)
           button.active id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-minus
             span Remove from My Plan
