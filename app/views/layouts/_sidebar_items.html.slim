@@ -25,15 +25,15 @@ li = link_to labs_path, class: "labs-tab" do
     span Contact Us
 - if user_signed_in?
   - if current_user.admin?
-    li = link_to my_admin_overview_path, class: "my-admin-tab" do
+    li = link_to my_admin_overview_path, class: "role-tab" do
       span.fa.fa-gear
       span My Admin
   - if current_user.sales?
-    li = link_to my_queue_path, class: "my-sales-tab" do
+    li = link_to my_sales_overview_path, class: "role-tab" do
       span.fa.fa-coffee
       span My Sales
   - if current_user.member?
-    li = link_to user_path(current_user), class: "my-account-tab" do
+    li = link_to my_account_overview_path, class: "role-tab" do
       span.fa.fa-user
       span My Account
 - else

@@ -113,9 +113,24 @@ Nci::Application.routes.draw do
   end
 
   controller :my_admin do
-    get 'my-admin/overview', as: :my_admin_overview
-    get 'my-admin/people',   as: :my_admin_people
-    get 'my-admin/website',  as: :my_admin_website
+    get 'my-admin/overview',      as: :my_admin_overview
+    get 'my-admin/announcements', as: :my_admin_announcements
+    get 'my-admin/people',        as: :my_admin_people
+    get 'my-admin/website',       as: :my_admin_website
+    get 'my-admin/settings',      as: :my_admin_settings
+  end
+
+  controller :my_sales do
+    get 'my-sales/overview',      as: :my_sales_overview
+    get 'my-sales/queue',         as: :my_sales_queue
+    get 'my-sales/announcements', as: :my_sales_announcements
+    get 'my-sales/settings',      as: :my_sales_settings
+  end
+
+  controller :my_account do
+    get 'my-account/overview', as: :my_account_overview
+    get 'my-account/plan',     as: :my_account_plan
+    get 'my-account/settings', as: :my_account_settings
   end
 
   # resources :brands, except: :destroy
@@ -125,7 +140,6 @@ Nci::Application.routes.draw do
   get  'partners'                                    => 'general#partners'
   get  'labs'                                        => 'general#labs'
   get  'my-queue'                                    => 'general#my_queue'
-  # get  'my-admin'                                    => 'general#my_admin'
 
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'

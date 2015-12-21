@@ -37,9 +37,9 @@
       br
       = f.text_area :description, class: 'form-control wysihtml5'
 
-    .actions
+    .form-buttons
       button.btn.btn-success type="submit" Save
-      button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+      button.btn-btn-default type="button" data-dismiss="modal" Cancel
       - if subject.id
         = link_to 'Delete', platform_subject_path(platform, subject), method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: 'text-danger'
 

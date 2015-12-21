@@ -12,8 +12,8 @@
       br
       = f.text_field :title, class: 'form-control'
       
-    .actions
+    .form-buttons
       button.btn.btn-success type="submit" Save
-      button type="button" class="btn btn-default" data-dismiss="modal" Cancel
+      button.btn-btn-default type="button" data-dismiss="modal" Cancel
       - if exam.id
         = link_to 'Delete', platform_exam_path(platform, exam), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

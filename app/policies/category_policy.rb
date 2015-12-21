@@ -1,21 +1,21 @@
 class CategoryPolicy < ApplicationPolicy
   def index?
-    @user.brand_admin?
+    @user.admin?
   end
 
   def show?
-    @user.brand_admin?
+    @user.admin?
   end
 
   def create?
-    @user.brand_admin?
+    @user.admin?
   end
 
   def update?
-    @user.brand_admin?
+    @user.admin?
   end
 
   def destroy?
-    @user.brand_admin?
+    @user.admin?
   end
 end

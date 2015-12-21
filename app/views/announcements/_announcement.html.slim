@@ -1,16 +1,16 @@
 tr.announcement class=["announcement-#{announcement.id}"]
-  td#content = announcement.content
-  td#target = announcement.audience
-  - if current_user.any_admin?
-    td#poster = announcement.poster
-  td.actions-column
-    = form_for announcement, html: {class: 'status', method: :put}, remote: true do |f|
+  td = announcement.content
+  td = announcement.audience
+  - if current_user.admin?
+    td = announcement.poster
+  td.actions-column.fit
+    = form_for announcement, html: {class: 'status', method: :put} do |f|
       = f.hidden_field :id, value: announcement.id
       = f.select :status, [["Active", "open"], ["Inactive", "closed"]], {}, class: "form-control status-selector"
-  td.actions-column
-    = link_to edit_announcement_path(announcement), remote: true do
-      button.sq-btn.o.btn-warning title="Edit"
-        span.fa.fa-pencil-square-o
+  td.actions-column.fit
+    = link_to "Edit", edit_announcement_path(announcement), remote: true
+    = " | "
+    = link_to 'Delete', announcement, method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
 
 javascript:
   $(".status").on("change", function() {

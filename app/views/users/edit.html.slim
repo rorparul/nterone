@@ -1,12 +1,7 @@
 - content_for :page_title do
-  span.fa.fa-users
   a href="#{users_path}"
-    | People
-  - if @user.full_name
-    span.seperator
-      | /
-    a href="#{user_path(@user)}"
-      = @user.full_name
+    span.fa.fa-gear
+    | My Something
 
 .row#settings
   .col-xs-12
@@ -21,7 +16,8 @@
     button#back Back
 
 javascript:
-  $('.people-tab').addClass('active');
+  $('.role-tab').addClass('active');
+  $('.categories .settings').addClass('active-category');
   
   $('#back').on('click', function() {
     window.history.back();

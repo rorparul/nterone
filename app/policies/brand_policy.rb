@@ -8,6 +8,6 @@ class BrandPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.super_admin? || @user.brand_admin?
+    @user.super_admin? || @user.admin?
   end
 end

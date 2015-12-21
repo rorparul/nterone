@@ -1,8 +1,6 @@
 class Platform < ActiveRecord::Base
   include Imageable
 
-  belongs_to :brand
-
   has_many :categories, dependent: :destroy
   has_many :subjects, dependent: :destroy
   has_many :groups

@@ -3,19 +3,6 @@ class UsersController < ApplicationController
     @users = User.order(:last_name).page(params[:page])
   end
 
-  # def index
-  #   unless params[:filter] == 'archived'
-  #     @filter               = 'none'
-  #     @users                = brand.users.where(archived: false).order(created_at: :asc)
-  #     @users_count          = @users.count
-  #     @archived_users_count = brand.users.where(archived: true).count
-  #   else
-  #     @filter      = 'archived'
-  #     @users       = brand.users.where(archived: true).order(created_at: :asc)
-  #     @users_count = @users.count
-  #   end
-  # end
-
   def show
     @user = User.find(params[:id])
     @planned_subjects = @user.planned_subjects.where(active: true)
@@ -38,7 +25,7 @@ class UsersController < ApplicationController
       flash[:success] = "User successfully updated!"
       redirect_to :back
     else
-      flash[:alert] = "User failed to update!"
+      flash[:alert] = "User unsuccessfully updated!"
       redirect_to :back
     end
   end

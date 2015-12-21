@@ -27,7 +27,7 @@
       br
       = f.select :id, @courses.collect {|course| [course.title, course.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select"}
       
-    .actions
+    .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if testimonial.id

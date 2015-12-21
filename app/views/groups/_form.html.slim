@@ -54,7 +54,7 @@
           = link_to_add_association 'Insert Custom Item',           f, :group_items,
             render_options: {locals: {type: 'CustomItem',           custom_items: custom_items}}
 
-    .actions
+    .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if group.id

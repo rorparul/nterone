@@ -1,0 +1,20 @@
+- content_for :page_title do
+  a href="#{my_admin_announcements_path}"
+    span.fa.fa-gear
+    | My Admin
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+.row
+  .col-xs-12
+    h3 = "New Announcement"
+    #announcement-form
+      = render partial: 'announcements/form'
+    
+= render partial: 'announcements/index', locals: { announcements: @announcements }
+    
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .announcements').addClass('active-category');

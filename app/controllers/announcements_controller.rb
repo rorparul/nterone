@@ -3,34 +3,27 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.create(announcement_params)
     case @announcement.audience
     when 'Members'
-      BrandUser.where(brand_id: brand.id, role: 1).each do |brand_user|
-        brand_user.user.messages.create(announcement_id: @announcement.id)
+      Role.where(role: 4).each do |role|
+        role.user.messages.create(announcement_id: @announcement.id)
       end
     when 'Sales Managers'
-      BrandUser.where(brand_id: brand.id, role: 3).each do |brand_user|
-        brand_user.user.messages.create(announcement_id: @announcement.id)
+      Role.where(role: 2).each do |role|
+        role.user.messages.create(announcement_id: @announcement.id)
       end
     when 'Sales'
-      BrandUser.where(brand_id: brand.id, role: 2).each do |brand_user|
-        brand_user.user.messages.create(announcement_id: @announcement.id)
+      Role.where(role: 3).each do |role|
+        role.user.messages.create(announcement_id: @announcement.id)
       end
     when 'All'
-      BrandUser.where(brand_id: brand.id).each do |brand_user|
-        brand_user.user.messages.create(announcement_id: @announcement.id)
+      User.all.each do |user|
+        user.messages.create(announcement_id: @announcement.id)
       end
     when 'Members & Sales'
-      BrandUser.where(brand_id: brand.id, role: [2, 3]).each do |brand_user|
-        brand_user.user.messages.create(announcement_id: @announcement.id)
+      Role.where(role: [2, 3]).each do |role|
+        role.user.messages.create(announcement_id: @announcement.id)
       end
     end
-  end
-
-  def index
-    if current_user.sales_manager?
-      @announcements = brand.announcements.where(poster: 'Sales Manager').order('created_at DESC')
-    else
-      @announcements = brand.announcements.order('created_at DESC')
-    end
+    redirect_to :back
   end
 
   def edit
@@ -42,19 +35,19 @@ class AnnouncementsController < ApplicationController
     if !announcement_params[:content]
       @announcement.status = announcement_params[:status]
       @announcement.save
-      render nothing: true
     else
       @announcement.content = announcement_params[:content]
       @announcement.save
     end
+    redirect_to :back
   end
 
   def destroy
     announcement = Announcement.find(params[:id])
     if announcement.destroy
-      flash[:success] = "Successfully deleted announcement!"
+      flash[:success] = "Announcement successfully deleted!"
     else
-      flash[:alert] = "Failed to delete announcement!"
+      flash[:alert] = "Announcement unsuccessfully deleted!"
     end
     redirect_to :back
   end
@@ -62,6 +55,6 @@ class AnnouncementsController < ApplicationController
   private
 
   def announcement_params
-    params.require(:announcement).permit(:id, :brand_id, :content, :audience, :status, :poster)
+    params.require(:announcement).permit(:id, :content, :audience, :status, :poster)
   end
 end
