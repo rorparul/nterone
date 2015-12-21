@@ -1,0 +1,2 @@
+module MySalesHelper
+end

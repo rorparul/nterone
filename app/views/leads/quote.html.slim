@@ -7,24 +7,14 @@ html
   body onload='number_pages'
     #header style="float: right;"
       div style="float: right; display: inline-block;"
-        - if brand.visual_asset.email_logo.present? && brand.visual_asset.email_logo.file.present?
-          = wicked_pdf_image_tag brand.visual_asset.email_logo.file_url(:email_logo)
-        - if brand.general_street
-          h4 Corporate Headquarters:
+        = wicked_pdf_image_tag 'logo.png'
+        h4 Corporate Headquarters:
         address
-          = brand.title
+          | NterOne Corporation
           br
-          = brand.general_street
+          | 1900 Campus Commons Dr
           br
-          = "#{brand.general_city}, #{brand.general_state} #{brand.general_zipcode}"
-        - if brand.payment_street
-          h4 Payment:
-        address
-          = brand.title
-          br
-          = brand.payment_street
-          br
-          = "#{brand.payment_city}, #{brand.payment_state} #{brand.payment_zipcode}"
+          | Reston, VA  20191
           
     #content style="clear: both;"
       p = "Hello #{lead.buyer.full_name},"
@@ -44,4 +34,4 @@ html
       p Regards,
 
       p Sales Team
-      p = brand.title
+      p NterOne

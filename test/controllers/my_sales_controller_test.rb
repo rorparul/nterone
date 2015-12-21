@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BrandFaviconTest < ActiveSupport::TestCase
+class MySalesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

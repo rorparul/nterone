@@ -1,46 +1,45 @@
-#brand-form
-  = form_for @user, url: user_path(@user), html: { method: :put } do |f|
+.row
+  .col-xs-12
+    h3 Info
+    = form_for @user, url: user_path(@user), html: { method: :put } do |f|
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :first_name, "First Name"
+            = f.text_field :first_name, autocomplete: "off", class: "form-control input-sm"
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :last_name, "Last Name"
+            = f.text_field :last_name, autocomplete: "off", class: "form-control input-sm"
+      
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :company_name, "Company Name"
+            = f.text_field :company_name, autocomplete: "off", class: "form-control input-sm"
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :contact_number, "Contact Number"
+            = f.text_field :contact_number, autocomplete: "off", class: "form-control input-sm"
 
-    .form-group
-      = f.label :company_name, "Company Name"
-      = f.text_field :company_name, autocomplete: "off", class: "form-control height-adjusted"
+      label Address
+      .form-group
+        = f.label :street, "Street"
+        = f.text_field :street, autocomplete: "off", class: "form-control input-sm"
 
-    .row.form-row
-      .col-xs-12.col-md-6.form-column
-        .form-group
-          = f.label :first_name, "First Name"
-          = f.text_field :first_name, autocomplete: "off", class: "form-control height-adjusted"
-      .col-xs-12.col-md-6.form-column
-        .form-group
-          = f.label :last_name, "Last Name"
-          = f.text_field :last_name, autocomplete: "off", class: "form-control height-adjusted"
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :city, "City"
+            = f.text_field :city, autocomplete: "off", class: "form-control input-sm"
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :state, "State"
+            = f.text_field :state, autocomplete: "off", class: "form-control input-sm"
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :zipcode, "Zip Code"
+            = f.text_field :zipcode, autocomplete: "off", class: "form-control input-sm"
 
-    .form-group
-      = f.label :email
-      = f.email_field :email, autocomplete: "off", class: "form-control height-adjusted"
-
-    .form-group
-      = f.label :contact_number, "Contact Number"
-      = f.text_field :contact_number, autocomplete: "off", class: "form-control height-adjusted"
-
-    label.form-label Address
-    #no-border.form-group.no-border
-      = f.label :street, "Street"
-      = f.text_field :contact_number, autocomplete: "off", class: "form-control height-adjusted"
-
-    .row.form-row
-      .col-xs-12.col-md-6.form-column
-        .form-group
-          = f.label :city, "City"
-          = f.text_field :city, autocomplete: "off", class: "form-control height-adjusted"
-      .col-xs-12.col-md-4.form-column
-        .form-group
-          = f.label :state, "State"
-          = f.text_field :state, autocomplete: "off", class: "form-control height-adjusted"
-      .col-xs-12.col-md-2.form-column
-        .form-group
-          = f.label :zipcode, "Zip Code"
-          = f.text_field :zipcode, autocomplete: "off", class: "form-control height-adjusted"
-
-    .action-group
-      = f.submit "save", class: 'btn btn-primary', class: "btn btn-default"
+      .form-buttons
+        = f.submit "save", class: 'btn btn-success'

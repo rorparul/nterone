@@ -1,9 +1,9 @@
 class RulePolicy < ApplicationPolicy
   def create?
-    @user.brand_admin?
+    @user.admin?
   end
 
   def update?
-    @user.brand_admin?
+    @user.admin?
   end
 end

@@ -35,7 +35,7 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_create
-    if ContactUsMailer.contact_us(brand, current_user, contact_us_params).deliver_now
+    if ContactUsMailer.contact_us(current_user, contact_us_params).deliver_now
       flash[:success] = "Message successfully sent!"
     else
       flash[:notice] = "Message unsuccussfully sent!"

@@ -4,7 +4,6 @@ class CustomDeviseMailer < Devise::Mailer
   default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
 
   def confirmation_instructions(record, token, opts={})
-    opts[:subject] = Brand.find_by(url: ActionMailer::Base.default_url_options[:host]).confirmation_subject
     super
   end
 end

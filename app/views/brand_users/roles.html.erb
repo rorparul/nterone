@@ -1,9 +1,0 @@
-<%= form_tag( "/brand_users/change_role") do -%>
-  <% for role in BrandUser::ROLES %>
-    <%= check_box_tag "brand_user[roles][#{role}]", role, @brand_user.roles.include?(role), {:name => "brand_user[roles][]"}%>
-    <%= label_tag "brand_user_roles_#{role}", role.humanize %><br />
-  <% end %>
-  <%= hidden_field_tag "brand_user[roles][]", "" %>
-  <%= hidden_field_tag "brand_user[user_id]", @user.id %>
-  <%= submit_tag 'Save' %>
-<% end -%>

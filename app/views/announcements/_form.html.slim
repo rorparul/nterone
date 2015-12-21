@@ -1,25 +1,21 @@
-= form_for :announcement, url: announcements_path, html: {"data-parsley-validate" => true}, remote: true do |f|
-  = f.hidden_field :brand_id, value: brand.id
+= form_for :announcement, url: announcements_path, html: {"data-parsley-validate" => true} do |f|
   = f.hidden_field :poster, value: current_user.role
   .form-group
-    = f.text_area :content, rows: 5, class: 'form-control', required: true
-    - if current_user.any_admin?
-      .action-group.for-announcement
-        .button-group
-          button type="submit" name='announcement[audience]' value='All'
-            span All
-          button type="submit" name='announcement[audience]' value='Members'
-            span Members
-          button type="submit" name='announcement[audience]' value='Sales'
-            span Sales
-          button type="submit" name='announcement[audience]' value='Sales Managers'
-            span Sales Manager
-    - if current_user.sales_manager?
-      .action-group.for-announcement
-        .button-group
-          button type="submit" name='announcement[audience]' value='Members'
-            span Members
-          button type="submit" name='announcement[audience]' value='Sales'
-            span Sales
-          button type="submit" name='announcement[audience]' value='Members & Sales'
-            span Members & Sales
+    = f.text_area :content, class: 'form-control input-sm', required: true
+  .form-buttons
+    - if user_signed_in? && current_user.admin?
+      button.btn.btn-success type="submit" name='announcement[audience]' value='All'
+        span All
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Members'
+        span Members
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Sales'
+        span Sales Reps
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Sales Managers'
+        span Sales Managers
+    - if user_signed_in? && current_user.sales_manager?
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Members'
+        span Members
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Sales'
+        span Sales Reps
+      button.btn.btn-success type="submit" name='announcement[audience]' value='Members & Sales'
+        span Members & Sales Reps

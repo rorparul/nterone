@@ -1,5 +1,5 @@
 - content_for :page_title do
-  a href="#{my_admin_overview_path}"
+  a href="#{my_admin_people_path}"
     span.fa.fa-gear
     | My Admin
     
@@ -10,5 +10,5 @@
 = render partial: 'users/index', locals: { users: @users }
     
 javascript:
-  $('.my-admin-tab').addClass('active');
+  $('.role-tab').addClass('active');
   $('.categories .people').addClass('active-category');

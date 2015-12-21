@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218234635) do
+ActiveRecord::Schema.define(version: 20151220234240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,45 +34,12 @@ ActiveRecord::Schema.define(version: 20151218234635) do
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "announcements", force: :cascade do |t|
-    t.integer  "brand_id"
     t.text     "content"
     t.string   "audience"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "status",     default: "open"
     t.string   "poster"
-  end
-
-  create_table "brand_favicons", force: :cascade do |t|
-    t.integer  "brand_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "brands", force: :cascade do |t|
-    t.string   "title"
-    t.string   "header"
-    t.string   "url"
-    t.string   "email"
-    t.string   "phone_number"
-    t.string   "styles"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "contact_us_link"
-    t.string   "general_street"
-    t.string   "general_city"
-    t.string   "general_state"
-    t.string   "general_zipcode"
-    t.string   "payment_street"
-    t.string   "payment_city"
-    t.string   "payment_state"
-    t.string   "payment_zipcode"
-    t.text     "footer"
-    t.string   "color1"
-    t.string   "color2"
-    t.string   "color3"
-    t.string   "color4"
-    t.string   "confirmation_subject"
   end
 
   create_table "carousel_items", force: :cascade do |t|
@@ -188,7 +155,6 @@ ActiveRecord::Schema.define(version: 20151218234635) do
   end
 
   create_table "forums", force: :cascade do |t|
-    t.integer  "brand_id"
     t.string   "title"
     t.text     "description"
     t.datetime "created_at",  null: false
@@ -227,7 +193,6 @@ ActiveRecord::Schema.define(version: 20151218234635) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "status",     default: "unassigned"
-    t.integer  "brand_id"
     t.string   "discount",   default: "0"
   end
 
@@ -259,7 +224,6 @@ ActiveRecord::Schema.define(version: 20151218234635) do
   end
 
   create_table "platforms", force: :cascade do |t|
-    t.integer  "brand_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -291,7 +255,6 @@ ActiveRecord::Schema.define(version: 20151218234635) do
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "brand_id"
     t.integer  "role"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -376,12 +339,5 @@ ActiveRecord::Schema.define(version: 20151218234635) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "visual_assets", force: :cascade do |t|
-    t.integer  "brand_id"
-    t.string   "context"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
 end
