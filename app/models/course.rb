@@ -11,8 +11,14 @@ class Course < ActiveRecord::Base
   has_many :chosen_courses,           dependent: :destroy
   has_many :users,                    through: :chosen_courses
   has_many :testimonials
+  has_many :events
+  has_many :video_on_demands
 
   before_save :format_url
+
+  def active_events
+    events.where(active: true)
+  end
 
   private
 

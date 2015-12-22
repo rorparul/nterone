@@ -1,0 +1,2 @@
+module VideoOnDemandsHelper
+end

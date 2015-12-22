@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220234240) do
+ActiveRecord::Schema.define(version: 20151222053611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,12 +96,10 @@ ActiveRecord::Schema.define(version: 20151220234240) do
   create_table "courses", force: :cascade do |t|
     t.integer  "exam_id"
     t.string   "title"
-    t.string   "url"
-    t.string   "price"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "platform_id"
-    t.boolean  "active",             default: true
+    t.boolean  "active",            default: true
     t.string   "abbreviation"
     t.string   "sku"
     t.text     "intro"
@@ -110,9 +108,6 @@ ActiveRecord::Schema.define(version: 20151220234240) do
     t.text     "intended_audience"
     t.string   "course_info"
     t.text     "video_preview"
-    t.integer  "time_unit_quantity"
-    t.string   "time_unit"
-    t.string   "availabilities"
   end
 
   create_table "custom_items", force: :cascade do |t|
@@ -131,6 +126,19 @@ ActiveRecord::Schema.define(version: 20151220234240) do
     t.string   "shortname"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "format"
+    t.integer  "price"
+    t.integer  "instructor_id"
+    t.integer  "course_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "guaranteed",    default: false
+    t.boolean  "active",        default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -186,6 +194,17 @@ ActiveRecord::Schema.define(version: 20151220234240) do
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+
+  create_table "instructors", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "biography"
+    t.string   "email"
+    t.string   "phone"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "platform_id"
+  end
 
   create_table "leads", force: :cascade do |t|
     t.integer  "seller_id"
@@ -339,5 +358,31 @@ ActiveRecord::Schema.define(version: 20151220234240) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "video_modules", force: :cascade do |t|
+    t.integer  "video_on_demand_id"
+    t.string   "title"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "video_on_demands", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "instructor_id"
+    t.string   "level"
+    t.integer  "price"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.integer  "video_module_id"
+    t.string   "title"
+    t.string   "url"
+    t.text     "embed_code"
+    t.boolean  "free"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

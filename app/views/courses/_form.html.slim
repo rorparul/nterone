@@ -41,20 +41,20 @@
           br
           = f.select :time_unit, [['Minutes', 'm'], ['Hour', 'h'], ['Days', 'd'], ['Week', 'w']],{}, html_options = {class: 'form-control input-sm'}
       
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :availabilities, "Format"
-          br
-          = f.select :availabilities, [['On-site', 'os'], ['Self-paced', 'sp'], ['ClearConnect', 'cc']],{}, html_options = {class: 'form-control input-sm'}
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :price, "Default Price"
-          br
-          .input-group
-            span.input-group-addon $
-            = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
+    / .row
+    /   .col-xs-12.col-sm-6
+    .form-group
+      = f.label :availabilities, "Format"
+      br
+      = f.select :availabilities, [['On-site', 'os'], ['Self-paced', 'sp'], ['ClearConnect', 'cc']],{}, html_options = {class: 'form-control input-sm'}
+      / .col-xs-12.col-sm-6
+      /   .form-group
+      /     = f.label :price, "Default Price"
+      /     br
+      /     .input-group
+      /       span.input-group-addon $
+      /       = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+      /       span.input-group-addon .00
     
     .row
       .col-xs-12.col-sm-6

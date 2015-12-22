@@ -1,0 +1,5 @@
+$('.modal-title').html('Edit Event');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: { platform: @platform, course: @course, events: @events }) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, course: @course, event: @event, instructors: @instructors}) %>");
+$('#myModal').modal('show');
