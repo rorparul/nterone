@@ -15,11 +15,14 @@
   a href="#{platform_course_path(@platform, @course)}"
     = "#{@course.abbreviation}"
     
-/ - content_for :actions do
-/   - if user_signed_in? && current_user.admin?
-/     li = link_to new_platform_subject_group_path(@platform, @course), remote: true do
-/       i.fa.fa-plus
-/       | Add Table
+- content_for :actions do
+  - if user_signed_in? && current_user.admin?
+    li = link_to new_platform_course_event_path(@platform, @course), remote: true do
+      i.fa.fa-plus
+      | Add Event
+    li = link_to select_platform_course_events_path(@platform, @course), remote: true do
+      i.fa.fa-pencil
+      | Edit Event
       
 .row
   .col-xs-12.col-md-9
@@ -39,33 +42,20 @@
                       thead
                         tr
                           th Date
-                          th Location
+                          th Length
+                          th Format
                           th Status
-                          th Guaranteed
                           th Price
                           th
                       tbody
-                        tr
-                          td Jan 11 2016 - Jan 15 2016
-                          td Live Online
-                          td.red Full
-                          td.green Yes
-                          td $3,995.00
-                          td.gray Add to cart
-                        tr
-                          td Feb 22 2016 - Feb 26 2016
-                          td Live Online
-                          td.green Available
-                          td No
-                          td $3,995.00
-                          td = link_to 'Add to cart', '#'
-                        tr
-                          td Mar 28 2016 - Apr 01 2016
-                          td Live Online
-                          td.green Available
-                          td.green Yes
-                          td $3,995.00
-                          td = link_to 'Add to cart', '#'
+                        - @course.active_events.each do |event|
+                          tr
+                            td = "#{event.start_date.to_formatted_s(:rfc822)} - #{event.end_date.to_formatted_s(:rfc822)}"
+                            td = "#{(event.end_date - event.start_date).to_i} Days"
+                            td = event.format
+                            td.green Available
+                            td = "$#{event.price}"
+                            td = link_to 'Add to cart', '#'
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -93,6 +83,7 @@
                   #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
                     .panel-body
                       = @course.intended_audience.html_safe if @course.intended_audience
+              
           .row
             .col-xs-12
               #degrees
@@ -128,6 +119,19 @@
     
 javascript:
   $('.training-tab').addClass('active');
+  
+  $('.categories .btn-category').on('click', function() {
+    $('div.overview, div.outline, div.who-should-attend').hide();
+    $('.btn-category').removeClass('active-category');
+    $(this).addClass('active-category');
+    if($(this).hasClass('overview')) {
+      $('div.overview').show();
+    } else if($(this).hasClass('outline')) {
+      $('div.outline').show();
+    } else if($(this).hasClass('who-should-attend')) {
+      $('div.who-should-attend').show();
+    }
+  });
   
   $('#back').on('click', function() {
     window.history.back();

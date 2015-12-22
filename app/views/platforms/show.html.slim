@@ -21,18 +21,24 @@
     li = link_to select_platform_subjects_path(@platform), remote: true do
       i.fa.fa-pencil
       | Edit Certification
-    li = link_to new_platform_exam_path(@platform), remote: true do
-      i.fa.fa-plus
-      | Add Exam
-    li = link_to select_platform_exams_path(@platform), remote: true do
-      i.fa.fa-pencil
-      | Edit Exam
     li = link_to new_platform_course_path(@platform), remote: true do
       i.fa.fa-plus
       | Add Course
     li = link_to select_platform_courses_path(@platform), remote: true do
       i.fa.fa-pencil
       | Edit Course
+    li = link_to new_platform_video_on_demand_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Video On Demad
+    li = link_to select_platform_video_on_demands_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Video On Demand
+    li = link_to new_platform_exam_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Exam
+    li = link_to select_platform_exams_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Exam
     li = link_to new_platform_exam_and_course_dynamic_path(@platform), remote: true do
       i.fa.fa-plus
       | Add Exam-Course
@@ -51,6 +57,12 @@
     li = link_to select_platform_custom_items_path(@platform), remote: true do
       i.fa.fa-pencil
       | Edit Custom Item
+    li = link_to new_platform_instructor_path(@platform), remote: true do
+      i.fa.fa-plus
+      | Add Instructor
+    li = link_to select_platform_instructors_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Instructor
       
 = render 'categories_menu'
 

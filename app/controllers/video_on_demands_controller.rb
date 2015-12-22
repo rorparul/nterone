@@ -1,0 +1,3 @@
+class VideoOnDemandsController < ApplicationController
+  
+end

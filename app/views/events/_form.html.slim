@@ -1,0 +1,71 @@
+.form-container
+  = form_for [platform, course, event] do |f|
+    - if event.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(event.errors.count, 'error')} prohibited this event from being saved:"
+        ul
+          - event.errors.full_messages.each do |msg|
+            li = msg
+            
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_date, "Start Date"
+          br
+          = f.date_field :start_date, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :end_date, "End Date"
+          br
+          = f.date_field :end_date, class: 'form-control input-sm'
+      
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :format
+          br
+          = f.select :format,
+                     [['None', 'none'],
+                      ['ClearConnect', 'ClearConnect'],
+                      ['Custom Onsite E-learning', 'Custom Onsite E-learning'],
+                      ['Instructor Led', 'Instructor Led'],
+                      ['Live Online', 'Live Online'],
+                      ['On Site', 'On Site']],
+                     {},
+                     html_options = { class: "form-control input-sm" }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :instructor_id, "Instructor"
+          br
+          = f.select :instructor_id,
+                     instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift(["None", "none"]),
+                     {},
+                     html_options = { class: "form-control input-sm" }
+                          
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :price
+          br
+          .input-group
+            span.input-group-addon $
+            = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+            span.input-group-addon .00
+      .col-xs-12.col-sm-6
+        .row
+          .col-xs-12.col-sm-6
+            .form-group
+              = f.label :guaranteed, "Guaranteed?"
+              br
+              = f.check_box :guaranteed, class: 'form-control input-sm'
+          .col-xs-12.col-sm-6
+            .form-group
+              = f.label :active, "Active?"
+              br
+              = f.check_box :active, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if event.id
+        = link_to 'Delete', platform_course_event_path(platform, course, event), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

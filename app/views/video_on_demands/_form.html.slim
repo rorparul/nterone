@@ -1,0 +1,39 @@
+.form-container
+  = form_for [platform, instructor] do |f|
+    - if instructor.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(instructor.errors.count, 'error')} prohibited this instructor from being saved:"
+        ul
+          - instructor.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :first_name, "First Name"
+      br
+      = f.text_field :first_name, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :last_name, "Last Name"
+      br
+      = f.text_field :last_name, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :email
+      br
+      = f.text_field :email, class: 'form-control input-sm'
+    
+    .form-group
+      = f.label :phone
+      br
+      = f.text_field :phone, class: 'form-control input-sm'
+            
+    .form-group
+      = f.label :biography
+      br
+      = f.text_area :biography, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if instructor.id
+        = link_to 'Delete', platform_instructor_path(platform, instructor), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

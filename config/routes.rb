@@ -103,8 +103,26 @@ Nci::Application.routes.draw do
         get  'courses/:id/download'      => 'courses#download',      as: :course_download
         get  'courses/:id/video_preview' => 'courses#video_preview', as: :course_video_preview
       end
+      resources :events do
+        collection do
+          get  'select'
+          post 'select_to_edit'
+        end
+      end
+    end
+    resources :video_on_demands do
+      collection do
+        get  'select'
+        post 'select_to_edit'
+      end
     end
     resources :custom_items, except: [:index, :edit, :show] do
+      collection do
+        get  'select'
+        post 'select_to_edit'
+      end
+    end
+    resources :instructors do
       collection do
         get  'select'
         post 'select_to_edit'
@@ -133,14 +151,12 @@ Nci::Application.routes.draw do
     get 'my-account/settings', as: :my_account_settings
   end
 
-  # resources :brands, except: :destroy
   get  'about-us'                                    => 'general#about_us'
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'
   get  'labs'                                        => 'general#labs'
   get  'my-queue'                                    => 'general#my_queue'
-
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
   get  'contact_us'                                  => 'general#contact_us_new'
@@ -148,7 +164,6 @@ Nci::Application.routes.draw do
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',              as: :change_role
-  # get  'brand_users/roles/:id'                       => 'brand_users#roles',              as: :roles
   post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',   as: :toggle_chosen_course_active
   post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended', as: :toggle_chosen_course_attended
   post 'passed_exams/toggle'                         => 'passed_exams#toggle',            as: :toggle_passed_exam
