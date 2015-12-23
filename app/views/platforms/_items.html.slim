@@ -4,23 +4,19 @@
       - if item.image.file_url != nil
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject with-image' do
-            # span.label.label-default.vertical-text Certificate
             = image_tag item.image.file_url(:subject_icon)
             p = "#{item.title} (#{item.abbreviation})"
       - else
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject without-image' do
-            # span.label.label-default.vertical-text Certificate
             p = "#{item.title} (#{item.abbreviation})"
     - elsif item.class == Course
       .col-xs-12.col-md-6
         = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
-          # span.label.label-info.vertical-text Course
           p = "#{item.title} (#{item.abbreviation})"
     - elsif item.class == VideoOnDemand
       .col-xs-12.col-md-6
         = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
-          # span.label.label-warning.vertical-text Video On Demand
           p = "#{item.course.title} (#{item.course.abbreviation})"
         
 - else
