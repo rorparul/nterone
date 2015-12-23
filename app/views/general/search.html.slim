@@ -1,3 +1,8 @@
+- content_for :page_title do
+  a href="#{platforms_path}"
+    span.fa.fa-book
+    | Training
+
 .row
   = render partial: "platforms/items", locals: {items: @items}
   
@@ -6,6 +11,8 @@
     button#back Back
 
 javascript:
+  $('.training-tab').addClass('active');
+  
   $('#back').on('click', function() {
     window.history.back();
   });

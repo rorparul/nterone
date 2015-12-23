@@ -1,8 +1,8 @@
-= form_for :instructor, url: select_to_edit_platform_instructors_path(platform.id), remote: true do |f|
+= form_for :video_on_demand, url: select_to_edit_platform_video_on_demands_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, "Instructor"
+    = f.label :id, "Video On Demand"
     br
-    = f.select :id, instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select input-sm"}
+    = f.select :id, video_on_demands.collect { |video_on_demand| [video_on_demand.title, video_on_demand.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select input-sm"}
 
 javascript:
   $('.sub-select').on('change', function() {

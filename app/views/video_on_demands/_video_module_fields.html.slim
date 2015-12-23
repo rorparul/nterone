@@ -1,0 +1,14 @@
+.nested-fields
+  .form-group
+    = f.label :title
+    br
+    = f.text_field :title, class: 'form-control input-sm'
+  h4 Module Videos
+  hr.hr-sub
+  #videos
+    = f.fields_for :videos do |ff|
+      = render 'video_fields', f: ff
+    .links
+      = link_to_add_association 'Add video', f, :videos
+  = link_to_remove_association "Remove module", f
+  hr
