@@ -10,6 +10,7 @@ class Platform < ActiveRecord::Base
   has_many :custom_items
   has_many :exam_and_course_dynamics
   has_many :instructors
+  has_many :video_on_demands
 
   has_one :image, as: :imageable, dependent: :destroy
 

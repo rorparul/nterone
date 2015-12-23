@@ -63,6 +63,15 @@ body {
   }
 }
 
+.vertical-text {
+  display: inline-block;
+  // position: absolute;
+  // top: 0;
+  float: right;
+  // margin: 5px;
+  // z-index: -100;
+}
+
 #action-menu {
   i {
     margin: 5.5px 10px 5.5px 0;
@@ -301,29 +310,108 @@ body {
   }
 }
 
-.wistia_embed {
-  height: auto !important;
-  width: 100% !important;
-  display: block !important;
-  margin-bottom: 10px;
-  div {
+.video-module-status {
+  float: right;
+}
+
+.video {
+  .thumb {
+    width: 50px;
+    .wistia_embed {
+      height: auto !important;
+      width: 100% !important;
+      display: block !important;
+      div {
+        height: auto !important;
+        width: 100% !important;
+        div {
+          height: auto !important;
+          width: 100% !important;
+          img {
+            height: auto !important;
+            width: 100% !important;
+            position: relative !important;
+            top: 0 !important;
+            left: 0 !important;
+          }
+        }
+      }
+    }
+  }
+  .title {
+
+  }
+}
+
+// .subject {
+//   background-color: #F4F4F4;
+//   @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
+//   // border: 1px solid #D0D0D0;
+//   border: 1px solid rgb(210, 210, 210);
+//   height: 82px;
+//   margin-bottom: 10px;
+//   padding: 9px;
+//   text-decoration: none;
+//   display: block;
+//
+//   // border: 1px solid rgb(210, 210, 210);
+//   // border-radius: 0px;
+//   // margin: 0 5px;
+//   // // border-radius: 3px;
+//   // // background: image-url('backgrounds/grey_btn_bg.png') repeat-x;
+//   // @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
+//   p {
+//     color: #505050;
+//     margin: 0 0 0 70px;
+//     vertical-align: middle;
+//     text-overflow: clip;
+//     overflow: hidden;
+//     width: inherit;
+//     word-wrap: break-word;
+//     position: relative;
+//     top: 50%;
+//     -webkit-transform: translateY(-50%);
+//     -ms-transform: translateY(-50%);
+//     transform: translateY(-50%);
+//   }
+//   &.with-image {
+//     img {
+//       float: left;
+//       width: 62px;
+//       height: 62px;
+//     }
+//   }
+//   &.without-image {
+//     p {
+//       margin: 0 0 0 28px;
+//     }
+//   }
+
+.resource {
+  .wistia_embed {
     height: auto !important;
     width: 100% !important;
+    display: block !important;
+    margin-bottom: 10px;
     div {
       height: auto !important;
       width: 100% !important;
-      // div {
-      //
-      // }
-      // div {
-      //
-      // }
-      img {
+      div {
         height: auto !important;
         width: 100% !important;
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
+        // div {
+        //
+        // }
+        // div {
+        //
+        // }
+        img {
+          height: auto !important;
+          width: 100% !important;
+          position: relative !important;
+          top: 0 !important;
+          left: 0 !important;
+        }
       }
     }
   }
@@ -699,13 +787,13 @@ div.instructor-bios, div.news {
     font-weight: bold;
     // margin: 10px 0 20px 0;
   }
-  #degrees {
-    text-align: center;
-    margin-bottom: 20px;
-    img {
-      max-width: 100%;
-    }
-  }
+  // #degrees {
+  //   text-align: center;
+  //   margin-bottom: 20px;
+  //   img {
+  //     max-width: 100%;
+  //   }
+  // }
   .well-course {
     // padding: 10px;
     // margin-bottom: 10px;
@@ -721,6 +809,14 @@ div.instructor-bios, div.news {
         // padding: 7px 0;
       }
     }
+  }
+}
+
+#degrees {
+  text-align: center;
+  margin-bottom: 20px;
+  img {
+    max-width: 100%;
   }
 }
 

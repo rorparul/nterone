@@ -1,39 +1,67 @@
 .form-container
-  = form_for [platform, instructor] do |f|
-    - if instructor.errors.any?
+  = form_for [platform, video_on_demand] do |f|
+    - if video_on_demand.errors.any?
       #error_explanation
-        h2 = "#{pluralize(instructor.errors.count, 'error')} prohibited this instructor from being saved:"
+        h2 = "#{pluralize(video_on_demand.errors.count, 'error')} prohibited this video on demand from being saved:"
         ul
-          - instructor.errors.full_messages.each do |msg|
+          - video_on_demand.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
-      = f.label :first_name, "First Name"
+      = f.label :category_ids, 'Categories'
       br
-      = f.text_field :first_name, class: 'form-control input-sm'
-      
-    .form-group
-      = f.label :last_name, "Last Name"
-      br
-      = f.text_field :last_name, class: 'form-control input-sm'
-      
-    .form-group
-      = f.label :email
-      br
-      = f.text_field :email, class: 'form-control input-sm'
-    
-    .form-group
-      = f.label :phone
-      br
-      = f.text_field :phone, class: 'form-control input-sm'
+      = f.select :category_ids,
+                 categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
+                 {},
+                 html_options = { class: 'form-control input-sm', multiple: 'true'}
             
     .form-group
-      = f.label :biography
+      = f.label :course_id, "Course"
       br
-      = f.text_area :biography, class: 'form-control input-sm'
+      = f.select :course_id,
+                 courses.order('lower(title)').collect { |course| [course.title, course.id] }.unshift(["None", "none"]),
+                 {},
+                 html_options = { class: "form-control input-sm" }
+      
+    .form-group
+      = f.label :instructor_id, "Instructor"
+      br
+      = f.select :instructor_id,
+                 instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift(["None", "none"]),
+                 {},
+                 html_options = { class: "form-control input-sm" }
+    
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :level
+          br
+          = f.select :level,
+                     [['None', 'none'],
+                      ['Beginner', 'beginner'],
+                      ['Intermediate', 'intermediate'],
+                      ['Advanced', 'advanced']],
+                     {},
+                     html_options = { class: "form-control input-sm" }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :price
+          br
+          .input-group
+            span.input-group-addon $
+            = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+            span.input-group-addon .00
+          
+    h4 Modules
+    hr
+    #modules
+      = f.fields_for :video_modules do |ff|
+        = render 'video_module_fields', f: ff
+      .links
+        = link_to_add_association 'Add module', f, :video_modules
       
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
-      - if instructor.id
-        = link_to 'Delete', platform_instructor_path(platform, instructor), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+      - if video_on_demand.id
+        = link_to 'Delete', platform_video_on_demand_path(platform, video_on_demand), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

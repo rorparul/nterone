@@ -84,20 +84,15 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:id,
                                    :title,
                                    :url,
-                                   :price,
                                    :active,
                                    :abbreviation,
                                    :sku,
-                                   :length,
                                    :intro,
                                    :overview,
                                    :outline,
                                    :intended_audience,
                                    :course_info,
                                    :video_preview,
-                                   :time_unit_quantity,
-                                   :time_unit,
-                                   :availabilities,
                                    category_ids: [])
   end
 end

@@ -1,5 +1,5 @@
-$('.modal-title').html('Edit Instructor');
-$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, instructor: @instructor, instructors: @instructors}) %>");
+$('.modal-title').html('Edit Video On Demand');
+$('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: { platform: @platform, video_on_demands: @video_on_demands }) %>");
 $('.modal-body').append("<hr>");
-$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, instructor: @instructor}) %>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, video_on_demand: @video_on_demand, video_module: @video_module, video: @video, categories: @categories, courses: @courses, instructors: @instructors }) %>");
 $('#myModal').modal('show');

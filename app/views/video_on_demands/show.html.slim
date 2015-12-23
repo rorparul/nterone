@@ -1,0 +1,148 @@
+- content_for :page_title do
+  a href="#{platforms_path}"
+    span.fa.fa-book
+    | Training
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#"
+    | Video On Demand
+  span.seperator
+    | /
+  a href="#{platform_video_on_demand_path(@platform, @video_on_demand)}"
+    = "#{@video_on_demand.course.abbreviation}"
+    
+/ - content_for :actions do
+/   - if user_signed_in? && current_user.admin?
+/     li = link_to new_platform_course_event_path(@platform, @course), remote: true do
+/       i.fa.fa-plus
+/       | Add Event
+/     li = link_to select_platform_course_events_path(@platform, @course), remote: true do
+/       i.fa.fa-pencil
+/       | Edit Event
+      
+.row
+  .col-xs-12.col-md-9
+    #video-on-demand
+      h4.title = "#{@video_on_demand.course.title} (#{@video_on_demand.course.abbreviation})"
+      .row
+        .col-xs-12.col-md-9
+          .row
+            .col-xs-12
+              p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
+          .row
+            .col-xs-12
+              .well.well-course
+                .table-responsive
+                  table.table.table-compact
+                    thead
+                      tr
+                        th Instructor
+                        th Level
+                        th Price
+                        th
+                    tbody
+                      tr
+                        td = @video_on_demand.instructor.full_name
+                        td = @video_on_demand.level
+                        td = "$#{@video_on_demand.price}"
+                        td = link_to 'Add to cart', '#'
+          .row
+            .col-xs-12
+              #accordion.panel-group role="tablist" aria-multiselectable="true"
+                - @video_on_demand.video_modules.each_with_index do |video_module, index|
+                  .panel.panel-default
+                    .panel-heading role="tab" id="heading#{index}"
+                      h4.panel-title
+                        a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
+                          = video_module.title
+                        span.label.label-info.video-module-status 0/10 Viewed
+                    .panel-collapse.collapse id="collapse#{index}" role="tabpanel" aria-labelledby="heading#{index}"
+                      .panel-body
+                        .table-responsive
+                          table.table.table-compact
+                            thead
+                              tr
+                                th Video
+                                th Title
+                                th Viewed?
+                            tbody
+                              - video_module.videos.each do |video|
+                                tr.video
+                                  td.thumb
+                                    = video.embed_code.html_safe if video.embed_code
+                                  td.title
+                                    = video.title
+                                  td
+                / .panel.panel-default
+                /   .panel-heading role="tab" id="headingTwo"
+                /     h4.panel-title
+                /       a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                /         | Outline
+                /   #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+                /     .panel-body
+                /       = @course.outline.html_safe if @course.outline
+                / .panel.panel-default
+                /   .panel-heading role="tab" id="headingThree"
+                /     h4.panel-title
+                /       a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                /         | Who Should Attend
+                /   #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+                /     .panel-body
+                /       = @course.intended_audience.html_safe if @course.intended_audience
+              
+          .row
+            .col-xs-12
+              #degrees
+                = image_tag '360-degrees.png', class: 'degrees'
+        .col-xs-12.col-md-3
+          .row
+            .col-xs-12
+              .well.well-course
+                / .row
+                /   .col-xs-12
+                /     .resource.text-center
+                /       = @course.video_preview.html_safe if @course.video_preview
+                /   .col-xs-12
+                /     .resource.text-center
+                /       = link_to course_download_platform_courses_path(@platform, @course) do
+                /         span.fa.fa-file-pdf-o
+                /         | Download
+                .row
+                  .col-xs-12
+                    h5 Questions?
+                    p The NterOne team will be happy to answer your questions.
+                    p
+                      | Email: 
+                      a href="mailto:sales@nterone.com" sales@nterone.com
+                    p Phone: 703.972.2288
+
+  .col-xs-12.col-md-3
+    = render 'courses/guaranteed_to_run'
+    
+.row
+  .col-xs-12
+    button#back Back
+    
+javascript:
+  $('.training-tab').addClass('active');
+  
+  $('.categories .btn-category').on('click', function() {
+    $('div.overview, div.outline, div.who-should-attend').hide();
+    $('.btn-category').removeClass('active-category');
+    $(this).addClass('active-category');
+    if($(this).hasClass('overview')) {
+      $('div.overview').show();
+    } else if($(this).hasClass('outline')) {
+      $('div.outline').show();
+    } else if($(this).hasClass('who-should-attend')) {
+      $('div.who-should-attend').show();
+    }
+  });
+  
+  $('#back').on('click', function() {
+    window.history.back();
+  });

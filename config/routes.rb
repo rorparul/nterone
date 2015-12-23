@@ -110,7 +110,7 @@ Nci::Application.routes.draw do
         end
       end
     end
-    resources :video_on_demands do
+    resources :video_on_demands, path: 'video-on-demand' do
       collection do
         get  'select'
         post 'select_to_edit'

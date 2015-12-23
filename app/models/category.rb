@@ -9,6 +9,8 @@ class Category < ActiveRecord::Base
   has_many   :subjects, through: :category_subjects
   has_many   :category_courses, dependent: :destroy
   has_many   :courses, through: :category_courses
+  has_many   :category_video_on_demands, dependent: :destroy
+  has_many   :video_on_demands, through: :category_video_on_demands
 
   def items
     items = []
@@ -17,6 +19,9 @@ class Category < ActiveRecord::Base
     end
     self.courses.each do |course|
       items << course if items.exclude?(course)
+    end
+    self.video_on_demands.each do |video_on_demand|
+      items << video_on_demand if items.exclude?(video_on_demand)
     end
     items
   end
@@ -29,6 +34,9 @@ class Category < ActiveRecord::Base
       end
       child.courses.each do |course|
         items << course if items.exclude?(course)
+      end
+      child.video_on_demands.each do |video_on_demand|
+        items << video_on_demand if items.exclude?(video_on_demand)
       end
     end
     items

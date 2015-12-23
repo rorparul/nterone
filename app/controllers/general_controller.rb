@@ -4,7 +4,7 @@ class GeneralController < ApplicationController
   end
 
   def search
-    @items = Subject.search(params[:query]) + Course.where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%")
+    @items = Subject.search(params[:query]) + Course.where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%") + VideoOnDemand.where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%")
   end
 
   def welcome
@@ -32,6 +32,7 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_new
+    
   end
 
   def contact_us_create
