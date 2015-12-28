@@ -1,0 +1,3 @@
+$('.modal-title').html('Edit Page');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { page: @page }) %>");
+$('#myModal').modal('show');

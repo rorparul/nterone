@@ -6,7 +6,7 @@ class TestimonialsController < ApplicationController
   end
 
   def page
-    @testimonials = Testimonial.page(params[:page]).per(5)
+    @testimonials = Testimonial.page(params[:page])
   end
 
   def new

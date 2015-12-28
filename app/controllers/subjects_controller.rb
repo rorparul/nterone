@@ -21,7 +21,7 @@ class SubjectsController < ApplicationController
 
   def new
     @platform   = Platform.find(params[:platform_id])
-    @categories = Category.where(platform_id: @platform.id).select do |category|
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
     @subject    = Subject.new
@@ -30,7 +30,7 @@ class SubjectsController < ApplicationController
 
   def select
     @platform   = Platform.find(params[:platform_id])
-    @categories = @platform.categories.select do |category|
+    @categories = @platform.categories.order(:title).select do |category|
       category if category.parent
     end
     @subjects   = @platform.subjects.where.not(id: nil)
@@ -43,7 +43,7 @@ class SubjectsController < ApplicationController
       redirect_to select_platform_subjects_path(Platform.find(params[:platform_id]))
     else
       @platform = Platform.find(params[:platform_id])
-      @categories = Category.where(platform_id: @platform.id).select do |category|
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
       @subject  = Subject.find(subject_params[:id])

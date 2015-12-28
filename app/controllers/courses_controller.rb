@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
   def new
     @platform = Platform.find(params[:platform_id])
     @course   = Course.new
-    @categories = Category.where(platform_id: @platform.id).select do |category|
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
   end
@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = @platform.courses.build
     @courses  = Course.where(platform_id: @platform.id)
-    @categories = Category.where(platform_id: @platform.id).select do |category|
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
   end
@@ -43,7 +43,7 @@ class CoursesController < ApplicationController
     else
       @platform = Platform.find(params[:platform_id])
       @course   = Course.find(course_params[:id])
-      @categories = Category.where(platform_id: @platform.id).select do |category|
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
     end

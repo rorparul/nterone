@@ -12,27 +12,25 @@ class GeneralController < ApplicationController
   end
 
   def about_us
-
+    @executive_bios  = Page.find_by(title: 'Executive Bios')
+    @instructor_bios = Page.find_by(title: 'Instructor Bios')
+    # @news            =
   end
 
   def consulting
-
+    @consulting = Page.find_by(title: 'Consulting')
   end
 
   def partners
-
+    @partners = Page.find_by(title: 'Partners')
   end
 
   def labs
-
-  end
-
-  def my_admin
-
+    @labs = Page.find_by(title: 'Labs')
   end
 
   def contact_us_new
-    
+
   end
 
   def contact_us_create

@@ -17,6 +17,24 @@
 .row
   .col-xs-12
     = render 'tabs'
+
+.row
+  .col-xs-12
+    h3 Pages
+    .table-responsive
+      table.table.table-compact
+        thead
+          tr
+            th Title
+            th 
+        tbody#pages
+          - @pages.each do |page|
+            tr
+              td = page.title
+              td.actions-column.fit
+                = link_to "Edit", edit_page_path(page), remote: true
+        
+hr.hr-sub
     
 .row
   .col-xs-12
@@ -27,7 +45,7 @@
           tr
             th Image
             th Caption
-            th Active?
+            th Active
             th
         tbody#carousel-items
           = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }

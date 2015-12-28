@@ -13,8 +13,9 @@ class MyAdminController < ApplicationController
   end
 
   def website
-    @carousel_items = CarouselItem.page(1).per(5)
-    @testimonials   = Testimonial.page(1).per(5)
+    @pages          = Page.order(:title)
+    @carousel_items = CarouselItem.page(1)
+    @testimonials   = Testimonial.page(1)
   end
 
   def settings

@@ -1,0 +1,35 @@
+.form-container
+  = form_for page, remote: true do |f|
+    - if page.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(page.errors.count, 'error')}:"
+        ul
+          - page.errors.full_messages.each do |msg|
+            li = msg
+          
+    .form-group
+      = f.label :content
+      = f.text_area :content, class: 'form-control wysihtml5 input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      
+javascript:
+  $('.wysihtml5').wysihtml5({
+    toolbar: {
+      'font-styles': true,
+      'color': false,
+      'emphasis': {
+        'small': true
+      },
+      'blockquote': false,
+      'lists': true,
+      'html': true,
+      'link': false,
+      'image': false,
+      'smallmodals': true
+    }
+  });

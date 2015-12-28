@@ -26,6 +26,15 @@ body {
   }
 }
 
+.field_with_errors {
+  color: rgb(169, 68, 66);
+  input {
+    background-color: rgb(242, 222, 222);
+    border: 1px solid rgb(235, 204, 209);
+    color: rgb(169, 68, 66);
+  }
+}
+
 .carousel-control {
   background-color: none !important;
   background-image: none !important;
@@ -767,6 +776,39 @@ div.instructor-bios, div.news {
   }
 }
 
+// .custom-pills {
+//   text-align: center;
+//   li {
+//     // height: auto;
+//     // font-size: 16px;
+//     // font-weight: bold;
+//     // color: #707070;
+//     // border: 1px solid rgb(210, 210, 210);
+//     // border-radius: 0px;
+//     // @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
+//     float: none;
+//     // @media (max-width: 767px) { width: 100%; }
+//     &.active {
+//       // height: auto;
+//       // color: #fff;
+//       // border: 1px solid rgb(112, 153, 60);
+//       // @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
+//       // background-color: transparent;
+//       a {
+//         // height: auto;
+//         // background-color: transparent;
+//       }
+//     }
+//     a {
+//       // height: auto;
+//       // color: #707070;
+//       // &:hover {
+//       //   background-color: transparent;
+//       // }
+//     }
+//   }
+// }
+
 .green {
   color: rgb(150, 193, 97);
   // color: rgb(96, 156, 61);
@@ -780,7 +822,7 @@ div.instructor-bios, div.news {
   color: red;
 }
 
-#course {
+#course, #video-on-demand {
   .title {
     color: rgb(95, 95, 95);
     font-size: 24px;
@@ -1083,6 +1125,27 @@ table {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+}
+
+#pages {
+  tr {
+    td {
+      overflow: hidden;
+      max-width: 500px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.bootstrap-wysihtml5-insert-image-modal {
+  h3 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 22px;
+    margin: 0px;
+    padding: 8px 14px 7px 14px;
   }
 }
 

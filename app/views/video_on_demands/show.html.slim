@@ -25,11 +25,11 @@
 /       | Edit Event
       
 .row
-  .col-xs-12.col-md-9
+  .col-xs-12.col-md-10
     #video-on-demand
       h4.title = "#{@video_on_demand.course.title} (#{@video_on_demand.course.abbreviation})"
       .row
-        .col-xs-12.col-md-9
+        .col-xs-12
           .row
             .col-xs-12
               p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
@@ -48,8 +48,12 @@
                       tr
                         td = @video_on_demand.instructor.full_name
                         td = @video_on_demand.level
-                        td = "$#{@video_on_demand.price}"
-                        td = link_to 'Add to cart', '#'
+                        td = "$#{@video_on_demand.price}/year"
+                        td.fit = link_to 'Add to cart', '#'
+          .row
+            .col-xs-12
+              #degrees
+                = image_tag '360-degrees.png', class: 'degrees'
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -59,7 +63,7 @@
                       h4.panel-title
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
                           = video_module.title
-                        span.label.label-info.video-module-status 0/10 Viewed
+                        span.label.label-info.video-module-status = "0/#{video_module.videos.count} Viewed"
                     .panel-collapse.collapse id="collapse#{index}" role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
@@ -68,60 +72,40 @@
                               tr
                                 th Video
                                 th Title
-                                th Viewed?
+                                th Viewed
                             tbody
                               - video_module.videos.each do |video|
                                 tr.video
                                   td.thumb
                                     = video.embed_code.html_safe if video.embed_code
-                                  td.title
+                                  td
                                     = video.title
                                   td
-                / .panel.panel-default
-                /   .panel-heading role="tab" id="headingTwo"
-                /     h4.panel-title
-                /       a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                /         | Outline
-                /   #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
-                /     .panel-body
-                /       = @course.outline.html_safe if @course.outline
-                / .panel.panel-default
-                /   .panel-heading role="tab" id="headingThree"
-                /     h4.panel-title
-                /       a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                /         | Who Should Attend
-                /   #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
-                /     .panel-body
-                /       = @course.intended_audience.html_safe if @course.intended_audience
+          .row
+            .col-xs-12
+              .resource-info
+                h1 Overview
+                = @video_on_demand.course.overview.html_safe if @video_on_demand.course.overview
+                hr.hr-sub
+                h1 Outline
+                = @video_on_demand.course.outline.html_safe if @video_on_demand.course.outline
+                hr.hr-sub
+                h1 Who Should Attend
+                = @video_on_demand.course.intended_audience.html_safe if @video_on_demand.course.intended_audience
               
-          .row
-            .col-xs-12
-              #degrees
-                = image_tag '360-degrees.png', class: 'degrees'
-        .col-xs-12.col-md-3
-          .row
-            .col-xs-12
-              .well.well-course
-                / .row
-                /   .col-xs-12
-                /     .resource.text-center
-                /       = @course.video_preview.html_safe if @course.video_preview
-                /   .col-xs-12
-                /     .resource.text-center
-                /       = link_to course_download_platform_courses_path(@platform, @course) do
-                /         span.fa.fa-file-pdf-o
-                /         | Download
-                .row
-                  .col-xs-12
-                    h5 Questions?
-                    p The NterOne team will be happy to answer your questions.
-                    p
-                      | Email: 
-                      a href="mailto:sales@nterone.com" sales@nterone.com
-                    p Phone: 703.972.2288
+  .col-xs-12.col-md-2
+    .row
+      .col-xs-12
+        .well.well-course
+          h5 Questions?
+          p The NterOne team will be happy to answer your questions.
+          p
+            | Email: 
+            a href="mailto:sales@nterone.com" sales@nterone.com
+          p Phone: 703.972.2288
 
-  .col-xs-12.col-md-3
-    = render 'courses/guaranteed_to_run'
+  / .col-xs-12.col-md-3
+  /   = render 'courses/guaranteed_to_run'
     
 .row
   .col-xs-12

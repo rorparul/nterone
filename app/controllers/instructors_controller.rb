@@ -5,10 +5,11 @@ class InstructorsController < ApplicationController
   end
 
   def create
-    @instructor = Platform.find(params[:platform_id]).instructors.build(instructor_params)
+    @platform   = Platform.find(params[:platform_id])
+    @instructor = @platform.instructors.build(instructor_params)
     if @instructor.save
-      flash[:notice] = 'Instructor successfully created!'
-      redirect_to :back
+      flash[:success] = 'Instructor successfully created!'
+      render js: "window.location = '#{platform_path(@platform)}';"
     else
       render 'new'
     end
@@ -30,12 +31,12 @@ class InstructorsController < ApplicationController
   end
 
   def update
+    @platform   = Platform.find(params[:platform_id])
     @instructor = Instructor.find(params[:id])
     if @instructor.update_attributes(instructor_params)
-      flash[:notice] = 'Instructor successfully updated!'
-      redirect_to :back
+      flash[:success] = 'Instructor successfully updated!'
+      render js: "window.location = '#{platform_path(@platform)}';"
     else
-      flash[:alert] = 'Instructor unsuccessfully updated!'
       render 'edit'
     end
   end

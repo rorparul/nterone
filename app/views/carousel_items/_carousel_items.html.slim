@@ -3,4 +3,7 @@
     td = image_tag carousel_item.image.file.processed_image.url
     td = carousel_item.caption
     td = carousel_item.active
-    td.fit = link_to "Edit", edit_carousel_item_path(carousel_item), remote: true
+    td.actions-column.fit
+      = link_to "Edit", edit_carousel_item_path(carousel_item), remote: true
+      = " | "
+      = link_to 'Delete', carousel_item_path(carousel_item), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

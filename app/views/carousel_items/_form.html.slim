@@ -22,5 +22,3 @@
   .form-buttons
     button.btn.btn-success type="submit" Save
     button.btn.btn-default type="button" data-dismiss="modal" Cancel
-    - if @carousel_item.id
-      = link_to 'Delete', carousel_item_path(@carousel_item), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

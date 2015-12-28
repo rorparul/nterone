@@ -14,6 +14,8 @@ Nci::Application.routes.draw do
 
   get 'admin/' => 'admin#index'
 
+  resources :pages
+
   resources :forums, except: [:edit] do
     collection do
       get  'filter'
