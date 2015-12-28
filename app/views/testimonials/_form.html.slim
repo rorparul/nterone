@@ -30,5 +30,3 @@
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
-      - if testimonial.id
-        = link_to 'Delete', testimonial_path(testimonial), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'

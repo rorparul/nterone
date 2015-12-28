@@ -4,7 +4,7 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand = @platform.video_on_demands.build
     @video_module    = @video_on_demand.video_modules.build
     @video           = @video_module.videos.build
-    @categories = Category.where(platform_id: @platform.id).select do |category|
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
     @courses         = @platform.courses
@@ -33,7 +33,7 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demands = @platform.video_on_demands.order('lower(title)')
     @video_module     = @video_on_demand.video_modules.build
     @video            = @video_module.videos.build
-    @categories = Category.where(platform_id: @platform.id).select do |category|
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
     @courses          = @platform.courses
@@ -46,7 +46,7 @@ class VideoOnDemandsController < ApplicationController
     else
       @platform        = Platform.find(params[:platform_id])
       @video_on_demand = VideoOnDemand.find(video_on_demand_params[:id])
-      @categories = Category.where(platform_id: @platform.id).select do |category|
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
       @courses         = @platform.courses

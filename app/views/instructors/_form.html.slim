@@ -1,35 +1,32 @@
 .form-container
-  = form_for [platform, instructor] do |f|
+  = form_for [platform, instructor], remote: true do |f|
     - if instructor.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(instructor.errors.count, 'error')} prohibited this instructor from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(instructor.errors.count, 'error')}:"
         ul
           - instructor.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
       = f.label :first_name, "First Name"
-      br
       = f.text_field :first_name, class: 'form-control input-sm'
       
     .form-group
       = f.label :last_name, "Last Name"
-      br
       = f.text_field :last_name, class: 'form-control input-sm'
       
     .form-group
       = f.label :email
-      br
       = f.text_field :email, class: 'form-control input-sm'
     
     .form-group
       = f.label :phone
-      br
       = f.text_field :phone, class: 'form-control input-sm'
             
     .form-group
       = f.label :biography
-      br
       = f.text_area :biography, class: 'form-control input-sm'
       
     .form-buttons
