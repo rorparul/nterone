@@ -1,0 +1,16 @@
+- content_for :page_title do
+  a href="#{my_account_messages_path}"
+    span.fa.fa-gear
+    | My Account
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+.row
+  .col-xs-12
+    = render partial: 'messages/index', locals: { messages: @messages }
+    
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .messages').addClass('active-category');

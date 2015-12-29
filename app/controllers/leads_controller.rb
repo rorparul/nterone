@@ -6,7 +6,9 @@ class LeadsController < ApplicationController
     if lead.save
       lead.create_activity(key: 'lead.quote_requested',
                             owner: current_user,
-                            parameters: { discount: lead.discount, quote: lead.discounted_price, course_titles: lead.planned_unattended_courses_titles })
+                            parameters: { discount: lead.discount,
+                                          quote: lead.discounted_price,
+                                          course_titles: lead.planned_unattended_courses_titles })
       flash[:success] = "Thank you for your inquiry. Someone will be in contact with
                        you soon! Feel free to #{view_context.link_to('contact us',
                        'http://www.nterone.com/contact-us/', html_options = {target: 'none'})}
@@ -17,18 +19,18 @@ class LeadsController < ApplicationController
     redirect_to :back
   end
 
-  def index
-    if current_user.sales_manager? || current_user.admin?
-      @sales_force      = Role.where(role: 3)
-      @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0]).order(created_at: :asc)
-      @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-      @archived_leads   = Lead.where(status: 'archived').order(created_at: :desc)
-    elsif current_user.sales_rep?
-      @assigned_leads   = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc)
-      @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-      @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').order(created_at: :desc)
-    end
-  end
+  # def index
+  #   if current_user.sales_manager? || current_user.admin?
+  #     @sales_force      = Role.where(role: 3)
+  #     @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0]).order(created_at: :asc)
+  #     @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
+  #     @archived_leads   = Lead.where(status: 'archived').order(created_at: :desc)
+  #   elsif current_user.sales_rep?
+  #     @assigned_leads   = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc)
+  #     @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
+  #     @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').order(created_at: :desc)
+  #   end
+  # end
 
   def show
     @buyer = User.find(params[:id])

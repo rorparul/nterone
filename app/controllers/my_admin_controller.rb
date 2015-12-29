@@ -1,6 +1,10 @@
 class MyAdminController < ApplicationController
-  def overview
+  def reports
 
+  end
+
+  def messages
+    @messages = Message.active(current_user)
   end
 
   def announcements
