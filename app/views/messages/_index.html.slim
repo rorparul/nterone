@@ -11,6 +11,6 @@
         tbody
           - messages.each do |message|
             tr
-              td = "#{message.created_at.strftime("%B %d, %Y")}"
+              td = message.created_at.strftime("%B %d, %Y")
               td
               td = message.content
