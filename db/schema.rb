@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151227212204) do
+ActiveRecord::Schema.define(version: 20151228195451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 20151227212204) do
     t.text     "intended_audience"
     t.string   "course_info"
     t.text     "video_preview"
+    t.string   "url"
+    t.integer  "price"
   end
 
   create_table "custom_items", force: :cascade do |t|

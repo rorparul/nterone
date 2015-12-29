@@ -24,7 +24,7 @@
               - when 'Course'
                 tr.course-group-item
                   td
-                    a href="http://#{group_item.groupable.url}" target="_blank"
+                    a href="#{platform_course_path(subject.platform, group_item.groupable)}"
                       = group_item.groupable.title
                   td.fit
                     - if group_item.groupable.price == '0' || group_item.groupable.price == ''

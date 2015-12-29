@@ -7,6 +7,17 @@
   .col-xs-12
     = render 'tabs'
     
+.row
+  .col-xs-12
+    = render partial: 'leads/index', locals: { sales_force: @sales_force,
+                                               assigned_leads: @assigned_leads,
+                                               unassigned_leads: @unassigned_leads,
+                                               archived_leads: @archived_leads }
+    
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .queue').addClass('active-category');
+  
+  $('.seller_selector').on('change', function() {
+    $(this).closest('form').submit();
+  });

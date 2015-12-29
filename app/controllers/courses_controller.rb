@@ -84,6 +84,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:id,
                                    :title,
                                    :url,
+                                   :price,
                                    :active,
                                    :abbreviation,
                                    :sku,

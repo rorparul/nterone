@@ -1,3 +1,9 @@
+/ - if @messages.any?
+/   - @messages.each do |message|
+/     .alert.alert-info.alert-dismissible role="alert"
+/       button.close type="button" data-dismiss="alert" aria-label="Close"
+/         span aria-hidden="true" &times;
+/       p = message.content
 - if flash[:success]
   .alert.alert-success.alert-dismissible role="alert"
     button.close type="button" data-dismiss="alert" aria-label="Close"
