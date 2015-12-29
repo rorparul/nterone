@@ -15,7 +15,7 @@ class Message < ActiveRecord::Base
   def self.active(user)
     if user
       user.messages.select do |message|
-        message.announcement if message.announcement.status == 'open'
+        message if message.announcement.status == 'open'
       end
     else
       []
