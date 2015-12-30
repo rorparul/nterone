@@ -13,5 +13,5 @@
             - platform.courses.each do |course|
               - if course.any_guaranteed_to_run_events?
                 .list-group-item.list-group-item-sub
-                  a href="#"
+                  a href="#{platform_course_path(platform, course)}"
                     = course.title
