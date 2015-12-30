@@ -20,6 +20,16 @@ class Course < ActiveRecord::Base
     events.where(active: true)
   end
 
+  def any_guaranteed_to_run_events?
+    self.events.any? { |event| event.guaranteed }
+  end
+
+  def self.with_guaranteed_to_run_events
+    all.order(:platform_id, :title).select do |course|
+      course if course.events.any? { |event| event.guaranteed }
+    end
+  end
+
   private
 
   def format_url

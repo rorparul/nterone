@@ -2,3 +2,16 @@
   .group-heading
     h6 Guaranteed to Run
   .group-body
+    #menu
+      .panel.list-group
+        - Platform.with_guaranteed_to_run_courses.each do |platform|
+          .list-group-item
+            a href="#" data-toggle="collapse" data-target="##{platform.title}" data-parent="#menu"
+              = platform.title
+            / span.badge 5
+          .list-group.collapse id="#{platform.title}"
+            - platform.courses.each do |course|
+              - if course.any_guaranteed_to_run_events?
+                .list-group-item.list-group-item-sub
+                  a href="#"
+                    = course.title
