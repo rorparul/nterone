@@ -140,7 +140,8 @@
                     p Phone: 703.972.2288
 
   .col-xs-12.col-md-3
-    = render 'courses/guaranteed_to_run'
+    = render partial: 'courses/guaranteed_to_run',
+             locals: { guaranteed_to_run_courses: @guaranteed_to_run_courses }
     
 .row
   .col-xs-12

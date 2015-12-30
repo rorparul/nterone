@@ -12,12 +12,12 @@
         .form-group
           = f.label :start_date, "Start Date"
           br
-          = f.date_field :start_date, class: 'form-control input-sm'
+          = f.date_select :start_date, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :end_date, "End Date"
           br
-          = f.date_field :end_date, class: 'form-control input-sm'
+          = f.date_select :end_date, class: 'form-control input-sm'
       
     .row
       .col-xs-12.col-sm-6
@@ -27,8 +27,6 @@
           = f.select :format,
                      [['None', 'none'],
                       ['ClearConnect', 'ClearConnect'],
-                      ['Custom Onsite E-learning', 'Custom Onsite E-learning'],
-                      ['Instructor Led', 'Instructor Led'],
                       ['Live Online', 'Live Online'],
                       ['On Site', 'On Site']],
                      {},

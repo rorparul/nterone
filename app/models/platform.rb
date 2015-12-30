@@ -17,4 +17,12 @@ class Platform < ActiveRecord::Base
   accepts_nested_attributes_for :image
 
   delegate :parent_categories, to: :categories
+
+  def self.with_guaranteed_to_run_courses
+    order(:title).select do |platform|
+      platform.courses.any? do |course|
+        course.any_guaranteed_to_run_events?
+      end
+    end
+  end
 end

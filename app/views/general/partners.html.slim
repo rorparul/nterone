@@ -9,7 +9,8 @@
       = @partners.content.html_safe
   
   .col-sm-12.col-md-3
-    = render 'courses/guaranteed_to_run'
+    = render partial: 'courses/guaranteed_to_run',
+             locals: { guaranteed_to_run_courses: @guaranteed_to_run_courses }
     
 javascript:
   $('.partners-tab').addClass('active');
