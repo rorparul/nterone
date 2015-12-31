@@ -1,8 +1,6 @@
 class ExamsController < ApplicationController
-  autocomplete :exam, :title, full: true
-
   def return_all
-    
+
   end
 
   def new
