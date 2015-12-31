@@ -1,14 +1,16 @@
-h3 = "#{pluralize(messages.count, 'Message')}"
-.table-responsive
-  table.table.table-compact
-    thead
-      tr
-        th Date
-        th From
-        th Message
-    tbody
-      - messages.each do |message|
+.panel.panel-default
+  .panel-heading
+    h3.panel-title = "#{pluralize(messages.count, 'Message')}"
+  .table-responsive
+    table.table.table-compact
+      thead
         tr
-          td = message.announcement.created_at.strftime("%B %d, %Y")
-          td
-          td = message.announcement.content
+          th Date
+          th From
+          th Message
+      tbody
+        - messages.each do |message|
+          tr
+            td = message.announcement.created_at.strftime("%B %d, %Y")
+            td
+            td = message.announcement.content

@@ -1,4 +1,4 @@
-ul.post class=('current-user' if current_user.posts.include? post) id="post-#{post.id}"
+ul.post class=('current-user' if user_signed_in? && current_user.posts.include?(post)) id="post-#{post.id}"
   li.post-content
     a
       img src=image_url("defaults/noimage.png") alt=""
@@ -17,7 +17,7 @@ ul.post class=('current-user' if current_user.posts.include? post) id="post-#{po
           | says:
         span.time
           = post.created_at.strftime("%B %d, %Y, %l:%M %P")
-        - if current_user.admin? || current_user.posts.include?(post)
+        - if user_signed_in? && (current_user.admin? || current_user.posts.include?(post))
           .post-actions-overlay
             = link_to edit_post_path(post), remote: true do
               i.fa.fa-pencil Edit

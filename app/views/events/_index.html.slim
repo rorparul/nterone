@@ -1,0 +1,27 @@
+.panel.panel-default
+  .panel-heading
+    h3.panel-title Classes
+  .responsive-table
+    table.table.table-condensed
+      thead
+        tr
+          th Start Date
+          th End Date
+          th Length
+          th Format
+          th Price
+          th Course
+          th
+      tbody
+        - events.each do |event|
+          tr
+            td = event.start_date
+            td = event.end_date
+            td = event.length
+            td = event.format
+            td = "$#{event.price}"
+            td = "#{event.course.abbreviation if event.course} - #{event.course.title if event.course}"
+            td.actions-column.fit
+              = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+              = " | "
+              = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

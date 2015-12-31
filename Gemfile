@@ -56,7 +56,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'public_activity'
 gem 'kaminari'
-gem 'rails4-autocomplete'
+gem 'csv-importer'
 
 group :doc do
   gem 'sdoc', require: false

@@ -1,0 +1,23 @@
+- content_for :page_title do
+  a href="#{my_admin_classes_path}"
+    span.fa.fa-gear
+    | My Admin
+    
+- content_for :actions do
+  li
+    = link_to events_upload_path, remote: true do
+      i.fa.fa-upload
+      | Upload Classes
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+.row
+  .col-xs-12
+    = render partial: 'events/index', locals: { events: @events }
+    
+    
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .classes').addClass('active-category');

@@ -1,6 +1,5 @@
 class CoursesController < ApplicationController
-  autocomplete :course, :title, full: true, extra_data: [:url, :price]
-  before_action :get_guaranteed_to_run_courses, only: [:show]
+  before_action :get_guaranteed_events, only: [:show]
 
   def return_all
     # render json: {apple: "Bingo!!!"}
@@ -75,10 +74,6 @@ class CoursesController < ApplicationController
               type: "application/pdf")
   end
 
-  # def video_preview
-  #   @course = Course.find(params[:id])
-  # end
-
   private
 
   def course_params
@@ -98,7 +93,7 @@ class CoursesController < ApplicationController
                                    category_ids: [])
   end
 
-  def get_guaranteed_to_run_courses
-    @guaranteed_to_run_courses = Course.with_guaranteed_to_run_events
+  def get_guaranteed_events
+    @guaranteed_events = Event.guaranteed_events
   end
 end
