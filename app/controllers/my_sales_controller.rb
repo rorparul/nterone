@@ -1,6 +1,10 @@
 class MySalesController < ApplicationController
   before_action :check_clearance
 
+  def classes
+    @events = Event.order(:start_date)
+  end
+
   def queue
     if current_user.sales_manager?
       @sales_force      = Role.where(role: 3)

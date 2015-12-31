@@ -1,6 +1,6 @@
 class MyAdminController < ApplicationController
-  def reports
-
+  def classes
+    @events = Event.order(:start_date)
   end
 
   def messages
@@ -13,7 +13,6 @@ class MyAdminController < ApplicationController
 
   def people
     @users      = User.order(:last_name).page(params[:page])
-    @user_count = User.count
   end
 
   def website

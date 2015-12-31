@@ -39,6 +39,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    @platform    = Platform.find(params[:platform_id])
+    @course      = Course.find(params[:course_id])
+    @event       = Event.find(params[:id])
+    @instructors = @platform.instructors
+  end
+
   def update
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
@@ -63,6 +70,25 @@ class EventsController < ApplicationController
     redirect_to :back
   end
 
+  def upload_form
+
+  end
+
+  def upload
+    upload = ClassesUploader.new(file: event_params[:csv])
+    if upload.valid_header?
+      upload.run!
+      if upload.report.success?
+        flash[:success] = upload.report.message
+      else
+        flash[:alert] = upload.report.message
+      end
+    else
+      flash[:alert] = upload.report.message
+    end
+    redirect_to :back
+  end
+
   private
 
   def event_params
@@ -73,6 +99,7 @@ class EventsController < ApplicationController
                                   :guaranteed,
                                   :instructor_id,
                                   :active,
-                                  :price)
+                                  :price,
+                                  :csv)
   end
 end

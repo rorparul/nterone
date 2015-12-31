@@ -1,15 +1,17 @@
 .row
   .col-xs-12
-    h3 = "Announcements"
-    .table-responsive
-      table.table.table-compact
-        thead
-          tr
-            th Content
-            th Target
-            - if user_signed_in? && current_user.admin?
-              th Poster
-            th colspan="2" Actions
-        tbody#announcements
-          - announcements.each do |announcement|
-            = render partial: 'announcements/announcement', locals: { announcement: announcement }
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Announcements
+      .table-responsive
+        table.table.table-compact
+          thead
+            tr
+              th Content
+              th Target
+              - if user_signed_in? && current_user.admin?
+                th Poster
+              th colspan="2" Actions
+          tbody#announcements
+            - announcements.each do |announcement|
+              = render partial: 'announcements/announcement', locals: { announcement: announcement }

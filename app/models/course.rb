@@ -17,17 +17,7 @@ class Course < ActiveRecord::Base
   before_save :format_url
 
   def active_events
-    events.where(active: true)
-  end
-
-  def any_guaranteed_to_run_events?
-    self.events.any? { |event| event.guaranteed }
-  end
-
-  def self.with_guaranteed_to_run_events
-    all.order(:platform_id, :title).select do |course|
-      course if course.events.any? { |event| event.guaranteed }
-    end
+    events.where(active: true).order(:start_date)
   end
 
   private

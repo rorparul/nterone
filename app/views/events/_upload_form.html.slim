@@ -1,0 +1,6 @@
+= form_for :event, url: events_upload_path, method: :post do |f|
+  .form-group
+    = f.file_field :csv, class: 'form-control input-sm'
+  .form-buttons
+    button.btn.btn-success type="submit" Upload
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel

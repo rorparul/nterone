@@ -1,5 +1,5 @@
 class GeneralController < ApplicationController
-  before_action :get_guaranteed_to_run_courses,
+  before_action :get_guaranteed_events,
                 except: [:new_search,
                          :search,
                          :contact_us_new,
@@ -54,7 +54,7 @@ class GeneralController < ApplicationController
     params.require(:contact_us).permit(:inquiry, :feedback)
   end
 
-  def get_guaranteed_to_run_courses
-    @guaranteed_to_run_courses = Course.with_guaranteed_to_run_events
+  def get_guaranteed_events
+    @guaranteed_events = Event.guaranteed_events
   end
 end

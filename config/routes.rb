@@ -133,18 +133,19 @@ Nci::Application.routes.draw do
   end
 
   controller :my_admin do
-    get 'my-admin/reports',       as: :my_admin_reports
-    get 'my-admin/messages',      as: :my_admin_messages
+    get 'my-admin/classes',       as: :my_admin_classes
     get 'my-admin/announcements', as: :my_admin_announcements
     get 'my-admin/people',        as: :my_admin_people
     get 'my-admin/website',       as: :my_admin_website
+    get 'my-admin/messages',      as: :my_admin_messages
     get 'my-admin/settings',      as: :my_admin_settings
   end
 
   controller :my_sales do
     get 'my-sales/queue',         as: :my_sales_queue
-    get 'my-sales/messages',      as: :my_sales_messages
+    get 'my-sales/classes',       as: :my_sales_classes
     get 'my-sales/announcements', as: :my_sales_announcements
+    get 'my-sales/messages',      as: :my_sales_messages
     get 'my-sales/settings',      as: :my_sales_settings
   end
 
@@ -171,4 +172,6 @@ Nci::Application.routes.draw do
   post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended', as: :toggle_chosen_course_attended
   post 'passed_exams/toggle'                         => 'passed_exams#toggle',            as: :toggle_passed_exam
   post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
+  get  'events-upload'                               => 'events#upload_form'
+  post 'events-upload'                               => 'events#upload'
 end

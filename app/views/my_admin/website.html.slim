@@ -20,56 +20,58 @@
 
 .row
   .col-xs-12
-    h3 Pages
-    .table-responsive
-      table.table.table-compact
-        thead
-          tr
-            th Title
-            th 
-        tbody#pages
-          - @pages.each do |page|
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Pages
+      .table-responsive
+        table.table.table-compact
+          thead
             tr
-              td = page.title
-              td.actions-column.fit
-                = link_to "Edit", edit_page_path(page), remote: true
-        
-hr.hr-sub
+              th Title
+              th 
+          tbody#pages
+            - @pages.each do |page|
+              tr
+                td = page.title
+                td.actions-column.fit
+                  = link_to "Edit", edit_page_path(page), remote: true
     
 .row
   .col-xs-12
-    h3 Carousel Items
-    .table-responsive
-      table.table.table-compact
-        thead
-          tr
-            th Image
-            th Caption
-            th Active
-            th
-        tbody#carousel-items
-          = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }
-    #carousel-items-page-control
-      = render partial: 'carousel_items/page_controls', locals: { carousel_items: @carousel_items }
-        
-hr.hr-sub
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Carousel Items
+      .table-responsive
+        table.table.table-compact
+          thead
+            tr
+              th Image
+              th Caption
+              th Active
+              th
+          tbody#carousel-items
+            = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }
+      #carousel-items-page-control
+        = render partial: 'carousel_items/page_controls', locals: { carousel_items: @carousel_items }
 
 .row
   .col-xs-12
-    h3 Testimonials
-    .table-responsive
-      table.table.table-compact
-        thead
-          tr
-            th Quotation
-            th Author
-            th Company
-            th Course
-            th
-        tbody#testimonials
-          = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
-    #testimonials-page-control
-      = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Testimonials
+      .table-responsive
+        table.table.table-compact
+          thead
+            tr
+              th Quotation
+              th Author
+              th Company
+              th Course
+              th
+          tbody#testimonials
+            = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
+      #testimonials-page-control
+        = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
     
 javascript:
   $('.role-tab').addClass('active');

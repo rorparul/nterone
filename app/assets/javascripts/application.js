@@ -6,7 +6,6 @@
 //= require jquery_ujs
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
-//= require autocomplete-rails
 //= require autonumeric
 //= require parsley
 //= require bootstrap

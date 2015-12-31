@@ -44,64 +44,18 @@
                           th Date
                           th Length
                           th Format
-                          th Status
+                          / th Status
                           th Price
                           th
                       tbody
                         - @course.active_events.each do |event|
                           tr
-                            td = "#{event.start_date.to_formatted_s(:rfc822)} - #{event.end_date.to_formatted_s(:rfc822)}"
-                            td = "#{(event.end_date - event.start_date).to_i} Days"
+                            td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
+                            td = "#{event.length} Days"
                             td = event.format
-                            td.green Available
+                            / td 
                             td = "$#{event.price}"
-                            td.fit = link_to 'Add to cart', '#'
-          / .row
-          /   .col-xs-12
-          /     ul.nav.nav-pills.custom-pills role="tablist"
-          /       li.active role="presentation"
-          /         a href="#overview" aria-controls="overview" role="tab" data-toggle="pill" Overview
-          /       li role="presentation"
-          /         a href="#outline" aria-controls="outline" role="tab" data-toggle="pill" Outline
-          /       li role="presentation"
-          /         a href="#who-should-attend" aria-controls="who-should-attend" role="tab" data-toggle="pill" Who Should Attend
-          / .row
-          /   .col-xs-12
-          /     .tab-content
-          /       .tab-pane.active#overview role="tabpanel"
-          /         = @course.overview.html_safe if @course.overview
-          /       .tab-pane#outline role="tabpanel"
-          /         = @course.outline.html_safe if @course.outline
-          /       .tab-pane#who-should-attend role="tabpanel"
-          /         = @course.intended_audience.html_safe if @course.intended_audience
-          
-          / .row
-          /   .col-xs-12
-              / #accordion.panel-group role="tablist" aria-multiselectable="true"
-              /   .panel.panel-default
-              /     .panel-heading role="tab" id="headingOne"
-              /       h4.panel-title
-              /         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-              /           | Overview
-              /     #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
-              /       .panel-body
-              /         = @course.overview.html_safe if @course.overview
-              /   .panel.panel-default
-              /     .panel-heading role="tab" id="headingTwo"
-              /       h4.panel-title
-              /         a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-              /           | Outline
-              /     #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
-              /       .panel-body
-              /         = @course.outline.html_safe if @course.outline
-              /   .panel.panel-default
-              /     .panel-heading role="tab" id="headingThree"
-              /       h4.panel-title
-              /         a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-              /           | Who Should Attend
-              /     #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
-              /       .panel-body
-              /         = @course.intended_audience.html_safe if @course.intended_audience
+                            td.fit = link_to 'Add to cart', '#', class: 'text-success'
           .row
             .col-xs-12
               #degrees
@@ -141,7 +95,7 @@
 
   .col-xs-12.col-md-3
     = render partial: 'courses/guaranteed_to_run',
-             locals: { guaranteed_to_run_courses: @guaranteed_to_run_courses }
+             locals: { guaranteed_events: @guaranteed_events }
     
 .row
   .col-xs-12

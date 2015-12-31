@@ -1,59 +1,61 @@
-h3 = "#{pluralize(leads.count, type)}"
--if leads.count > 0
-  .table-responsive
-    table.table.table-compact
-      thead
-        tr
-          th title="Requested" Requested
-          th title="Name" Name
-          th title="Email" Email
-          th title="Phone" Phone
-          th title="Price" Price
-          th title="Discount" DC
-          th title="Total" Total
-          th title="Actions" colspan="2" Actions
-      tbody
-        - leads.each do |lead|
-          tr id="lead-#{lead.id}"
-            td.fit = "#{time_ago_in_words(lead.created_at)} ago"
-            td.fit = link_to lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A", user_path(lead.buyer)
-            td.fit = lead.buyer.email
-            td.fit = lead.buyer.contact_number ? lead.buyer.contact_number : "N/A"
-            td.fit = "$#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
-            td.fit = "#{lead.discount}%"
-            td.fit = "$#{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
-            - if current_user.sales_manager? || current_user.admin?
+.panel.panel-default
+  .panel-heading
+    h3.panel-title = "#{pluralize(leads.count, type)}"
+  -if leads.count > 0
+    .table-responsive
+      table.table.table-compact
+        thead
+          tr
+            th title="Requested" Requested
+            th title="Name" Name
+            th title="Email" Email
+            th title="Phone" Phone
+            th title="Price" Price
+            th title="Discount" DC
+            th title="Total" Total
+            th title="Actions" colspan="2" Actions
+        tbody
+          - leads.each do |lead|
+            tr id="lead-#{lead.id}"
+              td.fit = "#{time_ago_in_words(lead.created_at)} ago"
+              td.fit = link_to lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A", user_path(lead.buyer)
+              td.fit = lead.buyer.email
+              td.fit = lead.buyer.contact_number ? lead.buyer.contact_number : "N/A"
+              td.fit = "$#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+              td.fit = "#{lead.discount}%"
+              td.fit = "$#{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
+              - if current_user.sales_manager? || current_user.admin?
+                td.fit.actions-column
+                  = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
+                    = f.select :seller_id, sales_force.collect { |sales| [sales.user.full_name ? sales.user.full_name : sales.user.email, sales.user.id] }.unshift(["Unassigned", 0]), {}, class: "form-control seller_selector"
               td.fit.actions-column
-                = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
-                  = f.select :seller_id, sales_force.collect { |sales| [sales.user.full_name ? sales.user.full_name : sales.user.email, sales.user.id] }.unshift(["Unassigned", 0]), {}, class: "form-control seller_selector"
-            td.fit.actions-column
-              = link_to 'Member Plan', lead_path(lead.buyer)
-              = " | "
-              = link_to 'Discount', edit_lead_path(lead.id), remote: true
-              = " | "
-              = link_to 'Download', download_quote_leads_path(lead)
-              = " | "
-              = link_to 'Email', email_quote_leads_path(lead)
-              = " | "
-              - if current_user.sales?
-                - if type == "Assigned Lead"
+                = link_to 'Member Plan', lead_path(lead.buyer)
+                = " | "
+                = link_to 'Discount', edit_lead_path(lead.id), remote: true
+                = " | "
+                = link_to 'Download', download_quote_leads_path(lead)
+                = " | "
+                = link_to 'Email', email_quote_leads_path(lead)
+                = " | "
+                - if current_user.sales?
+                  - if type == "Assigned Lead"
+                    = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
+                      = f.hidden_field :status,    value: 'unassigned'
+                      = f.hidden_field :seller_id, value: nil
+                      button.btn.btn-link type="submit" Unassign
+                    = " | "
+                  - if type == "Unassigned Lead" || type == "Archived Lead"
+                    = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
+                      = f.hidden_field :status,    value: 'assigned'
+                      = f.hidden_field :seller_id, value: current_user.id
+                      button.btn.btn-link type="submit" Assign
+                    = " | "
+                - if type != "Archived Lead"
+                  = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
+                    = f.hidden_field :status, value: 'archived'
+                    button.btn.btn-link type="submit" Archive
+                - if type == "Archived Lead"
                   = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
                     = f.hidden_field :status,    value: 'unassigned'
                     = f.hidden_field :seller_id, value: nil
-                    button.btn.btn-link type="submit" Unassign
-                  = " | "
-                - if type == "Unassigned Lead" || type == "Archived Lead"
-                  = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
-                    = f.hidden_field :status,    value: 'assigned'
-                    = f.hidden_field :seller_id, value: current_user.id
-                    button.btn.btn-link type="submit" Assign
-                  = " | "
-              - if type != "Archived Lead"
-                = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
-                  = f.hidden_field :status, value: 'archived'
-                  button.btn.btn-link type="submit" Archive
-              - if type == "Archived Lead"
-                = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
-                  = f.hidden_field :status,    value: 'unassigned'
-                  = f.hidden_field :seller_id, value: nil
-                  button.btn.btn-link type="submit" Unarchive
+                    button.btn.btn-link type="submit" Unarchive

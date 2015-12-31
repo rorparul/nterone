@@ -18,7 +18,7 @@ body {
 }
 
 .role-tabs {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 #carousel {
@@ -33,6 +33,10 @@ body {
 .lead-form {
   height: auto !important;
   display: inline !important;
+}
+
+.pagination {
+  margin: 0;
 }
 
 .btn-link {
@@ -89,25 +93,11 @@ body {
       font-size: 12.5px;
     }
   }
-  .list-group {
-    margin-bottom: 0;
-    border: 0;
+  .group-body {
+    overflow: scroll;
+    max-height: 500px;
     a {
       text-decoration: none;
-    }
-    .list-group-item {
-      margin: 0;
-      border-bottom: 0;
-      border-right: 0;
-      border-left: 0;
-      &:first-child {
-        &:not(.list-group-item-sub) {
-          border-top: 0;
-        }
-      }
-    }
-    .list-group-item-sub {
-      background-color: #eee;
     }
   }
 }
@@ -1746,8 +1736,14 @@ hr {
 }
 
 #announcement-form {
-  input[type='textarea'] {
-    height: 250px;
+  textarea {
+    height: 100px;
+    border: 0;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+    }
   }
 }
 
