@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     @categories = Category.where(platform_id: Platform.find(params[:platform_id]))
   end
 
-  def  select_to_edit
+  def select_to_edit
     if category_params[:id] == 'none'
       redirect_to select_platform_categories_path(Platform.find(params[:platform_id]))
     else
@@ -33,35 +33,33 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Platform.find(params[:platform_id]).categories.build(category_params)
+    @platform = Platform.find(params[:platform_id])
+    @category = @platform.categories.build(category_params)
     if @category.save
       flash[:notice] = 'Category successfully created!'
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Category unsuccessfully created!'
       render 'new'
     end
   end
 
   def update
-    @category.assign_attributes(category_params)
-    if @category.save
-      flash[:notice] = 'You have successfully updated category.'
-      redirect_to platform_path(params[:platform_id])
+    @platform = Platform.find(params[:platform_id])
+    if @category.update_attributes(category_params)
+      flash[:success] = 'Category successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    if params['remove_child'] == 'yes'
-      @category.children.destroy_all
+    if @category.destroy
+      flash[:success] = 'Category successfully deleted!'
     else
-      @category.children.update_all(parent_id: nil)
+      flash[:alert] = 'Category unsuccessfully deleted!'
     end
-    @category.destroy
-    flash[:notice] = 'Category was successfully deleted.'
-    redirect_to platform_path(params[:platform_id])
+    redirect_to :back
   end
 
   private
@@ -78,5 +76,4 @@ class CategoriesController < ApplicationController
       @category ||= Category.new
       authorize @category
     end
-
 end

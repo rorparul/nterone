@@ -52,10 +52,9 @@ body {
 
 .field_with_errors {
   color: rgb(169, 68, 66);
-  input {
+  input, textarea, select {
     background-color: rgb(242, 222, 222);
     border: 1px solid rgb(235, 204, 209);
-    color: rgb(169, 68, 66);
   }
 }
 
@@ -1581,7 +1580,7 @@ li.break {
       font-size: 20px;
       position: absolute;
       right: 0;
-      bottom: 32px;
+      bottom: 30px;
     }
     .form-group {
       margin-right: 25px;

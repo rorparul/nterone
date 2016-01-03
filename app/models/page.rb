@@ -1,3 +1,3 @@
 class Page < ActiveRecord::Base
-  validates_presence_of :title, :content
+  validates :title, :content, presence: true
 end

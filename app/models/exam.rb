@@ -5,4 +5,6 @@ class Exam < ActiveRecord::Base
   has_many :exam_and_course_dynamics, through: :exam_dynamics
   has_many :passed_exams,             dependent: :destroy
   has_many :users,                    through: :passed_exams
+
+  validates :title, presence: true
 end

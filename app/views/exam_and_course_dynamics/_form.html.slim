@@ -1,27 +1,26 @@
 .form-container
-  = form_for [platform, exam_and_course_dynamic] do |f|
+  = form_for [platform, exam_and_course_dynamic], remote: true do |f|
     - if exam_and_course_dynamic.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(exam_and_course_dynamic.errors.count, 'error')} prohibited this category from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(exam_and_course_dynamic.errors.count, 'error')}:"
         ul
           - exam_and_course_dynamic.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
       = f.label :label
-      br
-      = f.text_field :label, class: 'form-control'
+      = f.text_field :label, class: 'form-control input-sm'
       
     .form-group
-      = f.label :course_ids, "Courses"
-      br
-      = f.select :course_ids, platform.courses.order(:title).collect { |course| [course.title, course.id] }, {}, html_options = {class: 'form-control', multiple: 'true'}
+      = f.label :course_ids, 'Courses'
+      = f.select :course_ids, platform.courses.order(:title).collect { |course| [course.title, course.id] }, {}, html_options = { class: 'form-control input-sm', multiple: 'true' }
       p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
     
     .form-group
-      = f.label :exam_ids, "Exams"
-      br
-      = f.select :exam_ids, platform.exams.order(:title).collect { |exam| [exam.title, exam.id] }, {}, html_options = {class: 'form-control', multiple: 'true'}
+      = f.label :exam_ids, 'Exams'
+      = f.select :exam_ids, platform.exams.order(:title).collect { |exam| [exam.title, exam.id] }, {}, html_options = { class: 'form-control input-sm', multiple: 'true' }
       p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
       
     .form-buttons

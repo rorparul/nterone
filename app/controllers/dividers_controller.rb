@@ -5,10 +5,11 @@ class DividersController < ApplicationController
   end
 
   def create
-    @divider = Platform.find(params[:platform_id]).dividers.build(divider_params)
+    @platform = Platform.find(params[:platform_id])
+    @divider  = @platform.dividers.build(divider_params)
     if @divider.save
-      flash[:notice] = 'You have successfully created Divider.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Divider successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
       render 'new'
     end
@@ -33,17 +34,22 @@ class DividersController < ApplicationController
     @divider = Divider.find(params[:id])
     @divider.assign_attributes(divider_params)
     if @divider.save
-      flash[:notice] = 'You have successfully updated Divider.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Divider successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      @platform = Platform.find(params[:platform_id])
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    Divider.find(params[:id]).destroy
-    flash[:notice] = 'Divider was successfully deleted.'
-    redirect_to platform_path(params[:platform_id])
+    divider = Divider.find(params[:id])
+    if divider.destroy
+      flash[:success] = 'Divider successfully deleted!'
+    else
+      flash[:alert] = 'Divider unsuccessfully updated!'
+    end
+    redirect_to :back
   end
 
   private

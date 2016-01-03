@@ -2,7 +2,7 @@
   .form-group
     = f.label :id, "Courses"
     br
-    = f.select :id, courses.order('lower(title)').collect {|course| [course.title, course.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select"}
+    = f.select :id, courses.order('lower(title)').collect {|course| [course.title, course.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select input-sm"}
 
 javascript:
   $('.sub-select').on('change', function() {

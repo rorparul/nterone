@@ -1,8 +1,10 @@
 .form-container
-  = form_for [platform, course, event] do |f|
+  = form_for [platform, course, event], remote: true do |f|
     - if event.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(event.errors.count, 'error')} prohibited this event from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(event.errors.count, 'error')}:"
         ul
           - event.errors.full_messages.each do |msg|
             li = msg
@@ -23,28 +25,24 @@
       .col-xs-12.col-sm-6
         .form-group
           = f.label :format
-          br
           = f.select :format,
-                     [['None', 'none'],
-                      ['ClearConnect', 'ClearConnect'],
+                     [['ClearConnect', 'ClearConnect'],
                       ['Live Online', 'Live Online'],
                       ['On Site', 'On Site']],
-                     {},
+                     { prompt: true },
                      html_options = { class: "form-control input-sm" }
       .col-xs-12.col-sm-6
         .form-group
           = f.label :instructor_id, "Instructor"
-          br
           = f.select :instructor_id,
-                     instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift(["None", "none"]),
-                     {},
+                     instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
+                     { prompt: true },
                      html_options = { class: "form-control input-sm" }
                           
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :price
-          br
           .input-group
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'

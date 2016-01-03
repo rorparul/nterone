@@ -2,7 +2,7 @@
   .form-group
     = f.label :id, "Forums"
     br
-    = f.select :id, forums.collect { |forum| [forum.title, forum.id] }.unshift(["None", "none"]), options = { selected: "None" }, html_options = { class: "form-control sub-select" }
+    = f.select :id, forums.collect { |forum| [forum.title, forum.id] }.unshift(["None", "none"]), options = { selected: "None" }, html_options = { class: "form-control sub-select input-sm" }
 
 javascript:
   $('.sub-select').on('change', function() {

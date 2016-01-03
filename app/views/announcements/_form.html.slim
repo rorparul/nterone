@@ -1,7 +1,7 @@
 #announcement-form
-  = form_for :announcement, url: announcements_path, html: {"data-parsley-validate" => true} do |f|
+  = form_for :announcement, url: announcements_path do |f|
     = f.hidden_field :poster, value: current_user.role
-    = f.text_area :content, class: 'form-control input-sm', required: true
+    = f.text_area :content, class: 'form-control input-sm'
     .panel-footer
       .form-buttons
         - if user_signed_in? && current_user.admin?

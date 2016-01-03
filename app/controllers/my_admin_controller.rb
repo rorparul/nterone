@@ -1,4 +1,6 @@
 class MyAdminController < ApplicationController
+  before_action :redirect_if_not_permitted
+
   def classes
     @events = Event.order(:start_date)
   end
@@ -23,5 +25,11 @@ class MyAdminController < ApplicationController
 
   def settings
     @user = current_user
+  end
+
+  private
+
+  def redirect_if_not_permitted
+    redirect_to root_path if !user_signed_in? || !current_user.admin?
   end
 end

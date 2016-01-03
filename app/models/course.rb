@@ -16,6 +16,9 @@ class Course < ActiveRecord::Base
 
   before_save :format_url
 
+  validates :title,        presence: true
+  validates :abbreviation, presence: true
+
   def active_events
     events.where(active: true).order(:start_date)
   end

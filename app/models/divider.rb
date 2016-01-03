@@ -5,6 +5,8 @@ class Divider < ActiveRecord::Base
 
   before_save :strip_content
 
+  validates :content, presence: true
+
   private
 
   def strip_content

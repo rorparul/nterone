@@ -1,19 +1,20 @@
 .form-container
-  = form_for [platform, exam] do |f|
+  = form_for [platform, exam], remote: true do |f|
     - if exam.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(exam.errors.count, 'error')} prohibited this category from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(exam.errors.count, 'error')}:"
         ul
           - exam.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
       = f.label :title
-      br
-      = f.text_field :title, class: 'form-control'
+      = f.text_field :title, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit" Save
-      button.btn-btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if exam.id
         = link_to 'Delete', platform_exam_path(platform, exam), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

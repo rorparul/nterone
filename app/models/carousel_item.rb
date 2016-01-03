@@ -5,13 +5,9 @@ class CarouselItem < ActiveRecord::Base
 
   accepts_nested_attributes_for :image
 
-  validates_presence_of :image
+  validates :image, presence: true
 
   def self.all_active
     where(active: true)
-  end
-
-  def default_img_name
-    'no_image.png'
   end
 end

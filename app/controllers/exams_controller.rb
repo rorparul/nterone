@@ -1,21 +1,17 @@
 class ExamsController < ApplicationController
-  def return_all
-
-  end
-
   def new
     @platform = Platform.find(params[:platform_id])
     @exam     = Exam.new
   end
 
   def create
-    @exam = Platform.find(params[:platform_id]).exams.build(exam_params)
+    @platform = Platform.find(params[:platform_id])
+    @exam     = @platform.exams.build(exam_params)
     if @exam.save
-      flash[:success] = "Exam successfully created."
-      redirect_to :back
+      flash[:success] = 'Exam successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = "Exam unsuccessfully created."
-      render "new"
+      render 'new'
     end
   end
 
@@ -42,17 +38,22 @@ class ExamsController < ApplicationController
     @exam = Exam.find(params[:id])
     @exam.assign_attributes(exam_params)
     if @exam.save
-      flash[:notice] = 'You have successfully updated Exam.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Exam successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      @platform = Platform.find(params[:platform_id])
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    Exam.find(params[:id]).destroy
-    flash[:notice] = 'Exam was successfully deleted.'
-    redirect_to platform_path(params[:platform_id])
+    exam = Exam.find(params[:id])
+    if exam.destroy
+      flash[:success] = 'Exam successfully deleted!'
+    else
+      flash[:alert] = 'Exam unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   private
