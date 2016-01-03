@@ -1,5 +1,5 @@
 class MySalesController < ApplicationController
-  before_action :check_clearance
+  before_action :redirect_if_not_permitted
 
   def classes
     @events = Event.order(:start_date)
@@ -32,9 +32,7 @@ class MySalesController < ApplicationController
 
   private
 
-  def check_clearance
-    if !user_signed_in? || (user_signed_in? && current_user.member?)
-      redirect_to root_path
-    end
+  def redirect_if_not_permitted
+    redirect_to root_path if !user_signed_in? || !current_user.sales?
   end
 end

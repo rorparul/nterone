@@ -11,4 +11,6 @@ class Event < ActiveRecord::Base
   def self.guaranteed_events
     where(guaranteed: true).order(:start_date)
   end
+
+  validates :course_id, :price, :format, presence: true
 end

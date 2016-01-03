@@ -1,13 +1,9 @@
 class CoursesController < ApplicationController
   before_action :get_guaranteed_events, only: [:show]
 
-  def return_all
-    # render json: {apple: "Bingo!!!"}
-  end
-
   def new
-    @platform = Platform.find(params[:platform_id])
-    @course   = Course.new
+    @platform   = Platform.find(params[:platform_id])
+    @course     = Course.new
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
@@ -19,10 +15,14 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Platform.find(params[:platform_id]).courses.build(course_params)
+    @platform   = Platform.find(params[:platform_id])
+    @course     = @platform.courses.build(course_params)
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+      category if category.parent
+    end
     if @course.save
-      flash[:success] = 'You have successfully created Course.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Course successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
       render 'new'
     end
@@ -37,12 +37,12 @@ class CoursesController < ApplicationController
     end
   end
 
-  def  select_to_edit
+  def select_to_edit
     if course_params[:id] == 'none'
       redirect_to select_platform_courses_path(Platform.find(params[:platform_id]))
     else
-      @platform = Platform.find(params[:platform_id])
-      @course   = Course.find(course_params[:id])
+      @platform   = Platform.find(params[:platform_id])
+      @course     = Course.find(course_params[:id])
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
@@ -53,17 +53,25 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @course.assign_attributes(course_params)
     if @course.save
-      flash[:success] = 'You have successfully updated Course.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Course successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      @platform   = Platform.find(params[:platform_id])
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+        category if category.parent
+      end
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    Course.find(params[:id]).destroy
-    flash[:notice] = 'Course was successfully deleted.'
-    redirect_to platform_path(params[:platform_id])
+    course = Course.find(params[:id])
+    if course.destroy
+      flash[:success] = 'Course successfully deleted!'
+    else
+      flash[:alert] = 'Course unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   def download

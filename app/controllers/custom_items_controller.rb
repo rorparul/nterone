@@ -1,14 +1,15 @@
 class CustomItemsController < ApplicationController
   def new
     @platform    = Platform.find(params[:platform_id])
-    @custom_item = CustomItem.new
+    @custom_item = @platform.custom_items.build
   end
 
   def create
-    @custom_item = Platform.find(params[:platform_id]).custom_items.build(custom_item_params)
+    @platform    = Platform.find(params[:platform_id])
+    @custom_item = @platform.custom_items.build(custom_item_params)
     if @custom_item.save
-      flash[:notice] = 'You have successfully created Custom Item.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Custom Item successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
       render 'new'
     end
@@ -33,17 +34,22 @@ class CustomItemsController < ApplicationController
     @custom_item = CustomItem.find(params[:id])
     @custom_item.assign_attributes(custom_item_params)
     if @custom_item.save
-      flash[:notice] = 'You have successfully updated Custom Item.'
-      redirect_to platform_path(params[:platform_id])
+      flash[:success] = 'Custom Item successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      @platform = Platform.find(params[:platform_id])
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    CustomItem.find(params[:id]).destroy
-    flash[:notice] = 'Custom Item was successfully deleted.'
-    redirect_to platform_path(params[:platform_id])
+    custom_item = CustomItem.find(params[:id])
+    if custom_item.destroy
+      flash[:success] = 'Custom Item successfully deleted!'
+    else
+      flash[:alert] = 'Custom Item unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   private

@@ -5,16 +5,15 @@ class ExamAndCourseDynamicsController < ApplicationController
   end
 
   def create
-    platform = Platform.find(params[:platform_id])
-    @exam_and_course_dynamic = platform.exam_and_course_dynamics.build(exam_and_course_dynamic_params)
-    @exam_and_course_dynamic.exams.each {|exam| exam.platform = platform}
-    @exam_and_course_dynamic.courses.each {|course| course.platform = platform}
+    @platform = Platform.find(params[:platform_id])
+    @exam_and_course_dynamic = @platform.exam_and_course_dynamics.build(exam_and_course_dynamic_params)
+    @exam_and_course_dynamic.exams.each { |exam| exam.platform = @platform }
+    @exam_and_course_dynamic.courses.each { |course| course.platform = @platform }
     if @exam_and_course_dynamic.save
       flash[:success] = "Exam and course dynamic successfully created!"
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:notice] = "Exam and course dynamic unsuccessfully created!"
-      render "new"
+      render 'new'
     end
   end
 
@@ -35,16 +34,15 @@ class ExamAndCourseDynamicsController < ApplicationController
 
   def update
     @exam_and_course_dynamic = ExamAndCourseDynamic.find(params[:id])
-    platform = @exam_and_course_dynamic.platform
+    @platform = @exam_and_course_dynamic.platform
     @exam_and_course_dynamic.assign_attributes(exam_and_course_dynamic_params)
-    @exam_and_course_dynamic.exams.each {|exam| exam.platform = platform}
-    @exam_and_course_dynamic.courses.each {|course| course.platform = platform}
+    @exam_and_course_dynamic.exams.each {|exam| exam.platform = @platform}
+    @exam_and_course_dynamic.courses.each {|course| course.platform = @platform}
     if @exam_and_course_dynamic.save
       flash[:success] = "Exam and course dynamic successfully updated!"
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = "Exam and course dynamic unsuccessfully updated!"
-      render "edit"
+      render 'select_to_edit'
     end
   end
 
@@ -52,11 +50,10 @@ class ExamAndCourseDynamicsController < ApplicationController
     exam_and_course_dynamic = ExamAndCourseDynamic.find(params[:id])
     if exam_and_course_dynamic.destroy
       flash[:success] = "Exam and course dynamic successfully deleted!"
-      redirect_to :back
     else
       flash[:alert] = "Exam and course dynamic unsuccessfully deleted!"
-      render "edit"
     end
+    redirect_to :back
   end
 
   private
@@ -66,7 +63,5 @@ class ExamAndCourseDynamicsController < ApplicationController
                                                     :label,
                                                     exam_ids: [],
                                                     course_ids: [])
-                                                    # exams_attributes: [:id, :title, :_destroy],
-                                                    # courses_attributes: [:id,:title, :url, :price, :_destroy])
   end
 end

@@ -1,3 +1,3 @@
 $('.modal-title').html('Edit Table');
-$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, subject: @subject, subjects: @subjects, group: @group, exam_and_course_dynamics: @exam_and_course_dynamics, courses: @courses, dividers: @dividers, custom_items: @custom_items, group: @group}) %>");
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, subject: @subject, subjects: @subjects, group: @group, exam_and_course_dynamics: @exam_and_course_dynamics, courses: @courses, dividers: @dividers, custom_items: @custom_items, group: @group }) %>");
 $('#myModal').modal('show');

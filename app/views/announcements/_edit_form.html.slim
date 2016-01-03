@@ -1,8 +1,17 @@
-= form_for announcement, html: {} do |f|
+= form_for announcement, html: {}, remote: true do |f|
+  - if announcement.errors.any?
+    .alert.alert-danger.alert-dismissible
+      button.close type="button" data-dismiss="alert" aria-label="Close"
+        span aria-hidden="true" &times;
+      h4 = "#{pluralize(announcement.errors.count, 'error')}:"
+      ul
+        - announcement.errors.full_messages.each do |msg|
+          li = msg
   = f.hidden_field :id, value: announcement.id
   
   .form-group
-    = f.text_area :content, rows: 5, class: 'form-control'
+    = f.label :content, "Content"
+    = f.text_area :content, class: 'form-control input-sm'
     
   .form-buttons
     button.btn.btn-success type="submit" Save

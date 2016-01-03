@@ -4,13 +4,15 @@ class Category < ActiveRecord::Base
   belongs_to :platform
   belongs_to :parent, class_name: 'Category'
 
-  has_many   :children, class_name: 'Category', foreign_key: 'parent_id'
-  has_many   :category_subjects, dependent: :destroy
-  has_many   :subjects, through: :category_subjects
-  has_many   :category_courses, dependent: :destroy
-  has_many   :courses, through: :category_courses
-  has_many   :category_video_on_demands, dependent: :destroy
-  has_many   :video_on_demands, through: :category_video_on_demands
+  has_many :children, class_name: 'Category', foreign_key: 'parent_id', dependent: :destroy
+  has_many :category_subjects, dependent: :destroy
+  has_many :subjects, through: :category_subjects
+  has_many :category_courses, dependent: :destroy
+  has_many :courses, through: :category_courses
+  has_many :category_video_on_demands, dependent: :destroy
+  has_many :video_on_demands, through: :category_video_on_demands
+
+  validates :title, presence: true
 
   def items
     items = []

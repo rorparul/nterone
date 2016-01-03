@@ -1,25 +1,25 @@
 .form-container
-  = form_for [platform, category] do |f|
+  = form_for [platform, category], remote: true do |f|
     - if category.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(category.errors.count, 'error')} prohibited this category from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(category.errors.count, 'error')}:"
         ul
           - category.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
       = f.label :parent_id
-      br
       = f.collection_select(:parent_id, platform.categories.parent_categories.where.not(id: category.id), :id, :title,
-                            { prompt: 'None' }, { class: 'form-control' })
+                            { prompt: 'None' }, { class: 'form-control input-sm' })
                             
     .form-group
       = f.label :title
-      br
-      = f.text_field :title, class: 'form-control'
+      = f.text_field :title, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if category.id
-        = link_to 'Delete', platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: 'text-danger'
+        = link_to 'Delete', platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

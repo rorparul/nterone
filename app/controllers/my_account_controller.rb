@@ -1,4 +1,6 @@
 class MyAccountController < ApplicationController
+  before_action :redirect_if_not_permitted
+
   def plan
     @planned_subjects = current_user.planned_subjects.where(active: true)
     current_user.planned_subjects.where(active: true).update_all(read: true)
@@ -12,5 +14,11 @@ class MyAccountController < ApplicationController
 
   def settings
     @user = current_user
+  end
+
+  private
+
+  def redirect_if_not_permitted
+    redirect_to root_path if !user_signed_in? || !current_user.member?
   end
 end

@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   def new
     @platform                 = Platform.find(params[:platform_id])
     @subject                  = Subject.find(params[:subject_id])
-    @group                    = @platform.groups.build
+    @group                    = @subject.groups.build
     @subjects                 = @platform.subjects
     @courses                  = @platform.courses
     @exam_and_course_dynamics = @platform.exam_and_course_dynamics
@@ -11,16 +11,19 @@ class GroupsController < ApplicationController
   end
 
   def create
-    # TODO: Associate platform with group
     @platform = Platform.find(params[:platform_id])
     @subject  = Subject.find(params[:subject_id])
-    @group    = @subject.groups.new(group_params)
+    @group    = @subject.groups.build(group_params)
     if @group.save
       flash['success'] = 'Table successfully created!'
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash['alert'] = 'Table unsuccessfully created!'
-      redirect_to :back
+      @subjects                 = @platform.subjects
+      @courses                  = @platform.courses
+      @exam_and_course_dynamics = @platform.exam_and_course_dynamics
+      @dividers                 = @platform.dividers
+      @custom_items             = @platform.custom_items.where(is_header: false)
+      render 'new'
     end
   end
 
@@ -32,33 +35,35 @@ class GroupsController < ApplicationController
     @courses                  = @platform.courses
     @exam_and_course_dynamics = @platform.exam_and_course_dynamics
     @dividers                 = @platform.dividers
-    @custom_items             = @platform.custom_items
+    @custom_items             = @platform.custom_items.where(is_header: false)
   end
 
   def update
     @platform = Platform.find(params[:platform_id])
     @subject  = Subject.find(params[:subject_id])
     @group    = Group.find(params[:id])
-    if @group.update_attributes(group_params)
-      flash['success'] = 'Table successfully updated.'
-      redirect_to :back
+    @group.assign_attributes(group_params)
+    if @group.save
+      flash['success'] = 'Table successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash['alert'] = 'Table unsuccessfully to updated.'
-      redirect_to :back
+      @subjects                 = @platform.subjects
+      @courses                  = @platform.courses
+      @exam_and_course_dynamics = @platform.exam_and_course_dynamics
+      @dividers                 = @platform.dividers
+      @custom_items             = @platform.custom_items
+      render 'edit'
     end
   end
 
   def destroy
-    @platform = Platform.find(params[:platform_id])
-    @subject  = Subject.find(params[:subject_id])
-    @group    = Group.find(params[:id])
-    if @group.destroy
-      flash['success'] = 'Table successfully deleted.'
-      redirect_to :back
+    group = Group.find(params[:id])
+    if group.destroy
+      flash['success'] = 'Table successfully deleted!'
     else
-      flash['alert'] = 'Table unsuccessfully deleted.'
-      redirect_to :back
+      flash['alert'] = 'Table unsuccessfully deleted!'
     end
+    redirect_to :back
   end
 
   private

@@ -1,6 +1,4 @@
 class LeadsController < ApplicationController
-  before_action :check_clearance, only: [:index]
-
   def request_quote
     lead = Lead.new(lead_params)
     if lead.save
@@ -19,23 +17,10 @@ class LeadsController < ApplicationController
     redirect_to :back
   end
 
-  # def index
-  #   if current_user.sales_manager? || current_user.admin?
-  #     @sales_force      = Role.where(role: 3)
-  #     @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0]).order(created_at: :asc)
-  #     @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-  #     @archived_leads   = Lead.where(status: 'archived').order(created_at: :desc)
-  #   elsif current_user.sales_rep?
-  #     @assigned_leads   = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc)
-  #     @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
-  #     @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').order(created_at: :desc)
-  #   end
-  # end
-
   def show
-    @buyer = User.find(params[:id])
+    @buyer            = User.find(params[:id])
     @planned_subjects = @buyer.planned_subjects.where(active: true)
-    @activities = PublicActivity::Activity.where(trackable_id: @buyer.buyer_leads.pluck(:id)).order(created_at: :desc)
+    @activities       = PublicActivity::Activity.where(trackable_id: @buyer.buyer_leads.pluck(:id)).order(created_at: :desc)
   end
 
   def edit
@@ -70,7 +55,7 @@ class LeadsController < ApplicationController
                            margin: { bottom: 32 },
                            template: 'leads/quote.html.slim',
                            locals: { lead: @lead },
-                           footer:  { html: { template:'layouts/_footer.html.slim'}})
+                           footer:  { html: { template:'layouts/_footer.html.slim' } })
 
 
 
@@ -98,11 +83,5 @@ class LeadsController < ApplicationController
 
   def lead_params
     params.require(:lead).permit(:seller_id, :buyer_id, :status, :discount)
-  end
-
-  def check_clearance
-    if current_user.member?
-      redirect_to root_path
-    end
   end
 end

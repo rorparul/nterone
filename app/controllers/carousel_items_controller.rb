@@ -1,4 +1,5 @@
 class CarouselItemsController < ApplicationController
+  before_action :redirect_if_not_permitted, only: [:new, :edit]
   before_action :set_carousel_item, except: [:new, :create, :page]
 
   def new
@@ -15,9 +16,8 @@ class CarouselItemsController < ApplicationController
     @carousel_item.set_image(url_param: params['carousel_item'], for: :image)
     if @carousel_item.save
       flash[:success] = "Carousel Item successfully created!"
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = "Carousel Item unsuccessfully created!"
       render 'new'
     end
   end
@@ -31,10 +31,9 @@ class CarouselItemsController < ApplicationController
     @carousel_item.set_image(url_param: params['carousel_item'], for: :image)
     if @carousel_item.save
       flash[:notice] = 'Carousel Item successfully updated!'
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = "Carousel Item unsuccessfully updated!"
-      render('edit')
+      render 'edit'
     end
   end
 
@@ -55,5 +54,9 @@ class CarouselItemsController < ApplicationController
 
   def set_carousel_item
     @carousel_item = CarouselItem.find(params[:id])
+  end
+
+  def redirect_if_not_permitted
+    redirect_to root_path if !user_signed_in? || !current_user.admin?
   end
 end

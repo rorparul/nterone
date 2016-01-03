@@ -24,10 +24,10 @@ class ForumsController < ApplicationController
     @forum = Forum.find(params[:id])
     @forum.assign_attributes(forum_params)
     if @forum.save
-      flash[:notice] = 'You have successfully updated Category.'
+      flash[:success] = 'Category successfully updated!'
       render js: "window.location = '#{forums_path}'"
     else
-      render('edit')
+      render 'select_to_edit'
     end
   end
 
@@ -44,13 +44,23 @@ class ForumsController < ApplicationController
   end
 
   def create
-    @forum = Forum.create(forum_params)
+    @forum = Forum.new(forum_params)
+    if @forum.save
+      flash[:success] = 'Category successfully created!'
+      render js: "window.location = '#{request.referrer}';"
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-    Forum.find(params[:id]).destroy
-    flash[:notice] = 'Category was successfully deleted.'
-    redirect_to forums_path
+    forum = Forum.find(params[:id])
+    if forum.destroy
+      flash[:success] = 'Category successfully deleted!'
+    else
+      flash[:alert] = 'Category unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   private

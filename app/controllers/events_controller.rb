@@ -11,9 +11,10 @@ class EventsController < ApplicationController
     @course   = Course.find(params[:course_id])
     @event    = @course.events.build(event_params)
     if @event.save
-      flash[:notice] = 'Event successfully created!'
-      redirect_to :back
+      flash[:success] = 'Event successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
+      @instructors = @platform.instructors
       render 'new'
     end
   end
@@ -51,12 +52,11 @@ class EventsController < ApplicationController
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
     if @event.update_attributes(event_params)
-      flash[:notice] = 'Event successfully updated!'
-      redirect_to :back
+      flash[:success] = 'Event successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Event unsuccessfully updated!'
       @instructors  = @platform.instructors
-      render 'edit'
+      render 'select_to_edit'
     end
   end
 
