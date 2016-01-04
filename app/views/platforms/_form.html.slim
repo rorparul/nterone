@@ -1,28 +1,18 @@
-= form_for(@platform) do |f|
-  - if @platform.errors.any?
-    .error_explanation
-      h4 = "#{pluralize(@platform.errors.count, 'error')} prohibited this platform from being saved:"
-      ul
-        - @platform.errors.full_messages.each do |msg|
-          li = msg
-
+= form_for @platform do |f|
   .form-group
     = f.label :title
-    br
-    = f.text_field :title, class: 'form-control'
+    = f.text_field :title, class: 'form-control input-sm'
     
   .form-group
-    = f.label :url, "URL To Find Test Center"
-    br
-    = f.text_field :url, class: 'form-control'
+    = f.label :url, 'URL To Find Test Center'
+    = f.text_field :url, class: 'form-control input-sm'
     
   .form-group
     - if @platform.image.present? && @platform.image.file.present?
       = image_tag @platform.image.file.platform_icon.url
       br
     = f.fields_for :image do |icon|
-      = icon.label :file, "Image"
-      br
+      = icon.label :file, 'Image'
       = icon.file_field :file
       = icon.hidden_field :file_cache
       

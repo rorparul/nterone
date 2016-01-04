@@ -2,7 +2,7 @@ class PlannedSubjectsController < ApplicationController
   def toggle
     planned_subject = PlannedSubject.where(planned_subject_params).first
     if current_user.member?
-      notice = "Successfully added! Please navigate to #{view_context.link_to('My Plan', planned_subjects_path)} to manage and request a formal quote.".html_safe
+      notice = "Successfully added! Please navigate to #{view_context.link_to('My Plan', my_account_plan_path)} to manage and request a formal quote.".html_safe
     else
       notice = "Successfully added!"
     end

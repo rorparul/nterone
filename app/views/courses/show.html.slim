@@ -48,7 +48,7 @@
                           th Price
                           th
                       tbody
-                        - @course.active_events.each do |event|
+                        - @course.upcoming_events.each do |event|
                           tr
                             td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
                             td = "#{pluralize(event.length, 'Day')}"

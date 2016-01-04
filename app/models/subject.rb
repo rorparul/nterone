@@ -14,6 +14,9 @@ class Subject < ActiveRecord::Base
 
   accepts_nested_attributes_for :image
 
+  validates :categories, :title, :abbreviation, presence: true
+  validates_associated :categories
+
   # TODO: Optimize search performance
   def self.search(query)
     subjects = []

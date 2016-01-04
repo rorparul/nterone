@@ -52,13 +52,17 @@ class SubjectsController < ApplicationController
   end
 
   def create
-    @subject = Platform.find(params[:platform_id]).subjects.new(subject_params)
+    @platform = Platform.find(params[:platform_id])
+    @subject = @platform.subjects.build(subject_params)
     @subject.set_image(url_param: params['subject'], for: :image)
     if @subject.save
-      flash['notice'] = 'Certification was successfully created.'
-      redirect_to platform_subject_path(Platform.find(params[:platform_id]), @subject.id)
+      flash['success'] = 'Certification successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('new')
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+        category if category.parent
+      end
+      render 'new'
     end
   end
 
@@ -67,17 +71,24 @@ class SubjectsController < ApplicationController
     @subject.assign_attributes(subject_params)
     @subject.set_image(url_param: params['subject'], for: :image)
     if @subject.save
-      flash['notice'] = 'Certification was successfully updated.'
-      redirect_to platform_path(Platform.find(params[:platform_id]))
+      flash['success'] = 'Certification successfully updated.'
+      render js: "window.location = '#{request.referrer}';"
     else
-      render('edit')
+      @platform = Platform.find(params[:platform_id])
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+        category if category.parent
+      end
+      render 'select_to_edit'
     end
   end
 
   def destroy
-    @subject.destroy
-    flash['notice'] = 'Certification was successfully deleted.'
-    redirect_to platform_path(Platform.find(params[:platform_id]))
+    if @subject.destroy
+      flash['success'] = 'Certification successfully deleted!'
+    else
+      flash['alert'] = 'Certification unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   private

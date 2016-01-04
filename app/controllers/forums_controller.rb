@@ -1,9 +1,9 @@
 class ForumsController < ApplicationController
   def filter
     if forum_params[:forum_id] == 'all'
-      @topics = Topic.all
+      @topics = Topic.order(:title)
     else
-      @topics = Forum.find(forum_params[:forum_id]).topics
+      @topics = Forum.find(forum_params[:forum_id]).topics.order(:title)
     end
   end
 
@@ -32,7 +32,7 @@ class ForumsController < ApplicationController
   end
 
   def index
-    @topics = Topic.all
+    @topics = Topic.order(:title)
   end
 
   def show

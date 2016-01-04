@@ -31,6 +31,7 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'autonumeric-rails'
 gem 'parsley-rails'
 gem 'jquery-minicolors-rails'
+gem 'remotipart'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

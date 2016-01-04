@@ -30,38 +30,35 @@ class PlatformsController < ApplicationController
 
   def edit
     @platform.build_image unless @platform.image.present?
-    # @platform = @platform
   end
 
   def create
     @platform = Platform.new(platform_params)
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
-      flash[:success] = "Platform successfully created!"
-      redirect_to :back
+      flash[:success] = 'Platform successfully created!'
     else
-      flash[:alert] = "Platform unsuccessfully created!"
-      render('new')
+      flash[:alert] = 'Platform unsuccessfully created!'
     end
+    redirect_to :back
   end
 
   def update
     @platform.assign_attributes(platform_params)
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
-      flash[:notice] = 'Platform successfully updated!'
-      redirect_to(root_path)
+      flash[:success] = 'Platform successfully updated!'
     else
       flash[:alert] = 'Platform unsuccessfully updated!'
-      render 'edit'
     end
+    redirect_to :back
   end
 
   def destroy
     if @platform.destroy
-      flash[:success] = "Platform successfully deleted!"
+      flash[:success] = 'Platform successfully deleted!'
     else
-      flash[:alert] = "Platform unsuccessfully deleted!"
+      flash[:alert] = 'Platform unsuccessfully deleted!'
     end
     redirect_to :back
   end

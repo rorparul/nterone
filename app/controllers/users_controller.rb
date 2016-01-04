@@ -22,10 +22,10 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     if user.update_without_password(user_params)
-      flash[:success] = "User successfully updated!"
+      flash[:success] = 'User successfully updated!'
       redirect_to :back
     else
-      flash[:alert] = "User unsuccessfully updated!"
+      flash[:alert] = 'User unsuccessfully updated!'
       redirect_to :back
     end
   end
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     if user.save
       flash[:success] = "User successfully #{user.archived ? 'archived' : 'unarchived'}!"
     else
-      flash[:alert] = "User failed to archive!"
+      flash[:alert] = "User unsuccessfully #{user.archived ? 'unarchived' : 'archived'}"
     end
     redirect_to :back
   end
@@ -44,9 +44,9 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     if user.destroy
-      flash[:success] = "User successfully deleted!"
+      flash[:success] = 'User successfully deleted!'
     else
-      flash[:alert] = "User failed to delete!"
+      flash[:alert] = 'User unsuccessfully deleted!'
     end
     redirect_to :back
   end

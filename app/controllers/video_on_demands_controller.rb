@@ -2,8 +2,7 @@ class VideoOnDemandsController < ApplicationController
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
-    @video_module    = @video_on_demand.video_modules.build
-    @video           = @video_module.videos.build
+    @video_on_demand.video_modules.build.videos.build
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
@@ -12,12 +11,17 @@ class VideoOnDemandsController < ApplicationController
   end
 
   def create
-    @video_on_demand = Platform.find(params[:platform_id]).video_on_demands.build(video_on_demand_params)
+    @platform        = Platform.find(params[:platform_id])
+    @video_on_demand = @platform.video_on_demands.build(video_on_demand_params)
     if @video_on_demand.save
-      flash[:notice] = 'Video On Demand successfully created!'
-      redirect_to :back
+      flash[:success] = 'Video On Demand successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Video On Demand unsuccessfully created!'
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+        category if category.parent
+      end
+      @courses     = @platform.courses
+      @instructors = @platform.instructors
       render 'new'
     end
   end
@@ -31,8 +35,6 @@ class VideoOnDemandsController < ApplicationController
     @platform         = Platform.find(params[:platform_id])
     @video_on_demand  = @platform.video_on_demands.build
     @video_on_demands = @platform.video_on_demands.order('lower(title)')
-    @video_module     = @video_on_demand.video_modules.build
-    @video            = @video_module.videos.build
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
@@ -55,20 +57,25 @@ class VideoOnDemandsController < ApplicationController
   end
 
   def update
+    @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     if @video_on_demand.update_attributes(video_on_demand_params)
-      flash[:notice] = 'Video On Demand successfully updated!'
-      redirect_to :back
+      flash[:success] = 'Video On Demand successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Video On Demand unsuccessfully updated!'
-      render 'edit'
+      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+        category if category.parent
+      end
+      @courses     = @platform.courses
+      @instructors = @platform.instructors
+      render 'select_to_edit'
     end
   end
 
   def destroy
     video_on_demand = VideoOnDemand.find(params[:id])
     if video_on_demand.destroy
-      flash[:notice] = 'Video On Demand successfully destroyed!'
+      flash[:success] = 'Video On Demand successfully destroyed!'
     else
       flash[:alert] = 'Video On Demand unsuccessfully destroyed!'
     end
@@ -79,6 +86,8 @@ class VideoOnDemandsController < ApplicationController
 
   def video_on_demand_params
     params.require(:video_on_demand).permit(:id,
+                                            :title,
+                                            :abbreviation,
                                             :course_id,
                                             :instructor_id,
                                             :level,

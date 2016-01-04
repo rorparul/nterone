@@ -10,7 +10,7 @@
         = render partial: 'testimonial', locals: { testimonial: testimonial }
   
   .col-sm-12.col-md-3
-    = render 'courses/guaranteed_to_run'
+    = render partial: 'courses/guaranteed_to_run', locals: { guaranteed_events: @guaranteed_events }
     
 javascript:
   $('.testimonials-tab').addClass('active');

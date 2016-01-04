@@ -9,7 +9,7 @@ class Role < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :user
+  validates :user, :role, presence: true
 
   def formatted_role
     normalized_roles = {

@@ -3,5 +3,5 @@ class Image < ActiveRecord::Base
 
   belongs_to :imageable, polymorphic: true
 
-  validates :file, presence: true
+  # validates :file, presence: true
 end

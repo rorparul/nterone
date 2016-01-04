@@ -55,6 +55,6 @@ class GeneralController < ApplicationController
   end
 
   def get_guaranteed_events
-    @guaranteed_events = Event.guaranteed_events
+    @guaranteed_events = Event.guaranteed_upcoming_events
   end
 end

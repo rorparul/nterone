@@ -17,7 +17,7 @@
     - elsif item.class == VideoOnDemand
       .col-xs-12.col-md-6
         = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
-          p = "#{item.course.title} (#{item.course.abbreviation})"
+          p = "#{item.title} (#{item.abbreviation})"
         
 - else
   p.text-center No Matches Found
