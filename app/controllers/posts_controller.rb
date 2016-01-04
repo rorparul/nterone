@@ -9,7 +9,9 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.update_attributes(post_params)
+    if !@post.update_attributes(post_params)
+      render 'edit'
+    end
   end
 
   def destroy

@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @category = @platform.categories.build(category_params)
     if @category.save
-      flash[:notice] = 'Category successfully created!'
+      flash[:success] = 'Category successfully created!'
       render js: "window.location = '#{request.referrer}';"
     else
       render 'new'

@@ -40,13 +40,6 @@
           = f.label :course_info, "Course PDF"
           = f.file_field :course_info, class: 'form-control input-sm'
     
-    / .form-group
-    /   = f.label :price, "Default Price"
-    /   .input-group
-    /     span.input-group-addon $
-    /     = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-    /     span.input-group-addon .00
-    
     .form-group
       = f.label :intro, 'Introduction'
       = f.text_area :intro, class: 'form-control wysihtml5 input-sm'

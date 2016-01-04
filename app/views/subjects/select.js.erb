@@ -2,6 +2,4 @@ $('.modal-title').html('Edit Certification');
 $('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, subjects: @subjects}) %>");
 $('.modal-body').append("<hr>");
 $('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, categories: @categories, subject: @subject}) %>");
-// $('.modal-body .form-container select, .modal-body .form-container input').attr('id', 'disabledInput');
-// $('.modal-body .form-container select, .modal-body .form-container input').attr('disabled', 'true');
 $('#myModal').modal('show');

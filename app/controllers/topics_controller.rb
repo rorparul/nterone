@@ -16,10 +16,10 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @topic.assign_attributes(topic_params)
     if @topic.save
-      flash[:notice] = 'You have successfully updated Topic.'
-      render js: "window.location = '#{forums_path}'"
+      flash[:success] = 'Topic successfully updated!'
+      render js: "window.location = '#{forums_path}';"
     else
-      render('edit')
+      render 'select_to_edit'
     end
   end
 
@@ -33,13 +33,23 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.create(topic_params)
+    @topic = Topic.new(topic_params)
+    if @topic.save
+      flash[:success] = 'Topic successfully created!'
+      render js: "window.location = '#{request.referrer}';"
+    else
+      render 'new'
+    end
   end
 
   def destroy
-    Topic.find(params[:id]).destroy
-    flash[:notice] = 'Topic was successfully deleted.'
-    redirect_to forums_path
+    topic = Topic.find(params[:id])
+    if topic.destroy
+      flash[:success] = 'Topic successfully deleted!'
+    else
+      flash[:alert] = 'Topic unsuccessfully deleted!'
+    end
+    redirect_to :back
   end
 
   private

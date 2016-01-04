@@ -1,21 +1,24 @@
 .form-container
-  = form_for topic, html: { "data-parsley-validate" => true, remote: true } do |f|
+  = form_for topic, remote: true do |f|
     - if topic.errors.any?
-      .error_explanation
-        h4 = "#{pluralize(topic.errors.count, 'error')} prohibited this forum from being saved:"
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(topic.errors.count, 'error')}:"
         ul
           - topic.errors.full_messages.each do |msg|
             li = msg
 
     .form-group
       = f.label :forum_id, "Category"
-      br
-      = f.select :forum_id, Forum.all.collect { |forum| [forum.title, forum.id] }, {}, html_options = { class: "form-control sub-select", required: true }
+      = f.select :forum_id,
+                 Forum.all.collect { |forum| [forum.title, forum.id] },
+                 { prompt: true },
+                 { class: 'form-control sub-select input-sm' }
       
     .form-group
       = f.label :title
-      br
-      = f.text_field :title, html_options = { class: 'form-control', required: true}
+      = f.text_field :title, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit" Save

@@ -1,5 +1,5 @@
 class Testimonial < ActiveRecord::Base
   belongs_to :course
 
-  validates_presence_of :quotation
+  validates :quotation, presence: true
 end

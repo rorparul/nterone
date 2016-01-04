@@ -16,11 +16,15 @@ class Course < ActiveRecord::Base
 
   before_save :format_url
 
-  validates :title,        presence: true
-  validates :abbreviation, presence: true
+  validates :categories, :title, :abbreviation, presence: true
+  validates_associated :categories
 
   def active_events
     events.where(active: true).order(:start_date)
+  end
+
+  def upcoming_events
+    events.where("active = :active and start_date >= :start_date", {active: true, start_date: Time.now}).order(:start_date)
   end
 
   private

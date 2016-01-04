@@ -13,7 +13,7 @@
   span.seperator
     | /
   a href="#{platform_video_on_demand_path(@platform, @video_on_demand)}"
-    = "#{@video_on_demand.course.abbreviation}"
+    = "#{@video_on_demand.abbreviation}"
     
 / - content_for :actions do
 /   - if user_signed_in? && current_user.admin?
@@ -27,12 +27,13 @@
 .row
   .col-xs-12.col-md-10
     #video-on-demand
-      h4.title = "#{@video_on_demand.course.title} (#{@video_on_demand.course.abbreviation})"
+      h4.title = "#{@video_on_demand.title} (#{@video_on_demand.abbreviation})"
       .row
         .col-xs-12
           .row
             .col-xs-12
-              p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
+              - if @video_on_demand.course
+                p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
           .row
             .col-xs-12
               .well.well-course
@@ -46,7 +47,7 @@
                         th
                     tbody
                       tr
-                        td = @video_on_demand.instructor.full_name
+                        td = @video_on_demand.instructor.full_name if @video_on_demand.instructor
                         td = @video_on_demand.level
                         td = "$#{@video_on_demand.price}/year"
                         td.fit = link_to 'Add to cart', '#'
@@ -85,13 +86,16 @@
             .col-xs-12
               .resource-info
                 h1 Overview
-                = @video_on_demand.course.overview.html_safe if @video_on_demand.course.overview
+                - if @video_on_demand.course && @video_on_demand.course.overview
+                  = @video_on_demand.course.overview.html_safe
                 hr.hr-sub
                 h1 Outline
-                = @video_on_demand.course.outline.html_safe if @video_on_demand.course.outline
+                - if @video_on_demand.course && @video_on_demand.course.outline
+                  = @video_on_demand.course.outline.html_safe
                 hr.hr-sub
                 h1 Who Should Attend
-                = @video_on_demand.course.intended_audience.html_safe if @video_on_demand.course.intended_audience
+                - if @video_on_demand.course && @video_on_demand.course.intended_audience
+                  = @video_on_demand.course.intended_audience.html_safe
               
   .col-xs-12.col-md-2
     .row

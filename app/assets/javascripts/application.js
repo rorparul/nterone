@@ -4,6 +4,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require autonumeric

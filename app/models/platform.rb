@@ -3,7 +3,7 @@ class Platform < ActiveRecord::Base
 
   has_many :categories, dependent: :destroy
   has_many :subjects, dependent: :destroy
-  has_many :groups
+  # has_many :groups
   has_many :exams
   has_many :courses
   has_many :dividers
@@ -17,4 +17,7 @@ class Platform < ActiveRecord::Base
   accepts_nested_attributes_for :image
 
   delegate :parent_categories, to: :categories
+
+  validates :title, presence: true
+  validates_associated :image
 end
