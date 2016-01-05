@@ -37,10 +37,10 @@ class PlatformsController < ApplicationController
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
       flash[:success] = 'Platform successfully created!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Platform unsuccessfully created!'
+      render 'new'
     end
-    redirect_to :back
   end
 
   def update
@@ -48,10 +48,10 @@ class PlatformsController < ApplicationController
     @platform.set_image(url_param: params['platform'], for: :image)
     if @platform.save
       flash[:success] = 'Platform successfully updated!'
+      render js: "window.location = '#{request.referrer}';"
     else
-      flash[:alert] = 'Platform unsuccessfully updated!'
+      render 'edit'
     end
-    redirect_to :back
   end
 
   def destroy

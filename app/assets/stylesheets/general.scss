@@ -433,12 +433,6 @@ body {
       div {
         height: auto !important;
         width: 100% !important;
-        // div {
-        //
-        // }
-        // div {
-        //
-        // }
         img {
           height: auto !important;
           width: 100% !important;
@@ -473,7 +467,6 @@ body {
 .text-content {
   margin-bottom: 10px;
   .group-heading {
-    // padding: 0;
     h6 {
       font-size: 12.5px !important;
     }
@@ -495,7 +488,6 @@ body {
       color: rgb(32, 100, 151);
     }
     p {
-      // margin: 8px 10px;
       &:last-child {
         margin-bottom: 0;
       }
@@ -505,7 +497,6 @@ body {
 
 .testimonial {
   .quotation {
-    // color: rgb(150, 193, 97);
     color: rgb(96, 156, 61);
   }
 }
@@ -538,7 +529,6 @@ div.instructor-bios, div.news {
       margin: 0;
       text-align: center;
       height: 74px;
-      // border-bottom: 1px solid rgb(32, 100, 151);
       &:first-child {
         a {
           padding: 18.5px 0;
@@ -563,7 +553,6 @@ div.instructor-bios, div.news {
         &.active {
           color: #fff;
           @include value-prefix(background-image, linear-gradient(top, rgb(36, 101, 180) 0%, rgb(28, 79, 137) 100%));
-          // 21, 59, 102
           border-bottom: 1px solid rgb(23, 65, 116);
         }
         &:hover span {
@@ -572,7 +561,6 @@ div.instructor-bios, div.news {
         span {
           font-size: 12.5px;
           opacity: .8;
-          // text-shadow: 0 1px 0 #303030;
           display: block;
         }
       }
@@ -871,8 +859,12 @@ div.instructor-bios, div.news {
       h1, h2, h3, h4, h5, h6 {
         color: #337ab7;
       }
+      .datasheet {
+        height: 25px;
+      }
       span {
-        color: #337ab7;
+        // color: #337ab7;
+        color: rgb(193, 30, 7);
         // padding: 7px 0;
       }
     }

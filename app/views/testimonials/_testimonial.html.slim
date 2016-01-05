@@ -2,9 +2,9 @@
   .quotation
     = "\"#{testimonial.quotation}\""
   - if testimonial.company
-    i = "-- #{testimonial.author} @ #{testimonial.company}"
+    i = "#{testimonial.author} @ #{testimonial.company}"
   - else
-    i = "-- #{testimonial.author}"
+    i = testimonial.author
   .testimonial-course
     = testimonial.course
 hr.hr-sub

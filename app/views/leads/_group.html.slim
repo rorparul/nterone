@@ -18,7 +18,7 @@
           - leads.each do |lead|
             tr id="lead-#{lead.id}"
               td.fit = "#{time_ago_in_words(lead.created_at)} ago"
-              td.fit = link_to lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A", user_path(lead.buyer)
+              td.fit = lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A"
               td.fit = lead.buyer.email
               td.fit = lead.buyer.contact_number ? lead.buyer.contact_number : "N/A"
               td.fit = "$#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"

@@ -1,6 +1,11 @@
 - content_for :page_title do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
   a href="#{forums_path}"
-    span.fa.fa-comments-o
+    / span.fa.fa-comments-o
     | Forums
 
 - content_for :actions do

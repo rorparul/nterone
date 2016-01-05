@@ -1,8 +1,15 @@
 - content_for :page_title do
-  span.fa.fa-coffee
-  a href="#{leads_path}" My Queue
-  span.seperator = "/"
-  a href="#{lead_path(@buyer)}" = @buyer.full_name
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{my_sales_queue_path}"
+    | My Sales
+  span.seperator
+    | /
+  a href="#{lead_path(@buyer)}"
+    = @buyer.full_name
 
 
 - @planned_subjects.each do |planned_subject|

@@ -1,6 +1,11 @@
 - content_for :page_title do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
   a href="#{platforms_path}"
-    span.fa.fa-book
+    / span.fa.fa-book
     | Training
   span.seperator
     | /
@@ -82,8 +87,9 @@
                   .col-xs-12
                     .resource.text-center
                       = link_to course_download_platform_courses_path(@platform, @course) do
-                        span.fa.fa-file-pdf-o
-                        | Download
+                        span.fa.fa-file-pdf-o id='datasheet'
+                        / = image_tag 'pdf-download.png', class: "datasheet"
+                        | Download PDF Datasheet
                 .row
                   .col-xs-12
                     h5 Questions?

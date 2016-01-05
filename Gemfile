@@ -32,6 +32,7 @@ gem 'autonumeric-rails'
 gem 'parsley-rails'
 gem 'jquery-minicolors-rails'
 gem 'remotipart'
+gem 'authorizenet'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

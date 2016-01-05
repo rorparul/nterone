@@ -1,6 +1,11 @@
 - content_for :page_title do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
   a href="#{planned_subjects_path}"
-    span.fa.fa-user
+    / span.fa.fa-user
     | My Account
 
 - unless @planned_subjects.any?
