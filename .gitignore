@@ -12,3 +12,6 @@ public/uploads/*
 .ruby-version
 .env
 *~
+
+# Ignore application configuration
+/config/application.yml
