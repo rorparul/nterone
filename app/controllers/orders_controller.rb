@@ -51,8 +51,10 @@ class OrdersController < ApplicationController
         end
       else
         puts response.messages.messages[0].text
-        puts response.transactionResponse.errors.errors[0].errorCode
-        puts response.transactionResponse.errors.errors[0].errorText
+        # puts response.transactionResponse.errors.errors[0].errorCode
+        # puts response.transactionResponse.errors.errors[0].errorText
+        puts response.transactionResponse.errors[0].errorCode
+        puts response.transactionResponse.errors[0].errorText
         # raise "Failed to charge card."
         flash[:alert] = 'Failed to charge card.'
         redirect_to :back
