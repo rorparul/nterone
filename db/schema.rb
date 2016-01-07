@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102022646) do
+ActiveRecord::Schema.define(version: 20160107060822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(version: 20160102022646) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.boolean  "active",     default: true
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -139,13 +144,13 @@ ActiveRecord::Schema.define(version: 20160102022646) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.integer  "price"
+    t.decimal  "price",         precision: 8, scale: 2
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "guaranteed",    default: false
-    t.boolean  "active",        default: true
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.boolean  "guaranteed",                            default: false
+    t.boolean  "active",                                default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -228,6 +233,25 @@ ActiveRecord::Schema.define(version: 20160102022646) do
     t.boolean  "read",            default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "orderable_id"
+    t.string   "orderable_type"
+    t.integer  "cart_id"
+    t.decimal  "price"
+    t.integer  "order_id"
+  end
+
+  add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "auth_code"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -384,9 +408,9 @@ ActiveRecord::Schema.define(version: 20160102022646) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.integer  "price"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.decimal  "price",         precision: 8, scale: 2
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"

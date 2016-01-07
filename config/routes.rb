@@ -16,6 +16,15 @@ Nci::Application.routes.draw do
 
   resources :pages
 
+  # resources :carts
+  get       'cart' => 'carts#show', as: :cart
+  resources :order_items
+  resources :orders do
+    collection do
+      get '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+    end
+  end
+
   resources :forums, except: [:edit] do
     collection do
       get  'filter'

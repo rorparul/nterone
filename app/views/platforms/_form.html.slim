@@ -1,4 +1,13 @@
-= form_for @platform do |f|
+= form_for platform, remote: true do |f|
+  - if platform.errors.any?
+    .alert.alert-danger.alert-dismissible
+      button.close type="button" data-dismiss="alert" aria-label="Close"
+        span aria-hidden="true" &times;
+      h4 = "#{pluralize(platform.errors.count, 'error')}:"
+      ul
+        - platform.errors.full_messages.each do |msg|
+          li = msg
+          
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control input-sm'

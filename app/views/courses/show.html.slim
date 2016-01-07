@@ -1,6 +1,10 @@
 - content_for :page_title do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
   a href="#{platforms_path}"
-    span.fa.fa-book
     | Training
   span.seperator
     | /
@@ -54,8 +58,11 @@
                             td = "#{pluralize(event.length, 'Day')}"
                             td = event.format
                             td.text-success Available
-                            td = "$#{event.price}"
-                            td.fit = link_to 'Add to cart', '#', class: 'text-success'
+                            td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                            td.fit
+                              = form_for :order_item, url: order_items_path do |f|
+                                = f.hidden_field :event_id, value: event.id
+                                button.btn.btn-link.text-success type="submit" Add to cart
           .row
             .col-xs-12
               #degrees
@@ -82,8 +89,9 @@
                   .col-xs-12
                     .resource.text-center
                       = link_to course_download_platform_courses_path(@platform, @course) do
-                        span.fa.fa-file-pdf-o
-                        | Download
+                        span.fa.fa-file-pdf-o id='datasheet'
+                        / = image_tag 'pdf-download.png', class: "datasheet"
+                        | Download PDF Datasheet
                 .row
                   .col-xs-12
                     h5 Questions?

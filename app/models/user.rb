@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :messages,         dependent:  :destroy
   has_many :posts
   has_many :roles, dependent: :destroy
+  has_many :orders
 
   devise :confirmable,
          :database_authenticatable,

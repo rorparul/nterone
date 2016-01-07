@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
+  include CurrentCart
 
   protect_from_forgery with: :exception
   before_filter        :configure_permitted_parameters, if: :devise_controller?
   before_action        :record_user_activity
+  before_action        :set_cart
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
