@@ -33,6 +33,7 @@ gem 'parsley-rails'
 gem 'jquery-minicolors-rails'
 gem 'remotipart'
 gem 'authorizenet'
+gem "figaro"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
