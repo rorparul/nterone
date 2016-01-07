@@ -38,6 +38,7 @@ class OrdersController < ApplicationController
                                                                          order_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
       response = transaction.create_transaction(request)
+      puts "TEST TEST TEST:#{response.messages}"
       if response.messages.resultCode == MessageTypeEnum::Ok
         @order.auth_code = response.transactionResponse.authCode
         if @order.save
@@ -50,11 +51,9 @@ class OrdersController < ApplicationController
           redirect_to :back
         end
       else
-        puts response.messages.messages[0].text
+        # puts response.messages.messages[0].text
         # puts response.transactionResponse.errors.errors[0].errorCode
         # puts response.transactionResponse.errors.errors[0].errorText
-        puts response.transactionResponse.errors[0].errorCode
-        puts response.transactionResponse.errors[0].errorText
         # raise "Failed to charge card."
         flash[:alert] = 'Failed to charge card.'
         redirect_to :back
