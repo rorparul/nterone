@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     if user_signed_in?
       @order                                        = current_user.orders.build
       @order.add_order_items_from_cart(@cart)
-      transaction                                   = Transaction.new(ENV['ANET_API_LOGIN_ID'], ENV['ANET_TRANSACTION_KEY'], :gateway => :sandbox)
+      transaction                                   = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
       request                                       = CreateTransactionRequest.new
       request.transactionRequest                    = TransactionRequestType.new()
       request.transactionRequest.amount             = @order.total_price
