@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
                                                                          order_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
       response = transaction.create_transaction(request)
-      puts "TEST TEST TEST:#{response.messages}"
+      logger.info response.messages
       if response.messages.resultCode == MessageTypeEnum::Ok
         @order.auth_code = response.transactionResponse.authCode
         if @order.save
