@@ -5,7 +5,6 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    / span.fa.fa-book
     | Training
   span.seperator
     | /
@@ -54,8 +53,11 @@
                       tr
                         td = @video_on_demand.instructor.full_name if @video_on_demand.instructor
                         td = @video_on_demand.level
-                        td = "$#{@video_on_demand.price}/year"
-                        td.fit = link_to 'Add to cart', '#'
+                        td = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))}/year"
+                        td.fit
+                          = form_for :order_item, url: order_items_path do |f|
+                            = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
+                            button.btn.btn-link.text-success type="submit" Add to cart
           .row
             .col-xs-12
               #degrees

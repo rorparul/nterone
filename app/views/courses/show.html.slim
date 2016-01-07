@@ -5,7 +5,6 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    / span.fa.fa-book
     | Training
   span.seperator
     | /
@@ -59,8 +58,11 @@
                             td = "#{pluralize(event.length, 'Day')}"
                             td = event.format
                             td.text-success Available
-                            td = "$#{event.price}"
-                            td.fit = link_to 'Add to cart', '#', class: 'text-success'
+                            td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                            td.fit
+                              = form_for :order_item, url: order_items_path do |f|
+                                = f.hidden_field :event_id, value: event.id
+                                button.btn.btn-link.text-success type="submit" Add to cart
           .row
             .col-xs-12
               #degrees

@@ -33,10 +33,10 @@ html
               i.fa.fa-search
               | Search
             - if !user_signed_in? || (user_signed_in? && current_user.member?)
-              = link_to new_search_path, remote: true do
+              = link_to cart_path do
                 i.fa.fa-shopping-cart
                 | Cart
-                span.badge 0
+                span.badge = @cart.order_items.count
       hr
       .content
         = render 'layouts/notifications'
