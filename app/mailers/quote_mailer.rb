@@ -1,7 +1,7 @@
 class QuoteMailer < ApplicationMailer
   def pdf_attachment(lead)
     @lead = lead
-    mail(to: @lead.buyer.email, subject: "Please see attached PDF for your NterOne quote.")
+    mail(to: @lead.buyer.email, subject: "Your NterOne.com Sales Quotation")
       .attachments["quote.pdf"] = WickedPdf.new.pdf_from_string(
         render_to_string(pdf: 'quote',
                          margin: { bottom: 32 },

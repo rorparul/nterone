@@ -50,7 +50,8 @@
                           th Format
                           th Status
                           th Price
-                          th
+                          - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                            th
                       tbody
                         - @course.upcoming_events.each do |event|
                           tr
@@ -59,10 +60,11 @@
                             td = event.format
                             td.text-success Available
                             td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
-                            td.fit
-                              = form_for :order_item, url: order_items_path do |f|
-                                = f.hidden_field :event_id, value: event.id
-                                button.btn.btn-link.text-success type="submit" Add to cart
+                            - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                              td.fit
+                                = form_for :order_item, url: order_items_path do |f|
+                                  = f.hidden_field :event_id, value: event.id
+                                  button.btn.btn-link.text-success type="submit" Add to cart
           .row
             .col-xs-12
               #degrees
