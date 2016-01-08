@@ -44,6 +44,7 @@ class OrdersController < ApplicationController
         if @order.save
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
           flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
+          OrderMailer.confirmation(current_user, @order).deliver_now
           redirect_to confirmation_orders_path(@order)
         else
           puts "Failed to create order: #{@order.errors.full_messages}"
