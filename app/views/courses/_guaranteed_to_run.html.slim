@@ -12,7 +12,8 @@
                 a title="#{event.course.title}" href="#{platform_course_path(event.course.platform, event.course)}"
                   = event.course.abbreviation
               td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
-              td
-                = form_for :order_item, url: order_items_path do |f|
-                  = f.hidden_field :event_id, value: event.id
-                  button.btn.btn-link type="submit" Add to cart
+              - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                td
+                  = form_for :order_item, url: order_items_path do |f|
+                    = f.hidden_field :event_id, value: event.id
+                    button.btn.btn-link type="submit" Add to cart

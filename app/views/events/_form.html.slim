@@ -14,12 +14,24 @@
         .form-group
           = f.label :start_date, "Start Date"
           br
-          = f.date_select :start_date, class: 'form-control input-sm'
+          = f.date_select :start_date, {}, {}
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_time, "Start Time"
+          br
+          = f.time_select :start_time, {}, {}
+          
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :end_date, "End Date"
           br
-          = f.date_select :end_date, class: 'form-control input-sm'
+          = f.date_select :end_date, {}, {}
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :end_time, "End Time"
+          br
+          = f.time_select :end_time, {}, {}
       
     .row
       .col-xs-12.col-sm-6
@@ -28,16 +40,31 @@
           = f.select :format,
                      [['ClearConnect', 'ClearConnect'],
                       ['Live Online', 'Live Online'],
-                      ['On Site', 'On Site']],
-                     { prompt: true },
-                     html_options = { class: "form-control input-sm" }
+                      ['On-site', 'On-site']],
+                     {prompt: true},
+                     {class: 'form-control input-sm'}
       .col-xs-12.col-sm-6
         .form-group
           = f.label :instructor_id, "Instructor"
           = f.select :instructor_id,
                      instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                     { prompt: true },
-                     html_options = { class: "form-control input-sm" }
+                     {prompt: true},
+                     {class: 'form-control input-sm'}
+                     
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :city, "City"
+          br
+          = f.text_field :city, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :state, "State"
+          br
+          = f.select :state,
+                     us_states,
+                     {prompt: true},
+                     {class: 'form-control input-sm'}
                           
     .row
       .col-xs-12.col-sm-6

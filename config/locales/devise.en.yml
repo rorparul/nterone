@@ -18,9 +18,9 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Welcome!"
+        subject: "Welcome to NterOne.com!"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "NterOne.com Password Reset"
       unlock_instructions:
         subject: "Unlock instructions"
     omniauth_callbacks:

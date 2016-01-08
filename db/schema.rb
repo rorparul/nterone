@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107060822) do
+ActiveRecord::Schema.define(version: 20160107233137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,10 @@ ActiveRecord::Schema.define(version: 20160107060822) do
     t.datetime "updated_at",                                            null: false
     t.boolean  "guaranteed",                            default: false
     t.boolean  "active",                                default: true
+    t.time     "start_time"
+    t.time     "end_time"
+    t.string   "city"
+    t.string   "state"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -249,9 +253,17 @@ ActiveRecord::Schema.define(version: 20160107060822) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "auth_code"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "email"
   end
 
   create_table "pages", force: :cascade do |t|

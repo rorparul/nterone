@@ -7,7 +7,7 @@ class Event < ActiveRecord::Base
 
   before_destroy :ensure_not_referenced_by_any_order_item
 
-  validates :course, :price, :format, presence: true
+  validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validates_associated :course
 

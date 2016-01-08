@@ -17,8 +17,8 @@ en:
         submit_button: "Set my password"
     mailer:
       invitation_instructions:
-        subject: "Invitation instructions"
-        hello: "Hello %{email}"
-        someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
-        accept: "Accept invitation"
-        ignore: "If you don't want to accept the invitation, please ignore this email.<br />Your account won't be created until you access the link above and set your password."
+        subject: "Invitation to Register at NterOne.com"
+        hello: "Hello %{first_name},"
+        someone_invited_you: "This is an automated email initiated by our sales or operations team to allow you to quickly create an account at %{url}. Please follow the link below to complete the registration process."
+        accept: "Accept your invitation"
+        ignore: "If you don't want to accept the invitation, please ignore this email.<br/>Your account won't be created until you access the link above and set your password."
