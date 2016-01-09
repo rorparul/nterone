@@ -1,7 +1,8 @@
 class OrderItem < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :cart
   belongs_to :order
   belongs_to :orderable, polymorphic: true
-  belongs_to :cart
 
   before_save :copy_current_orderable_price
 

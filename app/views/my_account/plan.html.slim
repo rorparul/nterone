@@ -5,12 +5,69 @@
   span.seperator
     | /
   a href="#{my_account_plan_path}"
-    / span.fa.fa-gear
     | My Account
     
 .row
   .col-xs-12
     = render 'tabs'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Your Upcoming Classes
+      .responsive-table
+        table.table.table-condensed
+          - if current_user.upcoming_events.any?
+            thead
+              tr
+                th Course
+                th Start Date
+                th End Date
+                th Start Time
+                th End Time
+                th Duration
+                th Format
+                th Countdown
+          tbody
+            - if current_user.upcoming_events.any?
+              - current_user.upcoming_events.each do |event|
+                tr
+                  td = "#{event.course.abbreviation} - #{event.course.title}"
+                  td = event.start_date.to_formatted_s(:date) if event.start_date
+                  td = event.end_date.to_formatted_s(:date) if event.end_date
+                  td = event.start_time.to_formatted_s(:time) if event.start_time
+                  td = event.end_time.to_formatted_s(:time) if event.end_time
+                  td = pluralize(event.length, 'day')
+                  td = event.format
+                  td = distance_of_time_in_words(Date.today, event.start_date)
+            - else
+              tr
+                td.text-center You have no upcoming events.
+              
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Your Self-paced Subscriptions
+      .responsive-table
+        table.table.table-condensed
+          - if current_user.video_on_demands.any?
+            thead
+              tr
+                th Course
+                th Days of Access Left
+          tbody
+            - if current_user.video_on_demands.any?
+              - current_user.video_on_demands.each do |video_on_demand|
+                tr
+                  td = "#{video_on_demand.abbreviation} - #{video_on_demand.title}"
+                  td = distance_of_time_in_words(Date.today, video_on_demand.order_items.find_by(user_id: current_user.id).order.created_at + 365.day)
+            - else
+              tr
+                td.text-center You have no self-paced subscriptions.
+
+hr.hr-sub
     
 - unless @planned_subjects.any?
   .row
@@ -57,7 +114,7 @@
 .row
   .col-xs-12
     #activity-history
-      h1 My Plan History
+      h1 Activity
       hr
       ul
         = render_activities(@activities, fallback: 'default')

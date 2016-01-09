@@ -13,6 +13,7 @@
           th Length
           th Format
           th Price
+          th Attendees
           th
       tbody
         - events.each do |event|
@@ -25,6 +26,7 @@
             td = event.length
             td = event.format
             td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+            td = event.attendees
             td.text-right
               = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
               = " | "
