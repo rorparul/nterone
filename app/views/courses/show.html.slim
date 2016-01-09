@@ -71,15 +71,32 @@
                 = image_tag '360-degrees.png', class: 'degrees'
           .row
             .col-xs-12
-              .resource-info
-                h1 Overview
-                = @course.overview.html_safe if @course.overview
-                hr.hr-sub
-                h1 Outline
-                = @course.outline.html_safe if @course.outline
-                hr.hr-sub
-                h1 Who Should Attend
-                = @course.intended_audience.html_safe if @course.intended_audience
+              #accordion.panel-group role="tablist" aria-multiselectable="true"
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingOne"
+                    h4.panel-title
+                      a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                        | Overview
+                  #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+                    .panel-body
+                      = @course.overview.html_safe
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingTwo"
+                    h4.panel-title
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                        | Outline
+                  #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+                    .panel-body
+                      = @course.outline.html_safe
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingThree"
+                    h4.panel-title
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                        | Who Should Attend
+                  #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+                    .panel-body
+                      = @course.intended_audience.html_safe
+ 
         .col-xs-12.col-md-3
           .row
             .col-xs-12
@@ -91,8 +108,7 @@
                   .col-xs-12
                     .resource.text-center
                       = link_to course_download_platform_courses_path(@platform, @course) do
-                        span.fa.fa-file-pdf-o id='datasheet'
-                        / = image_tag 'pdf-download.png', class: "datasheet"
+                        span.fa.fa-file-pdf-o
                         | Download PDF Datasheet
                 .row
                   .col-xs-12

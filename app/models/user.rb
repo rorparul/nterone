@@ -13,16 +13,20 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :roles, dependent: :destroy
   has_many :orders
+  has_many :order_items
+  has_many :events, through: :order_items,
+                    source: :orderable,
+                    source_type: 'Event'
+  has_many :video_on_demands, through: :order_items,
+                              source: :orderable,
+                              source_type: 'VideoOnDemand'
 
   devise :confirmable,
          :database_authenticatable,
          :invitable,
-        #  :lockable,
-        #  :omniauthable,
          :registerable,
          :recoverable,
          :rememberable,
-        #  :timeoutable,
          :trackable,
          :validatable
 
@@ -88,6 +92,10 @@ class User < ActiveRecord::Base
       end
     end
     attended
+  end
+
+  def upcoming_events
+    events.where('start_date >= ?', Date.today).order(:start_date)
   end
 
   def planned

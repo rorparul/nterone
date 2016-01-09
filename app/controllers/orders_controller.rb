@@ -27,11 +27,10 @@ class OrdersController < ApplicationController
   def create
     if user_signed_in?
       @order                                        = current_user.orders.build
-      @order.add_order_items_from_cart(@cart)
       transaction                                   = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
       request                                       = CreateTransactionRequest.new
       request.transactionRequest                    = TransactionRequestType.new()
-      request.transactionRequest.amount             = @order.total_price
+      request.transactionRequest.amount             = @cart.total_price
       request.transactionRequest.payment            = PaymentType.new
       request.transactionRequest.payment.creditCard = CreditCardType.new(order_params[:credit_card_number],
                                                                          order_params[:expiration_month] + order_params[:expiration_year],
@@ -40,9 +39,13 @@ class OrdersController < ApplicationController
       response = transaction.create_transaction(request)
       logger.info response.messages.resultCode
       if response.messages.resultCode == MessageTypeEnum::Ok
+        puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
         @order.auth_code = response.transactionResponse.authCode
+        @order.add_order_items_from_cart(@cart)
+        @order.order_items.each do |order_item|
+          current_user.order_items << order_item
+        end
         if @order.save
-          puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
           flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
           OrderMailer.confirmation(current_user, @order).deliver_now
           redirect_to confirmation_orders_path(@order)

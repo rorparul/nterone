@@ -2,7 +2,7 @@ p Thank you for placing an order with NterOne! We truly appreciate your business
 
 p Please find a summary of your order below:
 
-p = "Order #{@order.id} Summary:"
+p = "Order ##{@order.id} Summary:"
 table
   - @order.order_items.each do |order_item|
     tr
