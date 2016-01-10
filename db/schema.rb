@@ -315,16 +315,6 @@ ActiveRecord::Schema.define(version: 20160109033421) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "purchased_items", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "purchasable_id"
-    t.string   "purchasable_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  add_index "purchased_items", ["purchasable_type", "purchasable_id"], name: "index_purchased_items_on_purchasable_type_and_purchasable_id", using: :btree
-
   create_table "quotes", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "content"
@@ -371,20 +361,6 @@ ActiveRecord::Schema.define(version: 20160109033421) do
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "user_events", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "user_vods", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "video_on_demand_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "users", force: :cascade do |t|
