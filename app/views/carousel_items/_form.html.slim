@@ -21,6 +21,10 @@
   .form-group
     = f.label :caption
     = f.text_field :caption, class: 'form-control input-sm'
+    
+  .form-group
+    = f.label :url, 'URL'
+    = f.url_field :url, class: 'form-control input-sm'
   
   .form-group
     = f.label :active, "Active"

@@ -30,6 +30,13 @@ body {
   }
 }
 
+.credit-card-logos {
+  width: 150px;
+  // position: absolute;
+  // bottom: 35px;
+  // right: 30px;
+}
+
 .lead-form {
   height: auto !important;
   display: inline !important;
@@ -879,6 +886,11 @@ div.instructor-bios, div.news {
   }
 }
 
+.degrees-checkout {
+  max-width: 100%;
+  height: 150px;
+}
+
 .fa-file-pdf-o {
   font-size: 20px;
   margin: 5px;
@@ -984,6 +996,9 @@ table {
   font-style: italic;
   color: gray;
   font-size: 10px;
+  &.absolute {
+    position: absolute;
+  }
 }
 
 #brand-form {

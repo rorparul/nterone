@@ -99,6 +99,11 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:credit_card_number, :expiration_month, :expiration_year, :security_code)
+    params.require(:order).permit(:credit_card_number,
+                                  :expiration_month,
+                                  :expiration_year,
+                                  :security_code,
+                                  :clc_number,
+                                  :clc_quantity)
   end
 end

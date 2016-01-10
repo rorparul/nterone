@@ -41,8 +41,30 @@ class User < ActiveRecord::Base
     result
   end
 
-  def my_plan_grand_total
-    planned_unattended_courses.inject(0) {|sum, course| sum + course.price.to_f}
+  # def my_plan_grand_total
+  #   planned_unattended_courses.inject(0) { |sum, course| sum + course.price.to_f }
+  # end
+
+  def my_plan_total_low
+    planned_unattended_courses.inject(0) do |sum, course|
+      event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).first
+      if event
+        sum + event.price
+      else
+        sum + 0
+      end
+    end
+  end
+
+  def my_plan_total_high
+    planned_unattended_courses.inject(0) do |sum, course|
+      event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).last
+      if event
+        sum + event.price
+      else
+        sum + 0
+      end
+    end
   end
 
   def planned_unattended_courses

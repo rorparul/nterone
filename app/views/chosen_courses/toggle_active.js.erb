@@ -10,4 +10,4 @@
   );
 <% end %>
 
-$('#grand-total').html("<span>Grand Total: $<%= number_with_delimiter(number_with_precision(@grand_total, precision: 2)) %></span>");
+$('#grand-total').html("<span>Grand Total: <%= @grand_total %></span>");

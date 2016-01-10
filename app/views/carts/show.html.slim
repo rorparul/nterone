@@ -11,7 +11,7 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        h3.panel-title Your Cart
+        h3.panel-title My Cart
       .table-responsive
         table.table.table-condensed
           - if @cart.order_items.empty?
@@ -33,21 +33,19 @@
                   = link_to order_item, method: :delete do
                     button title='Remove item' type="button" class="close" aria-label="Close"
                       span aria-hidden="true" &times;
-      .panel-footer
-        h3.panel-title = "Total to Be Charged: $#{number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))}"
         
 .row
   .col-xs-12
-    = render partial: 'orders/form'
+    = render partial: 'orders/form', locals: { cart: @cart }
 
-.row
-  .col-xs-12
-    #degrees
-      = image_tag '360-degrees.png', class: 'degrees'
+/ .row
+/   .col-xs-12
+/     #degrees
+/       = image_tag '360-degrees.png', class: 'degrees'
 
-.row
-  .col-xs-12
-    button#back Back
+/ .row
+/   .col-xs-12
+/     button#back Back
         
 javascript:
   $('.home-tab').addClass('active');

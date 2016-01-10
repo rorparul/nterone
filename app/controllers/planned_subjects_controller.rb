@@ -24,7 +24,7 @@ class PlannedSubjectsController < ApplicationController
       end
     end
 
-    @grand_total = User.find(planned_subject_params[:user_id]).my_plan_grand_total
+    @grand_total = view_context.formatted_price_or_range_of_my_plan_for(User.find(planned_subject_params[:user_id]))
 
     if current_user.member?
       @my_plan_count = current_user.new_my_plan_count

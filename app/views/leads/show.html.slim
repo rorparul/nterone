@@ -37,7 +37,7 @@
 
 #grand-total
   span
-    = "Grand Total: $#{number_with_delimiter(number_with_precision(@buyer.my_plan_grand_total, precision: 2))}"
+    = "Grand Total: #{formatted_price_or_range_of_my_plan_for(@buyer)}"
     
 .row
   .col-xs-12

@@ -11,6 +11,6 @@ html
     h6 Phone
     p = @lead.buyer.contact_number
     h6 Estimated Total
-    p = "$#{number_with_delimiter(number_with_precision(@lead.buyer.my_plan_grand_total, precision: 2))}"
+    p = formatted_price_or_range_of_my_plan_for(@lead.buyer)
     br
     = link_to "Go to My Queue", @url

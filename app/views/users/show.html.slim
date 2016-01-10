@@ -5,7 +5,6 @@
   span.seperator
     | /
   a href="#{planned_subjects_path}"
-    / span.fa.fa-user
     | My Account
 
 - unless @planned_subjects.any?
@@ -48,7 +47,7 @@
 
   #grand-total
     span
-      = "Grand Total: $#{number_with_delimiter(number_with_precision(current_user.my_plan_grand_total, precision: 2))}"
+      = "Grand Total: #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
 .row
   .col-xs-12

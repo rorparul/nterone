@@ -7,7 +7,7 @@ class ChosenCoursesController < ApplicationController
       @course = ChosenCourse.create(chosen_course_params)
       @course.update_attributes(planned: true)
     end
-    @grand_total = @course.user.my_plan_grand_total
+    @grand_total = view_context.formatted_price_or_range_of_my_plan_for(@course.user)
   end
 
   def toggle_attended
@@ -18,7 +18,7 @@ class ChosenCoursesController < ApplicationController
       @course = ChosenCourse.create(chosen_course_params)
       @course.update_attributes(attended: true)
     end
-    @grand_total = @course.user.my_plan_grand_total
+    @grand_total = view_context.formatted_price_or_range_of_my_plan_for(@course.user)
   end
 
   private

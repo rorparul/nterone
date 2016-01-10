@@ -13,9 +13,10 @@
         .carousel-inner role="listbox"
           - @carousel_items.each_with_index do |carousel_item, index|
             div class="item #{'active' if index == 0}"
-              = image_tag carousel_item.image.file.processed_image.url
-              .carousel-caption
-                = carousel_item.caption
+              a href="#{carousel_item.url}"
+                = image_tag carousel_item.image.file.processed_image.url
+                .carousel-caption
+                  = carousel_item.caption
         a.left.carousel-control href="#carousel-example-generic" role="button" data-slide="prev"
           span.glyphicon.glyphicon-chevron-left aria-hidden="true"
           span.sr-only Previous

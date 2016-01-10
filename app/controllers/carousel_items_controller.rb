@@ -49,7 +49,7 @@ class CarouselItemsController < ApplicationController
   private
 
   def carousel_item_params
-    params.require(:carousel_item).permit(:caption, :active)
+    params.require(:carousel_item).permit(:caption, :active, :url)
   end
 
   def set_carousel_item
