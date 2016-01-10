@@ -27,10 +27,12 @@
                     a href="#{platform_course_path(subject.platform, group_item.groupable)}"
                       = group_item.groupable.title
                   td.fit
-                    - if group_item.groupable.price == '0' || group_item.groupable.price == ''
-                      | See Link
-                    - else
-                      = "$#{number_with_delimiter(number_with_precision(group_item.groupable.price, precision: 2))}"
+                    / - if group_item.groupable.price == '0' || group_item.groupable.price == ''
+                    /   | See Link
+                    / - else
+                    /   = "$#{number_with_delimiter(number_with_precision(group_item.groupable.price, precision: 2))}"
+                    / = "$#{number_with_delimiter(number_with_precision(group_item.groupable.current_price_or_range, precision: 2))}"
+                    = formatted_price_or_range_of_upcoming_events_for(group_item.groupable)
                   - unless controller_name == 'subjects'
                     td.fit.center-align
                       = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
@@ -60,13 +62,14 @@
                 - if group_item.groupable.courses.count == 1 && group_item.groupable.exams.count == 1
                   tr.exam-group-item
                     td
-                      a href="http://#{group_item.groupable.courses.first.url}" target="_blank"
+                      a href="platform_course_path(subject.platform, group_item.groupable)" target="_blank"
                         = group_item.groupable.courses.first.title
                     td.fit
-                      - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
-                        | See Link
-                      - else
-                        = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                      / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
+                      /   | See Link
+                      / - else
+                      /   = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                      = formatted_price_or_range_of_upcoming_events_for(group_item.groupable.courses.first)
                     - unless controller_name == 'subjects'
                       td.fit.center-align
                         = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|

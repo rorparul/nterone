@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.guaranteed_upcoming_events
-    where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Time.now })
+    where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
   end
 
   def length

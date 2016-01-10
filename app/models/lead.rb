@@ -5,7 +5,7 @@ class Lead < ActiveRecord::Base
   include PublicActivity::Common
 
   def regular_price
-    self.buyer.my_plan_grand_total
+    view_context.formatted_price_or_range_of_my_plan_for(self.buyer)
   end
 
   def discounted_price

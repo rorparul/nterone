@@ -34,4 +34,37 @@ module GeneralHelper
       passed_exam.exam == exam
     end
   end
+
+  def formatted_price_or_range_of_upcoming_events_for(course)
+    events = course.upcoming_events.order(:price)
+    if events.any?
+      if events.first.price == events.last.price
+        "$#{number_with_delimiter(number_with_precision(events.first.price, precision: 2))}"
+      else
+        "$#{number_with_delimiter(number_with_precision(events.first.price, precision: 2))} - $#{number_with_delimiter(number_with_precision(events.last.price, precision: 2))}"
+      end
+    else
+      'N/A'
+    end
+  end
+
+  def formatted_price_or_range_of_my_plan_for(user)
+    low  = user.my_plan_total_low
+    high = user.my_plan_total_high
+    unless low == nil && high == nil
+      if low == nil
+        "$#{number_with_delimiter(number_with_precision(high, precision: 2))}"
+      elsif high == nil
+        "$#{number_with_delimiter(number_with_precision(low, precision: 2))}"
+      else
+        if low == high
+          "$#{number_with_delimiter(number_with_precision(low, precision: 2))}"
+        else
+          "$#{number_with_delimiter(number_with_precision(low, precision: 2))} - $#{number_with_delimiter(number_with_precision(high, precision: 2))}"
+        end
+      end
+    else
+      '$0.00'
+    end
+  end
 end

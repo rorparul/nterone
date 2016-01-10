@@ -24,7 +24,7 @@ class Course < ActiveRecord::Base
   end
 
   def upcoming_events
-    events.where("active = :active and start_date >= :start_date", {active: true, start_date: Time.now}).order(:start_date)
+    events.where('active = ? and start_date >= ?', true, Date.today).order(:start_date)
   end
 
   private
