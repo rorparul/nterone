@@ -61,7 +61,7 @@
                 - if group_item.groupable.courses.count == 1 && group_item.groupable.exams.count == 1
                   tr.exam-group-item
                     td
-                      a href="platform_course_path(subject.platform, group_item.groupable)" target="_blank"
+                      a href="#{platform_course_path(subject.platform, group_item.groupable)}"
                         = group_item.groupable.courses.first.title
                     td.fit
                       / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''

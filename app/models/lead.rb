@@ -4,6 +4,8 @@ class Lead < ActiveRecord::Base
 
   include PublicActivity::Common
 
+  validates :buyer_id, presence: true
+
   def regular_price
     ApplicationController.helpers.formatted_price_or_range_of_my_plan_for(self.buyer)
   end

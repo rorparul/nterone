@@ -32,24 +32,17 @@ body {
   width: 150px;
 }
 
-.lead-form {
-  height: auto !important;
-  display: inline !important;
-}
-
 .pagination {
   margin: 0;
 }
 
 .btn-link {
   padding: 0 !important;
-  font-size: 14px !important;
-  font-weight: normal !important;
-  height: auto !important;
   border: 0 !important;
-  text-decoration: none !important;
-  display: inline !important;
-  line-height: 20px !important;
+  margin: 0 !important;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .field_with_errors {

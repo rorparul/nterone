@@ -10,6 +10,6 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    leads_path
+    my_sales_queue_path
   end
 end

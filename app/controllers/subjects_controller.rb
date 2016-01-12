@@ -13,9 +13,9 @@ class SubjectsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @subject  = Subject.find(params[:id])
     if user_signed_in? && current_user.sales_manager?
-      @leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc)
+      @leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).order(created_at: :asc).where.not(buyer_id: nil)
     elsif user_signed_in? && current_user.sales_rep?
-      @leads = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc)
+      @leads = Lead.where(status: 'assigned', seller_id: current_user.id).order(created_at: :asc).where.not(buyer_id: nil)
     end
   end
 
