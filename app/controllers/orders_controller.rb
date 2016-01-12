@@ -13,12 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    if @cart.line_items.empty?
-      redirect_to store_url, notice: "Your cart is empty"
-      return
-    end
 
-    @order = Order.new
   end
 
   def edit
@@ -30,17 +25,19 @@ class OrdersController < ApplicationController
       transaction                                   = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
       request                                       = CreateTransactionRequest.new
       request.transactionRequest                    = TransactionRequestType.new()
-      request.transactionRequest.amount             = @cart.total_price
+      request.transactionRequest.amount             = @cart.total_price_after_credits(order_params[:clc_quantity].to_f * 100)
       request.transactionRequest.payment            = PaymentType.new
-      request.transactionRequest.payment.creditCard = CreditCardType.new(order_params[:credit_card_number],
-                                                                         order_params[:expiration_month] + order_params[:expiration_year],
-                                                                         order_params[:security_code])
+      request.transactionRequest.payment.creditCard = CreditCardType.new(credit_card_params[:credit_card_number],
+                                                                         credit_card_params[:expiration_month] + credit_card_params[:expiration_year],
+                                                                         credit_card_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
       response = transaction.create_transaction(request)
       logger.info response.messages.resultCode
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
+        @order.assign_attributes(order_params)
         @order.auth_code = response.transactionResponse.authCode
+        @order.paid      = request.transactionRequest.amount
         @order.add_order_items_from_cart(@cart)
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
@@ -63,7 +60,8 @@ class OrdersController < ApplicationController
         redirect_to :back
       end
     else
-      flash[:alert] = "Please #{view_context.link_to('create an account',
+      flash[:alert] = "Please #{view_context.link_to('login',
+                      new_user_session_path)} or #{view_context.link_to('create and account',
                       new_user_registration_path)} before placing your order.".html_safe
       redirect_to :back
     end
@@ -99,11 +97,14 @@ class OrdersController < ApplicationController
   end
 
   def order_params
+    params.require(:order).permit(:clc_number,
+                                  :clc_quantity)
+  end
+
+  def credit_card_params
     params.require(:order).permit(:credit_card_number,
                                   :expiration_month,
                                   :expiration_year,
-                                  :security_code,
-                                  :clc_number,
-                                  :clc_quantity)
+                                  :security_code)
   end
 end

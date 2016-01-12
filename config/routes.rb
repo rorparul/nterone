@@ -17,7 +17,8 @@ Nci::Application.routes.draw do
   resources :pages
 
   # resources :carts
-  get       'cart' => 'carts#show', as: :cart
+  get 'cart'            => 'carts#show',       as: :cart
+  get 'cart/calculator' => 'carts#calculator', as: :cart_calculator
   resources :order_items
   resources :orders do
     collection do
@@ -155,9 +156,9 @@ Nci::Application.routes.draw do
   end
 
   controller :my_account do
-    get 'my-account/plan',     as: :my_account_plan
-    get 'my-account/messages', as: :my_account_messages
-    get 'my-account/settings', as: :my_account_settings
+    get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
+    get 'my-account/messages',                        as: :my_account_messages
+    get 'my-account/settings',                        as: :my_account_settings
   end
 
   get  'about-us'                                    => 'general#about_us'

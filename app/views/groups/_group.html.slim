@@ -1,15 +1,14 @@
 .col-xs-12.col-lg-4
-  .group.my-plan
-    .group-heading
-      h6 = group.header
+  .panel.panel-default
+    .panel-heading
+      strong.text-muted = group.header
       - if user_signed_in? && current_user.admin? && controller_name == 'subjects'
-        .group-actions-overlay
+        .panel-actions-overlay
           = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
-            i.fa.fa-pencil
             | Edit
-    .group-body
-      .table-responsive
-        table.table
+    .table-responsive
+      .panel-table
+        table.table.table-condensed
           tbody
             - group.group_items.sort_by(&:position).each do |group_item|
               - case group_item.groupable_type

@@ -1,13 +1,13 @@
 tr.announcement class=["announcement-#{announcement.id}"]
-  td = announcement.content
-  td = announcement.audience
+  td.fit = announcement.content
+  td.fit = announcement.audience
   - if current_user.admin?
     td = announcement.poster
   td.actions-column.fit
     = form_for announcement, html: {class: 'status', method: :put} do |f|
       = f.hidden_field :id, value: announcement.id
       = f.select :status, [["Active", "open"], ["Inactive", "closed"]], {}, class: "form-control status-selector"
-  td.actions-column.fit
+  td.fit.text-right
     = link_to "Edit", edit_announcement_path(announcement), remote: true
     = " | "
     = link_to 'Delete', announcement, method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
