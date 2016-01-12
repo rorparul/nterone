@@ -113,7 +113,7 @@
                       tr.exam-group-item
                         - if exam == group_item.groupable.exams.first
                           td rowspan=group_item.groupable.exams.count
-                            a href="http://#{group_item.groupable.courses.first.url}" target="_blank"
+                            a href="#{group_item.groupable.courses.first.url}"
                               = group_item.groupable.courses.first.title
                           td.fit rowspan=group_item.groupable.exams.count
                             - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
