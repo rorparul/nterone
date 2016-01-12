@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
       end
     else
       flash[:alert] = "Please #{view_context.link_to('login',
-                      new_user_session_path)} or #{view_context.link_to('create and account',
+                      new_user_session_path)} or #{view_context.link_to('create an account',
                       new_user_registration_path)} before placing your order.".html_safe
       redirect_to :back
     end
