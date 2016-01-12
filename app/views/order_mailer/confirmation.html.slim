@@ -16,7 +16,9 @@ table
         td One Year of Access
       td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
 
-p = "Total Charged: $#{number_with_delimiter(number_with_precision(@order.total_price, precision: 2))}"
+/ - if @order.clc_quantity
+/   p = "#{@order.clc_quantity} Cisco Learning Credits used"
+p = "Total Charged: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
 
 p If you have any questions please reach out to your sales representative, or contact the sales team at sales@nterone.com. If your question is billing related, you can email billing@nterone.com. If you have issues accessing your nterone.com account or services purchased, you can reach out to helpdesk@nterone.com. You can also call us at 703-972-2288 to speak with a live person.
 

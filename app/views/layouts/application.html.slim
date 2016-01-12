@@ -33,9 +33,9 @@ html
               i.fa.fa-search
               | Search
             - if !user_signed_in? || (user_signed_in? && current_user.member?)
-              = link_to cart_path do
+              = link_to new_order_path do
                 i.fa.fa-shopping-cart
-                | Cart
+                | My Cart
                 span.badge = @cart.order_items.count
       hr
       .content

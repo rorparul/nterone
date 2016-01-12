@@ -26,7 +26,9 @@
                 td One Year of Access
               td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
       .panel-footer
-        h3.panel-title = "Total Charged: $#{number_with_delimiter(number_with_precision(@order.total_price, precision: 2))}"
+        / - if @order.clc_quantity
+        /   h3.panel-title = "#{@order.clc_quantity} Cisco Learning Credits used"
+        h3.panel-title = "Total Charged: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
         
 .row
   .col-xs-12
@@ -35,7 +37,3 @@
         
 javascript:
   $('.home-tab').addClass('active');
-  
-  $('#back').on('click', function() {
-    window.history.back();
-  });
