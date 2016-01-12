@@ -4,13 +4,13 @@ class Platform < ActiveRecord::Base
   has_many :categories, dependent: :destroy
   has_many :subjects, dependent: :destroy
   # has_many :groups
-  has_many :exams
-  has_many :courses
-  has_many :dividers
-  has_many :custom_items
-  has_many :exam_and_course_dynamics
-  has_many :instructors
-  has_many :video_on_demands
+  has_many :exams, dependent: :destroy
+  has_many :courses, dependent: :destroy
+  has_many :dividers, dependent: :destroy
+  has_many :custom_items, dependent: :destroy
+  has_many :exam_and_course_dynamics, dependent: :destroy
+  has_many :instructors, dependent: :destroy
+  has_many :video_on_demands, dependent: :destroy
 
   has_one :image, as: :imageable, dependent: :destroy
 
