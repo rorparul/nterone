@@ -5,13 +5,15 @@
   span.seperator
     | /
   a href="#{consulting_path}"
-    / span.fa.fa-puzzle-piece
     | Consulting
     
-.row
+.row#consulting.text-muted
   .col-sm-12.col-md-9
-    #consulting
-      = @consulting.content.html_safe
+    .page-header
+      h3 Consulting
+    .image-container.text-center
+      = image_tag 'consulting.jpg'
+    = @consulting.content.html_safe
         
   .col-sm-12.col-md-3
     = render partial: 'courses/guaranteed_to_run',
