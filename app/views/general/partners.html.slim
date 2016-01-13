@@ -5,13 +5,13 @@
   span.seperator
     | /
   a href="#{partners_path}"
-    / span.fa.fa-users
     | Partners
     
-.row
+.row.text-muted
   .col-sm-12.col-md-9
-    #partners
-      = @partners.content.html_safe
+    .page-header
+      h3 Partners
+    = @partners.content.html_safe
   
   .col-sm-12.col-md-3
     = render partial: 'courses/guaranteed_to_run',

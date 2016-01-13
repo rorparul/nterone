@@ -5,27 +5,38 @@
   span.seperator
     | /
   a href="#{about_us_path}"
-    / span.fa.fa-info-circle
     | About Us
     
 .row
-  .col-sm-12.col-md-9
+  .col-xs-12.col-md-9
     .categories
       .row.text-center
-        .col-sm-12
+        .col-xs-12
           a.btn.category.btn-category.active-category.executive-bios href="#" Executive Bios
           a.btn.category.btn-category.instructor-bios href="#" Instructor Bios
           a.btn.category.btn-category.news href="#" News
         
-    .executive-bios
-      = @executive_bios.content.html_safe
+    
+    .row.executive-bios.text-muted
+      .col-xs-12
+        .page-header
+          h3 Executive Bios
+        = @executive_bios.content.html_safe
         
-    .instructor-bios
-      = @instructor_bios.content.html_safe
+    .row.instructor-bios.text-muted
+      .col-xs-12
+        .page-header
+          h3 Instructors Bios
+        .image-container.text-center
+          = image_tag 'instructors.jpg'
+        = @instructor_bios.content.html_safe
       
-    .news
+    .row.news.text-muted
+      .col-xs-12
+        .page-header
+          h3 News
   
-  .col-sm-12.col-md-3
+  .col-xs-12.col-md-3
     = render partial: 'courses/guaranteed_to_run',
              locals: { guaranteed_events: @guaranteed_events }
     

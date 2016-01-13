@@ -5,11 +5,12 @@
   span.seperator
     | /
   a href="#{labs_path}"
-    / span.fa.fa-flask
     | Labs
     
-.row
+.row.text-muted
   .col-sm-12.col-md-9
+    .page-header
+      h3 Labs
     = @labs.content.html_safe
     
   .col-sm-12.col-md-3
