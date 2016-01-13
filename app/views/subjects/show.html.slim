@@ -28,7 +28,12 @@
 
 .row#subject-description
   .col-xs-12
-    h4 = "#{@subject.title} (#{@subject.abbreviation})"
+    / h4 = "#{@subject.title} (#{@subject.abbreviation})"
+    .page-header
+      h3.text-muted
+        = @subject.title
+        |  
+        small = @subject.abbreviation
     = @subject.description.html_safe
 .row#subject-groups
   - @subject.groups.each do |group|

@@ -22,7 +22,12 @@
 .row
   .col-xs-12.col-md-10
     #video-on-demand
-      h4.title = "#{@video_on_demand.title} (#{@video_on_demand.abbreviation})"
+      / h4.title = "#{@video_on_demand.title} (#{@video_on_demand.abbreviation})"
+      .page-header
+        h3.text-muted
+          = @video_on_demand.title
+          |  
+          small = @video_on_demand.abbreviation
       .row
         .col-xs-12
           .row
