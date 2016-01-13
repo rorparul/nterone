@@ -31,7 +31,12 @@
 .row
   .col-xs-12.col-md-9
     #course
-      h4.title = "#{@course.title} (#{@course.abbreviation})"
+      / h4.title = "#{@course.title} (#{@course.abbreviation})"
+      .page-header
+        h3.text-muted
+          = @course.title
+          |  
+          small = @course.abbreviation
       .row
         .col-xs-12.col-md-9
           .row
