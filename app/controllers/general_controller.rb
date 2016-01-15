@@ -36,11 +36,15 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_new
-
+    if user_signed_in?
+      @user = current_user
+    else
+      @user = User.new
+    end
   end
 
   def contact_us_create
-    if ContactUsMailer.contact_us(current_user, contact_us_params).deliver_now
+    if ContactUsMailer.contact_us(contact_us_params).deliver_now
       flash[:success] = "Message successfully sent!"
     else
       flash[:notice] = "Message unsuccussfully sent!"
@@ -51,7 +55,7 @@ class GeneralController < ApplicationController
   private
 
   def contact_us_params
-    params.require(:contact_us).permit(:inquiry, :feedback)
+    params.require(:contact_us).permit(:name, :phone, :email, :inquiry, :feedback)
   end
 
   def get_guaranteed_events
