@@ -12,26 +12,26 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :start_date, "Start Date"
+          = f.label :start_date, 'Start Date'
           br
           = f.date_select :start_date, {}, {}
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :start_time, "Start Time"
+          = f.label :start_time, 'Start Time'
           br
-          = f.time_select :start_time, {}, {}
+          = f.time_select :start_time, { ampm: true }, {}
           
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :end_date, "End Date"
+          = f.label :end_date, 'End Date'
           br
           = f.date_select :end_date, {}, {}
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :end_time, "End Time"
+          = f.label :end_time, 'End Time'
           br
-          = f.time_select :end_time, {}, {}
+          = f.time_select :end_time, { ampm: true }, {}
       
     .row
       .col-xs-12.col-sm-6
@@ -41,30 +41,30 @@
                      [['ClearConnect', 'ClearConnect'],
                       ['Live Online', 'Live Online'],
                       ['On-site', 'On-site']],
-                     {prompt: true},
-                     {class: 'form-control input-sm'}
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
         .form-group
           = f.label :instructor_id, "Instructor"
           = f.select :instructor_id,
                      instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                     {prompt: true},
-                     {class: 'form-control input-sm'}
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
                      
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :city, "City"
+          = f.label :city, 'City'
           br
           = f.text_field :city, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :state, "State"
+          = f.label :state, 'State'
           br
           = f.select :state,
                      us_states,
-                     {prompt: true},
-                     {class: 'form-control input-sm'}
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
                           
     .row
       .col-xs-12.col-sm-6
@@ -77,18 +77,22 @@
       .col-xs-12.col-sm-6
         .row
           .col-xs-12.col-sm-6
-            .form-group
-              = f.label :guaranteed, "Guaranteed?"
-              br
-              = f.check_box :guaranteed, class: 'form-control input-sm'
+            .checkbox
+              label
+                = f.check_box :public
+                strong Public
+            .checkbox
+              label
+                = f.check_box :guaranteed
+                strong Guaranteed
           .col-xs-12.col-sm-6
-            .form-group
-              = f.label :active, "Active?"
-              br
-              = f.check_box :active, class: 'form-control input-sm'
+            .checkbox
+              label
+                = f.check_box :active
+                strong Active
       
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if event.id
-        = link_to 'Delete', platform_course_event_path(platform, course, event), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to 'Delete', platform_course_event_path(platform, course, event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger'
