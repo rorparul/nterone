@@ -2,7 +2,7 @@ class MyAdminController < ApplicationController
   before_action :redirect_if_not_permitted
 
   def classes
-    @events = Event.order(:start_date)
+    @events = Event.order(guaranteed: :desc, start_date: :asc)
   end
 
   def messages

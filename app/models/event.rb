@@ -26,8 +26,12 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def attendees
+  def student_count
     self.users.count
+  end
+
+  def revenue
+    order_items.sum(:price)
   end
 
   private

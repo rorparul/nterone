@@ -104,6 +104,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
-                                  :csv)
+                                  :csv,
+                                  :public)
   end
 end
