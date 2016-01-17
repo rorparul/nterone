@@ -31,7 +31,7 @@ class Event < ActiveRecord::Base
   end
 
   def revenue
-    order_items.sum(:price)
+    order_items.where.not(order_id: nil).sum(:price)
   end
 
   private
