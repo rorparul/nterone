@@ -16,8 +16,7 @@
     = @consulting.content.html_safe
         
   .col-sm-12.col-md-3
-    = render partial: 'courses/guaranteed_to_run',
-             locals: { guaranteed_events: @guaranteed_events }
+    = render partial: 'layouts/side_column'
     
 javascript:
   $('.consulting-tab').addClass('active');
