@@ -105,6 +105,8 @@ class EventsController < ApplicationController
                                   :city,
                                   :state,
                                   :csv,
-                                  :public)
+                                  :public,
+                                  :status,
+                                  :lab_source)
   end
 end

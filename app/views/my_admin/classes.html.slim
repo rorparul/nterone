@@ -19,6 +19,7 @@
     
 .row
   .col-xs-12
+    - if action_name == 'index'
     = render partial: 'events/index', locals: { events: @events }
     
     
