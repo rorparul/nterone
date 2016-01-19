@@ -24,9 +24,7 @@
     #video-on-demand
       .page-header
         h3.text-muted
-          = @video_on_demand.title
-          |  
-          small = @video_on_demand.abbreviation
+          = "#{@video_on_demand.abbreviation} #{@video_on_demand.title}"
       .row
         .col-xs-12
           .row

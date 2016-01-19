@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160117074914) do
+ActiveRecord::Schema.define(version: 20160119014848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,20 +145,26 @@ ActiveRecord::Schema.define(version: 20160117074914) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",         precision: 8, scale: 2
+    t.decimal  "price",           precision: 8, scale: 2
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.boolean  "guaranteed",                            default: false
-    t.boolean  "active",                                default: true
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.boolean  "guaranteed",                              default: false
+    t.boolean  "active",                                  default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
     t.string   "status"
     t.string   "lab_source"
-    t.boolean  "public",                                default: true
+    t.boolean  "public",                                  default: true
+    t.decimal  "cost_instructor", precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_lab",        precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_te",         precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_facility",   precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_books",      precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_shipping",   precision: 8, scale: 2, default: 0.0
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|

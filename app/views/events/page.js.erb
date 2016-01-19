@@ -1,0 +1,2 @@
+$('#events').html("<%= escape_javascript(render partial: 'events', locals: { events: @events }) %>");
+$('#events-page-control').html("<%= escape_javascript(render partial: 'page_controls', locals: { events: @events }) %>");

@@ -5,7 +5,6 @@
   span.seperator
     | /
   a href="#{my_admin_website_path}"
-    / span.fa.fa-gear
     | My Admin
 
 - content_for :actions do
@@ -15,9 +14,6 @@
   li = link_to new_testimonial_path, remote: true do
     i.fa.fa-plus
     | Add Testimonial
-  / li = link_to '#', remote: true do
-  /   i.fa.fa-plus
-  /   | Add Graphic
     
 .row
   .col-xs-12

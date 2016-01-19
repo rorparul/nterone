@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+  def page
+    @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
+  end
+
   def new
     @platform    = Platform.find(params[:platform_id])
     @course      = Course.find(params[:course_id])
@@ -107,6 +111,12 @@ class EventsController < ApplicationController
                                   :csv,
                                   :public,
                                   :status,
-                                  :lab_source)
+                                  :lab_source,
+                                  :cost_instructor,
+                                  :cost_lab,
+                                  :cost_te,
+                                  :cost_facility,
+                                  :cost_books,
+                                  :cost_shipping)
   end
 end

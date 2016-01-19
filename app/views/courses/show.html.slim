@@ -33,9 +33,7 @@
     #course
       .page-header
         h3.text-muted
-          = @course.title
-          |  
-          small = @course.abbreviation
+          = "#{@course.abbreviation} #{@course.title}"
       .row
         .col-xs-12
           .row

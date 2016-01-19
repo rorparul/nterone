@@ -139,20 +139,22 @@ Nci::Application.routes.draw do
   end
 
   controller :my_admin do
-    get 'my-admin/classes',       as: :my_admin_classes
-    get 'my-admin/announcements', as: :my_admin_announcements
-    get 'my-admin/people',        as: :my_admin_people
-    get 'my-admin/website',       as: :my_admin_website
-    get 'my-admin/messages',      as: :my_admin_messages
-    get 'my-admin/settings',      as: :my_admin_settings
+    get 'my-admin/classes',                                as: :my_admin_classes
+    get 'my-admin/classes/:id' => 'my_admin#classes_show', as: :my_admin_classes_show
+    get 'my-admin/announcements',                          as: :my_admin_announcements
+    get 'my-admin/people',                                 as: :my_admin_people
+    get 'my-admin/website',                                as: :my_admin_website
+    get 'my-admin/messages',                               as: :my_admin_messages
+    get 'my-admin/settings',                               as: :my_admin_settings
   end
 
   controller :my_sales do
-    get 'my-sales/queue',         as: :my_sales_queue
-    get 'my-sales/classes',       as: :my_sales_classes
-    get 'my-sales/announcements', as: :my_sales_announcements
-    get 'my-sales/messages',      as: :my_sales_messages
-    get 'my-sales/settings',      as: :my_sales_settings
+    get 'my-sales/queue',                                  as: :my_sales_queue
+    get 'my-sales/classes',                                as: :my_sales_classes
+    get 'my-sales/classes/:id' => 'my_sales#classes_show', as: :my_sales_classes_show
+    get 'my-sales/announcements',                          as: :my_sales_announcements
+    get 'my-sales/messages',                               as: :my_sales_messages
+    get 'my-sales/settings',                               as: :my_sales_settings
   end
 
   controller :my_account do
@@ -161,6 +163,7 @@ Nci::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'page'                                        => 'events#page'
   get  'about-us'                                    => 'general#about_us'
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'

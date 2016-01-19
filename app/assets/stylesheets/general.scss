@@ -1385,6 +1385,17 @@ button[id^="subject-toggle-"] {
   font-size: 10px;
 }
 
+.table-row {
+  margin: 0;
+  td {
+    width: 50%;
+  }
+}
+
+.table-col {
+  padding: 0;
+}
+
 .actions-column {
   select {
     height: 20px;

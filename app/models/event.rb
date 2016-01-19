@@ -34,6 +34,14 @@ class Event < ActiveRecord::Base
     order_items.where.not(order_id: nil).sum(:price)
   end
 
+  def total_cost
+    cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping
+  end
+
+  def net_revenue
+    revenue - total_cost
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart
