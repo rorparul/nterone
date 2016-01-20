@@ -1,6 +1,5 @@
 class TestimonialsController < ApplicationController
   before_action :set_testimonial, except: [:index, :new, :create, :page]
-  before_action :get_guaranteed_events, only: [:index]
 
   def index
     @testimonials = Testimonial.all
@@ -57,9 +56,5 @@ class TestimonialsController < ApplicationController
 
   def set_testimonial
     @testimonial = Testimonial.find(params[:id])
-  end
-
-  def get_guaranteed_events
-    @guaranteed_events = Event.guaranteed_upcoming_events
   end
 end

@@ -20,6 +20,11 @@
           = f.label :start_time, 'Start Time'
           br
           = f.time_select :start_time, { ampm: true }, {}
+      / .col-xs-12.col-sm-6
+      /   .form-group
+      /     = f.label :start_time, 'Time Zone'
+      /     br
+      /     = f.time_zone_select :start_time, ActiveSupport::TimeZone.us_zones, {}, {}
           
     .row
       .col-xs-12.col-sm-6

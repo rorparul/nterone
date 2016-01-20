@@ -30,6 +30,7 @@ body {
 
 .credit-card-logos {
   width: 150px;
+  margin-bottom: 5px;
 }
 
 .pagination {
@@ -109,6 +110,10 @@ body {
 
 .badge {
   background-color: rgb(96, 156, 61);
+}
+
+.text-cart {
+  color: rgb(96, 156, 61);
 }
 
 #header-nav {
@@ -339,8 +344,21 @@ body {
   }
 }
 
+.video-thumbnail-container {
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  .wistia_embed {
+    width: 100% !important;
+  }
+}
+
 .video-module-status {
   float: right;
+  height: 20px;
+  margin: 0;
+  font-size: 12px;
+  padding: 4px;
 }
 
 .video {
@@ -372,29 +390,29 @@ body {
   }
 }
 
-.resource {
-  .wistia_embed {
-    height: auto !important;
-    width: 100% !important;
-    display: block !important;
-    margin-bottom: 10px;
-    div {
-      height: auto !important;
-      width: 100% !important;
-      div {
-        height: auto !important;
-        width: 100% !important;
-        img {
-          height: auto !important;
-          width: 100% !important;
-          position: relative !important;
-          top: 0 !important;
-          left: 0 !important;
-        }
-      }
-    }
-  }
-}
+// .resource {
+//   .wistia_embed {
+//     height: auto !important;
+//     width: 100% !important;
+//     display: block !important;
+//     margin-bottom: 10px;
+//     div {
+//       height: auto !important;
+//       width: 100% !important;
+//       div {
+//         height: auto !important;
+//         width: 100% !important;
+//         img {
+//           height: auto !important;
+//           width: 100% !important;
+//           position: relative !important;
+//           top: 0 !important;
+//           left: 0 !important;
+//         }
+//       }
+//     }
+//   }
+// }
 
 .social-icons {
   span {
@@ -749,29 +767,29 @@ div.instructor-bios, div.news {
   color: red;
 }
 
-#course, #video-on-demand {
-  .title {
-    color: rgb(95, 95, 95);
-    font-size: 24px;
-    font-weight: bold;
-  }
-  .well-course {
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: bold;
-    }
-    .resource {
-      h1, h2, h3, h4, h5, h6 {
-        color: #337ab7;
-      }
-      .datasheet {
-        height: 25px;
-      }
-      span {
-        color: rgb(193, 30, 7);
-      }
-    }
-  }
-}
+// #course, #video-on-demand {
+//   .title {
+//     color: rgb(95, 95, 95);
+//     font-size: 24px;
+//     font-weight: bold;
+//   }
+//   .well-course {
+//     h1, h2, h3, h4, h5, h6 {
+//       font-weight: bold;
+//     }
+//     .resource {
+//       h1, h2, h3, h4, h5, h6 {
+//         color: #337ab7;
+//       }
+//       .datasheet {
+//         height: 25px;
+//       }
+//       span {
+//         color: rgb(193, 30, 7);
+//       }
+//     }
+//   }
+// }
 
 .panel-heading {
   color: rgb(99, 99, 99)
@@ -1381,12 +1399,18 @@ button[id^="subject-toggle-"] {
 
 .table-select {
   height: 20px !important;
-  width: 130px;
-  font-size: 10px;
+  width: 125px;
+  font-size: 11px;
 }
 
 .table-row {
   margin: 0;
+  td {
+    width: 50%;
+  }
+}
+
+.table-split {
   td {
     width: 50%;
   }

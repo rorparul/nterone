@@ -7,9 +7,6 @@
   .col-sm-12.col-md-9.text-align
     #carousel
       #carousel-example-generic.carousel.slide data-ride="carousel"
-        / ol.carousel-indicators
-        /   - @carousel_items.each_with_index do |carousel_item, index|
-        /     li class="#{'active' if index == 0}" data-target="#carousel-example-generic" data-slide-to="#{index}"
         .carousel-inner role="listbox"
           - @carousel_items.each_with_index do |carousel_item, index|
             div class="item #{'active' if index == 0}"
@@ -26,8 +23,8 @@
     .row
       .col-xs-12
         .page-header
-          h3.text-muted About NterOne
-        p.text-muted NterOne is a global training and consulting company focusing on live online training, self-paced e-learning, private onsite training, and software focused on the training industry. We are a company founded by engineers, for engineers.  The company is headquartered in Reston, VA, is veteran owned, and services customers in over 35 countries.  We are a Cisco Learning Partner, and a VMware Authorized Training Center, and operate our own Data Center in North Carolina featuring award-winning technology. The company’s key technology focus areas are Virtualization, Data Center, Routing and Switching, Voice, Collaboration, Optical, Wireless, and Security.
+          h3 About NterOne
+        p NterOne is a global training and consulting company focusing on live online training, self-paced e-learning, private onsite training, and software focused on the training industry. We are a company founded by engineers, for engineers.  The company is headquartered in Reston, VA, is veteran owned, and services customers in over 35 countries.  We are a Cisco Learning Partner, and a VMware Authorized Training Center, and operate our own Data Center in North Carolina featuring award-winning technology. The company’s key technology focus areas are Virtualization, Data Center, Routing and Switching, Voice, Collaboration, Optical, Wireless, and Security.
           
   .col-sm-12.col-md-3
     = render partial: 'layouts/side_column'
