@@ -23,8 +23,7 @@
   .col-xs-12.col-md-9
     #video-on-demand
       .page-header
-        h3.text-muted
-          = "#{@video_on_demand.abbreviation} #{@video_on_demand.title}"
+        h3 = "#{@video_on_demand.abbreviation} #{@video_on_demand.title}"
       .row
         .col-xs-12
           .row
@@ -33,7 +32,7 @@
                 p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
           .row
             .col-xs-12
-              .well.well-course
+              .panel.panel-default
                 .table-responsive
                   table.table.table-compact
                     thead
@@ -52,7 +51,8 @@
                           td.text-right
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
-                              button.btn-link.text-success type="submit" Add to cart
+                              button.btn-link type="submit"
+                                span.text-cart Add to cart
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -62,7 +62,7 @@
                       strong
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
                           = video_module.title
-                        span.label.label-info.video-module-status = "0/#{video_module.videos.count} Viewed"
+                        span.label.label-default.video-module-status = "0/#{video_module.videos.count} Viewed"
                     .panel-collapse.collapse id="collapse#{index}" role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
@@ -116,14 +116,15 @@
                 = image_tag '360-degrees.png', class: 'degrees'
               
   .col-xs-12.col-md-3
-    .well.well-course
-      h5
-        strong Questions?
-      p The NterOne team will be happy to answer your questions.
-      p
-        | Email: 
-        a href="mailto:sales@nterone.com" sales@nterone.com
-      p Phone: 703.972.2288
+    .panel.panel-default
+      .panel-body
+        h5
+          strong Questions?
+        p The NterOne team will be happy to answer your questions.
+        p
+          | Email: 
+          a href="mailto:sales@nterone.com" sales@nterone.com
+        p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
     
 .row

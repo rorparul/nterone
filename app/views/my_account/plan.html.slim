@@ -12,7 +12,7 @@
     = render 'tabs'
     
 .page-header
-  h3.text-muted Purchased Classes and Subscriptions
+  h3 Purchased Classes and Subscriptions
 
 .row
   .col-xs-12
@@ -21,7 +21,7 @@
         strong.text-muted My Upcoming Classes
       .panel-table
         .responsive-table
-          table.table.table-condensed.text-muted
+          table.table.table-condensed
             - if current_user.upcoming_events.any?
               thead
                 tr.text-muted
@@ -56,7 +56,7 @@
         strong.text-muted My Active Self-paced Subscriptions
       .panel-table
         .responsive-table
-          table.table.table-condensed.text-muted
+          table.table.table-condensed
             - if current_user.video_on_demands.any?
               thead
                 tr
@@ -79,7 +79,7 @@
         strong.text-muted My Completed Classes or Subscriptions
       .panel-table
         .responsive-table
-          table.table.table-condensed.text-muted
+          table.table.table-condensed
             - if false
               thead
                 tr
@@ -94,7 +94,7 @@
                   td.text-center You have no completed classes or subscriptions.
 
 .page-header
-  h3.text-muted Certification Planning and Tracking
+  h3 Certification Planning and Tracking
 
 - unless @planned_subjects.any?
   .row
@@ -110,7 +110,7 @@
       .panel-body
         .row
           .col-xs-12
-            h4.text-muted = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+            h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
         .row#subject-groups
           - planned_subject.subject.groups.each do |group|
             = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
@@ -138,7 +138,7 @@
           span Request Formal Quote
 
 
-      #grand-total.text-muted
+      #grand-total
         span
           = "Estimated Total for Planned Classes: #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
@@ -146,7 +146,7 @@
   .col-xs-12
     #activity-history
       .page-header
-        h3.text-muted Activity History
+        h3 Activity History
       ul
         = render_activities(@activities, fallback: 'default')
     

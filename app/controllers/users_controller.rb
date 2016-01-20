@@ -64,6 +64,11 @@ class UsersController < ApplicationController
                                  :city,
                                  :state,
                                  :zipcode,
-                                 :archived)
+                                 :archived,
+                                 :same_addresses,
+                                 :billing_street,
+                                 :billing_city,
+                                 :billing_state,
+                                 :billing_zip_code)
   end
 end

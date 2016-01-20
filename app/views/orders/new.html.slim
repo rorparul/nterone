@@ -13,10 +13,10 @@
       .panel-heading
         strong.text-muted My Cart
       .table-responsive
-        table.table.table-condensed.text-muted
+        table.table.table-condensed
           - if @cart.order_items.empty?
             tr
-              td.text-center.text-muted Your cart is empty.
+              td.text-center Your cart is empty.
           - else
             - @cart.order_items.each do |order_item|
               tr
@@ -40,7 +40,7 @@
       .panel.panel-default
         .panel-heading
           strong.text-muted My Payment Info
-        .panel-body.text-muted
+        .panel-body
           .row
             .col-xs-12.col-md-6
               .form-group
@@ -63,10 +63,37 @@
               .form-group
                 = f.label :name_on_card, 'Name on Card'
                 = f.text_field :name_on_card, class: 'form-control input-sm'
-            .col-xs-12.col-md-2
-              .form-group
-                = f.label :billing_zip_code, 'Billing Zip Code'
-                = f.text_field :billing_zip_code, class: 'form-control input-sm'
+          = image_tag 'credit-card-icons.png', class: "credit-card-logos"
+          hr
+          fieldset
+            label Billing Address
+            .form-group
+              = f.label :billing_street, 'Street'
+              = f.text_field :billing_street, class: 'form-control input-sm', value: current_user.billing_street if user_signed_in?
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_city, 'City'
+                  = f.text_field :billing_city, class: 'form-control input-sm', value: current_user.billing_city if user_signed_in?
+              .col-xs-12.col-md-4
+                .form-group
+                  = f.label :billing_state, 'State'
+                  - if user_signed_in?
+                    = f.select :billing_state,
+                               us_states,
+                               { prompt: true,
+                                 selected: current_user.billing_state },
+                               { class: 'form-control input-sm' }
+                  - else
+                    = f.select :billing_state,
+                               us_states,
+                               { prompt: true },
+                               { class: 'form-control input-sm' }
+              .col-xs-12.col-md-2
+                .form-group
+                  = f.label :billing_zip_code, 'Zip Code'
+                  = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code if user_signed_in?
+          hr
           .row
             .col-xs-12.col-md-6
               .row
@@ -79,41 +106,36 @@
                     = f.label :clc_quantity, 'Cisco Learning Credits'
                     = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
                     p.form-instructions.absolute 1 Credit = $100
-          .row
-            .col-xs-12
-              = image_tag 'credit-card-icons.png', class: "credit-card-logos"
   .row
-    .col-xs-12.col-md-6
-      .well
-        .row
-          .col-xs-12
-            .responsive-table.order-summary-table
-              table.table.table-condensed.text-muted
-                thead
-                  tr
-                    th colspan="2" Summary
-                tbody
-                  tr
-                    td.fit Items Total:
-                    td.fit
-                      | $
-                      span#items = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
-                  tr
-                    td.fit Credits Total:
-                    td.fit
-                      | $
-                      span#credits 0.00
-                      |  applied
-                  tr
-                    td.fit Grand Total:
-                    td.fit
-                      | $
-                      span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
-                      |  to be charged
-        .row
-          .col-xs-12
-            .form-buttons
-              button.btn.btn-success type="submit" Place Order
+    .col-xs-12.col-md-4
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted Summary
+        .responsive-table
+          table.table.table-condensed.table-split
+            tbody
+              tr
+                td.text-right
+                  strong Items Total:
+                td
+                  | $
+                  span#items = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
+              tr
+                td.text-right
+                  strong Credits Total:
+                td
+                  | $
+                  span#credits 0.00
+                  |  applied
+              tr
+                td.text-right
+                  strong Grand Total:
+                td
+                  | $
+                  span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
+                  |  to be charged
+  .form-buttons
+    button.btn.btn-success type="submit" Place Order
         
 javascript:
   $('.home-tab').addClass('active');

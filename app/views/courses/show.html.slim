@@ -32,8 +32,7 @@
   .col-xs-12.col-md-9
     #course
       .page-header
-        h3.text-muted
-          = "#{@course.abbreviation} #{@course.title}"
+        h3 = "#{@course.abbreviation} #{@course.title}"
       .row
         .col-xs-12
           .row
@@ -42,7 +41,7 @@
           .row
             .col-xs-12
               #upcoming-classes
-                .well.well-course
+                .panel.panel-default
                   .table-responsive
                     table.table.table-compact
                       thead
@@ -50,6 +49,7 @@
                           th Date
                           th Length
                           th Format
+                          th Location
                           th Status
                           th Price
                           - if !user_signed_in? || (user_signed_in? && current_user.member?)
@@ -60,13 +60,18 @@
                             td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
                             td = "#{pluralize(event.length, 'Day')}"
                             td = event.format
-                            td.text-success Available
+                            - if event.city.present? || event.state.present?
+                              td = "#{event.city}, #{event.state}"
+                            - else
+                              td
+                            td Available
                             td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
                             - if !user_signed_in? || (user_signed_in? && current_user.member?)
                               td.fit
                                 = form_for :order_item, url: order_items_path do |f|
                                   = f.hidden_field :event_id, value: event.id
-                                  button.btn-link.text-success type="submit" Add to cart
+                                  button.btn-link type="submit"
+                                    span.text-cart Add to cart
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -77,7 +82,7 @@
                         | Overview
                   #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                     .panel-body
-                      = @course.overview.html_safe
+                      = @course.overview.html_safe if @course.overview
                 .panel.panel-default
                   .panel-heading role="tab" id="headingTwo"
                     strong
@@ -85,7 +90,7 @@
                         | Outline
                   #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
                     .panel-body
-                      = @course.outline.html_safe
+                      = @course.outline.html_safe if @course.outline
                 .panel.panel-default
                   .panel-heading role="tab" id="headingThree"
                     strong
@@ -93,32 +98,27 @@
                         | Who Should Attend
                   #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
                     .panel-body
-                      = @course.intended_audience.html_safe
+                      = @course.intended_audience.html_safe if @course.intended_audience
           .row
             .col-xs-12
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
 
   .col-xs-12.col-md-3
-    .well.well-course
-      .row
-        .col-xs-12
-          .resource.text-center
-            = @course.video_preview.html_safe if @course.video_preview
-        .col-xs-12
-          .resource.text-center
-            = link_to course_download_platform_courses_path(@platform, @course) do
-              span.fa.fa-file-pdf-o
-              | Download PDF Datasheet
-      .row
-        .col-xs-12
-          h5
-            strong Questions?
-          p The NterOne team will be happy to answer your questions.
-          p
-            | Email: 
-            a href="mailto:sales@nterone.com" sales@nterone.com
-          p Phone: 703.972.2288
+    .panel.panel-default
+      .video-thumbnail-container
+        = @course.video_preview.html_safe if @course.video_preview
+      .panel-body
+        = link_to course_download_platform_courses_path(@platform, @course) do
+          span.fa.fa-file-pdf-o.text-danger
+          | Download PDF Datasheet
+        h5
+          strong Questions?
+        p The NterOne team will be happy to answer your questions.
+        p
+          | Email: 
+          a href="mailto:sales@nterone.com" sales@nterone.com
+        p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
     
 .row

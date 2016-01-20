@@ -1,10 +1,4 @@
 class GeneralController < ApplicationController
-  before_action :get_guaranteed_events,
-                except: [:new_search,
-                         :search,
-                         :contact_us_new,
-                         :contact_us_create]
-
   def new_search
 
   end
@@ -56,9 +50,5 @@ class GeneralController < ApplicationController
 
   def contact_us_params
     params.require(:contact_us).permit(:name, :phone, :email, :inquiry, :feedback)
-  end
-
-  def get_guaranteed_events
-    @guaranteed_events = Event.guaranteed_upcoming_events
   end
 end

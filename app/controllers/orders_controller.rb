@@ -98,7 +98,12 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:clc_number,
-                                  :clc_quantity)
+                                  :clc_quantity,
+                                  :name_on_card,
+                                  :billing_street,
+                                  :billing_city,
+                                  :billing_state,
+                                  :billing_zip_code)
   end
 
   def credit_card_params

@@ -1,6 +1,4 @@
 class CoursesController < ApplicationController
-  before_action :get_guaranteed_events, only: [:show]
-
   def new
     @platform   = Platform.find(params[:platform_id])
     @course     = Course.new
@@ -99,9 +97,5 @@ class CoursesController < ApplicationController
                                    :course_info,
                                    :video_preview,
                                    category_ids: [])
-  end
-
-  def get_guaranteed_events
-    @guaranteed_events = Event.guaranteed_upcoming_events
   end
 end

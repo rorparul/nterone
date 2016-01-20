@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119014848) do
+ActiveRecord::Schema.define(version: 20160120031940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,9 @@ ActiveRecord::Schema.define(version: 20160119014848) do
     t.string   "name_on_card"
     t.string   "billing_zip_code"
     t.decimal  "paid",             precision: 8, scale: 2
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -441,6 +444,11 @@ ActiveRecord::Schema.define(version: 20160119014848) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
     t.datetime "last_active_at"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip_code"
+    t.boolean  "same_addresses",         default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

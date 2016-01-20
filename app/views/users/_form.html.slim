@@ -3,7 +3,7 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Info
-      .panel-body.text-muted
+      .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
           .row
             .col-xs-12.col-md-6
@@ -24,25 +24,69 @@
               .form-group
                 = f.label :contact_number, "Contact Number"
                 = f.text_field :contact_number, autocomplete: "off", class: "form-control input-sm"
-
+          hr
           fieldset
+            label Billing Address
             .form-group
-              = f.label :street, "Street"
-              = f.text_field :street, autocomplete: "off", class: "form-control input-sm"
-
+              = f.label :billing_street, "Street"
+              = f.text_field :billing_street, autocomplete: "off", class: "form-control input-sm"
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_city, "City"
+                  = f.text_field :billing_city, autocomplete: "off", class: "form-control input-sm"
+              .col-xs-12.col-md-4
+                .form-group
+                  = f.label :billing_state, "State"
+                  = f.select :billing_state,
+                             us_states,
+                             { prompt: true },
+                             { class: 'form-control input-sm' }
+              .col-xs-12.col-md-2
+                .form-group
+                  = f.label :billing_zip_code, "Zip Code"
+                  = f.text_field :billing_zip_code, autocomplete: "off", class: "form-control input-sm"
+          hr
+          fieldset
+            label Shipping Address
+            .form-group
+              = f.label :same_addresses, 'Same as Billing Address?'
+              br
+              = f.check_box :same_addresses, autocomplete: 'off', class: 'shipping-address-box'
+            .form-group
+              = f.label :street, 'Street'
+              = f.text_field :street, autocomplete: "off", class: "form-control input-sm input-shipping-address"
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :city, "City"
-                  = f.text_field :city, autocomplete: "off", class: "form-control input-sm"
+                  = f.text_field :city, autocomplete: "off", class: "form-control input-sm input-shipping-address"
               .col-xs-12.col-md-4
                 .form-group
                   = f.label :state, "State"
-                  = f.text_field :state, autocomplete: "off", class: "form-control input-sm"
+                  = f.select :state,
+                             us_states,
+                             { prompt: true },
+                             { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :zipcode, "Zip Code"
-                  = f.text_field :zipcode, autocomplete: "off", class: "form-control input-sm"
+                  = f.text_field :zipcode, autocomplete: "off", class: "form-control input-sm input-shipping-address"
 
           .form-buttons
             = f.submit "Save", class: 'btn btn-success'
+            
+javascript:
+  function toggleShippingAddress(checkBox) {
+    if (checkBox.is(':checked')) {
+      $('.input-shipping-address').prop('disabled', true);
+    } else {
+      $('.input-shipping-address').prop('disabled', false);
+    }
+  } 
+
+  $('.shipping-address-box').on('change', function() {
+    toggleShippingAddress($(this));
+  });
+  
+  toggleShippingAddress($('.shipping-address-box'));
