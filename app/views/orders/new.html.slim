@@ -69,12 +69,12 @@
             label Billing Address
             .form-group
               = f.label :billing_street, 'Street'
-              = f.text_field :billing_street, class: 'form-control input-sm', value: current_user.billing_street if user_signed_in?
+              = f.text_field :billing_street, class: 'form-control input-sm', value: (current_user.billing_street if user_signed_in?)
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :billing_city, 'City'
-                  = f.text_field :billing_city, class: 'form-control input-sm', value: current_user.billing_city if user_signed_in?
+                  = f.text_field :billing_city, class: 'form-control input-sm', value: (current_user.billing_city if user_signed_in?)
               .col-xs-12.col-md-4
                 .form-group
                   = f.label :billing_state, 'State'
@@ -92,7 +92,7 @@
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :billing_zip_code, 'Zip Code'
-                  = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code if user_signed_in?
+                  = f.text_field :billing_zip_code, class: 'form-control input-sm', value: (current_user.billing_zip_code if user_signed_in?)
           hr
           .row
             .col-xs-12.col-md-6
