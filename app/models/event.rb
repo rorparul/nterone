@@ -4,7 +4,9 @@ class Event < ActiveRecord::Base
 
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
-  has_many :users,       through: :order_items
+  # has_many :users,       through: :order_items
+  has_many :attendances
+  has_many :users, through: :attendances
 
   before_destroy :ensure_not_purchased_or_in_cart
 
