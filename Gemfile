@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.1"
+ruby '2.2.1'
 
 gem 'rails', '4.2.0'
 
@@ -33,7 +33,7 @@ gem 'parsley-rails'
 gem 'jquery-minicolors-rails'
 gem 'remotipart'
 gem 'authorizenet'
-gem "figaro"
+gem 'figaro'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -74,7 +74,7 @@ group :development do
   gem 'annotate'
   gem 'rails-erd'
   gem 'traceroute'
-  gem "letter_opener"
+  gem 'letter_opener'
 end
 
 group :test do

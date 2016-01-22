@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120031940) do
+ActiveRecord::Schema.define(version: 20160122022719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,14 +258,21 @@ ActiveRecord::Schema.define(version: 20160120031940) do
     t.decimal  "price"
     t.integer  "order_id"
     t.integer  "user_id"
+    t.integer  "ownable_id"
+    t.string   "ownable_type"
+    t.integer  "seller_id"
+    t.integer  "buyer_id"
   end
 
+  add_index "order_items", ["buyer_id"], name: "index_order_items_on_buyer_id", using: :btree
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
+  add_index "order_items", ["ownable_id"], name: "index_order_items_on_ownable_id", using: :btree
+  add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
@@ -279,11 +286,18 @@ ActiveRecord::Schema.define(version: 20160120031940) do
     t.string   "clc_quantity"
     t.string   "name_on_card"
     t.string   "billing_zip_code"
-    t.decimal  "paid",             precision: 8, scale: 2
+    t.decimal  "paid",             precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
+    t.integer  "seller_id"
+    t.integer  "buyer_id"
+    t.string   "status",                                   default: "uninvoiced"
+    t.decimal  "total",            precision: 8, scale: 2, default: 0.0
   end
+
+  add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
+  add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -340,6 +354,18 @@ ActiveRecord::Schema.define(version: 20160120031940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "seller_id"
+    t.integer  "buyer_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "relationships", ["buyer_id"], name: "index_relationships_on_buyer_id", using: :btree
+  add_index "relationships", ["seller_id", "buyer_id"], name: "index_relationships_on_seller_id_and_buyer_id", unique: true, using: :btree
+  add_index "relationships", ["seller_id"], name: "index_relationships_on_seller_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"

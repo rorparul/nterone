@@ -1,0 +1,27 @@
+.form-container
+  = form_for order, remote: true do |f|
+    - if event.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(event.errors.count, 'error')}:"
+        ul
+          - event.errors.full_messages.each do |msg|
+            li = msg
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_date, 'Start Date'
+          br
+          = f.date_select :start_date, {}, {}
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_time, 'Start Time'
+          br
+          = f.time_select :start_time, { ampm: true }, {}
+
+
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

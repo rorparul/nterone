@@ -5,6 +5,8 @@ class Event < ActiveRecord::Base
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
+  # has_many :attendances
+  # has_many :users, through: :attendances
 
   before_destroy :ensure_not_purchased_or_in_cart
 
@@ -27,7 +29,23 @@ class Event < ActiveRecord::Base
   end
 
   def student_count
-    self.users.count
+    users.count
+  end
+
+  def invoiced_amount
+    orders.where(status: 'invoiced').sum(:total)
+  end
+
+  def commission_percent
+    if student_count >= 10
+      0.08
+    else
+      0.05
+    end
+  end
+
+  def commission
+    invoiced_amount * commission_percent
   end
 
   def revenue
@@ -35,7 +53,7 @@ class Event < ActiveRecord::Base
   end
 
   def total_cost
-    cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping
+    cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping + commission
   end
 
   def net_revenue

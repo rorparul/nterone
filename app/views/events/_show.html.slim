@@ -109,12 +109,17 @@
                       span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_shipping, precision: 2))}"
                   tr
                     td.text-right
+                      strong Commission:
+                    td
+                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.commission, precision: 2))}"
+                  tr
+                    td.text-right
                       strong Revenue:
                     td
                       span.label.label-default = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
                   tr
                     td.text-right
-                      strong Total Cost:
+                      strong Total Cost + Commission:
                     td
                       span.label.label-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
                   tr
@@ -128,23 +133,44 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Class Enrollments
+        .panel-actions-overlay
+          = link_to '#', remote: true do
+            | Add
       .panel-table
         .responsive-table
           table.table.table-condensed.table-hover
             thead
               tr
-                th.fit title='Enrollment ID' #
+                / th.fit title='Enrollment ID' #
+                th.fit Sales Rep
                 th.fit Student Name
                 th.fit Amount Quoted
-                th.fit Amount Due
                 th.fit Amount Paid
+                th.fit Amount Due
                 th.fit
             tbody
-              - event.users.each do |student|
+              - event.order_items.each do |order_item|
                 tr
-                  td.fit 
-                  td.fit = student.full_name
-                  td.fit
-                  td.fit
-                  td.fit
-                  td.fit
+                  / td.fit
+                  - if current_user.admin?
+                    td.fit
+                      = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
+                        = f.select :seller_id,
+                                   Role.where(role: [2, 3]).collect { |role| [role.user.full_name, role.user.id] },
+                                   { prompt: true },
+                                   { class: 'form-control input-sm table-select' }
+                  - else
+                    td.fit = order_item.order.buyer.full_name if order_item.order.buyer
+                  td.fit = order_item.user.full_name
+                  td.fit = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                  td.fit = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
+                  td.fit = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
+                  td.fit.text-right
+                    = link_to 'Edit', '#', remote: true
+                    |  | 
+                    = link_to 'Delete', '#', method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                    
+javascript:
+  $('.table-select').on('change', function() {
+    $(this).closest('form').submit();
+  });
