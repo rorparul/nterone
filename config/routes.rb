@@ -1,4 +1,4 @@
-Nci::Application.routes.draw do
+NterOne::Application.routes.draw do
   root to: 'general#welcome'
 
   devise_for :users, controllers: { registrations: 'users/registrations',

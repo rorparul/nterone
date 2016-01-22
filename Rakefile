@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Nci::Application.load_tasks
+NterOne::Application.load_tasks

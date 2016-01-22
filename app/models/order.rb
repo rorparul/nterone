@@ -1,12 +1,11 @@
 class Order < ActiveRecord::Base
-  # belongs_to :user
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
 
   has_many :order_items, dependent: :destroy
 
-  # validates :user, presence: true
-  # validates_associated :user
+  validates :buyer, presence: true
+  validates_associated :buyer
 
   def add_order_items_from_cart(cart)
     cart.order_items.each do |item|
