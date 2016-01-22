@@ -30,24 +30,24 @@ class User < ActiveRecord::Base
   #                       source: :seller
 
 
-  # has_many :order_items
-  has_many :seller_order_items, class_name:  "Order",
-                                foreign_key: "seller_id"
-  has_many :buyer_order_items, class_name:  "Order",
-                               foreign_key: "buyer_id"
+  has_many :order_items
+  # has_many :seller_order_items, class_name:  "Order",
+  #                               foreign_key: "seller_id"
+  # has_many :buyer_order_items, class_name:  "Order",
+  #                              foreign_key: "buyer_id"
 
 
 
-  has_many :attendances
-  has_many :subscriptions
-  has_many :events, through: :attendances
-  has_many :video_on_demands, through: :subscriptions
-  # has_many :events, through: :order_items,
-  #                   source: :orderable,
-  #                   source_type: 'Event'
-  # has_many :video_on_demands, through: :order_items,
-  #                             source: :orderable,
-  #                             source_type: 'VideoOnDemand'
+  # has_many :attendances
+  # has_many :subscriptions
+  # has_many :events, through: :attendances
+  # has_many :video_on_demands, through: :subscriptions
+  has_many :events,           through: :order_items,
+                              source: :orderable,
+                              source_type: 'Event'
+  has_many :video_on_demands, through: :order_items,
+                              source: :orderable,
+                              source_type: 'VideoOnDemand'
 
 
 

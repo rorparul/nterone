@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    
   end
 
   def create
@@ -74,7 +75,10 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html do
+          flash[:success] = 'Order was successfully updated.'
+          redirect_to :back
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -103,7 +107,11 @@ class OrdersController < ApplicationController
                                   :billing_street,
                                   :billing_city,
                                   :billing_state,
-                                  :billing_zip_code)
+                                  :billing_zip_code,
+                                  :total,
+                                  :paid,
+                                  :seller_id,
+                                  :buyer_id)
   end
 
   def credit_card_params

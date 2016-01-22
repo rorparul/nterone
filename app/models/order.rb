@@ -5,8 +5,8 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :destroy
 
-  validates :user, presence: true
-  validates_associated :user
+  # validates :user, presence: true
+  # validates_associated :user
 
   def add_order_items_from_cart(cart)
     cart.order_items.each do |item|

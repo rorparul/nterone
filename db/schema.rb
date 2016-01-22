@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121040236) do
+ActiveRecord::Schema.define(version: 20160122022719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,13 +40,6 @@ ActiveRecord::Schema.define(version: 20160121040236) do
     t.datetime "updated_at",                  null: false
     t.string   "status",     default: "open"
     t.string   "poster"
-  end
-
-  create_table "attendances", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "carousel_items", force: :cascade do |t|
@@ -278,8 +271,8 @@ ActiveRecord::Schema.define(version: 20160121040236) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
@@ -293,12 +286,14 @@ ActiveRecord::Schema.define(version: 20160121040236) do
     t.string   "clc_quantity"
     t.string   "name_on_card"
     t.string   "billing_zip_code"
-    t.decimal  "paid",             precision: 8, scale: 2
+    t.decimal  "paid",             precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.integer  "seller_id"
     t.integer  "buyer_id"
+    t.string   "status",                                   default: "uninvoiced"
+    t.decimal  "total",            precision: 8, scale: 2, default: 0.0
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -404,13 +399,6 @@ ActiveRecord::Schema.define(version: 20160121040236) do
     t.datetime "updated_at"
     t.string   "abbreviation"
     t.integer  "platform_id"
-  end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "video_on_demand_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "testimonials", force: :cascade do |t|
