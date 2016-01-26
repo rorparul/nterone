@@ -1384,17 +1384,17 @@ button[id^="subject-toggle-"] {
 }
 
 .announcement {
-  #content {
-    max-width: 100px;
+  .content {
+    max-width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  #target {
+  .target {
     width:1%;
     white-space:nowrap;
   }
-  #poster {
+  .poster {
     width:1%;
     white-space:nowrap;
   }

@@ -36,14 +36,15 @@ class CoursesController < ApplicationController
   end
 
   def select_to_edit
+    @platform   = Platform.find(params[:platform_id])
+    @categories = @platform.categories.order(:title).select do |category|
+      category if category.parent
+    end
     if course_params[:id] == 'none'
-      redirect_to select_platform_courses_path(Platform.find(params[:platform_id]))
+      @course   = @platform.courses.build
+      @courses  = Course.where(platform_id: @platform.id)
     else
-      @platform   = Platform.find(params[:platform_id])
       @course     = Course.find(course_params[:id])
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
     end
   end
 

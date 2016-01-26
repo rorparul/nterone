@@ -5,8 +5,3 @@
     = f.select :id,
                custom_items.order('lower(shortname)').collect { |item| [item.shortname.blank? ? item.content[0..49] : item.shortname, item.id] }.unshift(["None", "none"]),
                options = { selected: "None" }, html_options = { class: "form-control sub-select input-sm" }
-
-javascript:
-  $('.sub-select').on('change', function() {
-    $(this).closest('form').submit();
-  });

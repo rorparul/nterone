@@ -22,10 +22,11 @@ class CustomItemsController < ApplicationController
   end
 
   def  select_to_edit
+    @platform     = Platform.find(params[:platform_id])
     if custom_item_params[:id] == 'none'
-      redirect_to select_platform_custom_items_path(Platform.find(params[:platform_id]))
+      @custom_item  = @platform.custom_items.build
+      @custom_items = CustomItem.where(platform_id: @platform.id, is_header: false)
     else
-      @platform    = Platform.find(params[:platform_id])
       @custom_item = CustomItem.find(custom_item_params[:id])
     end
   end

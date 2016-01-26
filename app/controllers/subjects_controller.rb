@@ -39,13 +39,15 @@ class SubjectsController < ApplicationController
   end
 
   def  select_to_edit
+    @platform = Platform.find(params[:platform_id])
+    @categories = @platform.categories.order(:title).select do |category|
+      category if category.parent
+    end
     if subject_params[:id] == 'none'
-      redirect_to select_platform_subjects_path(Platform.find(params[:platform_id]))
+      @subjects   = @platform.subjects.where.not(id: nil)
+      @subject    = @platform.subjects.build
+      @subject.build_image
     else
-      @platform = Platform.find(params[:platform_id])
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
       @subject  = Subject.find(subject_params[:id])
       @subject.build_image unless @subject.image.present?
     end
