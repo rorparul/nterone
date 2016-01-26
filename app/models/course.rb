@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   has_many :events
   has_many :video_on_demands
 
-  before_save :format_url
+  # before_save :format_url
 
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
@@ -30,7 +30,7 @@ class Course < ActiveRecord::Base
 
   private
 
-  def format_url
-    self.url.gsub!(/(http:\/\/)|(https:\/\/)|(http:\/\/www.)|((https:\/\/)www.)|(www.)/, '') if self.url
-  end
+  # def format_url
+  #   self.url.gsub!(/(http:\/\/)|(https:\/\/)|(http:\/\/www.)|((https:\/\/)www.)|(www.)/, '') if self.url
+  # end
 end
