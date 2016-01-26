@@ -20,11 +20,6 @@
           = f.label :start_time, 'Start Time'
           br
           = f.time_select :start_time, { ampm: true }, {}
-      / .col-xs-12.col-sm-6
-      /   .form-group
-      /     = f.label :start_time, 'Time Zone'
-      /     br
-      /     = f.time_zone_select :start_time, ActiveSupport::TimeZone.us_zones, {}, {}
           
     .row
       .col-xs-12.col-sm-6
@@ -37,6 +32,15 @@
           = f.label :end_time, 'End Time'
           br
           = f.time_select :end_time, { ampm: true }, {}
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :time_zone, 'Time Zone'
+          br
+          = f.time_zone_select :time_zone,
+                               ActiveSupport::TimeZone.us_zones,
+                               { prompt: 'Eastern Time (US & Canada)' },
+                               { class: 'form-control input-sm' }
       
     .row
       .col-xs-12.col-sm-6
@@ -70,7 +74,6 @@
                      us_states,
                      { prompt: true },
                      { class: 'form-control input-sm' }
-                          
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -79,6 +82,8 @@
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
             span.input-group-addon .00
+                          
+    .row
       .col-xs-12.col-sm-3
         .form-group
           = f.label :public
@@ -89,6 +94,16 @@
           = f.label :guaranteed
           br
           = f.check_box :guaranteed
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :partner_led, 'Partner Led'
+          br
+          = f.check_box :partner_led
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :active
+          br
+          = f.check_box :active
 
     hr
     
@@ -137,12 +152,6 @@
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
             span.input-group-addon .00
-    .row
-      .col-xs-12
-        .form-group
-          = f.label :active
-          br
-          = f.check_box :active
 
       
     .form-buttons

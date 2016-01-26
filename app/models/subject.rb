@@ -1,4 +1,5 @@
 class Subject < ActiveRecord::Base
+  include Bootsy::Container
   include Imageable
 
   belongs_to :platform

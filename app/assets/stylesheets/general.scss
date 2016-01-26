@@ -21,6 +21,12 @@ body {
   margin-bottom: 20px;
 }
 
+.contact-us-form {
+  .radio {
+    margin-top: 0;
+  }
+}
+
 #carousel {
   max-width: 745px;
   margin: 0 auto;
@@ -206,41 +212,6 @@ body {
   }
 }
 
-.ui-autocomplete-helper {
-  z-index: 1500;
-  padding-left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  position: absolute;
-  display: none;
-  max-height: 200px;
-  li {
-    list-style: none;
-    padding-left: 12px;
-    &.ui-state-focus {
-      background-color: rgb(240, 240, 240);
-    }
-  }
-}
-
-.ui-autocomplete {
-  z-index: 1500;
-  padding-left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  position: absolute;
-  max-height: 200px;
-  li {
-    list-style: none;
-    padding-left: 12px;
-    &.ui-state-focus {
-      background-color: rgb(240, 240, 240);
-    }
-  }
-}
-
 .modal {
   text-align: center;
   &:before {
@@ -265,13 +236,52 @@ body {
         height: 37px;
         position: relative;
         padding: 0;
-        h6.modal-title {
+        h6.modal-title, h4.modal-title, h3.modal-title {
           font-size: 12px;
           font-weight: bold;
           line-height: 22px;
           margin: 0px;
           padding: 8px 14px 7px 14px;
         }
+      }
+    }
+  }
+}
+
+iframe.wysihtml5-sandbox {
+  height: 500px !important;
+}
+
+.bootsy-modal {
+  .modal-dialog {
+    margin: 0 !important;
+    position: absolute !important;
+    bottom: 0px !important;
+    left: 0px !important;
+    .modal-header {
+      display: none !important;
+    }
+    .modal-footer {
+      .form-control {
+        height: 30px;
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.bootstrap-wysihtml5-insert-link-modal {
+  .modal-dialog {
+    margin: 0 !important;
+    .modal-header {
+      display: none !important;
+    }
+    .modal-body {
+      .form-control {
+        height: 30px;
+        padding: 5px 10px;
+        font-size: 12px;
       }
     }
   }
@@ -1125,15 +1135,15 @@ table {
   }
 }
 
-.bootstrap-wysihtml5-insert-image-modal {
-  h3 {
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 22px;
-    margin: 0px;
-    padding: 8px 14px 7px 14px;
-  }
-}
+// .bootstrap-wysihtml5-insert-image-modal {
+//   h3 {
+//     font-size: 12px;
+//     font-weight: bold;
+//     line-height: 22px;
+//     margin: 0px;
+//     padding: 8px 14px 7px 14px;
+//   }
+// }
 
 #subject-groups {
   table {
@@ -1576,10 +1586,10 @@ li.break {
   }
 }
 
-label {
-  font-size: 12px;
-  font-weight: bold;
-}
+// label {
+//   font-size: 12px;
+//   font-weight: bold;
+// }
 
 input[type='file'] {
   font-size: 12px;

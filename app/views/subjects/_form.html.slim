@@ -35,27 +35,13 @@
 
     .form-group
       = f.label :description
-      = f.text_area :description, class: 'form-control wysihtml5 input-sm'
+      = f.bootsy_area :description, class: 'form-control input-sm'
 
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if subject.id
-        = link_to 'Delete', platform_subject_path(platform, subject), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to 'Delete', platform_subject_path(platform, subject), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
-javascript:
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': false,
-      'link': false,
-      'image': false,
-      'smallmodals': false
-    }
-  });
+/ javascript:
+/   Bootsy.init();

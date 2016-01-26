@@ -74,8 +74,8 @@ class CoursesController < ApplicationController
 
   def download
     course = Course.find(params[:id])
-    course_info = course.course_info
-    send_file(course_info.current_path,
+    pdf = course.pdf
+    send_file(pdf.current_path,
               filename: "#{course.abbreviation}.pdf",
               type: "application/pdf")
   end
@@ -94,8 +94,9 @@ class CoursesController < ApplicationController
                                    :overview,
                                    :outline,
                                    :intended_audience,
-                                   :course_info,
+                                   :pdf,
                                    :video_preview,
+                                   :bootsy_image_gallery_id,
                                    category_ids: [])
   end
 end

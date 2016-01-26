@@ -11,25 +11,11 @@
           
     .form-group
       = f.label :content
-      = f.text_area :content, class: 'form-control wysihtml5 input-sm'
+      = f.bootsy_area :content, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       
-javascript:
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': true,
-      'link': false,
-      'image': false,
-      'smallmodals': true
-    }
-  });
+/ javascript:
+/   Bootsy.init();

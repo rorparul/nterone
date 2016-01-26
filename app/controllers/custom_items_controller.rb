@@ -55,6 +55,6 @@ class CustomItemsController < ApplicationController
   private
 
   def custom_item_params
-    params.require(:custom_item).permit(:id, :content, :shortname, :url, :is_header)
+    params.require(:custom_item).permit(:id, :content, :shortname, :url, :is_header, :bootsy_image_gallery_id)
   end
 end

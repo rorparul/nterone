@@ -14,52 +14,24 @@ class User < ActiveRecord::Base
   # has_many :buying,         through: :buyer_leads,  source: :leads
 
 
-  has_many :messages,         dependent:  :destroy
+  has_many :messages,             dependent:   :destroy
   has_many :posts
-  has_many :roles, dependent: :destroy
-
-
-  # has_many :orders
-  has_many :seller_orders, class_name:  "Order",
-                           foreign_key: "seller_id"
-  has_many :buyer_orders, class_name:  "Order",
-                          foreign_key: "buyer_id"
-  # has_many :prospects, through: :seller_orders,
-  #                      source: :buyer
-  # has_many :sales_reps, through: :buyer_orders,
-  #                       source: :seller
-
-
+  has_many :roles,                dependent:   :destroy
+  has_many :seller_orders,        class_name:  'Order',
+                                  foreign_key: 'seller_id'
+  has_many :buyer_orders,         class_name:  'Order',
+                                  foreign_key: 'buyer_id'
   has_many :order_items
-  # has_many :seller_order_items, class_name:  "Order",
-  #                               foreign_key: "seller_id"
-  # has_many :buyer_order_items, class_name:  "Order",
-  #                              foreign_key: "buyer_id"
-
-
-
-  # has_many :attendances
-  # has_many :subscriptions
-  # has_many :events, through: :attendances
-  # has_many :video_on_demands, through: :subscriptions
-  has_many :events,           through: :order_items,
-                              source: :orderable,
-                              source_type: 'Event'
-  has_many :video_on_demands, through: :order_items,
-                              source: :orderable,
-                              source_type: 'VideoOnDemand'
-
-
-
-  has_many :seller_relationships, class_name:  "Relationship",
-                                  foreign_key: "seller_id"
+  has_many :events,               through:     :order_items,
+                                  source:      :orderable,
+                                  source_type: 'Event'
+  has_many :video_on_demands,     through:     :order_items,
+                                  source:      :orderable,
+                                  source_type: 'VideoOnDemand'
+  has_many :seller_relationships, class_name:  'Relationship',
+                                  foreign_key: 'seller_id'
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
-  # has_many :buyer_relationships,  class_name:  "Relationship",
-  #                                 foreign_key: "buyer_id"
-
-  # has_many :sales_reps, through: :buyer_relationships,
-  #                       source: :seller
 
   devise :confirmable,
          :database_authenticatable,

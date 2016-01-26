@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122022719) do
+ActiveRecord::Schema.define(version: 20160125233507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(version: 20160122022719) do
     t.datetime "updated_at",                  null: false
     t.string   "status",     default: "open"
     t.string   "poster"
+  end
+
+  create_table "bootsy_image_galleries", force: :cascade do |t|
+    t.integer  "bootsy_resource_id"
+    t.string   "bootsy_resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bootsy_images", force: :cascade do |t|
+    t.string   "image_file"
+    t.integer  "image_gallery_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "carousel_items", force: :cascade do |t|
@@ -107,20 +121,18 @@ ActiveRecord::Schema.define(version: 20160122022719) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
     t.integer  "platform_id"
-    t.boolean  "active",            default: true
+    t.boolean  "active",                                    default: true
     t.string   "abbreviation"
-    t.string   "sku"
     t.text     "intro"
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
-    t.string   "course_info"
+    t.string   "pdf"
     t.text     "video_preview"
-    t.string   "url"
-    t.integer  "price"
+    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
   end
 
   create_table "custom_items", force: :cascade do |t|
@@ -145,7 +157,7 @@ ActiveRecord::Schema.define(version: 20160122022719) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",           precision: 8, scale: 2
+    t.decimal  "price",           precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
     t.datetime "created_at",                                              null: false
@@ -165,6 +177,8 @@ ActiveRecord::Schema.define(version: 20160122022719) do
     t.decimal  "cost_facility",   precision: 8, scale: 2, default: 0.0
     t.decimal  "cost_books",      precision: 8, scale: 2, default: 0.0
     t.decimal  "cost_shipping",   precision: 8, scale: 2, default: 0.0
+    t.boolean  "partner_led",                             default: false
+    t.string   "time_zone"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -250,50 +264,44 @@ ActiveRecord::Schema.define(version: 20160122022719) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "orderable_id"
     t.string   "orderable_type"
     t.integer  "cart_id"
-    t.decimal  "price"
+    t.decimal  "price",          precision: 8, scale: 2, default: 0.0
     t.integer  "order_id"
     t.integer  "user_id"
-    t.integer  "ownable_id"
-    t.string   "ownable_type"
-    t.integer  "seller_id"
-    t.integer  "buyer_id"
   end
 
-  add_index "order_items", ["buyer_id"], name: "index_order_items_on_buyer_id", using: :btree
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
-  add_index "order_items", ["ownable_id"], name: "index_order_items_on_ownable_id", using: :btree
-  add_index "order_items", ["seller_id"], name: "index_order_items_on_seller_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "postal_code"
-    t.string   "country"
+    t.string   "shipping_street"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_zip_code"
+    t.string   "shipping_country"
     t.string   "email"
     t.string   "clc_number"
     t.string   "clc_quantity"
-    t.string   "name_on_card"
+    t.string   "billing_name"
     t.string   "billing_zip_code"
-    t.decimal  "paid",             precision: 8, scale: 2, default: 0.0
+    t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.integer  "seller_id"
     t.integer  "buyer_id"
-    t.string   "status",                                   default: "uninvoiced"
-    t.decimal  "total",            precision: 8, scale: 2, default: 0.0
+    t.string   "status",                                    default: "uninvoiced"
+    t.decimal  "total",             precision: 8, scale: 2, default: 0.0
+    t.string   "billing_country"
+    t.string   "payment_type"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -408,24 +416,22 @@ ActiveRecord::Schema.define(version: 20160122022719) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",          null: false
-    t.string   "encrypted_password",     default: "",          null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,           null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  default: false
     t.string   "company_name"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "contact_number"
-    t.string   "gender",                 default: "undefined"
     t.string   "country"
     t.string   "website"
     t.string   "street"
@@ -470,9 +476,9 @@ ActiveRecord::Schema.define(version: 20160122022719) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",         precision: 8, scale: 2
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.decimal  "price",         precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"

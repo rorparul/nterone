@@ -19,9 +19,9 @@ $(function() {
     $(this).addClass('active-topic');
   });
 
-  // $(document).on('mouseenter mouseleave', '.group', function() {
-  //   $(this).find('.group-actions-overlay').toggle();
-  // });
+  $('#myModal').on('show.bs.modal', function(e) {
+    Bootsy.init();
+  });
 
   $('#accordion').on('show.bs.collapse', function () {
     $('#accordion .in').collapse('hide');

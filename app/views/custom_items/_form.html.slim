@@ -15,7 +15,7 @@
             
     .form-group
       = f.label :content
-      = f.text_area :content, class: 'form-control wysihtml5 input-sm'
+      = f.bootsy_area :content, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit" Save
@@ -23,19 +23,5 @@
       - if custom_item.id
         = link_to 'Delete', platform_custom_item_path(platform, custom_item), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
 
-javascript:
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': false,
-      'link': false,
-      'image': false,
-      'smallmodals': false
-    }
-  });
+/ javascript:
+/   Bootsy.init();
