@@ -1,5 +1,5 @@
 tr.announcement class=["announcement-#{announcement.id}"]
-  td.fit = announcement.content
+  td.content = announcement.content
   td.fit = announcement.audience
   - if current_user.admin?
     td = announcement.poster

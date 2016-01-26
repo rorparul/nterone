@@ -23,6 +23,10 @@ $(function() {
     Bootsy.init();
   });
 
+  $(document).on('change', '.sub-select', function() {
+    $(this).closest('form').submit();
+  });
+
   $('#accordion').on('show.bs.collapse', function () {
     $('#accordion .in').collapse('hide');
   });

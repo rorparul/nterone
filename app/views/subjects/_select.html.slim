@@ -2,9 +2,4 @@
   div.form-group
     = f.label :id, "Certifications"
     br
-    = f.select :id, subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = {class: "form-control sub-select input-sm"}
-
-javascript:
-  $('.sub-select').on('change', function() {
-    $(this).closest('form').submit();
-  });
+    = f.select :id, subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] }.unshift(["None", "none"]), options = { selected: "None" }, html_options = { class: "form-control sub-select input-sm" }
