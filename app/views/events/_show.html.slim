@@ -141,7 +141,6 @@
           table.table.table-condensed.table-hover
             thead
               tr
-                / th.fit title='Enrollment ID' #
                 th.fit Sales Rep
                 th.fit Student Name
                 th.fit Amount Quoted
@@ -151,7 +150,6 @@
             tbody
               - event.order_items.each do |order_item|
                 tr
-                  / td.fit
                   - if current_user.admin?
                     td.fit
                       = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|

@@ -52,7 +52,7 @@
                   remote: true
 
 javascript:
-  $(document).on('ready', function() {
+  $(document).on('ready', function(e) {
     if (sessionStorage.category) {
       $(".category:contains(" + sessionStorage.category + ")").click();
       if (sessionStorage.subCategory) {

@@ -9,6 +9,7 @@ class OrderItem < ActiveRecord::Base
   validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   validates :order, presence: true
   validates_associated :order
+  validates :price, numericality: { greater_than_or_equal_to: 0.01 }
 
   def paid
     sum = price - order.paid

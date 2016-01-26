@@ -1,4 +1,16 @@
-= form_for :contact_us, url: contact_us_path, method: :post do |f|
+= form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
+  .radio
+    label
+      = f.radio_button :recipient, 'helpdesk@nterone.com', checked: true
+      |  Help Desk
+  .radio
+    label
+      = f.radio_button :recipient, 'sales@nterone.com'
+      | Sales
+  .radio
+    label
+      = f.radio_button :recipient, 'billing@nterone.com'
+      | Billing
 
   .form-group
     = f.label :name, "Name"

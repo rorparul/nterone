@@ -2,7 +2,7 @@
   #post-form
     = render partial: 'posts/form', locals: {topic: topic, post: post}
 
-#topic-posts
+#topic-posts data-no-turbolink="true"
   #topic-posts-header-container
     h1#topic-posts-header Topic Posts
   #topic-posts-container

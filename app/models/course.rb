@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
-  mount_uploader :course_info, CourseInfoUploader
+  include Bootsy::Container
+  mount_uploader :pdf, PdfUploader
 
   belongs_to :platform
 

@@ -10,8 +10,6 @@ class VideoOnDemand < ActiveRecord::Base
   has_many :video_modules,             dependent: :destroy
   has_many :videos,                    through: :video_modules
   has_many :users,                     through: :order_items
-  # has_many :subscriptions
-  # has_many :users, through: :subscriptions
 
   accepts_nested_attributes_for :video_modules, reject_if: :all_blank, allow_destroy: true
 

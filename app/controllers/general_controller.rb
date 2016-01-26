@@ -39,9 +39,9 @@ class GeneralController < ApplicationController
 
   def contact_us_create
     if ContactUsMailer.contact_us(contact_us_params).deliver_now
-      flash[:success] = "Message successfully sent!"
+      flash[:success] = 'Message successfully sent.'
     else
-      flash[:notice] = "Message unsuccussfully sent!"
+      flash[:notice] = 'Message failed to send.'
     end
     redirect_to :back
   end
@@ -49,6 +49,6 @@ class GeneralController < ApplicationController
   private
 
   def contact_us_params
-    params.require(:contact_us).permit(:name, :phone, :email, :inquiry, :feedback)
+    params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :feedback)
   end
 end

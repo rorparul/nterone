@@ -2,10 +2,10 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        h3.panel-title = pluralize(users.total_count, "User")
+        strong.text-muted = pluralize(users.total_count, "User")
       -if users.any?
         .table-responsive
-          table.table.table-compact
+          table.table.table-condensed
             thead
               tr
                 th title="First Name" First Name

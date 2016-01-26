@@ -4,6 +4,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require bootsy
 //= require jquery.remotipart
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
@@ -11,7 +12,5 @@
 //= require parsley
 //= require bootstrap
 //= require bootstrap-select
-//= require bootstrap-wysihtml5
-//= require bootstrap-wysihtml5/locales
 //= require cocoon
 //= require general

@@ -13,7 +13,8 @@ gem 'sass-rails', '~> 5.0.3'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'sprockets-rails', '~> 2.3.1'
 gem 'bootstrap-select-rails'
-gem 'bootstrap-wysihtml5-rails'
+# gem 'bootstrap-wysihtml5-rails'
+gem 'bootsy'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -34,6 +35,8 @@ gem 'jquery-minicolors-rails'
 gem 'remotipart'
 gem 'authorizenet'
 gem 'figaro'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

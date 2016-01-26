@@ -117,6 +117,8 @@ class EventsController < ApplicationController
                                   :cost_te,
                                   :cost_facility,
                                   :cost_books,
-                                  :cost_shipping)
+                                  :cost_shipping,
+                                  :partner_led,
+                                  :time_zone)
   end
 end

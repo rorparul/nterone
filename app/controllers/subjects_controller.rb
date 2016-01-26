@@ -102,7 +102,7 @@ class SubjectsController < ApplicationController
   end
 
   def subject_params
-    params.require(:subject).permit(:id, :title, :abbreviation, :description, :type, category_ids: [])
+    params.require(:subject).permit(:id, :title, :abbreviation, :description, :type, :bootsy_image_gallery_id, category_ids: [])
   end
 
   def authorize_subject

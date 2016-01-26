@@ -1,4 +1,5 @@
 NterOne::Application.routes.draw do
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   root to: 'general#welcome'
 
   devise_for :users, controllers: { registrations: 'users/registrations',
