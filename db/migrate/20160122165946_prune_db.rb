@@ -22,8 +22,8 @@ class PruneDb < ActiveRecord::Migration
     remove_column :orders, :user_id
     rename_column :orders, :name_on_card, :billing_name
     add_column    :orders, :payment_type, :string
-    drop_table    :user_events
-    drop_table    :user_vods
+    # drop_table    :user_events
+    # drop_table    :user_vods
     remove_column :users, :admin
     remove_column :users, :gender
   end
