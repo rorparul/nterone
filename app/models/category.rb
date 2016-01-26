@@ -25,7 +25,7 @@ class Category < ActiveRecord::Base
     self.video_on_demands.each do |video_on_demand|
       items << video_on_demand if items.exclude?(video_on_demand)
     end
-    items
+    sorted(items)
   end
 
   def children_items
@@ -41,10 +41,20 @@ class Category < ActiveRecord::Base
         items << video_on_demand if items.exclude?(video_on_demand)
       end
     end
-    items
+    sorted(items)
   end
 
   private
+
+  def sorted(items)
+    items.sort do |a, b|
+      if a.abbreviation && b.abbreviation
+        a.abbreviation.downcase <=> b.abbreviation.downcase
+      else
+        a.title.downcase <=> b.title.abbreviation
+      end
+    end
+  end
 
   def delete_subjects
     Subject.joins('LEFT JOIN category_subjects on subjects.id = category_subjects.subject_id')
