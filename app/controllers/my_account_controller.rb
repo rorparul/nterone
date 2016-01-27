@@ -1,4 +1,5 @@
 class MyAccountController < ApplicationController
+  include MessageManager
   before_action :redirect_if_not_permitted
 
   def plan
@@ -10,6 +11,8 @@ class MyAccountController < ApplicationController
 
   def messages
     @messages = Message.active(current_user)
+    mark_messages_read(current_user)
+    get_alert_counts
   end
 
   def settings

@@ -33,6 +33,16 @@
       = render partial: 'topics/topics', locals: {topics: @topics}
     footer.mobile-forums-footer.visible-xs
       = render 'layouts/footer'
+      
+- unless user_signed_in?
+  .row
+    .col-xs-12
+      p
+        | Wanna join in on the conversation? 
+        a href="#{new_user_session_path}" Login 
+        | or 
+        a href="#{new_user_registration_path}" create an account 
+        | to ge started.
 
 javascript:
   var currentView = 'topics';

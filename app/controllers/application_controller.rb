@@ -7,10 +7,18 @@ class ApplicationController < ActionController::Base
   before_filter        :configure_permitted_parameters, if: :devise_controller?
   before_action        :record_user_activity
   before_action        :set_cart
+  before_action        :get_alert_counts
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def get_alert_counts
+    if user_signed_in?
+      @new_message_count = current_user.new_message_count
+      @total_alert_count = @new_message_count
+    end
+  end
 
   def record_user_activity
     current_user.touch(:last_active_at) if user_signed_in?
