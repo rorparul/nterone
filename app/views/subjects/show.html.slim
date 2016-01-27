@@ -28,10 +28,7 @@
 .row#subject-description
   .col-xs-12
     .page-header
-      h3.text-muted
-        = @subject.title
-        |  
-        small = @subject.abbreviation
+      h3 = @subject.full_title
     = @subject.description.html_safe
 .row#subject-groups
   - @subject.groups.each do |group|
