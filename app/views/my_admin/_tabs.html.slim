@@ -5,7 +5,10 @@
       a.btn.category.btn-category.announcements href="#{my_admin_announcements_path}" Announcements
       a.btn.category.btn-category.people href="#{my_admin_people_path}" People
       a.btn.category.btn-category.website href="#{my_admin_website_path}" Website
-      a.btn.category.btn-category.messages href="#{my_admin_messages_path}" Messages
+      a.btn.category.btn-category.messages href="#{my_admin_messages_path}"
+        | Messages
+        - if @new_message_count > 0
+          span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{my_admin_settings_path}" Settings
       
 .categories-mobile.visible-xs.role-tabs
@@ -15,5 +18,8 @@
       a.btn.category.btn-category.announcements href="#{my_admin_announcements_path}" Announcements
       a.btn.category.btn-category.people href="#{my_admin_people_path}" People
       a.btn.category.btn-category.website href="#{my_admin_website_path}" Website
-      a.btn.category.btn-category.messages href="#{my_admin_messages_path}" Messages
+      a.btn.category.btn-category.messages href="#{my_admin_messages_path}"
+        | Messages
+        - if @new_message_count > 0
+          span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{my_admin_settings_path}" Settings

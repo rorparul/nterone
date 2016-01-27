@@ -2,12 +2,18 @@
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.plan href="#{my_account_plan_path}" My NterOne
-      a.btn.category.btn-category.messages href="#{my_account_messages_path}" Messages
+      a.btn.category.btn-category.messages href="#{my_account_messages_path}"
+        | Messages
+        - if @new_message_count > 0
+          span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{my_account_settings_path}" Settings
       
 .categories-mobile.visible-xs.role-tabs
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.plan href="#{my_account_plan_path}" My NterOne
-      a.btn.category.btn-category.messages href="#{my_account_messages_path}" Messages
+      a.btn.category.btn-category.messages href="#{my_account_messages_path}"
+        | Messages
+        - if @new_message_count > 0
+          span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{my_account_settings_path}" Settings
