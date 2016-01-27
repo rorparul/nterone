@@ -2,7 +2,7 @@ tr.announcement class=["announcement-#{announcement.id}"]
   td.content = announcement.content
   td.fit = announcement.audience
   - if current_user.admin?
-    td = announcement.poster
+    td.fit = announcement.poster
   td.actions-column.fit
     = form_for announcement, html: {class: 'status', method: :put} do |f|
       = f.hidden_field :id, value: announcement.id

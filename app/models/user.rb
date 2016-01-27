@@ -128,6 +128,26 @@ class User < ActiveRecord::Base
     events.where('start_date >= ?', Date.today).order(:start_date)
   end
 
+  def past_events
+    events.where('end_date < ?', Date.today).order(:end_date)
+  end
+
+  def active_video_on_demands
+    order_items.where('orderable_type = ? and created_at >= ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
+      order_item.orderable
+    end
+  end
+
+  def inactive_video_on_demands
+    order_items.where('orderable_type = ? and created_at < ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
+      order_item.orderable
+    end
+  end
+
+  def completed_events_and_video_on_demands
+    past_events + inactive_video_on_demands
+  end
+
   def planned
     planned_subjects = []
     self.planned_subjects.where(active: true).each do |planned_subject|
