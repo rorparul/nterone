@@ -19,6 +19,14 @@ class VideoOnDemand < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validates_associated :categories
 
+  def full_title
+    if abbreviation.present?
+      "#{abbreviation}: #{title}"
+    else
+      title
+    end
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

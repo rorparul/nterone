@@ -25,4 +25,12 @@ class Course < ActiveRecord::Base
   def upcoming_events
     events.where('active = ? and start_date >= ?', true, Date.today).order(:start_date)
   end
+
+  def full_title
+    if abbreviation.present?
+      "#{abbreviation}: #{title}"
+    else
+      title
+    end
+  end
 end

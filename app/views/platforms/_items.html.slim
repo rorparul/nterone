@@ -5,19 +5,19 @@
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject with-image' do
             = image_tag item.image.file_url(:subject_icon)
-            p = "#{item.abbreviation} #{item.title}"
+            p = item.full_title
       - else
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject without-image' do
-            p = "#{item.abbreviation} #{item.title}"
+            p = item.full_title
     - elsif item.class == Course
       .col-xs-12.col-md-6
         = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
-          p = "#{item.abbreviation} #{item.title}"
+          p = item.full_title
     - elsif item.class == VideoOnDemand
       .col-xs-12.col-md-6
         = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
-          p = "#{item.abbreviation} #{item.title}"
+          p = item.full_title
         
 - else
   p.text-center No Matches Found

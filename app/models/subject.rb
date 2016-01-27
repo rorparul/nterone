@@ -18,6 +18,14 @@ class Subject < ActiveRecord::Base
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
 
+  def full_title
+    if abbreviation.present?
+      "#{abbreviation}: #{title}"
+    else
+      title
+    end
+  end
+
   # TODO: Optimize search performance
   def self.search(query)
     subjects = []
