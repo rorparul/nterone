@@ -1,9 +1,9 @@
 - testimonials.each do |testimonial|
   tr
     td = "\"#{testimonial.quotation}\""
-    td = testimonial.author
-    td = testimonial.company
-    td = testimonial.course
+    td.fit = testimonial.author
+    td.fit = testimonial.company
+    td.fit = testimonial.course
     td.actions-column.fit
       = link_to "Edit", edit_testimonial_path(testimonial), remote: true
       = " | "

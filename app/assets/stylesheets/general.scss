@@ -1105,7 +1105,7 @@ table {
   tr {
     td {
       overflow: hidden;
-      max-width: 500px;
+      max-width: 250px;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -1371,23 +1371,6 @@ button[id^="subject-toggle-"] {
   white-space:nowrap;
 }
 
-.announcement {
-  .content {
-    max-width: 50%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .target {
-    width:1%;
-    white-space:nowrap;
-  }
-  .poster {
-    width:1%;
-    white-space:nowrap;
-  }
-}
-
 .lead-subject-toggle {
   float: right;
   width: 150px;
@@ -1423,13 +1406,13 @@ button[id^="subject-toggle-"] {
     height: 20px;
     width: 130px;
   }
-  a {
-    &:last-child {
-      .sq-btn {
-        margin-right: 0;
-      }
-    }
-  }
+  // a {
+  //   &:last-child {
+  //     .sq-btn {
+  //       margin-right: 0;
+  //     }
+  //   }
+  // }
 }
 
 .lead-form {
@@ -1733,17 +1716,11 @@ hr {
 }
 
 .announcement {
-  td:nth-child(2) {
-    width:1%;
-    white-space:nowrap;
-  }
-  td:nth-child(3) {
-    width:1%;
-    white-space:nowrap;
-  }
-  td:nth-child(4) {
-    width:1%;
-    white-space:nowrap;
+  .content {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
