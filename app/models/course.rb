@@ -12,8 +12,8 @@ class Course < ActiveRecord::Base
   has_many :chosen_courses,           dependent: :destroy
   has_many :users,                    through: :chosen_courses
   has_many :testimonials
-  has_many :events
-  has_many :video_on_demands
+  has_many :events,                   dependent: :destroy
+  has_many :video_on_demands,         dependent: :destroy
 
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
