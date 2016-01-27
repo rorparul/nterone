@@ -25,26 +25,44 @@ Order.all.each do |order|
   order.save
 end
 
-Event.where(cost_instructor: nil).each do |event|
-  if event.cost_instructor == nil
-    event.update_attributes(cost_instructor: 0.0)
+<!-- Subject.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.gsub(':', '')
+    course.save
   end
-  if event.cost_lab == nil
-    event.update_attributes(cost_lab: 0.0)
+end
+
+Course.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.gsub(':', '')
+    course.save
   end
-  if event.cost_te == nil
-    event.update_attributes(cost_te: 0.0)
+end
+
+VideoOnDemand.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.gsub(':', '')
+    course.save
   end
-  if event.cost_facility == nil
-    event.update_attributes(cost_facility: 0.0)
-  end  
-  if event.cost_books == nil
-    event.update_attributes(cost_books: 0.0)
+end -->
+
+Subject.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.rstrip
+    course.save
   end
-  if event.cost_shipping == nil
-    event.update_attributes(cost_shipping: 0.0)
+end
+
+Course.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.rstrip
+    course.save
   end
-  event.start_time = "2000-01-01 19:35:00"
-  event.end_time = "2000-01-01 19:35:00"
-  event.save!
+end
+
+VideoOnDemand.all.each do |course|
+  if course.abbreviation
+    course.abbreviation = course.abbreviation.rstrip
+    course.save
+  end
 end
