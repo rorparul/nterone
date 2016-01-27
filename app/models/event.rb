@@ -25,7 +25,8 @@ class Event < ActiveRecord::Base
     #   (self.end_date - self.start_date).to_i + 1
     # end
     if self.end_date && self.start_date
-      (self.start_date..self.end_date).select { |day| (1..5).include?(day.wday) }.count + 1
+      count = (self.start_date..self.end_date).select { |day| (1..5).include?(day.wday) }.count
+      count > 0 ? count : 1
     end
   end
 
