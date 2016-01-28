@@ -1,4 +1,15 @@
 class VideoOnDemand < ActiveRecord::Base
+  extend FriendlyId
+
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :abbreviation,
+      [:abbreviation, :title]
+    ]
+  end
+
   belongs_to :platform
   belongs_to :course
   belongs_to :instructor

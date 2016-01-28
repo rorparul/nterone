@@ -1,6 +1,16 @@
 class Course < ActiveRecord::Base
+  extend FriendlyId
   include Bootsy::Container
   mount_uploader :pdf, PdfUploader
+
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :abbreviation,
+      [:abbreviation, :title]
+    ]
+  end
 
   belongs_to :platform
 

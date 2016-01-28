@@ -1,5 +1,8 @@
 class Platform < ActiveRecord::Base
+  extend FriendlyId
   include Imageable
+
+  friendly_id :title, use: [:slugged, :finders]
 
   has_many :categories, dependent: :destroy
   has_many :subjects, dependent: :destroy
