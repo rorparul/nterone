@@ -21,7 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   def record_user_activity
-    current_user.touch(:last_active_at) if user_signed_in?
+    if user_signed_in?
+      current_user.touch(:last_active_at)
+      p "USER: #{current_user.email}"
+    else
+      p "USER: Guest"
+    end
   end
 
   def configure_permitted_parameters
