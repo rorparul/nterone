@@ -1,6 +1,16 @@
 class Subject < ActiveRecord::Base
+  extend FriendlyId
   include Bootsy::Container
   include Imageable
+
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :abbreviation,
+      [:abbreviation, :title]
+    ]
+  end
 
   belongs_to :platform
 
