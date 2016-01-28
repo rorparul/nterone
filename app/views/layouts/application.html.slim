@@ -1,7 +1,8 @@
 doctype html
 html
   head
-    title NterOne
+    title
+      = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = favicon_link_tag 'favicon.png'
     = stylesheet_link_tag 'application', media: 'all'
     = stylesheet_link_tag 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'
@@ -19,7 +20,7 @@ html
         i#menu-toggle.fa.fa-bars
         #header-nav
           .page-title
-            = yield :page_title
+            = yield :breadcrumbs
           - if content_for(:actions)
             #action-menu.dropdown.btn-actions
               button#actions.btn.dropdown-toggle type="button" data-toggle="dropdown"

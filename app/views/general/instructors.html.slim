@@ -1,4 +1,7 @@
 - content_for :page_title do
+  = @instructor_bios.page_title
+
+- content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
     | Home
