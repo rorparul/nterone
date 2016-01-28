@@ -51,8 +51,7 @@
                           td.text-right
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
-                              button.btn-link type="submit"
-                                span.text-cart Add to cart
+                              = link_to_cart(@video_on_demand)
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
