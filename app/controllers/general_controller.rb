@@ -11,10 +11,12 @@ class GeneralController < ApplicationController
     @carousel_items = CarouselItem.all_active
   end
 
-  def about_us
+  def executives
     @executive_bios  = Page.find_by(title: 'Executive Bios')
+  end
+
+  def instructors
     @instructor_bios = Page.find_by(title: 'Instructor Bios')
-    # @news            =
   end
 
   def consulting

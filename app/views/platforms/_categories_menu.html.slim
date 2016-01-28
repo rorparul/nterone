@@ -28,7 +28,7 @@
   .panel-group#mobile-accordion role='tablist' aria-multiselectable='true'
     - @categories.each do |category|
       - if category.children.present?
-        .panel.panel-default
+        .panel
           .panel-heading role='tab' id="mobile_head_#{category.id}"
             = link_to category.title,
                       "#mobile_category_#{category.id}",
