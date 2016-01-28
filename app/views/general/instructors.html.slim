@@ -1,0 +1,34 @@
+- content_for :page_title do
+  = @instructor_bios.page_title
+
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{instructors_path}"
+    | About Us
+    
+.row
+  .col-xs-12.col-md-9
+    .categories.categories-repurposed
+      .row.text-center
+        .col-xs-12
+          a.btn.category.btn-category.executive-bios href="#{executives_path}" Executive Bios
+          a.btn.category.btn-category.instructor-bios href="#{instructors_path}" Instructor Bios
+        
+    .row.instructor-bios
+      .col-xs-12
+        .page-header
+          h3 Instructors Bios
+        .image-container.text-center
+          = image_tag 'instructors.jpg'
+        = @instructor_bios.content.html_safe
+  
+  .col-xs-12.col-md-3
+    = render partial: 'layouts/side_column'
+    
+javascript:
+  $('.about-us-tab').addClass('active');
+  $('.instructor-bios').addClass('active-category');

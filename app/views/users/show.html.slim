@@ -1,4 +1,4 @@
-- content_for :page_title do
+- content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
     | Home
@@ -59,75 +59,3 @@
 
 javascript:
   $('.my-account-tab').addClass('active');
-
-
-/ - content_for :page_title do
-/   span.fa.fa-coffee
-/   a href="#{leads_path}"
-/     | My Queue
-/   - if @user.full_name
-/     span.seperator
-/       | /
-/     a href="#{user_path(@user)}"
-/       = @user.full_name
-/       
-/ .row#user-info
-/   .col-xs-12
-/     .group
-/       .group-heading
-/         h6 User Info
-/         .group-actions-overlay
-/           = link_to edit_from_my_queue_users_path(@user) do
-/             i.fa.fa-pencil
-/             | Edit
-/       .group-body
-/         .table-responsive
-/           table.table
-/             tbody
-/               tr
-/                 td.fit
-/                   span Company:
-/                   = @user.company_name
-/               tr
-/                 td.fit
-/                   span Full Name:
-/                   = @user.full_name
-/               tr
-/                 td.fit
-/                   span Email:
-/                   = @user.email
-/               tr
-/                 td.fit
-/                   span Contact Number:
-/                   = @user.contact_number
-/               tr
-/                 td.fit
-/                   span Street:
-/                   = @user.street
-/               tr
-/                 td.fit
-/                   span City:
-/                   = @user.city
-/               tr
-/                 td.fit
-/                   span State:
-/                   = @user.state
-/               tr
-/                 td.fit
-/                   span Zip Code:
-/                   = @user.zipcode
-/ 
-/ .row#settings
-/   .col-xs-12
-/     button#back Back
-/     = form_for @user, url: password_path(@user), html: { method: :post }, data: {confirm: "Are you sure?", remote: true} do |f|
-/       = render 'layouts/notifications'
-/       = f.hidden_field :email, value: @user.email
-/       = f.submit "Reset Password", class: 'btn btn-lg btn-primary password-reset', id: 'submit'
-/   
-/ javascript:
-/   $('.my-queue-tab').addClass('active');
-/   
-/   $('#back').on('click', function() {
-/     window.history.back();
-/   });

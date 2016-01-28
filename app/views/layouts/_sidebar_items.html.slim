@@ -1,65 +1,52 @@
-li = link_to about_us_path, class: 'about-us-tab' do
+li = link_to executives_path, class: 'about-us-tab' do
   span.fa.fa-info-circle
-  br
   span About Us
 li = link_to platforms_path, class: 'training-tab' do
   span.fa.fa-book
-  br
   span Training
 li = link_to testimonials_path, class: 'testimonials-tab' do
   span.fa.fa-thumbs-o-up
-  br
   span Testimonials
 li = link_to forums_path, class: "forums-tab" do
   span.fa.fa-comments-o
-  br
   span Forums
 li = link_to consulting_path, class: "consulting-tab" do
   span.fa.fa-puzzle-piece
-  br
   span Consulting
 li = link_to partners_path, class: "partners-tab" do
   span.fa.fa-users
-  br
   span Partners
 li = link_to labs_path, class: "labs-tab" do
   span.fa.fa-flask
-  br
   span Labs
 - if !user_signed_in? || (user_signed_in? && current_user.member?)
   li = link_to contact_us_path, class: "contact-us-tab", remote: true do
     span.fa.fa-envelope-o
-    br
     span Contact Us
 - if user_signed_in?
   - if current_user.admin?
     li = link_to my_admin_classes_path, class: "role-tab" do
+      span.fa.fa-gear
+      span My Admin
       - if @total_alert_count > 0
         span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-      span.fa.fa-gear
-      br
-      span My Admin
   - if current_user.sales?
     li = link_to my_sales_queue_path, class: "role-tab" do
+      span.fa.fa-coffee
+      span My Sales
       - if @total_alert_count > 0
         span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-      span.fa.fa-coffee
-      br
-      span My Sales
   - if current_user.member?
     li = link_to my_account_plan_path, class: "role-tab" do
+      span.fa.fa-user
+      span My Account
       - if @total_alert_count > 0
         span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-      span.fa.fa-user
-      br
-      span My Account
 - else
   li = link_to new_user_session_path, class: "login-tab" do
     span.fa.fa-sign-in
-    br
     span Login
 - if user_signed_in?
   li = link_to main_app.destroy_user_session_path, method: :delete do
     span.fa.fa-sign-out
-    br
     span Logout

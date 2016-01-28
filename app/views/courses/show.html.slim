@@ -1,4 +1,7 @@
-- content_for :page_title do
+- content_for :title_page do
+  = @course.full_title
+
+- content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
     | Home

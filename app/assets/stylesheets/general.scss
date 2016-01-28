@@ -125,6 +125,11 @@ body {
     position: absolute;
     top: 5px;
     right: 5px;
+    @media (max-width: 767px) {
+      position: relative;
+      top: 0px;
+      right: 0px;
+    }
   }
   &.badge-alert-settings {
     margin-left: 5px;
@@ -500,10 +505,6 @@ iframe.wysihtml5-sandbox {
   }
 }
 
-div.instructor-bios, div.news {
-  display: none;
-}
-
 #ice-team-summary, #instructor-bios-additional-info {
   font-weight: bold;
 }
@@ -553,6 +554,9 @@ div.instructor-bios, div.news {
         span {
           font-size: 12.5px;
           opacity: .8;
+          @media (min-width: 768px) {
+            display: block;
+          }
         }
       }
     }
@@ -706,7 +710,7 @@ div.instructor-bios, div.news {
     }
     .categories-mobile {
       .btn-category {
-        margin: 0 0 10px 0;
+        margin: 0 0 0 0;
       }
       .panel {
         border: 0;
@@ -719,6 +723,13 @@ div.instructor-bios, div.news {
           .btn-child-category {
             margin: 0;
           }
+        }
+      }
+    }
+    .categories-repurposed {
+      .btn-category {
+        @media (max-width: 767px) {
+          margin: 0;
         }
       }
     }

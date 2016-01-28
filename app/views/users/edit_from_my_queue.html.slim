@@ -1,11 +1,10 @@
-- content_for :page_title do
+- content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
     | Home
   span.seperator
     | /
   a href="#{leads_path}"
-    / span.fa.fa-users
     | My Queue
   - if @user.full_name
     span.seperator
