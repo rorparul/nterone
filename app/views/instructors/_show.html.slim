@@ -13,7 +13,7 @@
       span.fa.fa-phone
       |  
       = instructor.phone
-    label = "Other Courses Led By #{instructor.full_name}"
+    label = "All Courses Led By #{instructor.full_name}"
     table.table-condensed
       tbody
         - instructor.video_on_demands.each do |video_on_demand|
