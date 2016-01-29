@@ -1,0 +1,3 @@
+$('.modal-title').html("Instructor Summary");
+$('.modal-body').html("<%= escape_javascript(render partial: 'show', locals: { instructor: @instructor }) %>");
+$('#myModal').modal('show');
