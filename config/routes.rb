@@ -165,8 +165,8 @@ NterOne::Application.routes.draw do
   end
 
   get  'page'                                        => 'events#page'
-  get  'about-us/executives'                         => 'general#executives',             as: :executives
-  get  'about-us/instructors'                        => 'general#instructors',            as: :instructors
+  get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
+  get  'about-us/instructors'                        => 'general#instructors',            as: :instructors_bios
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'

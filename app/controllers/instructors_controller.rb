@@ -15,6 +15,10 @@ class InstructorsController < ApplicationController
     end
   end
 
+  def show
+    @instructor = Instructor.find(params[:id])
+  end
+
   def select
     @platform    = Platform.find(params[:platform_id])
     @instructor  = @platform.instructors.build

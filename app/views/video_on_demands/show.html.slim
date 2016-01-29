@@ -47,7 +47,9 @@
                           th
                     tbody
                       tr
-                        td = @video_on_demand.instructor.full_name if @video_on_demand.instructor
+                        td
+                          a href="#{platform_instructor_path(@video_on_demand.platform, @video_on_demand.instructor)}" data-remote="true"
+                            = @video_on_demand.instructor.full_name if @video_on_demand.instructor
                         td = @video_on_demand.level
                         td = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))}/year"
                         - if !user_signed_in? || (user_signed_in? && current_user.member?)
@@ -135,19 +137,6 @@
     
 javascript:
   $('.training-tab').addClass('active');
-  
-  $('.categories .btn-category').on('click', function() {
-    $('div.overview, div.outline, div.who-should-attend').hide();
-    $('.btn-category').removeClass('active-category');
-    $(this).addClass('active-category');
-    if($(this).hasClass('overview')) {
-      $('div.overview').show();
-    } else if($(this).hasClass('outline')) {
-      $('div.outline').show();
-    } else if($(this).hasClass('who-should-attend')) {
-      $('div.who-should-attend').show();
-    }
-  });
   
   $('#back').on('click', function() {
     window.history.back();
