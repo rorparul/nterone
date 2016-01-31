@@ -16,9 +16,14 @@ module CartsHelper
     items_in_cart = @cart.order_items.collect do |order_item|
       order_item.orderable
     end
-    items_purchased = current_user.order_items.collect do |order_item|
-      order_item.orderable
-    end
+
+    items_purchased = if user_signed_in?
+                        current_user.order_items.collect do |order_item|
+                          order_item.orderable
+                        end
+                      else
+                        []
+                      end
 
     if items_in_cart.include?(item)
       ("<button class='btn-link' type='submit' disabled='true'>" +

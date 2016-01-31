@@ -35,6 +35,14 @@ module GeneralHelper
     end
   end
 
+  def video_status(user, video)
+    if user
+      if WatchedVideo.find_by(user_id: user.id, video_id: video.id)
+        "<span class='fa fa-check text-success'></span>".html_safe
+      end
+    end
+  end
+
   def formatted_price_or_range_of_upcoming_events_for(course)
     events = course.upcoming_events.order(:price)
     if events.any?

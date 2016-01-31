@@ -381,6 +381,10 @@ iframe.wysihtml5-sandbox {
   }
 }
 
+.wistia_embed {
+  width: 100% !important;
+}
+
 .video-module-status {
   float: right;
   height: 20px;
@@ -388,59 +392,6 @@ iframe.wysihtml5-sandbox {
   font-size: 12px;
   padding: 4px;
 }
-
-.video {
-  .thumb {
-    width: 50px;
-    .wistia_embed {
-      height: auto !important;
-      width: 100% !important;
-      display: block !important;
-      div {
-        height: auto !important;
-        width: 100% !important;
-        div {
-          height: auto !important;
-          width: 100% !important;
-          img {
-            height: auto !important;
-            width: 100% !important;
-            position: relative !important;
-            top: 0 !important;
-            left: 0 !important;
-          }
-        }
-      }
-    }
-  }
-  .title {
-
-  }
-}
-
-// .resource {
-//   .wistia_embed {
-//     height: auto !important;
-//     width: 100% !important;
-//     display: block !important;
-//     margin-bottom: 10px;
-//     div {
-//       height: auto !important;
-//       width: 100% !important;
-//       div {
-//         height: auto !important;
-//         width: 100% !important;
-//         img {
-//           height: auto !important;
-//           width: 100% !important;
-//           position: relative !important;
-//           top: 0 !important;
-//           left: 0 !important;
-//         }
-//       }
-//     }
-//   }
-// }
 
 .social-icons {
   span {

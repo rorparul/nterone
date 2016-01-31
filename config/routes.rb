@@ -123,6 +123,7 @@ NterOne::Application.routes.draw do
       collection do
         get  'select'
         post 'select_to_edit'
+        get  'play_video/:id' => 'video_on_demands#play_video', as: :play_video
       end
     end
     resources :custom_items, except: [:index, :edit, :show] do

@@ -6,13 +6,11 @@ class User < ActiveRecord::Base
   has_many :passed_exams,     dependent:  :destroy
   has_many :exams,            through:    :passed_exams
 
-
   #TODO: track leads through relationships instead
   has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
   has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
   # has_many :selling,        through: :seller_leads, source: :leads
   # has_many :buying,         through: :buyer_leads,  source: :leads
-
 
   has_many :messages,             dependent:   :destroy
   has_many :posts
@@ -28,6 +26,8 @@ class User < ActiveRecord::Base
   has_many :video_on_demands,     through:     :order_items,
                                   source:      :orderable,
                                   source_type: 'VideoOnDemand'
+  has_many :watched_videos,       dependent:   :destroy
+  has_many :videos,               through:     :watched_videos
   has_many :seller_relationships, class_name:  'Relationship',
                                   foreign_key: 'seller_id'
   has_many :prospects,            through:     :seller_relationships,
