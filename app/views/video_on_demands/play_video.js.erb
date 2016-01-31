@@ -1,0 +1,6 @@
+$('.modal-title').html("<%= escape_javascript(@video.title) %>");
+$('.modal-body').html("<%= escape_javascript(@video.embed_code.html_safe) %>");
+$('#myModal').modal('show');
+
+$("#module-<%= @video.video_module.id %>-status").html("<%= @video.video_module.watched_count(current_user) %>/<%= @video.video_module.videos.count %> Viewed");
+$("#video-<%= @video.id %>-status").html("<%= escape_javascript(video_status(current_user, @video)) %>");

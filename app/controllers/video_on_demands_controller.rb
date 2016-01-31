@@ -82,6 +82,13 @@ class VideoOnDemandsController < ApplicationController
     redirect_to :back
   end
 
+  def play_video
+    @video = Video.find(params[:id])
+    if user_signed_in?
+      @video.users << current_user if @video.users.exclude?(current_user)
+    end
+  end
+
   private
 
   def video_on_demand_params
