@@ -5,7 +5,8 @@
     - else
       = platform.title
   - if user_signed_in? && current_user.admin?
-    .actions-overlay
-      = link_to edit_platform_path(platform), remote: true do
-        i.fa.fa-pencil
-        | Edit
+    / .actions-overlay
+    /   / = link_to edit_platform_path(platform), remote: true do
+    /   /   i.fa.fa-pencil
+    /   /   | Edit
+    = link_to "Edit", edit_platform_path(platform), remote: true, class: "platform-item"

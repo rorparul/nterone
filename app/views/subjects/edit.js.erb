@@ -1,0 +1,3 @@
+$('.modal-title').html('Edit Certificate');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, subject: @subject, categories: @categories }) %>");
+$('#myModal').modal('show');

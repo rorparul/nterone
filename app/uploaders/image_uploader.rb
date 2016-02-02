@@ -29,7 +29,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :processed_image, if: :carousel_item? do
-    process resize_to_fill: [745, 330]
+    process resize_to_fill: [2560, 1080]
   end
 
   private
