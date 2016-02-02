@@ -43,6 +43,33 @@
               p = @course.intro.html_safe if @course.intro
           .row
             .col-xs-12
+              #accordion.panel-group role="tablist" aria-multiselectable="true"
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingOne"
+                    strong
+                      a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                        | Overview
+                  #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+                    .panel-body
+                      = @course.overview.html_safe if @course.overview
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingTwo"
+                    strong
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                        | Outline
+                  #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+                    .panel-body
+                      = @course.outline.html_safe if @course.outline
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingThree"
+                    strong
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                        | Who Should Attend
+                  #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+                    .panel-body
+                      = @course.intended_audience.html_safe if @course.intended_audience
+          .row
+            .col-xs-12
               #upcoming-classes
                 .panel.panel-default
                   .table-responsive
@@ -74,33 +101,6 @@
                                 = form_for :order_item, url: order_items_path do |f|
                                   = f.hidden_field :event_id, value: event.id
                                   = link_to_cart(event)
-          .row
-            .col-xs-12
-              #accordion.panel-group role="tablist" aria-multiselectable="true"
-                .panel.panel-default
-                  .panel-heading role="tab" id="headingOne"
-                    strong
-                      a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                        | Overview
-                  #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
-                    .panel-body
-                      = @course.overview.html_safe if @course.overview
-                .panel.panel-default
-                  .panel-heading role="tab" id="headingTwo"
-                    strong
-                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                        | Outline
-                  #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
-                    .panel-body
-                      = @course.outline.html_safe if @course.outline
-                .panel.panel-default
-                  .panel-heading role="tab" id="headingThree"
-                    strong
-                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                        | Who Should Attend
-                  #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
-                    .panel-body
-                      = @course.intended_audience.html_safe if @course.intended_audience
           .row
             .col-xs-12
               #degrees

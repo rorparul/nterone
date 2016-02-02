@@ -17,33 +17,36 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   def create
     if user_signed_in?
-      @order                                        = current_user.orders.build
-      transaction                                   = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
+      @order                                        = current_user.buyer_orders.build
+
       request                                       = CreateTransactionRequest.new
-      request.transactionRequest                    = TransactionRequestType.new()
-      request.transactionRequest.amount             = @cart.total_price_after_credits(order_params[:clc_quantity].to_f * 100)
+      request.transactionRequest                    = TransactionRequestType.new
+      request.transactionRequest.amount             = @cart.total_price_after_credits(order_params[:clc_quantity])
       request.transactionRequest.payment            = PaymentType.new
       request.transactionRequest.payment.creditCard = CreditCardType.new(credit_card_params[:credit_card_number],
-                                                                         credit_card_params[:expiration_month] + credit_card_params[:expiration_year],
+                                                                         credit_card_params[:expiration_month] +
+                                                                         credit_card_params[:expiration_year],
                                                                          credit_card_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
-      response = transaction.create_transaction(request)
-      logger.info response.messages.resultCode
+
+      transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
+      response    = transaction.create_transaction(request)
+
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
         @order.assign_attributes(order_params)
         @order.auth_code = response.transactionResponse.authCode
         @order.paid      = request.transactionRequest.amount
         @order.add_order_items_from_cart(@cart)
-        @order.order_items.each do |order_item|
-          current_user.order_items << order_item
-        end
         if @order.save
+          @order.order_items.each do |order_item|
+            current_user.order_items << order_item
+          end
           flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
           OrderMailer.confirmation(current_user, @order).deliver_now
           redirect_to confirmation_orders_path(@order)
@@ -103,12 +106,11 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:clc_number,
                                   :clc_quantity,
-                                  :name_on_card,
+                                  :billing_name,
                                   :billing_street,
                                   :billing_city,
                                   :billing_state,
                                   :billing_zip_code,
-                                  :total,
                                   :paid,
                                   :seller_id,
                                   :buyer_id)

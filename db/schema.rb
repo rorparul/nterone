@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129220819) do
+ActiveRecord::Schema.define(version: 20160201202405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,7 +305,6 @@ ActiveRecord::Schema.define(version: 20160129220819) do
     t.string   "shipping_country"
     t.string   "email"
     t.string   "clc_number"
-    t.string   "clc_quantity"
     t.string   "billing_name"
     t.string   "billing_zip_code"
     t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
@@ -318,6 +317,7 @@ ActiveRecord::Schema.define(version: 20160129220819) do
     t.decimal  "total",             precision: 8, scale: 2, default: 0.0
     t.string   "billing_country"
     t.string   "payment_type"
+    t.integer  "clc_quantity"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree

@@ -13,7 +13,7 @@
 .row
   .col-sm-12.col-md-9
     .page-header
-      h3.text-muted Testimonials
+      h3 Testimonials
     #testimonials
       - @testimonials.each do |testimonial|
         = render partial: 'testimonial', locals: { testimonial: testimonial }
