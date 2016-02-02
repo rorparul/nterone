@@ -30,7 +30,9 @@ body {
 #carousel {
   max-width: 1000px;
   margin: 0 auto;
-  margin-bottom: 10px;
+  img {
+    width: 100%;
+  }
 }
 
 .credit-card-logos {
@@ -85,28 +87,28 @@ body {
   right: 30px;
 }
 
-#guaranteed-to-run {
-  width: 100%;
-  border: 1px solid rgb(179, 100, 42);
-  .group-heading {
-    border-bottom: 1px solid rgb(151, 83, 32);
-    @include value-prefix(background-image, linear-gradient(top, rgb(214, 139, 83) 0%, rgb(202, 111, 43) 100%));
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    h6 {
-      color: white;
-      text-align: center;
-      font-size: 12.5px;
-    }
-  }
-  .group-body {
-    overflow: scroll;
-    max-height: 500px;
-    a {
-      text-decoration: none;
-    }
-  }
-}
+// #guaranteed-to-run {
+//   width: 100%;
+//   border: 1px solid rgb(179, 100, 42);
+//   .group-heading {
+//     border-bottom: 1px solid rgb(151, 83, 32);
+//     @include value-prefix(background-image, linear-gradient(top, rgb(214, 139, 83) 0%, rgb(202, 111, 43) 100%));
+//     border-top-left-radius: 3px;
+//     border-top-right-radius: 3px;
+//     h6 {
+//       color: white;
+//       text-align: center;
+//       font-size: 12.5px;
+//     }
+//   }
+//   .group-body {
+//     overflow: scroll;
+//     max-height: 500px;
+//     a {
+//       text-decoration: none;
+//     }
+//   }
+// }
 
 .vertical-text {
   display: inline-block;
@@ -898,19 +900,14 @@ table {
 .image-container {
   margin-bottom: 20px;
   img {
-    width: 200px;
-    // width: 100%;
+    // width: 200px;
+    width: 100%;
   }
 }
 
 .row-with-side-column {
 
 }
-
-// .side-column {
-//   width: 200px;
-//   float: right;
-// }
 
 .credits-image {
   width: 66.66%;
@@ -937,7 +934,7 @@ table {
 }
 
 .panel-red {
-  width: 200px;
+  // width: 200px;
   border-color: rgb(178, 42, 53);
   margin: 0 auto 20px auto;
   .panel-heading {
