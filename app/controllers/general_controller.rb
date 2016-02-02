@@ -19,6 +19,18 @@ class GeneralController < ApplicationController
     @instructor_bios = Page.find_by(title: 'Instructor Bios')
   end
 
+  def press
+
+  end
+
+  def blog
+
+  end
+
+  def industry
+    
+  end
+
   def consulting
     @consulting = Page.find_by(title: 'Consulting')
   end

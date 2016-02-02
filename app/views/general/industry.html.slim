@@ -1,5 +1,5 @@
 - content_for :page_title do
-  = @instructor_bios.page_title
+  | Industry
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -7,7 +7,7 @@
     | Home
   span.seperator
     | /
-  a href="#{instructors_bios_path}"
+  a href="#{industry_path}"
     | About Us
     
 .row
@@ -20,18 +20,16 @@
           a.btn.category.btn-category.press href="#{press_path}" Press
           a.btn.category.btn-category.blog href="#{blog_path}" Blog
           a.btn.category.btn-category.industry href="#{industry_path}" Industry
-        
-    .row.instructor-bios
+    
+    .row.executive-bios
       .col-xs-12
         .page-header
-          h3 Instructors Bios
-        .image-container.text-center
-          = image_tag 'instructors.jpg'
-        = @instructor_bios.content.html_safe
+          h3 Industry
+        = 
   
   .col-xs-12.col-md-3
     = render partial: 'layouts/side_column'
     
 javascript:
   $('.about-us-tab').addClass('active');
-  $('.instructor-bios').addClass('active-category');
+  $('.industry').addClass('active-category');

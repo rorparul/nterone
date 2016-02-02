@@ -80,7 +80,7 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
-    resources :subjects, except: [:edit], path: 'certifications' do
+    resources :subjects, path: 'certifications' do
       collection do
         get  'select'
         post 'select_to_edit'
@@ -105,7 +105,7 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
-    resources :courses, except: [:index, :edit] do
+    resources :courses, except: [:index] do
       collection do
         get  'select'
         post 'select_to_edit'
@@ -168,6 +168,9 @@ NterOne::Application.routes.draw do
   get  'page'                                        => 'events#page'
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
   get  'about-us/instructors'                        => 'general#instructors',            as: :instructors_bios
+  get  'about-us/press'                              => 'general#press',                  as: :press
+  get  'about-us/blog'                               => 'general#blog',                   as: :blog
+  get  'about-us/industry'                           => 'general#industry',               as: :industry
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'

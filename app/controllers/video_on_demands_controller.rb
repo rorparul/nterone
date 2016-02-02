@@ -56,6 +56,16 @@ class VideoOnDemandsController < ApplicationController
     end
   end
 
+  def edit
+    @platform        = Platform.find(params[:platform_id])
+    @video_on_demand = VideoOnDemand.find(params[:id])
+    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
+      category if category.parent
+    end
+    @courses         = @platform.courses
+    @instructors     = @platform.instructors
+  end
+
   def update
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])

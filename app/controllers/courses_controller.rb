@@ -48,6 +48,14 @@ class CoursesController < ApplicationController
     end
   end
 
+  def edit
+    @platform   = Platform.find(params[:platform_id])
+    @categories = @platform.categories.order(:title).select do |category|
+      category if category.parent
+    end
+    @course     = Course.find(params[:id])
+  end
+
   def update
     @course = Course.find(params[:id])
     @course.assign_attributes(course_params)

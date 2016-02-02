@@ -53,6 +53,15 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def edit
+    @platform = Platform.find(params[:platform_id])
+    @categories = @platform.categories.order(:title).select do |category|
+      category if category.parent
+    end
+    @subject  = Subject.find(params[:id])
+    @subject.build_image unless @subject.image.present?
+  end
+
   def create
     @platform = Platform.find(params[:platform_id])
     @subject = @platform.subjects.build(subject_params)
