@@ -6,7 +6,13 @@ class Order < ActiveRecord::Base
 
   validates :buyer, presence: true
   validates_associated :buyer
-  validates :price, :total, numericality: { greater_than_or_equal_to: 0.01 }
+  # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
+
+  before_create :add_up_total
+
+  def add_up_total
+    total = total_price
+  end
 
   def add_order_items_from_cart(cart)
     cart.order_items.each do |item|

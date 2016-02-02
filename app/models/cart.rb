@@ -10,7 +10,7 @@ class Cart < ActiveRecord::Base
       if item.orderable_type == "Event"
         item.price
       else
-        0
+        0.00
       end
     end
   end
@@ -20,15 +20,15 @@ class Cart < ActiveRecord::Base
       if item.orderable_type == "VideoOnDemand"
         item.price
       else
-        0
+        0.00
       end
     end
   end
 
   def total_price_after_credits(credits)
-    total_events_price = total_event_price - credits
-    if total_events_price < 0
-      0 + total_vod_price
+    total_events_price = total_event_price - (credits.to_i * 100)
+    if total_events_price < 0.00
+      0.00 + total_vod_price
     else
       total_events_price + total_vod_price
     end

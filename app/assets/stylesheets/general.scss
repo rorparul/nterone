@@ -888,9 +888,19 @@ table {
 .image-container {
   margin-bottom: 20px;
   img {
-    max-width: 100%;
+    width: 200px;
+    // width: 100%;
   }
 }
+
+.row-with-side-column {
+
+}
+
+// .side-column {
+//   width: 200px;
+//   float: right;
+// }
 
 .credits-image {
   width: 66.66%;
@@ -917,11 +927,18 @@ table {
 }
 
 .panel-red {
+  width: 200px;
   border-color: rgb(178, 42, 53);
+  margin: 0 auto 20px auto;
   .panel-heading {
     @include value-prefix(background-image, linear-gradient(top, rgb(214, 83, 93) 0%, rgb(178, 42, 53) 100%));
     color: white;
     border-bottom-color: rgb(178, 42, 53);
+  }
+  .image-container {
+    img {
+      width: 80%;
+    }
   }
 }
 
