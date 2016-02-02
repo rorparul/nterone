@@ -493,11 +493,13 @@ iframe.wysihtml5-sandbox {
         @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
         border-radius: 0px;
         color: #fff;
+        text-shadow: rgb(48, 48, 48) 0px 1px 0px;
         border-bottom: 1px solid rgb(42, 120, 178);
         &.active {
           color: #fff;
           @include value-prefix(background-image, linear-gradient(top, rgb(36, 101, 180) 0%, rgb(28, 79, 137) 100%));
           border-bottom: 1px solid rgb(23, 65, 116);
+          border-top: 1px solid rgb(23, 65, 116);
         }
         &:hover span {
           opacity: 1;
@@ -557,6 +559,7 @@ iframe.wysihtml5-sandbox {
       a {
         @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
         color: #fff;
+        text-shadow: rgb(48, 48, 48) 0px 1px 0px;
         &.active {
           color: #fff;
           @include value-prefix(background-image, linear-gradient(top, rgb(36, 101, 180) 0%, rgb(28, 79, 137) 100%));
