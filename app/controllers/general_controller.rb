@@ -20,15 +20,15 @@ class GeneralController < ApplicationController
   end
 
   def press
-
+    @press_releases = PressRelease.all
   end
 
   def blog
-
+    @blog_posts = BlogPost.all
   end
 
   def industry
-    
+    @industry_articles = IndustryArticle.all
   end
 
   def consulting

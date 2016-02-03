@@ -1,0 +1,3 @@
+$('.modal-title').html('Edit Industry Article');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { industry_article: @industry_article }) %>");
+$('#myModal').modal('show');

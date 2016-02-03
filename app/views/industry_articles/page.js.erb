@@ -1,0 +1,2 @@
+$('#industry-articles').html("<%= escape_javascript(render partial: 'industry_articles', locals: { industry_articles: @industry_articles }) %>");
+$('#industry-articles-page-control').html("<%= escape_javascript(render partial: 'page_controls', locals: { industry_articles: @industry_articles }) %>");

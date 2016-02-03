@@ -1,0 +1,7 @@
+- industry_articles.each do |industry_article|
+  tr
+    td = industry_article.title
+    td.actions-column.fit
+      = link_to "Edit", edit_industry_article_path(industry_article), remote: true
+      = " | "
+      = link_to 'Delete', industry_article_path(industry_article), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

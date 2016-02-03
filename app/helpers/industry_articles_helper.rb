@@ -1,0 +1,2 @@
+module IndustryArticlesHelper
+end
