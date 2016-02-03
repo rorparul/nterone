@@ -14,7 +14,7 @@
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
-                 { class: 'form-control sub-select input-sm', multiple: 'true' }
+                 { class: 'form-control input-sm', multiple: 'true' }
 
     .form-group
       = f.label :title
@@ -44,6 +44,3 @@
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if subject.id
         = link_to 'Delete', platform_subject_path(platform, subject), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
-
-/ javascript:
-/   Bootsy.init();
