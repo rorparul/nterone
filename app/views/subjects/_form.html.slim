@@ -24,14 +24,16 @@
       = f.label :abbreviation, 'Label'
       = f.text_field :abbreviation, class: 'form-control input-sm'
 
-    .form-group
-      - if subject.image.present? && subject.image.file.present?
-        = image_tag subject.image.file_url(:subject_icon)
-        br
-      = f.fields_for :image do |icon|
-        = icon.label :file, "Icon"
-        = icon.file_field :file
-        = icon.hidden_field :file_cache
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          - if subject.image.present? && subject.image.file.present?
+            = image_tag subject.image.file_url(:subject_icon)
+            br
+          = f.fields_for :image do |icon|
+            = icon.label :file, "Icon"
+            = icon.file_field :file, class: 'form-control input-sm'
+            = icon.hidden_field :file_cache
 
     .form-group
       = f.label :description

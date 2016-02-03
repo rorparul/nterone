@@ -8,11 +8,13 @@ class VideoOnDemandsController < ApplicationController
     end
     @courses         = @platform.courses
     @instructors     = @platform.instructors
+    @video_on_demand.build_image
   end
 
   def create
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build(video_on_demand_params)
+    @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
       render js: "window.location = '#{request.referrer}';"
@@ -40,6 +42,7 @@ class VideoOnDemandsController < ApplicationController
     end
     @courses          = @platform.courses
     @instructors      = @platform.instructors
+    @video_on_demand.build_image
   end
 
   def  select_to_edit
@@ -53,6 +56,7 @@ class VideoOnDemandsController < ApplicationController
       end
       @courses         = @platform.courses
       @instructors     = @platform.instructors
+      @video_on_demand.build_image unless @video_on_demand.image.present?
     end
   end
 
@@ -64,11 +68,13 @@ class VideoOnDemandsController < ApplicationController
     end
     @courses         = @platform.courses
     @instructors     = @platform.instructors
+    @video_on_demand.build_image unless @video_on_demand.image.present?
   end
 
   def update
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
+    @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
       render js: "window.location = '#{request.referrer}';"

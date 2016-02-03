@@ -25,16 +25,21 @@
         .form-group
           = f.label :abbreviation
           = f.text_field :abbreviation, class: 'form-control input-sm'
-    
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :video_preview, "Video Preview (Inline Embed)"
-          = f.text_area :video_preview, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :pdf, 'PDF'
           = f.file_field :pdf, class: 'form-control input-sm'
+          
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          - if course.image.present? && course.image.file.present?
+            = image_tag course.image.file_url(:subject_icon)
+            br
+          = f.fields_for :image do |icon|
+            = icon.label :file, "Icon"
+            = icon.file_field :file, class: 'form-control input-sm'
+            = icon.hidden_field :file_cache
     
     .form-group
       = f.label :intro, 'Introduction'

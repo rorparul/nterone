@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+    @course.build_image
   end
 
   def show
@@ -18,6 +19,7 @@ class CoursesController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+    @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully created!'
       render js: "window.location = '#{request.referrer}';"
@@ -33,6 +35,7 @@ class CoursesController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+    @course.build_image
   end
 
   def select_to_edit
@@ -46,6 +49,7 @@ class CoursesController < ApplicationController
     else
       @course     = Course.find(course_params[:id])
     end
+    @course.build_image unless @course.image.present?
   end
 
   def edit
@@ -54,11 +58,13 @@ class CoursesController < ApplicationController
       category if category.parent
     end
     @course     = Course.find(params[:id])
+    @course.build_image unless @course.image.present?
   end
 
   def update
     @course = Course.find(params[:id])
     @course.assign_attributes(course_params)
+    @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully updated!'
       render js: "window.location = '#{request.referrer}';"

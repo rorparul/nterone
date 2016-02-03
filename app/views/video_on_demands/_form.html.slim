@@ -55,6 +55,17 @@
                  instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
                  { prompt: true },
                  { class: "form-control input-sm" }
+                
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          - if video_on_demand.image.present? && video_on_demand.image.file.present?
+            = image_tag video_on_demand.image.file_url(:subject_icon)
+            br
+          = f.fields_for :image do |icon|
+            = icon.label :file, "Icon"
+            = icon.file_field :file, class: 'form-control input-sm'
+            = icon.hidden_field :file_cache
           
     h4 Modules
     hr
