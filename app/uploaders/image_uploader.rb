@@ -39,7 +39,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def subject?(picture)
-    model.imageable_type == 'Subject'
+    model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand'
   end
 
   def carousel_item?(picture)

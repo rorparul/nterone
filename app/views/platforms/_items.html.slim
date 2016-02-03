@@ -1,7 +1,7 @@
 - if items.present?
   - items.each do |item|
     - if item.class == Subject
-      - if item.image.file_url != nil
+      - if item.image && item.image.file_url != nil
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject with-image' do
             = image_tag item.image.file_url(:subject_icon)
@@ -15,17 +15,33 @@
           - if user_signed_in? && current_user.admin?
             = link_to "Edit", edit_platform_subject_path(item.platform, item), remote: true, class: "platform-item"
     - elsif item.class == Course
-      .col-xs-12.col-md-6
-        = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
-          p = item.full_title
-        - if user_signed_in? && current_user.admin? 
-          = link_to "Edit", edit_platform_course_path(item.platform, item), remote: true, class: "platform-item"
+      - if item.image && item.image.file_url != nil
+        .col-xs-12.col-md-6
+          = link_to platform_course_path(item.platform, item), class: 'subject with-image' do
+            = image_tag item.image.file_url(:subject_icon)
+            p = item.full_title
+          - if user_signed_in? && current_user.admin? 
+            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: true, class: "platform-item"
+      - else
+        .col-xs-12.col-md-6
+          = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
+            p = item.full_title
+          - if user_signed_in? && current_user.admin? 
+            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: true, class: "platform-item"
     - elsif item.class == VideoOnDemand
-      .col-xs-12.col-md-6
-        = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
-          p = item.full_title
-        - if user_signed_in? && current_user.admin? 
-          = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: true, class: "platform-item"
+      - if item.image && item.image.file_url != nil
+        .col-xs-12.col-md-6
+          = link_to platform_video_on_demand_path(item.platform, item), class: 'subject with-image' do
+            = image_tag item.image.file_url(:subject_icon)
+            p = item.full_title
+          - if user_signed_in? && current_user.admin? 
+            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: true, class: "platform-item"
+      - else
+        .col-xs-12.col-md-6
+          = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
+            p = item.full_title
+          - if user_signed_in? && current_user.admin? 
+            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: true, class: "platform-item"
         
 - else
   p.text-center No Matches Found

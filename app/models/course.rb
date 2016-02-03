@@ -2,6 +2,7 @@ class Course < ActiveRecord::Base
   extend FriendlyId
   include Bootsy::Container
   mount_uploader :pdf, PdfUploader
+  include Imageable
 
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
@@ -24,6 +25,10 @@ class Course < ActiveRecord::Base
   has_many :testimonials
   has_many :events,                   dependent: :destroy
   has_many :video_on_demands,         dependent: :destroy
+
+  has_one  :image, as: :imageable, dependent: :destroy
+
+  accepts_nested_attributes_for :image
 
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
