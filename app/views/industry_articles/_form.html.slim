@@ -1,17 +1,21 @@
 .form-container
-  = form_for page, remote: true do |f|
-    - if page.errors.any?
+  = form_for industry_article, remote: true do |f|
+    - if industry_article.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
           span aria-hidden="true" &times;
-        h4 = "#{pluralize(page.errors.count, 'error')}:"
+        h4 = "#{pluralize(industry_article.errors.count, 'error')}:"
         ul
-          - page.errors.full_messages.each do |msg|
+          - industry_article.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
       = f.label :page_title, 'Page Title'
       = f.text_field :page_title, class: 'form-control input-sm'
+    
+    .form-group
+      = f.label :title, 'Title'
+      = f.text_field :title, class: 'form-control input-sm'
           
     .form-group
       = f.label :content
@@ -20,6 +24,3 @@
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
-      
-/ javascript:
-/   Bootsy.init();

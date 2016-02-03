@@ -27,6 +27,22 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :press_releases,    except: [:index], path: 'about-us/press' do
+    collection do
+      get 'page'
+    end
+  end
+  resources :blog_posts,        except: [:index], path: 'about-us/blog' do
+    collection do
+      get 'page'
+    end
+  end
+  resources :industry_articles, except: [:index], path: 'about-us/industry' do
+    collection do
+      get 'page'
+    end
+  end
+
   resources :forums, except: [:edit] do
     collection do
       get  'filter'

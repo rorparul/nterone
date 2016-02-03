@@ -25,9 +25,12 @@ class MyAdminController < ApplicationController
   end
 
   def website
-    @pages          = Page.order(:title)
-    @carousel_items = CarouselItem.page(1)
-    @testimonials   = Testimonial.page(1)
+    @pages             = Page.order(:title)
+    @carousel_items    = CarouselItem.page(1).per(5)
+    @testimonials      = Testimonial.page(1).per(5)
+    @press_releases    = PressRelease.page(1).per(5)
+    @blog_posts        = BlogPost.page(1).per(5)
+    @industry_articles = IndustryArticle.page(1).per(5)
   end
 
   def settings

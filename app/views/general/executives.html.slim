@@ -8,18 +8,11 @@
   span.seperator
     | /
   a href="#{executives_bios_path}"
-    | About Us
+    | Executive Bios
     
 .row
   .col-xs-12.col-md-9
-    .categories.categories-repurposed
-      .row.text-center
-        .col-xs-12
-          a.btn.category.btn-category.executive-bios href="#{executives_bios_path}" Executive Bios
-          a.btn.category.btn-category.instructor-bios href="#{instructors_bios_path}" Instructor Bios
-          a.btn.category.btn-category.press href="#{press_path}" Press
-          a.btn.category.btn-category.blog href="#{blog_path}" Blog
-          a.btn.category.btn-category.industry href="#{industry_path}" Industry
+    = render partial: 'layouts/about_us_nav_bar'
     
     .row.executive-bios
       .col-xs-12

@@ -8,7 +8,7 @@ class CarouselItemsController < ApplicationController
   end
 
   def page
-    @carousel_items = CarouselItem.page(params[:page])
+    @carousel_items = CarouselItem.page(params[:page]).per(5)
   end
 
   def create

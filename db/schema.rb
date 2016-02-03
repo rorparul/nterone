@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201202405) do
+ActiveRecord::Schema.define(version: 20160202190205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20160201202405) do
     t.datetime "updated_at",                  null: false
     t.string   "status",     default: "open"
     t.string   "poster"
+  end
+
+  create_table "blog_posts", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bootsy_image_galleries", force: :cascade do |t|
@@ -251,6 +259,14 @@ ActiveRecord::Schema.define(version: 20160201202405) do
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
+  create_table "industry_articles", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "instructors", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -371,6 +387,14 @@ ActiveRecord::Schema.define(version: 20160201202405) do
   create_table "prep_items", force: :cascade do |t|
     t.integer  "exam_id"
     t.integer  "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "press_releases", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
