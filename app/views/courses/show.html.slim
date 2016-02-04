@@ -78,40 +78,48 @@
                       = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
                   .table-responsive
                     table.table.table-compact
-                      thead
-                        tr
-                          th Date
-                          th Length
-                          th Format
-                          th Location
-                          th Status
-                          th Price
-                          - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                            th
-                          - elsif user_signed_in? && current_user.admin?
-                            th
-                      tbody
-                        - @course.upcoming_events.each do |event|
+                      - if @course.upcoming_events.any?
+                        thead
                           tr
-                            td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
-                            td = "#{pluralize(event.length, 'Day')}"
-                            td = event.format
-                            - if event.city.present? || event.state.present?
-                              td = "#{event.city}, #{event.state}"
-                            - else
-                              td
-                            td Available
-                            td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                            th Date
+                            th Length
+                            th Format
+                            th Location
+                            th Status
+                            th Price
                             - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                              td.fit.text-right
-                                = form_for :order_item, url: order_items_path do |f|
-                                  = f.hidden_field :event_id, value: event.id
-                                  = link_to_cart(event)
+                              th
                             - elsif user_signed_in? && current_user.admin?
-                              td.fit.text-right
-                                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                |  | 
-                                = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                              th
+                      tbody
+                        - if @course.upcoming_events.any?
+                          - @course.upcoming_events.each do |event|
+                            tr
+                              td = "#{event.start_date.to_formatted_s(:rfc822)} to #{event.end_date.to_formatted_s(:rfc822)}"
+                              td = "#{pluralize(event.length, 'Day')}"
+                              td = event.format
+                              - if event.city.present? || event.state.present?
+                                td = "#{event.city}, #{event.state}"
+                              - else
+                                td
+                              td Available
+                              td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                              - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                                td.fit.text-right
+                                  = form_for :order_item, url: order_items_path do |f|
+                                    = f.hidden_field :event_id, value: event.id
+                                    = link_to_cart(event)
+                              - elsif user_signed_in? && current_user.admin?
+                                td.fit.text-right
+                                  = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                                  |  | 
+                                  = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                        - else
+                          tr
+                            td.text-center
+                              | Contact 
+                              = link_to "sales@nterone.com", "mailto:sales@nterone.com"
+                              |  for training schedule.
                   
           .row
             .col-xs-12

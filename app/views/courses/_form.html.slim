@@ -40,7 +40,11 @@
             = icon.label :file, "Icon"
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
-    
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :video_preview, "Video Preview"
+          = f.text_area :video_preview, class: 'form-control input-sm'
+          
     .form-group
       = f.label :intro, 'Introduction'
       = f.bootsy_area :intro, class: 'form-control input-sm'
