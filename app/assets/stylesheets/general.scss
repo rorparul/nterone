@@ -511,11 +511,11 @@ iframe.wysihtml5-sandbox {
           border-top: 1px solid rgb(23, 65, 116);
         }
         &:hover span {
-          opacity: 1;
+          opacity: .8;
         }
         span {
           font-size: 12.5px;
-          opacity: .8;
+          // opacity: .8;
           @media (min-width: 768px) {
             display: block;
           }
@@ -823,7 +823,7 @@ footer {
 }
 
 .btn {
-  &:not(.btn-block) {
+  &:not(.btn-block, .btn-blue) {
     height: 30px;
     border-radius: 3px;
     font-size: 11px;
@@ -962,6 +962,22 @@ table {
   border-color: rgb(96, 156, 61);
   .panel-footer{
     @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
+  }
+}
+
+.btn-blue {
+  border-color: rgb(43, 134, 202);
+  @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
+  width: 100%;
+  margin: 0;
+  white-space: normal;
+  color: white;
+  font-size: 26px;
+  text-shadow: rgb(48, 48, 48) 0px 1px 0px;
+  &:hover, &:active, &:focus {
+    @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
+    border-color: rgb(43, 134, 202);
+    color: white;
   }
 }
 

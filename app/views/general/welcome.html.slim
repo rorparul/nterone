@@ -30,28 +30,28 @@
     .row
       .col-xs-12.col-md-4
         .panel.panel-default
-          .panel-body
-            p.text-center
+          .panel-body.text-center
+            a href="#{platforms_path}"
+              .btn.btn-default.btn-lg.btn-blue Training
+            hr
+            p
               strong Specializing in Live Online Cisco and VMware Training
-            hr
-            .categories.categories-repurposed.text-center
-              a.btn.category.btn-category.active-category href="#{platforms_path}" Training
       .col-xs-12.col-md-4
         .panel.panel-default
-          .panel-body
-            p.text-center
+          .panel-body.text-center
+            a href="#{consulting_path}"
+              .btn.btn-default.btn-lg.btn-blue Content Development
+            hr
+            p
               strong Turn–key Custom Content Development and Delivery
-            hr
-            .categories.categories-repurposed.text-center
-              a.btn.category.btn-category.active-category href="#{consulting_path}" Content Development
       .col-xs-12.col-md-4
         .panel.panel-default
-          .panel-body
-            p.text-center 
-              strong Global Data Center Offering 24x7 Lab Access
+          .panel-body.text-center
+            a href="#{partners_path}"
+              .btn.btn-default.btn-lg.btn-blue Labs
             hr
-            .categories.categories-repurposed.text-center
-              a.btn.category.btn-category.active-category href="#{partners_path}" Labs
+            p
+              strong Global Data Center Offering 24x7 Lab Access
   .col-sm-12.col-md-3
     = render partial: 'layouts/side_column'
 
