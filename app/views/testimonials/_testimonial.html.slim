@@ -1,7 +1,7 @@
 .testimonial
   .quotation
     = "\"#{testimonial.quotation}\""
-  - if testimonial.company
+  - if testimonial.company.present?
     i = "#{testimonial.author} @ #{testimonial.company}"
   - else
     i = testimonial.author
