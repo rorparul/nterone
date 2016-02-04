@@ -72,6 +72,10 @@
             .col-xs-12
               #upcoming-classes
                 .panel.panel-default
+                  .panel-heading
+                    strong.text-muted Upcoming Classes
+                    - if user_signed_in? && current_user.admin?
+                      = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
                   .table-responsive
                     table.table.table-compact
                       thead
@@ -83,6 +87,8 @@
                           th Status
                           th Price
                           - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                            th
+                          - elsif user_signed_in? && current_user.admin?
                             th
                       tbody
                         - @course.upcoming_events.each do |event|
@@ -97,10 +103,16 @@
                             td Available
                             td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
                             - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                              td.fit
+                              td.fit.text-right
                                 = form_for :order_item, url: order_items_path do |f|
                                   = f.hidden_field :event_id, value: event.id
                                   = link_to_cart(event)
+                            - elsif user_signed_in? && current_user.admin?
+                              td.fit.text-right
+                                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                                |  | 
+                                = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                  
           .row
             .col-xs-12
               #degrees
