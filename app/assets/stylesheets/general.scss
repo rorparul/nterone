@@ -935,6 +935,11 @@ table {
     color: white;
     border-bottom-color: rgb(202, 111, 43);
   }
+  .image-container {
+    img {
+      width: 50% !important;
+    }
+  }
 }
 
 .panel-red {
@@ -950,6 +955,13 @@ table {
     img {
       width: 80%;
     }
+  }
+}
+
+.panel-green {
+  border-color: rgb(96, 156, 61);
+  .panel-footer{
+    @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
   }
 }
 
