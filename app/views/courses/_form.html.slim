@@ -71,6 +71,3 @@
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if course.id
         = link_to 'Delete', platform_course_path(platform, course), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'
-        
-/ javascript:
-/   Bootsy.init();
