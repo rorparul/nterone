@@ -7,7 +7,8 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.new(blog_post_params)
     if @blog_post.save(blog_post_params)
       flash[:success] = "Blog Post successfully added."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'new'
     end
@@ -29,7 +30,8 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.find(params[:id])
     if @blog_post.update_attributes(blog_post_params)
       flash[:success] = "Blog Post successfully updated."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'edit'
     end

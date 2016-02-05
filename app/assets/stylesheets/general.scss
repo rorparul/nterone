@@ -276,15 +276,16 @@ body {
 }
 
 iframe.wysihtml5-sandbox {
-  height: 500px !important;
+  height: 240px !important;
+  padding: 5px 10px !important;
+}
+
+.bootsy_text_area {
+  padding: 0 !important;
 }
 
 .bootsy-modal {
   .modal-dialog {
-    // margin: 0 !important;
-    // position: absolute !important;
-    // bottom: 0px !important;
-    // left: 0px !important;
     .modal-header {
       display: none !important;
     }
@@ -1388,6 +1389,10 @@ button[id^="subject-toggle-"] {
   }
 }
 
+select[multiple="multiple"] {
+  height: 120px !important;
+}
+
 .lead-date, .lead-my-plan, .lead-selector, .lead-buttons {
   width:1%;
   white-space:nowrap;
@@ -1428,13 +1433,6 @@ button[id^="subject-toggle-"] {
     height: 20px;
     width: 130px;
   }
-  // a {
-  //   &:last-child {
-  //     .sq-btn {
-  //       margin-right: 0;
-  //     }
-  //   }
-  // }
 }
 
 .lead-form {

@@ -7,7 +7,8 @@ class PressReleasesController < ApplicationController
     @press_release = PressRelease.new(press_releases_params)
     if @press_release.save(press_releases_params)
       flash[:success] = "Press Release successfully added."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'new'
     end
@@ -29,7 +30,8 @@ class PressReleasesController < ApplicationController
     @press_release = PressRelease.find(params[:id])
     if @press_release.update_attributes(press_releases_params)
       flash[:success] = "Press Release successfully updated."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'edit'
     end

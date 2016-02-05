@@ -7,7 +7,8 @@ class IndustryArticlesController < ApplicationController
     @industry_article = IndustryArticle.new(industry_article_params)
     if @industry_article.save(industry_article_params)
       flash[:success] = "Industry Article successfully added."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'new'
     end
@@ -29,7 +30,8 @@ class IndustryArticlesController < ApplicationController
     @industry_article = IndustryArticle.find(params[:id])
     if @industry_article.update_attributes(industry_article_params)
       flash[:success] = "Industry Article successfully updated."
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'edit'
     end

@@ -2,6 +2,6 @@
   tr
     td = press_release.title
     td.actions-column.fit
-      = link_to "Edit", edit_press_release_path(press_release), remote: true
+      = link_to "Edit", edit_press_release_path(press_release), remote: false
       = " | "
       = link_to 'Delete', press_release_path(press_release), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

@@ -1,5 +1,5 @@
 .form-container
-  = form_for page, remote: true do |f|
+  = form_for page, remote: false do |f|
     - if page.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
@@ -20,6 +20,3 @@
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
-      
-/ javascript:
-/   Bootsy.init();

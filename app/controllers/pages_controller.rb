@@ -7,7 +7,8 @@ class PagesController < ApplicationController
     @page = Page.find(params[:id])
     if @page.update_attributes(page_params)
       flash[:success] = "Page successfully updated!"
-      render js: "window.location = '#{my_admin_website_path}';"
+      # render js: "window.location = '#{my_admin_website_path}';"
+      redirect_to my_admin_website_path
     else
       render 'edit'
     end
