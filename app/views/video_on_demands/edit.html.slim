@@ -12,11 +12,11 @@
     = @platform.title
   span.seperator
     | /
-  a href="#{platform_subject_path(@platform, @video_on_demand)}"
+  a href="#{platform_video_on_demand_path(@platform, @video_on_demand)}"
     = "#{@video_on_demand.abbreviation}"
   span.seperator
     | /
-  a href="#{edit_platform_subject_path(@platform, @video_on_demand)}"
+  a href="#{edit_platform_video_on_demand_path(@platform, @video_on_demand)}"
     | Edit
 
 .panel.panel-default
