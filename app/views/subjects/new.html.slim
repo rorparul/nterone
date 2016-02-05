@@ -1,0 +1,29 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{platforms_path}"
+    | Training
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#{new_platform_subject_path(@platform, @subject)}"
+    | New
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Add Certification
+  .panel-body
+    = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
+    
+button#back Back
+
+javascript:
+  $('#back').on('click', function() {
+    window.history.back();
+  });

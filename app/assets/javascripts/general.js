@@ -23,6 +23,10 @@ $(function() {
     Bootsy.init();
   });
 
+  $('#myModal').on('shown.bs.modal', function(e) {
+    $('#query').focus();
+  });
+
   $(document).on('change', '.sub-select', function() {
     $(this).closest('form').submit();
   });
