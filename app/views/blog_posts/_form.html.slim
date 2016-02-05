@@ -1,5 +1,5 @@
 .form-container
-  = form_for blog_post, remote: true do |f|
+  = form_for blog_post, remote: false do |f|
     - if blog_post.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"

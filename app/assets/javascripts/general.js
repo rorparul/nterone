@@ -19,9 +19,7 @@ $(function() {
     $(this).addClass('active-topic');
   });
 
-  $('#myModal').on('show.bs.modal', function(e) {
-    Bootsy.init();
-  });
+  Bootsy.init();
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();

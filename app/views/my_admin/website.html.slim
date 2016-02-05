@@ -27,7 +27,7 @@
               tr
                 td = page.title
                 td.actions-column.fit
-                  = link_to "Edit", edit_page_path(page), remote: true
+                  = link_to "Edit", edit_page_path(page), remote: false
     
 .row
   .col-xs-12
@@ -54,7 +54,7 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Press Releases
-        = link_to "Add", new_press_release_path, remote: true, class: "panel-heading-controls"
+        = link_to "Add", new_press_release_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
@@ -72,7 +72,7 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Blog Posts
-        = link_to "Add", new_blog_post_path, remote: true, class: "panel-heading-controls"
+        = link_to "Add", new_blog_post_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
@@ -90,7 +90,7 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Industry Articles
-        = link_to "Add", new_industry_article_path, remote: true, class: "panel-heading-controls"
+        = link_to "Add", new_industry_article_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead

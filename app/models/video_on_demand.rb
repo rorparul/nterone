@@ -1,6 +1,7 @@
 class VideoOnDemand < ActiveRecord::Base
   extend FriendlyId
   include Imageable
+  include Bootsy::Container
 
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
