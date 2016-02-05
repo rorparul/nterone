@@ -49,6 +49,6 @@ class IndustryArticlesController < ApplicationController
   private
 
   def industry_article_params
-    params.require(:industry_article).permit(:page_title, :title, :content)
+    params.require(:industry_article).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
   end
 end

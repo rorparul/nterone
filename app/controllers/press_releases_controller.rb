@@ -49,6 +49,6 @@ class PressReleasesController < ApplicationController
   private
 
   def press_releases_params
-    params.require(:press_release).permit(:page_title, :title, :content)
+    params.require(:press_release).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
   end
 end
