@@ -22,7 +22,8 @@ class CoursesController < ApplicationController
     @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully created!'
-      render js: "window.location = '#{request.referrer}';"
+      # render js: "window.location = '#{request.referrer}';"
+      redirect_to platform_path(@course.platform)
     else
       render 'new'
     end
@@ -67,13 +68,15 @@ class CoursesController < ApplicationController
     @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully updated!'
-      render js: "window.location = '#{request.referrer}';"
+      # render js: "window.location = '#{request.referrer}';"
+      redirect_to platform_path(@course.platform)
     else
       @platform   = Platform.find(params[:platform_id])
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      render 'select_to_edit'
+      # render 'select_to_edit'
+      render "edit"
     end
   end
 

@@ -281,10 +281,10 @@ iframe.wysihtml5-sandbox {
 
 .bootsy-modal {
   .modal-dialog {
-    margin: 0 !important;
-    position: absolute !important;
-    bottom: 0px !important;
-    left: 0px !important;
+    // margin: 0 !important;
+    // position: absolute !important;
+    // bottom: 0px !important;
+    // left: 0px !important;
     .modal-header {
       display: none !important;
     }
@@ -293,6 +293,7 @@ iframe.wysihtml5-sandbox {
         height: 30px;
         padding: 5px 10px;
         font-size: 12px;
+        text-align: left;
       }
     }
   }

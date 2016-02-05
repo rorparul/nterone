@@ -3,7 +3,7 @@
 
     .form-group
       .input-group
-        = text_field_tag :query, params[:query], class: 'form-control', autofocus: true, required: true, placeholder: "Search by certificate, course, or exam"
+        = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: "Search by certificate, course, or exam"
         span#search-submit-button.input-group-addon Go
 
     .form-buttons

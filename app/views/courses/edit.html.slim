@@ -1,0 +1,33 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{platforms_path}"
+    | Training
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#{platform_subject_path(@platform, @course)}"
+    = "#{@course.abbreviation}"
+  span.seperator
+    | /
+  a href="#{edit_platform_course_path(@platform, @course)}"
+    | Edit
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Edit Course
+  .panel-body
+    = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
+    
+button#back Back
+
+javascript:
+  $('#back').on('click', function() {
+    window.history.back();
+  });

@@ -1,0 +1,29 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{platforms_path}"
+    | Training
+  span.seperator
+    | /
+  a href="#{platform_path(@platform)}"
+    = @platform.title
+  span.seperator
+    | /
+  a href="#{new_platform_subject_path(@platform, @video_on_demand)}"
+    | New
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Add Video On Demand
+  .panel-body
+    = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, courses: @courses, instructors: @instructors }
+    
+button#back Back
+
+javascript:
+  $('#back').on('click', function() {
+    window.history.back();
+  });

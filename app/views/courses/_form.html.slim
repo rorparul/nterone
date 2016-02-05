@@ -1,5 +1,5 @@
 .form-container
-  = form_for [platform, course], remote: true do |f|
+  = form_for [platform, course], remote: false do |f|
     - if course.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"

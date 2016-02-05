@@ -68,7 +68,8 @@ class SubjectsController < ApplicationController
     @subject.set_image(url_param: params['subject'], for: :image)
     if @subject.save
       flash['success'] = 'Certification successfully created!'
-      render js: "window.location = '#{request.referrer}';"
+      # render js: "window.location = '#{request.referrer}';"
+      redirect_to platform_path(@subject.platform)
     else
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
@@ -83,13 +84,15 @@ class SubjectsController < ApplicationController
     @subject.set_image(url_param: params['subject'], for: :image)
     if @subject.save
       flash['success'] = 'Certification successfully updated.'
-      render js: "window.location = '#{request.referrer}';"
+      # render js: "window.location = '#{request.referrer}';"
+      redirect_to platform_path(@subject.platform)
     else
       @platform = Platform.find(params[:platform_id])
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      render 'select_to_edit'
+      # render 'select_to_edit'
+      render "edit"
     end
   end
 
