@@ -49,6 +49,6 @@ class BlogPostsController < ApplicationController
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:page_title, :title, :content)
+    params.require(:blog_post).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
   end
 end

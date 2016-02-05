@@ -1,10 +1,10 @@
 $(function() {
+  Bootsy.init();
+  
+  $('.selectpicker').selectpicker();
+
   $('#menu-toggle').on('click', function() {
     $('.sidebar-content').fadeToggle();
-  });
-
-  $(document).on('mouseenter mouseleave', '.platform', function() {
-    $(this).find('.actions-overlay').toggle();
   });
 
   $('.course').on('click', function() {
@@ -12,14 +12,10 @@ $(function() {
     sessionStorage.removeItem('subCategory');
   });
 
-  $('.selectpicker').selectpicker();
-
   $(document).on('click', '.topic', function() {
     $('.topic').removeClass('active-topic');
     $(this).addClass('active-topic');
   });
-
-  Bootsy.init();
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
