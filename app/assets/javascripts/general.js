@@ -1,6 +1,6 @@
 $(function() {
-  Bootsy.init();
-  
+  // Bootsy.init();
+
   $('.selectpicker').selectpicker();
 
   $('#menu-toggle').on('click', function() {
@@ -43,4 +43,8 @@ $(function() {
     $('#accordion .in').collapse('hide');
     $('#mobile-accordion .in').collapse('hide');
   });
+});
+
+$(document).on('page:change', function() {
+  Bootsy.init();
 });
