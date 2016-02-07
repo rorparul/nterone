@@ -1,6 +1,4 @@
 $(function() {
-  // Bootsy.init();
-
   $('.selectpicker').selectpicker();
 
   $('#menu-toggle').on('click', function() {
