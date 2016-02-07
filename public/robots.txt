@@ -1,6 +1,5 @@
-# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-
 User-agent: *
+
 Disallow: /bootsy
 Disallow: /users/
 Disallow: /admin
@@ -28,3 +27,5 @@ Disallow: /chosen_courses/
 Disallow: /passed_exams/
 Disallow: /request-quote
 Disallow: /events-upload
+
+Sitemap: https://www.nterone.com/sitemap.xml.gz
