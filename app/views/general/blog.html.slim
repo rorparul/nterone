@@ -19,12 +19,15 @@
         .page-header
           h3 Blog
         - @blog_posts.each do |blog_post|
-          .blog-post
+          .article
             h3
               a href="#{blog_post_path(blog_post)}"
                 = blog_post.title
-            = truncate_html(blog_post.content, length: 100, omission: '...(continued)')
-          hr
+            = truncate_html(blog_post.content, length: 250, omission: '...(continued)')
+            small.text-muted
+              | Published 
+              = blog_post.created_at.strftime("%B %d, %Y")
+            hr
   
   .col-xs-12.col-md-3
     = render partial: 'layouts/side_column'

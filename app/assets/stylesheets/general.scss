@@ -50,6 +50,16 @@ body {
   margin: 0;
 }
 
+.article {
+  small {
+    display: block;
+    margin-top: 10px;
+  }
+  small, hr {
+    clear: both;
+  }
+}
+
 .btn-link {
   padding: 0 !important;
   border: 0 !important;
@@ -350,9 +360,8 @@ iframe.wysihtml5-sandbox {
       border-radius: 5px;
     }
     p {
-      color: rgb(179, 179, 179);
+      color: rgb(180, 180, 180);
       margin: 0;
-      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
     }
   }
 }
