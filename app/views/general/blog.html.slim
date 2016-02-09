@@ -19,9 +19,11 @@
         .page-header
           h3 Blog
         - @blog_posts.each do |blog_post|
-          a href="#{blog_post_path(blog_post)}"
-            h3 = blog_post.title
-          = truncate_html(blog_post.content, length: 100, omission: '...(continued)')
+          .blog-post
+            h3
+              a href="#{blog_post_path(blog_post)}"
+                = blog_post.title
+            = truncate_html(blog_post.content, length: 100, omission: '...(continued)')
           hr
   
   .col-xs-12.col-md-3
