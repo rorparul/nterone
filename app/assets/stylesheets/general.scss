@@ -609,9 +609,14 @@ iframe.wysihtml5-sandbox {
   }
 }
 
-// .zopim {
-//   right: 30px !important;
-// }
+.zopim {
+  @media (max-width: 767px) {
+    right: 15px !important;
+  }
+  @media (min-width: 768px) {
+    right: 30px !important;
+  }
+}
 
 #search-submit-button {
   cursor: pointer;
