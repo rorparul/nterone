@@ -42,17 +42,6 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
-  def update_without_password(params, *options)
-    if params[:password].blank?
-      params.delete(:password)
-      params.delete(:password_confirmation) if params[:password_confirmation].blank?
-    end
-
-    result = update_attributes(params, *options)
-    clean_up_passwords
-    result
-  end
-
   def my_plan_total_low
     planned_unattended_courses.inject(0) do |sum, course|
       event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).first

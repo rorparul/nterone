@@ -6,8 +6,6 @@
 //= require jquery_ujs
 //= require bootsy
 //= require jquery.remotipart
-//= require jquery.minicolors
-//= require jquery.minicolors.simple_form
 //= require autonumeric
 //= require parsley
 //= require bootstrap

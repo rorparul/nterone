@@ -1,15 +1,30 @@
 - content_for :breadcrumbs do
-  span.fa.fa-gear
-  a href="#{main_app.edit_user_registration_path}"
-    | Settings
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  - if current_user.admin?
+    a href="#{main_app.edit_user_registration_path}"
+      | My Account
+  - if current_user.sales?
+    a href="#{main_app.edit_user_registration_path}"
+      | My Sales
+  - if current_user.member?
+    a href="#{main_app.edit_user_registration_path}"
+      | My Account
 
-.row#settings
+.row
   .col-xs-12
-    .group
-      .group-heading
-        h6 Personal Info
-      .group-body
-        = render 'form'
+    - if current_user.admin?
+      = render 'my_admin/tabs'
+    - if current_user.sales?
+      = render 'my_sales/tabs'
+    - if current_user.member?
+      = render 'my_account/tabs'
+    
+= render 'form'
 
 javascript:
-  $('.settings-tab').addClass('active');
+  $('.role-tab').addClass('active');
+  $('.categories .settings').addClass('active-category');
