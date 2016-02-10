@@ -19,10 +19,15 @@
         .page-header
           h3 Industry
         - @industry_articles.each do |industry_article|
-          a href="#{industry_article_path(industry_article)}"
-            h3 = industry_article.title
-          = truncate_html(industry_article.content, length: 100, omission: '...(continued)')
-          hr
+          .article
+            h3
+              a href="#{industry_article_path(industry_article)}"
+                = industry_article.title
+            = truncate_html(industry_article.content, length: 250, omission: '...(continued)')
+            small.text-muted
+              | Published 
+              = industry_article.created_at.strftime("%B %d, %Y")
+            hr
   
   .col-xs-12.col-md-3
     = render partial: 'layouts/side_column'

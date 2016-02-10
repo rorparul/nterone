@@ -1,4 +1,7 @@
 class AnnouncementsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_announcement, only: [:edit, :destroy]
+
   def create
     announcement = Announcement.new(announcement_params)
     case announcement.audience
@@ -23,18 +26,15 @@ class AnnouncementsController < ApplicationController
         announcement.messages.build(user_id: role.user.id)
       end
     end
-
     if announcement.save
       flash[:success] = "Announcement successfully created!"
     else
       flash[:alert] = "Announcement unsuccessfully created!"
     end
-
     redirect_to :back
   end
 
   def edit
-    @announcement = Announcement.find(params[:id])
   end
 
   def update
@@ -48,8 +48,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def destroy
-    announcement = Announcement.find(params[:id])
-    if announcement.destroy
+    if @announcement.destroy
       flash[:success] = "Announcement successfully deleted!"
     else
       flash[:alert] = "Announcement unsuccessfully deleted!"
@@ -59,7 +58,15 @@ class AnnouncementsController < ApplicationController
 
   private
 
+  def set_announcement
+    @announcement = Announcement.find(params[:id])
+  end
+
   def announcement_params
-    params.require(:announcement).permit(:id, :content, :audience, :status, :poster)
+    params.require(:announcement).permit(:id,
+                                         :content,
+                                         :audience,
+                                         :status,
+                                         :poster)
   end
 end

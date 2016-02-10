@@ -19,11 +19,15 @@
         .page-header
           h3 Press
         - @press_releases.each do |press_release|
-          a href="#{press_release_path(press_release)}"
-            h3 = press_release.title
-          = truncate_html(press_release.content, length: 100, omission: '...(continued)')
-          hr
-            
+          .article
+            h3
+              a href="#{press_release_path(press_release)}"
+                = press_release.title
+            = truncate_html(press_release.content, length: 250, omission: '...(continued)')
+            small.text-muted
+              | Published 
+              = press_release.created_at.strftime("%B %d, %Y")
+            hr
   
   .col-xs-12.col-md-3
     = render partial: 'layouts/side_column'

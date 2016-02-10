@@ -1,4 +1,6 @@
 class PassedExamsController < ApplicationController
+  before_action :authenticate_user!
+  
   def toggle
     passed_exam = PassedExam.find_by(passed_exam_params)
     @exam       = Exam.find(passed_exam_params[:exam_id])

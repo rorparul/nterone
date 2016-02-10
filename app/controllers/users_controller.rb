@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def page
     @users = User.order(:last_name).page(params[:page])
   end
@@ -21,7 +23,7 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.update_without_password(user_params)
+    if user.update_attributes(user_params)
       flash[:success] = 'User successfully updated!'
       redirect_to :back
     else
@@ -57,7 +59,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:company_name,
                                  :first_name,
                                  :last_name,
-                                 :email,
                                  :contact_number,
                                  :country,
                                  :street,

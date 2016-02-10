@@ -9,7 +9,7 @@
         | Messages
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
-      a.btn.category.btn-category.settings href="#{my_sales_settings_path}" Settings
+      a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}" Settings
       
 .categories-mobile.visible-xs.role-tabs
   .row.text-center
@@ -22,4 +22,4 @@
         | Messages
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
-      a.btn.category.btn-category.settings href="#{my_sales_settings_path}" Settings
+      a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}" Settings

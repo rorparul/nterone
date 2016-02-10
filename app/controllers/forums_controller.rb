@@ -1,4 +1,6 @@
 class ForumsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index, :filter]
+
   def filter
     if forum_params[:forum_id] == 'all'
       @topics = Topic.order(:title)

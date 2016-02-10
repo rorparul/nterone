@@ -1,4 +1,6 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!, except: :show
+
   def select
     @topics = Topic.all
     @topic  = Topic.new

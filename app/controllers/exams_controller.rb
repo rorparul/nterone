@@ -1,4 +1,6 @@
 class ExamsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @platform = Platform.find(params[:platform_id])
     @exam     = Exam.new
@@ -13,10 +15,6 @@ class ExamsController < ApplicationController
     else
       render 'new'
     end
-  end
-
-  def search
-    @exams = Exam.where('title ilike ?', "%#{params[:query]}%")
   end
 
   def select

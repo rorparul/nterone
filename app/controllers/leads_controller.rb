@@ -1,4 +1,6 @@
 class LeadsController < ApplicationController
+  before_action :authenticate_user!
+
   def request_quote
     lead = Lead.new(lead_params)
     if lead.save

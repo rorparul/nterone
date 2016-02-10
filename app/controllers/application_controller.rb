@@ -34,27 +34,15 @@ class ApplicationController < ActionController::Base
     end
 
     devise_parameter_sanitizer.for(:account_update) do |user|
-      user.permit(:company_name,
-                  :first_name,
-                  :last_name,
-                  :email,
+      user.permit(:email,
+                  :current_password,
                   :password,
-                  :password_confirmation,
-                  :contact_number,
-                  :country,
-                  :street,
-                  :city,
-                  :state,
-                  :zipcode)
+                  :password_confirmation)
     end
   end
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(request.referrer || root_path)
-  end
-
-  def pundit_user
-    # @pu ||= BrandUser.includes(:user).find_by(user_id: current_user.id, brand_id: brand.id) || current_user
   end
 end

@@ -1,6 +1,6 @@
 class PlatformsController < ApplicationController
-  before_action :set_platform, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_platform, only: [:show, :edit, :update, :destroy]
   # before_action :authorize_platform, except: [:index, :show]
   # after_action  :verify_authorized,  except: [:index, :show]
 

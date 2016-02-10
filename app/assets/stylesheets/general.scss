@@ -1,3 +1,6 @@
+// -----------------------------------------------------------------------------
+// MIXINS
+// -----------------------------------------------------------------------------
 @mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
   @if $vendors {
     @each $vendor in $vendors {
@@ -7,6 +10,9 @@
   #{$property}: #{$value};
 }
 
+// -----------------------------------------------------------------------------
+// GENERAL
+// -----------------------------------------------------------------------------
 html {
   height: 100%;
 }
@@ -42,6 +48,16 @@ body {
 
 .pagination {
   margin: 0;
+}
+
+.article {
+  small {
+    display: block;
+    margin-top: 10px;
+  }
+  small, hr {
+    clear: both;
+  }
 }
 
 .btn-link {
@@ -87,29 +103,6 @@ body {
   right: 30px;
 }
 
-// #guaranteed-to-run {
-//   width: 100%;
-//   border: 1px solid rgb(179, 100, 42);
-//   .group-heading {
-//     border-bottom: 1px solid rgb(151, 83, 32);
-//     @include value-prefix(background-image, linear-gradient(top, rgb(214, 139, 83) 0%, rgb(202, 111, 43) 100%));
-//     border-top-left-radius: 3px;
-//     border-top-right-radius: 3px;
-//     h6 {
-//       color: white;
-//       text-align: center;
-//       font-size: 12.5px;
-//     }
-//   }
-//   .group-body {
-//     overflow: scroll;
-//     max-height: 500px;
-//     a {
-//       text-decoration: none;
-//     }
-//   }
-// }
-
 .vertical-text {
   display: inline-block;
   float: right;
@@ -132,7 +125,6 @@ body {
     position: absolute;
     top: 5px;
     right: 5px;
-    // box-shadow: rgb(48, 48, 48) 0px 1px 0px;
     @media (max-width: 767px) {
       position: relative;
       top: 0px;
@@ -141,7 +133,6 @@ body {
   }
   &.badge-alert-settings {
     margin-left: 5px;
-    // box-shadow: rgb(48, 48, 48) 0px 1px 0px;
   }
 }
 
@@ -369,9 +360,8 @@ iframe.wysihtml5-sandbox {
       border-radius: 5px;
     }
     p {
-      color: rgb(179, 179, 179);
+      color: rgb(180, 180, 180);
       margin: 0;
-      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
     }
   }
 }
@@ -517,7 +507,6 @@ iframe.wysihtml5-sandbox {
         }
         span {
           font-size: 12.5px;
-          // opacity: .8;
           @media (min-width: 768px) {
             display: block;
           }
@@ -658,7 +647,6 @@ iframe.wysihtml5-sandbox {
   }
   .content {
     .categories, .categories-mobile {
-      // margin-bottom: 10px;
       .btn-category, .btn-child-category {
         font-size: 16px;
         font-weight: bold;
@@ -911,13 +899,8 @@ table {
 .image-container {
   margin-bottom: 20px;
   img {
-    // width: 200px;
     width: 100%;
   }
-}
-
-.row-with-side-column {
-
 }
 
 .panel-heading-controls {
@@ -954,7 +937,6 @@ table {
 }
 
 .panel-red {
-  // width: 200px;
   border-color: rgb(178, 42, 53);
   margin: 0 auto 20px auto;
   .panel-heading {
@@ -1155,16 +1137,6 @@ table {
   }
 }
 
-// .bootstrap-wysihtml5-insert-image-modal {
-//   h3 {
-//     font-size: 12px;
-//     font-weight: bold;
-//     line-height: 22px;
-//     margin: 0px;
-//     padding: 8px 14px 7px 14px;
-//   }
-// }
-
 #subject-groups {
   table {
     color: rgb(95, 95, 95);
@@ -1228,9 +1200,6 @@ table {
         }
       }
       .course-group-item {
-        td:nth-child(1) {
-
-        }
         td:nth-child(2) {
           width:1%;
           white-space:nowrap;
@@ -1249,9 +1218,6 @@ table {
         }
       }
       .custom-item-group-item {
-        td:nth-child(1) {
-          // width: 100%;
-        }
         ul {
           margin-bottom: 0;
           padding-left: 15px;
@@ -1509,11 +1475,9 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
 }
 
 #grand-total {
-  // float: right;
   display: inline-block;
   font-weight: bold;
   margin-left: 10px;
-  // margin-top: 5px;
   height: 30px;
   padding: 7px 0 8px 0;
 }
@@ -1523,11 +1487,9 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   button {
     border-radius: 2px;
     color: rgb(255, 255, 255);
-    // float: right;
     font-size: 11px;
     font-weight: bold;
     height: 30px;
-    // margin-top: 5px;
     padding: 7px 10px;
     outline: none;
     @include value-prefix(background-image, linear-gradient(top, rgb(91, 165, 203) 0%, rgb(58, 112, 171) 100%));
@@ -1555,10 +1517,6 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   color: rgb(60, 118, 61);
 }
 
-// .subjects {
-//   margin-top: 10px;
-// }
-
 li.break {
   height: 1px;
   background-color: rgb(195, 195, 195);
@@ -1585,11 +1543,6 @@ li.break {
     }
   }
 }
-
-// label {
-//   font-size: 12px;
-//   font-weight: bold;
-// }
 
 input[type='file'] {
   font-size: 12px;
@@ -1690,7 +1643,6 @@ input[type='file'] {
 }
 
 hr {
-  // border-width: 2px 0 0;
   margin-bottom: 10px;
   margin-top: 10px;
 }
@@ -1930,31 +1882,11 @@ hr {
     }
   }
   &.current-user {
-    .post-content {
-      a {
-        img {
-
-        }
-      }
-    }
     .post-message {
       background-color: rgb(255, 255, 255);
       border: 1px solid rgb(225, 225, 225);
       .aro {
         background-image: image-url('arrow-right.png');
-      }
-      .post-info {
-        .name {
-          strong {
-
-          }
-        }
-        .time {
-
-        }
-      }
-      .post-main {
-
       }
     }
   }

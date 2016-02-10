@@ -1,4 +1,6 @@
 class IndustryArticlesController < ApplicationController
+  before_action :authenticate_user!, except: :show
+
   def new
     @industry_article = IndustryArticle.new
   end
@@ -49,6 +51,9 @@ class IndustryArticlesController < ApplicationController
   private
 
   def industry_article_params
-    params.require(:industry_article).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
+    params.require(:industry_article).permit(:page_title,
+                                             :title,
+                                             :content,
+                                             :bootsy_image_gallery_id)
   end
 end

@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!
+  
   def edit
     @page = Page.find(params[:id])
   end
@@ -17,6 +19,9 @@ class PagesController < ApplicationController
   private
 
   def page_params
-    params.require(:page).permit(:title, :content, :bootsy_image_gallery_id, :page_title)
+    params.require(:page).permit(:title,
+                                 :content,
+                                 :bootsy_image_gallery_id,
+                                 :page_title)
   end
 end

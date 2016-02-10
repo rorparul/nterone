@@ -1,4 +1,5 @@
 class TestimonialsController < ApplicationController
+  before_action :authenticate_user!, except: :index
   before_action :set_testimonial, except: [:index, :new, :create, :page]
 
   def index

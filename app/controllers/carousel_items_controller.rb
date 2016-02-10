@@ -1,5 +1,5 @@
 class CarouselItemsController < ApplicationController
-  before_action :redirect_if_not_permitted, only: [:new, :edit]
+  before_action :authenticate_user!
   before_action :set_carousel_item, except: [:new, :create, :page]
 
   def new
@@ -48,15 +48,11 @@ class CarouselItemsController < ApplicationController
 
   private
 
-  def carousel_item_params
-    params.require(:carousel_item).permit(:caption, :active, :url)
-  end
-
   def set_carousel_item
     @carousel_item = CarouselItem.find(params[:id])
   end
 
-  def redirect_if_not_permitted
-    redirect_to root_path if !user_signed_in? || !current_user.admin?
+  def carousel_item_params
+    params.require(:carousel_item).permit(:caption, :active, :url)
   end
 end

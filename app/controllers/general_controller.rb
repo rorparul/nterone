@@ -1,6 +1,5 @@
 class GeneralController < ApplicationController
   def new_search
-
   end
 
   def search
