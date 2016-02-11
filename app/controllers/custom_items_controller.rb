@@ -1,4 +1,6 @@
 class CustomItemsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @platform    = Platform.find(params[:platform_id])
     @custom_item = @platform.custom_items.build
@@ -56,6 +58,11 @@ class CustomItemsController < ApplicationController
   private
 
   def custom_item_params
-    params.require(:custom_item).permit(:id, :content, :shortname, :url, :is_header, :bootsy_image_gallery_id)
+    params.require(:custom_item).permit(:id,
+                                        :content,
+                                        :shortname,
+                                        :url,
+                                        :is_header,
+                                        :bootsy_image_gallery_id)
   end
 end

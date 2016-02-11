@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   include AuthorizeNet::API
 
+  before_action :authenticate_user!, except: :new
+
   # skip_before_action :authorize, only: [:new, :create]
   # before_action :set_cart,  only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -13,11 +15,9 @@ class OrdersController < ApplicationController
   end
 
   def new
-
   end
 
   def edit
-
   end
 
   def create

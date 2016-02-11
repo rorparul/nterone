@@ -1,4 +1,6 @@
 class PressReleasesController < ApplicationController
+  before_action :authenticate_user!, except: :show
+
   def new
     @press_release = PressRelease.new
   end
@@ -49,6 +51,9 @@ class PressReleasesController < ApplicationController
   private
 
   def press_releases_params
-    params.require(:press_release).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
+    params.require(:press_release).permit(:page_title,
+                                          :title,
+                                          :content,
+                                          :bootsy_image_gallery_id)
   end
 end

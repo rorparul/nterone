@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: :autocomplete
+  before_action :authenticate_user!
+  before_action :set_category, only: [:show, :update, :destroy]
   # before_action :authorize_category, except: :autocomplete
   # after_action  :verify_authorized,  except: :autocomplete
 
@@ -64,16 +64,16 @@ class CategoriesController < ApplicationController
 
   private
 
-    def set_category
-      @category = Category.includes(:platform).find(params[:id])
-    end
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
-    def category_params
-      params.require(:category).permit(:id, :title, :parent_id)
-    end
+  def category_params
+    params.require(:category).permit(:id, :title, :parent_id)
+  end
 
-    def authorize_category
-      @category ||= Category.new
-      authorize @category
-    end
+  def authorize_category
+    @category ||= Category.new
+    authorize @category
+  end
 end

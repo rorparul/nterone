@@ -87,7 +87,7 @@
                                         = video.title
                                       span
                                         |  (Free Sample)
-                                  - elsif video.permit_user?(current_user)
+                                  - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
                                       a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title

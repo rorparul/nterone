@@ -1,6 +1,8 @@
 class ChosenCoursesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_chosen_course
+
   def toggle_active
-    @course = ChosenCourse.find_by(chosen_course_params)
     if @course
       @course.toggle!(:planned)
     else
@@ -11,7 +13,6 @@ class ChosenCoursesController < ApplicationController
   end
 
   def toggle_attended
-    @course = ChosenCourse.find_by(chosen_course_params)
     if @course
       @course.toggle!(:attended)
     else
@@ -22,6 +23,10 @@ class ChosenCoursesController < ApplicationController
   end
 
   private
+
+  def set_chosen_course
+    @course = ChosenCourse.find_by(chosen_course_params)
+  end
 
   def chosen_course_params
     params.require(:chosen_course).permit(:user_id, :course_id, :status)

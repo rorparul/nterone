@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @platform                 = Platform.find(params[:platform_id])
     @subject                  = Subject.find(params[:subject_id])
@@ -70,7 +72,12 @@ class GroupsController < ApplicationController
 
   def group_params
     params.require(:group).permit(:header, :subject_ids,
-      group_items_attributes: [:id, :position, :groupable_type, :groupable_id, :updated_at, :_destroy]
+      group_items_attributes: [:id,
+                               :position,
+                               :groupable_type,
+                               :groupable_id,
+                               :updated_at,
+                               :_destroy]
     )
   end
 end

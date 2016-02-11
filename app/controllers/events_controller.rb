@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!
+
   def page
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
   end

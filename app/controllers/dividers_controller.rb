@@ -1,4 +1,6 @@
 class DividersController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @platform = Platform.find(params[:platform_id])
     @divider  = Divider.new

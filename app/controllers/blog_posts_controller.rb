@@ -1,4 +1,7 @@
 class BlogPostsController < ApplicationController
+  before_action :authenticate_user!, except: :show
+  before_action :set_blog_post,      except: [:new, :create, :page]
+
   def new
     @blog_post = BlogPost.new
   end
@@ -19,15 +22,12 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    @blog_post = BlogPost.find(params[:id])
   end
 
   def edit
-    @blog_post = BlogPost.find(params[:id])
   end
 
   def update
-    @blog_post = BlogPost.find(params[:id])
     if @blog_post.update_attributes(blog_post_params)
       flash[:success] = "Blog Post successfully updated."
       # render js: "window.location = '#{my_admin_website_path}';"
@@ -38,7 +38,7 @@ class BlogPostsController < ApplicationController
   end
 
   def destroy
-    if BlogPost.find(params[:id]).destroy
+    if @blog_post.destroy
       flash[:success] = "Blog Post successfully deleted."
     else
       flash[:alert] = "Blog Post failed to delete."
@@ -48,7 +48,14 @@ class BlogPostsController < ApplicationController
 
   private
 
+  def set_blog_post
+    @blog_post = BlogPost.find(params[:id])
+  end
+
   def blog_post_params
-    params.require(:blog_post).permit(:page_title, :title, :content, :bootsy_image_gallery_id)
+    params.require(:blog_post).permit(:page_title,
+                                      :title,
+                                      :content,
+                                      :bootsy_image_gallery_id)
   end
 end

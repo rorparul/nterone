@@ -1,4 +1,6 @@
 class VideoOnDemandsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :play_video]
+
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build

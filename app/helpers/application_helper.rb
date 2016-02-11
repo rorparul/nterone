@@ -66,16 +66,5 @@ module ApplicationHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-end
-
-  # def form_errors(resource)
-  #   if resource.errors.any?
-  #     "<div class='alert alert-danger alert-dismissible'>" +
-  #       "<button class='close' type='button' data-dismiss='alert' aria-label='Close'>" +
-  #         "<span aria-hidden='true'>&times;<span/>" +
-  #       "<h4>#{pluralize(resource.errors.count, 'error')}:<h4/>" +
-  #       "<ul>"
-  #         resource.errors.full_messages.each do |msg|
-  #           li = msg
-  # end
+  end
 end

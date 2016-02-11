@@ -1,4 +1,6 @@
 class PlannedSubjectsController < ApplicationController
+  before_action :authenticate_user!
+  
   def toggle
     planned_subject = PlannedSubject.where(planned_subject_params).first
     if current_user.member?

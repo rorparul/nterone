@@ -1,13 +1,9 @@
 class SubjectsController < ApplicationController
+  before_action :authenticate_user!, except: :show
   before_action :set_subject,        only: [:show, :edit, :update, :destroy]
   before_action :set_category,       except: [:autocomplete]
-  before_action :authenticate_user!, except: [:index, :show, :autocomplete]
   # before_action :authorize_subject, except: [:index, :show, :autocomplete]
   # after_action  :verify_authorized, except: [:index, :show, :autocomplete]
-
-  def index
-    @subjects = @category.subjects
-  end
 
   def show
     @platform = Platform.find(params[:platform_id])

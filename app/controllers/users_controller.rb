@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def page
     @users = User.order(:last_name).page(params[:page])
   end

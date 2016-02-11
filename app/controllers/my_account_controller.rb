@@ -1,6 +1,7 @@
 class MyAccountController < ApplicationController
   include MessageManager
-  before_action :redirect_if_not_permitted
+
+  before_action :authenticate_user!
 
   def plan
     @planned_subjects = current_user.planned_subjects.where(active: true)
@@ -13,15 +14,5 @@ class MyAccountController < ApplicationController
     @messages = Message.active(current_user)
     mark_messages_read(current_user)
     get_alert_counts
-  end
-
-  def settings
-    @user = current_user
-  end
-
-  private
-
-  def redirect_if_not_permitted
-    redirect_to root_path if !user_signed_in? || !current_user.member?
   end
 end

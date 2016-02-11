@@ -1,6 +1,7 @@
 class MyAdminController < ApplicationController
   include MessageManager
-  before_action :redirect_if_not_permitted
+
+  before_action :authenticate_user!
 
   def classes
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
@@ -31,15 +32,5 @@ class MyAdminController < ApplicationController
     @press_releases    = PressRelease.page(1).per(5)
     @blog_posts        = BlogPost.page(1).per(5)
     @industry_articles = IndustryArticle.page(1).per(5)
-  end
-
-  def settings
-    @user = current_user
-  end
-
-  private
-
-  def redirect_if_not_permitted
-    redirect_to root_path if !user_signed_in? || !current_user.admin?
   end
 end
