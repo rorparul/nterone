@@ -2,8 +2,6 @@ class SubjectsController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :set_subject,        only: [:show, :edit, :update, :destroy]
   before_action :set_category,       except: [:autocomplete]
-  # before_action :authorize_subject, except: [:index, :show, :autocomplete]
-  # after_action  :verify_authorized, except: [:index, :show, :autocomplete]
 
   def show
     @platform = Platform.find(params[:platform_id])
@@ -113,10 +111,5 @@ class SubjectsController < ApplicationController
 
   def subject_params
     params.require(:subject).permit(:id, :title, :abbreviation, :description, :type, :bootsy_image_gallery_id, category_ids: [])
-  end
-
-  def authorize_subject
-    @subject ||= Subject.new
-    authorize @subject
   end
 end

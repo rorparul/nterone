@@ -12,10 +12,7 @@
     
 .row#consulting
   .col-sm-12.col-md-9
-    .page-header
-      h3 Consulting
-    .text-center
-      = image_tag 'consulting.jpg'
+    = image_tag 'consulting.jpg', class: "header-image"
     = @consulting.content.html_safe
         
   .col-sm-12.col-md-3

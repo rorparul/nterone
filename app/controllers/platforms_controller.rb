@@ -1,8 +1,6 @@
 class PlatformsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_platform, only: [:show, :edit, :update, :destroy]
-  # before_action :authorize_platform, except: [:index, :show]
-  # after_action  :verify_authorized,  except: [:index, :show]
 
   def index
     @platforms = Platform.all.eager_load(:image)
@@ -71,10 +69,5 @@ class PlatformsController < ApplicationController
 
   def platform_params
     params.require(:platform).permit(:title, :url)
-  end
-
-  def authorize_platform
-    @platform ||= Platform.new
-    authorize @platform
   end
 end

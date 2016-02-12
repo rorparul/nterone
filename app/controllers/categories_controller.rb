@@ -1,8 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category, only: [:show, :update, :destroy]
-  # before_action :authorize_category, except: :autocomplete
-  # after_action  :verify_authorized,  except: :autocomplete
 
   def index
     @platform = Platform.find(params[:platform_id])
@@ -70,10 +68,5 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:id, :title, :parent_id)
-  end
-
-  def authorize_category
-    @category ||= Category.new
-    authorize @category
   end
 end

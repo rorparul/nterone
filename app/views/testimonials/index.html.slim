@@ -12,8 +12,7 @@
     
 .row
   .col-sm-12.col-md-9
-    .page-header
-      h3 Testimonials
+    / = image_tag 'consulting.jpg', class: "header-image"
     #testimonials
       - @testimonials.each do |testimonial|
         = render partial: 'testimonial', locals: { testimonial: testimonial }

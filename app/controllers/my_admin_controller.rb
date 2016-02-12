@@ -2,6 +2,7 @@ class MyAdminController < ApplicationController
   include MessageManager
 
   before_action :authenticate_user!
+  before_action :validate_authorization
 
   def classes
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
@@ -32,5 +33,13 @@ class MyAdminController < ApplicationController
     @press_releases    = PressRelease.page(1).per(5)
     @blog_posts        = BlogPost.page(1).per(5)
     @industry_articles = IndustryArticle.page(1).per(5)
+  end
+
+  private
+
+  def validate_authorization
+    unless current_user.admin?
+      redirect_to root_path
+    end
   end
 end
