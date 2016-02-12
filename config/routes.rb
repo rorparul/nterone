@@ -123,6 +123,7 @@ NterOne::Application.routes.draw do
     end
     resources :courses, except: [:index] do
       collection do
+        get  'page'
         get  'select'
         post 'select_to_edit'
         get  'courses/:id/download'      => 'courses#download',      as: :course_download
@@ -159,6 +160,7 @@ NterOne::Application.routes.draw do
   controller :my_admin do
     get 'my-admin/classes',                                as: :my_admin_classes
     get 'my-admin/classes/:id' => 'my_admin#classes_show', as: :my_admin_classes_show
+    get 'my-admin/courses',                                as: :my_admin_courses
     get 'my-admin/announcements',                          as: :my_admin_announcements
     get 'my-admin/people',                                 as: :my_admin_people
     get 'my-admin/website',                                as: :my_admin_website
@@ -182,6 +184,7 @@ NterOne::Application.routes.draw do
   end
 
   get  'page'                                        => 'events#page'
+  get  'courses/page'                                => 'courses#page'
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
   get  'about-us/instructors'                        => 'general#instructors',            as: :instructors_bios
   get  'about-us/press'                              => 'general#press',                  as: :press

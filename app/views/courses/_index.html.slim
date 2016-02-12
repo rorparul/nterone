@@ -1,0 +1,23 @@
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Courses
+    / = link_to "Upload", events_upload_path, remote: true, class: "panel-heading-controls"
+  .panel-table
+    .responsive-table
+      table.table.table-condensed.table-hover
+        thead
+          tr
+            th.fit title='Course ID' #
+            th.fit Title
+            th.fit Upcoming Events
+            th.fit
+        tbody#courses
+          = render partial: 'courses/courses', locals: { courses: @courses }
+  div class="#{'panel-footer' if courses.total_count > 25}"
+    #courses-page-control
+      = render partial: 'courses/page_controls', locals: { courses: @courses }
+                  
+javascript:
+  $(document).on('change', '.table-select', function() {
+    $(this).closest('form').submit();
+  });

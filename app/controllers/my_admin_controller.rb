@@ -12,6 +12,10 @@ class MyAdminController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def courses
+    @courses = Course.order(:title).page(params[:page])
+  end
+
   def messages
     @messages = Message.active(current_user)
     mark_messages_read(current_user)

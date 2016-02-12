@@ -7,13 +7,13 @@
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
           - if user_signed_in? && current_user.admin?
-            = link_to "Edit", edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item-edit"
       - else
         .col-xs-12.col-md-6
           = link_to platform_subject_path(item.platform, item), class: 'subject without-image' do
             p = item.full_title
           - if user_signed_in? && current_user.admin?
-            = link_to "Edit", edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item-edit"
     - elsif item.class == Course
       - if item.image && item.image.file_url != nil
         .col-xs-12.col-md-6
@@ -21,13 +21,13 @@
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
           - if user_signed_in? && current_user.admin? 
-            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: false, class: "platform-item-edit"
       - else
         .col-xs-12.col-md-6
           = link_to platform_course_path(item.platform, item), class: 'subject without-image' do
             p = item.full_title
           - if user_signed_in? && current_user.admin? 
-            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_course_path(item.platform, item), remote: false, class: "platform-item-edit"
     - elsif item.class == VideoOnDemand
       - if item.image && item.image.file_url != nil
         .col-xs-12.col-md-6
@@ -35,13 +35,13 @@
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
           - if user_signed_in? && current_user.admin? 
-            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item-edit"
       - else
         .col-xs-12.col-md-6
           = link_to platform_video_on_demand_path(item.platform, item), class: 'subject without-image' do
             p = item.full_title
           - if user_signed_in? && current_user.admin? 
-            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item"
+            = link_to "Edit", edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item-edit"
         
 - else
   p.text-center No Matches Found
