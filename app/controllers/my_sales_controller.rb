@@ -2,6 +2,7 @@ class MySalesController < ApplicationController
   include MessageManager
 
   before_action :authenticate_user!
+  before_action :validate_authorization
 
   def classes
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
@@ -32,5 +33,13 @@ class MySalesController < ApplicationController
 
   def announcements
     @announcements = Announcement.where(poster: 'Sales Manager').order('created_at DESC')
+  end
+
+  private
+
+  def validate_authorization
+    unless current_user.sales?
+      redirect_to root_path
+    end
   end
 end

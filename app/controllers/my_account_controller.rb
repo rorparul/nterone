@@ -2,6 +2,7 @@ class MyAccountController < ApplicationController
   include MessageManager
 
   before_action :authenticate_user!
+  before_action :validate_authorization
 
   def plan
     @planned_subjects = current_user.planned_subjects.where(active: true)
@@ -14,5 +15,13 @@ class MyAccountController < ApplicationController
     @messages = Message.active(current_user)
     mark_messages_read(current_user)
     get_alert_counts
+  end
+
+  private
+
+  def validate_authorization
+    unless current_user.member?
+      redirect_to root_path
+    end
   end
 end
