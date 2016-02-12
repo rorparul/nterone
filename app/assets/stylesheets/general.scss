@@ -102,9 +102,15 @@ body {
   }
 }
 
-.platform-item {
+.platform-item-edit {
   position: absolute;
   top: 10px;
+  right: 30px;
+}
+
+.platform-item-info {
+  position: absolute;
+  bottom: 20px;
   right: 30px;
 }
 

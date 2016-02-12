@@ -7,12 +7,6 @@
   a href="#{my_sales_classes_path}"
     | My Sales
     
-- content_for :actions do
-  li
-    = link_to events_upload_path, remote: true do
-      i.fa.fa-upload
-      | Upload Classes
-    
 .row
   .col-xs-12
     = render 'tabs'

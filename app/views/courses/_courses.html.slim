@@ -1,0 +1,11 @@
+- courses.each do |course|
+  tr
+    td.fit = course.id
+    td.fit = course.full_title
+    td.fit = course.upcoming_events.count
+    td.fit.text-right
+      = link_to "Show", platform_course_path(course.platform, course)
+      |  | 
+      = link_to "Edit", edit_platform_course_path(course.platform, course)
+      |  | 
+      = link_to 'Delete', platform_course_path(course.platform, course), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

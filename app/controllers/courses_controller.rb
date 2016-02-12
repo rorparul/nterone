@@ -1,6 +1,10 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user!, except: :show
 
+  def page
+    @courses = Course.order(:title).page(params[:page])
+  end
+
   def new
     @platform   = Platform.find(params[:platform_id])
     @course     = Course.new
