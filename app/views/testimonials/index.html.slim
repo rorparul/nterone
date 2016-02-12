@@ -12,7 +12,7 @@
     
 .row
   .col-sm-12.col-md-9
-    / = image_tag 'consulting.jpg', class: "header-image"
+    = image_tag 'testimonials.jpg', class: "header-image"
     #testimonials
       - @testimonials.each do |testimonial|
         = render partial: 'testimonial', locals: { testimonial: testimonial }
