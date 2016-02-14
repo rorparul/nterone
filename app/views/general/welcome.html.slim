@@ -7,7 +7,7 @@
     | Home
     
 .row
-  .col-sm-12.col-md-9.text-align
+  .col-sm-12.text-align.col-central
     #carousel
       #carousel-example-generic.carousel.slide data-ride="carousel"
         .carousel-inner role="listbox"
@@ -25,8 +25,11 @@
           span.sr-only Next
     .row
       .col-xs-12
-        p NterOne is a global training and consulting company focusing on live online training, self-paced e-learning, private onsite training, and software focused on the training industry. We are a company founded by engineers, for engineers.  The company is headquartered in Reston, VA, is veteran owned, and services customers in over 35 countries.  We are a Cisco Learning Partner, and a VMware Authorized Training Center, and operate our own Data Center in North Carolina featuring award-winning technology. The company’s key technology focus areas are Virtualization, Data Center, Routing and Switching, Voice, Collaboration, Optical, Wireless, and Security.
-    / hr
+        .panel.panel-default
+          .panel-body
+            strong.starting-word NterOne
+            |  is a global training and consulting company focusing on live online training, self-paced e-learning, private onsite training, and software focused on the training industry. We are a company founded by engineers, for engineers.  The company is headquartered in Reston, VA, is veteran owned, and services customers in over 35 countries.  We are a Cisco Learning Partner, and a VMware Authorized Training Center, and operate our own Data Center in North Carolina featuring award-winning technology. The company’s key technology focus areas are Virtualization, Data Center, Routing and Switching, Voice, Collaboration, Optical, Wireless, and Security.
+
     .row
       .col-xs-12.col-md-4
         .panel.panel-default
@@ -37,7 +40,6 @@
                 br
                 span Training
             hr
-            p
               strong Specializing in Live Online Cisco and VMware Training
       .col-xs-12.col-md-4
         .panel.panel-default
@@ -48,7 +50,6 @@
                 br
                 span Content Development
             hr
-            p
               strong Turn–key Custom Content Development and Delivery
       .col-xs-12.col-md-4
         .panel.panel-default
@@ -59,10 +60,9 @@
                 br
                 span Labs
             hr
-            p
               strong Global Data Center Offering 24x7 Lab Access
-  .col-sm-12.col-md-3
+  .col-xs-12.side-column
     = render partial: 'layouts/side_column'
-
+    
 javascript:
   $('.home-tab').addClass('active');

@@ -11,11 +11,11 @@
     | Partners
     
 .row
-  .col-sm-12.col-md-9
+  .col-xs-12.col-central
     = image_tag 'partners.jpg', class: "header-image"
     = @partners.content.html_safe
   
-  .col-sm-12.col-md-3
+  .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
 javascript:

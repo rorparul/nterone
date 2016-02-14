@@ -918,11 +918,6 @@ table {
   float: right;
 }
 
-.credits-image {
-  width: 60%;
-  margin: 15px;
-}
-
 .panel-default {
   background-color: rgb(248, 248, 248);
   .panel-heading {
@@ -969,6 +964,60 @@ table {
   }
 }
 
+.side-column {
+  @media (min-width: 768px) {
+    width: 230px;
+    display: inline-block;
+  }
+  // @media (max-width: 767px) {
+  //
+  // }
+}
+
+.credits-image {
+  @media (min-width: 768px) {
+    margin: 15px 0;
+    width: 80%;
+  }
+  @media (max-width: 767px) {
+    margin: 0;
+    padding: 15px;
+    width: 45%;
+  }
+}
+
+.side-column-graphics {
+  text-align: center;
+  br {
+    display: none;
+  }
+  img {
+    display: inline !important;
+    float: none !important;
+    width: 200px;
+    margin-bottom: 20px;
+    // @media (min-width: 768px) {
+    //
+    // }
+    @media (max-width: 767px) {
+      padding: 15px;
+    }
+  }
+}
+
+.col-central {
+  @media (min-width: 768px) {
+    width: calc(100% - 230px);
+  }
+  // @media (max-width: 767px) {
+  //
+  // }
+}
+
+.starting-word {
+  // font-size: 18px;
+}
+
 .btn-blue {
   border-color: rgb(43, 134, 202);
   @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
@@ -976,7 +1025,7 @@ table {
   margin: 0;
   white-space: normal;
   color: white;
-  font-size: 26px;
+  font-size: 18px;
   text-shadow: rgb(48, 48, 48) 0px 1px 0px;
   &:hover, &:active, &:focus {
     @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
@@ -984,7 +1033,7 @@ table {
     color: white;
   }
   .fa {
-    font-size: 52px;
+    font-size: 40px;
   }
 }
 

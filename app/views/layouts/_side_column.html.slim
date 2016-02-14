@@ -1,15 +1,19 @@
-.side-column
-  .panel.panel-default.panel-orange
-    .panel-heading.text-center
-      strong Redeem Your Credits
-    .panel-body
-      span
-        | NterOne can redeem all of your vouchers and credits for free training!
+.panel.panel-default.panel-red
+  .panel-heading.text-center
+    strong Redeem Your Credits
+  .panel-body
+    span
+      | NterOne can redeem all of your vouchers and credits for free training!
       .text-center
-        = image_tag 'credits-cisco.png', class: 'credits-image'
-      .text-center
+        = image_tag 'credits-cisco.png',  class: 'credits-image'
         = image_tag 'credits-vmware.png', class: 'credits-image'
-      span
-        a href='mailto:sales@nterone.com'
-          | Contact
-        |  us for more details.
+    span
+      a href='mailto:sales@nterone.com'
+        | Contact
+      |  us for more details.
+      
+.side-column-graphics
+  / = image_tag 'just-in-time-training.png', class: 'side-column-graphics'
+  / = image_tag 'nterone-gives-back.png',    class: 'side-column-graphics'
+  / = image_tag 'feeding-america.jpg',       class: 'side-column-graphics'
+  = Page.find_by(page_title: 'Side Column').try(:content).html_safe

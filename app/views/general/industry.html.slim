@@ -11,7 +11,7 @@
     | Industry
     
 .row
-  .col-xs-12.col-md-9
+  .col-xs-12.col-central
     = render partial: 'layouts/about_us_nav_bar'
     
     .row.executive-bios
@@ -29,7 +29,7 @@
               = industry_article.created_at.strftime("%B %d, %Y")
             hr
   
-  .col-xs-12.col-md-3
+  .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
 javascript:
