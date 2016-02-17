@@ -994,7 +994,7 @@ table {
   img {
     display: inline !important;
     float: none !important;
-    width: 200px;
+    max-width: 200px;
     margin-bottom: 20px;
     // @media (min-width: 768px) {
     //
@@ -1016,6 +1016,10 @@ table {
 
 .starting-word {
   // font-size: 18px;
+}
+
+.expanded-text {
+  color: black;
 }
 
 .btn-blue {

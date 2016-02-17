@@ -81,16 +81,11 @@ class EventsController < ApplicationController
   end
 
   def upload
-    upload = ClassesUploader.new(file: event_params[:csv])
-    if upload.valid_header?
-      upload.run!
-      if upload.report.success?
-        flash[:success] = upload.report.message
-      else
-        flash[:alert] = upload.report.message
-      end
+    upload = ClassesUploader.upload(event_params[:file])
+    if upload[:success]
+      flash[:success] = "Successfully uploaded all classes."
     else
-      flash[:alert] = upload.report.message
+      flash[:alert] = "Failures:\n#{upload[:failures]}"
     end
     redirect_to :back
   end
@@ -110,7 +105,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
-                                  :csv,
+                                  :file,
                                   :public,
                                   :status,
                                   :lab_source,
