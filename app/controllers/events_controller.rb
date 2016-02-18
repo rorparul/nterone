@@ -85,7 +85,25 @@ class EventsController < ApplicationController
     if upload[:success]
       flash[:success] = "Successfully uploaded all classes."
     else
-      flash[:alert] = "Failures:\n#{upload[:failures]}"
+      flash[:alert] = ("<strong>#{view_context.pluralize(upload[:failures].count, 'Failure')}:</strong>" +
+                      "<br>" +
+                      "<table class='table table-condensed'>" +
+                        "<thead>" +
+                          "<tr>" +
+                            "<th>Course ID</th>" +
+                            "<th>Course Title</th>" +
+                            "<th>Start Date</th>" +
+                            "<th>End Date</th>" +
+                            "<th>Start Time</th>" +
+                            "<th>End Time</th>" +
+                            "<th>Format</th>" +
+                            "<th>Price</th>" +
+                          "</tr>" +
+                        "</thead>"+
+                        "<tbody>" +
+                          error_rows(upload[:failures]) +
+                        "</tbody>"+
+                      "</table>").html_safe
     end
     redirect_to :back
   end
@@ -117,5 +135,22 @@ class EventsController < ApplicationController
                                   :cost_shipping,
                                   :partner_led,
                                   :time_zone)
+  end
+
+  def error_rows(events)
+    rows = ""
+    events.each do |event|
+      rows += "<tr>" +
+                "<td>#{event[:course_id]}</td>" +
+                "<td>#{event[:course_title]}</td>" +
+                "<td>#{event[:start_date]}</td>" +
+                "<td>#{event[:end_date]}</td>" +
+                "<td>#{event[:start_time]}</td>" +
+                "<td>#{event[:end_time]}</td>" +
+                "<td>#{event[:format]}</td>" +
+                "<td>#{event[:price]}</td>" +
+              "</tr>"
+    end
+    rows
   end
 end

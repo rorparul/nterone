@@ -8,6 +8,8 @@ class Order < ActiveRecord::Base
   validates_associated :buyer
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
 
+  accepts_nested_attributes_for :order_items
+
   before_create :add_up_total
 
   def add_up_total

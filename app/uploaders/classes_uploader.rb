@@ -4,19 +4,25 @@ class ClassesUploader
     spreadsheet = open_spreadsheet(file)
     header = format_header(spreadsheet.row(1))
     (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      row.delete(:course_title)
-      event = Event.new(row)
-      if Event.find_by(course_id: event.course_id, start_date: event.start_date, end_date: event.end_date, start_time: event.start_time, end_time: event.end_time, format: event.format, price: event.price)
+      row_original = Hash[[header, spreadsheet.row(i)].transpose]
+      row_new      = row_original.dup
+      row_new.delete(:course_title)
+      event = Event.new(row_new)
+      if Event.find_by(course_id: event.course_id,
+                       start_date: event.start_date,
+                       end_date: event.end_date,
+                       start_time: event.start_time,
+                       end_time: event.end_time,
+                       format: event.format,
+                       price: event.price)
         report[:success] = false
-        report[:failures] << row
+        report[:failures] << row_original
       else
         unless event.save(row)
-          report[:failures] << row
+          report[:failures] << row_original
         end
       end
     end
-    p report
     report
   end
 
