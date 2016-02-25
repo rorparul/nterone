@@ -27,7 +27,7 @@ class MyAdminController < ApplicationController
   end
 
   def people
-    @users = User.order(:last_name).page(params[:page])
+    @users = User.order("LOWER(last_name)").page(params[:page])
   end
 
   def website

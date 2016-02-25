@@ -1,13 +1,60 @@
 class ClassesUploader
-  include CSVImporter
+  def self.upload(file)
+    report = { success: true, failures: []}
+    spreadsheet = open_spreadsheet(file)
+    header = format_header(spreadsheet.row(1))
+    (2..spreadsheet.last_row).each do |i|
+      row_original = Hash[[header, spreadsheet.row(i)].transpose]
+      row_new      = row_original.dup
+      row_new.delete(:course_title)
+      event = Event.new(row_new)
+      if Event.find_by(course_id: event.course_id,
+                       start_date: event.start_date,
+                       end_date: event.end_date,
+                       start_time: event.start_time,
+                       end_time: event.end_time,
+                       format: event.format,
+                       price: event.price)
+        report[:success] = false
+        report[:failures] << row_original
+      else
+        unless event.save(row)
+          report[:failures] << row_original
+        end
+      end
+    end
+    report
+  end
 
-  model Event
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::Csv.new(file.path)
+    when ".xls" then Roo::Excel.new(file.path)
+    when ".xlsx" then Roo::Excelx.new(file.path)
+    else raise "Unknown file type: #{file.original_filename}"
+    end
+  end
 
-  column :course_id,     as: "Course ID"
-  column :start_date,    as: "Start Date", to: -> (start_date) { Date.strptime(start_date, "%m/%d/%Y").to_s(:db) }
-  column :end_date,      as: "End Date",   to: -> (start_date) { Date.strptime(start_date, "%m/%d/%Y").to_s(:db) }
-  column :start_time,    as: "Start Time"
-  column :end_time,      as: "End Time"
-  column :format,        as: "Format"
-  column :price,         as: "Price"
+  def self.format_header(header)
+    header.map do |title|
+      case title
+      when "Course ID"
+        :course_id
+      when "Course Title"
+        :course_title
+      when "Start Date"
+        :start_date
+      when "End Date"
+        :end_date
+      when "Start Time"
+        :start_time
+      when "End Time"
+        :end_time
+      when "Format"
+        :format
+      when "Price"
+        :price
+      end
+    end
+  end
 end

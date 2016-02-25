@@ -1,25 +1,43 @@
 .form-container
-  = form_for order, remote: true do |f|
-    - if event.errors.any?
-      .alert.alert-danger.alert-dismissible
-        button.close type="button" data-dismiss="alert" aria-label="Close"
-          span aria-hidden="true" &times;
-        h4 = "#{pluralize(event.errors.count, 'error')}:"
-        ul
-          - event.errors.full_messages.each do |msg|
-            li = msg
+  = form_for order, url: orders_path do |f|
+            
+    = f.hidden_field :seller_id, value: current_user.id
+    = f.hidden_field :buyer_id,  value: user.id
+    
+    = f.fields_for :order_items do |ff|
+      = ff.hidden_field :user_id,  value: user.id
+      = ff.hidden_field :orderable_type, value: "VideoOnDemand"
+      .form-group
+        = ff.label :orderable_id, 'Video On Demands'
+        = ff.select :orderable_id,
+                    video_on_demands.collect { |video_on_demand| [video_on_demand.full_title, video_on_demand.id] },
+                    {},
+                    class: "form-control input-sm"
+                     
+    .form-group
+      = f.label :payment_type, 'Payment Type'
+      = f.select :payment_type,
+                 ["Credit Card", "Credits", "Bundled", "No Charge", "Other"],
+                 {},
+                 class: "form-control input-sm"
+                     
+    .form-group
+      = f.label :paid
+      .input-group
+        span.input-group-addon $
+        = f.text_field :paid, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+        span.input-group-addon .00
 
     .row
-      .col-xs-12.col-sm-6
+      .col-xs-12.col-md-6
         .form-group
-          = f.label :start_date, 'Start Date'
-          br
-          = f.date_select :start_date, {}, {}
-      .col-xs-12.col-sm-6
+          = f.label :clc_number, 'Cisco Learning Credit SO#'
+          = f.text_field :clc_number, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
         .form-group
-          = f.label :start_time, 'Start Time'
-          br
-          = f.time_select :start_time, { ampm: true }, {}
+          = f.label :clc_quantity, 'Cisco Learning Credits'
+          = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
+          p.form-instructions.absolute 1 Credit = $100
 
 
     .form-buttons

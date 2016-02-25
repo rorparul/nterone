@@ -28,7 +28,7 @@
       | Edit Event
       
 .row
-  .col-xs-12.col-md-9
+  .col-xs-12.col-central
     #course
       .page-header
         h3 = @course.full_title
@@ -122,7 +122,7 @@
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
 
-  .col-xs-12.col-md-3
+  .col-xs-12.side-column
     .panel.panel-default
       .video-thumbnail-container
         = @course.video_preview.html_safe if @course.video_preview

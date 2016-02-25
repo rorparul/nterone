@@ -92,4 +92,9 @@ NterOne::Application.configure do
     :authentication       => :login,
     :enable_starttls_auto => true
   }
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :slack => {
+      :webhook_url => "https://hooks.slack.com/services/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"
+    }
 end

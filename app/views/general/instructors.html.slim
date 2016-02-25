@@ -11,7 +11,7 @@
     | Instructor Bios
     
 .row
-  .col-xs-12.col-md-9
+  .col-xs-12.col-central
     = render partial: 'layouts/about_us_nav_bar'
         
     .row.instructor-bios
@@ -20,7 +20,7 @@
           h3 Instructors Bios
         = @instructor_bios.content.html_safe
   
-  .col-xs-12.col-md-3
+  .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
 javascript:

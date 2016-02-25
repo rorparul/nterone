@@ -1,22 +1,21 @@
 - content_for :page_title do
-  = @labs.page_title
+  = @page.page_title
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
     | Home
-  span.seperator
-    | /
-  a href="#{labs_path}"
-    | Labs
     
 .row
   .col-xs-12.col-central
-    = image_tag 'labs.jpg', class: "header-image"
-    = @labs.content.html_safe
-    
+    .row
+      .col-xs-12
+        .page-header
+          h3 = @page.title
+        = @page.content.html_safe
+  
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
 javascript:
-  $('.labs-tab').addClass('active');
+  $('.about-us-tab').addClass('active');

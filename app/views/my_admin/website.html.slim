@@ -6,7 +6,7 @@
     | /
   a href="#{my_admin_website_path}"
     | My Admin
-    
+
 .row
   .col-xs-12
     = render 'tabs'
@@ -16,19 +16,24 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted Pages
+        = link_to "Add", new_page_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th Title
-              th 
+              th URL
+              th
           tbody#pages
             - @pages.each do |page|
               tr
                 td = page.title
+                td = link_to "#{request.base_url}#{page_path(page)}", page_path(page)
                 td.actions-column.fit
                   = link_to "Edit", edit_page_path(page), remote: false
-    
+                  = " | "
+                  = link_to 'Delete', page_path(page), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -48,7 +53,7 @@
       div class="#{'panel-footer' if @carousel_items.total_count > 5}"
         #carousel-items-page-control
           = render partial: 'carousel_items/page_controls', locals: { carousel_items: @carousel_items }
-        
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -66,7 +71,7 @@
       div class="#{'panel-footer' if @press_releases.total_count > 5}"
         #press-releases-page-control
           = render partial: 'press_releases/page_controls', locals: { press_releases: @press_releases }
-        
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -84,7 +89,7 @@
       div class="#{'panel-footer' if @blog_posts.total_count > 5}"
         #blog-posts-page-control
           = render partial: 'blog_posts/page_controls', locals: { blog_posts: @blog_posts }
-        
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -123,7 +128,7 @@
       div class="#{'panel-footer' if @testimonials.total_count > 5}"
         #testimonials-page-control
           = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
-    
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .website').addClass('active-category');

@@ -11,13 +11,13 @@
     | Testimonials
     
 .row
-  .col-sm-12.col-md-9
+  .col-xs-12.col-central
     = image_tag 'testimonials.jpg', class: "header-image"
     #testimonials
       - @testimonials.each do |testimonial|
         = render partial: 'testimonial', locals: { testimonial: testimonial }
   
-  .col-sm-12.col-md-3
+  .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
 javascript:

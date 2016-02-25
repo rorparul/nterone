@@ -81,16 +81,29 @@ class EventsController < ApplicationController
   end
 
   def upload
-    upload = ClassesUploader.new(file: event_params[:csv])
-    if upload.valid_header?
-      upload.run!
-      if upload.report.success?
-        flash[:success] = upload.report.message
-      else
-        flash[:alert] = upload.report.message
-      end
+    upload = ClassesUploader.upload(event_params[:file])
+    if upload[:success]
+      flash[:success] = "Successfully uploaded all classes."
     else
-      flash[:alert] = upload.report.message
+      flash[:alert] = ("<strong>#{view_context.pluralize(upload[:failures].count, 'Failure')}:</strong>" +
+                      "<br>" +
+                      "<table class='table table-condensed'>" +
+                        "<thead>" +
+                          "<tr>" +
+                            "<th>Course ID</th>" +
+                            "<th>Course Title</th>" +
+                            "<th>Start Date</th>" +
+                            "<th>End Date</th>" +
+                            "<th>Start Time</th>" +
+                            "<th>End Time</th>" +
+                            "<th>Format</th>" +
+                            "<th>Price</th>" +
+                          "</tr>" +
+                        "</thead>"+
+                        "<tbody>" +
+                          error_rows(upload[:failures]) +
+                        "</tbody>"+
+                      "</table>").html_safe
     end
     redirect_to :back
   end
@@ -110,7 +123,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
-                                  :csv,
+                                  :file,
                                   :public,
                                   :status,
                                   :lab_source,
@@ -122,5 +135,22 @@ class EventsController < ApplicationController
                                   :cost_shipping,
                                   :partner_led,
                                   :time_zone)
+  end
+
+  def error_rows(events)
+    rows = ""
+    events.each do |event|
+      rows += "<tr>" +
+                "<td>#{event[:course_id]}</td>" +
+                "<td>#{event[:course_title]}</td>" +
+                "<td>#{event[:start_date]}</td>" +
+                "<td>#{event[:end_date]}</td>" +
+                "<td>#{event[:start_time]}</td>" +
+                "<td>#{event[:end_time]}</td>" +
+                "<td>#{event[:format]}</td>" +
+                "<td>#{event[:price]}</td>" +
+              "</tr>"
+    end
+    rows
   end
 end

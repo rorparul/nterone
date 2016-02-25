@@ -1,12 +1,33 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
-  
+  before_action :authenticate_user!, except: :show
+  before_action :set_page, except: [:new, :create]
+
+  def new
+    @page = Page.new
+  end
+
+  def create
+    @page = Page.new(page_params)
+    if @page.save
+      redirect_to my_admin_website_path
+    else
+      render 'new'
+    end
+  end
+
+  # def index
+  #
+  # end
+
+  def show
+
+  end
+
   def edit
-    @page = Page.find(params[:id])
+
   end
 
   def update
-    @page = Page.find(params[:id])
     if @page.update_attributes(page_params)
       flash[:success] = "Page successfully updated!"
       # render js: "window.location = '#{my_admin_website_path}';"
@@ -16,7 +37,15 @@ class PagesController < ApplicationController
     end
   end
 
+  def delete
+
+  end
+
   private
+
+  def set_page
+    @page = Page.find(params[:id])
+  end
 
   def page_params
     params.require(:page).permit(:title,
