@@ -14,7 +14,12 @@ module GeneralHelper
         end
       end
     end
-    "<span>Welcome<br>#{personal_greeting}<span/>".html_safe
+
+    # Goes with .sidebar
+    # "<span>Welcome<br>#{personal_greeting}<span/>".html_safe
+
+    # Goes with .sidebar-v2
+    "<span class='text'>Welcome #{personal_greeting}<span/>".html_safe
   end
 
   def planned_course(user, course)
