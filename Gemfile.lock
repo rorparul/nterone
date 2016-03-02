@@ -75,6 +75,8 @@ GEM
     byebug (4.0.5)
       columnize (= 0.9.0)
     callsite (0.0.11)
+    canonical-rails (0.0.11)
+      rails (>= 3.1, < 5.0)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -227,6 +229,7 @@ GEM
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -367,6 +370,7 @@ DEPENDENCIES
   bootstrap-select-rails
   bootsy
   bullet
+  canonical-rails
   capistrano
   capistrano-passenger
   capistrano-rails
@@ -400,6 +404,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.4)
   public_activity
   pundit (~> 1.0.1)
+  rack-rewrite (~> 1.5.0)
   rails (= 4.2.0)
   rails-erd
   remotipart
