@@ -41,6 +41,17 @@ $(function() {
     $('#accordion .in').collapse('hide');
     $('#mobile-accordion .in').collapse('hide');
   });
+
+  // $(document).on('scroll', function() {
+	// 	var windowScroll = $(window).scrollTop();
+	// 	var offerOffSet = $('.content').offset().top;
+	// 	var difference = windowScroll - offerOffSet;
+	// 	if(difference >= -10) {
+	// 		$('.sidebar-v2').addClass("fixed");
+	// 	} else {
+	// 		$('.sidebar-v2').removeClass("fixed");
+	// 	}
+	// })
 });
 
 $(document).on('page:change', function() {
