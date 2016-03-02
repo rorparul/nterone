@@ -23,9 +23,9 @@ module NterOne
     # config.i18n.default_locale = :de
     # config.assets.precompile += %w( brands.js general.js rules.js subjects.js )
     config.active_job.queue_adapter = :sidekiq
-    
-    # config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
-    #   r301 %r{^/(.*)/$}, '/$1'
-    # end
+
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
+      r301 %r{^/(.*)/$}, '/$1'
+    end
   end
 end
