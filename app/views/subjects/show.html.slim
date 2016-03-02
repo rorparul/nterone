@@ -64,5 +64,5 @@ javascript:
   $('.training-tab').addClass('active');
   
   $('#back').on('click', function() {
-    window.history.back();
+    location.replace(document.referrer);
   });

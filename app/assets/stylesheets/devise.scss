@@ -1,3 +1,6 @@
+// -----------------------------------------------------------------------------
+// GENERAL
+// -----------------------------------------------------------------------------
 .devise-container {
   position: relative;
   top: 50%;
@@ -128,4 +131,32 @@
 
 #enter-email {
   border-radius: 4px;
+}
+
+.devise-back-container {
+  margin-top: 15px;
+  text-align: center;
+  #devise-back {
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    float: none !important;
+    font-size: 11px;
+    font-weight: bold;
+    height: 30px;
+    margin: auto !important;
+    padding: 7px 10px;
+    outline: none;
+    background-color: #4e95ca !important;
+    background-repeat: repeat-x !important; /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4e95ca), to(#2d87ca)) !important; /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #4e95ca, #2d87ca) !important; /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top, #4e95ca, #2d87ca) !important; /* IE 10 */
+    background: -ms-linear-gradient(top, #4e95ca, #2d87ca) !important; /* Opera 11.10+ */
+    background: -o-linear-gradient(top, #4e95ca, #2d87ca) !important;
+    border: 1px solid rgb(62, 118, 175) !important;
+    cursor: pointer;
+    &:hover {
+      opacity: .80;
+    }
+  }
 }

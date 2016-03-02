@@ -18,3 +18,10 @@ html
             = image_tag 'logo-with-tagline.png'
       .devise_actions
         = yield
+      .devise-back-container
+        button#devise-back Back
+
+javascript:
+  $('#devise-back').on('click', function() {
+    location.replace(document.referrer);
+  });
