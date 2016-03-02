@@ -27,5 +27,6 @@ Disallow: /chosen_courses/
 Disallow: /passed_exams/
 Disallow: /request-quote
 Disallow: /events-upload
+Disallow: /*?cat=$
 
 Sitemap: https://www.nterone.com/sitemap.xml.gz

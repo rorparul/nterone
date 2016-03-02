@@ -17,12 +17,14 @@
       = link_to 'Show All',
                 platform_path(@platform, cat: parent_category.id, type: 'all'),
                 class: "btn btn-child-category sub-category",
-                remote: true
+                remote: true,
+                rel: "nofollow"
       - parent_category.children.each do |child|
         = link_to child.title,
                   platform_path(@platform, cat: child.id),
                   class: "btn btn-child-category sub-category #{'active-category' if child == @child_category}",
-                  remote: true
+                  remote: true,
+                  rel: "nofollow"
 
 .categories-mobile.visible-xs
   .panel-group#mobile-accordion role='tablist' aria-multiselectable='true'
@@ -39,12 +41,14 @@
             = link_to 'Show All',
                       platform_path(@platform, cat: category.id, type: 'all'),
                       class: "btn btn-child-category sub-category",
-                      remote: true
+                      remote: true,
+                      rel: "nofollow"
             - category.children.each do |child|
               = link_to child.title,
                         platform_path(@platform, cat: child.id),
                         class: "btn btn-child-category sub-category",
-                        remote: true
+                        remote: true,
+                        rel: "nofollow"
       - else
         = link_to category.title,
                   platform_path(@platform, cat: category.id),
