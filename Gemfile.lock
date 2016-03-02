@@ -227,6 +227,7 @@ GEM
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -400,6 +401,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.4)
   public_activity
   pundit (~> 1.0.1)
+  rack-rewrite (~> 1.5.0)
   rails (= 4.2.0)
   rails-erd
   remotipart
