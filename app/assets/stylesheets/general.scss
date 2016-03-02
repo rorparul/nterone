@@ -21,7 +21,7 @@ body {
   position: relative;
   height: 100%;
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: auto;
 }
 
@@ -78,8 +78,9 @@ body {
 }
 
 .header-image {
-  max-width: 100%;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+
 }
 
 .field_with_errors {

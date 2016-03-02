@@ -12,12 +12,11 @@
     
 .row
   .col-xs-12.col-central
+    = image_tag 'press.png', class: "header-image"
     = render partial: 'layouts/about_us_nav_bar'
     
     .row.executive-bios
       .col-xs-12
-        .page-header
-          h3 Press
         - @press_releases.each do |press_release|
           .article
             h3
