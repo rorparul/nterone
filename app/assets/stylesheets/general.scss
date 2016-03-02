@@ -557,11 +557,12 @@ iframe.wysihtml5-sandbox {
 }
 
 .sidebar-v2 {
-  display: block;
+  // padding-right: 15px;
+  display: inline-block;
   width: 200px;
   position: absolute;
-  top: 158px;
-  left: 30px;
+  top: 88px;
+  left: 0;
   border-radius: 4px;
   z-index: 500;
   ul {
@@ -630,6 +631,13 @@ iframe.wysihtml5-sandbox {
   .bottom {
     margin-top: 30px;
   }
+}
+
+.sidebar-v2.fixed {
+  position: fixed;
+  top: 10px;
+  left: inherit;
+  right: inherit;
 }
 
 .text-left {
