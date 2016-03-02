@@ -3,66 +3,65 @@
 /     li = link_to root_path, class: 'home-tab' do
 /       = personal_greeting
 /     = render 'layouts/sidebar_items'
-  
-.sidebar-v2.hidden-xs
-  ul.nav
-    li = link_to root_path, class: 'home-tab' do
-      span.fa.fa-home
-      = personal_greeting
-    li = link_to executives_bios_path, class: 'about-us-tab' do
-      span.fa.fa-info-circle
-      span.text About Us
-    li = link_to platforms_path, class: 'training-tab' do
-      span.fa.fa-book
-      span.text Training
-    li = link_to testimonials_path, class: 'testimonials-tab' do
-      span.fa.fa-thumbs-o-up
-      span.text Testimonials
-    li = link_to forums_path, class: "forums-tab" do
-      span.fa.fa-comments-o
-      span.text Forums
-    li = link_to consulting_path, class: "consulting-tab" do
-      span.fa.fa-puzzle-piece
-      span.text Consulting
-    li = link_to partners_path, class: "partners-tab" do
-      span.fa.fa-users
-      span.text Partners
-    li = link_to labs_path, class: "labs-tab" do
-      span.fa.fa-flask
-      span.text Labs
-    - if !user_signed_in? || (user_signed_in? && current_user.member?)
-      li = link_to contact_us_path, class: "contact-us-tab", remote: true do
-        span.fa.fa-envelope-o
-        span.text Contact Us
-    - if user_signed_in?
-      - if current_user.admin?
-        li = link_to my_admin_classes_path, class: "role-tab" do
-          span.fa.fa-gear
-          span.text My Admin
-          - if @total_alert_count > 0
-            span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-      - if current_user.sales?
-        li = link_to my_sales_queue_path, class: "role-tab" do
-          span.fa.fa-coffee
-          span.text My Sales
-          - if @total_alert_count > 0
-            span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-      - if current_user.member?
-        li = link_to my_account_plan_path, class: "role-tab" do
-          span.fa.fa-user
-          span.text My Account
-          - if @total_alert_count > 0
-            span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
-            
-  ul.nav.bottom
-    - if !user_signed_in? || (user_signed_in? && current_user.member?)
-      li = link_to new_user_session_path, class: "login-tab" do
-        span.fa.fa-sign-in
-        span.text Login
-    - else
-      li = link_to main_app.destroy_user_session_path, method: :delete do
-        span.fa.fa-sign-out
-        span.text Logout
+
+.col-xs-12.side-column.hidden-xs
+  .sidebar-v2
+    ul.nav
+      li = link_to root_path, class: 'home-tab' do
+        span.fa.fa-home
+        = personal_greeting
+      li = link_to executives_bios_path, class: 'about-us-tab' do
+        span.fa.fa-info-circle
+        span.text About Us
+      li = link_to platforms_path, class: 'training-tab' do
+        span.fa.fa-book
+        span.text Training
+      li = link_to testimonials_path, class: 'testimonials-tab' do
+        span.fa.fa-thumbs-o-up
+        span.text Testimonials
+      li = link_to forums_path, class: "forums-tab" do
+        span.fa.fa-comments-o
+        span.text Forums
+      li = link_to consulting_path, class: "consulting-tab" do
+        span.fa.fa-puzzle-piece
+        span.text Consulting
+      li = link_to partners_path, class: "partners-tab" do
+        span.fa.fa-users
+        span.text Partners
+      li = link_to labs_path, class: "labs-tab" do
+        span.fa.fa-flask
+        span.text Labs
+      - if !user_signed_in? || (user_signed_in? && current_user.member?)
+        li = link_to contact_us_path, class: "contact-us-tab", remote: true do
+          span.fa.fa-envelope-o
+          span.text Contact Us
+      - if user_signed_in?
+        - if current_user.admin?
+          li = link_to my_admin_classes_path, class: "role-tab" do
+            span.fa.fa-gear
+            span.text My Admin
+            - if @total_alert_count > 0
+              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+        - if current_user.sales?
+          li = link_to my_sales_queue_path, class: "role-tab" do
+            span.fa.fa-coffee
+            span.text My Sales
+            - if @total_alert_count > 0
+              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+        - if current_user.member?
+          li = link_to my_account_plan_path, class: "role-tab" do
+            span.fa.fa-user
+            span.text My Account
+            - if @total_alert_count > 0
+              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+      - else
+        li = link_to new_user_session_path, class: "login-tab" do
+          span.fa.fa-sign-in
+          span.text Login
+      - if user_signed_in?
+        li = link_to main_app.destroy_user_session_path, method: :delete do
+          span.fa.fa-sign-out
+          span.text Logout
 
 .sidebar-mobile.visible-xs
   .sidebar-content
