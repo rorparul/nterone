@@ -25,102 +25,32 @@
       i.fa.fa-pencil
       | Edit Topic
 
-- content_for :sub_sidebar do
-  .sub-sidebar
-    h1.sub-sidebar-heading Categories
-    .forums-select
-      = render partial: 'filter'
-    .divider.sub-divider
-      span
-    ul.topics
-      = render partial: 'topics/topics', locals: {topics: @topics}
-    footer.mobile-forums-footer.visible-xs
-      = render 'layouts/footer'
+.row
+  .col-xs-12.col-md-3
+    .sub-sidebar
+      h1.sub-sidebar-heading Categories
+      .forums-select
+        = render partial: 'filter'
+      .divider.sub-divider
+        span
+      ul.topics
+        = render partial: 'topics/topics', locals: {topics: @topics}
+  .col-xs-12.col-md-9.topic-show
       
 - unless user_signed_in?
-  .row
-    .col-xs-12
-      p
-        | Wanna join in on the conversation? 
-        a href="#{new_user_session_path}" Login 
-        | or 
-        a href="#{new_user_registration_path}" create an account 
-        | to ge started.
+  .col-xs-3
+    p
+      | Wanna join in on the conversation? 
+      a href="#{new_user_session_path}" Login 
+      | or 
+      a href="#{new_user_registration_path}" create an account 
+      | to ge started.
 
 javascript:
   var currentView = 'topics';
 
   $('.forums-tab').addClass('active');
 
-  $(window).on('resize', function() {
-    calibrateMargins();
-  });
-
-  $(document).on('click', '#back', function() {
-    currentView = 'topics';
-    if(window.innerWidth <= 767) {
-      $('.content').fadeOut();
-      $('.sub-sidebar').fadeIn(1000);
-    }
-  });
-
-  $(document).on('click', '.topic-form', function() {
-    currentView = 'posts';
-    if(window.innerWidth <= 767) {
-      $('.sub-sidebar').fadeOut();
-      $('.content').fadeIn(1000);
-    }
-  });
-
-  function calibrateMargins() {
-    if(window.innerWidth <= 767) {
-      $('.container-fluid, .top, .general-footer').css('margin-left', '15px');
-      if(currentView == 'topics') {
-        $('.content').hide();
-        $('.sub-sidebar').show();
-      } else if(currentView == 'posts') {
-        $('.sub-sidebar').hide();
-        $('.content').show();
-      }
-    } else {
-      $('.container-fluid, .top, .general-footer').css('margin-left', '355px');
-      $('.sub-sidebar').show();
-      $('.content').show();
-    }
-    
-    if($('.container-fluid').width() <= 979) {
-      $('.partner.veteran').hide();
-    } else if($('.container-fluid').width() > 979) {
-      $('.partner.veteran').show();
-    }
-    
-    if($('.container-fluid').width() <= 794) {
-      $('.partner.gsa').hide();
-    } else if($('.container-fluid').width() > 794) {
-      $('.partner.gsa').show();
-    }
-    
-    if($('.container-fluid').width() <= 705) {
-      $('.partner.cisco').hide();
-    } else if($('.container-fluid').width() > 705) {
-      $('.partner.cisco').show();
-    }
-    
-    if($('.container-fluid').width() <= 616) {
-      $('.partner.vmware').hide();
-      $('.logo-with-tagline-large img').width(280);
-      $('.logo-with-tagline-large img').css('margin-top', '30px');
-    } else if($('.container-fluid').width() > 616) {
-      $('.partner.vmware').show();
-      $('.logo-with-tagline-large img').width(500);
-      $('.logo-with-tagline-large img').css('margin-top', '0px');
-    }
-  }
-
   $('.forums-select').on('change', '.sub-select', function() {
     $(this).parent('form').submit();
-  });
-
-  $(document).on('ready', function() {
-    calibrateMargins();
   });

@@ -22,9 +22,9 @@ html
   body
     = render 'layouts/modal'
     = render 'layouts/header'
-    = yield  :sub_sidebar
     .container-fluid
       = render 'layouts/sidebar'
+      / = yield  :sub_sidebar
       .content-top
         i#menu-toggle.fa.fa-bars
         #header-nav
