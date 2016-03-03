@@ -19,15 +19,15 @@ class GeneralController < ApplicationController
   end
 
   def press
-    @press_releases = PressRelease.all
+    @press_releases = PressRelease.order(created_at: :desc)
   end
 
   def blog
-    @blog_posts = BlogPost.all
+    @blog_posts = BlogPost.order(created_at: :desc)
   end
 
   def industry
-    @industry_articles = IndustryArticle.all
+    @industry_articles = IndustryArticle.order(created_at: :desc)
   end
 
   def consulting
@@ -40,6 +40,10 @@ class GeneralController < ApplicationController
 
   def labs
     @labs = Page.find_by(title: 'Labs')
+  end
+
+  def featured_classes
+    
   end
 
   def contact_us_new
