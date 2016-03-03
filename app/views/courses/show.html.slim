@@ -30,13 +30,12 @@
 .row
   .col-xs-12.col-central
     #course
-      .page-header
-        h3 = @course.full_title
+      = image_tag "course-banner-#{@platform.title.downcase}.png", class: "course-banner"
       .row
         .col-xs-12
           .row
             .col-xs-12
-              p = @course.intro.html_safe if @course.intro
+              .course-intro = @course.intro.html_safe if @course.intro
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
