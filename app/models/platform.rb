@@ -9,6 +9,7 @@ class Platform < ActiveRecord::Base
   # has_many :groups
   has_many :exams, dependent: :destroy
   has_many :courses, dependent: :destroy
+  has_many :events, through: :courses
   has_many :dividers, dependent: :destroy
   has_many :custom_items, dependent: :destroy
   has_many :exam_and_course_dynamics, dependent: :destroy
@@ -23,4 +24,8 @@ class Platform < ActiveRecord::Base
 
   validates :title, presence: true
   validates_associated :image
+
+  def featured_upcoming_events
+    events.where("events.active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
+  end
 end
