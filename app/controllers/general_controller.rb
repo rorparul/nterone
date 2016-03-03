@@ -43,7 +43,7 @@ class GeneralController < ApplicationController
   end
 
   def featured_classes
-    
+    @platforms = Platform.order(:title)
   end
 
   def contact_us_new

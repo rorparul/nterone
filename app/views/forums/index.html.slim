@@ -7,8 +7,7 @@
     | Home
   span.seperator
     | /
-  a href="#{forums_path}"
-    | Forums
+  span.text-muted Forums
 
 - content_for :actions do
   - if user_signed_in? && current_user.employee?
