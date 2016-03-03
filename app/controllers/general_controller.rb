@@ -42,6 +42,10 @@ class GeneralController < ApplicationController
     @labs = Page.find_by(title: 'Labs')
   end
 
+  def featured_classes
+    
+  end
+
   def contact_us_new
     if user_signed_in?
       @user = current_user
