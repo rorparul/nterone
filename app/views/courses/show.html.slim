@@ -15,8 +15,7 @@
     = @platform.title
   span.seperator
     | /
-  a href="#{platform_course_path(@platform, @course)}"
-    = "#{@course.abbreviation}"
+  span.text-muted = "#{@course.abbreviation}"
     
 - content_for :actions do
   - if user_signed_in? && current_user.admin?

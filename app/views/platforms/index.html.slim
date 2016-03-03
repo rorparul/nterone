@@ -7,8 +7,7 @@
     | Home
   span.seperator
     | /
-  a href="#{platforms_path}"
-    | Training
+  span.text-muted Training
 
 - content_for :actions do
   - if current_user && current_user.admin?

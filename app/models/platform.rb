@@ -6,7 +6,6 @@ class Platform < ActiveRecord::Base
 
   has_many :categories, dependent: :destroy
   has_many :subjects, dependent: :destroy
-  # has_many :groups
   has_many :exams, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :events, through: :courses

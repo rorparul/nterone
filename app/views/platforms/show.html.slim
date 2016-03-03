@@ -11,8 +11,7 @@
     | Training
   span.seperator
     | /
-  a href="#{platform_path(@platform)}"
-    = @platform.title
+  span.text-muted = @platform.title
 
 - content_for :actions do
   - if user_signed_in? && current_user.admin?

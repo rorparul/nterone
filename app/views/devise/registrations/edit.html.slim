@@ -5,14 +5,11 @@
   span.seperator
     | /
   - if current_user.admin?
-    a href="#{main_app.edit_user_registration_path}"
-      | My Admin
+    span.text-muted My Admin
   - if current_user.sales?
-    a href="#{main_app.edit_user_registration_path}"
-      | My Sales
+    span.text-muted My Sales
   - if current_user.member?
-    a href="#{main_app.edit_user_registration_path}"
-      | My Account
+    span.text-muted My Account
 
 .row
   .col-xs-12

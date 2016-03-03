@@ -15,8 +15,7 @@
     = @platform.title
   span.seperator
     | /
-  a href="#{platform_video_on_demand_path(@platform, @video_on_demand)}"
-    = "#{@video_on_demand.abbreviation}"
+  span.text-muted = "#{@video_on_demand.abbreviation}"
       
 .row
   .col-xs-12.col-central
