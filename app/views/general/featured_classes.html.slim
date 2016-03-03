@@ -57,17 +57,7 @@
                           = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                           |  | 
                           = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
-      - else
-        #upcoming-classes
-          .panel.panel-default
-            .panel-heading
-              strong = platform.title
-            .table-responsive
-              table.table.table-condensed
-                tbody
-                  tr
-                    td.text-center
-                      | Contact sales@nterone.com for training schedule.
+
     
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
