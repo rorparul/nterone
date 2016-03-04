@@ -24,10 +24,8 @@
     strong.text-muted Edit Course
   .panel-body
     = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
-    
-button#back Back
 
 javascript:
-  $('#back').on('click', function() {
+  $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });

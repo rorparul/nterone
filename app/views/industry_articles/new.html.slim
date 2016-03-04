@@ -16,13 +16,11 @@
     strong.text-muted Add Industry Article
   .panel-body
     = render partial: "form", locals: { industry_article: @industry_article }
-    
-button#back Back
 
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .website').addClass('active-category');
   
-  $('#back').on('click', function() {
+  $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });

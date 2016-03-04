@@ -42,17 +42,17 @@ $(function() {
     $('#mobile-accordion .in').collapse('hide');
   });
 
-  // $(document).on('scroll', function() {
-	// 	var windowScroll = $(window).scrollTop();
-	// 	var offerOffSet = $('.content').offset().top;
-	// 	var difference = windowScroll - offerOffSet;
-	// 	if(difference >= -10) {
-	// 		$('.sidebar-v2').addClass("fixed");
-	// 	} else {
-	// 		$('.sidebar-v2').removeClass("fixed");
-	// 	}
-	// })
-  
+  $(document).on('scroll', function() {
+		var windowScroll = $(window).scrollTop();
+		var offerOffSet = $('.content').offset().top;
+		var difference = windowScroll - offerOffSet;
+		if(difference >= -30) {
+			$('.sidebar-v2').addClass("fixed");
+		} else {
+			$('.sidebar-v2').removeClass("fixed");
+		}
+	})
+
   $(".col-central").filter(function () {
     var html = $(this).html();
     var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;

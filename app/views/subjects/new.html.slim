@@ -20,10 +20,8 @@
     strong.text-muted Add Certification
   .panel-body
     = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
-    
-button#back Back
 
 javascript:
-  $('#back').on('click', function() {
+  $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });
