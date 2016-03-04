@@ -20,10 +20,8 @@
     strong.text-muted Add Video On Demand
   .panel-body
     = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, courses: @courses, instructors: @instructors }
-    
-button#back Back
 
 javascript:
-  $('#back').on('click', function() {
+  $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });
