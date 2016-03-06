@@ -16,7 +16,7 @@
         i.fa.fa-plus
         | Add Platform
 
-.row.platforms
+.row
   - if @platforms
     - @platforms.each do |platform|
       = render partial: 'platforms/platform', locals: { platform: platform }

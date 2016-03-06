@@ -5,11 +5,6 @@ $(function() {
     $('.sidebar-content').fadeToggle();
   });
 
-  $('.course').on('click', function() {
-    sessionStorage.removeItem('category');
-    sessionStorage.removeItem('subCategory');
-  });
-
   $(document).on('click', '.topic', function() {
     $('.topic').removeClass('active-topic');
     $(this).addClass('active-topic');
@@ -25,16 +20,6 @@ $(function() {
 
   $('#accordion').on('show.bs.collapse', function () {
     $('#accordion .in').collapse('hide');
-  });
-
-  $('.btn-category').click(function() {
-    $('.active-category').removeClass('active-category');
-    $(this).addClass('active-category');
-  });
-
-  $('.btn-child-category').click(function() {
-    $('.btn-child-category.active-category').removeClass('active-category');
-    $(this).addClass('active-category');
   });
 
   $('.not-accordion').click(function() {
