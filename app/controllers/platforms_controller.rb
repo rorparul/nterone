@@ -6,20 +6,20 @@ class PlatformsController < ApplicationController
     @platforms = Platform.all.eager_load(:image)
   end
 
-  def show
-    respond_to do |format|
-      format.html do
-        @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
-      end
-      format.js do
-        if params['type'] == 'all'
-          @items = Category.find(params['cat']).children_items
-        else
-          @items = Category.find(params['cat']).items
-        end
-      end
-    end
-  end
+  # def show
+  #   respond_to do |format|
+  #     format.html do
+  #       @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
+  #     end
+  #     format.js do
+  #       if params['type'] == 'all'
+  #         @items = Category.find(params['cat']).children_items
+  #       else
+  #         @items = Category.find(params['cat']).items
+  #       end
+  #     end
+  #   end
+  # end
 
   def new
     @platform = Platform.new

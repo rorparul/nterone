@@ -9,7 +9,6 @@ class CategoriesController < ApplicationController
 
   def show
     @platform   = Platform.find(params[:platform_id])
-    @category   = Category.find(params[:id])
     @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
     if @category.parent
       @items = @category.items

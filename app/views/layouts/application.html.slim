@@ -30,14 +30,12 @@ html
           .page-title
             = yield :breadcrumbs
           - if content_for(:actions)
-            #action-menu.dropdown.btn-actions
-              button#actions.btn.dropdown-toggle type="button" data-toggle="dropdown"
-                span.glyphicon.glyphicon-cog
-                span Actions
-                span.caret
-              ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
-                = yield :actions
-          span#universal-search
+            span.header-nav-actions type="button" data-toggle="dropdown"
+              i.fa.fa-cog
+              | Actions
+            ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
+              = yield :actions
+          span.header-nav-actions
             = link_to new_search_path, remote: true do
               i.fa.fa-search
               | Search
