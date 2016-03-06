@@ -17,7 +17,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :platform_icon, if: :platform? do
-    process resize_to_limit: [200, 150]
+    process resize_to_limit: [150, 93]
   end
 
   version :subject_icon, if: :subject? do

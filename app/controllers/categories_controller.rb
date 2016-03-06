@@ -8,6 +8,14 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @platform   = Platform.find(params[:platform_id])
+    @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
+    if @category.parent
+      @items = @category.items
+    else
+      @items = @category.children_items
+    end
+    render 'platforms/show'
   end
 
   def new

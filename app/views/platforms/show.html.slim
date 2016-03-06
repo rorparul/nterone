@@ -70,9 +70,11 @@
       i.fa.fa-pencil
       | Edit Instructor
       
-= render 'categories_menu'
+= render partial: 'platforms/categories_menu', locals: { category: @category,
+                                                         categories: @categories }
 
 .row.subjects
+  = render partial: 'platforms/items', locals: { items: @items }
 
 javascript:
   $('.training-tab').addClass('active');
