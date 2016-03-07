@@ -4,7 +4,8 @@
       = link_to parent_category.title,
                 platform_category_path(parent_category.platform, parent_category),
                 class: "btn btn-category category #{'active-category' if parent_category == category || parent_category.children.include?(category)}"
-    hr
+    .col-xs-12
+      hr
     .row.sub-categories.text-center
       = link_to 'Show All',
                 platform_category_path(category.parent ? category.parent.platform : category.platform, category.parent ? category.parent : category),

@@ -540,13 +540,12 @@ iframe.wysihtml5-sandbox {
 }
 
 .sidebar-mobile {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   text-align: center;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
   overflow: hidden;
   @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
   .fa {
@@ -643,13 +642,16 @@ iframe.wysihtml5-sandbox {
     @media (max-width: 767px) { padding: 0; }
     @media (min-width: 768px) { padding: 0 30px; }
     #menu-toggle {
-      position: absolute;
+      position: fixed;
       right: 15px;
       font-size: 30px;
-      top: -61px;
+      top: 4px;
       cursor: pointer;
       z-index: 1000;
-      color: lightgray;
+      color: white;
+      padding: 0 10px;
+      background-color: rgba(0, 0, 0, .25);
+      border-radius: 4px;
       @media (min-width: 768px) {
         display: none;
       }
