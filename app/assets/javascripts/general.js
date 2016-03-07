@@ -2,7 +2,8 @@ $(function() {
   $('.selectpicker').selectpicker();
 
   $('#menu-toggle').on('click', function() {
-    $('.sidebar-content').fadeToggle();
+    var $sidebarContent = $('.sidebar-content');
+    $sidebarContent.fadeToggle();
   });
 
   $(document).on('click', '.topic', function() {

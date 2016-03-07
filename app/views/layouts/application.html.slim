@@ -25,7 +25,8 @@ html
     .container-fluid
       = render 'layouts/sidebar'
       .content-top
-        i#menu-toggle.fa.fa-bars
+        #menu-toggle
+          i.fa.fa-bars
         #header-nav
           .page-title
             = yield :breadcrumbs
