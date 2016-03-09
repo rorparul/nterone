@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308211809) do
+ActiveRecord::Schema.define(version: 20160309155645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -561,15 +561,19 @@ ActiveRecord::Schema.define(version: 20160308211809) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.text     "intro"
+    t.text     "overview"
+    t.text     "outline"
+    t.text     "intended_audience"
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

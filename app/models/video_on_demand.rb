@@ -13,7 +13,7 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   belongs_to :platform
-  belongs_to :course
+  belongs_to :course #TODO remove after transfer
   belongs_to :instructor
 
   has_many :order_items,               as: :orderable

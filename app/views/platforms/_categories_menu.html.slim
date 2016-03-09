@@ -12,7 +12,7 @@
                 class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
       - categories.each do |parent_category|
         - if parent_category == category || parent_category == category.parent
-          - parent_category.children.each do |child_category|
+          - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
             = link_to child_category.title,
                       platform_category_path(child_category.platform, child_category),
                       class: "btn btn-child-category sub-category #{'active-category' if child_category == category}"
@@ -30,7 +30,7 @@
             = link_to 'Show All',
                       platform_category_path(category.parent ? category.parent.platform : category.platform, category.parent ? category.parent : category),
                       class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
-            - parent_category.children.each do |child_category|
+            - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
               = link_to child_category.title,
                         platform_category_path(child_category.platform, child_category),
                         class: "btn btn-child-category sub-category #{'active-category' if child_category == category}"

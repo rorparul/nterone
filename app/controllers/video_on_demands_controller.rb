@@ -8,7 +8,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses         = @platform.courses
     @instructors     = @platform.instructors
     @video_on_demand.build_image
   end
@@ -24,7 +23,6 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses     = @platform.courses
       @instructors = @platform.instructors
       render 'new'
     end
@@ -42,7 +40,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses          = @platform.courses
     @instructors      = @platform.instructors
     @video_on_demand.build_image
   end
@@ -56,7 +53,6 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses         = @platform.courses
       @instructors     = @platform.instructors
       @video_on_demand.build_image unless @video_on_demand.image.present?
     end
@@ -68,7 +64,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses         = @platform.courses
     @instructors     = @platform.instructors
     @video_on_demand.build_image unless @video_on_demand.image.present?
   end
@@ -84,7 +79,6 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses     = @platform.courses
       @instructors = @platform.instructors
       render "edit"
     end
@@ -119,7 +113,10 @@ class VideoOnDemandsController < ApplicationController
                                             :instructor_id,
                                             :level,
                                             :price,
-                                            category_ids: [],
+                                            :intro,
+                                            :overview,
+                                            :outline,
+                                            :intended_audience,
                                             video_modules_attributes: [:id,
                                                                        :title,
                                                                        :_destroy,

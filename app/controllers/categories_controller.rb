@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   def show
     session[:last_category_url] = request.url
     @platform   = Platform.find(params[:platform_id])
-    @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
+    @categories = @platform.parent_categories.order(:title).includes(:children)
     if @category.parent
       @items = @category.items
     else
