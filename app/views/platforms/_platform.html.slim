@@ -5,7 +5,7 @@
         - if platform.image.present? && platform.image.file.present?
           = image_tag platform.image.file.platform_icon.url
         - else
-          = platform.title
+          h1 = platform.title
       .col-xs-12
         hr
         h4.text-muted Browse By

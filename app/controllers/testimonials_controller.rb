@@ -3,6 +3,7 @@ class TestimonialsController < ApplicationController
   before_action :set_testimonial, except: [:index, :new, :create, :page]
 
   def index
+    @page         = Page.find_by(title: 'Testimonials')
     @testimonials = Testimonial.all
   end
 

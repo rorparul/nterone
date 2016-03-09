@@ -10,6 +10,16 @@
             li = msg
             
     .form-group
+      = f.label :page_title, 'Page Title'
+      = f.text_field :page_title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :page_description, 'Page Description'
+      = f.text_area :page_description, class: 'form-control input-sm'
+    
+    hr
+            
+    .form-group
       = f.label :category_ids, 'Categories'
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
@@ -42,12 +52,12 @@
             = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
             span.input-group-addon .00
             
-    .form-group
-      = f.label :course_id, "Associated Course"
-      = f.select :course_id,
-                 courses.order('lower(title)').collect { |course| [course.title, course.id] },
-                 { prompt: true },
-                 { class: "form-control input-sm" }
+    / .form-group
+    /   = f.label :course_id, "Associated Course"
+    /   = f.select :course_id,
+    /              courses.order('lower(title)').collect { |course| [course.title, course.id] },
+    /              { prompt: true },
+    /              { class: "form-control input-sm" }
       
     .form-group
       = f.label :instructor_id, "Instructor"

@@ -42,6 +42,9 @@ SitemapGenerator::Sitemap.create do
   Platform.find_each do |platform|
     add platform_path(platform), lastmod: platform.updated_at
   end
+  Category.find_each do |category|
+    add platform_category_path(category.platform, category), lastmod: category.updated_at
+  end
   Subject.find_each do |subject|
     add platform_subject_path(subject.platform, subject), lastmod: subject.updated_at
   end

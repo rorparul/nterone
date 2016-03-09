@@ -34,6 +34,7 @@ class ForumsController < ApplicationController
   end
 
   def index
+    @page   = Page.find_by(title: 'Forums')
     @topics = Topic.order(:title)
   end
 

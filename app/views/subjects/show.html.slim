@@ -1,5 +1,8 @@
 - content_for :page_title do
-  = @subject.full_title
+  = @subject.page_title.present? ? @subject.page_title : @subject.full_title
+  
+- content_for :page_description do
+  = @subject.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"

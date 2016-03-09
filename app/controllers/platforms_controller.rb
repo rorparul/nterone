@@ -3,23 +3,13 @@ class PlatformsController < ApplicationController
   before_action :set_platform, only: [:show, :edit, :update, :destroy]
 
   def index
-    @platforms = Platform.all.eager_load(:image)
+    @page      = Page.find_by(title: 'Vendor Index')
+    @platforms = Platform.order(:title).eager_load(:image)
   end
 
-  # def show
-  #   respond_to do |format|
-  #     format.html do
-  #       @categories = @platform.parent_categories.order(updated_at: :asc).includes(:children)
-  #     end
-  #     format.js do
-  #       if params['type'] == 'all'
-  #         @items = Category.find(params['cat']).children_items
-  #       else
-  #         @items = Category.find(params['cat']).items
-  #       end
-  #     end
-  #   end
-  # end
+  def show
+    redirect_to session[:last_category_url]
+  end
 
   def new
     @platform = Platform.new
@@ -68,6 +58,6 @@ class PlatformsController < ApplicationController
   end
 
   def platform_params
-    params.require(:platform).permit(:title, :url)
+    params.require(:platform).permit(:title, :url, :page_title, :page_description)
   end
 end

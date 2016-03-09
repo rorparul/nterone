@@ -1,0 +1,54 @@
+.form-container
+  = form_for article, remote: false do |f|
+    - if article.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(article.errors.count, 'error')}:"
+        ul
+          - article.errors.full_messages.each do |msg|
+            li = msg
+            
+    .form-group
+      = f.label :page_title, 'Page Title'
+      = f.text_field :page_title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :page_description, 'Page Description'
+      = f.text_area :page_description, class: 'form-control input-sm'
+    
+    hr
+    
+    = f.label :kind, "Type"
+    .row
+      .col-xs-6
+        .row
+          .col-xs-12.col-sm-4
+            .form-group
+              = f.radio_button :kind, "Press Release"
+              |  Press Release
+          .col-xs-12.col-sm-4
+            .form-group
+              = f.radio_button :kind, "Blog Post"
+              |  Blog Post
+          .col-xs-12.col-sm-4
+            .form-group
+              = f.radio_button :kind, "Industry Article"
+              |  Industry Article
+    
+    .form-group
+      = f.label :title, 'Title'
+      = f.text_field :title, class: 'form-control input-sm'
+          
+    .form-group
+      = f.label :content
+      = f.bootsy_area :content, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :created_at, "Published"
+      br
+      = f.datetime_select :created_at, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

@@ -7,11 +7,17 @@ class ApplicationController < ActionController::Base
   before_action :record_user_activity
   before_action :set_cart
   before_action :get_alert_counts
+  before_action :update_request_urls
 
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+
+  def update_request_urls
+    session[:previous_request_url] = session[:current_request_url]
+    session[:current_request_url]  = request.referrer
+  end
 
   def get_alert_counts
     if user_signed_in?

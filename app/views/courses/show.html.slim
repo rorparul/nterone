@@ -1,5 +1,8 @@
 - content_for :page_title do
-  = @course.full_title
+  = @course.page_title.present? ? @course.page_title : @course.full_title
+  
+- content_for :page_description do
+  = @course.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"

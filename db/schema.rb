@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305195449) do
+ActiveRecord::Schema.define(version: 20160308211809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,13 +42,25 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.string   "poster"
   end
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "page_title"
+    t.text     "page_description"
+    t.text     "content"
+    t.string   "slug"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "kind"
+    t.string   "title"
+  end
+
   create_table "blog_posts", force: :cascade do |t|
     t.string   "page_title"
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "slug"
+    t.text     "page_description"
   end
 
   create_table "bootsy_image_galleries", force: :cascade do |t|
@@ -145,6 +157,8 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.text     "video_preview"
     t.decimal  "price",             precision: 8, scale: 2, default: 0.0
     t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -266,9 +280,10 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.string   "page_title"
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "slug"
+    t.text     "page_description"
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -346,10 +361,12 @@ ActiveRecord::Schema.define(version: 20160305195449) do
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "page_title"
     t.string   "slug"
+    t.boolean  "static",           default: false
+    t.text     "page_description"
   end
 
   create_table "passed_exams", force: :cascade do |t|
@@ -377,6 +394,8 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.datetime "updated_at"
     t.string   "url"
     t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
   end
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
@@ -400,9 +419,10 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.string   "page_title"
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "slug"
+    t.text     "page_description"
   end
 
   create_table "purchased_items", force: :cascade do |t|
@@ -458,6 +478,8 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.string   "abbreviation"
     t.integer  "platform_id"
     t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
@@ -539,13 +561,15 @@ ActiveRecord::Schema.define(version: 20160305195449) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",         precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
     t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

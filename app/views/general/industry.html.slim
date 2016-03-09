@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Industry
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -19,7 +22,7 @@
         - @industry_articles.each do |industry_article|
           .article
             h3
-              a href="#{industry_article_path(industry_article)}"
+              a href="#{article_path(industry_article)}"
                 = industry_article.title
             = truncate_html(industry_article.content, length: 250, omission: '...(continued)')
             small.text-muted

@@ -1,5 +1,8 @@
 - content_for :page_title do
-  = @video_on_demand.full_title
+  = @video_on_demand.page_title.present? ? @video_on_demand.page_title : @video_on_demand.full_title
+  
+- content_for :page_description do
+  = @video_on_demand.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"

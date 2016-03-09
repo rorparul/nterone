@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Featured Classes
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -14,7 +17,7 @@
   .col-xs-12.col-central
     = image_tag "featured-classes.png", class: "course-banner"
     .panel.panel-default
-      .panel-body All the classes below represent the most popular courses in the market today, and are guaranteed to run. Most also align directly with a high impact IT certification.
+      .panel-body = @page.content.html_safe
     - @platforms.each do |platform|
       - if platform.featured_upcoming_events.any?
         #upcoming-classes

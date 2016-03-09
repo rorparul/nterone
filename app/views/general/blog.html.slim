@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Blog
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -19,7 +22,7 @@
         - @blog_posts.each do |blog_post|
           .article
             h3
-              a href="#{blog_post_path(blog_post)}"
+              a href="#{article_path(blog_post)}"
                 = blog_post.title
             = truncate_html(blog_post.content, length: 250, omission: '...(continued)')
             small.text-muted

@@ -54,6 +54,7 @@ class IndustryArticlesController < ApplicationController
     params.require(:industry_article).permit(:page_title,
                                              :title,
                                              :content,
-                                             :bootsy_image_gallery_id)
+                                             :bootsy_image_gallery_id,
+                                             :page_description)
   end
 end

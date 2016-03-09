@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Welcome
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -27,8 +30,7 @@
       .col-xs-12
         .panel.panel-default
           .panel-body
-            strong.starting-word NterOne
-            |  is a global training and consulting company focusing on live online training, self-paced e-learning, private onsite training, and software focused on the training industry. We are a company founded by engineers, for engineers.  The company is headquartered in Reston, VA, is veteran owned, and services customers in over 35 countries.  We are a Cisco Learning Partner, and a VMware Authorized Training Center, and operate our own Data Center in North Carolina featuring award-winning technology. The company’s key technology focus areas are Virtualization, Data Center, Routing and Switching, Voice, Collaboration, Optical, Wireless, and Security.
+            = @page.content.html_safe
 
     .row
       .col-xs-12.col-md-4
