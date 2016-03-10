@@ -57,7 +57,7 @@
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - @video_on_demand.video_modules.each_with_index do |video_module, index|
+                - @video_on_demand.video_modules.order(:created_at).each_with_index do |video_module, index|
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong
