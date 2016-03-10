@@ -1,0 +1,97 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted My Admin
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+    
+.row
+  .col-xs-12.col-md-6
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted Order Details
+        / .panel-actions-overlay
+        /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
+        /     | Edit
+      .table-row
+        .table-col
+          .panel-table
+            .responsive-table
+              table.table.table-condensed
+                tbody
+                  - @order.attributes.each do |attribute|
+                    tr
+                      td.text-right
+                        strong = "#{attribute[0].titleize}:"
+                      td = attribute[1]
+                
+  .col-xs-12.col-md-6
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted = pluralize(@order.order_items.count, 'Order Item')
+        / .panel-actions-overlay
+        /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
+        /     | Edit
+      .panel-table
+        .responsive-table
+          table.table.table-condensed
+            tbody
+              - @order.order_items.each do |order_item|
+                - if order_item.orderable_type == "Event"
+                  tr
+                    td 
+                      | Class for 
+                      = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
+                      |  from 
+                      = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} to #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", my_admin_classes_show_path(order_item.orderable)
+                      
+                - if order_item.orderable_type == "VideoOnDemand"
+                  tr
+                    td = "VOD for #{order_item.orderable.full_title}"
+                    
+                    / t.datetime "created_at",                                                       null: false
+                    / t.datetime "updated_at",                                                       null: false
+                    / t.string   "auth_code"
+                    / t.string   "first_name"
+                    / t.string   "last_name"
+                    / t.string   "shipping_street"
+                    / t.string   "shipping_city"
+                    / t.string   "shipping_state"
+                    / t.string   "shipping_zip_code"
+                    / t.string   "shipping_country"
+                    / t.string   "email"
+                    / t.string   "clc_number"
+                    / t.string   "billing_name"
+                    / t.string   "billing_zip_code"
+                    / t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
+                    / t.string   "billing_street"
+                    / t.string   "billing_city"
+                    / t.string   "billing_state"
+                    / t.integer  "seller_id"
+                    / t.integer  "buyer_id"
+                    / t.string   "status",                                    default: "uninvoiced"
+                    / t.decimal  "total",             precision: 8, scale: 2, default: 0.0
+                    / t.string   "billing_country"
+                    / t.string   "payment_type"
+                    / t.integer  "clc_quantity"
+                    
+                    
+                    / t.datetime "created_at",                                           null: false
+                    / t.datetime "updated_at",                                           null: false
+                    / t.integer  "orderable_id"
+                    / t.string   "orderable_type"
+                    / t.integer  "cart_id"
+                    / t.decimal  "price",          precision: 8, scale: 2, default: 0.0
+                    / t.integer  "order_id"
+                    / t.integer  "user_id"
+                  
+    
+    
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .orders').addClass('active-category');

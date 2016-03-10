@@ -37,7 +37,7 @@
           span.text Contact Us
       - if user_signed_in?
         - if current_user.admin?
-          li = link_to my_admin_classes_path, class: "role-tab" do
+          li = link_to my_admin_orders_path, class: "role-tab" do
             span.fa.fa-gear
             span.text My Admin
             - if @total_alert_count > 0

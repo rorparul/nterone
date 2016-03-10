@@ -160,6 +160,8 @@ NterOne::Application.routes.draw do
   end
 
   controller :my_admin do
+    get 'my-admin/orders',                                 as: :my_admin_orders
+    get 'my-admin/orders/:id' => 'my_admin#orders_show',   as: :my_admin_orders_show
     get 'my-admin/classes',                                as: :my_admin_classes
     get 'my-admin/classes/:id' => 'my_admin#classes_show', as: :my_admin_classes_show
     get 'my-admin/courses',                                as: :my_admin_courses

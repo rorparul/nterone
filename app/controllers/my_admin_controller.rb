@@ -4,6 +4,14 @@ class MyAdminController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
+  def orders
+    @orders = Order.order(created_at: :desc)
+  end
+
+  def orders_show
+    @order = Order.find(params[:id])
+  end
+
   def classes
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
   end

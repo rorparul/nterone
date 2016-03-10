@@ -1,5 +1,5 @@
 footer.general-footer.text-muted style="text-align: center;"
-  .social-icons
+  #social-icons
     = link_to 'https://www.facebook.com/NterOne', target: '_blank', class: 'facebook' do
       span.fa.fa-facebook-square
     = link_to 'https://twitter.com/NterOne', target: '_blank', class: 'twitter' do
@@ -8,5 +8,8 @@ footer.general-footer.text-muted style="text-align: center;"
       span.fa.fa-linkedin-square
     = link_to 'https://plus.google.com/+Nterone', target: '_blank', class: 'google' do
       span.fa.fa-google-plus-square
-  p#copyright
+  #legal-docs
+    a href="#" Privacy Policy
+    a href="#" Terms and Conditions
+  #copyright
     = "Copyright #{Date.today.year} NterOne Corporation. All rights reserved."
