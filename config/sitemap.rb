@@ -26,17 +26,21 @@ SitemapGenerator::Sitemap.create do
   #   end
   add executives_bios_path
   add instructors_bios_path
+
   add press_path
-  PressRelease.find_each do |press_release|
-    add press_release_path(press_release), lastmod: press_release.updated_at
-  end
+  # PressRelease.find_each do |press_release|
+  #   add press_release_path(press_release), lastmod: press_release.updated_at
+  # end
   add blog_path
-  BlogPost.find_each do |blog_post|
-    add blog_post_path(blog_post), lastmod: blog_post.updated_at
-  end
+  # BlogPost.find_each do |blog_post|
+  #   add blog_post_path(blog_post), lastmod: blog_post.updated_at
+  # end
   add industry_path
-  IndustryArticle.find_each do |industry_article|
-    add industry_article_path(industry_article), lastmod: industry_article.updated_at
+  # IndustryArticle.find_each do |industry_article|
+  #   add industry_article_path(industry_article), lastmod: industry_article.updated_at
+  # end
+  Article.find_each do |article|
+    add article_path(article), lastmod: article.updated_at
   end
   add platforms_path
   Platform.find_each do |platform|
