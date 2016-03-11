@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310185757) do
+ActiveRecord::Schema.define(version: 20160310224615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20160310185757) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "platform_id"
     t.boolean  "active",                                    default: true
     t.string   "abbreviation"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160310185757) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.boolean  "partner_led",                               default: false
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -480,6 +481,7 @@ ActiveRecord::Schema.define(version: 20160310185757) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.boolean  "partner_led",      default: false
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
@@ -745,8 +747,8 @@ ActiveRecord::Schema.define(version: 20160310185757) do
     t.integer  "instructor_id"
     t.string   "level"
     t.decimal  "price",             precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
@@ -757,6 +759,7 @@ ActiveRecord::Schema.define(version: 20160310185757) do
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
+    t.boolean  "partner_led",                               default: false
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

@@ -71,10 +71,17 @@
       = f.label :intended_audience, 'Who Should Attend'
       = f.bootsy_area :intended_audience, class: 'form-control input-sm'
       
-    .form-group
-      = f.label :active, "Active"
-      br
-      = f.check_box :active
+    .row
+      .col-xs-6.col-md-3
+        .form-group
+          = f.label :active, "Active"
+          br
+          = f.check_box :active
+      .col-xs-6.col-md-3
+        .form-group
+          = f.label :partner_led, "Partner Led"
+          br
+          = f.check_box :partner_led
       
     .form-buttons
       button.btn.btn-success type="submit" Save

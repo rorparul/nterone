@@ -115,6 +115,7 @@ class SubjectsController < ApplicationController
                                     :description,
                                     :type,
                                     :bootsy_image_gallery_id,
+                                    :partner_led,
                                     category_ids: [])
   end
 end
