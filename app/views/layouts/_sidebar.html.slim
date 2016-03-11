@@ -32,7 +32,7 @@
         span.fa.fa-flask
         span.text Labs
       - if !user_signed_in? || (user_signed_in? && current_user.member?)
-        li = link_to contact_us_path, class: "contact-us-tab", remote: true do
+        li = link_to contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
           span.fa.fa-envelope-o
           span.text Contact Us
       - if user_signed_in?

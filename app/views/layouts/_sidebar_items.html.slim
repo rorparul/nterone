@@ -20,7 +20,7 @@ li = link_to labs_path, class: "labs-tab" do
   span.fa.fa-flask
   span Labs
 - if !user_signed_in? || (user_signed_in? && current_user.member?)
-  li = link_to contact_us_path, class: "contact-us-tab", remote: true do
+  li = link_to contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
     span.fa.fa-envelope-o
     span Contact Us
 - if user_signed_in?
