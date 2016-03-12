@@ -1,4 +1,12 @@
 NterOne::Application.routes.draw do
+
+  # This line mounts Forem's routes at /forums by default.
+  # This means, any requests to the /forums URL of your application will go to Forem::ForumsController#index.
+  # If you would like to change where this extension is mounted, simply change the :at option to something different.
+  #
+  # We ask that you don't use the :as option here, as Forem relies on it being the default of "forem"
+  mount Forem::Engine, :at => '/forums'
+
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   root to: 'general#welcome'
 
@@ -16,6 +24,8 @@ NterOne::Application.routes.draw do
   get 'admin/' => 'admin#index'
 
   resources :pages
+
+  resources :articles
 
   # resources :carts
   get 'cart'            => 'carts#show',       as: :cart
@@ -40,14 +50,6 @@ NterOne::Application.routes.draw do
   resources :industry_articles, except: [:index], path: 'about-us/industry' do
     collection do
       get 'page'
-    end
-  end
-
-  resources :forums, except: [:edit] do
-    collection do
-      get  'filter'
-      get  'select'
-      post 'select_to_edit'
     end
   end
 
@@ -158,6 +160,8 @@ NterOne::Application.routes.draw do
   end
 
   controller :my_admin do
+    get 'my-admin/orders',                                 as: :my_admin_orders
+    get 'my-admin/orders/:id' => 'my_admin#orders_show',   as: :my_admin_orders_show
     get 'my-admin/classes',                                as: :my_admin_classes
     get 'my-admin/classes/:id' => 'my_admin#classes_show', as: :my_admin_classes_show
     get 'my-admin/courses',                                as: :my_admin_courses

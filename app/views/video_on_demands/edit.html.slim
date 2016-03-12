@@ -16,14 +16,13 @@
     = "#{@video_on_demand.abbreviation}"
   span.seperator
     | /
-  a href="#{edit_platform_video_on_demand_path(@platform, @video_on_demand)}"
-    | Edit
+  span.text-muted Edit
 
 .panel.panel-default
   .panel-heading
     strong.text-muted Edit Video On Demand
   .panel-body
-    = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, courses: @courses, instructors: @instructors }
+    = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {

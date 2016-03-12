@@ -8,41 +8,46 @@ class GeneralController < ApplicationController
 
   def welcome
     @carousel_items = CarouselItem.all_active
+    @page = Page.find_by(title: 'Welcome')
   end
 
   def executives
-    @executive_bios  = Page.find_by(title: 'Executive Bios')
+    @page  = Page.find_by(title: 'Executive Bios')
   end
 
   def instructors
-    @instructor_bios = Page.find_by(title: 'Instructor Bios')
+    @page = Page.find_by(title: 'Instructor Bios')
   end
 
   def press
-    @press_releases = PressRelease.order(created_at: :desc)
+    @page           = Page.find_by(title: 'Press Index')
+    @press_releases = Article.where(kind: "Press Release").order(created_at: :desc)
   end
 
   def blog
-    @blog_posts = BlogPost.order(created_at: :desc)
+    @page       = Page.find_by(title: 'Blog Index')
+    @blog_posts = Article.where(kind: "Blog Post").order(created_at: :desc)
   end
 
   def industry
-    @industry_articles = IndustryArticle.order(created_at: :desc)
+    @page              = Page.find_by(title: 'Industry Index')
+    @industry_articles = Article.where(kind: "Industry Article").order(created_at: :desc)
   end
 
   def consulting
-    @consulting = Page.find_by(title: 'Consulting')
+    @page = Page.find_by(title: 'Consulting')
   end
 
   def partners
-    @partners = Page.find_by(title: 'Partners')
+    @page = Page.find_by(title: 'Partners')
   end
 
   def labs
-    @labs = Page.find_by(title: 'Labs')
+    @page = Page.find_by(title: 'Labs')
   end
 
   def featured_classes
+    @page      = Page.find_by(title: 'Featured Classes')
     @platforms = Platform.order(:title)
   end
 

@@ -80,53 +80,43 @@
                   tr
                     td.text-right
                       strong Instructor Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_instructor, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_instructor, precision: 2))}"
                   tr
                     td.text-right
                       strong Lab Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_lab, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_lab, precision: 2))}"
                   tr
                     td.text-right
                       strong T & E Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_te, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_te, precision: 2))}"
                   tr
                     td.text-right
                       strong Facility Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_facility, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_facility, precision: 2))}"
                   tr
                     td.text-right
                       strong Books & Material Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_books, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_books, precision: 2))}"
                   tr
                     td.text-right
                       strong Shipping Cost:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.cost_shipping, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_shipping, precision: 2))}"
                   tr
                     td.text-right
                       strong Commission:
-                    td
-                      span.label.label-warning = "$#{number_with_delimiter(number_with_precision(event.commission, precision: 2))}"
+                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.commission, precision: 2))}"
                   tr
                     td.text-right
                       strong Revenue:
-                    td
-                      span.label.label-default = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
+                    td = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
                   tr
                     td.text-right
                       strong Total Cost + Commission:
-                    td
-                      span.label.label-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
+                    td.text-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
                   tr
                     td.text-right
                       strong Net Revenue:
-                    td
-                      span.label.label-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
+                    td.text-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
                 
 .row
   .col-xs-12

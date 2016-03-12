@@ -1,5 +1,8 @@
 - content_for :page_title do
-  = @consulting.page_title
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -12,7 +15,7 @@
 .row#consulting
   .col-xs-12.col-central
     = image_tag 'consulting.png', class: "header-image"
-    = @consulting.content.html_safe
+    = @page.content.html_safe
         
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

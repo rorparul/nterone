@@ -1,0 +1,25 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted My Admin
+    
+.row
+  .col-xs-12
+    = render 'my_admin/tabs'
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Edit Article
+  .panel-body
+    = render partial: "form", locals: { article: @article }
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .website').addClass('active-category');
+  
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

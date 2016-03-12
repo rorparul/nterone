@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Press
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -19,7 +22,7 @@
         - @press_releases.each do |press_release|
           .article
             h3
-              a href="#{press_release_path(press_release)}"
+              a href="#{article_path(press_release)}"
                 = press_release.title
             = truncate_html(press_release.content, length: 250, omission: '...(continued)')
             small.text-muted

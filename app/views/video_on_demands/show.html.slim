@@ -1,5 +1,8 @@
 - content_for :page_title do
-  = @video_on_demand.full_title
+  = @video_on_demand.page_title.present? ? @video_on_demand.page_title : @video_on_demand.full_title
+  
+- content_for :page_description do
+  = @video_on_demand.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -25,8 +28,7 @@
           = image_tag "course-banner-clearconnect.png", class: "course-banner"
           .panel.panel-default
             .panel-body
-              - if @video_on_demand.course
-                p = @video_on_demand.course.intro.html_safe if @video_on_demand.course.intro
+              = @video_on_demand.intro.html_safe if @video_on_demand.intro
           #accordion.panel-group role="tablist" aria-multiselectable="true"
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
@@ -35,8 +37,7 @@
                     | Overview
               #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
-                  - if @video_on_demand.course && @video_on_demand.course.overview
-                    = @video_on_demand.course.overview.html_safe
+                  = @video_on_demand.overview.html_safe if @video_on_demand.overview
             .panel.panel-default
               .panel-heading role="tab" id="headingTwo"
                 strong
@@ -44,8 +45,7 @@
                     | Outline
               #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
-                  - if @video_on_demand.course && @video_on_demand.course.outline
-                    = @video_on_demand.course.outline.html_safe
+                  = @video_on_demand.outline.html_safe if @video_on_demand.outline
             .panel.panel-default
               .panel-heading role="tab" id="headingThree"
                 strong
@@ -53,12 +53,11 @@
                     | Who Should Attend
               #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
-                  - if @video_on_demand.course && @video_on_demand.course.intended_audience
-                    = @video_on_demand.course.intended_audience.html_safe
+                  = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - @video_on_demand.video_modules.each_with_index do |video_module, index|
+                - @video_on_demand.video_modules.order(:created_at).each_with_index do |video_module, index|
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong

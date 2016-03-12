@@ -15,10 +15,6 @@ class PagesController < ApplicationController
     end
   end
 
-  # def index
-  #
-  # end
-
   def show
 
   end
@@ -30,7 +26,6 @@ class PagesController < ApplicationController
   def update
     if @page.update_attributes(page_params)
       flash[:success] = "Page successfully updated!"
-      # render js: "window.location = '#{my_admin_website_path}';"
       redirect_to my_admin_website_path
     else
       render 'edit'
@@ -51,6 +46,7 @@ class PagesController < ApplicationController
     params.require(:page).permit(:title,
                                  :content,
                                  :bootsy_image_gallery_id,
-                                 :page_title)
+                                 :page_title,
+                                 :page_description)
   end
 end

@@ -49,6 +49,7 @@ class Category < ActiveRecord::Base
 
   private
 
+  # TODO: The partner_led filter puts them at the end but not alphabetically
   def sorted(items)
     items.sort do |a, b|
       if a.abbreviation && b.abbreviation
@@ -56,6 +57,7 @@ class Category < ActiveRecord::Base
       else
         a.title.downcase <=> b.title.abbreviation
       end
+      a.partner_led.to_s <=> b.partner_led.to_s
     end
   end
 

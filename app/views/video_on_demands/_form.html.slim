@@ -10,6 +10,16 @@
             li = msg
             
     .form-group
+      = f.label :page_title, 'Page Title'
+      = f.text_field :page_title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :page_description, 'Page Description'
+      = f.text_area :page_description, class: 'form-control input-sm'
+    
+    hr
+            
+    .form-group
       = f.label :category_ids, 'Categories'
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
@@ -41,13 +51,6 @@
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
             span.input-group-addon .00
-            
-    .form-group
-      = f.label :course_id, "Associated Course"
-      = f.select :course_id,
-                 courses.order('lower(title)').collect { |course| [course.title, course.id] },
-                 { prompt: true },
-                 { class: "form-control input-sm" }
       
     .form-group
       = f.label :instructor_id, "Instructor"
@@ -66,6 +69,27 @@
             = icon.label :file, "Icon"
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :partner_led, "Partner Led"
+          br
+          = f.check_box :partner_led
+            
+    .form-group
+      = f.label :intro, 'Introduction'
+      = f.bootsy_area :intro, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :overview, 'Overview'
+      = f.bootsy_area :overview, class: 'form-control input-sm'
+    
+    .form-group
+      = f.label :outline, 'Outline'
+      = f.bootsy_area :outline, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :intended_audience, 'Who Should Attend'
+      = f.bootsy_area :intended_audience, class: 'form-control input-sm'
           
     h4 Modules
     hr

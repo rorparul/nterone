@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
+  def forem_name
+    full_name
+  end
+
   def my_plan_total_low
     planned_unattended_courses.inject(0) do |sum, course|
       event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).first

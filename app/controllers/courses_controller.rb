@@ -28,8 +28,7 @@ class CoursesController < ApplicationController
     @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully created!'
-      # render js: "window.location = '#{request.referrer}';"
-      redirect_to platform_path(@course.platform)
+      redirect_to session[:previous_request_url]
     else
       render 'new'
     end
@@ -74,14 +73,12 @@ class CoursesController < ApplicationController
     @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully updated!'
-      # render js: "window.location = '#{request.referrer}';"
-      redirect_to platform_path(@course.platform)
+      redirect_to session[:previous_request_url]
     else
       @platform   = Platform.find(params[:platform_id])
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      # render 'select_to_edit'
       render "edit"
     end
   end
@@ -108,6 +105,8 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:id,
+                                   :page_title,
+                                   :page_description,
                                    :title,
                                    :price,
                                    :active,
@@ -120,6 +119,7 @@ class CoursesController < ApplicationController
                                    :pdf,
                                    :video_preview,
                                    :bootsy_image_gallery_id,
+                                   :partner_led,
                                    category_ids: [])
   end
 end

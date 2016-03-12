@@ -1,0 +1,52 @@
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Orders
+    / = link_to "Add", new_page_path, remote: false, class: "panel-heading-controls"
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th #
+          th Code
+          th Status
+          th.fit Total
+          th.fit
+          th.fit Paid
+          th.fit
+          th.fit Credit
+          th.fit
+          th Balance
+          th Created
+          th Member Email
+          th
+      tbody#pages
+        - @orders.each do |order|
+          tr
+            td = order.id
+            td = order.auth_code
+            -if order.status == "Uninvoiced"
+              td.text-danger = order.status
+            - else
+              td = order.status
+            td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
+            td.fit -
+            td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
+            td.fit -
+            - if order.clc_quantity > 0
+              td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
+            - else
+              td.fit = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
+            td
+              | =
+            - if order.balance > 0.00
+              td.text-danger = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
+            - else
+              td = "$#{number_with_delimiter(number_with_precision(order.balance * 100, precision: 2))}"
+            td = order.created_at.strftime("%b. %d, %Y %I:%M %p")
+            td = order.buyer.email
+            td.actions-column.fit
+              = link_to "Show", my_admin_orders_show_path(order), remote: false
+              |  | 
+              = link_to "Edit", edit_order_path(order), remote: true
+              |  | 
+              = link_to 'Cancel', order_path(order), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

@@ -4,6 +4,14 @@ class MyAdminController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
+  def orders
+    @orders = Order.order(created_at: :desc)
+  end
+
+  def orders_show
+    @order = Order.find(params[:id])
+  end
+
   def classes
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
   end
@@ -31,12 +39,14 @@ class MyAdminController < ApplicationController
   end
 
   def website
-    @pages             = Page.order(:title)
-    @carousel_items    = CarouselItem.page(1).per(5)
+    @static_pages      = Page.where(static: true).order(:title)
+    @dynamic_pages     = Page.where(static: false).order(:title)
+    # @carousel_items    = CarouselItem.page(1).per(5)
     @testimonials      = Testimonial.page(1).per(5)
     @press_releases    = PressRelease.page(1).per(5)
     @blog_posts        = BlogPost.page(1).per(5)
     @industry_articles = IndustryArticle.page(1).per(5)
+    @articles = Article.order(created_at: :desc)
   end
 
   private

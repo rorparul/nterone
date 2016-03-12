@@ -3,13 +3,11 @@ html
   head
     title
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
-    / <meta  name = "description" content = "FindtheITtrainingyouneed.NterOneoffersfreeonlinecourseswithcertificates thatcanhelpyoubuildyourskillsandadvanceyourcareer.">
+    = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
     = canonical_tag
-    = stylesheet_link_tag 'http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag 'favicon.png'
-    = yield :javascript_includes
     = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     - if !user_signed_in? || current_user.try(:member?)
@@ -37,11 +35,11 @@ html
             ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
               = yield :actions
           span.header-nav-actions
-            = link_to new_search_path, remote: true do
+            = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
               i.fa.fa-search
               | Search
             - if !user_signed_in? || (user_signed_in? && current_user.member?)
-              = link_to new_order_path do
+              = link_to main_app.new_order_path do
                 i.fa.fa-shopping-cart
                 | My Cart
                 span.badge = @cart.order_items.count

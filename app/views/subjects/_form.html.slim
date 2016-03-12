@@ -8,6 +8,16 @@
         ul
           - subject.errors.full_messages.each do |msg|
             li = msg
+            
+    .form-group
+      = f.label :page_title, 'Page Title'
+      = f.text_field :page_title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :page_description, 'Page Description'
+      = f.text_area :page_description, class: 'form-control input-sm'
+    
+    hr
 
     .form-group
       = f.label :category_ids, "Categories"
@@ -34,6 +44,11 @@
             = icon.label :file, "Icon"
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :partner_led, "Partner Led"
+          br
+          = f.check_box :partner_led
 
     .form-group
       = f.label :description

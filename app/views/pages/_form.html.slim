@@ -14,8 +14,15 @@
       = f.text_field :page_title, class: 'form-control input-sm'
       
     .form-group
-      = f.label :title, 'Title'
-      = f.text_field :title, class: 'form-control input-sm'
+      = f.label :page_description, 'Page Description'
+      = f.text_area :page_description, class: 'form-control input-sm'
+    
+    hr
+    
+    - unless page.static
+      .form-group
+        = f.label :title, 'Title'
+        = f.text_field :title, class: 'form-control input-sm'
           
     .form-group
       = f.label :content

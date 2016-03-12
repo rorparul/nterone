@@ -8,7 +8,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses         = @platform.courses
     @instructors     = @platform.instructors
     @video_on_demand.build_image
   end
@@ -19,13 +18,11 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
-      # render js: "window.location = '#{request.referrer}';"
-      redirect_to platform_path(@video_on_demand.platform)
+      redirect_to session[:previous_request_url]
     else
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses     = @platform.courses
       @instructors = @platform.instructors
       render 'new'
     end
@@ -43,7 +40,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses          = @platform.courses
     @instructors      = @platform.instructors
     @video_on_demand.build_image
   end
@@ -57,7 +53,6 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses         = @platform.courses
       @instructors     = @platform.instructors
       @video_on_demand.build_image unless @video_on_demand.image.present?
     end
@@ -69,7 +64,6 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
-    @courses         = @platform.courses
     @instructors     = @platform.instructors
     @video_on_demand.build_image unless @video_on_demand.image.present?
   end
@@ -80,15 +74,12 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
-      # render js: "window.location = '#{request.referrer}';"
-      redirect_to platform_path(@video_on_demand.platform)
+      redirect_to session[:previous_request_url]
     else
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
-      @courses     = @platform.courses
       @instructors = @platform.instructors
-      # render 'select_to_edit'
       render "edit"
     end
   end
@@ -114,13 +105,19 @@ class VideoOnDemandsController < ApplicationController
 
   def video_on_demand_params
     params.require(:video_on_demand).permit(:id,
+                                            :page_title,
+                                            :page_description,
                                             :title,
                                             :abbreviation,
                                             :course_id,
                                             :instructor_id,
                                             :level,
                                             :price,
-                                            category_ids: [],
+                                            :intro,
+                                            :overview,
+                                            :outline,
+                                            :intended_audience,
+                                            :partner_led,
                                             video_modules_attributes: [:id,
                                                                        :title,
                                                                        :_destroy,

@@ -302,6 +302,10 @@ iframe.wysihtml5-sandbox {
   }
 }
 
+.white-cell {
+  background-color: white;
+}
+
 .top {
   position: absolute;
   top: 0;
@@ -391,25 +395,6 @@ iframe.wysihtml5-sandbox {
   padding: 4px;
 }
 
-.social-icons {
-  span {
-    margin: 10px 2.5px;
-    font-size: 30px;
-  }
-  .facebook {
-    color: rgb(59, 89, 152);
-  }
-  .twitter {
-    color: rgb(103, 201, 232);
-  }
-  .linkedin {
-    color: rgb(0, 122, 185);
-  }
-  .google {
-    color: rgb(210, 66, 56);
-  }
-}
-
 .text-content {
   margin-bottom: 10px;
   .group-heading {
@@ -462,7 +447,7 @@ iframe.wysihtml5-sandbox {
   display: inline-block;
   width: 200px;
   position: absolute;
-  top: 87px;
+  top: 86px;
   left: 0;
   border-radius: 4px;
   z-index: 500;
@@ -578,6 +563,13 @@ iframe.wysihtml5-sandbox {
   }
 }
 
+.sub-sidebar-container {
+  width: 230px;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+}
+
 .sub-sidebar {
   display: inline-block;
   background: #bf9300;
@@ -589,6 +581,7 @@ iframe.wysihtml5-sandbox {
   padding-bottom: 25px;
   width: 100%;
   margin-bottom: 20px;
+  box-shadow: 0px 0px 3px #888888;
   h1.sub-sidebar-heading {
     text-align: center;
     font-size: 18px;
@@ -596,15 +589,22 @@ iframe.wysihtml5-sandbox {
     font-weight: bold;
     color: #5f5f5f;
   }
-  // @media (max-width: 767px) {
-  //   position: absolute;
-  //   width: 100%;
-  //   left: 0;
-  //   top: 158px;
-  // }
-  // @media (min-width: 768px) {
-  //   width: 100%;
-  // }
+}
+
+.topic-show {
+  width: calc(100% - 230px);
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+  .forum-welcome {
+    text-align: center;
+    height: 100%;
+    padding: 60px 0;
+    span {
+      font-size: 40px;
+      color: lightgray;
+    }
+  }
 }
 
 .zopim {
@@ -622,14 +622,14 @@ iframe.wysihtml5-sandbox {
 
 .container-fluid {
   background-color: white;
-  padding: 71px 0 0 0;
+  padding: 71px 0 50px 0;
 
   @media (min-width: 768px) { margin: 0 30px 0 30px; }
 
   @media (max-width: 767px) { margin: 0 15px; }
   min-height: 100%;
   position: relative;
-  margin-bottom: -100px !important;
+  margin-bottom: -120px !important;
   &:after {
     content: "";
     display: block;
@@ -822,22 +822,6 @@ iframe.wysihtml5-sandbox {
   margin: 0 !important;
 }
 
-footer {
-  text-align: center;
-  padding: 15px;
-  height: 100px;
-  position: relative;
-  p {
-    margin: 0;
-  }
-  @media (min-width: 768px) {
-    margin: 0 30px;
-  }
-  @media (max-width: 767px) {
-    margin: 0 15px;
-  }
-}
-
 .btn {
   &:not(.btn-block, .btn-blue) {
     height: 30px;
@@ -933,6 +917,10 @@ table {
     overflow: scroll;
   }
 }
+
+// .topic-posts {
+//   background-color: white;
+// }
 
 .panel-orange {
   border-color: rgb(202, 111, 43);
@@ -2116,55 +2104,6 @@ hr {
   }
 }
 
-#topic-posts {
-  border: 1px solid rgb(205, 205, 205);
-  border-radius: 3px;
-  color: rgb(95, 95, 95);
-  display: block;
-  font-size: 14px;
-  line-height: 22px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  position: relative;
-  vertical-align: baseline;
-  #topic-posts-header-container {
-    background-color: rgba(0, 0, 0, 0);
-    @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
-    box-shadow: rgb(255, 255, 255) 0px 1px 0px 0px;
-    color: rgb(99, 99, 99);
-    display: block;
-    font-size: 14px;
-    height: 37px;
-    line-height: 22px;
-    margin: 0;
-    outline-color: rgb(99, 99, 99);
-    outline-style: none;
-    outline-width: 0px;
-    padding: 0;
-    position: relative;
-    text-shadow: rgb(255, 255, 255) 0px 1px 0px;
-    vertical-align: baseline;
-    #topic-posts-header {
-      color: rgb(99, 99, 99);
-      display: block;
-      float: left;
-      font-family: Roboto, sans-serif;
-      font-size: 12px;
-      font-weight: bold;
-      height: 22px;
-      line-height: 22px;
-      margin: 0;
-      outline-color: rgb(99, 99, 99);
-      outline-style: none;
-      outline-width: 0px;
-      padding: 8px 14px 7px 14px;
-      text-shadow: rgb(255, 255, 255) 0px 1px 0px;
-      vertical-align: baseline;
-    }
-  }
-}
-
 .posts-back {
   margin-top: 15px;
 }
@@ -2211,8 +2150,51 @@ hr {
   }
 }
 
-#copyright {
+footer {
+  text-align: center;
+  padding: 15px;
+  height: 120px;
+  position: relative;
+  @media (min-width: 768px) {
+    margin: 0 30px;
+  }
   @media (max-width: 767px) {
-    font-size: 10px;
+    margin: 0 15px;
+  }
+  #social-icons {
+    margin-bottom: 10px;
+    span {
+      margin: 0 5px;
+      font-size: 30px;
+    }
+    .facebook {
+      color: rgb(59, 89, 152);
+    }
+    .twitter {
+      color: rgb(103, 201, 232);
+    }
+    .linkedin {
+      color: rgb(0, 122, 185);
+    }
+    .google {
+      color: rgb(210, 66, 56);
+    }
+  }
+
+  #legal-docs {
+    margin-bottom: 10px;
+    a {
+      display: inline-block;
+      margin: 0 5px;
+      @media (max-width: 767px) {
+        font-size: 10px;
+      }
+    }
+  }
+
+  #copyright {
+    @media (max-width: 767px) {
+      font-size: 10px;
+    }
   }
 }

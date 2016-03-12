@@ -1,5 +1,8 @@
 - content_for :page_title do
-  | Forums
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
@@ -25,7 +28,7 @@
       | Edit Topic
 
 .row
-  .col-xs-12.col-md-3
+  .col-xs-12.col-md-3.sub-sidebar-container
     .sub-sidebar
       h1.sub-sidebar-heading Categories
       .forums-select
@@ -35,15 +38,10 @@
       ul.topics
         = render partial: 'topics/topics', locals: {topics: @topics}
   .col-xs-12.col-md-9.topic-show
-      
-- unless user_signed_in?
-  .col-xs-3
-    p
-      | Wanna join in on the conversation? 
-      a href="#{new_user_session_path}" Login 
-      | or 
-      a href="#{new_user_registration_path}" create an account 
-      | to ge started.
+    .forum-welcome
+      span.fa.fa-comments-o
+      br
+      span Forums
 
 javascript:
   var currentView = 'topics';
