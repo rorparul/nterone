@@ -1,0 +1,13 @@
+<%- content_for :breadcrumbs do %>
+  <a href="<%= main_app.root_path %>">
+    <span class="fa fa-home"></span>
+    Home
+  </a>
+  <span class="seperator">/</span>
+  <span class="text-muted">Forums</span>
+<% end %>
+
+<div class='category'>
+  <h2><%= link_to t('forem.forum.forums'), forem.forums_path %> &raquo; <%= link_to forem_emojify(@category), [forem, @category] %></h2>
+  <%= render @category %>
+</div>

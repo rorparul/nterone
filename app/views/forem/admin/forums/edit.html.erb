@@ -1,0 +1,12 @@
+<%- content_for :breadcrumbs do %>
+  <a href="<%= main_app.root_path %>">
+    <span class="fa fa-home"></span>
+    Home
+  </a>
+  <span class="seperator">/</span>
+  <span class="text-muted">Forums</span>
+<% end %>
+
+<h2><%= t("forem.forum.edit", :title => forem_emojify(@forum.title)).html_safe %></h2>
+
+<%= render "form" %>
