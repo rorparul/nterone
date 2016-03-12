@@ -1,0 +1,10 @@
+#!/bin/bash
+
+backupDir="/home/deploy/backups"
+
+mkdir -p ${backupDir}
+rdiff-backup --preserve-numerical-ids --no-file-statistics /var/lib/redis ${backupDir}/redis
+
+rdiff-backup --preserve-numerical-ids --no-file-statistics /home/deploy/nterone-nci-staging/public ${backupDir}/public
+
+rdiff-backup --no-file-statistics /etc/apache2/sites-available ${backupDir}/apache
