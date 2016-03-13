@@ -41,12 +41,8 @@ class MyAdminController < ApplicationController
   def website
     @static_pages      = Page.where(static: true).order(:title)
     @dynamic_pages     = Page.where(static: false).order(:title)
-    # @carousel_items    = CarouselItem.page(1).per(5)
+    @articles          = Article.order(created_at: :desc)
     @testimonials      = Testimonial.page(1).per(5)
-    @press_releases    = PressRelease.page(1).per(5)
-    @blog_posts        = BlogPost.page(1).per(5)
-    @industry_articles = IndustryArticle.page(1).per(5)
-    @articles = Article.order(created_at: :desc)
   end
 
   private
