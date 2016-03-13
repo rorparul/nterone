@@ -7,7 +7,6 @@ class GeneralController < ApplicationController
   end
 
   def welcome
-    @carousel_items = CarouselItem.all_active
     @page = Page.find_by(title: 'Welcome')
   end
 
