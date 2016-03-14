@@ -1008,6 +1008,18 @@ table {
   // }
 }
 
+#sitemap {
+  ul {
+    padding-left: 0;
+    li {
+      list-style: none;
+    }
+  }
+  ul.training {
+    padding-left: 20px;
+  }
+}
+
 .starting-word {
   // font-size: 18px;
 }

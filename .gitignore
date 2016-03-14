@@ -12,3 +12,4 @@ public/uploads/*
 .ruby-version
 .env
 *~
+sitemap.xml.gz

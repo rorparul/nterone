@@ -67,6 +67,10 @@ class GeneralController < ApplicationController
     redirect_to :back
   end
 
+  def sitemap
+    @page = Page.find_by(title: "Sitemap")
+  end
+
   private
 
   def contact_us_params
