@@ -47,7 +47,7 @@
             - @dynamic_pages.each do |page|
               tr
                 td = page.title
-                td = link_to "#{request.base_url}#{page_path(page)}", page_path(page)
+                td = "#{request.base_url}#{page_path(page)}"
                 td.actions-column.fit
                   = link_to "Edit", edit_page_path(page), remote: false
                   = " | "
