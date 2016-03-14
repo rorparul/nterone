@@ -20,7 +20,7 @@
       .panel-body = @page.content.html_safe
     - @platforms.each do |platform|
       - if platform.featured_upcoming_events.any?
-        #upcoming-classes
+        #featured-classes
           .panel.panel-default
             .panel-heading
               strong = platform.title
@@ -42,14 +42,14 @@
                   - platform.featured_upcoming_events.each do |event|
                     tr
                       td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
-                      td = "#{event.start_date.strftime("%-d/%-m/%y")} to #{event.end_date.strftime("%-d/%-m/%y")}"
-                      td = "#{pluralize(event.length, 'Day')}"
-                      td = event.format
+                      td.fit = "#{event.start_date.strftime("%-m/%-d/%y")} to #{event.end_date.strftime("%-m/%-d/%y")}"
+                      td.fit = "#{pluralize(event.length, 'Day')}"
+                      td.fit = event.format
                       - if event.city.present? || event.state.present?
-                        td = "#{event.city}, #{event.state}"
+                        td.fit = "#{event.city}, #{event.state}"
                       - else
-                        td
-                      td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                        td.fit
+                      td.fit = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
