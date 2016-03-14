@@ -89,7 +89,7 @@
                     - if @course.upcoming_events.any?
                       - @course.upcoming_events.each do |event|
                         tr
-                          td = "#{event.start_date.strftime("%b. %d, %Y")} to #{event.end_date.strftime("%b. %d, %Y")}"
+                          td = "#{event.start_date.strftime("%-d/%-m/%y")} to #{event.end_date.strftime("%-d/%-m/%y")}"
                           td = "#{pluralize(event.length, 'Day')}"
                           td = event.format
                           - if event.city.present? || event.state.present?
@@ -127,7 +127,7 @@
       .panel-body
         = link_to course_download_platform_courses_path(@platform, @course) do
           span.fa.fa-file-pdf-o.text-danger
-          | Download PDF Datasheet
+          | Download Datasheet
         h5
           strong Questions?
         p The NterOne team will be happy to answer your questions.
