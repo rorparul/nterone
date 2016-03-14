@@ -187,6 +187,7 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
