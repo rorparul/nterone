@@ -20,13 +20,13 @@
           thead
             tr
               th Title
-              th URL
+              / th URL
               th
           tbody#pages
             - @static_pages.each do |page|
               tr
                 td = page.title
-                td = link_to "#{request.base_url}#{page_path(page)}", page_path(page)
+                / td = link_to "#{request.base_url}#{page_path(page)}", page_path(page)
                 td.actions-column.fit
                   = link_to "Edit", edit_page_path(page), remote: false
 
