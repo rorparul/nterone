@@ -20,13 +20,11 @@
           thead
             tr
               th Title
-              / th URL
               th
           tbody#pages
             - @static_pages.each do |page|
               tr
                 td = page.title
-                / td = link_to "#{request.base_url}#{page_path(page)}", page_path(page)
                 td.actions-column.fit
                   = link_to "Edit", edit_page_path(page), remote: false
 
@@ -52,80 +50,6 @@
                   = link_to "Edit", edit_page_path(page), remote: false
                   = " | "
                   = link_to 'Delete', page_path(page), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
-
-/ .row
-/   .col-xs-12
-/     .panel.panel-default
-/       .panel-heading
-/         strong.text-muted Carousel Items
-/         = link_to "Add", new_carousel_item_path, remote: true, class: "panel-heading-controls"
-/       .table-responsive
-/         table.table.table-condensed
-/           thead
-/             tr
-/               th Image
-/               th Caption
-/               th Active
-/               th
-/           tbody#carousel-items
-/             = render partial: 'carousel_items/carousel_items', locals: { carousel_items: @carousel_items }
-/       div class="#{'panel-footer' if @carousel_items.total_count > 5}"
-/         #carousel-items-page-control
-/           = render partial: 'carousel_items/page_controls', locals: { carousel_items: @carousel_items }
-/ 
-/ .row
-/   .col-xs-12
-/     .panel.panel-default
-/       .panel-heading
-/         strong.text-muted Press Releases
-/         = link_to "Add", new_press_release_path, remote: false, class: "panel-heading-controls"
-/       .table-responsive
-/         table.table.table-condensed
-/           thead
-/             tr
-/               th Title
-/               th
-/           tbody#press-releases
-/             = render partial: 'press_releases/press_releases', locals: { press_releases: @press_releases }
-/       div class="#{'panel-footer' if @press_releases.total_count > 5}"
-/         #press-releases-page-control
-/           = render partial: 'press_releases/page_controls', locals: { press_releases: @press_releases }
-/ 
-/ .row
-/   .col-xs-12
-/     .panel.panel-default
-/       .panel-heading
-/         strong.text-muted Blog Posts
-/         = link_to "Add", new_blog_post_path, remote: false, class: "panel-heading-controls"
-/       .table-responsive
-/         table.table.table-condensed
-/           thead
-/             tr
-/               th Title
-/               th
-/           tbody#blog-posts
-/             = render partial: 'blog_posts/blog_posts', locals: { blog_posts: @blog_posts }
-/       div class="#{'panel-footer' if @blog_posts.total_count > 5}"
-/         #blog-posts-page-control
-/           = render partial: 'blog_posts/page_controls', locals: { blog_posts: @blog_posts }
-/ 
-/ .row
-/   .col-xs-12
-/     .panel.panel-default
-/       .panel-heading
-/         strong.text-muted Industry Articles
-/         = link_to "Add", new_industry_article_path, remote: false, class: "panel-heading-controls"
-/       .table-responsive
-/         table.table.table-condensed
-/           thead
-/             tr
-/               th Title
-/               th
-/           tbody#industry-articles
-/             = render partial: 'industry_articles/industry_articles', locals: { industry_articles: @industry_articles }
-/       div class="#{'panel-footer' if @industry_articles.total_count > 5}"
-/         #industry-articles-page-control
-/           = render partial: 'industry_articles/page_controls', locals: { industry_articles: @industry_articles }
           
 .row
   .col-xs-12
