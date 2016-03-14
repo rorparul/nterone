@@ -41,8 +41,8 @@
                 tbody
                   - platform.featured_upcoming_events.each do |event|
                     tr
-                      td = event.course.full_title
-                      td = "#{event.start_date.strftime("%b. %d, %Y")} to #{event.end_date.strftime("%b. %d, %Y")}"
+                      td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
+                      td = "#{event.start_date.strftime("%-d/%-m/%y")} to #{event.end_date.strftime("%-d/%-m/%y")}"
                       td = "#{pluralize(event.length, 'Day')}"
                       td = event.format
                       - if event.city.present? || event.state.present?
