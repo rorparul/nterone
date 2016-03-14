@@ -1,6 +1,18 @@
+<%- content_for :breadcrumbs do %>
+  <a href="<%= main_app.root_path %>">
+    <span class="fa fa-home"></span>
+    Home
+  </a>
+  <span class="seperator">/</span>
+  <%= link_to t('forem.forum.forums'), forem.root_path %>
+  <span class="seperator">/</span>
+  <%= link_to forem_emojify(forum.category), [forem, forum.category] %>
+  <span class="seperator">/</span>
+  <span class="text-muted"><%= forem_emojify(forum.title) %></span>
+<% end %>
+
 <div id='forum'>
-  <h2><%= link_to t('forem.forum.forums'), forem.root_path %> &raquo; <%= link_to forem_emojify(forum.category), [forem, forum.category] %> &raquo; <%= link_to forem_emojify(forum.title), [forem, forum] %></h2>
-  <span id='description'><%= forem_format(forum.description) %></span>
+  <!-- <h2><%= link_to t('forem.forum.forums'), forem.root_path %> &raquo; <%= link_to forem_emojify(forum.category), [forem, forum.category] %> &raquo; <%= link_to forem_emojify(forum.title), [forem, forum] %></h2> -->
   <div id='forum_topic_links' class='btn-group'>
     <% unless @topic.try(:new_record?) %>
       <% if can? :create_topic, @forum %>
@@ -14,4 +26,5 @@
       <%= link_to t('forem.forum.moderator_tools'), forem.forum_moderator_tools_path(forum), :class => "btn btn-primary" %>
     <% end %>
   </div>
+  <span id='description'><%= forem_format(forum.description) %></span>
 </div>

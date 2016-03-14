@@ -1,12 +1,3 @@
-<%- content_for :breadcrumbs do %>
-  <a href="<%= main_app.root_path %>">
-    <span class="fa fa-home"></span>
-    Home
-  </a>
-  <span class="seperator">/</span>
-  <span class="text-muted">Forums</span>
-<% end %>
-
 <div class='forum'>
   <%= render :partial => 'forem/forums/head', :locals => { :forum => @forum } %>
 
