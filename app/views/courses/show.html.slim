@@ -89,7 +89,7 @@
                     - if @course.upcoming_events.any?
                       - @course.upcoming_events.each do |event|
                         tr
-                          td = "#{event.start_date.strftime("%-d/%-m/%y")} to #{event.end_date.strftime("%-d/%-m/%y")}"
+                          td = "#{event.start_date.strftime("%-m/%-d/%y")} to #{event.end_date.strftime("%-m/%-d/%y")}"
                           td = "#{pluralize(event.length, 'Day')}"
                           td = event.format
                           - if event.city.present? || event.state.present?
