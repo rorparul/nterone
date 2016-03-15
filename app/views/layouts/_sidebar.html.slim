@@ -1,40 +1,9 @@
-/ .sidebar.hidden-xs
-/   ul.nav
-/     li = link_to root_path, class: 'home-tab' do
-/       = personal_greeting
-/     = render 'layouts/sidebar_items'
-
 .col-xs-12.side-column.hidden-xs
   .sidebar-v2
     ul.nav
       li = link_to main_app.root_path, class: 'home-tab' do
         span.fa.fa-home
         = personal_greeting
-      li = link_to main_app.executives_bios_path, class: 'about-us-tab' do
-        span.fa.fa-info-circle
-        span.text About Us
-      li = link_to main_app.platforms_path, class: 'training-tab' do
-        span.fa.fa-book
-        span.text Training
-      li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
-        span.fa.fa-thumbs-o-up
-        span.text Testimonials
-      li = link_to forem.root_path, class: "forums-tab" do
-        span.fa.fa-comments-o
-        span.text Forums
-      li = link_to main_app.consulting_path, class: "consulting-tab" do
-        span.fa.fa-puzzle-piece
-        span.text Consulting
-      li = link_to main_app.partners_path, class: "partners-tab" do
-        span.fa.fa-users
-        span.text Partners
-      li = link_to main_app.labs_path, class: "labs-tab" do
-        span.fa.fa-flask
-        span.text Labs
-      - if !user_signed_in? || (user_signed_in? && current_user.member?)
-        li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
-          span.fa.fa-envelope-o
-          span.text Contact Us
       - if user_signed_in?
         - if current_user.admin?
           li = link_to main_app.my_admin_orders_path, class: "role-tab" do
@@ -58,6 +27,31 @@
         li = link_to main_app.new_user_session_path, class: "login-tab" do
           span.fa.fa-sign-in
           span.text Login
+      li = link_to main_app.executives_bios_path, class: 'about-us-tab' do
+        span.fa.fa-info-circle
+        span.text About Us
+      li = link_to main_app.platforms_path, class: 'training-tab' do
+        span.fa.fa-book
+        span.text Training
+      li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
+        span.fa.fa-thumbs-o-up
+        span.text Testimonials
+      li = link_to forem.root_path, class: "forums-tab" do
+        span.fa.fa-comments-o
+        span.text Forums
+      li = link_to main_app.consulting_path, class: "consulting-tab" do
+        span.fa.fa-puzzle-piece
+        span.text Consulting
+      li = link_to main_app.partners_path, class: "partners-tab" do
+        span.fa.fa-users
+        span.text Partners
+      li = link_to main_app.labs_path, class: "labs-tab" do
+        span.fa.fa-server
+        span.text Labs
+      - if !user_signed_in? || (user_signed_in? && current_user.member?)
+        li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
+          span.fa.fa-envelope-o
+          span.text Contact Us
       - if user_signed_in?
         li = link_to main_app.destroy_user_session_path, method: :delete do
           span.fa.fa-sign-out
