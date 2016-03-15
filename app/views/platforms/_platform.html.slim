@@ -11,13 +11,13 @@
         h4.text-muted Browse By
         hr
         .categories.hidden-xs
-          - platform.parent_categories.order(:title).each do |category|
+          - platform.parent_categories.order(:position).each do |category|
             = link_to category.title,
                       platform_category_path(category.platform, category),
                       class: "btn btn-category category"
         .categories-mobile.visible-xs
           .panel-group
-            - platform.parent_categories.order(:title).each do |category|
+            - platform.parent_categories.order(:position).each do |category|
               .panel
                 .panel-heading
                   = link_to category.title,
