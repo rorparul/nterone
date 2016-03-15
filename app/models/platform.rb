@@ -25,6 +25,6 @@ class Platform < ActiveRecord::Base
   validates_associated :image
 
   def featured_upcoming_events
-    events.where("events.active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
+    events.where("events.active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today }).order(:start_date)
   end
 end
