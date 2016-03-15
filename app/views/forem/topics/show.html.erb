@@ -2,7 +2,7 @@
   <%= render :partial => 'forem/topics/head', :locals => { :topic => @topic } %>
 
   <div id='menu'>
-    <div class='btn-group btn-group-topic'>
+    <div class='btn-group btn-group-forum'>
       <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
         <%= link_to t(".reply"), forem.new_forum_topic_post_path(@forum, @topic), :class => "btn btn-success " %>
       <% end %>

@@ -1,14 +1,5 @@
-<%- content_for :breadcrumbs do %>
-  <a href="<%= main_app.root_path %>">
-    <span class="fa fa-home"></span>
-    Home
-  </a>
-  <span class="seperator">/</span>
-  <span class="text-muted">Forums</span>
-<% end %>
-
 <%= render :partial => 'forem/forums/head', :locals => { :forum => @topic.forum } %>
 
-<h2><%= t("forem.topic.new") %></h2>
+<!-- <h2><%= t("forem.topic.new") %></h2> -->
 
 <%= render "form" %>
