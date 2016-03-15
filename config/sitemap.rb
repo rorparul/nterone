@@ -7,7 +7,6 @@ SitemapGenerator::Sitemap.create do
   add blog_path
   add industry_path
   add testimonials_path
-  add forem.root_path
   add consulting_path
   add partners_path
   add labs_path
