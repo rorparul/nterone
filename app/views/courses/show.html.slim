@@ -128,9 +128,10 @@
       .video-thumbnail-container
         = @course.video_preview.html_safe if @course.video_preview
       .panel-body
-        = link_to course_download_platform_courses_path(@platform, @course) do
-          span.fa.fa-file-pdf-o.text-danger
-          | Download Datasheet
+        - if @course.pdf.url
+          = link_to course_download_platform_courses_path(@platform, @course) do
+            span.fa.fa-file-pdf-o.text-danger
+            | Download Datasheet
         h5
           strong Questions?
         p The NterOne team will be happy to answer your questions.
