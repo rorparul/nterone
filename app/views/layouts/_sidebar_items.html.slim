@@ -1,28 +1,3 @@
-li = link_to main_app.executives_bios_path, class: 'about-us-tab' do
-  span.fa.fa-info-circle
-  span About Us
-li = link_to main_app.platforms_path, class: 'training-tab' do
-  span.fa.fa-book
-  span Training
-li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
-  span.fa.fa-thumbs-o-up
-  span Testimonials
-li = link_to forem.root_path, class: "forums-tab" do
-  span.fa.fa-comments-o
-  span Forums
-li = link_to main_app.consulting_path, class: "consulting-tab" do
-  span.fa.fa-puzzle-piece
-  span Consulting
-li = link_to main_app.partners_path, class: "partners-tab" do
-  span.fa.fa-users
-  span Partners
-li = link_to main_app.labs_path, class: "labs-tab" do
-  span.fa.fa-flask
-  span Labs
-- if !user_signed_in? || (user_signed_in? && current_user.member?)
-  li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
-    span.fa.fa-envelope-o
-    span Contact Us
 - if user_signed_in?
   - if current_user.admin?
     li = link_to main_app.my_admin_orders_path, class: "role-tab" do
@@ -46,6 +21,31 @@ li = link_to main_app.labs_path, class: "labs-tab" do
   li = link_to main_app.new_user_session_path, class: "login-tab" do
     span.fa.fa-sign-in
     span Login
+li = link_to main_app.executives_bios_path, class: 'about-us-tab' do
+  span.fa.fa-info-circle
+  span About Us
+li = link_to main_app.platforms_path, class: 'training-tab' do
+  span.fa.fa-book
+  span Training
+li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
+  span.fa.fa-thumbs-o-up
+  span Testimonials
+li = link_to forem.root_path, class: "forums-tab" do
+  span.fa.fa-comments-o
+  span Forums
+li = link_to main_app.consulting_path, class: "consulting-tab" do
+  span.fa.fa-puzzle-piece
+  span Consulting
+li = link_to main_app.partners_path, class: "partners-tab" do
+  span.fa.fa-users
+  span Partners
+li = link_to main_app.labs_path, class: "labs-tab" do
+  span.fa.fa-server
+  span Labs
+- if !user_signed_in? || (user_signed_in? && current_user.member?)
+  li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
+    span.fa.fa-envelope-o
+    span Contact Us
 - if user_signed_in?
   li = link_to main_app.destroy_user_session_path, method: :delete do
     span.fa.fa-sign-out
