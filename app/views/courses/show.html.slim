@@ -95,7 +95,10 @@
                           - if event.city.present? || event.state.present?
                             td = "#{event.city}, #{event.state}"
                           - else
-                            td
+                            - if event.format == "Live Online"
+                              td Webex
+                            - else
+                              td
                           td Available
                           td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
                           - if !user_signed_in? || (user_signed_in? && current_user.member?)

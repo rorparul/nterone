@@ -1,7 +1,7 @@
 .categories.hidden-xs
   .row.text-center
     - categories.each do |parent_category|
-      = link_to parent_category.title,
+      = link_to user_signed_in? && current_user.admin? ? "#{parent_category.position} #{parent_category.title}" : parent_category.title,
                 platform_category_path(parent_category.platform, parent_category),
                 class: "btn btn-category category #{'active-category' if parent_category == category || parent_category.children.include?(category)}"
     .col-xs-12
@@ -12,8 +12,8 @@
                 class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
       - categories.each do |parent_category|
         - if parent_category == category || parent_category == category.parent
-          - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
-            = link_to child_category.title,
+          - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
+            = link_to user_signed_in? && current_user.admin? ? "#{child_category.position} #{child_category.title}" : child_category.title,
                       platform_category_path(child_category.platform, child_category),
                       class: "btn btn-child-category sub-category #{'active-category' if child_category == category}"
                       
@@ -22,7 +22,7 @@
     - categories.each do |parent_category|
       .panel
         .panel-heading
-          = link_to parent_category.title,
+          = link_to user_signed_in? && current_user.admin? ? "#{parent_category.position} #{parent_category.title}" : parent_category.title,
                     platform_category_path(parent_category.platform, parent_category),
                     class: "btn btn-category #{'active-category' if parent_category == category || parent_category.children.include?(category)}"
         - if parent_category == category || parent_category == category.parent
@@ -30,7 +30,7 @@
             = link_to 'Show All',
                       platform_category_path(category.parent ? category.parent.platform : category.platform, category.parent ? category.parent : category),
                       class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
-            - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
-              = link_to child_category.title,
+            - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
+              = link_to user_signed_in? && current_user.admin? ? "#{child_category.position} #{child_category.title}" : child_category.title,
                         platform_category_path(child_category.platform, child_category),
                         class: "btn btn-child-category sub-category #{'active-category' if child_category == category}"
