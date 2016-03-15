@@ -1,17 +1,19 @@
-<%- content_for :breadcrumbs do %>
-  <a href="<%= main_app.root_path %>">
-    <span class="fa fa-home"></span>
-    Home
-  </a>
-  <span class="seperator">/</span>
-  <span class="text-muted">Forums</span>
-<% end %>
-
 <%= render :partial => 'forem/forums/head', :locals => { :forum => @topic.forum } %>
 
-<h2><%= t("forem.post.edit", :post => @post) %></h2>
+<!-- <h3><%= t("forem.post.edit", :post => @post) %></h3> -->
 
 <%= simple_form_for [forem, @topic.forum, @topic, @post] do |f| %>
   <%= render :partial => "form", :locals => { :f => f } %>
-  <%= f.submit t("forem.post.buttons.edit"), :class => "btn btn-primary" %>
+  <div class="form-buttons">
+    <%= f.submit t("forem.post.buttons.edit"), :class => "btn btn-success" %>
+    <button id="forum-back" class="btn btn-primary" type="button" name="button">Cancel</button>
+  </div>
 <% end %>
+
+<script>
+  $('.forums-tab').addClass('active');
+
+  $('#forum-back').on('click', function() {
+    location.replace(document.referrer);
+  });
+</script>

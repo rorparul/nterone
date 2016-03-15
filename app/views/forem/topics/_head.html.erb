@@ -6,6 +6,8 @@
   <span class="seperator">/</span>
   <%= link_to t('forem.forum.forums'), forem.root_path %>
   <span class="seperator">/</span>
+  <%= link_to forem_emojify(topic.forum.category), [forem, topic.forum.category] %>
+  <span class="seperator">/</span>
   <%= link_to forem_emojify(topic.forum.title), [forem, topic.forum] %>
   <span class="seperator">/</span>
   <span class="text-muted"><%= forem_emojify(topic.subject) %></span>
