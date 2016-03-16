@@ -13,24 +13,32 @@
         strong.text-muted My Cart
       .table-responsive
         table.table.table-condensed
-          thead
             - if @cart.order_items.empty?
-              tr
-                td.text-center Your cart is empty.
-            - else
-              - @cart.order_items.each do |order_item|
+              tbody
                 tr
-                  - if order_item.orderable_type == 'Event'
-                    td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
-                    td = order_item.orderable.format
-                    td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
-                  - if order_item.orderable_type == 'VideoOnDemand'
-                    td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable)
-                    td Video On Demand
-                    td One Year of Access
-                  td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-                  td
-                    = link_to "Remove from cart", order_item, method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                  td.text-center Your cart is empty.
+            - else
+              thead
+                tr
+                  th Item
+                  th Date
+                  th Format
+                  th Price
+                  th
+              tbody
+                - @cart.order_items.each do |order_item|
+                  tr
+                    - if order_item.orderable_type == 'Event'
+                      td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
+                      td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+                      td = order_item.orderable.format
+                    - if order_item.orderable_type == 'VideoOnDemand'
+                      td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable)
+                      td One Year of Access
+                      td Video On Demand
+                    td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                    td
+                      = link_to "Remove from cart", order_item, method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
 = form_for :order, url: orders_path do |f|    
   .row
@@ -158,25 +166,25 @@
         .panel-heading
           strong.text-muted My Summary
         .responsive-table
-          table.table.table-condensed.table-split
+          table.table.table-condensed
+            thead
+              tr
+                th Items Total
+                th
+                th Credits Total
+                th
+                th Grand Total
             tbody
-              tr
-                td.text-right
-                  strong Items Total:
-                td
-                  | $
-                  span#items = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
-              tr
-                td.text-right
-                  strong Credits Total:
-                td
+              tr 
+                td.fit = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
+                td.fit -
+                td.fit
                   | $
                   span#credits 0.00
                   |  applied
-              tr
-                td.text-right
-                  strong Grand Total:
-                td
+                td.fit
+                  | =
+                td.fit
                   | $
                   span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
                   |  to be charged
