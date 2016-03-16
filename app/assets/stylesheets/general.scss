@@ -44,8 +44,10 @@ body {
 }
 
 .credit-card-logos {
+  position: absolute;
   width: 150px;
-  margin-bottom: 5px;
+  right: 18px;
+  top: 29px;
 }
 
 .pagination {

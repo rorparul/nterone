@@ -42,11 +42,6 @@ class CategoriesController < ApplicationController
   def create
     @platform = Platform.find(params[:platform_id])
     @category = @platform.categories.build(category_params)
-    if @category.parent
-      process_group(@platform.parent.children, @category)
-    else
-      process_group(@platform.parent_categories, @category)
-    end
     if @category.save
       flash[:success] = 'Category successfully created!'
       render js: "window.location = '#{request.referrer}';"
@@ -57,11 +52,6 @@ class CategoriesController < ApplicationController
 
   def update
     @platform = Platform.find(params[:platform_id])
-    if @category.parent
-      process_group(@category.parent.children, @category)
-    else
-      process_group(@platform.parent_categories, @category)
-    end
     if @category.update_attributes(category_params)
       flash[:success] = 'Category successfully updated!'
       render js: "window.location = '#{request.referrer}';"
