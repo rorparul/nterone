@@ -120,7 +120,8 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:clc_number,
                                   :clc_quantity,
-                                  :billing_name,
+                                  :billing_first_name,
+                                  :billing_last_name,
                                   :billing_street,
                                   :billing_city,
                                   :billing_state,
