@@ -29,6 +29,15 @@
           hr
           fieldset
             label Billing Address
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_first_name, 'First Name'
+                  = f.text_field :billing_first_name, class: 'form-control input-sm'
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_last_name, 'Last Name'
+                  = f.text_field :billing_last_name, class: 'form-control input-sm'
             .form-group
               = f.label :billing_street, "Street"
               = f.text_field :billing_street, class: "form-control input-sm"
@@ -57,25 +66,34 @@
           hr.hideable
           fieldset.hideable
             label Shipping Address
-            .form-group
-              = f.label :street, 'Street'
-              = f.text_field :street, class: "form-control input-sm input-shipping-address"
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :city, "City"
-                  = f.text_field :city, class: "form-control input-sm input-shipping-address"
+                  = f.label :shipping_first_name, 'First Name'
+                  = f.text_field :shipping_first_name, class: 'form-control input-sm'
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :shipping_last_name, 'Last Name'
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm'
+            .form-group
+              = f.label :shipping_street, 'Street'
+              = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :shipping_city, "City"
+                  = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :state, "State"
-                  = f.select :state,
+                  = f.label :shipping_state, "State"
+                  = f.select :shipping_state,
                              us_states,
                              { prompt: true },
                              { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :zipcode, "Zip Code"
-                  = f.text_field :zipcode, class: "form-control input-sm input-shipping-address"
+                  = f.label :shipping_zip_code, "Zip Code"
+                  = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
 
           .form-buttons
             = f.submit "Save", class: 'btn btn-success'

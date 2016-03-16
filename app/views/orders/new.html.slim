@@ -84,11 +84,11 @@
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :billing_first_name, 'First Name'
-                  = f.text_field :billing_first_name, class: 'form-control input-sm'
+                  = f.text_field :billing_first_name, class: 'form-control input-sm', value: (current_user.billing_first_name if user_signed_in?)
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :billing_last_name, 'Last Name'
-                  = f.text_field :billing_last_name, class: 'form-control input-sm'
+                  = f.text_field :billing_last_name, class: 'form-control input-sm', value: (current_user.billing_last_name if user_signed_in?)
             .form-group
               = f.label :billing_street, 'Street'
               = f.text_field :billing_street, class: 'form-control input-sm', value: (current_user.billing_street if user_signed_in?)
@@ -127,21 +127,21 @@
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_first_name, 'First Name'
-                  = f.text_field :shipping_first_name, class: 'form-control input-sm'
+                  = f.text_field :shipping_first_name, class: 'form-control input-sm', value: (current_user.shipping_first_name if user_signed_in?)
                   
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_last_name, 'Last Name'
-                  = f.text_field :shipping_last_name, class: 'form-control input-sm'
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm', value: (current_user.shipping_last_name if user_signed_in?)
               
             .form-group
               = f.label :shipping_street, 'Street'
-              = f.text_field :shipping_street, class: 'form-control input-sm', value: (current_user.billing_street if user_signed_in?)
+              = f.text_field :shipping_street, class: 'form-control input-sm', value: (current_user.shipping_street if user_signed_in?)
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :shipping_city, 'City'
-                  = f.text_field :shipping_city, class: 'form-control input-sm', value: (current_user.billing_city if user_signed_in?)
+                  = f.text_field :shipping_city, class: 'form-control input-sm', value: (current_user.shipping_city if user_signed_in?)
               .col-xs-12.col-md-4
                 .form-group
                   = f.label :shipping_state, 'State'
@@ -149,7 +149,7 @@
                     = f.select :shipping_state,
                                us_states,
                                { prompt: true,
-                                 selected: current_user.billing_state },
+                                 selected: current_user.shipping_state },
                                { class: 'form-control input-sm' }
                   - else
                     = f.select :shipping_state,
@@ -159,7 +159,7 @@
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :shipping_zip_code, 'Zip Code'
-                  = f.text_field :shipping_zip_code, class: 'form-control input-sm', value: (current_user.billing_zip_code if user_signed_in?)
+                  = f.text_field :shipping_zip_code, class: 'form-control input-sm', value: (current_user.shipping_zip_code if user_signed_in?)
   .row
     .col-xs-12
       .panel.panel-default
@@ -188,59 +188,59 @@
                   | $
                   span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
                   |  to be charged
-  - unless user_signed_in?
-    .row
-      .col-xs-12
-        .panel.panel-default
-          .panel-heading
-            strong.text-muted Login / Register
-          .panel-body
-            .row
-              .col-xs-4
-                .row
-                  .col-xs-6
-                    .form-group
-                      label.radio-inline
-                        input.radio-login type="radio" name="user" value="login" checked="true" Login
-                  .col-xs-6
-                    .form-group
-                      label.radio-inline
-                        input.radio-register type="radio" name="user" value="register" Register
-            fieldset.order-login
-              .row
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :email, 'Email'
-                    = f.text_field :email, class: 'form-control input-sm'
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :password, 'Password'
-                    = f.text_field :password, class: 'form-control input-sm'
-                    
-            fieldset.order-register
-              .row
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :first_name, 'First Name'
-                    = f.text_field :first_name, class: 'form-control input-sm'
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :last_name, 'Last Name'
-                    = f.text_field :last_name, class: 'form-control input-sm'
-              .row
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :email, 'Email'
-                    = f.text_field :email, class: 'form-control input-sm'
-              .row
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :password, 'Password'
-                    = f.text_field :password, class: 'form-control input-sm'
-                .col-xs-12.col-md-6
-                  .form-group
-                    = f.label :password_confirmation, 'Password Confirmation'
-                    = f.text_field :password_confirmation, class: 'form-control input-sm'
+  / - unless user_signed_in?
+  /   .row
+  /     .col-xs-12
+  /       .panel.panel-default
+  /         .panel-heading
+  /           strong.text-muted Login / Register
+  /         .panel-body
+  /           .row
+  /             .col-xs-4
+  /               .row
+  /                 .col-xs-6
+  /                   .form-group
+  /                     label.radio-inline
+  /                       input.radio-login type="radio" name="user" value="login" checked="true" Login
+  /                 .col-xs-6
+  /                   .form-group
+  /                     label.radio-inline
+  /                       input.radio-register type="radio" name="user" value="register" Register
+  /           fieldset.order-login
+  /             .row
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :email, 'Email'
+  /                   = f.text_field :email, class: 'form-control input-sm'
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :password, 'Password'
+  /                   = f.text_field :password, class: 'form-control input-sm'
+  /                   
+  /           fieldset.order-register
+  /             .row
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :first_name, 'First Name'
+  /                   = f.text_field :first_name, class: 'form-control input-sm'
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :last_name, 'Last Name'
+  /                   = f.text_field :last_name, class: 'form-control input-sm'
+  /             .row
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :email, 'Email'
+  /                   = f.text_field :email, class: 'form-control input-sm'
+  /             .row
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :password, 'Password'
+  /                   = f.text_field :password, class: 'form-control input-sm'
+  /               .col-xs-12.col-md-6
+  /                 .form-group
+  /                   = f.label :password_confirmation, 'Password Confirmation'
+  /                   = f.text_field :password_confirmation, class: 'form-control input-sm'
   .form-buttons
     button.btn.btn-success type="submit" Place Order
         
@@ -249,16 +249,6 @@ javascript:
   
   $('.input-clc-quantity').on('change', function() {
     $.get("#{cart_calculator_path}?quantity=" + $(this).val());
-  });
-  
-  $(".radio-login").on("click", function() {
-    $(".order-register").hide();
-    $(".order-login").show();
-  });
-  
-  $(".radio-register").on("click", function() {
-    $(".order-login").hide();
-    $(".order-register").show();
   });
   
   function toggleShippingAddress(checkBox) {

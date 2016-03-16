@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   include AuthorizeNet::API
 
-  before_action :authenticate_user!, except: [:new, :create]
+  before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -24,18 +24,18 @@ class OrdersController < ApplicationController
   end
 
   def create
-    unless user_signed_in?
-      @user = User.find_by_email(user_params[:email])
-      if @user && @user.valid_password?(user_params[:password])
-        sign_in(@user)
-      else
-        @user = User.new(user_params)
-        @user.skip_confirmation!
-        @user.save
-        Role.create(user_id: @user.id)
-        sign_in(@user)
-      end
-    end
+    # unless user_signed_in?
+    #   @user = User.find_by_email(user_params[:email])
+    #   if @user && @user.valid_password?(user_params[:password])
+    #     sign_in(@user)
+    #   else
+    #     @user = User.new(user_params)
+    #     @user.skip_confirmation!
+    #     @user.save
+    #     Role.create(user_id: @user.id)
+    #     sign_in(@user)
+    #   end
+    # end
 
     if current_user.try(:admin?)
       @order = Order.new(staff_order_params)
@@ -57,10 +57,13 @@ class OrdersController < ApplicationController
                                                                          credit_card_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
 
-      # transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
-      transaction = Transaction.new("6n4RAa4uz", "8DRM235rU88yx5w4", gateway: :card_present)
-      response    = transaction.create_transaction(request)
+      if Rails.env.development?
+        transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
+      elsif Rails.env.production?
+        transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :production)
+      end
 
+      response    = transaction.create_transaction(request)
       if response.messages.resultCode == MessageTypeEnum::Ok
         puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
         @order.assign_attributes(order_params)
