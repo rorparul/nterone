@@ -169,11 +169,11 @@
           table.table.table-condensed
             thead
               tr
-                th Items Total
+                th Total
                 th
-                th Credits Total
+                th Credits
                 th
-                th Grand Total
+                th Balance
             tbody
               tr 
                 td.fit = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
