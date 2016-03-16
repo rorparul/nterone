@@ -12,7 +12,7 @@
       .panel-heading
         strong.text-muted My Cart
       .table-responsive
-        table.table.table-condensed
+        table.table
             - if @cart.order_items.empty?
               tbody
                 tr
@@ -166,7 +166,7 @@
         .panel-heading
           strong.text-muted My Summary
         .responsive-table
-          table.table.table-condensed
+          table.table
             thead
               tr
                 th Total
@@ -188,6 +188,28 @@
                   | $
                   span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
                   |  to be charged
+  - unless user_signed_in?
+    .row
+      .col-xs-12
+        .panel.panel-default
+          .panel-heading
+            strong.text-muted Login / Register
+          .panel-body
+            fieldset
+              .row
+                .col-xs-12.col-md-6
+                  .form-group
+                    = f.label :email, 'Email'
+                    = f.text_field :email, class: 'form-control input-sm'
+              .row
+                .col-xs-12.col-md-6
+                  .form-group
+                    = f.label :password, 'Password'
+                    = f.text_field :password, class: 'form-control input-sm'
+                .col-xs-12.col-md-6
+                  .form-group
+                    = f.label :password_confirmation, 'Password Confirmation'
+                    = f.text_field :password_confirmation, class: 'form-control input-sm'
   .form-buttons
     button.btn.btn-success type="submit" Place Order
         

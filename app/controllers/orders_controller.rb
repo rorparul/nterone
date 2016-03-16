@@ -126,6 +126,12 @@ class OrdersController < ApplicationController
                                   :billing_city,
                                   :billing_state,
                                   :billing_zip_code,
+                                  :first_name,
+                                  :last_name,
+                                  :street,
+                                  :city,
+                                  :state,
+                                  :zipcode,
                                   :paid,
                                   :seller_id,
                                   :buyer_id)
@@ -151,3 +157,80 @@ class OrdersController < ApplicationController
                                                            :orderable_type])
   end
 end
+
+# create_table "orders", force: :cascade do |t|
+#   t.datetime "created_at",                                                       null: false
+#   t.datetime "updated_at",                                                       null: false
+#   t.string   "auth_code"
+#   t.string   "first_name"
+#   t.string   "last_name"
+#   t.string   "shipping_street"
+#   t.string   "shipping_city"
+#   t.string   "shipping_state"
+#   t.string   "shipping_zip_code"
+#   t.string   "shipping_country"
+#   t.string   "email"
+#   t.string   "clc_number"
+#   t.string   "billing_name"
+#   t.string   "billing_zip_code"
+#   t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
+#   t.string   "billing_street"
+#   t.string   "billing_city"
+#   t.string   "billing_state"
+#   t.integer  "seller_id"
+#   t.integer  "buyer_id"
+#   t.string   "status",                                    default: "Uninvoiced"
+#   t.decimal  "total",             precision: 8, scale: 2, default: 0.0
+#   t.string   "billing_country"
+#   t.string   "payment_type"
+#   t.integer  "clc_quantity",                              default: 0
+# end
+
+# create_table "users", force: :cascade do |t|
+#   t.string   "email",                  default: "",               null: false
+#   t.string   "encrypted_password",     default: "",               null: false
+#   t.string   "reset_password_token"
+#   t.datetime "reset_password_sent_at"
+#   t.datetime "remember_created_at"
+#   t.integer  "sign_in_count",          default: 0,                null: false
+#   t.datetime "current_sign_in_at"
+#   t.datetime "last_sign_in_at"
+#   t.inet     "current_sign_in_ip"
+#   t.inet     "last_sign_in_ip"
+#   t.datetime "created_at"
+#   t.datetime "updated_at"
+#   t.string   "company_name"
+#   t.string   "first_name"
+#   t.string   "last_name"
+#   t.string   "contact_number"
+#   t.string   "country"
+#   t.string   "website"
+#   t.string   "street"
+#   t.string   "city"
+#   t.string   "state"
+#   t.string   "zipcode"
+#   t.boolean  "archived",               default: false
+#   t.string   "confirmation_token"
+#   t.datetime "confirmed_at"
+#   t.datetime "confirmation_sent_at"
+#   t.string   "unconfirmed_email"
+#   t.string   "invitation_token"
+#   t.datetime "invitation_created_at"
+#   t.datetime "invitation_sent_at"
+#   t.datetime "invitation_accepted_at"
+#   t.integer  "invitation_limit"
+#   t.integer  "invited_by_id"
+#   t.string   "invited_by_type"
+#   t.integer  "invitations_count",      default: 0
+#   t.datetime "last_active_at"
+#   t.string   "billing_street"
+#   t.string   "billing_city"
+#   t.string   "billing_state"
+#   t.string   "billing_zip_code"
+#   t.boolean  "same_addresses",         default: false
+#   t.boolean  "forem_admin",            default: false
+#   t.string   "forem_state",            default: "pending_review"
+#   t.boolean  "forem_auto_subscribe",   default: false
+#   t.string   "billing_first_name"
+#   t.string   "billing_last_name"
+# end
