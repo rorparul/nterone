@@ -57,7 +57,8 @@ class OrdersController < ApplicationController
                                                                          credit_card_params[:security_code])
       request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
 
-      transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
+      # transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], :gateway => :sandbox)
+      transaction = Transaction.new("6n4RAa4uz", "8DRM235rU88yx5w4")
       response    = transaction.create_transaction(request)
 
       if response.messages.resultCode == MessageTypeEnum::Ok
