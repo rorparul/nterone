@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315215032) do
+ActiveRecord::Schema.define(version: 20160316182557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,8 +429,8 @@ ActiveRecord::Schema.define(version: 20160315215032) do
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
@@ -443,17 +443,19 @@ ActiveRecord::Schema.define(version: 20160315215032) do
     t.string   "clc_number"
     t.string   "billing_name"
     t.string   "billing_zip_code"
-    t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
+    t.decimal  "paid",               precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.integer  "seller_id"
     t.integer  "buyer_id"
-    t.string   "status",                                    default: "Uninvoiced"
-    t.decimal  "total",             precision: 8, scale: 2, default: 0.0
+    t.string   "status",                                     default: "Uninvoiced"
+    t.decimal  "total",              precision: 8, scale: 2, default: 0.0
     t.string   "billing_country"
     t.string   "payment_type"
-    t.integer  "clc_quantity",                              default: 0
+    t.integer  "clc_quantity",                               default: 0
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -639,6 +641,12 @@ ActiveRecord::Schema.define(version: 20160315215032) do
     t.boolean  "forem_auto_subscribe",   default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
+    t.string   "shipping_first_name"
+    t.string   "shipping_last_name"
+    t.string   "shipping_street"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_zip_code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
