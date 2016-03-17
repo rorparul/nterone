@@ -32,7 +32,7 @@
             td.fit -
             td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
             td.fit -
-            - if order.clc_quantity > 0
+            - if order.clc_quantity && order.clc_quantity > 0
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
             - else
               td.fit = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
