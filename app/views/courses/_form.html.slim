@@ -57,19 +57,19 @@
           
     .form-group
       = f.label :intro, 'Introduction'
-      = f.bootsy_area :intro, class: 'form-control input-sm'
+      = f.text_area :intro, class: 'form-control input-sm wysihtml5'
       
     .form-group
       = f.label :overview, 'Overview'
-      = f.bootsy_area :overview, class: 'form-control input-sm'
+      = f.text_area :overview, class: 'form-control input-sm wysihtml5'
     
     .form-group
       = f.label :outline, 'Outline'
-      = f.bootsy_area :outline, class: 'form-control input-sm'
+      = f.text_area :outline, class: 'form-control input-sm wysihtml5'
       
     .form-group
       = f.label :intended_audience, 'Who Should Attend'
-      = f.bootsy_area :intended_audience, class: 'form-control input-sm'
+      = f.text_area :intended_audience, class: 'form-control input-sm wysihtml5'
       
     .row
       .col-xs-6.col-md-3
@@ -88,3 +88,20 @@
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if course.id
         = link_to 'Delete', platform_course_path(platform, course), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'
+        
+javascript:
+  $('.wysihtml5').wysihtml5({
+    toolbar: {
+      'font-styles': true,
+      'color': false,
+      'emphasis': {
+        'small': true
+      },
+      'blockquote': false,
+      'lists': true,
+      'html': false,
+      'link': true,
+      'image': false,
+      'smallmodals': true
+    }
+  });
