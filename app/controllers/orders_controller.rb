@@ -67,8 +67,10 @@ class OrdersController < ApplicationController
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
         else
           logger.info response.messages.messages[0].text
-          puts response.transactionResponse.errors.errors[0].errorCode
-          puts response.transactionResponse.errors.errors[0].errorText
+          if response && response.transactionResponse && response.transactionResponse.errors && response.transactionResponse.errors.errors[0]
+            puts response.transactionResponse.errors.errors[0].errorCode
+            puts response.transactionResponse.errors.errors[0].errorText
+          end
           # raise "Failed to charge card."
           flash[:alert] = 'Failed to charge card.'
           return redirect_to :back
