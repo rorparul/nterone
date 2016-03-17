@@ -69,7 +69,10 @@ javascript:
 
   $("button[type='submit']").on('click', function(e) {
     e.preventDefault();
+    console.log($(".position"));
     $.each($('.position'), function(k, v) {
+      console.log(k);
+      console.log(v);
       $(v).val(k);
     });
     $(this).closest('form').submit();
