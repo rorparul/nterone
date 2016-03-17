@@ -142,11 +142,12 @@
                 tr
                   - if current_user.admin?
                     td.fit
-                      = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
-                        = f.select :seller_id,
-                                   Role.where(role: [2, 3]).collect { |role| [role.user.full_name, role.user.id] },
-                                   { prompt: true },
-                                   { class: 'form-control input-sm table-select' }
+                      - if order_item.order
+                        = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
+                          = f.select :seller_id,
+                                     Role.where(role: [2, 3]).collect { |role| [role.user.full_name, role.user.id] },
+                                     { prompt: true },
+                                     { class: 'form-control input-sm table-select' }
                   - else
                     td.fit = order_item.order.buyer.full_name if order_item.order.buyer
                   td.fit = order_item.user.full_name
