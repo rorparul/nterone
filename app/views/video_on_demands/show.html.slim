@@ -34,7 +34,7 @@
               .panel-heading role="tab" id="headingOne"
                 strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Overview
+                    | Course Overview
               #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @video_on_demand.overview.html_safe if @video_on_demand.overview
@@ -42,7 +42,7 @@
               .panel-heading role="tab" id="headingTwo"
                 strong
                   a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                    | Outline
+                    | Course Outline
               #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
                   = @video_on_demand.outline.html_safe if @video_on_demand.outline
