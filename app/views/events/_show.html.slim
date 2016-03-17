@@ -150,7 +150,7 @@
                                      { class: 'form-control input-sm table-select' }
                   - else
                     td.fit = order_item.order.buyer.full_name if order_item.order.buyer
-                  td.fit = order_item.user.full_name
+                  td.fit = order_item.user.full_name if order_item.user
                   td.fit = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   td.fit = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
                   td.fit = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
