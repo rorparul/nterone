@@ -47,11 +47,13 @@ class OrdersController < ApplicationController
                                                                            credit_card_params[:security_code])
         request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
 
-        if Rails.env.development?
-          transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
-        elsif Rails.env.production?
-          transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :production)
-        end
+        # if Rails.env.development?
+        #   transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
+        # elsif Rails.env.production?
+        #   transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :production)
+        # end
+
+        transaction = Transaction.new("7Gue85G6", "2x6Q3JdC9T23Pc5N", gateway: :sandbox)
 
         response = transaction.create_transaction(request)
         if response.messages.resultCode == MessageTypeEnum::Ok
@@ -67,7 +69,7 @@ class OrdersController < ApplicationController
       end
 
       @order.assign_attributes(order_params)
-      @order.auth_code = response.transactionResponse.authCode if response
+      @order.auth_code = response.transactionResponse.authCode if response && response.transactionResponse
       @order.paid      = request.transactionRequest.amount
       @order.add_order_items_from_cart(@cart)
       if @order.save

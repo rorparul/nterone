@@ -50,16 +50,6 @@
           fieldset
             label Payment
             .row
-              .col-xs-12.col-sm-6.col-md-3
-                .form-group
-                  = f.label :clc_number, 'Cisco Learning Credit SO#'
-                  = f.text_field :clc_number, class: 'form-control input-sm'
-              .col-xs-12.col-sm-6.col-md-3
-                .form-group
-                  = f.label :clc_quantity, 'Cisco Learning Credits'
-                  = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
-                  p.form-instructions.absolute 1 Credit = $100
-            .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :credit_card_number, 'Credit Card Number'
@@ -77,6 +67,16 @@
                 .form-group
                   = f.label :security_code, 'Security Code'
                   = f.text_field :security_code, class: 'form-control input-sm'
+            .row
+              .col-xs-12.col-sm-6.col-md-3
+                .form-group
+                  = f.label :clc_number, 'Cisco Learning Credit SO#'
+                  = f.text_field :clc_number, class: 'form-control input-sm'
+              .col-xs-12.col-sm-6.col-md-3
+                .form-group
+                  = f.label :clc_quantity, 'Cisco Learning Credits'
+                  = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
+                  p.form-instructions.absolute 1 Credit = $100
             hr
           fieldset
             label Billing Address
@@ -176,7 +176,9 @@
                 th Balance
             tbody
               tr 
-                td.fit = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
+                td.fit 
+                  | $
+                  = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
                 td.fit -
                 td.fit
                   | $
