@@ -45,6 +45,15 @@ class OrdersController < ApplicationController
                                                                            credit_card_params[:expiration_month] +
                                                                            credit_card_params[:expiration_year],
                                                                            credit_card_params[:security_code])
+        request.transactionRequest.billTo           = NameAndAddressType.new
+        request.transactionRequest.billTo.firstName = order_params[:billing_first_name]
+        request.transactionRequest.billTo.lastName  = order_params[:billing_last_name]
+        request.transactionRequest.billTo.address   = order_params[:billing_street]
+        request.transactionRequest.billTo.city      = order_params[:billing_city]
+        request.transactionRequest.billTo.state     = order_params[:billing_state]
+        request.transactionRequest.billTo.zip       = order_params[:billing_zip_code]
+
+
         request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
 
         if Rails.env.development?
