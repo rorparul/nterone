@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
           # puts response.transactionResponse.errors.errors[0].errorText
           # raise "Failed to charge card."
           flash[:alert] = 'Failed to charge card.'
-          redirect_to :back
+          return redirect_to :back
         end
       end
 
@@ -78,11 +78,11 @@ class OrdersController < ApplicationController
         end
         flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
         OrderMailer.confirmation(current_user, @order).deliver_now
-        redirect_to confirmation_orders_path(@order)
+        return redirect_to confirmation_orders_path(@order)
       else
         puts "Failed to create order: #{@order.errors.full_messages}"
         flash[:alert] = "Card charged successfully, but order failed to create. Please contact customer service."
-        redirect_to :back
+        return redirect_to :back
       end
 
     end
