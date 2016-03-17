@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
         if Rails.env.development?
           transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
         elsif Rails.env.production?
-          transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :production)
+          transaction = Transaction.new("6n4RAa4uz", "8DRM235rU88yx5w4", gateway: :production)
         end
 
         response = transaction.create_transaction(request)
@@ -67,9 +67,10 @@ class OrdersController < ApplicationController
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
         else
           logger.info response.messages.messages[0].text
+          logger.info response
           if response && response.transactionResponse && response.transactionResponse.errors && response.transactionResponse.errors.errors[0]
-            puts response.transactionResponse.errors.errors[0].errorCode
-            puts response.transactionResponse.errors.errors[0].errorText
+            logger.info response.transactionResponse.errors.errors[0].errorCode
+            logger.info response.transactionResponse.errors.errors[0].errorText
           end
           # raise "Failed to charge card."
           flash[:alert] = 'Failed to charge card.'
