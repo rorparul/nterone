@@ -57,24 +57,24 @@
                 .form-group
                   = f.label :billing_zip_code, "Zip Code"
                   = f.text_field :billing_zip_code, class: "form-control input-sm"
+
+          hr
+          fieldset.hideable
+            label Shipping Address
             .form-group
               .checkbox
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
-                  |  Same as shipping address?
-
-          hr.hideable
-          fieldset.hideable
-            label Shipping Address
+                  |  Same as Billing
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :shipping_first_name, 'First Name'
-                  = f.text_field :shipping_first_name, class: 'form-control input-sm'
+                  = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :shipping_last_name, 'Last Name'
-                  = f.text_field :shipping_last_name, class: 'form-control input-sm'
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
             .form-group
               = f.label :shipping_street, 'Street'
               = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
@@ -131,10 +131,8 @@ javascript:
   function toggleShippingAddress(checkBox) {
     if (checkBox.is(':checked')) {
       $('.input-shipping-address').prop('disabled', true);
-      $('.hideable').css('display', 'none');
     } else {
       $('.input-shipping-address').prop('disabled', false);
-      $('.hideable').css('display', 'inherit');
     }
   } 
 
