@@ -49,8 +49,7 @@
           = f.label :price
           .input-group
             span.input-group-addon $
-            = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
+            = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm'
       
     .form-group
       = f.label :instructor_id, "Instructor"

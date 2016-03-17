@@ -80,8 +80,7 @@
           = f.label :price
           .input-group
             span.input-group-addon $
-            = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
+            = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm'
                           
     .row
       .col-xs-12.col-sm-3
