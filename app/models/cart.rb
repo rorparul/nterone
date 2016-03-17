@@ -26,6 +26,8 @@ class Cart < ActiveRecord::Base
   end
 
   def total_price_after_credits(credits)
+    p total_event_price
+    p credits.to_i
     total_events_price = total_event_price - (credits.to_i * 100)
     if total_events_price < 0.00
       0.00 + total_vod_price
