@@ -1,0 +1,29 @@
+- content_for :page_title do
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
+
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted About Us
+    
+.row
+  .col-xs-12.col-central
+    = image_tag 'about-nterone.png', class: "header-image"
+    = render partial: 'layouts/about_us_nav_bar'
+    
+    .row.executive-bios
+      .col-xs-12
+        = @page.content.try(:html_safe)
+  
+  .col-xs-12.side-column
+    = render partial: 'layouts/side_column'
+    
+javascript:
+  $('.about-us-tab').addClass('active');
+  $('.about-nterone').addClass('active-category');

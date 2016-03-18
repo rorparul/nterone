@@ -33,8 +33,7 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
-  devise :confirmable,
-         :database_authenticatable,
+  devise :database_authenticatable,
          :invitable,
          :registerable,
          :recoverable,
