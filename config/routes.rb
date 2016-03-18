@@ -191,6 +191,7 @@ NterOne::Application.routes.draw do
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
+  get  'about-us/general'                            => 'general#about_us',               as: :about_us
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
   get  'about-us/instructors'                        => 'general#instructors',            as: :instructors_bios
   get  'about-us/press'                              => 'general#press',                  as: :press

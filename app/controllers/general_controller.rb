@@ -10,6 +10,10 @@ class GeneralController < ApplicationController
     @page = Page.find_by(title: 'Welcome')
   end
 
+  def about_us
+    @page = Page.find_by(title: 'About NterOne')
+  end
+
   def executives
     @page  = Page.find_by(title: 'Executive Bios')
   end

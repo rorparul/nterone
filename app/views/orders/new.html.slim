@@ -29,7 +29,7 @@
                 - @cart.order_items.each do |order_item|
                   tr
                     - if order_item.orderable_type == 'Event'
-                      td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
+                      td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
                       td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
                       td = order_item.orderable.format
                     - if order_item.orderable_type == 'VideoOnDemand'
