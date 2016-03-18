@@ -83,6 +83,11 @@
             .row
               .col-xs-12.col-sm-6
                 .form-group
+                  = f.label :billing_company, 'Company'
+                  = f.text_field :billing_company, class: 'form-control input-sm', value: (current_user.billing_company if user_signed_in?)
+            .row
+              .col-xs-12.col-sm-6
+                .form-group
                   = f.label :billing_first_name, 'First Name'
                   = f.text_field :billing_first_name, class: 'form-control input-sm', value: (current_user.billing_first_name if user_signed_in?)
               .col-xs-12.col-sm-6
@@ -123,6 +128,11 @@
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box', checked: (current_user.same_addresses if user_signed_in?)
                   |  Same as Billing
+            .row
+              .col-xs-12.col-sm-6
+                .form-group
+                  = f.label :shipping_company, 'Company'
+                  = f.text_field :shipping_company, class: 'form-control input-sm disableable', value: (current_user.shipping_company if user_signed_in?)
             .row
               .col-xs-12.col-sm-6
                 .form-group

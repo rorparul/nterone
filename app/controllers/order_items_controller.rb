@@ -4,7 +4,7 @@ class OrderItemsController < ApplicationController
   def create
     @cart.order_items << find_orderable.order_items.build
     if @cart.save
-      flash[:success] = 'Item successfully added to cart!'
+      flash[:success] = "Item successfully added to cart! Please go to #{view_context.link_to "My Cart", new_order_path} to complete transaction".html_safe
     else
       flash[:alert] = "Item failed to add to cart!"
     end
