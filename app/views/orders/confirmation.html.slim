@@ -10,24 +10,45 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        h3.panel-title Order Confirmation
+        strong.text-muted = "Order ##{@order.id} Confirmation"
       .table-responsive
-        table.table.table-condensed
-          - @order.order_items.each do |order_item|
+        table.table
+          thead
             tr
-              - if order_item.orderable_type == 'Event'
-                td = "#{order_item.orderable.course.abbreviation} #{order_item.orderable.course.title}"
-                td = order_item.orderable.format
-                td = "#{order_item.orderable.start_date.to_formatted_s(:rfc822)} to #{order_item.orderable.end_date.to_formatted_s(:rfc822)}"
-              - if order_item.orderable_type == 'VideoOnDemand'
-                td = "#{order_item.orderable.abbreviation} #{order_item.orderable.title}"
-                td Video On Demand
-                td One Year of Access
-              td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-      .panel-footer
-        / - if @order.clc_quantity
-        /   h3.panel-title = "#{@order.clc_quantity} Cisco Learning Credits used"
-        h3.panel-title = "Total Charged: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+              th Item
+              th Date
+              th Format
+              th Price
+          tbody
+            - @order.order_items.each do |order_item|
+              tr
+                - if order_item.orderable_type == 'Event'
+                  td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
+                  td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+                  td = order_item.orderable.format
+                - if order_item.orderable_type == 'VideoOnDemand'
+                  td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
+                  td One Year of Access
+                  td Video On Demand
+                td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                
+.row
+  .col-xs-12
+    p = "Total Charged to Card: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+    p = "Total Credits Applied: #{@order.clc_quantity}"
+        
+.row
+  .col-xs-12
+    p
+      | If you have any questions please reach out to your sales representative, or contact the sales team at 
+      = mail_to "sales@nterone.com", "sales@nterone.com"
+      | . If your question is billing related, you can email 
+      = mail_to "billing@nterone.com", "billing@nterone.com"
+      | . If you have issues accessing your NterOne account, or services purchased, you can reach out to 
+      = mail_to "helpdesk@nterone.com", "helpdesk@nterone.com"
+      | . You can also call us at 
+      strong 703-972-2288 
+      | to speak with a live person.
         
 .row
   .col-xs-12

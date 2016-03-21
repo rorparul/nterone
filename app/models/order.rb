@@ -10,7 +10,9 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
-  before_save :define_clc_quantity, :add_up_total, :define_status
+  # TODO: Figure out why before_create isn't working
+  before_save   :add_up_total
+  before_create :define_status, :define_clc_quantity
 
   def add_order_items_from_cart(cart)
     cart.order_items.each do |item|
@@ -28,19 +30,21 @@ class Order < ActiveRecord::Base
   end
 
   def define_status
-    if self.paid == self.total
-      self.status = "Paid in Full"
+    if self.payment_type == "Credit Card"
+      if self.paid == self.total
+        self.status = "Paid in Full"
+      end
+    else
+      self.status = "Unverified"
     end
   end
 
-  # TODO: Figure out why the default DB option wasn't working
   def define_clc_quantity
-    # if self.clc_quantity == '' || self.clc_quantity == nil
     self.clc_quantity ||= 0
-    # end
   end
 
   def balance
-    (self.total - self.paid - (self.clc_quantity * 100)).abs
+    sum = self.total - self.paid - (self.clc_quantity * 100)
+    sum > 0.00 ? sum : 0.00
   end
 end

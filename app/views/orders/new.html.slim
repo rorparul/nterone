@@ -37,7 +37,7 @@
                       td One Year of Access
                       td Video On Demand
                     td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-                    td
+                    td.text-right
                       = link_to "Remove from cart", order_item, method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
 = form_for :order, url: orders_path do |f|    
@@ -45,38 +45,67 @@
     .col-xs-12
       .panel.panel-default
         .panel-heading
-          strong.text-muted My Info
+          strong.text-muted My Payment Info
         .panel-body
           fieldset
-            label Payment
+            .form-group
+              .radio.radio-container
+                label
+                  = f.radio_button :payment_type, "Credit Card", class: 'payment-type-radio-button', checked: true
+                  strong Credit Card
             .row
-              .col-xs-12.col-md-6
+              .col-xs-12.col-md-5
                 .form-group
-                  = f.label :credit_card_number, 'Credit Card Number'
-                  = f.text_field :credit_card_number, class: 'form-control input-sm'
+                  = f.label :credit_card_number, 'Number'
+                  = f.text_field :credit_card_number, class: 'form-control input-sm input-cc'
                   = image_tag 'credit-card-icons.png', class: "credit-card-logos"
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :expiration_month, 'Exp. Month'
-                  = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm'
+                  = f.label :expiration_month, 'Exp. M.'
+                  = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc'
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :expiration_year, 'Exp. Year'
-                  = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm'
+                  = f.label :expiration_year, 'Exp. Y.'
+                  = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc'
+              .col-xs-12.col-md-1
+                .form-group
+                  = f.label :security_code, 'Code'
+                  = f.text_field :security_code, class: 'form-control input-sm input-cc'
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :security_code, 'Security Code'
-                  = f.text_field :security_code, class: 'form-control input-sm'
+                  = f.label :paid, 'Total Charged'
+                  = f.hidden_field :paid, value: @cart.total_price
+                  div = "$#{number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))}"
+                  
+            .form-group
+              .radio.radio-container
+                label
+                  = f.radio_button :payment_type, "Cisco Learning Credits", class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
+                  strong Cisco Learning Credits 
             .row
-              .col-xs-12.col-sm-6.col-md-3
-                .form-group
-                  = f.label :clc_number, 'Cisco Learning Credit SO#'
-                  = f.text_field :clc_number, class: 'form-control input-sm'
-              .col-xs-12.col-sm-6.col-md-3
-                .form-group
-                  = f.label :clc_quantity, 'Cisco Learning Credits'
-                  = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
-                  p.form-instructions.absolute 1 Credit = $100
+              - if @cart.any_not_applicable_for_credits?
+                .col-xs-12
+                  .form-group
+                    .text-warning
+                      strong  
+                        = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
+                      |  of this order is not applicable to be purchased with credits. 
+                      | If you wish to split payment between a credit card and credits, 
+                      | please contact NterOne by email at 
+                      = mail_to "sales@nterone.com", "sales@nterone.com"
+                      | , or by phone at 
+                      strong 703-972-2288, 
+                      | for assistance.
+              - else
+                .col-xs-12.col-sm-6.col-md-3
+                  .form-group
+                    = f.label :clc_number, 'SO#'
+                    = f.text_field :clc_number, class: 'form-control input-sm input-clc'
+                .col-xs-12.col-sm-6.col-md-3
+                  .form-group
+                    = f.label :clc_quantity, 'Total Credits'
+                    = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
+                    div = @cart.credits_required_for_total_applicable_for_credits
             hr
           fieldset
             label Billing Address
@@ -170,56 +199,37 @@
                 .form-group
                   = f.label :shipping_zip_code, 'Zip Code'
                   = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable', value: (current_user.shipping_zip_code if user_signed_in?)
-  .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted My Summary
-        .responsive-table
-          table.table
-            thead
-              tr
-                th Total
-                th
-                th Credits
-                th
-                th Balance
-            tbody
-              tr 
-                td.fit 
-                  | $
-                  = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
-                td.fit -
-                td.fit
-                  | $
-                  span#credits 0.00
-                  |  applied
-                td.fit
-                  | =
-                td.fit
-                  | $
-                  span#total = number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))
-                  |  to be charged
   .form-buttons
     button.btn.btn-success type="submit" Place Order
         
 javascript:
   $('.home-tab').addClass('active');
   
-  $('.input-clc-quantity').on('change', function() {
-    $.get("#{cart_calculator_path}?quantity=" + $(this).val());
-  });
+  function togglePaymentMethod(radioButton) {
+    if (radioButton.val() == "Credit Card") {
+      $('.input-cc').prop('disabled', false);
+      $('.input-clc').prop('disabled', true);
+    } else {
+      $('.input-clc').prop('disabled', false);
+      $('.input-cc').prop('disabled', true);
+    };
+  } 
   
   function toggleShippingAddress(checkBox) {
     if (checkBox.is(':checked')) {
       $('.disableable').prop('disabled', true);
     } else {
       $('.disableable').prop('disabled', false);
-    }
-  } 
+    };
+  };
+  
+  $('.payment-type-radio-button').on('change', function() {
+    togglePaymentMethod($(this));
+  });
 
   $('.shipping-address-box').on('change', function() {
     toggleShippingAddress($(this));
   });
   
+  togglePaymentMethod($('.payment-type-radio-button'));
   toggleShippingAddress($('.shipping-address-box'));

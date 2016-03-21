@@ -10,11 +10,8 @@
           th Code
           th Status
           th.fit Total
-          th.fit
           th.fit Charged
-          th.fit
           th.fit Credits
-          th.fit
           th Balance
           th Created
           th Member Email
@@ -24,24 +21,11 @@
           tr
             td = order.id
             td = order.auth_code
-            -if order.status == "Uninvoiced"
-              td.text-danger = order.status
-            - else
-              td = order.status
+            td class="#{'text-danger' if ['Uninvoiced', 'Unverified'].include?(order.status)}" = order.status
             td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
-            td.fit -
-            td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
-            td.fit -
-            - if order.clc_quantity > 0
-              td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
-            - else
-              td.fit = "$#{number_with_delimiter(number_with_precision(order.clc_quantity * 100, precision: 2))}"
-            td
-              | =
-            - if order.balance > 0.00
-              td.text-danger = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
-            - else
-              td = "$#{number_with_delimiter(number_with_precision(order.balance * 100, precision: 2))}"
+            td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
+            td.fit class="#{'text-success' if order.clc_quantity > 0}" = order.clc_quantity
+            td class="#{'text-danger' if order.balance > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
             td = order.created_at.strftime("%b. %d, %Y %I:%M %p")
             td = order.buyer.email
             td.actions-column.fit

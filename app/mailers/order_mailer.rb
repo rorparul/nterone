@@ -3,7 +3,7 @@ class OrderMailer < ApplicationMailer
     @user  = user
     @order = order
     mail(to: @user.email,
-         bcc: ["sales@nterone.com", "helpdesk@nterone.com", "billing@nterone.com"],
+        #  bcc: ["sales@nterone.com", "helpdesk@nterone.com", "billing@nterone.com"],
          subject: 'NterOne.com Order Confirmation')
   end
 end

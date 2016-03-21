@@ -33,27 +33,25 @@ class OrdersController < ApplicationController
       end
       redirect_to :back
     else
-      @order                                        = current_user.buyer_orders.build
       current_user.update_attributes(user_params)
-      request                                       = CreateTransactionRequest.new
-      request.transactionRequest                    = TransactionRequestType.new
-      request.transactionRequest.amount             = @cart.total_price_after_credits(order_params[:clc_quantity])
+      @order = current_user.buyer_orders.build
 
-      unless request.transactionRequest.amount == 0.00
+      if order_params[:payment_type] == "Credit Card"
+        request                                       = CreateTransactionRequest.new
+        request.transactionRequest                    = TransactionRequestType.new
+        request.transactionRequest.amount             = cc_params[:paid]
         request.transactionRequest.payment            = PaymentType.new
-        request.transactionRequest.payment.creditCard = CreditCardType.new(credit_card_params[:credit_card_number],
-                                                                           credit_card_params[:expiration_month] +
-                                                                           credit_card_params[:expiration_year],
-                                                                           credit_card_params[:security_code])
-        request.transactionRequest.billTo           = NameAndAddressType.new
-        request.transactionRequest.billTo.firstName = order_params[:billing_first_name]
-        request.transactionRequest.billTo.lastName  = order_params[:billing_last_name]
-        request.transactionRequest.billTo.address   = order_params[:billing_street]
-        request.transactionRequest.billTo.city      = order_params[:billing_city]
-        request.transactionRequest.billTo.state     = order_params[:billing_state]
-        request.transactionRequest.billTo.zip       = order_params[:billing_zip_code]
-
-
+        request.transactionRequest.payment.creditCard = CreditCardType.new(cc_params[:credit_card_number],
+                                                                           cc_params[:expiration_month] +
+                                                                           cc_params[:expiration_year],
+                                                                           cc_params[:security_code])
+        request.transactionRequest.billTo             = NameAndAddressType.new
+        request.transactionRequest.billTo.firstName   = order_params[:billing_first_name]
+        request.transactionRequest.billTo.lastName    = order_params[:billing_last_name]
+        request.transactionRequest.billTo.address     = order_params[:billing_street]
+        request.transactionRequest.billTo.city        = order_params[:billing_city]
+        request.transactionRequest.billTo.state       = order_params[:billing_state]
+        request.transactionRequest.billTo.zip         = order_params[:billing_zip_code]
         request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
 
         if Rails.env.development?
@@ -65,6 +63,8 @@ class OrdersController < ApplicationController
         response = transaction.create_transaction(request)
         if response.messages.resultCode == MessageTypeEnum::Ok
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
+          @order.auth_code = response.transactionResponse.authCode
+          @order.paid      = request.transactionRequest.amount
         else
           logger.info response.messages.messages[0].text
           logger.info response
@@ -72,15 +72,14 @@ class OrdersController < ApplicationController
             logger.info response.transactionResponse.errors.errors[0].errorCode
             logger.info response.transactionResponse.errors.errors[0].errorText
           end
-          # raise "Failed to charge card."
-          flash[:alert] = 'Failed to charge card.'
+          flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
+      elsif order_params[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(clc_params)
       end
 
       @order.assign_attributes(order_params)
-      @order.auth_code = response.transactionResponse.authCode if response && response.transactionResponse
-      @order.paid      = request.transactionRequest.amount
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|
@@ -150,10 +149,7 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:seller_id,
                                   :buyer_id,
-                                  :auth_code,
-                                  :clc_number,
-                                  :clc_quantity,
-                                  :paid,
+                                  :payment_type,
                                   :same_addresses,
                                   :billing_company,
                                   :billing_first_name,
@@ -171,11 +167,17 @@ class OrdersController < ApplicationController
                                   :shipping_zip_code)
   end
 
-  def credit_card_params
+  def cc_params
     params.require(:order).permit(:credit_card_number,
                                   :expiration_month,
                                   :expiration_year,
-                                  :security_code)
+                                  :security_code,
+                                  :paid)
+  end
+
+  def clc_params
+    params.require(:order).permit(:clc_number,
+                                  :clc_quantity)
   end
 
   def staff_order_params
@@ -191,80 +193,3 @@ class OrdersController < ApplicationController
                                                            :orderable_type])
   end
 end
-
-# create_table "orders", force: :cascade do |t|
-#   t.datetime "created_at",                                                       null: false
-#   t.datetime "updated_at",                                                       null: false
-#   t.string   "auth_code"
-#   t.string   "first_name"
-#   t.string   "last_name"
-#   t.string   "shipping_street"
-#   t.string   "shipping_city"
-#   t.string   "shipping_state"
-#   t.string   "shipping_zip_code"
-#   t.string   "shipping_country"
-#   t.string   "email"
-#   t.string   "clc_number"
-#   t.string   "billing_name"
-#   t.string   "billing_zip_code"
-#   t.decimal  "paid",              precision: 8, scale: 2, default: 0.0
-#   t.string   "billing_street"
-#   t.string   "billing_city"
-#   t.string   "billing_state"
-#   t.integer  "seller_id"
-#   t.integer  "buyer_id"
-#   t.string   "status",                                    default: "Uninvoiced"
-#   t.decimal  "total",             precision: 8, scale: 2, default: 0.0
-#   t.string   "billing_country"
-#   t.string   "payment_type"
-#   t.integer  "clc_quantity",                              default: 0
-# end
-
-# create_table "users", force: :cascade do |t|
-#   t.string   "email",                  default: "",               null: false
-#   t.string   "encrypted_password",     default: "",               null: false
-#   t.string   "reset_password_token"
-#   t.datetime "reset_password_sent_at"
-#   t.datetime "remember_created_at"
-#   t.integer  "sign_in_count",          default: 0,                null: false
-#   t.datetime "current_sign_in_at"
-#   t.datetime "last_sign_in_at"
-#   t.inet     "current_sign_in_ip"
-#   t.inet     "last_sign_in_ip"
-#   t.datetime "created_at"
-#   t.datetime "updated_at"
-#   t.string   "company_name"
-#   t.string   "first_name"
-#   t.string   "last_name"
-#   t.string   "contact_number"
-#   t.string   "country"
-#   t.string   "website"
-#   t.string   "street"
-#   t.string   "city"
-#   t.string   "state"
-#   t.string   "zipcode"
-#   t.boolean  "archived",               default: false
-#   t.string   "confirmation_token"
-#   t.datetime "confirmed_at"
-#   t.datetime "confirmation_sent_at"
-#   t.string   "unconfirmed_email"
-#   t.string   "invitation_token"
-#   t.datetime "invitation_created_at"
-#   t.datetime "invitation_sent_at"
-#   t.datetime "invitation_accepted_at"
-#   t.integer  "invitation_limit"
-#   t.integer  "invited_by_id"
-#   t.string   "invited_by_type"
-#   t.integer  "invitations_count",      default: 0
-#   t.datetime "last_active_at"
-#   t.string   "billing_street"
-#   t.string   "billing_city"
-#   t.string   "billing_state"
-#   t.string   "billing_zip_code"
-#   t.boolean  "same_addresses",         default: false
-#   t.boolean  "forem_admin",            default: false
-#   t.string   "forem_state",            default: "pending_review"
-#   t.boolean  "forem_auto_subscribe",   default: false
-#   t.string   "billing_first_name"
-#   t.string   "billing_last_name"
-# end

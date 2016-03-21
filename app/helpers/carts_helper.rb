@@ -1,6 +1,17 @@
 module CartsHelper
   include CurrentCart
 
+  def credits_calculator(cart)
+    applicable = cart.order_items.inject(BigDecimal.new(0)) do |total, order_item|
+      if order_item.orderable_type == 'Event' && order_item.orderable.course.platform.title == "Cisco"
+        total + order_item.price
+      else
+        total + BigDecimal.new(0)
+      end
+    end
+    (applicable / 100).ceil
+  end
+
   def cc_years
     yrs = []
     year_today = Date.today.strftime("%y").to_i
