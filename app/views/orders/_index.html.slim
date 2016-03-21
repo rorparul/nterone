@@ -27,7 +27,7 @@
             td.fit class="#{'text-success' if order.clc_quantity > 0}" = order.clc_quantity
             td class="#{'text-danger' if order.balance > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
             td = order.created_at.strftime("%b. %d, %Y %I:%M %p")
-            td = order.buyer.email
+            td = order.buyer.email if order.buyer
             td.actions-column.fit
               = link_to "Show", my_admin_orders_show_path(order), remote: false
               |  | 
