@@ -100,7 +100,10 @@
                             - else
                               td
                           td Available
-                          td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                          - if event.price > 0.00
+                            td = "$#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                          - else
+                            td Free
                           - if !user_signed_in? || (user_signed_in? && current_user.member?)
                             td.fit.text-right
                               = form_for :order_item, url: order_items_path do |f|

@@ -39,20 +39,20 @@ $(function() {
 		}
 	})
 
-  $(".col-central").filter(function () {
-    var html = $(this).html();
-    var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;
-
-    var matched_str = $(this).html().match(emailPattern);
-    if (matched_str) {
-      var text = $(this).html();
-      $.each(matched_str, function (index, value) {
-          text = text.replace(value,"<a href='mailto:"+value+"'>"+value+"</a>");
-      });
-      $(this).html(text);
-      return $(this)
-    }
-  });
+  // $(".col-central").filter(function () {
+  //   var html = $(this).html();
+  //   var emailPattern = /[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/g;
+  //
+  //   var matched_str = $(this).html().match(emailPattern);
+  //   if (matched_str) {
+  //     var text = $(this).html();
+  //     $.each(matched_str, function (index, value) {
+  //         text = text.replace(value,"<a href='mailto:"+value+"'>"+value+"</a>");
+  //     });
+  //     $(this).html(text);
+  //     return $(this)
+  //   }
+  // });
 });
 
 $(document).on('page:change', function() {

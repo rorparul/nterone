@@ -33,9 +33,11 @@ class OrdersController < ApplicationController
       end
       redirect_to :back
     else
+      # Update user information
       current_user.update_attributes(user_params)
-      @order = current_user.buyer_orders.build
 
+      # Create transaction
+      @order = current_user.buyer_orders.build
       if order_params[:payment_type] == "Credit Card"
         request                                       = CreateTransactionRequest.new
         request.transactionRequest                    = TransactionRequestType.new
@@ -79,6 +81,7 @@ class OrdersController < ApplicationController
         @order.assign_attributes(clc_params)
       end
 
+      # Create order
       @order.assign_attributes(order_params)
       @order.add_order_items_from_cart(@cart)
       if @order.save
@@ -93,7 +96,6 @@ class OrdersController < ApplicationController
         flash[:alert] = "Card charged successfully, but order failed to create. Please contact customer service."
         return redirect_to :back
       end
-
     end
   end
 

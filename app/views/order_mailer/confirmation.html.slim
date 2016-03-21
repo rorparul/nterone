@@ -15,7 +15,10 @@ table
         td = link_to order_item.orderable.full_title, platform_video_on_demand_url(order_item.orderable.platform, order_item.orderable), target: "_blank"
         td One Year of Access
         td Video On Demand
-      td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+      - if order_item.price > 0.00
+        td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+      - else
+        td Free
 
 p = "Total Charged to Card: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
 p = "Total Credits Applied: #{@order.clc_quantity}"

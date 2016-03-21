@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0.01 }
+  validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
   def self.guaranteed_events
