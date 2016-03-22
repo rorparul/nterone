@@ -920,7 +920,7 @@ table {
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
   }
   .panel-table {
-    overflow: scroll;
+    // overflow: scroll;
   }
 }
 
