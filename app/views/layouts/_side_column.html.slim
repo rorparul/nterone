@@ -13,4 +13,5 @@
       |  us for more details.
       
 .side-column-graphics
-  = Page.find_by(page_title: 'Side Column').try(:content).try(:html_safe)
+  = link_to main_app.page_path(Page.find_by(title: 'NterOne Gives Back')) do
+    = image_tag "nterone-gives-back.png"
