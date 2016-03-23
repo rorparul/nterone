@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
          :trackable,
          :validatable
 
+  validate :password_complexity
+
+  def password_complexity
+    if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
+      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
+    end
+  end
+
   def forem_name
     full_name
   end

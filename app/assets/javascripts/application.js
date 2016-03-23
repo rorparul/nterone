@@ -4,7 +4,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootsy
 //= require jquery.remotipart
 //= require autonumeric
 //= require parsley
