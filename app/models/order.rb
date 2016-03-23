@@ -10,7 +10,6 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
-  # TODO: Figure out why before_create isn't working
   before_save   :add_up_total
   before_create :define_status, :define_clc_quantity
 

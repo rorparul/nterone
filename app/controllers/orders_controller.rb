@@ -93,8 +93,10 @@ class OrdersController < ApplicationController
         return redirect_to confirmation_orders_path(@order)
       else
         puts "Failed to create order: #{@order.errors.full_messages}"
-        flash[:alert] = "Card charged successfully, but order failed to create. Please contact customer service."
-        return redirect_to :back
+        # flash[:alert] = "Card charged successfully, but order failed to create. Please contact customer service."
+        # return redirect_to :back
+        flash[:alert] = @order.custom_flash_notice
+        render :new
       end
     end
   end

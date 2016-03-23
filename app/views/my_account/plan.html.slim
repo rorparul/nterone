@@ -18,8 +18,8 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted My Upcoming Classes
-      .panel-table
-        .responsive-table
+      .table-responsive
+        .panel-table
           table.table.table-condensed
             - if current_user.upcoming_events.any?
               thead
@@ -53,8 +53,8 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted My Active Self-paced Subscriptions
-      .panel-table
-        .responsive-table
+      .table-responsive
+        .panel-table
           table.table.table-condensed
             - if current_user.active_video_on_demands.any?
               thead
@@ -76,8 +76,8 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted My Completed Classes and Subscriptions
-      .panel-table
-        .responsive-table
+      .table-responsive
+        .panel-table
           table.table.table-condensed
             - if current_user.completed_events_and_video_on_demands.any?
               thead
@@ -109,26 +109,27 @@
             span Build My Training Plan
 - else
   - @planned_subjects.each do |planned_subject|
-    .row
-      .col-xs-12
-        h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
-    .row#subject-groups
-      - planned_subject.subject.groups.each do |group|
-        = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
-            
-    .row
-      .col-xs-12
-        - if planned_subject.subject.platform.url
-          a href="#{planned_subject.subject.platform.url}" target="_blank"
-            button#find-testing-center
-              span.fa.fa-location-arrow
-              span Find Testing Center
-          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
-            = f.hidden_field :user_id, value: current_user.id
-            = f.hidden_field :subject_id, value: planned_subject.subject.id
-            button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
-              span.fa.fa-minus
-              span Remove from My Plan
+    .planned-subject
+      .row
+        .col-xs-12
+          h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+      .row#subject-groups
+        - planned_subject.subject.groups.each do |group|
+          = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
+          
+      .row
+        .col-xs-12
+          - if planned_subject.subject.platform.url
+            a href="#{planned_subject.subject.platform.url}" target="_blank"
+              button#find-testing-center
+                span.fa.fa-location-arrow
+                span Find Testing Center
+            = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :subject_id, value: planned_subject.subject.id
+              button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
+                span.fa.fa-minus
+                span Remove from My Plan
 
   .panel.panel-default
     .panel-body
