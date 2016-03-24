@@ -151,6 +151,7 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:seller_id,
                                   :buyer_id,
+                                  :status,
                                   :payment_type,
                                   :same_addresses,
                                   :billing_company,
