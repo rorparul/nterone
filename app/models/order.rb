@@ -4,8 +4,11 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :destroy
 
+  attr_accessor :credit_card_number, :expiration_month, :expiration_year, :security_code
+
   validates :buyer, presence: true
   validates_associated :buyer
+  validates :clc_number, presence: true, unless: lambda { self.payment_type != "Cisco Learning Credits" }
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
 
   accepts_nested_attributes_for :order_items

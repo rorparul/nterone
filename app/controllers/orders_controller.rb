@@ -17,6 +17,8 @@ class OrdersController < ApplicationController
       @order.order_items.build
       @user             = User.find(params[:user_id])
       @video_on_demands = VideoOnDemand.order(:title)
+    else
+      @order = Order.new
     end
   end
 
@@ -92,11 +94,7 @@ class OrdersController < ApplicationController
         OrderMailer.confirmation(current_user, @order).deliver_now
         return redirect_to confirmation_orders_path(@order)
       else
-        puts "Failed to create order: #{@order.errors.full_messages}"
-        # flash[:alert] = "Card charged successfully, but order failed to create. Please contact customer service."
-        # return redirect_to :back
-        flash[:alert] = @order.custom_flash_notice
-        render :new
+        render 'new'
       end
     end
   end

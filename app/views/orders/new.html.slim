@@ -5,6 +5,15 @@
   span.seperator
     | /
   span.text-muted Cart
+  
+- if @order.errors.any?
+  .alert.alert-danger.alert-dismissible
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
+    h4 = "#{pluralize(@order.errors.count, 'error')}:"
+    ul
+      - @order.errors.full_messages.each do |msg|
+        li = msg
     
 .row
   .col-xs-12
@@ -40,7 +49,7 @@
                     td.text-right
                       = link_to "Remove from cart", order_item, method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
-= form_for :order, url: orders_path do |f|    
+= form_for @order do |f|    
   .row
     .col-xs-12
       .panel.panel-default
@@ -57,20 +66,20 @@
               .col-xs-12.col-md-5
                 .form-group
                   = f.label :credit_card_number, 'Number'
-                  = f.text_field :credit_card_number, class: 'form-control input-sm input-cc'
+                  = f.text_field :credit_card_number, class: 'form-control input-sm input-cc', autocomplete: false
                   = image_tag 'credit-card-icons.png', class: "credit-card-logos"
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :expiration_month, 'Exp. M.'
-                  = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc'
+                  = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :expiration_year, 'Exp. Y.'
-                  = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc'
+                  = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-1
                 .form-group
                   = f.label :security_code, 'Code'
-                  = f.text_field :security_code, class: 'form-control input-sm input-cc'
+                  = f.text_field :security_code, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :paid, 'Total Charged'
@@ -206,7 +215,7 @@ javascript:
   $('.home-tab').addClass('active');
   
   function togglePaymentMethod(radioButton) {
-    if (radioButton.val() == "Credit Card") {
+    if ($($('.payment-type-radio-button')[0]).is(':checked')) {
       $('.input-cc').prop('disabled', false);
       $('.input-clc').prop('disabled', true);
     } else {
@@ -224,12 +233,12 @@ javascript:
   };
   
   $('.payment-type-radio-button').on('change', function() {
-    togglePaymentMethod($(this));
+    togglePaymentMethod();
   });
 
   $('.shipping-address-box').on('change', function() {
     toggleShippingAddress($(this));
   });
   
-  togglePaymentMethod($('.payment-type-radio-button'));
+  togglePaymentMethod();
   toggleShippingAddress($('.shipping-address-box'));
