@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 
   validates :buyer, presence: true
   validates_associated :buyer
-  validates :clc_number, presence: true, unless: lambda { self.payment_type != "Cisco Learning Credits" }
+  validates_presence_of :clc_number, unless: lambda { self.payment_type != "Cisco Learning Credits" }
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
 
   accepts_nested_attributes_for :order_items

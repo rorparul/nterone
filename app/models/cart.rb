@@ -1,6 +1,10 @@
 class Cart < ActiveRecord::Base
   has_many :order_items, dependent: :destroy
 
+  def reset
+    self.order_items.update_all(cart_id: nil)
+  end
+
   def total_price
     order_items.to_a.sum { |item| item.price }
   end
