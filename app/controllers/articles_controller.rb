@@ -34,12 +34,13 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def delete
-    if @article.find(params[:id]).destroy
-      flash[:success] = "Article successfully updated!"
+  def destroy
+    if @article.destroy
+      flash[:success] = "Article successfully deleted!"
     else
       flash[:alert] = "Article failed to delete!"
     end
+    redirect_to :back
   end
 
   private
