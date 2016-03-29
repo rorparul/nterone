@@ -13,23 +13,34 @@
             - group.group_items.sort_by(&:position).each do |group_item|
               - case group_item.groupable_type
               - when 'Subject'
+              
+                / tr.subject-group-item
+                /   - if group_item.groupable.image.file_url != nil
+                /     td = image_tag group_item.groupable.image.file_url(:subject_small_icon) if group_item.groupable.image.present?
+                /   td colspan="6"
+                /     a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
+                /       = group_item.groupable.full_title
+                
                 tr.subject-group-item
-                  - if group_item.groupable.image.file_url != nil
-                    td = image_tag group_item.groupable.image.file_url(:subject_small_icon) if group_item.groupable.image.present?
-                  td colspan="6"
-                    a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
-                      = group_item.groupable.full_title
+                  - if group_item.groupable && group_item.groupable.image && group_item.groupable.image.file_url != nil
+                    td.with-img colspan="6"
+                      = image_tag group_item.groupable.image.file_url(:subject_small_icon) if group_item.groupable.image.present?
+                      .link-container
+                        a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
+                          = group_item.groupable.title
+                          span = " (#{group_item.groupable.abbreviation})"
+                  - else
+                    td colspan="6"
+                      a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
+                        = group_item.groupable.title
+                        span = " (#{group_item.groupable.abbreviation})"
+                        
               - when 'Course'
                 tr.course-group-item
                   td
                     a href="#{platform_course_path(subject.platform, group_item.groupable)}"
                       = group_item.groupable.full_title
                   td.fit
-                    / - if group_item.groupable.price == '0' || group_item.groupable.price == ''
-                    /   | See Link
-                    / - else
-                    /   = "$#{number_with_delimiter(number_with_precision(group_item.groupable.price, precision: 2))}"
-                    / = "$#{number_with_delimiter(number_with_precision(group_item.groupable.current_price_or_range, precision: 2))}"
                     = formatted_price_or_range_of_upcoming_events_for(group_item.groupable)
                   - unless controller_name == 'subjects'
                     td.fit.center-align

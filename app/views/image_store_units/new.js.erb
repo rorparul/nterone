@@ -1,0 +1,3 @@
+$('.modal-title').html('Add Image');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { image_store_unit: @image_store_unit }) %>");
+$('#myModal').modal('show');

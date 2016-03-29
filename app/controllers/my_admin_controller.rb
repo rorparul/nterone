@@ -43,6 +43,7 @@ class MyAdminController < ApplicationController
     @dynamic_pages     = Page.where(static: false).order(:title)
     @articles          = Article.order(created_at: :desc)
     @testimonials      = Testimonial.page(1).per(5)
+    @image_store_units = ImageStoreUnit.order(created_at: :desc)
   end
 
   private

@@ -1266,16 +1266,41 @@ table {
         }
       }
       .subject-group-item {
-        td:nth-child(1) {
-          width: 60px;
+        // td:nth-child(1) {
+        //   width: 60px;
+        // }
+        // td:nth-child(2) {
+        //   a {
+        //     text-decoration: none;
+        //   }
+        //   span {
+        //     color: #4d7f12;
+        //     font-weight: bold;
+        //   }
+        // }
+        a {
+          text-decoration: none;
         }
-        td:nth-child(2) {
-          a {
-            text-decoration: none;
+        span {
+          color: #4d7f12;
+          font-weight: bold;
+        }
+        td.with-img {
+          line-height: 12px;
+          img {
+            float: left;
           }
-          span {
-            color: #4d7f12;
-            font-weight: bold;
+          .link-container {
+            min-height: 40px;
+            margin-left: 50px;
+            padding-top: 8px;
+            a {
+              display: inline-block;
+              text-overflow: clip;
+              overflow: hidden;
+              width: inherit;
+              word-wrap: break-word;
+            }
           }
         }
       }

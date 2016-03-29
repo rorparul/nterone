@@ -1,0 +1,27 @@
+= form_for image_store_unit, remote: true do |f|
+  - if image_store_unit.errors.any?
+    .alert.alert-danger.alert-dismissible
+      button.close type="button" data-dismiss="alert" aria-label="Close"
+        span aria-hidden="true" &times;
+      h4 = "#{pluralize(image_store_unit.errors.count, 'error')}:"
+      ul
+        - image_store_unit.errors.full_messages.each do |msg|
+          li = msg
+          
+  .form-group
+    - if @image_store_unit.image.present? && @image_store_unit.image.file.present?
+      = image_tag @image_store_unit.image.file.url, class: 'carousel-item-for-form'
+      br
+      br
+    = f.fields_for :image do |ff|
+      = ff.label :file, 'Image'
+      = ff.file_field :file
+      = ff.hidden_field :file_cache
+
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control input-sm'
+      
+  .form-buttons
+    button.btn.btn-success type="submit" Save
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel
