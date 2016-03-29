@@ -2,7 +2,7 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong = pluralize(users.total_count, "User")
+        strong.text-muted = pluralize(users.total_count, "User")
       -if users.any?
         .table-responsive
           table.table.table-condensed
