@@ -126,10 +126,12 @@
                             a href="#{platform_course_path(subject.platform, group_item.groupable.courses.first)}"
                               = group_item.groupable.courses.first.full_title
                           td.fit rowspan=group_item.groupable.exams.count
-                            - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
-                              | See Link
-                            - else
-                              = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                            / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
+                            /   | See Link
+                            / - else
+                            
+                              / = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
+                              = formatted_price_or_range_of_upcoming_events_for(group_item.groupable.courses.first)
                           - unless controller_name == 'subjects'
                             td.fit.center-align rowspan=group_item.groupable.exams.count
                               = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
