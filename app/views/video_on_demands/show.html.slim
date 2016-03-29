@@ -25,7 +25,7 @@
     #video-on-demand
       .row
         .col-xs-12
-          = image_tag "course-banner-clearconnect.png", class: "course-banner"
+          = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body
               = @video_on_demand.intro.html_safe if @video_on_demand.intro
@@ -34,7 +34,7 @@
               .panel-heading role="tab" id="headingOne"
                 strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Course Overview
+                    | Prequisites and Course Objectives
               #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @video_on_demand.overview.html_safe if @video_on_demand.overview

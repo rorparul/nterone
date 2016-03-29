@@ -34,7 +34,7 @@
     #course
       .row
         .col-xs-12
-          = image_tag "course-banner-#{@platform.title.downcase}.png", class: "course-banner"
+          = image_tag "course-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body = @course.intro.html_safe if @course.intro
           #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -42,7 +42,7 @@
               .panel-heading role="tab" id="headingOne"
                 strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Course Overview
+                    | Prequisites and Course Objectives
               #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @course.overview.html_safe if @course.overview
