@@ -42,7 +42,7 @@
               .panel-heading role="tab" id="headingOne"
                 strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Prequisites and Course Objectives
+                    | Prequisites &amp; Course Objectives
               #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @course.overview.html_safe if @course.overview
