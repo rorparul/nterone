@@ -1,3 +1,0 @@
-$('#topic-posts-container').prepend("<%= escape_javascript( render partial: 'post', locals: {post: @post}) %>");
-$('.topic-<%= @post.topic.id %>-post-count').html('Post Count: <%= @post.topic.posts.count %>');
-$('#post_content').val('');

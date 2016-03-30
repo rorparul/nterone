@@ -1,7 +1,0 @@
-= form_for post, url: posts_path, html: {}, remote: true do |f|
-  = f.hidden_field :user_id, value: current_user.id
-  = f.hidden_field :topic_id, value: topic.id
-  .post-form-inputs-container
-    = f.text_field :content, placeholder: 'Add Post', class: 'form-control post-form input-sm'
-    .post-form-button-container
-      = f.submit "Save", class: 'post-form-button'
