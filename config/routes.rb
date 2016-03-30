@@ -1,17 +1,11 @@
 NterOne::Application.routes.draw do
-
-  # This line mounts Forem's routes at /forums by default.
-  # This means, any requests to the /forums URL of your application will go to Forem::ForumsController#index.
-  # If you would like to change where this extension is mounted, simply change the :at option to something different.
-  #
-  # We ask that you don't use the :as option here, as Forem relies on it being the default of "forem"
-  mount Forem::Engine, :at => '/forums'
-
-  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   root to: 'general#welcome'
 
-  devise_for :users, controllers: { registrations: 'users/registrations',
-                                    invitations:   'users/invitations' }
+  devise_for :users,
+             controllers: { registrations: 'users/registrations',
+                            invitations:   'users/invitations' }
+
+  mount Forem::Engine, :at => '/forums'
 
   resources :users, only: [:index, :edit, :update, :show, :destroy] do
     post :toggle_archived, on: :member
@@ -29,7 +23,6 @@ NterOne::Application.routes.draw do
 
   resources :image_store_units
 
-  # resources :carts
   get 'cart'            => 'carts#show',       as: :cart
   get 'cart/calculator' => 'carts#calculator', as: :cart_calculator
   resources :order_items

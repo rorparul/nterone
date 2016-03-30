@@ -1,6 +1,5 @@
 class Course < ActiveRecord::Base
   extend FriendlyId
-  include Bootsy::Container
   mount_uploader :pdf, PdfUploader
   include Imageable
 

@@ -1,6 +1,5 @@
 User-agent: *
 
-Disallow: /bootsy
 Disallow: /users/
 Disallow: /admin
 Disallow: /cart

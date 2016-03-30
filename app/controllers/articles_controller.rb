@@ -55,7 +55,6 @@ class ArticlesController < ApplicationController
                                     :kind,
                                     :title,
                                     :content,
-                                    :created_at,
-                                    :bootsy_image_gallery_id)
+                                    :created_at)
   end
 end

@@ -45,7 +45,6 @@ class PagesController < ApplicationController
   def page_params
     params.require(:page).permit(:title,
                                  :content,
-                                 :bootsy_image_gallery_id,
                                  :page_title,
                                  :page_description)
   end

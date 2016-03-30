@@ -62,7 +62,6 @@ class CustomItemsController < ApplicationController
                                         :content,
                                         :shortname,
                                         :url,
-                                        :is_header,
-                                        :bootsy_image_gallery_id)
+                                        :is_header)
   end
 end
