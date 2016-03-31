@@ -1,7 +1,7 @@
 = form_tag search_path, method: :get, "data-parsley-validate" => true do
   .form-group
     .input-group.input-group-sm
-      = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: "Search by certificate, course, or exam"
+      = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: "Search by certification, course, or exam"
       span class="input-group-btn"
         button class="btn btn-default" type="submit" Go
 
