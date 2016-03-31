@@ -1,8 +1,13 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
+set :application, 'nterone'
 set :repo_url, 'git@github.com:ryanstorberg/nterone.git'
 set :rvm_type, :user
+
+set :user, 'deploy'
+set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}/"
+
 #set :rails_env, "staging"
 # set :branch, "staging"
 

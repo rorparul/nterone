@@ -3,19 +3,16 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-set :application, 'nci'
-set :user, 'deploy'
-set :deploy_to, "/home/#{fetch(:user)}/www/#{fetch(:application)}/"
+set :rails_env, "production"
 set :branch, 'master'
 
-role :app, %w(184.7.27.9 184.7.26.59 184.7.26.60), user: fetch(:user)
-role :db, %w(184.7.27.9 184.7.26.59 184.7.26.60), user: fetch(:user)
-role :web, %w(184.7.27.9 184.7.26.59 184.7.26.60), user: fetch(:user)
+server '184.7.26.58', user: fetch(:user), roles: %w{app db web}
+set :server_name, "staging.nterone.com"
 
-# server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
-# server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
-# server 'db.example.com', user: 'deploy', roles: %w{db}
-
+set :ssh_options, {
+  forward_agent: false,
+  auth_methods: %w(publickey)
+}
 
 
 # role-based syntax
@@ -53,8 +50,8 @@ role :web, %w(184.7.27.9 184.7.26.59 184.7.26.60), user: fetch(:user)
 #  set :ssh_options, {
 #    keys: %w(/home/rlisowski/.ssh/id_rsa),
 #    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
+#    auth_methods: %w(publickey)
+# }
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
