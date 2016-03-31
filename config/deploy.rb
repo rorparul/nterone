@@ -1,8 +1,15 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :repo_url, 'git@github.com:ryanstorberg/nci.git'
-set :rails_env, "production"
+set :application, 'nterone'
+set :repo_url, 'git@github.com:ryanstorberg/nterone.git'
+set :rvm_type, :user
+
+set :user, 'deploy'
+set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}/"
+
+#set :rails_env, "staging"
+# set :branch, "staging"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -35,7 +42,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :keep_releases, 5
 
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
