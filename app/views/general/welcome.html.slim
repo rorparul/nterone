@@ -12,12 +12,21 @@
 .row
   .col-sm-12.text-align.col-central
     #carousel
-      = image_tag "welcome-banners/welcome-banner-3.png"
+      = link_to main_app.platforms_path do
+        = image_tag "welcome-banners/welcome-banner-3.png"
     .row
       .col-xs-12
         .panel.panel-default
           .panel-body.text-justify
             = @page.content.html_safe
+    .row
+      .col-xs-12
+        = form_tag search_path, method: :get, "data-parsley-validate" => true do
+          .form-group style="margin-bottom: 20px;"
+            .input-group.input-group-lg
+              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 2px solid rgb(7, 87, 9);", required: true, placeholder: "Search by certificate, course, or exam"
+              span class="input-group-btn"
+                button class="btn btn-default" type="submit" style="border: 2px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
 
     .row
       .col-xs-12.col-md-4
