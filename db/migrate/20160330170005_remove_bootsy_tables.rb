@@ -3,7 +3,7 @@ class RemoveBootsyTables < ActiveRecord::Migration
     drop_table :bootsy_image_galleries
     drop_table :bootsy_images
     drop_table :industry_articles
-    drop_table :purchased_items
+    # drop_table :purchased_items
     drop_table :thredded_categories
     drop_table :thredded_images
     drop_table :thredded_messageboards
