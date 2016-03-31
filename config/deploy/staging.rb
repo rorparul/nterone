@@ -3,11 +3,21 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-set :application, 'nci'
+set :application, 'nterone'
 set :user, 'deploy'
-set :deploy_to, "/home/#{fetch(:user)}/www/#{fetch(:application)}/"
-server "184.7.26.58", user: fetch(:user), roles: %w(app db web)
-set :branch, 'develop'
+set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}/"
+server "184.7.18.90", user: fetch(:user), roles: %w(app db web)
+set :server_name, "staging.nterone.com"
+
+#set :rails_env, "staging"
+set :branch, 'master'
+
+set :ssh_options, {
+#  keys: %w(/home/deploy/.ssh/id_rsa),
+  forward_agent: false,
+  auth_methods: %w(publickey)
+}
+
 
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
