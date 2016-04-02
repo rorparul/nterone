@@ -14,7 +14,7 @@ set :sidekiq_user, fetch(:user)
 set :sidekiq_options_per_process, ["--queue default", "--queue mailer"]
 
 set :ssh_options, {
-  forward_agent: false,
+  forward_agent: true,
   auth_methods: %w(publickey)
 }
 
