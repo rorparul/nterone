@@ -13,7 +13,7 @@
         = " | "
       = form_for user.roles.first, url: change_role_path, method: :post, html: {class: "roles-form"} do |f|
         = f.hidden_field :user_id, value: user.id
-        = f.select :role, Role.selectable_roles.each { |role| role }, {}, class: "form-control role-selector"
+        = f.select :role, Role.selectable_roles.each { |role| role }, {}, class: "form-control selector-role"
       = " | "
       = link_to "Edit", edit_user_path(user)
       = " | "

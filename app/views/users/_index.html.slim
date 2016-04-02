@@ -23,6 +23,9 @@
 javascript:
   $('.people-tab').addClass('active');
   
-  $('.role-selector').on('change', function() {
-    $(this).closest('form').submit();
+  $(document).on("ready page:change", function() {
+    console.log("TEST");
+    $('.selector-role').on('change', function() {
+      $(this).closest('form').submit();
+    });
   });
