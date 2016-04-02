@@ -76,8 +76,9 @@ end
 group :development, :test do
   gem 'bullet'
   gem 'capistrano'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails'
   gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  gem 'capistrano-sidekiq'
   gem 'dotenv-rails'
 end
