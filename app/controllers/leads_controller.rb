@@ -69,7 +69,7 @@ class LeadsController < ApplicationController
 
   def email_quote
     @lead = Lead.find(params[:id])
-    if QuoteMailer.pdf_attachment(@lead).deliver_now
+    if QuoteMailer.pdf_attachment(@lead).deliver_later
       flash[:success] = "Email successfully sent!"
       @lead.create_activity(key: 'lead.quote_emailed',
                             owner: current_user,
