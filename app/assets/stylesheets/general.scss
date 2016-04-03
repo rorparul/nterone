@@ -263,6 +263,35 @@ body {
   }
 }
 
+.margin-none {
+  margin: 0;
+}
+
+.featured-container {
+  &:hover {
+    text-decoration: none;
+  }
+  .panel {
+    min-height: 225px;
+    color: rgb(51, 51, 51);
+  }
+  span {
+    font-size: 35px;
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+  }
+  p {
+    font-size: 15px;
+  }
+  hr {
+    border-bottom: 1px solid rgb(51, 51, 51);
+  }
+}
+
 iframe.wysihtml5-sandbox {
   height: 240px !important;
   padding: 5px 10px !important;

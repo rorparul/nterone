@@ -20,40 +20,34 @@
         = form_tag search_path, method: :get, "data-parsley-validate" => true do
           .form-group style="margin-bottom: 20px;"
             .input-group.input-group-lg
-              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 2px solid rgb(7, 87, 9);", required: true, placeholder: "Search by certification, course, or exam"
+              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: "Search by certification, course, or exam"
               span class="input-group-btn"
-                button class="btn btn-default" type="submit" style="border: 2px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
+                button class="btn btn-default" type="submit" style="border: 1px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
 
     .row
       .col-xs-12.col-md-4
-        .panel.panel-default
-          .panel-body.text-center
-            a href="#{platforms_path}"
-              .btn.btn-default.btn-lg.btn-blue
-                span.fa.fa-book
-                br
-                span Courses by “X”
-            hr
+        a.featured-container href="#{platforms_path}"
+          .panel.panel-default
+            .panel-body.text-center
+              span.fa.fa-book
+              h3 Courses by “X”
+              hr
               strong Find your course by technology, product, or certification.
       .col-xs-12.col-md-4
-        .panel.panel-default
-          .panel-body.text-center
-            a href="#{featured_classes_path}"
-              .btn.btn-default.btn-lg.btn-blue
-                span.fa.fa-calendar-check-o
-                br
-                span Featured Classes
-            hr
+        a.featured-container href="#{featured_classes_path}"
+          .panel.panel-default
+            .panel-body.text-center
+              span.fa.fa-calendar-check-o
+              h3 Featured Classes
+              hr
               strong View a list of our most popular courses broken down by vendor.
       .col-xs-12.col-md-4
-        .panel.panel-default
-          .panel-body.text-center
-            a href="#{labs_path}"
-              .btn.btn-default.btn-lg.btn-blue
-                span.fa.fa-server
-                br
-                span Labs
-            hr
+        a.featured-container href="#{labs_path}"
+          .panel.panel-default
+            .panel-body.text-center
+              span.fa.fa-server
+              h3 Labs
+              hr
               strong Global Data Center Offering 24x7 Lab Access
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

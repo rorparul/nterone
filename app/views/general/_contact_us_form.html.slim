@@ -11,7 +11,7 @@
     label
       = f.radio_button :recipient, 'billing@nterone.com'
       | Billing
-
+  
   .form-group
     = f.label :name, "Name"
     = f.text_field :name, class: 'form-control input-sm', value: user.full_name
@@ -35,3 +35,22 @@
   .form-buttons
     button.btn.btn-success type="submit" Send
     button.btn.btn-default type="button" data-dismiss="modal" Cancel
+  hr
+  .row
+    .col-xs-12.col-md-6
+      address
+        strong NterOne Corporate Address
+        br
+        | 1900 Campus Commons Drive, Suite 100
+        br
+        | Reston, VA 20191
+        br
+        abbr title="Phone" P:
+        |  (703) 972-2288
+    .col-xs-12.col-md-6
+      address
+        strong NterOne Payment Address
+        br
+        | 747 Sandy Ridge Rd
+        br
+        | Tyner, NC 27980
