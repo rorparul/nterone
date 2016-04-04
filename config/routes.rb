@@ -192,6 +192,7 @@ NterOne::Application.routes.draw do
   get  'about-us/press'                              => 'general#press',                  as: :press
   get  'about-us/blog'                               => 'general#blog',                   as: :blog
   get  'about-us/industry'                           => 'general#industry',               as: :industry
+  get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',     as: :nterone_gives_back
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'

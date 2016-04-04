@@ -1,0 +1,24 @@
+- content_for :page_title do
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
+
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted NterOne Gives Back
+    
+.row
+  .col-xs-12.col-central
+    = image_tag 'nterone-gives-back-banner.png', class: "header-image"
+    = @page.content.html_safe
+    
+  .col-xs-12.side-column
+    = render partial: 'layouts/side_column'
+    
+javascript:
+  $('.about-us-tab').addClass('active');

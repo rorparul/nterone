@@ -49,6 +49,10 @@ class GeneralController < ApplicationController
     @page = Page.find_by(title: 'Labs')
   end
 
+  def nterone_gives_back
+    @page = Page.find_by(title: 'NterOne Gives Back')
+  end
+
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
     @platforms = Platform.order(:title)
