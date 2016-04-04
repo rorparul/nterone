@@ -11,8 +11,6 @@ Disallow: /orders/
 Disallow: /announcements
 Disallow: /announcements/
 Disallow: /messages
-Disallow: /carousel_items
-Disallow: /carousel_items/
 Disallow: /my-queue
 Disallow: /my-queue/
 Disallow: /my-plan
@@ -26,5 +24,10 @@ Disallow: /chosen_courses/
 Disallow: /passed_exams/
 Disallow: /request-quote
 Disallow: /events-upload
+Disallow: /training/*/video-on-demand/play_video/
+Disallow: /training/*/instructors
+Disallow: /training/*/instructors/
+Disallow: /new-search
+Disallow: /contact_us
 
 Sitemap: https://www.nterone.com/sitemap.xml.gz

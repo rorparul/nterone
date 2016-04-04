@@ -67,12 +67,6 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :carousel_items do
-    collection do
-      get 'page'
-    end
-  end
-
   resources :leads, only: [:index, :edit, :update, :show], path: 'my-queue' do
     collection do
       get 'leads/:id/download_quote' => 'leads#download_quote', as: :download_quote
