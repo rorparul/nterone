@@ -142,3 +142,12 @@ javascript:
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
+  
+  $('#accordion').on('shown.bs.collapse', function (e) {
+    var offset = $('.panel.panel-default > .panel-collapse.in').offset();
+    if(offset) {
+      $('html,body').animate({
+        scrollTop: $('.panel-heading h4').offset().top -20
+      }, 500); 
+    }
+  });
