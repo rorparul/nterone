@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_category, only: [:show, :update, :destroy]
+  before_action :set_category,       only: [:show, :update, :destroy]
 
   def index
     @platform = Platform.find(params[:platform_id])
@@ -66,7 +66,7 @@ class CategoriesController < ApplicationController
     else
       flash[:alert] = 'Category unsuccessfully deleted!'
     end
-    redirect_to :back
+    redirect_to platform_category_path(@category.platform, Category.parent_categories.first)
   end
 
   private

@@ -40,7 +40,7 @@
                   td
                     a href="#{platform_course_path(subject.platform, group_item.groupable)}"
                       = group_item.groupable.full_title
-                  td.fit
+                  td.fit colspan="6"
                     = formatted_price_or_range_of_upcoming_events_for(group_item.groupable)
                   - unless controller_name == 'subjects'
                     td.fit.center-align
