@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
     Role.create(user_id: @user.id)
+    CustomMailer.welcome(@user).deliver_now
   end
 
   protected

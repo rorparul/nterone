@@ -18,7 +18,7 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
-      redirect_to session[:previous_request_url]
+      redirect_to platform_category_path(@platform, Category.parent_categories.first)
     else
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
