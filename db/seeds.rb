@@ -49,3 +49,4 @@ when "production"
     BrandUser.create(user_id: user.id, brand_id: nter_brand.id, role: :brand_admin)
   end
 end
+User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

@@ -1,4 +1,5 @@
 NterOne::Application.routes.draw do
+  ActiveAdmin.routes(self)
   root to: 'general#welcome'
 
   devise_for :users,
