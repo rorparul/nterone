@@ -12,7 +12,13 @@
     
 .row
   .col-xs-12
-    = render partial: 'orders/index', locals: { orders: @orders }
+    / = render partial: 'orders/index', locals: { orders: @orders }
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted Orders
+        / = link_to "Add", new_page_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        = smart_listing_render(:orders)
     
     
 javascript:

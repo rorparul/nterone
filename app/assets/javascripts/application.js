@@ -12,4 +12,5 @@
 //= require bootstrap-wysihtml5
 //= require cocoon
 //= require forem
+//= require smart_listing
 //= require general

@@ -1,10 +1,10 @@
 NterOne::Application.routes.draw do
-  ActiveAdmin.routes(self)
   root to: 'general#welcome'
-
   devise_for :users,
              controllers: { registrations: 'users/registrations',
                             invitations:   'users/invitations' }
+
+  ActiveAdmin.routes(self)
 
   mount Forem::Engine, :at => '/forums'
 
@@ -30,22 +30,6 @@ NterOne::Application.routes.draw do
   resources :orders do
     collection do
       get '/:id/confirmation' => 'orders#confirmation', as: :confirmation
-    end
-  end
-
-  resources :press_releases,    except: [:index], path: 'about-us/press' do
-    collection do
-      get 'page'
-    end
-  end
-  resources :blog_posts,        except: [:index], path: 'about-us/blog' do
-    collection do
-      get 'page'
-    end
-  end
-  resources :industry_articles, except: [:index], path: 'about-us/industry' do
-    collection do
-      get 'page'
     end
   end
 

@@ -12,7 +12,13 @@
     
 .row
   .col-xs-12
-    = render partial: 'events/index', locals: { events: @events }
+    / = render partial: 'events/index', locals: { events: @events }
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted Classes
+        / = link_to "Add", new_page_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        = smart_listing_render(:events)
     
     
 javascript:

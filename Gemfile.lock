@@ -397,6 +397,11 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    smart_listing (1.1.2)
+      coffee-rails
+      jquery-rails
+      kaminari (~> 0.16.1)
+      rails (>= 3.2)
     sort_alphabetical (1.0.2)
       unicode_utils (>= 1.2.2)
     sprockets (3.5.2)
@@ -503,6 +508,7 @@ DEPENDENCIES
   sitemap_generator
   slack-notifier
   slim (~> 3.0.3)
+  smart_listing
   sprockets-rails (~> 2.3.1)
   traceroute
   truncate_html

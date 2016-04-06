@@ -1,0 +1,45 @@
+- unless smart_listing.empty?
+  table.table.table-condensed
+    thead
+      tr
+        th #
+        th Status
+        th.fit = smart_listing.sortable "Total", :total
+        th Charged
+        th.fit Auth Code
+        th Credits
+        th SO#
+        th Balance
+        th = smart_listing.sortable "Created", :created_at
+        th.fit Member Email
+        th
+    tbody#pages
+      - smart_listing.collection.each do |order|
+        tr
+          td.fit = order.id
+          td.fit
+            = form_for order, url: order_path(order), method: :patch, remote: true do |f|
+              = f.select :status,
+                         [['Uninvoiced', 'Uninvoiced'],
+                          ['Unverified', 'Unverified'],
+                          ['Paid in Full', 'Paid in Full'],
+                          ['Verified', 'Verified']],
+                          { prompt: true },
+                          { class: 'form-control input-sm table-select' }
+          td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
+          td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
+          td.fit = order.auth_code
+          td.fit class="#{'text-success' if order.clc_quantity > 0}" = order.clc_quantity
+          td.fit = order.clc_number
+          td.fit class="#{'text-danger' if order.balance > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
+          td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
+          td = order.buyer.email if order.buyer
+          td.fit.actions-column.text-right
+            = link_to "Show", my_admin_orders_show_path(order), remote: false
+            |  | 
+            = link_to "Edit", edit_order_path(order), remote: true
+            |  | 
+            = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+  = smart_listing.paginate 
+- else
+  p.warning No records!

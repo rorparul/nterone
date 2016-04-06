@@ -1,11 +1,18 @@
 class MyAdminController < ApplicationController
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
   include MessageManager
 
   before_action :authenticate_user!
   before_action :validate_authorization
 
   def orders
-    @orders = Order.order(created_at: :desc)
+    # @orders = Order.order(created_at: :desc)
+    @orders = smart_listing_create(:orders, Order.all, partial: "orders/listing", default_sort: { created_at: "desc"} )
+    respond_to do |format|
+     format.html
+     format.js
+   end
   end
 
   def orders_show
@@ -13,7 +20,12 @@ class MyAdminController < ApplicationController
   end
 
   def classes
-    @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
+    # @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
+    @events = smart_listing_create(:events, Event.all, partial: "events/listing", default_sort: { guaranteed: "desc", start_date: "asc"} )
+    respond_to do |format|
+     format.html
+     format.js
+   end
   end
 
   def classes_show
