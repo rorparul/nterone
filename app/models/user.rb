@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include ModelSearch
+
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
   has_many :chosen_courses,   dependent:  :destroy

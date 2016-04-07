@@ -66,7 +66,7 @@ body {
 
 .panel {
   .table {
-    font-size: 12px;
+    // font-size: 12px;
   }
 }
 
@@ -326,6 +326,14 @@ iframe.wysihtml5-sandbox {
 .panel-heading {
   h4 {
     margin: 0;
+  }
+}
+
+.panel-heading-with-search {
+  strong {
+    display: inline-block;
+    margin: 5px 0;
+    // border: 2px solid red;
   }
 }
 
@@ -910,7 +918,7 @@ table {
 
   }
   tr {
-    padding: 5px 10px;
+    // padding: 5px 10px;
   }
 }
 
@@ -944,27 +952,6 @@ table {
   .panel-heading {
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
   }
-  .panel-table {
-    // overflow: scroll;
-  }
-}
-
-// .topic-posts {
-//   background-color: white;
-// }
-
-.panel-orange {
-  border-color: rgb(202, 111, 43);
-  .panel-heading {
-    @include value-prefix(background-image, linear-gradient(top, rgb(214, 139, 83) 0%, rgb(202, 111, 43) 100%));
-    color: white;
-    border-bottom-color: rgb(202, 111, 43);
-  }
-  .image-container {
-    img {
-      width: 50% !important;
-    }
-  }
 }
 
 .panel-red {
@@ -979,13 +966,6 @@ table {
     img {
       width: 80%;
     }
-  }
-}
-
-.panel-green {
-  border-color: rgb(96, 156, 61);
-  .panel-footer{
-    @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
   }
 }
 

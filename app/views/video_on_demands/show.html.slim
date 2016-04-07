@@ -57,7 +57,7 @@
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - @video_on_demand.video_modules.order(:created_at).each_with_index do |video_module, index|
+                - @video_on_demand.video_modules.order(:title).each_with_index do |video_module, index|
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong
@@ -74,7 +74,7 @@
                                 th Video
                                 th.fit Viewed
                             tbody
-                              - video_module.videos.each do |video|
+                              - video_module.videos.order(:title).each do |video|
                                 tr.video
                                   - if video.free
                                     td

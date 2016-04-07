@@ -29,7 +29,7 @@ SmartListing.configure do |config|
     #:autoselect            => "autoselect",
     #:callback              => "callback",
     #:pagination_wrapper    => "text-center",
-    #:pagination_container  => "pagination",
+    :pagination_container  => "pagination pagination-sm"
     #:pagination_per_page   => "pagination-per-page text-center",
     #:inline_editing        => "info",
     #:no_records            => "no-records",

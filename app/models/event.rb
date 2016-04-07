@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  include ModelSearch
+
   belongs_to :course
   belongs_to :instructor
 

@@ -7,8 +7,9 @@ class MyAdminController < ApplicationController
   before_action :validate_authorization
 
   def orders
-    # @orders = Order.order(created_at: :desc)
-    @orders = smart_listing_create(:orders, Order.all, partial: "orders/listing", default_sort: { created_at: "desc"} )
+    orders_scope = Order.all
+    orders_scope = Order.search(params[:filter]) if params[:filter]
+    @orders = smart_listing_create(:orders, orders_scope, partial: "orders/listing", default_sort: { created_at: "desc"} )
     respond_to do |format|
      format.html
      format.js
@@ -20,12 +21,26 @@ class MyAdminController < ApplicationController
   end
 
   def classes
-    # @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
-    @events = smart_listing_create(:events, Event.all, partial: "events/listing", default_sort: { guaranteed: "desc", start_date: "asc"} )
+    events_scope = Event.all.joins(:course)
+    events_scope = Event.search(params[:filter]) if params[:filter]
+    @events = smart_listing_create(:events,
+                                   events_scope,
+                                   partial: "events/listing",
+                                   sort_attributes: [[:id, "id"],
+                                                     [:status, "status"],
+                                                     [:course, "courses.abbreviation"],
+                                                     [:start_date, "start_date"],
+                                                     [:start_time, "start_time"],
+                                                     [:end_time, "end_time"],
+                                                     [:format, "format"],
+                                                     [:lab_source, "lab_source"],
+                                                     [:public, "public"],
+                                                     [:guaranteed, "guaranteed"]],
+                                   default_sort: { start_date: "asc"} )
     respond_to do |format|
-     format.html
-     format.js
-   end
+      format.html
+      format.js
+    end
   end
 
   def classes_show
@@ -47,7 +62,14 @@ class MyAdminController < ApplicationController
   end
 
   def people
-    @users = User.order("LOWER(last_name)").page(params[:page])
+    # @users = User.order("LOWER(last_name)").page(params[:page])
+    users_scope = User.all
+    users_scope = User.search(params[:filter]) if params[:filter]
+    @users = smart_listing_create(:users, users_scope, partial: "users/listing", default_sort: { last_name: "asc"} )
+    respond_to do |format|
+     format.html
+     format.js
+   end
   end
 
   def website
