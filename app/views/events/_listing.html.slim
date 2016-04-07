@@ -16,8 +16,8 @@
             th.fit Students
             th.fit Revenue
             th.fit = smart_listing.sortable "Lab Source", :lab_source
-            th.fit = smart_listing.sortable "Public", :public
-            th.fit = smart_listing.sortable 'Guaranteed', :guaranteed
+            th.fit Public
+            th.fit Guaranteed
             th.fit
         tbody
           - smart_listing.collection.each do |event|

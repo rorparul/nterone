@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405173430) do
+ActiveRecord::Schema.define(version: 20160407022823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -625,8 +625,9 @@ ActiveRecord::Schema.define(version: 20160405173430) do
   create_table "video_modules", force: :cascade do |t|
     t.integer  "video_on_demand_id"
     t.string   "title"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "position",           default: 0
   end
 
   create_table "video_on_demands", force: :cascade do |t|
@@ -657,8 +658,9 @@ ActiveRecord::Schema.define(version: 20160405173430) do
     t.string   "url"
     t.text     "embed_code"
     t.boolean  "free"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "position",        default: 0
   end
 
   create_table "watched_videos", force: :cascade do |t|

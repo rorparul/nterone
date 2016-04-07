@@ -33,9 +33,7 @@ class MyAdminController < ApplicationController
                                                      [:start_time, "start_time"],
                                                      [:end_time, "end_time"],
                                                      [:format, "format"],
-                                                     [:lab_source, "lab_source"],
-                                                     [:public, "public"],
-                                                     [:guaranteed, "guaranteed"]],
+                                                     [:lab_source, "lab_source"]],
                                    default_sort: { start_date: "asc"} )
     respond_to do |format|
       format.html
@@ -62,7 +60,6 @@ class MyAdminController < ApplicationController
   end
 
   def people
-    # @users = User.order("LOWER(last_name)").page(params[:page])
     users_scope = User.all
     users_scope = User.search(params[:filter]) if params[:filter]
     @users = smart_listing_create(:users, users_scope, partial: "users/listing", default_sort: { last_name: "asc"} )
