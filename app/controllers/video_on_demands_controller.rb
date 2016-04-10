@@ -91,7 +91,7 @@ class VideoOnDemandsController < ApplicationController
     else
       flash[:alert] = 'Video On Demand unsuccessfully destroyed!'
     end
-    redirect_to :back
+    redirect_to session[:previous_request_url]
   end
 
   def play_video

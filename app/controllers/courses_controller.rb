@@ -90,7 +90,7 @@ class CoursesController < ApplicationController
     else
       flash[:alert] = 'Course unsuccessfully deleted!'
     end
-    redirect_to :back
+    redirect_to session[:previous_request_url]
   end
 
   def download

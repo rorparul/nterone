@@ -93,7 +93,7 @@ class SubjectsController < ApplicationController
     else
       flash['alert'] = 'Certification unsuccessfully deleted!'
     end
-    redirect_to :back
+    redirect_to session[:previous_request_url]
   end
 
   private

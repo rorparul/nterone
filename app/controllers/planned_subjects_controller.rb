@@ -1,13 +1,15 @@
 class PlannedSubjectsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def toggle
-    planned_subject = PlannedSubject.where(planned_subject_params).first
+    planned_subject = PlannedSubject.find_by(planned_subject_params)
+
     if current_user.member?
       notice = "Successfully added! Please navigate to #{view_context.link_to('My Plan', my_account_plan_path)} to manage and request a formal quote.".html_safe
     else
       notice = "Successfully added!"
     end
+
     if planned_subject == nil
       flash[:success] = notice
       @action = 'add'

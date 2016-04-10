@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_cart
   before_action :get_alert_counts
   before_action :update_request_urls
+  after_filter  :store_location
 
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -22,7 +23,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: exception.message
   end
 
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
+
   private
+
+  def store_location
+    # store last url as long as it isn't a /users path
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+  end
 
   def update_request_urls
     session[:previous_request_url] = session[:current_request_url]

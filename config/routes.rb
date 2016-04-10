@@ -190,4 +190,22 @@ NterOne::Application.routes.draw do
   post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
+
+  # Redirects from old site:
+  get '/courses/:id',                          to: redirect('/training')
+  get '/certifications/:id',                   to: redirect('/training')
+  get '/component/:id',                        to: redirect('/training')
+  get '/training/:id',                         to: redirect('/training')
+  get "/about-us/"                             => redirect("/about-us/general")
+  get "/contact-us/"                           => redirect("/index")
+  get "/just-in-time-training/"                => redirect("/training")
+  get "/my-dashboard/"                         => redirect("/users/sign_in")
+  get "/news/"                                 => redirect("/about-us/press")
+  get "/nterone-gives-back/"                   => redirect("/about-us/nterone_gives_back")
+  get "/our-team/executives/"                  => redirect("/about-us/executives")
+  get "/our-team/instructors-and-consultants/" => redirect("/about-us/instructors")
+  get "/our-team/instructor-services/"         => redirect("/about-us/instructors")
+  get "/register/"                             => redirect("/users/sign_in")
+  get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
+  get "/cisco-learning-credits/"               => redirect("/training")
 end

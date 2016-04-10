@@ -38,12 +38,18 @@
 .row
   .col-xs-12
     button#back Back
-    - if user_signed_in? && current_user.member?
+    - if !user_signed_in? || (user_signed_in? && current_user.member?)
       - if @platform.url
         a href="#{@platform.url}" target="_blank"
           button#find-testing-center
             span.fa.fa-location-arrow
             span Find Testing Center
+    - if !user_signed_in?
+      a href="#{main_app.new_user_session_path}"
+        button#find-testing-center
+          span.fa.fa-sign-in
+          span Login to add to My Plan
+    - if user_signed_in? && current_user.member?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :user_id, value: current_user.id
         = f.hidden_field :subject_id, value: @subject.id
