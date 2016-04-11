@@ -119,12 +119,9 @@
           fieldset
             label Student
             .row
-              .col-xs-12.col-sm-6
+              .col-xs-12
                 .form-group
-                  = current_user.first_name
-              .col-xs-12.col-sm-6
-                .form-group
-                  = current_user.last_name
+                  = current_user.full_name
           fieldset
             label Billing Address
             .row
