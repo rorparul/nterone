@@ -122,24 +122,24 @@
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :billing_company, 'Company'
-                  = f.text_field :billing_company, class: 'form-control input-sm', value: (current_user.billing_company if user_signed_in?)
+                  = f.text_field :billing_company, class: 'form-control input-sm', value: current_user.billing_company
             .row
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :billing_first_name, 'First Name'
-                  = f.text_field :billing_first_name, class: 'form-control input-sm', value: (current_user.billing_first_name if user_signed_in?)
+                  = f.text_field :billing_first_name, class: 'form-control input-sm', value: current_user.billing_first_name.present? ? current_user.billing_first_name : current_user.first_name
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :billing_last_name, 'Last Name'
-                  = f.text_field :billing_last_name, class: 'form-control input-sm', value: (current_user.billing_last_name if user_signed_in?)
+                  = f.text_field :billing_last_name, class: 'form-control input-sm', value: current_user.billing_last_name.present? ? current_user.billing_last_name : current_user.last_name
             .form-group
               = f.label :billing_street, 'Street'
-              = f.text_field :billing_street, class: 'form-control input-sm', value: (current_user.billing_street if user_signed_in?)
+              = f.text_field :billing_street, class: 'form-control input-sm', value: current_user.billing_street
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :billing_city, 'City'
-                  = f.text_field :billing_city, class: 'form-control input-sm', value: (current_user.billing_city if user_signed_in?)
+                  = f.text_field :billing_city, class: 'form-control input-sm', value: current_user.billing_city
               .col-xs-12.col-md-4
                 .form-group
                   = f.label :billing_state, 'State'
@@ -157,39 +157,39 @@
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :billing_zip_code, 'Zip Code'
-                  = f.text_field :billing_zip_code, class: 'form-control input-sm', value: (current_user.billing_zip_code if user_signed_in?)
+                  = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code
             hr
           fieldset
             label Shipping Address
             .form-group
               .checkbox.checkbox-container
                 label
-                  = f.check_box :same_addresses, class: 'shipping-address-box', checked: (current_user.same_addresses if user_signed_in?)
+                  = f.check_box :same_addresses, class: 'shipping-address-box', checked: current_user.same_addresses
                   |  Same as Billing
             .row
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_company, 'Company'
-                  = f.text_field :shipping_company, class: 'form-control input-sm disableable', value: (current_user.shipping_company if user_signed_in?)
+                  = f.text_field :shipping_company, class: 'form-control input-sm disableable', value: current_user.shipping_company
             .row
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_first_name, 'First Name'
-                  = f.text_field :shipping_first_name, class: 'form-control input-sm disableable', value: (current_user.shipping_first_name if user_signed_in?)
+                  = f.text_field :shipping_first_name, class: 'form-control input-sm disableable', value: current_user.shipping_first_name.present? ? current_user.shipping_first_name : current_user.first_name
                   
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_last_name, 'Last Name'
-                  = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: (current_user.shipping_last_name if user_signed_in?)
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? urrent_user.shipping_last_name : current_user.last_name
               
             .form-group
               = f.label :shipping_street, 'Street'
-              = f.text_field :shipping_street, class: 'form-control input-sm disableable', value: (current_user.shipping_street if user_signed_in?)
+              = f.text_field :shipping_street, class: 'form-control input-sm disableable', value: current_user.shipping_street
             .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :shipping_city, 'City'
-                  = f.text_field :shipping_city, class: 'form-control input-sm disableable', value: (current_user.shipping_city if user_signed_in?)
+                  = f.text_field :shipping_city, class: 'form-control input-sm disableable', value: current_user.shipping_city
               .col-xs-12.col-md-4
                 .form-group
                   = f.label :shipping_state, 'State'
@@ -207,7 +207,7 @@
               .col-xs-12.col-md-2
                 .form-group
                   = f.label :shipping_zip_code, 'Zip Code'
-                  = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable', value: (current_user.shipping_zip_code if user_signed_in?)
+                  = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable', value: current_user.shipping_zip_code
   .form-buttons
     button.btn.btn-success type="submit" Place Order
         
