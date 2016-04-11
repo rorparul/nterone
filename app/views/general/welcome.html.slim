@@ -27,27 +27,27 @@
     .row
       .col-xs-12.col-lg-4
         a.featured-container href="#{platforms_path}"
-          .panel.panel-default.first
-            .panel-body.text-center
+          .panel.panel-default.text-center
+            .panel-heading
               span.fa.fa-book
               h3 Courses by Vendor
-              hr
+            .panel-body
               strong Find your course by technology, product, or certification.
       .col-xs-12.col-lg-4
         a.featured-container href="#{featured_classes_path}"
-          .panel.panel-default.second
-            .panel-body.text-center
+          .panel.panel-default.text-center
+            .panel-heading
               span.fa.fa-calendar-check-o
               h3 Featured Classes
-              hr
+            .panel-body
               strong View a list of our most popular courses broken down by vendor.
       .col-xs-12.col-lg-4
         a.featured-container href="#{labs_path}"
-          .panel.panel-default.third
-            .panel-body.text-center
+          .panel.panel-default.text-center
+            .panel-heading
               span.fa.fa-server
               h3 Labs
-              hr
+            .panel-body
               strong Global Data Center Offering 24x7 Lab Access
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

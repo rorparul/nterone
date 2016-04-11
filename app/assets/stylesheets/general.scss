@@ -284,37 +284,38 @@ body {
     text-decoration: none;
   }
   .panel {
-    min-height: 225px;
-    color: white;
-    background-image: image-url('green-circuit.jpg');
+    padding: 10px;
+    min-height: 200px;
     @media (max-width: 1200px) {
-      min-height: 175px;
+      min-height: 150px;
     }
-    &.first {
-      background-position: left;
+    .panel-heading {
+      @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
     }
-    &.second {
-      background-position: center;
-    }
-    &.third {
-      background-position: right;
+    .panel-body {
+      padding: 10px 15px;
     }
   }
   span {
-    font-size: 50px;
+    font-size: 45px;
     margin-bottom: 8px;
+    color: white;
+    text-shadow: rgb(48, 48, 48) 0px 1px 0px;
   }
   h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     margin: 0;
+    color: white;
   }
-  p {
+  strong {
     font-size: 15px;
+    color: rgb(51, 51, 51);
   }
-  hr {
-    border-bottom: 1px solid rgb(51, 51, 51);
-  }
+}
+
+.category-description {
+  margin-bottom: 10px;
 }
 
 iframe.wysihtml5-sandbox {
