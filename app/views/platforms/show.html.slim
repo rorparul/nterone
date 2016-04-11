@@ -78,7 +78,7 @@
                                                          
 .row
   .col-xs-12.category-description
-    = @category.description.html_safe
+    = @category.description.try(:html_safe)
 
 .row.subjects
   = render partial: 'platforms/items', locals: { items: @items }
