@@ -117,6 +117,15 @@
                     div = @cart.credits_required_for_total_applicable_for_credits
             hr
           fieldset
+            label Student
+            .row
+              .col-xs-12.col-sm-6
+                .form-group
+                  = current_user.first_name
+              .col-xs-12.col-sm-6
+                .form-group
+                  = current_user.last_name
+          fieldset
             label Billing Address
             .row
               .col-xs-12.col-sm-6
@@ -180,7 +189,7 @@
               .col-xs-12.col-sm-6
                 .form-group
                   = f.label :shipping_last_name, 'Last Name'
-                  = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? urrent_user.shipping_last_name : current_user.last_name
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? current_user.shipping_last_name : current_user.last_name
               
             .form-group
               = f.label :shipping_street, 'Street'
