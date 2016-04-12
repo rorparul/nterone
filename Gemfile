@@ -36,6 +36,7 @@ gem 'public_activity'
 gem 'pundit', '~> 1.0.1'
 gem 'rails', '4.2.6'
 gem 'rack-rewrite', '~> 1.5.0'
+gem "recaptcha", require: "recaptcha/rails"
 gem 'remotipart'
 gem 'roo', '~> 2.1.0'
 gem 'sass-rails', '~> 5.0.3'

@@ -31,7 +31,9 @@ class Event < ActiveRecord::Base
   end
 
   def self.with_students
-    joins(:order_items).group('events.id').having("count(orderable_id) > 0").where("orderable_type = 'Event'")
+    # joins(:order_items).group('events.id').having("count(orderable_id) > 0").where("orderable_type = 'Event'")
+    includes(:order_items).where('order_items.cart_id = ?', 'nil').references(:order_items)
+    # User.includes(:posts).where('posts.name = ?', 'example').references(:posts)
   end
 
   def student_count

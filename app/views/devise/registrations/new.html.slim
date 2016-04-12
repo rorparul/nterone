@@ -10,7 +10,9 @@
   = f.password_field :password,              autocomplete: "off", placeholder: 'Password',         class: 'form-control sign-in-field session-input', id: 'password',         required: true
   = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm Password', class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
   #instructions Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number.
-  = f.submit "Register",                                                                           class: 'btn btn-lg btn-primary btn-block',         id: 'newUser'
+  #recapcha
+    = recaptcha_tags
+    = f.submit "Register",                                                                           class: 'btn btn-lg btn-primary btn-block',         id: 'newUser'
   br
   .or
     = image_tag asset_path('or.png')
