@@ -1,4 +1,3 @@
-# config/initializers/recaptcha.rb
 Recaptcha.configure do |config|
   config.public_key  = '6LdvNR0TAAAAAO07jFEA34PfeUUslqn3Q3CtCWDk'
   config.private_key = '6LdvNR0TAAAAAHpj_CHOevslbN_Fl9YoD-L-hJow'
