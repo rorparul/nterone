@@ -353,7 +353,12 @@ iframe.wysihtml5-sandbox {
   strong {
     display: inline-block;
     margin: 5px 0;
-    // border: 2px solid red;
+  }
+  .checkbox {
+    margin: 0 5px;
+    input[type='checkbox'] {
+      margin: 0 2.5px 0 5px;
+    }
   }
 }
 

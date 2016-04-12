@@ -4,13 +4,11 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "ID", :id
             th.fit = smart_listing.sortable "Status", :status
             th.fit = smart_listing.sortable "Course", :course
             th.fit = smart_listing.sortable "Start Date", :start_date
             th.fit Length
             th.fit = smart_listing.sortable "Start Time", :start_time
-            th.fit = smart_listing.sortable "End Time", :end_time
             th.fit = smart_listing.sortable "Format", :format
             th.fit Instructor
             th.fit Students
@@ -22,7 +20,6 @@
         tbody
           - smart_listing.collection.each do |event|
             tr
-              td.fit = event.id
               td.fit
                 = form_for event, url: platform_course_event_path(event.course.platform, event.course, event), method: :patch, remote: true do |f|
                   = f.select :status,
@@ -35,7 +32,6 @@
               td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
               td.fit = event.length
               td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
-              td.fit = event.end_time.strftime("%I:%M %p") if event.end_time
               td.fit = event.format
               td.fit = event.instructor.full_name if event.instructor
               td.fit = event.student_count

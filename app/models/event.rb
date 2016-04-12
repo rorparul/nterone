@@ -15,38 +15,6 @@ class Event < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
-  # search_scope :search do
-  #   attributes :format
-  #   # attributes :comment => ["comments.title", "comments.message"]
-  #   # attributes :course => "courses.abbreviation"
-  #   # ...
-  # end
-  # t.date     "start_date"
-  # t.date     "end_date"
-  # t.string   "format"
-  # t.decimal  "price",           precision: 8, scale: 2, default: 0.0
-  # t.integer  "instructor_id"
-  # t.integer  "course_id"
-  # t.datetime "created_at",                                              null: false
-  # t.datetime "updated_at",                                              null: false
-  # t.boolean  "guaranteed",                              default: false
-  # t.boolean  "active",                                  default: true
-  # t.time     "start_time"
-  # t.time     "end_time"
-  # t.string   "city"
-  # t.string   "state"
-  # t.string   "status"
-  # t.string   "lab_source"
-  # t.boolean  "public",                                  default: true
-  # t.decimal  "cost_instructor", precision: 8, scale: 2, default: 0.0
-  # t.decimal  "cost_lab",        precision: 8, scale: 2, default: 0.0
-  # t.decimal  "cost_te",         precision: 8, scale: 2, default: 0.0
-  # t.decimal  "cost_facility",   precision: 8, scale: 2, default: 0.0
-  # t.decimal  "cost_books",      precision: 8, scale: 2, default: 0.0
-  # t.decimal  "cost_shipping",   precision: 8, scale: 2, default: 0.0
-  # t.boolean  "partner_led",                             default: false
-  # t.string   "time_zone"
-
   def self.guaranteed_events
     where(guaranteed: true).order(:start_date)
   end
@@ -60,6 +28,10 @@ class Event < ActiveRecord::Base
       count = (self.start_date..self.end_date).select { |day| (1..5).include?(day.wday) }.count
       count > 0 ? count : 1
     end
+  end
+
+  def self.with_students
+    joins(:order_items).group('events.id').having("count(orderable_id) > 0").where("orderable_type = 'Event'")
   end
 
   def student_count
