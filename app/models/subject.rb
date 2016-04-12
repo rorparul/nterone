@@ -39,7 +39,7 @@ class Subject < ActiveRecord::Base
   def self.search(query)
     subjects = []
 
-    where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.downcase}%").each do |subject|
+    where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.downcase}%").each do |subject|
       subjects << subject
     end
 
@@ -48,7 +48,9 @@ class Subject < ActiveRecord::Base
         if group_item.group
           if group_item.group.header.downcase.include?("recommended")
             group_item.group.subjects.each do |subject|
-              subjects << subject
+              if subject.active
+                subjects << subject
+              end
             end
           end
         end
@@ -59,7 +61,9 @@ class Subject < ActiveRecord::Base
           if group_item.group
             if group_item.group.header.downcase.include?("recommended")
               group_item.group.subjects.each do |subject|
-                subjects << subject
+                if subject.active
+                  subjects << subject
+                end
               end
             end
           end
@@ -73,7 +77,9 @@ class Subject < ActiveRecord::Base
           if group_item.group
             if group_item.group.header.downcase.include?("recommended")
               group_item.group.subjects.each do |subject|
-                subjects << subject
+                if subject.active
+                  subjects << subject
+                end
               end
             end
           end

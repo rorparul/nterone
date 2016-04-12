@@ -115,6 +115,7 @@ class SubjectsController < ApplicationController
                                     :description,
                                     :type,
                                     :partner_led,
+                                    :active,
                                     category_ids: [])
   end
 end

@@ -118,6 +118,7 @@ class VideoOnDemandsController < ApplicationController
                                             :outline,
                                             :intended_audience,
                                             :partner_led,
+                                            :active,
                                             category_ids: [],
                                             video_modules_attributes: [:id,
                                                                        :position,

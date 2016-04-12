@@ -44,11 +44,16 @@
             = icon.label :file, "Icon"
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
-      .col-xs-12.col-md-6
+      .col-xs-12.col-md-3
         .form-group
           = f.label :partner_led, "Partner Led"
           br
           = f.check_box :partner_led
+      .col-xs-12.col-md-3
+        .form-group
+          = f.label :active, "Active"
+          br
+          = f.check_box :active
 
     .form-group
       = f.label :description
