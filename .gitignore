@@ -12,6 +12,7 @@ public/uploads/*
 .ruby-version
 .env
 *~
+erd.pdf
 
 # Ignore application configuration
 /config/application.yml

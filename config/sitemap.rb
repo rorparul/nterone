@@ -1,4 +1,5 @@
 SitemapGenerator::Sitemap.default_host = "https://www.nterone.com"
+SitemapGenerator::Sitemap.compress     = false
 
 SitemapGenerator::Sitemap.create do
   add executives_bios_path
