@@ -48,7 +48,7 @@
               td.fit = event.guaranteed ? 'Yes' : 'No'
               td.fit.text-right
                 = link_to "Register", current_user.admin? ? my_admin_classes_show_path(event) : my_sales_classes_show_path(event)
-                |  |
+                |  | 
                 = link_to "Show", current_user.admin? ? my_admin_classes_show_path(event) : my_sales_classes_show_path(event)
                 |  | 
                 = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
