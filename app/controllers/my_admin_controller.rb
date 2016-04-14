@@ -22,7 +22,7 @@ class MyAdminController < ApplicationController
 
   def classes
     events_scope = Event.all.joins(:course)
-    events_scope = Event.search(params[:filter]) if params[:filter]
+    events_scope = Event.custom_search(params[:filter]) if params[:filter]
     events_scope = events_scope.with_students if params[:with_students] == "1"
     @events = smart_listing_create(:events,
                                    events_scope,

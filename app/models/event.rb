@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
-  include ModelSearch
+  # include ModelSearch
+  include SearchCop
 
   belongs_to :course
   belongs_to :instructor
@@ -13,6 +14,12 @@ class Event < ActiveRecord::Base
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
+
+  search_scope :custom_search do
+    attributes :format, :start_date, :public, :guaranteed
+    attributes :course => ["course.abbreviation", "course.title"]
+    attributes :users  => ["users.first_name", "users.last_name", "users.email"]
+  end
 
   def self.guaranteed_events
     where(guaranteed: true).order(:start_date)
