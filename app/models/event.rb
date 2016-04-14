@@ -19,6 +19,7 @@ class Event < ActiveRecord::Base
     attributes :format, :start_date, :public, :guaranteed
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users  => ["users.first_name", "users.last_name", "users.email"]
+    attributes :instructor => ["instructor.first_name", "instructor.last_name"]
   end
 
   def self.guaranteed_events

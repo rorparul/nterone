@@ -82,6 +82,8 @@
 
 .row.subjects
   = render partial: 'platforms/items', locals: { items: @items }
+  
+= p controller.class
 
 javascript:
   $('.training-tab').addClass('active');

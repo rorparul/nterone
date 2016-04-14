@@ -1,5 +1,5 @@
 <% if Rails.env.production? %>
-  <% if controller_name == 'categories' && action_name == 'show' %>
+  <% if controller.class == CategoriesController && action_name == 'show' %>
     <% if @category.title == 'UCS' %>
       <!-- Google Code for UCS Conversion Page -->
       <script type="text/javascript">

@@ -6,14 +6,16 @@ class MyAdminController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
+  layout "admin"
+
   def orders
     orders_scope = Order.all
     orders_scope = Order.search(params[:filter]) if params[:filter]
     @orders = smart_listing_create(:orders, orders_scope, partial: "orders/listing", default_sort: { created_at: "desc"} )
     respond_to do |format|
-     format.html
-     format.js
-   end
+      format.html
+      format.js
+    end
   end
 
   def orders_show
@@ -34,7 +36,8 @@ class MyAdminController < ApplicationController
                                                      [:start_time, "start_time"],
                                                      [:end_time, "end_time"],
                                                      [:format, "format"],
-                                                     [:lab_source, "lab_source"]],
+                                                     [:lab_source, "lab_source"],
+                                                     [:guaranteed, "guaranteed"]],
                                    default_sort: { start_date: "asc"} )
     respond_to do |format|
       format.html
