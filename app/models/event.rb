@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.with_students
-    joins(:order_items).where(order_items: { cart_id: nil })
+    joins(:order_items).where(order_items: { cart_id: nil }).distinct
   end
 
   def student_count

@@ -24,9 +24,9 @@
                   
               .checkbox
                 label.checkbox.inline
-                  = hidden_field_tag :include_past, "0"
-                  = check_box_tag :include_past
-                  | Include past
+                  = hidden_field_tag :including_past, "0"
+                  = check_box_tag :including_past
+                  | Including past
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
