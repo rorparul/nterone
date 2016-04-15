@@ -1,0 +1,49 @@
+.form-container
+  = form_for order, url: orders_path do |f|
+  
+    = f.fields_for :order_items do |ff|
+      = ff.hidden_field :orderable_type, value: "Event"
+      = ff.hidden_field :orderable_id,   value: event.id
+            
+    .form-group
+      = f.label :seller_id, 'Sales Rep'
+      = f.select :seller_id,
+                 User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 {},
+                 class: "form-control input-sm"
+                 
+    .form-group
+      = f.label :buyer_id, 'Student'
+      = f.select :buyer_id,
+                 User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 {},
+                 class: "form-control input-sm"
+                     
+    .form-group
+      = f.label :payment_type, 'Payment Type'
+      = f.select :payment_type,
+                 ["Credit Card", "Credits", "Bundled", "No Charge", "Other"],
+                 {},
+                 class: "form-control input-sm"
+                     
+    / .form-group
+    /   = f.label :paid
+    /   .input-group
+    /     span.input-group-addon $
+    /     = f.text_field :paid, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+    /     span.input-group-addon .00
+    
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :clc_number, 'Cisco Learning Credit SO#'
+          = f.text_field :clc_number, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :clc_quantity, 'Cisco Learning Credits'
+          = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
+          p.form-instructions.absolute 1 Credit = $100
+
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

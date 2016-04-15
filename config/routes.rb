@@ -8,7 +8,7 @@ NterOne::Application.routes.draw do
 
   mount Forem::Engine, :at => '/forums'
 
-  resources :users, only: [:index, :edit, :update, :show, :destroy] do
+  resources :users  do
     post :toggle_archived, on: :member
     collection do
       get '/users/:id/edit_from_my_queue' => 'users#edit_from_my_queue', as: :edit_from_my_queue

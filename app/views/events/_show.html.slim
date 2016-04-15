@@ -122,10 +122,10 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Class Enrollments
+        strong.text-muted Class Registrations
         .panel-actions-overlay
-          = link_to '#', remote: true do
-            span.text-success title="Register Student" Reg
+          = link_to new_order_path(event: event.id), remote: true do
+            span.text-success title="Register Student" Add
       .panel-table
         .responsive-table
           table.table.table-condensed.table-hover
@@ -138,7 +138,7 @@
                 th.fit Amount Due
                 th.fit
             tbody
-              - event.order_items.each do |order_item|
+              - event.order_items.where(cart_id: nil).each do |order_item|
                 tr
                   - if current_user.admin?
                     td.fit
@@ -151,7 +151,7 @@
                   - else
                     td.fit = order_item.order.buyer.full_name if order_item.order.buyer
                   td.fit = order_item.user.full_name if order_item.user
-                    td.fit = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                  td.fit = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   - if order_item.order
                     td.fit = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
                     td.fit = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
@@ -161,7 +161,7 @@
                   td.fit.text-right
                     = link_to 'Edit', '#', remote: true
                     |  | 
-                    = link_to 'Delete', '#', method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                    = link_to 'Del', '#', method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
                     
 javascript:
   $('.table-select').on('change', function() {

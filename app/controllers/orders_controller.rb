@@ -13,10 +13,16 @@ class OrdersController < ApplicationController
 
   def new
     if current_user.try(:admin?)
-      @order            = Order.new
+      @order = Order.new
       @order.order_items.build
-      @user             = User.find(params[:user_id])
-      @video_on_demands = VideoOnDemand.order(:title)
+
+      if params[:event]
+        @event = Event.find(params[:event])
+        render "new_registration"
+      else
+        @user             = User.find(params[:user_id])
+        @video_on_demands = VideoOnDemand.order(:title)
+      end
     else
       @order = Order.new
     end
@@ -28,6 +34,9 @@ class OrdersController < ApplicationController
   def create
     if current_user.try(:admin?)
       @order = Order.new(staff_order_params)
+      @order.order_items.each do |order_item|
+        order_item.user_id = @order.buyer_id
+      end
       if @order.save
         flash[:success] = "Purchase successfully created."
       else

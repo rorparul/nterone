@@ -235,6 +235,16 @@ body {
   margin-bottom: 20px;
 }
 
+.table-header-action {
+  float: right;
+  margin: 5px;
+}
+
+.smart_listing_form {
+  display: inline-block;
+  float: right;
+}
+
 .course-intro {
   margin-bottom: 20px;
 }
@@ -693,7 +703,7 @@ iframe.wysihtml5-sandbox {
     border-radius: 0px;
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
     @media (max-width: 767px) { width: 100%; }
-    // text-shadow: rgb(48, 48, 48) 0px 1px 0px;  
+    // text-shadow: rgb(48, 48, 48) 0px 1px 0px;
   }
   .active-category {
     color: #fff;

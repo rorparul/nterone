@@ -1,5 +1,4 @@
 class Event < ActiveRecord::Base
-  # include ModelSearch
   include SearchCop
 
   belongs_to :course

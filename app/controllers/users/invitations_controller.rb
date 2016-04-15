@@ -10,6 +10,6 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    my_sales_queue_path
+    my_admin_people_path
   end
 end
