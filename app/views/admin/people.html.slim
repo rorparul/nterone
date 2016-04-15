@@ -23,15 +23,16 @@
                   /     = check_box_tag :with_credit_card
                   /     = "Has credit card?"
 
-                  .input-group.filter.input-append
+                  .input-group.input-group-sm.filter.input-append
                     = text_field_tag :filter, '', class: "search form-control input-sm", 
                                                   placeholder: "Search",
                                                   autocomplete: :off
                     span class="input-group-btn"
-                      button class="btn btn-default disabled" type="submit"
+                      button class="btn btn-default btn-sm disabled" type="submit"
                         span.glyphicon.glyphicon-search
                         
                 = link_to "Add", new_user_invitation_path, remote: true, class: "table-header-action text-success"
+                
           = smart_listing_render(:users)
     
 javascript:

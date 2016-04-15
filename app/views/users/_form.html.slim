@@ -2,7 +2,7 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Info
+        strong.text-muted Student Info
       .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
           .row
@@ -24,15 +24,25 @@
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :email
-                = f.email_field :email, class: "form-control input-sm"
-            .col-xs-12.col-md-6
-              .form-group
                 = f.label :contact_number, "Phone"
                 = f.text_field :contact_number, class: "form-control input-sm"
           hr
           fieldset
             label Billing Address
+            .row
+              .col-xs-12.col-sm-6
+                .form-group
+                  = f.label :billing_company, 'Company'
+                  = f.text_field :billing_company, class: 'form-control input-sm'
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_first_name, 'First Name'
+                  = f.text_field :billing_first_name, class: 'form-control input-sm'
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :billing_last_name, 'Last Name'
+                  = f.text_field :billing_last_name, class: 'form-control input-sm'
             .form-group
               = f.label :billing_street, "Street"
               = f.text_field :billing_street, class: "form-control input-sm"
@@ -52,32 +62,48 @@
                 .form-group
                   = f.label :billing_zip_code, "Zip Code"
                   = f.text_field :billing_zip_code, class: "form-control input-sm"
+
           hr
-          fieldset
+          fieldset.hideable
             label Shipping Address
             .form-group
-              = f.label :same_addresses, 'Same as Billing Address?'
-              br
-              = f.check_box :same_addresses, class: 'shipping-address-box'
-            .form-group
-              = f.label :street, 'Street'
-              = f.text_field :street, class: "form-control input-sm input-shipping-address"
+              .checkbox
+                label
+                  = f.check_box :same_addresses, class: 'shipping-address-box'
+                  |  Same as Billing
+            .row
+              .col-xs-12.col-sm-6
+                .form-group
+                  = f.label :shipping_company, 'Company'
+                  = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :city, "City"
-                  = f.text_field :city, class: "form-control input-sm input-shipping-address"
+                  = f.label :shipping_first_name, 'First Name'
+                  = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :shipping_last_name, 'Last Name'
+                  = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
+            .form-group
+              = f.label :shipping_street, 'Street'
+              = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :shipping_city, "City"
+                  = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :state, "State"
-                  = f.select :state,
+                  = f.label :shipping_state, "State"
+                  = f.select :shipping_state,
                              us_states,
                              { prompt: true },
                              { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :zipcode, "Zip Code"
-                  = f.text_field :zipcode, class: "form-control input-sm input-shipping-address"
+                  = f.label :shipping_zip_code, "Zip Code"
+                  = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
 
           .form-buttons
             = f.submit "Save", class: 'btn btn-success'

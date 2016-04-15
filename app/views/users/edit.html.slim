@@ -1,19 +1,11 @@
 - content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    | Home
-  span.seperator
-    | /
-  a href="#{users_path}"
-    | My Something
-
-.row#settings
+  = render "admin/breadcrumbs"
+  
+.row
   .col-xs-12
-    .group
-      .group-heading
-        h6 User Info
-      .group-body
-        = render 'form'
+    = render 'admin/tabs'
+
+= render 'form'
 
 .row#settings
   .col-xs-12
@@ -21,7 +13,7 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .settings').addClass('active-category');
+  $('.categories .people').addClass('active-category');
   
   $('#back').on('click', function() {
     location.replace(document.referrer);
