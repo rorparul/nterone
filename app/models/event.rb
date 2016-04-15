@@ -25,6 +25,10 @@ class Event < ActiveRecord::Base
     where(guaranteed: true).order(:start_date)
   end
 
+  def self.upcoming_events
+    where("start_date >= :start_date", {start_date: Date.today})
+  end
+
   def self.guaranteed_upcoming_events
     where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
   end
