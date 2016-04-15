@@ -1,9 +1,9 @@
 .panel.panel-default
   .panel-heading
-    strong.text-muted = "#{pluralize(leads.count, type)}"
+    strong.text-muted = type
   - if leads.count > 0
     .table-responsive
-      table.table.table-compact.text-muted
+      table.table.table-condensed
         thead
           tr
             th title="Requested" Requested

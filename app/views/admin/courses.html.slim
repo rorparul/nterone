@@ -1,10 +1,5 @@
 - content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    | Home
-  span.seperator
-    | /
-  span.text-muted My Admin
+  = render "breadcrumbs"
     
 .row
   .col-xs-12

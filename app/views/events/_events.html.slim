@@ -29,7 +29,7 @@
     td.fit = event.public ? 'Y' : 'N'
     td.fit = event.guaranteed ? 'Y' : 'N'
     td.fit.text-right
-      = link_to "Show", current_user.admin? ? my_admin_classes_show_path(event) : my_sales_classes_show_path(event)
+      = link_to "Show", admin_classes_show_path(event)
       |  | 
       = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
       |  | 

@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     if @article.save
       flash[:success] = "Article successfully created!"
-      redirect_to my_admin_website_path
+      redirect_to admin_website_path
     else
       render "new"
     end
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   def update
     if @article.update_attributes(article_params)
       flash[:success] = "Article successfully updated!"
-      redirect_to my_admin_website_path
+      redirect_to admin_website_path
     else
       render "edit"
     end

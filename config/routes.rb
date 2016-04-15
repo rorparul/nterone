@@ -4,7 +4,7 @@ NterOne::Application.routes.draw do
              controllers: { registrations: 'users/registrations',
                             invitations:   'users/invitations' }
 
-  ActiveAdmin.routes(self)
+  # ActiveAdmin.routes(self)
 
   mount Forem::Engine, :at => '/forums'
 
@@ -133,27 +133,28 @@ NterOne::Application.routes.draw do
     end
   end
 
-  controller :my_admin do
-    get 'my-admin/orders',                                 as: :my_admin_orders
-    get 'my-admin/orders/:id' => 'my_admin#orders_show',   as: :my_admin_orders_show
-    get 'my-admin/classes',                                as: :my_admin_classes
-    get 'my-admin/classes/:id' => 'my_admin#classes_show', as: :my_admin_classes_show
-    get 'my-admin/courses',                                as: :my_admin_courses
-    get 'my-admin/announcements',                          as: :my_admin_announcements
-    get 'my-admin/people',                                 as: :my_admin_people
-    get 'my-admin/website',                                as: :my_admin_website
-    get 'my-admin/messages',                               as: :my_admin_messages
-    get 'my-admin/settings',                               as: :my_admin_settings
+  controller :admin do
+    get 'admin/queue',                               as: :admin_queue
+    get 'admin/orders',                              as: :admin_orders
+    get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
+    get 'admin/classes',                             as: :admin_classes
+    get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
+    get 'admin/courses',                             as: :admin_courses
+    get 'admin/announcements',                       as: :admin_announcements
+    get 'admin/people',                              as: :admin_people
+    get 'admin/website',                             as: :admin_website
+    get 'admin/messages',                            as: :admin_messages
+    get 'admin/settings',                            as: :admin_settings
   end
 
-  controller :my_sales do
-    get 'my-sales/queue',                                  as: :my_sales_queue
-    get 'my-sales/classes',                                as: :my_sales_classes
-    get 'my-sales/classes/:id' => 'my_sales#classes_show', as: :my_sales_classes_show
-    get 'my-sales/announcements',                          as: :my_sales_announcements
-    get 'my-sales/messages',                               as: :my_sales_messages
-    get 'my-sales/settings',                               as: :my_sales_settings
-  end
+  # controller :my_sales do
+  #   get 'my-sales/queue',                                  as: :my_sales_queue
+  #   get 'my-sales/classes',                                as: :my_sales_classes
+  #   get 'my-sales/classes/:id' => 'my_sales#classes_show', as: :my_sales_classes_show
+  #   get 'my-sales/announcements',                          as: :my_sales_announcements
+  #   get 'my-sales/messages',                               as: :my_sales_messages
+  #   get 'my-sales/settings',                               as: :my_sales_settings
+  # end
 
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan

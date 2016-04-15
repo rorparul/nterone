@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     if @page.save
-      redirect_to my_admin_website_path
+      redirect_to admin_website_path
     else
       render 'new'
     end
@@ -26,7 +26,7 @@ class PagesController < ApplicationController
   def update
     if @page.update_attributes(page_params)
       flash[:success] = "Page successfully updated!"
-      redirect_to my_admin_website_path
+      redirect_to admin_website_path
     else
       render 'edit'
     end

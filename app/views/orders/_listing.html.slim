@@ -37,7 +37,7 @@
               td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
               td = order.buyer.email if order.buyer
               td.fit.actions-column.text-right
-                = link_to "Show", my_admin_orders_show_path(order), remote: false
+                = link_to "Show", admin_orders_show_path(order), remote: false
                 |  | 
                 = link_to "Edit", edit_order_path(order), remote: true
                 |  | 

@@ -35,7 +35,7 @@
               td.fit
                 = link_to "Reg", new_order_path(event: event.id), remote: true, class: "text-success", title: "Register Student"
                 |  | 
-                = link_to "View", current_user.admin? ? my_admin_classes_show_path(event) : my_sales_classes_show_path(event), title: "View Details"
+                = link_to "View", admin_classes_show_path(event), title: "View Details"
                 |  | 
                 = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                 |  | 

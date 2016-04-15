@@ -1,0 +1,9 @@
+a href="#{root_path}"
+  span.fa.fa-home
+  | Home
+span.seperator
+  | /
+- if current_user.admin?
+  span.text-muted My Admin
+- if current_user.sales?
+  span.text-muted My Sales

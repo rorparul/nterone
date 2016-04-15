@@ -13,10 +13,8 @@
 
 .row
   .col-xs-12
-    - if current_user.admin?
-      = render 'my_admin/tabs'
-    - if current_user.sales?
-      = render 'my_sales/tabs'
+    - if current_user.admin? || current_user.sales?
+      = render 'admin/tabs'
     - if current_user.member?
       = render 'my_account/tabs'
     

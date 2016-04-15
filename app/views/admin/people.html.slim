@@ -1,10 +1,5 @@
 - content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    | Home
-  span.seperator
-    | /
-  span.text-muted My Admin
+  = render "breadcrumbs"
     
 .row
   .col-xs-12
@@ -16,11 +11,11 @@
           .panel-heading.panel-heading-with-search
             .row
               .col-xs-6
-                strong.text-muted Orders
+                strong.text-muted Users
               .col-xs-6
-                / = link_to "Add", new_order_path, remote: false, class: "panel-heading-controls"
+                / = link_to "Add", new_user_invitation_path, remote: true, class: "table-header-action"
                 
-                = smart_listing_controls_for(:orders, {class: "form-inline text-right"}) do
+                = smart_listing_controls_for(:users, {class: "form-inline text-right smart_listing_form"}) do
                   
                   / .checkbox
                   /   label.checkbox.inline
@@ -35,9 +30,14 @@
                     span class="input-group-btn"
                       button class="btn btn-default disabled" type="submit"
                         span.glyphicon.glyphicon-search
-          = smart_listing_render(:orders)
-    
+                        
+                = link_to "Add", new_user_invitation_path, remote: true, class: "table-header-action"
+          = smart_listing_render(:users)
     
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .orders').addClass('active-category');
+  $('.categories .people').addClass('active-category');
+  
+  $(document).on('change', '.selector-role', function() {
+    $(this).closest('form').submit();
+  });
