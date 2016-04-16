@@ -116,12 +116,17 @@
                     = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
                     div = @cart.credits_required_for_total_applicable_for_credits
             hr
-          fieldset
-            label Student
-            .row
-              .col-xs-12
-                .form-group
-                  = current_user.full_name
+          .row
+            .col-xs-12.col-md-6
+              .form-group
+                label Student Name
+                br
+                = current_user.full_name
+            .col-xs-12.col-md-6
+              .form-group
+                label Student Email
+                br
+                = current_user.email
           fieldset
             label Billing Address
             .row

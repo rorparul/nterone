@@ -69,9 +69,9 @@ class EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     if event.destroy
-      flash[:notice] = 'Event successfully destroyed!'
+      flash[:success] = 'Event successfully destroyed.'
     else
-      flash[:alert] = 'Event unsuccessfully destroyed!'
+      flash[:alert] = 'Event failed to destroy.'
     end
     redirect_to :back
   end
