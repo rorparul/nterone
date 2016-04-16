@@ -37,7 +37,7 @@
                 |  | 
                 = link_to "View", admin_classes_show_path(event), title: "View Details"
                 |  | 
-                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true, class: "text-warning"
                 |  | 
                 = link_to 'Del', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger', title: "Delete"
   .panel-footer

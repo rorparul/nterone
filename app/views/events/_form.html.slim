@@ -10,6 +10,25 @@
             li = msg
             
     .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_webex_invite, "Sent Webex invite"
+          br
+          = f.check_box :sent_webex_invite
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_course_material, "Sent course material"
+          br
+          = f.check_box :sent_course_material
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_lab_credentials, 'Sent lab credentials'
+          br
+          = f.check_box :sent_lab_credentials
+
+    hr
+            
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :start_date, 'Start Date'
@@ -78,9 +97,53 @@
       .col-xs-12.col-sm-6
         .form-group
           = f.label :price
+          .input-group.input-group-sm
+            span.input-group-addon $
+            = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
+            
+    hr
+    
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_instructor, 'Instructor Cost'
           .input-group
             span.input-group-addon $
-            = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm'
+            = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_lab, 'Lab Cost'
+          .input-group
+            span.input-group-addon $
+            = f.text_field :cost_lab, data: { autonumeric: true }, class: 'form-control input-sm'
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_te, 'T & E Cost'
+          .input-group
+            span.input-group-addon $
+            = f.text_field :cost_te, data: { autonumeric: true }, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_facility, 'Facility Cost'
+          .input-group
+            span.input-group-addon $
+            = f.text_field :cost_facility, data: { autonumeric: true }, class: 'form-control input-sm'
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_books, 'Books Cost'
+          .input-group
+            span.input-group-addon $
+            = f.text_field :cost_books, data: { autonumeric: true }, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_shipping, 'Shipping Cost'
+          .input-group
+            span.input-group-addon $
+            = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
+            
+    hr
                           
     .row
       .col-xs-12.col-sm-3
@@ -103,55 +166,6 @@
           = f.label :active
           br
           = f.check_box :active
-
-    hr
-    
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_instructor, 'Instructor Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_instructor, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_lab, 'Lab Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_lab, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_te, 'T & E Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_te, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_facility, 'Facility Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_facility, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_books, 'Books Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_books, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :cost_shipping, 'Shipping Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_shipping, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-            span.input-group-addon .00
-
       
     .form-buttons
       button.btn.btn-success type="submit" Save
