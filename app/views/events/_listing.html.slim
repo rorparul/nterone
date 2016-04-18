@@ -20,7 +20,11 @@
         tbody
           - smart_listing.collection.each do |event|
             tr
-              td.fit = event.status
+              td.fit
+                - if event.status == "Pending"
+                  span.label.label-warning = event.status
+                - if event.status == "Confirmed"
+                  span.label.label-success = event.status
               td.fit = event.course.abbreviation
               td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
               td.fit = event.length
@@ -33,13 +37,13 @@
               td.fit = event.public ? 'Yes' : 'No'
               td.fit = event.guaranteed ? 'Yes' : 'No'
               td.fit
-                = link_to "Reg", new_order_path(event: event.id), remote: true, class: "text-success", title: "Register Student"
+                = link_to "Add", new_order_path(event: event.id), remote: true, title: "Register Student"
                 |  | 
                 = link_to "View", admin_classes_show_path(event), title: "View Details"
                 |  | 
-                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true, class: "text-warning"
+                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                 |  | 
-                = link_to 'Del', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger', title: "Delete"
+                = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, title: "Delete"
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

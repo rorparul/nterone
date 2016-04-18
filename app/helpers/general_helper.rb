@@ -75,4 +75,18 @@ module GeneralHelper
       '$0.00'
     end
   end
+
+  def comma_seperate(collection, attribute = nil)
+    string = ""
+    if attribute
+      collection.each do |item|
+        string += "#{item.send(attribute).humanize.titleize}, "
+      end
+    else
+      collection.each do |item|
+        string += "#{item.humanize.titleize}, "
+      end
+    end
+    string[0...-2]
+  end
 end

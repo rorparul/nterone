@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
+  accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
+
   devise :database_authenticatable,
          :invitable,
          :registerable,
@@ -163,8 +165,10 @@ class User < ActiveRecord::Base
     normalized_roles = {
       admin:         "Admin",
       sales_manager: "Sales Manager",
-      sales_rep:     "Sales",
-      member:        "Member"
+      sales_rep:     "Sales Rep",
+      member:        "Member",
+      lms_manager:   "LMS Manager",
+      lms_student:   "LMS Student"
     }
     roles.each do |role|
       roles_collection += "#{normalized_roles[role.role.to_sym]}, "

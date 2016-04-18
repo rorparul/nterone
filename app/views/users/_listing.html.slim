@@ -7,7 +7,7 @@
             th.fit = smart_listing.sortable "First Name", :first_name
             th.fit = smart_listing.sortable "Last Name", :last_name
             th.fit = smart_listing.sortable "Email", :email
-            th.fit Purchases
+            th.fit Roles
             th.fit = smart_listing.sortable "Last Active", :last_active_at
             th.fit
         tbody
@@ -16,21 +16,15 @@
               td = user.first_name
               td = user.last_name
               td = user.email
-              td
-                - if user.member?
-                  = user.order_items.count
+              td = comma_seperate(user.roles, :role)
               td = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
               td.actions-column.fit.text-right
                 - if user.member?
-                  = link_to "Add Purchase", new_order_path(user_id: user.id), remote: true
+                  = link_to "Add", new_order_path(user_id: user.id), remote: true
                   = " | "
-                = form_for user.roles.first, url: change_role_path, method: :post, html: {class: "roles-form"} do |f|
-                  = f.hidden_field :user_id, value: user.id
-                  = f.select :role, Role.selectable_roles.each { |role| role }, {}, class: "form-control selector-role"
-                = " | "
                 = link_to "Edit", edit_user_path(user)
                 = " | "
-                = link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                = link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

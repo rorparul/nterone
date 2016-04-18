@@ -3,7 +3,9 @@ class Role < ActiveRecord::Base
   enumerize :role, in: { admin: 1,
                          sales_manager: 2,
                          sales_rep: 3,
-                         member: 4 },
+                         member: 4,
+                         lms_manager: 5,
+                         lms_student: 6 },
                          default: :member,
                          predicates: true
 
@@ -16,7 +18,9 @@ class Role < ActiveRecord::Base
       admin:         "Admin",
       sales_manager: "Sales Manager",
       sales_rep:     "Sales",
-      member:        "Member"
+      member:        "Member",
+      lms_manager:   "LMS Manager",
+      lms_student:   "LMS Student"
     }
     normalized_roles[self.role.to_sym]
   end
@@ -26,7 +30,9 @@ class Role < ActiveRecord::Base
       ["Admin", "admin"],
       ["Sales Manager", "sales_manager"],
       ["Sales Rep", "sales_rep"],
-      ["Member", "member"]
+      ["Member", "member"],
+      ["LMS Manager", "lms_manager"],
+      ["LMS Student", "lms_student"]
     ]
   end
 

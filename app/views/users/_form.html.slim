@@ -2,9 +2,17 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Student Info
+        strong.text-muted User Info
       .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
+          #roles
+            = f.fields_for :roles do |ff|
+              = render 'users/role_fields', f: ff
+            .links
+              = link_to_add_association 'Add role', f, :roles
+                  
+          hr
+                
           .row
             .col-xs-12.col-md-6
               .form-group

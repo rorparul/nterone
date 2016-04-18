@@ -25,11 +25,10 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if user.update_attributes(user_params)
       flash[:success] = 'User successfully updated!'
-      redirect_to :back
     else
       flash[:alert] = 'User unsuccessfully updated!'
-      redirect_to :back
     end
+    redirect_to :back
   end
 
   def toggle_archived
@@ -80,6 +79,9 @@ class UsersController < ApplicationController
                                  :shipping_street,
                                  :shipping_city,
                                  :shipping_state,
-                                 :shipping_zip_code)
+                                 :shipping_zip_code,
+                                 roles_attributes: [:id,
+                                                    :role,
+                                                    :_destroy])
   end
 end
