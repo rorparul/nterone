@@ -65,7 +65,9 @@
               - if current_user.active_video_on_demands.any?
                 - current_user.active_video_on_demands.each do |video_on_demand|
                   tr
-                    td.fit = video_on_demand.full_title
+                    td.fit
+                      = link_to platform_video_on_demand_path(video_on_demand.platform, video_on_demand) do
+                        = video_on_demand.full_title
                     td.fit = distance_of_time_in_words(Date.today, video_on_demand.order_items.find_by(user_id: current_user.id).order.created_at + 365.day)
               - else
                 tr
