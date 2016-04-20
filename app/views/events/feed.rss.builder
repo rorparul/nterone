@@ -13,7 +13,7 @@ xml.rss :version => "2.0" do
           if event.guaranteed
             xml.category "GTR"
           end
-          xml.link platform_course_path(event.course.platform, event.course)
+          xml.link platform_course_url(event.course.platform, event.course)
         end
       end
     end
