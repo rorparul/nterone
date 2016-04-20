@@ -1,8 +1,15 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :feed
 
   def page
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
+  end
+
+  def feed
+    @platforms = Platform.all
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
   end
 
   def new

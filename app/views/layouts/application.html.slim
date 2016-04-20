@@ -4,6 +4,7 @@ html
     title
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
+    link rel="alternate" type="application/rss+xml" title="Upcoming Classes" href="https://www.nterone.com/feed?format=rss"
     = canonical_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

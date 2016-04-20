@@ -29,6 +29,8 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:event])
+    render "edit_registration"
   end
 
   def create

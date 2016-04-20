@@ -162,6 +162,7 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'feed'                                        => 'events#feed'
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'

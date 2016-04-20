@@ -125,7 +125,7 @@
         strong.text-muted Class Registrations
         .panel-actions-overlay
           = link_to new_order_path(event: event.id), remote: true do
-            span.text-success title="Register Student" Add
+            span title="Register Student" Register
       .panel-table
         .responsive-table
           table.table.table-condensed.table-hover
@@ -159,9 +159,9 @@
                     td.fit
                     td.fit
                   td.fit.text-right
-                    = link_to 'Edit', '#', remote: true
+                    = link_to 'Edit', edit_order_path(order_item.order, event: event.id), remote: true
                     |  | 
-                    = link_to 'Del', '#', method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                    = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
                     
 javascript:
   $('.table-select').on('change', function() {

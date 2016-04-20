@@ -9,40 +9,204 @@
       = f.label :seller_id, 'Sales Rep'
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 {},
+                 {prompt: true},
                  class: "form-control input-sm"
                  
     .form-group
       = f.label :buyer_id, 'Student'
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 {},
-                 class: "form-control input-sm"
-                     
-    .form-group
-      = f.label :payment_type, 'Payment Type'
-      = f.select :payment_type,
-                 ["Credit Card", "Credits", "Bundled", "No Charge", "Other"],
-                 {},
+                 {prompt: true},
                  class: "form-control input-sm"
                      
     / .form-group
-    /   = f.label :paid
-    /   .input-group
-    /     span.input-group-addon $
-    /     = f.text_field :paid, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
-    /     span.input-group-addon .00
+    /   = f.label :payment_type, 'Payment Type'
+    /   = f.select :payment_type,
+    /              ["Credit Card", "Credits", "Bundled", "No Charge", "Other"],
+    /              {},
+    /              class: "form-control input-sm"
+    /                  
+    / / .form-group
+    / /   = f.label :paid
+    / /   .input-group
+    / /     span.input-group-addon $
+    / /     = f.text_field :paid, data: { autonumeric: { mDec: 0 } }, class: 'form-control input-sm'
+    / /     span.input-group-addon .00
+    / 
+    / .row
+    /   .col-xs-12.col-md-6
+    /     .form-group
+    /       = f.label :clc_number, 'Cisco Learning Credit SO#'
+    /       = f.text_field :clc_number, class: 'form-control input-sm'
+    /   .col-xs-12.col-md-6
+    /     .form-group
+    /       = f.label :clc_quantity, 'Cisco Learning Credits'
+    /       = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
+    /       p.form-instructions.absolute 1 Credit = $100
     
-    .row
-      .col-xs-12.col-md-6
-        .form-group
-          = f.label :clc_number, 'Cisco Learning Credit SO#'
-          = f.text_field :clc_number, class: 'form-control input-sm'
-      .col-xs-12.col-md-6
-        .form-group
-          = f.label :clc_quantity, 'Cisco Learning Credits'
-          = f.number_field :clc_quantity, in: 1..100, class: 'form-control input-sm input-clc-quantity'
-          p.form-instructions.absolute 1 Credit = $100
+    fieldset
+      .form-group
+        .radio.radio-container
+          label
+            = f.radio_button :payment_type, "Credit Card", class: 'payment-type-radio-button', checked: true
+            strong Credit Card
+      .row
+        .col-xs-12.col-md-5
+          .form-group
+            = f.label :credit_card_number, 'Number'
+            = f.text_field :credit_card_number, class: 'form-control input-sm input-cc', autocomplete: false
+            = image_tag 'credit-card-icons.png', class: "credit-card-logos"
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :expiration_month, 'Exp. M.'
+            = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :expiration_year, 'Exp. Y.'
+            = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
+        .col-xs-12.col-md-1
+          .form-group
+            = f.label :security_code, 'Code'
+            = f.text_field :security_code, class: 'form-control input-sm input-cc', autocomplete: false
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :paid, 'Total Charged'
+            = f.hidden_field :paid, value: @cart.total_price
+            div = "$#{number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))}"
+            
+      .form-group
+        .radio.radio-container
+          label
+            = f.radio_button :payment_type, "Cisco Learning Credits", class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
+            strong Cisco Learning Credits 
+      .row
+        - if @cart.any_not_applicable_for_credits?
+          .col-xs-12
+            .form-group
+              .text-warning
+                strong  
+                  = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
+                |  of this order is not applicable to be purchased with credits. 
+                | If you wish to split payment between a credit card and credits, 
+                | please contact NterOne by email at 
+                = mail_to "sales@nterone.com", "sales@nterone.com"
+                | , or by phone at 
+                strong 703-972-2288, 
+                | for assistance.
+        - else
+          .col-xs-12.col-sm-6.col-md-3
+            .form-group
+              = f.label :clc_number, 'Cisco Sales Order#'
+              = f.text_field :clc_number, class: 'form-control input-sm input-clc'
+          .col-xs-12.col-sm-6.col-md-3
+            .form-group
+              = f.label :clc_quantity, 'Total Credits'
+              = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
+              div = @cart.credits_required_for_total_applicable_for_credits
+      hr
+    / .row
+    /   .col-xs-12.col-md-6
+    /     .form-group
+    /       label Student Name
+    /       br
+    /       = current_user.full_name
+    /   .col-xs-12.col-md-6
+    /     .form-group
+    /       label Student Email
+    /       br
+    /       = current_user.email
+    fieldset
+      label Billing Address
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_company, 'Company'
+            = f.text_field :billing_company, class: 'form-control input-sm', value: current_user.billing_company
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_first_name, 'First Name'
+            = f.text_field :billing_first_name, class: 'form-control input-sm', value: current_user.billing_first_name.present? ? current_user.billing_first_name : current_user.first_name
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_last_name, 'Last Name'
+            = f.text_field :billing_last_name, class: 'form-control input-sm', value: current_user.billing_last_name.present? ? current_user.billing_last_name : current_user.last_name
+      .form-group
+        = f.label :billing_street, 'Street'
+        = f.text_field :billing_street, class: 'form-control input-sm', value: current_user.billing_street
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :billing_city, 'City'
+            = f.text_field :billing_city, class: 'form-control input-sm', value: current_user.billing_city
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :billing_state, 'State'
+            - if user_signed_in?
+              = f.select :billing_state,
+                         us_states,
+                         { prompt: true,
+                           selected: current_user.billing_state },
+                         { class: 'form-control input-sm' }
+            - else
+              = f.select :billing_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm' }
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :billing_zip_code, 'Zip Code'
+            = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code
+      hr
+    fieldset
+      label Shipping Address
+      .form-group
+        .checkbox.checkbox-container
+          label
+            = f.check_box :same_addresses, class: 'shipping-address-box', checked: current_user.same_addresses
+            |  Same as Billing
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_company, 'Company'
+            = f.text_field :shipping_company, class: 'form-control input-sm disableable', value: current_user.shipping_company
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_first_name, 'First Name'
+            = f.text_field :shipping_first_name, class: 'form-control input-sm disableable', value: current_user.shipping_first_name.present? ? current_user.shipping_first_name : current_user.first_name
+            
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_last_name, 'Last Name'
+            = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? current_user.shipping_last_name : current_user.last_name
+        
+      .form-group
+        = f.label :shipping_street, 'Street'
+        = f.text_field :shipping_street, class: 'form-control input-sm disableable', value: current_user.shipping_street
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :shipping_city, 'City'
+            = f.text_field :shipping_city, class: 'form-control input-sm disableable', value: current_user.shipping_city
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :shipping_state, 'State'
+            - if user_signed_in?
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true,
+                           selected: current_user.shipping_state },
+                         { class: 'form-control input-sm disableable' }
+            - else
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm disableable' }
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :shipping_zip_code, 'Zip Code'
+            = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable', value: current_user.shipping_zip_code
 
     .form-buttons
       button.btn.btn-success type="submit" Save
