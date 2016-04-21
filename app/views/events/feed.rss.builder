@@ -9,7 +9,7 @@ xml.rss :version => "2.0" do
       xml.item do
         xml.title event.course.full_title
         xml.description "#{event.start_date.strftime('%-m/%-d/%y')} to #{event.end_date.strftime('%-m/%-d/%y')}"
-        xml.guaranteed event.course.platform.title
+        xml.category event.course.platform.title
         if event.guaranteed
           xml.category "GTR"
         end
