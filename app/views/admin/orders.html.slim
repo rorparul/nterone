@@ -13,7 +13,7 @@
           .col-xs-6
             strong.text-muted Orders
           .col-xs-6
-            / = link_to "Add", new_order_path, remote: false, class: "panel-heading-controls"
+            = link_to "Add", new_order_path, remote: true, class: "table-header-action"
             
             = smart_listing_controls_for(:orders, {class: "form-inline text-right"}) do
               
@@ -30,6 +30,7 @@
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"
                     span.glyphicon.glyphicon-search
+            
       = smart_listing_render(:orders)
     
 javascript:

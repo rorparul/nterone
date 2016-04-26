@@ -1,38 +1,55 @@
 .form-container
   = form_for order, url: orders_path do |f|
-    
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :invoice_number, "Invoice #"
+          br
+          = f.text_field :invoice_number, class: 'form-control input-sm'
+          
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :verified, "Verfied SO #"
+          br
+          = f.check_box :verified
+      
+    hr
+            
     .form-group
       = f.label :seller_id, 'Sales Rep'
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  {prompt: true},
-                 class: "form-control input-sm"
+                 {class: "form-control input-sm"}
                  
     .form-group
       = f.label :buyer_id, 'Student'
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 {prompt: true, selected: user.id},
-                 {class: "form-control input-sm", value: user.id}
+                 {prompt: true, selected: user.try(:id)},
+                 {class: "form-control input-sm"}
                  
     hr
     
     / = f.fields_for :order_items do |ff|
-    /   = ff.hidden_field :user_id,  value: user.id
-    /   = ff.hidden_field :orderable_type, value: "VideoOnDemand"
-    /   .form-group
-    /     = ff.label :orderable_id, 'Video On Demands'
-    /     = ff.select :orderable_id,
-    /                 video_on_demands.collect { |video_on_demand| [video_on_demand.full_title, video_on_demand.id] },
-    /                 { prompt: true },
-    /                 class: "form-control input-sm"
+    /   = ff.hidden_field :orderable_type, value: "Event"
+    /   = ff.hidden_field :orderable_id,   value: event.id
+    
     - if order.id
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
           = render 'order_item_fields', f: order_item,
-                                        type: order_item.object.orderable_type,
-                                        events: events,
-                                        video_on_demands: video_on_demands
+                                        type: order_item.object.orderable_type
+        .links
+          = link_to_add_association 'Add Class', f, :order_items,
+            render_options: {locals: {type: 'Event'}}
+          = link_to_add_association 'Add VOD', f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand'}}
+    - elsif event
+      #order-items
+        = f.fields_for :order_items, event, include_id: false do |order_item|
+          = render 'order_item_fields', f: order_item,
+                                        type: "Event"
         .links
           = link_to_add_association 'Add Class', f, :order_items,
             render_options: {locals: {type: 'Event'}}
@@ -48,9 +65,9 @@
             render_options: {locals: {type: 'Event'}}
           = link_to_add_association 'Add VOD', f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand'}}
-    
+            
     hr
-                     
+    
     fieldset
       .form-group
         .radio.radio-container
@@ -138,97 +155,97 @@
             strong No Charge
             
       hr
+      
+    fieldset
+      label Billing Address
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_company, 'Company'
+            = f.text_field :billing_company, class: 'form-control input-sm'
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_first_name, 'First Name'
+            = f.text_field :billing_first_name, class: 'form-control input-sm'
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :billing_last_name, 'Last Name'
+            = f.text_field :billing_last_name, class: 'form-control input-sm'
+      .form-group
+        = f.label :billing_street, 'Street'
+        = f.text_field :billing_street, class: 'form-control input-sm'
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :billing_city, 'City'
+            = f.text_field :billing_city, class: 'form-control input-sm'
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :billing_state, 'State'
+            - if user_signed_in?
+              = f.select :billing_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm' }
+            - else
+              = f.select :billing_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm' }
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :billing_zip_code, 'Zip Code'
+            = f.text_field :billing_zip_code, class: 'form-control input-sm'
+      hr
+    fieldset
+      label Shipping Address
+      .form-group
+        .checkbox.checkbox-container
+          label
+            = f.check_box :same_addresses, class: 'shipping-address-box'
+            |  Same as Billing
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_company, 'Company'
+            = f.text_field :shipping_company, class: 'form-control input-sm disableable'
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_first_name, 'First Name'
+            = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
             
-      fieldset
-        label Billing Address
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :billing_company, 'Company'
-              = f.text_field :billing_company, class: 'form-control input-sm'
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :billing_first_name, 'First Name'
-              = f.text_field :billing_first_name, class: 'form-control input-sm'
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :billing_last_name, 'Last Name'
-              = f.text_field :billing_last_name, class: 'form-control input-sm'
-        .form-group
-          = f.label :billing_street, 'Street'
-          = f.text_field :billing_street, class: 'form-control input-sm'
-        .row
-          .col-xs-12.col-md-6
-            .form-group
-              = f.label :billing_city, 'City'
-              = f.text_field :billing_city, class: 'form-control input-sm'
-          .col-xs-12.col-md-4
-            .form-group
-              = f.label :billing_state, 'State'
-              - if user_signed_in?
-                = f.select :billing_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm' }
-              - else
-                = f.select :billing_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm' }
-          .col-xs-12.col-md-2
-            .form-group
-              = f.label :billing_zip_code, 'Zip Code'
-              = f.text_field :billing_zip_code, class: 'form-control input-sm'
-        hr
-      fieldset
-        label Shipping Address
-        .form-group
-          .checkbox.checkbox-container
-            label
-              = f.check_box :same_addresses, class: 'shipping-address-box'
-              |  Same as Billing
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_company, 'Company'
-              = f.text_field :shipping_company, class: 'form-control input-sm disableable'
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_first_name, 'First Name'
-              = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
-              
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_last_name, 'Last Name'
-              = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
-          
-        .form-group
-          = f.label :shipping_street, 'Street'
-          = f.text_field :shipping_street, class: 'form-control input-sm disableable'
-        .row
-          .col-xs-12.col-md-6
-            .form-group
-              = f.label :shipping_city, 'City'
-              = f.text_field :shipping_city, class: 'form-control input-sm disableable'
-          .col-xs-12.col-md-4
-            .form-group
-              = f.label :shipping_state, 'State'
-              - if user_signed_in?
-                = f.select :shipping_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm disableable' }
-              - else
-                = f.select :shipping_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm disableable' }
-          .col-xs-12.col-md-2
-            .form-group
-              = f.label :shipping_zip_code, 'Zip Code'
-              = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_last_name, 'Last Name'
+            = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
+        
+      .form-group
+        = f.label :shipping_street, 'Street'
+        = f.text_field :shipping_street, class: 'form-control input-sm disableable'
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :shipping_city, 'City'
+            = f.text_field :shipping_city, class: 'form-control input-sm disableable'
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :shipping_state, 'State'
+            - if user_signed_in?
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm disableable' }
+            - else
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm disableable' }
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :shipping_zip_code, 'Zip Code'
+            = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
     .form-buttons
       button.btn.btn-success type="submit" Save

@@ -8,34 +8,21 @@ class OrdersController < ApplicationController
     @orders = Order.order('created_at desc').page(params[:page])
   end
 
-  def show
-  end
-
   def new
-    if current_user.try(:admin?)
+    if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new
-      @order.order_items.build
-
-      if params[:event]
-        @event = Event.find(params[:event])
-        render "new_registration"
-      else
-        @user             = User.find(params[:user_id])
-        @video_on_demands = VideoOnDemand.order(:title)
-      end
+      # order_item = @order.order_items.build
+      @user = params[:user] ? User.find(params[:user]) : nil
+      @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
+      render "new_admin"
     else
       @order = Order.new
     end
   end
 
-  def edit
-    @event = Event.find(params[:event])
-    render "edit_registration"
-  end
-
   def create
-    if current_user.try(:admin?)
-      @order = Order.new(staff_order_params)
+    if current_user.try(:admin?) || current_user.try(:sales?)
+      @order = Order.new(order_params_admin)
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
@@ -110,20 +97,25 @@ class OrdersController < ApplicationController
     end
   end
 
-  def confirmation
+  def show
+  end
+
+  def edit
+    # @event = Event.find(params[:event])
     @order = Order.find(params[:id])
+    render "edit_admin"
   end
 
   def update
     respond_to do |format|
-      if @order.update(order_params)
+      if @order.update(order_params_admin)
         format.html do
           flash[:success] = 'Order was successfully updated.'
           redirect_to :back
         end
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit_admin' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -135,6 +127,10 @@ class OrdersController < ApplicationController
       format.html { redirect_to :back }
       format.json { head :no_content }
     end
+  end
+
+  def confirmation
+    @order = Order.find(params[:id])
   end
 
   private
@@ -194,13 +190,16 @@ class OrdersController < ApplicationController
                                   :clc_quantity)
   end
 
-  def staff_order_params
+  def order_params_admin
     params.require(:order).permit(:seller_id,
                                   :buyer_id,
                                   :clc_number,
                                   :clc_quantity,
                                   :payment_type,
                                   :paid,
+                                  :po_paid,
+                                  :invoice_number,
+                                  :verified,
                                   order_items_attributes: [:id,
                                                            :user_id,
                                                            :orderable_id,

@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.only_students
+    joins(:roles).where(roles: {role: 4}).distinct
+  end
+
   def my_plan_total_high
     planned_unattended_courses.inject(0) do |sum, course|
       event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).last

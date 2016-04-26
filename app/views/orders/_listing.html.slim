@@ -20,14 +20,16 @@
             tr
               td.fit = order.id
               td.fit
-                = form_for order, url: order_path(order), method: :patch, remote: true do |f|
-                  = f.select :status,
-                             [['Uninvoiced', 'Uninvoiced'],
-                              ['Unverified', 'Unverified'],
-                              ['Paid in Full', 'Paid in Full'],
-                              ['Verified', 'Verified']],
-                              { prompt: true },
-                              { class: 'form-control input-sm table-select' }
+                - if order.status == "Unverified SO"
+                  span.label.label-warning = order.status
+                - if order.status == "Verified SO"
+                  span.label.label-success = order.status
+                - if order.status == "Uninvoiced"
+                  span.label.label-warning = order.status
+                - if order.status == "Invoiced"
+                  span.label.label-alert = order.status
+                - if order.status == "Paid In Full"
+                  span.label.label-alert = order.status
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
               td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
               td.fit = order.auth_code
@@ -41,7 +43,7 @@
                 |  | 
                 = link_to "Edit", edit_order_path(order), remote: true
                 |  | 
-                = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

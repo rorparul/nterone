@@ -37,7 +37,7 @@
               td.fit = event.public ? 'Yes' : 'No'
               td.fit = event.guaranteed ? 'Yes' : 'No'
               td.fit
-                = link_to "Register", new_order_path(event: event.id), remote: true, title: "Register Student"
+                = link_to "Add Student", new_order_path(event: event.id), remote: true, title: "Register Student"
                 |  | 
                 = link_to "View", admin_classes_show_path(event), title: "View Details"
                 |  | 

@@ -237,7 +237,7 @@ body {
 
 .table-header-action {
   float: right;
-  margin: 5px;
+  margin: 5px 0 5px 15px;
 }
 
 .smart_listing_form {
@@ -285,8 +285,13 @@ body {
   }
 }
 
+.smart-listing-controls {
+  display: inline-block;
+  float: right;
+}
+
 .margin-none {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .featured-container {
@@ -980,7 +985,7 @@ table {
 }
 
 .panel-heading-controls {
-  float: right;
+  // float: right;
 }
 
 .panel-default {

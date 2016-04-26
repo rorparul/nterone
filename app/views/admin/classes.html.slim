@@ -13,8 +13,9 @@
           .col-xs-6
             strong.text-muted Classes
           .col-xs-6
+            = link_to "Upload", events_upload_path, remote: true, class: "table-header-action"
             
-            = smart_listing_controls_for(:events, {class: "form-inline text-right"}) do
+            = smart_listing_controls_for(:events, {class: "form-inline"}) do
               
               .checkbox
                 label.checkbox.inline
@@ -35,8 +36,8 @@
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"
                     span.glyphicon.glyphicon-search
+            
       = smart_listing_render(:events)
-    
     
 javascript:
   $('.role-tab').addClass('active');
