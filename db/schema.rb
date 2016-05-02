@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502040944) do
+ActiveRecord::Schema.define(version: 20160425153957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,35 +207,6 @@ ActiveRecord::Schema.define(version: 20160502040944) do
     t.integer  "platform_id"
   end
 
-  create_table "exam_answers", force: :cascade do |t|
-    t.text    "answer_text"
-    t.integer "exam_question_id"
-    t.integer "position"
-  end
-
-  add_index "exam_answers", ["exam_question_id"], name: "index_exam_answers_on_exam_question_id", using: :btree
-
-  create_table "exam_attempt_answers", force: :cascade do |t|
-    t.integer "exam_attempt_id"
-    t.integer "exam_question_id"
-    t.integer "exam_answer_id"
-    t.text    "answer_text"
-  end
-
-  add_index "exam_attempt_answers", ["exam_answer_id"], name: "index_exam_attempt_answers_on_exam_answer_id", using: :btree
-  add_index "exam_attempt_answers", ["exam_attempt_id"], name: "index_exam_attempt_answers_on_exam_attempt_id", using: :btree
-  add_index "exam_attempt_answers", ["exam_question_id"], name: "index_exam_attempt_answers_on_exam_question_id", using: :btree
-
-  create_table "exam_attempts", force: :cascade do |t|
-    t.integer  "exam_id"
-    t.integer  "user_id"
-    t.datetime "started_at"
-    t.datetime "completed_at"
-  end
-
-  add_index "exam_attempts", ["exam_id"], name: "index_exam_attempts_on_exam_id", using: :btree
-  add_index "exam_attempts", ["user_id"], name: "index_exam_attempts_on_user_id", using: :btree
-
   create_table "exam_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
     t.integer  "exam_id"
@@ -243,21 +214,11 @@ ActiveRecord::Schema.define(version: 20160502040944) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "exam_questions", force: :cascade do |t|
-    t.integer "exam_id"
-    t.text    "question_text"
-    t.integer "type"
-    t.integer "position"
-  end
-
-  add_index "exam_questions", ["exam_id"], name: "index_exam_questions_on_exam_id", using: :btree
-
   create_table "exams", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.text     "description"
-    t.integer  "type"
+    t.integer  "platform_id"
   end
 
   create_table "forem_categories", force: :cascade do |t|
@@ -721,11 +682,4 @@ ActiveRecord::Schema.define(version: 20160502040944) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "exam_answers", "exam_questions"
-  add_foreign_key "exam_attempt_answers", "exam_answers"
-  add_foreign_key "exam_attempt_answers", "exam_attempts"
-  add_foreign_key "exam_attempt_answers", "exam_questions"
-  add_foreign_key "exam_attempts", "exams"
-  add_foreign_key "exam_attempts", "users"
-  add_foreign_key "exam_questions", "exams"
 end
