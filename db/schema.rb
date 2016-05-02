@@ -432,7 +432,7 @@ ActiveRecord::Schema.define(version: 20160502163121) do
 
   create_table "lms_exam_questions", force: :cascade do |t|
     t.text     "question_text"
-    t.integer  "type"
+    t.integer  "question_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -440,7 +440,7 @@ ActiveRecord::Schema.define(version: 20160502163121) do
   create_table "lms_exams", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "type"
+    t.integer  "exam_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

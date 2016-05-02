@@ -3,7 +3,7 @@ class CreateLmsExams < ActiveRecord::Migration
 		create_table :lms_exams do |t|
 			t.string :title
 			t.text :description
-			t.integer :type
+			t.integer :exam_type
 			t.timestamps null: false
 		end
   end
