@@ -3,4 +3,6 @@ class LmsExamQuestion < ActiveRecord::Base
 
   has_many :lms_exam_question_joins
   has_many :lms_exams, through: :lms_exam_question_joins
+
+  has_one :lms_exam_answer
 end
