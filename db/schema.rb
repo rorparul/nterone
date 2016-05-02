@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425153957) do
+ActiveRecord::Schema.define(version: 20160502163121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -383,6 +383,68 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.string   "discount",   default: "0"
   end
 
+  create_table "lms_exam_answers", force: :cascade do |t|
+    t.text     "answer_text"
+    t.integer  "lms_exam_question_id"
+    t.integer  "position"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "lms_exam_answers", ["lms_exam_question_id"], name: "index_lms_exam_answers_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_attempt_answers", force: :cascade do |t|
+    t.integer  "lms_exam_attempt_id"
+    t.integer  "lms_exam_question_id"
+    t.integer  "lms_exam_answer_id"
+    t.text     "answer_text"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree
+  add_index "lms_exam_attempt_answers", ["lms_exam_attempt_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_attempt_id", using: :btree
+  add_index "lms_exam_attempt_answers", ["lms_exam_question_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_attempts", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "user_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "lms_exam_attempts", ["lms_exam_id"], name: "index_lms_exam_attempts_on_lms_exam_id", using: :btree
+  add_index "lms_exam_attempts", ["user_id"], name: "index_lms_exam_attempts_on_user_id", using: :btree
+
+  create_table "lms_exam_question_joins", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "lms_exam_question_id"
+    t.integer  "position"
+    t.boolean  "active"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "lms_exam_question_joins", ["lms_exam_id"], name: "index_lms_exam_question_joins_on_lms_exam_id", using: :btree
+  add_index "lms_exam_question_joins", ["lms_exam_question_id"], name: "index_lms_exam_question_joins_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_questions", force: :cascade do |t|
+    t.text     "question_text"
+    t.integer  "type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "lms_exams", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "announcement_id"
@@ -682,4 +744,12 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "lms_exam_answers", "lms_exam_questions"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_attempts"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_questions"
+  add_foreign_key "lms_exam_attempts", "lms_exams"
+  add_foreign_key "lms_exam_attempts", "users"
+  add_foreign_key "lms_exam_question_joins", "lms_exam_questions"
+  add_foreign_key "lms_exam_question_joins", "lms_exams"
 end
