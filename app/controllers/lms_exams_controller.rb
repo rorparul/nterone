@@ -13,6 +13,7 @@ class LmsExamsController < ApplicationController
   def new
     @exam = LmsExam.new
     @exam_types = LmsExam.exam_types
+    @question_types = LmsExamQuestion.question_types
   end
 
   def create
@@ -28,6 +29,7 @@ class LmsExamsController < ApplicationController
   def edit
     @exam = LmsExam.find(params[:id])
     @exam_types = LmsExam.exam_types
+    @question_types = LmsExamQuestion.question_types
   end
 
   def update

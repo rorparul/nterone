@@ -10,13 +10,18 @@
       = f.text_area :description, class: 'form-control input-sm'
     
     .form-group
-      = f.label 'Exam Type: '
+      = f.label 'Exam Type'
       = f.select(:exam_type, options_for_select(@exam_types), {}, class: 'form-control')
 
     hr
           
     h4 Questions
     hr
+    #questions
+      = f.fields_for :lms_exam_questions do |ff|
+        = render 'lms_exam_question_fields', f: ff
+      .links
+        = link_to_add_association 'Add Question', f, :lms_exam_questions
       
     .form-buttons
       button.btn.btn-success type="submit" Save
