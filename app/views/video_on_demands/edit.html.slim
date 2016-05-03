@@ -22,9 +22,23 @@
   .panel-heading
     strong.text-muted Edit Video On Demand
   .panel-body
+    ul
+      li
+        a href="#tab-1"
+          | Tab 1
+      li
+        a href="#tab-2"
+          | Tab 2
+      li
+        a href="#tab-3"
+          | Tab 3
     = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
+  });
+
+  $(function() {
+    $( ".panel-body" ).tabs();
   });
