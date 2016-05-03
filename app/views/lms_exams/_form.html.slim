@@ -1,0 +1,22 @@
+.form-container
+  = form_for [exam], remote: false do |f|
+            
+    .form-group
+      = f.label :title, 'Exam Title'
+      = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :description, 'Exam Description'
+      = f.text_area :description, class: 'form-control input-sm'
+    
+    hr
+          
+    h4 Modules
+    hr
+
+      
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if exam.id
+        = link_to 'Delete', lms_exam_path(exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

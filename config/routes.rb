@@ -133,6 +133,8 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :lms_exams
+
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders
