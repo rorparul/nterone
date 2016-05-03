@@ -9,11 +9,14 @@
       = f.label :description, 'Exam Description'
       = f.text_area :description, class: 'form-control input-sm'
     
+    .form-group
+      = f.label 'Exam Type: '
+      = f.select(:exam_type, options_for_select(@exam_types), {}, class: 'form-control')
+
     hr
           
     h4 Modules
     hr
-
       
     .form-buttons
       button.btn.btn-success type="submit" Save
