@@ -7,7 +7,7 @@ class LmsExamsController < ApplicationController
   end
 
   def show
-
+    
   end
 
   def new
@@ -19,10 +19,15 @@ class LmsExamsController < ApplicationController
     @exam = LmsExam.create(exam_params)
     if @exam.save
       flash[:success] = 'Exam successfully created!'
-      render js: "window.location = '#{request.referrer}';"
+      redirect_to edit_lms_exam_path(@exam)
     else
       render 'new'
     end
+  end
+
+  def edit
+    @exam = LmsExam.find(params[:id])
+    @exam_types = LmsExam.exam_types
   end
 
   def update
