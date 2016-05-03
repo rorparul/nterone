@@ -37,7 +37,14 @@ class LmsExamsController < ApplicationController
   end
 
   def destroy
+    @exam = LmsExam.find(params[:id])
 
+    if @exam.destroy
+      flash[:success] = 'Exam successfully deleted!'
+    else
+      flash[:alert] = 'Exam unsuccessfully deleted!'
+    end
+    redirect_to new_lms_exam_path()
   end
 
   private
