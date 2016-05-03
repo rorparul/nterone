@@ -39,7 +39,7 @@ class LmsExamsController < ApplicationController
   def destroy
     @exam = LmsExam.find(params[:id])
 
-    if @exam.destroy
+    if @exam.delete
       flash[:success] = 'Exam successfully deleted!'
     else
       flash[:alert] = 'Exam unsuccessfully deleted!'
