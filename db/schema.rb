@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504043214) do
+ActiveRecord::Schema.define(version: 20160504170449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -387,8 +387,9 @@ ActiveRecord::Schema.define(version: 20160504043214) do
     t.text     "answer_text"
     t.integer  "lms_exam_question_id"
     t.integer  "position"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.boolean  "correct",              default: false
   end
 
   add_index "lms_exam_answers", ["lms_exam_question_id"], name: "index_lms_exam_answers_on_lms_exam_question_id", using: :btree
@@ -433,9 +434,8 @@ ActiveRecord::Schema.define(version: 20160504043214) do
   create_table "lms_exam_questions", force: :cascade do |t|
     t.text     "question_text"
     t.integer  "question_type"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "correct_answer_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "lms_exams", force: :cascade do |t|
