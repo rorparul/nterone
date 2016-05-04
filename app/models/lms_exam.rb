@@ -9,4 +9,6 @@ class LmsExam < ActiveRecord::Base
   belongs_to :video
 
   validates :title, :description, :exam_type, presence: true
+
+  accepts_nested_attributes_for :lms_exam_questions, reject_if: :all_blank, allow_destroy: true
 end
