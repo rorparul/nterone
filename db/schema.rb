@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503002245) do
+ActiveRecord::Schema.define(version: 20160504043214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -442,9 +442,14 @@ ActiveRecord::Schema.define(version: 20160503002245) do
     t.string   "title"
     t.text     "description"
     t.integer  "exam_type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "video_module_id"
+    t.integer  "video_id"
   end
+
+  add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
+  add_index "lms_exams", ["video_module_id"], name: "index_lms_exams_on_video_module_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -753,4 +758,6 @@ ActiveRecord::Schema.define(version: 20160503002245) do
   add_foreign_key "lms_exam_attempts", "users"
   add_foreign_key "lms_exam_question_joins", "lms_exam_questions"
   add_foreign_key "lms_exam_question_joins", "lms_exams"
+  add_foreign_key "lms_exams", "video_modules"
+  add_foreign_key "lms_exams", "videos"
 end
