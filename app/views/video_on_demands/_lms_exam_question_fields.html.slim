@@ -1,0 +1,7 @@
+.nested-fields
+  .form-group
+    = f.label :question_text
+    = f.text_field :question_text, class: 'form-control input-sm'
+  .form-group
+      = f.label 'Question Type'
+      = f.select(:question_type, options_for_select(@question_types), {}, class: 'form-control')
