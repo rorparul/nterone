@@ -65,7 +65,18 @@ class VideoOnDemandsController < ApplicationController
       category if category.parent
     end
     @instructors     = @platform.instructors
+    @exam = LmsExam.new
+    @exam_types = LmsExam.exam_types
+    @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
+
+    @video_on_demand.video_modules.each do |video_module|
+      unless video_module.videos.empty?
+        @video_exists = true
+      else
+        @video_exists = false
+      end      
+    end
   end
 
   def update

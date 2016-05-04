@@ -17,12 +17,13 @@ class LmsExamsController < ApplicationController
   end
 
   def create
-    @exam = LmsExam.create(exam_params)
+    @platform = Platform.find(exam_params[:platform_id])
+    @video_on_demand = VideoOnDemand.find(exam_params[:video_on_demand_id])
+    @exam = LmsExam.new(exam_params.except(:platform_id, :video_on_demand_id))
     if @exam.save
-      flash[:success] = 'Exam successfully created!'
-      redirect_to edit_lms_exam_path(@exam)
-    else
-      render 'new'
+      @exam.update(video_module_id: Video.find(exam_params[:video_id]).video_module.id)
+      flash[:success] = "Exam was uploaded for the #{@exam.video.title} video of the #{@exam.video.video_module.title} module!"
+      redirect_to edit_platform_video_on_demand_path(@platform, @video_on_demand)
     end
   end
 
@@ -46,7 +47,11 @@ class LmsExamsController < ApplicationController
     params.require(:lms_exam).permit(:id,
                                      :title,
                                      :description,
-                                     :exam_type)
+                                     :exam_type,
+                                     :video_module_id,
+                                     :video_id,
+                                     :platform_id,
+                                     :video_on_demand_id)
   end
 
   def sanitize_page_params
