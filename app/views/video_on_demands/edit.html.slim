@@ -22,18 +22,24 @@
   .panel-heading
     strong.text-muted Edit Video On Demand
   .panel-body
-    div#tabs
+    div#video-on-demand-edit-tabs
       ul
         li
-          a href="#tab-1"
-            | Tab 1
+          a href="#overview"
+            | Overview
         li
-          a href="#tab-2"
-            | Tab 2
+          a href="#video-upload"
+            | Video Upload
         li
-          a href="#tab-3"
-            | Tab 3
-    = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
+          a href="#quiz-upload"
+            | Quiz Upload
+      #overview
+        = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
+      #video-upload
+        = render partial: "video_upload_form", locals: { video_on_demand: @video_on_demand, video: Video.new }
+      #quiz-upload
+        = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
+
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {
@@ -41,5 +47,5 @@ javascript:
   });
 
   $(function() {
-    $( "#tabs" ).tabs();
+    $( "#video-on-demand-edit-tabs" ).tabs();
   });
