@@ -5,3 +5,10 @@
   .form-group
       = f.label 'Question Type'
       = f.select(:question_type, options_for_select(@question_types), {}, class: 'form-control')
+
+  h6 Answers
+  #answers
+    = f.fields_for :lms_exam_answers do |ff|
+      = render 'lms_exam_answer_fields', f: ff
+    .links
+      = link_to_add_association 'Add Answer', f, :lms_exam_answers

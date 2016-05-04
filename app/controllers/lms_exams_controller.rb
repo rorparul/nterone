@@ -61,7 +61,9 @@ class LmsExamsController < ApplicationController
                                      :video_on_demand_id,
                                      lms_exam_questions_attributes: [:id,
                                                                     :question_text,
-                                                                    :question_type])
+                                                                    :question_type,
+                                                                    lms_exam_answers_attributes: [:id,
+                                                                                                  :answer_text]])
   end
 
   def sanitize_page_params
