@@ -133,6 +133,7 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :videos
   resources :lms_exams
 
   controller :admin do
