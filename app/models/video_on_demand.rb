@@ -23,7 +23,8 @@ class VideoOnDemand < ActiveRecord::Base
   has_many :videos,                    through: :video_modules
   has_many :users,                     through: :order_items
 
-  has_one  :image, as: :imageable, dependent: :destroy
+  has_one :image, as: :imageable, dependent: :destroy
+  has_one :lms_exam
 
   accepts_nested_attributes_for :image
 
@@ -31,7 +32,7 @@ class VideoOnDemand < ActiveRecord::Base
 
   before_destroy :ensure_not_purchased_or_in_cart
 
-  validates :categories, :title, :abbreviation, presence: true
+  validates :title, :abbreviation, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validates_associated :categories
 
