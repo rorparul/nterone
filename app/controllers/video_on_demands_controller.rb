@@ -176,11 +176,13 @@ class VideoOnDemandsController < ApplicationController
       end
     end
   end
-  
+
   def exit_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    LmsExamAttempt.find(params[:lms_exam_attempt]).update(completed_at: Time.now)
+    lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    lms_exam_attempt.update(completed_at: Time.now)
+    TakenExam.create(lms_exam: lms_exam_attempt.lms_exam, user: current_user)
     redirect_to platform_video_on_demand_path(@platform, @video_on_demand)
   end
 
