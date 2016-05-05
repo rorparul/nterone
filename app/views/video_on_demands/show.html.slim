@@ -103,7 +103,7 @@
                                         a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | [SHOW SCORE]
                                       td id="video-#{video.id}-status"
-                                        = video_status(current_user, video)
+                                        = taken_exam_status(current_user, lms_exam)
                                 - elsif user_signed_in? && video.permit_user?(current_user)
                                   td
                                     | QUIZ - 
@@ -114,13 +114,13 @@
                                     a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                         | [SHOW SCORE]
                                   td id="video-#{video.id}-status"
-                                    = video_status(current_user, video)
+                                    = taken_exam_status(current_user, lms_exam)
                                 - else
                                   td.text-muted 
                                     | QUIZ - 
                                     = lms_exam.title
                                   td id="video-#{video.id}-status"
-                                    = video_status(current_user, video)
+                                    = taken_exam_status(current_user, lms_exam)
 
           .row
             .col-xs-12
