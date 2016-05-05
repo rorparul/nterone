@@ -1,0 +1,3 @@
+$('.modal-title').html("<%= escape_javascript(@quiz.title) %>");
+$('.modal-body').html("<div><%= escape_javascript(@quiz.description) %></div><form action=\"<%= escape_javascript(begin_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\" data-remote=\"true\"><button>Begin Quiz</button></form>");
+$('#myModal').modal('show');

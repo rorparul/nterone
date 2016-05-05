@@ -1,0 +1,3 @@
+$('.modal-body').html("<form name=\"end-quiz\" action=\"<%= escape_javascript(exit_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\"><input type=\"hidden\" name=\"lms_exam_attempt\" value=\"<%= @lms_exam_attempt.id %>\"></form>");
+
+$('form[name=end-quiz]').append("<button>Exit Quiz</button>");
