@@ -117,6 +117,11 @@ NterOne::Application.routes.draw do
         get  'select'
         post 'select_to_edit'
         get  'play_video/:id' => 'video_on_demands#play_video', as: :play_video
+        get  '/:video_id/quiz/:id' => 'video_on_demands#init_quiz', as: :init_quiz
+        post '/:video_id/quiz/:id/begin' => 'video_on_demands#begin_quiz', as: :begin_quiz
+        post '/:video_id/quiz/:id/next-question' => 'video_on_demands#next_quiz_question', as: :next_quiz_question
+        post '/:video_id/quiz/:id/exit' => 'video_on_demands#exit_quiz', as: :exit_quiz
+        get  '/:video_id/quiz/:id/scores' => 'video_on_demands#show_scores', as: :show_scores
       end
     end
     resources :custom_items, except: [:index, :edit, :show] do
