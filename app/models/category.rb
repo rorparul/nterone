@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
   extend FriendlyId
-  scope :parent_categories, -> { where(parent_id: nil) }
+  scope :parent_categories, -> { where(parent_id: 13) }
 
   friendly_id :title, use: [:slugged, :finders]
 
