@@ -91,36 +91,34 @@
                                   td id="video-#{video.id}-status"
                                     = video_status(current_user, video)
                                 
-                                - if video.free
-                                  - video.lms_exams.each do |lms_exam|
-                                    tr.quiz
-                                      td
-                                        | QUIZ - 
+                                - video.lms_exams.each do |lms_exam|
+                                  - if video.free
+                                      tr.quiz
+                                        td
+                                          | QUIZ - 
+                                          = lms_exam.title
+                                          |  - 
+                                          a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                            | [TAKE QUIZ]
+                                          a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                            | [SHOW SCORE]
+                                        td id="quiz-#{lms_exam.id}-status"
+                                          = taken_exam_status(current_user, lms_exam)
+                                  - elsif user_signed_in? && video.permit_user?(current_user)
+                                    td
+                                      | QUIZ - 
                                         = lms_exam.title
                                         |  - 
-                                        a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                          | [TAKE QUIZ]
-                                        a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                      a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                        = lms_exam.title
+                                      a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | [SHOW SCORE]
-                                      td id="video-#{video.id}-status"
-                                        = taken_exam_status(current_user, lms_exam)
-                                - elsif user_signed_in? && video.permit_user?(current_user)
-                                  td
-                                    | QUIZ - 
+                                    td id="quiz-#{lms_exam.id}-status"
+                                      = taken_exam_status(current_user, lms_exam)
+                                  - else
+                                    td.text-muted 
+                                      | QUIZ - 
                                       = lms_exam.title
-                                      |  - 
-                                    a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
-                                      = lms_exam.title
-                                    a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                        | [SHOW SCORE]
-                                  td id="video-#{video.id}-status"
-                                    = taken_exam_status(current_user, lms_exam)
-                                - else
-                                  td.text-muted 
-                                    | QUIZ - 
-                                    = lms_exam.title
-                                  td id="video-#{video.id}-status"
-                                    = taken_exam_status(current_user, lms_exam)
 
           .row
             .col-xs-12
