@@ -1,5 +1,6 @@
 class VideoOnDemandsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :play_video]
+  before_action :authenticate_user!, except: [:show, :play_video, :begin_quiz, :next_quiz_question, :exit_quiz, :show_scores]
+  skip_before_action :verify_authenticity_token, only: [:exit_quiz]  
 
   def new
     @platform        = Platform.find(params[:platform_id])
@@ -112,6 +113,91 @@ class VideoOnDemandsController < ApplicationController
     end
   end
 
+  def init_quiz
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+    if user_signed_in?
+      @quiz.users << current_user if @quiz.users.exclude?(current_user)
+    end
+  end
+
+  def begin_quiz
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+
+    @lms_exam_attempt = LmsExamAttempt.create(lms_exam: @quiz, user: current_user, started_at: Time.now)
+
+    all_questions = @quiz.lms_exam_questions.all
+    taken_questions = []
+
+    @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
+
+    available_questions = all_questions - taken_questions
+
+    @next_question = available_questions.sample
+
+    respond_to do |format|
+      format.html { render :action => 'show' }
+      format.js { render :action => 'begin_quiz' }
+    end
+  end
+
+  def next_quiz_question
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+
+    LmsExamAttemptAnswer.create(lms_exam_attempt: LmsExamAttempt.find(params[:lms_exam_attempt]), lms_exam_question: LmsExamQuestion.find(params[:lms_exam_question]), lms_exam_answer: LmsExamAnswer.find(params[:answer]))
+
+    @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    
+    all_questions = @quiz.lms_exam_questions.all
+    taken_questions = []
+
+    @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
+
+    available_questions = all_questions - taken_questions
+
+    @next_question = available_questions.sample
+
+    unless @next_question == nil
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'next_quiz_question' }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'exit_quiz' }
+      end
+    end
+  end
+  
+  def exit_quiz
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    LmsExamAttempt.find(params[:lms_exam_attempt]).update(completed_at: Time.now)
+    redirect_to platform_video_on_demand_path(@platform, @video_on_demand)
+  end
+
+  def show_scores
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+
+    @lms_exam_attempts = LmsExamAttempt.where(lms_exam: @quiz, user: current_user)
+
+    respond_to do |format|
+      format.html { render :action => 'show' }
+      format.js { render :action => 'show_scores' }
+    end   
+  end
+
   private
 
   def video_on_demand_params
@@ -130,6 +216,11 @@ class VideoOnDemandsController < ApplicationController
                                             :intended_audience,
                                             :partner_led,
                                             :active,
+                                            :answer,
+                                            :lms_exam_attempt,
+                                            :lms_exam_question,
+                                            :platform_id,
+                                            :video_id,
                                             category_ids: [],
                                             video_modules_attributes: [:id,
                                                                        :position,
@@ -140,6 +231,7 @@ class VideoOnDemandsController < ApplicationController
                                                                                            :title,
                                                                                            :embed_code,
                                                                                            :free,
-                                                                                           :_destroy]])
+                                                                                           :_destroy,
+                                                                                            lms_exams_attributes: [:id]]])
   end
 end
