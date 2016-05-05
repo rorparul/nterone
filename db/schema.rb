@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504170449) do
+ActiveRecord::Schema.define(version: 20160505005429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -446,6 +446,7 @@ ActiveRecord::Schema.define(version: 20160504170449) do
     t.datetime "updated_at",      null: false
     t.integer  "video_module_id"
     t.integer  "video_id"
+    t.string   "slug"
   end
 
   add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
@@ -740,6 +741,7 @@ ActiveRecord::Schema.define(version: 20160504170449) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "position",        default: 0
+    t.string   "slug"
   end
 
   create_table "watched_videos", force: :cascade do |t|
