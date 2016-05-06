@@ -4,19 +4,29 @@ $('.modal-body').empty();
 
 "<% @lms_exam_attempts.each do |lms_exam_attempt| %>"
 
-	$('.modal-body').append("<table><thead><tr><h2>Exam Attempt #<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %></h2><hr></tr><tr><th>Exam Question</th><th>Your Answer</th><th>Correct?</th></tr></thead><tbody id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>\"></tbody></table>");
+  $('.modal-body').append("<div id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>\"><h2>Exam Attempt #<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %></h2></div>");
 
-	"<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
+  "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
 
-		$("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<tr><td><%= lms_exam_attempt_answer.lms_exam_question.question_text %></td><td><%= lms_exam_attempt_answer.lms_exam_answer.answer_text %></td><td id=\"attempted-answer-<%= lms_exam_attempt_answer.id %>-status\"></td></tr>");
+    "<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-check text-success\"></span></h4>");
+    "<% else %>"
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-times text-danger\"></span></h4>");
+    "<% end %>"
 
-		"<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
-			$("#attempted-answer-<%= lms_exam_attempt_answer.id %>-status").html("<span class=\"fa fa-check text-success\"></span>");
-		"<% else %>"
-			$("#attempted-answer-<%= lms_exam_attempt_answer.id %>-status").html("<span class=\"fa fa-times text-danger\"></span>");
-		"<% end %>"
+    $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<ul>");
 
-	"<% end %>"
+    "<% lms_exam_attempt_answer.lms_exam_question.lms_exam_answers.each do |lms_exam_answer| %>"
+      "<% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>"
+        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<li><span class='bg-info'><%= lms_exam_answer.answer_text %></span><% if lms_exam_answer.correct %><span class=\"fa fa-check text-success\"></span><% end %></li>");
+      "<% else %>"
+        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<li><%= lms_exam_answer.answer_text %><% if lms_exam_answer.correct %><span class=\"fa fa-check text-success\"></span><% end %></li>");
+      "<% end %>"
+    "<% end %>"
+
+    $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("</ul>");
+
+  "<% end %>"
 
 "<% end %>"
 
