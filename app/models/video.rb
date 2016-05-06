@@ -19,4 +19,14 @@ class Video < ActiveRecord::Base
                       Date.today - 365.day,
                       user.id)
   end
+
+  def next_video
+    next_video = nil
+
+    video_module.videos.order(:position).each do |video|
+      next_video = video if video.position > position
+    end
+
+    next_video
+  end
 end

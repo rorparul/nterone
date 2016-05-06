@@ -183,7 +183,16 @@ class VideoOnDemandsController < ApplicationController
     lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     lms_exam_attempt.update(completed_at: Time.now)
     TakenExam.create(lms_exam: lms_exam_attempt.lms_exam, user: current_user)
-    redirect_to platform_video_on_demand_path(@platform, @video_on_demand)
+
+    if params[:next_video_id]
+      @video = Video.find(params[:next_video_id])
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'play_video' }
+      end
+    else
+      redirect_to platform_video_on_demand_path(@platform, @video_on_demand)
+    end
   end
 
   def show_scores
