@@ -11,9 +11,9 @@ $('.modal-body').empty();
   "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
 
     "<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p>Question: <%= lms_exam_attempt_answer.lms_exam_question.question_text %> <span class=\"fa fa-check text-success\"></span></p>");
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p><span class=\"fa fa-check text-success\"></span> <%= lms_exam_attempt_answer.lms_exam_question.question_text %></p>");
     "<% else %>"
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p>Question: <%= lms_exam_attempt_answer.lms_exam_question.question_text %> <span class=\"fa fa-times text-danger\"></span></p>");
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p><span class=\"fa fa-times text-danger\"></span> <%= lms_exam_attempt_answer.lms_exam_question.question_text %></p>");
     "<% end %>"
 
     "<% lms_exam_attempt_answer.lms_exam_question.lms_exam_answers.each do |lms_exam_answer| %>"
