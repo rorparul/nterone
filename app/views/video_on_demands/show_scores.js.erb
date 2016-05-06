@@ -5,10 +5,18 @@ $('.modal-body').empty();
 "<% @lms_exam_attempts.each do |lms_exam_attempt| %>"
 
   $('.modal-body').append("<div id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>\"><h2>Exam Attempt #<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %></h2></div>");
+  
+  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score\"></p>");
+
+  var num_questions = 0;
+  var num_correct_answers = 0;
 
   "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
+    num_questions++;
 
     "<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
+      num_correct_answers++;
+
       $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-check text-success\"></span></h4>");
     "<% else %>"
       $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-times text-danger\"></span></h4>");
@@ -27,6 +35,8 @@ $('.modal-body').empty();
     $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("</ul>");
 
   "<% end %>"
+
+  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score").text("You scored " + Math.floor((num_correct_answers/num_questions)*100) + "%, with " + num_correct_answers + "/" + num_questions + " correct.");
 
 "<% end %>"
 
