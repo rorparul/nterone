@@ -11,23 +11,19 @@ $('.modal-body').empty();
   "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
 
     "<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
-
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-check text-success\"></span></h4>");
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p>Question: <%= lms_exam_attempt_answer.lms_exam_question.question_text %> <span class=\"fa fa-check text-success\"></span></p>");
     "<% else %>"
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<h4><%= lms_exam_attempt_answer.lms_exam_question.question_text %><span class=\"fa fa-times text-danger\"></span></h4>");
+      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p>Question: <%= lms_exam_attempt_answer.lms_exam_question.question_text %> <span class=\"fa fa-times text-danger\"></span></p>");
     "<% end %>"
-
-    $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<ul>");
 
     "<% lms_exam_attempt_answer.lms_exam_question.lms_exam_answers.each do |lms_exam_answer| %>"
-      "<% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>"
-        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<li><span class='bg-info'><%= lms_exam_answer.answer_text %></span><% if lms_exam_answer.correct %><span class=\"fa fa-check text-success\"></span><% end %></li>");
+      "<% if lms_exam_answer.correct %>"
+        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<div class='radio'><label><input type='radio' <% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>checked<% end %>><span class='bg-success'><%= lms_exam_answer.answer_text %></span></label></div>");
       "<% else %>"
-        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<li><%= lms_exam_answer.answer_text %><% if lms_exam_answer.correct %><span class=\"fa fa-check text-success\"></span><% end %></li>");
+        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<div class='radio'><label><input type='radio' <% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>checked<% end %>><%= lms_exam_answer.answer_text %></label></div>");
       "<% end %>"
-    "<% end %>"
 
-    $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("</ul>");
+    "<% end %>"
 
   "<% end %>"
 
