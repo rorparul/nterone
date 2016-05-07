@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @video_on_demand.page_title.present? ? @video_on_demand.page_title : @video_on_demand.full_title
-  
+
 - content_for :page_description do
   = @video_on_demand.page_description
 
@@ -19,7 +19,7 @@
   span.seperator
     | /
   span.text-muted = "#{@video_on_demand.abbreviation}"
-      
+
 .row
   .col-xs-12.col-central
     #video-on-demand
@@ -65,7 +65,7 @@
                           = video_module.title
                         span.label.label-default.video-module-status id="module-#{video_module.id}-status"
                           = "#{video_module.watched_count(current_user)}/#{video_module.videos.count} Viewed"
-                    .panel-collapse.collapse id="collapse#{index}" role="tabpanel" aria-labelledby="heading#{index}"
+                    .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
                           table.table.table-compact
@@ -90,14 +90,14 @@
                                     td.text-muted = video.title
                                   td id="video-#{video.id}-status"
                                     = video_status(current_user, video)
-                                
+
                                 - video.lms_exams.each do |lms_exam|
                                   - if video.free
                                       tr.quiz
                                         td
-                                          | QUIZ - 
+                                          | QUIZ -
                                           = lms_exam.title
-                                          |  - 
+                                          |  -
                                           a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | [TAKE QUIZ]
                                           a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
@@ -106,9 +106,9 @@
                                           = taken_exam_status(current_user, lms_exam)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
-                                      | QUIZ - 
+                                      | QUIZ -
                                         = lms_exam.title
-                                        |  - 
+                                        |  -
                                       a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = lms_exam.title
                                       a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
@@ -116,8 +116,8 @@
                                     td id="quiz-#{lms_exam.id}-status"
                                       = taken_exam_status(current_user, lms_exam)
                                   - else
-                                    td.text-muted 
-                                      | QUIZ - 
+                                    td.text-muted
+                                      | QUIZ -
                                       = lms_exam.title
 
           .row
@@ -149,7 +149,7 @@
             .col-xs-12
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
-              
+
   .col-xs-12.side-column
     .panel.panel-default
       .panel-body
@@ -157,27 +157,27 @@
           strong Questions?
         p The NterOne team will be happy to answer your questions.
         p
-          | Email: 
+          | Email:
           a href="mailto:sales@nterone.com" sales@nterone.com
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
-    
+
 .row
   .col-xs-12
     button#back Back
-    
+
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
-  
+
   $('#accordion').on('shown.bs.collapse', function (e) {
     var offset = $('.panel.panel-default > .panel-collapse.in').offset();
     if(offset) {
       $('html,body').animate({
         scrollTop: $('.panel-heading h4').offset().top -20
-      }, 500); 
+      }, 500);
     }
   });

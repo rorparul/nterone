@@ -44,6 +44,10 @@ class VideoOnDemand < ActiveRecord::Base
     end
   end
 
+  def purchased_by?(user)
+    order_items.exists?(user: user)
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart
