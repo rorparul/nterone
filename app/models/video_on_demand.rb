@@ -45,7 +45,8 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def purchased_by?(user)
-    order_items.exists?(user: user)
+    day = Date.today - 365.day
+    order_items.exists?(['user_id=? AND created_at>=?', user.id, day])
   end
 
   private

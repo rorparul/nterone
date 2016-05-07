@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
   extend FriendlyId
-  
+
   belongs_to :video_module
 
   has_many :watched_videos, dependent: :destroy
@@ -13,11 +13,7 @@ class Video < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :finders]
 
   def permit_user?(user)
-    OrderItem.find_by('orderable_type = ? and orderable_id = ? and created_at >= ? and user_id = ?',
-                      'VideoOnDemand',
-                      video_module.video_on_demand.id,
-                      Date.today - 365.day,
-                      user.id)
+    video_module.video_on_demand.purchased_by?(user)
   end
 
   def next_video
