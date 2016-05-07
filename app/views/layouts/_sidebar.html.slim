@@ -11,6 +11,13 @@
             span.text My Admin
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+        - if current_user.lms_manager?
+          li = link_to main_app.lms_students_path, class: "role-tab" do
+            span.fa.fa-pencil-square-o
+            span.text LMS Students
+            - if @total_alert_count > 0
+              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+
         - if current_user.sales?
           li = link_to main_app.admin_queue_path, class: "role-tab" do
             span.fa.fa-coffee

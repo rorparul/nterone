@@ -136,10 +136,12 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
+
   end
 
   resources :videos
   resources :lms_exams
+  resources :lms_students, only: [:index]
 
   controller :admin do
     get 'admin/queue',                               as: :admin_queue

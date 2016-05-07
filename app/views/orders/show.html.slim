@@ -5,16 +5,16 @@
   span.seperator
     | /
   span.text-muted My Admin
-    
+
 .row
   .col-xs-12
     = render 'tabs'
-    
+
 .row
   .col-xs-12
     = render partial: 'orders/index', locals: { orders: @orders }
-    
-    
+
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .orders').addClass('active-category');

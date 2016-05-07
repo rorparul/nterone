@@ -184,6 +184,16 @@ class User < ActiveRecord::Base
     has_role? :admin
   end
 
+  def lms_manager?
+    has_role? :lms_manager
+  end
+
+
+  def lms_student?
+    has_role? :lms_student
+  end
+
+
   def sales_manager?
     has_role? :sales_manager
   end
