@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
       # order_item = @order.order_items.build
       @user = params[:user] ? User.find(params[:user]) : nil
       @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
-      render "new_admin"
+      render "new"
     else
       @order = Order.new
     end
