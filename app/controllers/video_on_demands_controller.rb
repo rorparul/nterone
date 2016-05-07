@@ -1,6 +1,6 @@
 class VideoOnDemandsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :play_video, :begin_quiz, :next_quiz_question, :exit_quiz, :show_scores]
-  skip_before_action :verify_authenticity_token, only: [:exit_quiz]  
+  skip_before_action :verify_authenticity_token, only: [:exit_quiz]
 
   def new
     @platform        = Platform.find(params[:platform_id])
@@ -9,6 +9,7 @@ class VideoOnDemandsController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+
     @instructors     = @platform.instructors
     @video_on_demand.build_image
   end
@@ -76,7 +77,7 @@ class VideoOnDemandsController < ApplicationController
         @video_exists = true
       else
         @video_exists = false
-      end      
+      end
     end
   end
 
@@ -154,7 +155,7 @@ class VideoOnDemandsController < ApplicationController
     LmsExamAttemptAnswer.create(lms_exam_attempt: LmsExamAttempt.find(params[:lms_exam_attempt]), lms_exam_question: LmsExamQuestion.find(params[:lms_exam_question]), lms_exam_answer: LmsExamAnswer.find(params[:answer]))
 
     @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-    
+
     all_questions = @quiz.lms_exam_questions.all
     taken_questions = []
 
@@ -206,7 +207,7 @@ class VideoOnDemandsController < ApplicationController
     respond_to do |format|
       format.html { render :action => 'show' }
       format.js { render :action => 'show_scores' }
-    end   
+    end
   end
 
   private
