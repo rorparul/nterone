@@ -47,6 +47,11 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
 
+  def self.lms_students
+    ids = Role.where(role: 6).pluck(:user_id)
+    User.where(id: ids)
+  end
+
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"

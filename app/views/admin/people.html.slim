@@ -1,10 +1,10 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
-    
+
 .row
   .col-xs-12
     = render 'tabs'
-    
+
     .row
       .col-xs-12
         .panel.panel-default
@@ -14,9 +14,9 @@
                 strong.text-muted Users
               .col-xs-6
                 = link_to "Add", new_user_invitation_path, remote: true, class: "table-header-action"
-                
+
                 = smart_listing_controls_for(:users, {class: "form-inline text-right smart_listing_form"}) do
-                  
+
                   .checkbox
                     label.checkbox.inline
                       = hidden_field_tag :including_team, "0"
@@ -24,19 +24,19 @@
                       | Including non-students
 
                   .input-group.input-group-sm.filter.input-append
-                    = text_field_tag :filter, '', class: "search form-control input-sm", 
+                    = text_field_tag :filter, '', class: "search form-control input-sm",
                                                   placeholder: "Search",
                                                   autocomplete: :off
                     span class="input-group-btn"
                       button class="btn btn-default btn-sm disabled" type="submit"
                         span.glyphicon.glyphicon-search
-                
+
           = smart_listing_render(:users)
-    
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .people').addClass('active-category');
-  
+
   $(document).on('change', '.selector-role', function() {
     $(this).closest('form').submit();
   });

@@ -5,3 +5,16 @@
   span.seperator
     | /
   span.text-muted LMS Students
+
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        .row
+          .col-xs-6
+            strong.text-muted Students
+          .col-xs-6
+            = smart_listing_controls_for(:students, {class: "form-inline text-right smart_listing_form"}) do
+
+      = smart_listing_render(:students)
