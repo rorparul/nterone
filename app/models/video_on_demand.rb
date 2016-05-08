@@ -36,6 +36,8 @@ class VideoOnDemand < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }
   validates_associated :categories
 
+  scope :lms, -> { where(lms: true) }
+
   def full_title
     if abbreviation.present?
       "#{abbreviation}: #{title}"
