@@ -48,8 +48,7 @@ class User < ActiveRecord::Base
   validate :password_complexity
 
   def self.lms_students
-    ids = Role.where(role: 6).pluck(:user_id)
-    User.where(id: ids)
+    User.includes(:roles).where(roles: { role: 6 })
   end
 
   def password_complexity

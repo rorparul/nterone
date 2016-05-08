@@ -15,6 +15,7 @@
   strong.courses-header.text-muted Courses
 
   - @courses.each do |course|
-    .col-xs-12.col-md-6
+    .col-xs-12.col-md-6.course-wrapper
       = link_to platform_subject_path(course.platform, course), class: 'resource-item without-image' do
-        p = course.full_title
+          span= course.full_title
+          span.label.label-default.completed #{course.watched_count(current_user)} / #{course.video_count} Completed

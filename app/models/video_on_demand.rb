@@ -51,6 +51,18 @@ class VideoOnDemand < ActiveRecord::Base
     order_items.exists?(['user_id=? AND created_at>=?', user.id, day])
   end
 
+  def video_count
+    video_modules.inject(0) do |result, video_module|
+      result + video_module.videos.length
+    end
+  end
+
+  def watched_count(user)
+    video_modules.inject(0) do |result, video_module|
+      result + video_module.watched_count(user)
+    end
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

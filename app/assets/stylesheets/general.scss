@@ -2176,3 +2176,13 @@ footer {
   margin-bottom: 20px;
   display: block;
 }
+
+.course-wrapper {
+  a {
+    padding-top: 30px !important;
+  }
+
+  span.completed {
+    float: right;
+  }
+}
