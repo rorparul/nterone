@@ -5,6 +5,11 @@ class LmsStudentsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    authorize :lms_student, :index?
     @students = smart_listing_create(:students, User.lms_students, partial: 'lms_students/listing')
+  end
+
+  def show
+    authorize :lms_student, :show?
   end
 end
