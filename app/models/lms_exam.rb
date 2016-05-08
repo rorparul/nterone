@@ -5,9 +5,9 @@ class LmsExam < ActiveRecord::Base
 
   has_many :taken_exams, dependent: :destroy
   has_many :users,       through: :taken_exams
-  has_many :lms_exam_question_joins
+  has_many :lms_exam_question_joins, dependent: :destroy
   has_many :lms_exam_questions, through: :lms_exam_question_joins
-  has_many :lms_exam_attempts
+  has_many :lms_exam_attempts, dependent: :destroy
 
   belongs_to :video_module
   belongs_to :video

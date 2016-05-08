@@ -5,16 +5,17 @@
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control input-sm'
-  .form-group
-    = f.label :videos
-    br
-    - f.object.videos.each do |video|
-      li
-        = video.title
-        - unless video.lms_exams.empty?
-          |  -- 
-          - video.lms_exams.each do |lms_exam|
-            = lms_exam.title
+
+  h4  Module Videos
+  .row
+    .col-xs-10.col-xs-offset-2.col-md-8.col-md-offset-1
+
+      hr.hr-sub
+      #videos
+        = f.fields_for :videos do |ff|
+          = render 'video_fields', f: ff
+        .links
+          = link_to_add_association 'Add video', f, :videos
 
   = link_to_remove_association "Remove module", f
   hr

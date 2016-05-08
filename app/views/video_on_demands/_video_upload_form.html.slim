@@ -1,42 +1,18 @@
-.form-container
 
-  - unless video_on_demand.video_modules.empty?
-    = form_for [video], remote: false do |f|
-      - if video.errors.any?
-        .alert.alert-danger.alert-dismissible
-          button.close type="button" data-dismiss="alert" aria-label="Close"
-            span aria-hidden="true" &times;
-          h4 = "#{pluralize(video.errors.count, 'error')}:"
-          ul
-            - video.errors.full_messages.each do |msg|
-              li = msg
-              
-      .form-group
-        = f.label :video_module_id
-        br
-        = f.select :video_module_id, options_for_select(video_on_demand.video_modules.map{|video_module| ["#{video_module.title}", video_module.id]})
-      .form-group
-        = f.label :position
-        = f.text_field :position, class: 'form-control input-sm'
-      .form-group
-        = f.label :title
-        = f.text_field :title, class: 'form-control input-sm', :required => true
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-            = f.label :embed_code
-            = f.text_area :embed_code, class: 'form-control input-sm', :required => true
-        .col-xs-12.col-sm-6
-          .form-group
-            = f.label :free, "Free?"
-            br
-            = f.check_box :free, class: 'form-control input-sm'
-      .form-group
-        = f.hidden_field :platform_id, :value => @platform.id
-        = f.hidden_field :video_on_demand_id, :value => @video_on_demand.id
+= form_for [@platform, video_on_demand], remote: false do |f|
 
-      .form-buttons
-        button.btn.btn-success type="submit" Upload
-  - else
-    h1
-    | Please add modules in the "Overview" section of this Video On Demand.
+  h4 Modules
+
+  .row
+    .col-xs-10.col-xs-offset-2.col-md-8.col-md-offset-1
+      hr
+      #modules
+        = f.fields_for :video_modules do |ff|
+          = render 'video_module_fields', f: ff
+        .links
+          = link_to_add_association 'Add module', f, :video_modules
+
+  .form-buttons
+    button.btn.btn-success type="submit" Save
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+
