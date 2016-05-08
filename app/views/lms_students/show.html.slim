@@ -12,9 +12,9 @@
 
 
 .row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        .row
-          .col-xs-6
-            strong.text-muted Courses
+  strong.courses-header.text-muted Courses
+
+  - @courses.each do |course|
+    .col-xs-12.col-md-6
+      = link_to platform_subject_path(course.platform, course), class: 'resource-item without-image' do
+        p = course.full_title
