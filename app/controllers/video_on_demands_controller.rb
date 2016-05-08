@@ -228,6 +228,7 @@ class VideoOnDemandsController < ApplicationController
                                             :intended_audience,
                                             :partner_led,
                                             :active,
+                                            :lms,
                                             :answer,
                                             :lms_exam_attempt,
                                             :lms_exam_question,
