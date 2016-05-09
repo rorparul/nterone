@@ -22,7 +22,7 @@
       td Exam Name
       td Taken
       td Time to complete
-      td Result Percentage
+      td Results
     tbody
       - @attempts.each do |attempt|
         tr
@@ -32,7 +32,7 @@
           td #{time_diff(attempt.started_at, attempt.completed_at)} Minutes
           td
             - if attempt.percent_correct == 0
-              | 0%
+              | 0% (0/#{attempt.question_count})
             - else
               .progress-bar.progress-bar-success role='progressbar' aria-valuenow=attempt.percent_correct aria-valuemin="0" aria-valuemax="100" style="width: #{attempt.percent_correct}%;"
-                | #{attempt.percent_correct}%
+                | #{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})
