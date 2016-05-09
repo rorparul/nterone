@@ -63,6 +63,29 @@ class VideoOnDemand < ActiveRecord::Base
     end
   end
 
+  def quizes
+    ids = video_modules.pluck(:id)
+    LmsExam.where(video_module_id: ids, exam_type: 0)
+  end
+
+
+  def quizes_count
+    self.quizes.count
+  end
+
+  def quizes_completed_count_by(user)
+    self.quizes.inject(0) do |sum, quiz|
+      quiz.completed_by?(user) ? sum + 1 : sum
+    end
+  end
+
+  def exam_completed_by?(user)
+    ids = video_modules.pluck(:id)
+    exam = LmsExam.where(video_module_id: ids, exam_type: 1).first
+
+    exam.present? ? exam.completed_by?(user) : false
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

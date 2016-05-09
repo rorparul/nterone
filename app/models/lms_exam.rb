@@ -17,4 +17,15 @@ class LmsExam < ActiveRecord::Base
   accepts_nested_attributes_for :lms_exam_questions, reject_if: :all_blank, allow_destroy: true
 
   friendly_id :title, use: [:slugged, :finders]
+
+  def completed_by?(user)
+    completed = false
+    attempts = lms_exam_attempts.where(user: user)
+
+    attempts.each do |attempt|
+      completed = true if attempt.lms_exam_attempt_answers.count == lms_exam_questions.count
+    end
+
+    completed
+  end
 end

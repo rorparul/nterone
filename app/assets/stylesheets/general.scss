@@ -2178,11 +2178,22 @@ footer {
 }
 
 .course-wrapper {
+  position: relative;
+
   a {
     padding-top: 30px !important;
   }
 
-  span.completed {
-    float: right;
+  .results {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+
+    span {
+      float: right;
+      width: 150px;
+      padding: 4px;
+      margin-bottom: 5px;
+    }
   }
 }
