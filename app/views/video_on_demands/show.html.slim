@@ -25,11 +25,12 @@
     #video-on-demand
       .row
         .col-xs-12
-          = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
+          span class=(@purchased ? 'hide' : '')
+            = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body
               = @video_on_demand.intro.html_safe if @video_on_demand.intro
-          #accordion.panel-group role="tablist" aria-multiselectable="true"
+          #accordion.panel-group role="tablist" aria-multiselectable="true" class=(@purchased ? 'hide' : '')
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
                 h4
@@ -129,8 +130,8 @@
                       tr
                         th Instructor
                         th Level
-                        th Price
-                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                        th class=(@purchased ? 'hide' : '') Price 
+                        - if !user_signed_in? || (user_signed_in? && current_user.member?) || !@purchased
                           th
                     tbody
                       tr
@@ -139,18 +140,18 @@
                             a href="#{platform_instructor_path(@video_on_demand.platform, @video_on_demand.instructor)}" data-remote="true"
                               = @video_on_demand.instructor.full_name if @video_on_demand.instructor
                         td = @video_on_demand.level
-                        td = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))}/year"
-                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                        td class=(@purchased ? 'hide' : '') = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))}/year"
+                        - if !user_signed_in? || (user_signed_in? && current_user.member? && !@purchased)
                           td.text-right
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
                               = link_to_cart(@video_on_demand)
-          .row
+          .row class=(@purchased ? 'hide' : '')
             .col-xs-12
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
 
-  .col-xs-12.side-column
+  .col-xs-12.side-column class=(@purchased ? 'hide' : '')
     .panel.panel-default
       .panel-body
         h5
