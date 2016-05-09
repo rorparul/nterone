@@ -97,4 +97,10 @@ module GeneralHelper
     end
     string[0...-2]
   end
+
+  def time_diff(start_time, end_time)
+    return 'uknown' if start_time.blank? || end_time.blank?
+
+    (start_time - end_time).to_i.abs * 60
+  end
 end

@@ -5,6 +5,8 @@ class LmsStudentCoursesController < ApplicationController
 
   def show
     authorize :lms_student_course, :show?
+
+    @attempts = @course.exam_attempts_for(@student).order('created_at DESC')
   end
 
 private

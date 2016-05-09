@@ -15,4 +15,24 @@
   span.text-muted= @course.title
 
 .row
-  strong.courses-header.text-muted= @course.title
+  h4 Exam Attempts
+
+  table.table.table-hover
+    thead
+      td Exam Name
+      td Taken
+      td Time to complete
+      td Result Percentage
+    tbody
+      - @attempts.each do |attempt|
+        tr
+          td= attempt.lms_exam.title
+          td
+            | #{time_ago_in_words(attempt.created_at)} ago
+          td #{time_diff(attempt.started_at, attempt.completed_at)} Minutes
+          td
+            - if attempt.percent_correct == 0
+              | 0%
+            - else
+              .progress-bar.progress-bar-success role='progressbar' aria-valuenow=attempt.percent_correct aria-valuemin="0" aria-valuemax="100" style="width: #{attempt.percent_correct}%;"
+                | #{attempt.percent_correct}%

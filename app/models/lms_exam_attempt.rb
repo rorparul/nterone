@@ -13,4 +13,12 @@ class LmsExamAttempt < ActiveRecord::Base
 
     num_correct
   end
+
+  def question_count
+    self.lms_exam.lms_exam_questions.length
+  end
+
+  def percent_correct
+    (self.number_correct * 100) / question_count
+  end
 end

@@ -68,6 +68,10 @@ class VideoOnDemand < ActiveRecord::Base
     LmsExam.where(video_module_id: ids, exam_type: 0)
   end
 
+  def all_exams
+    ids = video_modules.pluck(:id)
+    LmsExam.where(video_module_id: ids)
+  end
 
   def quizes_count
     self.quizes.count
@@ -84,6 +88,12 @@ class VideoOnDemand < ActiveRecord::Base
     exam = LmsExam.where(video_module_id: ids, exam_type: 1).first
 
     exam.present? ? exam.completed_by?(user) : false
+  end
+
+  def exam_attempts_for(user)
+    exam_ids = self.all_exams.pluck(:id)
+
+    LmsExamAttempt.where(user: user, lms_exam_id: exam_ids)
   end
 
   private

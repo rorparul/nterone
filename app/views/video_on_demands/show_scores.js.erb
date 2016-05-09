@@ -5,7 +5,7 @@ $('.modal-body').empty();
 "<% @lms_exam_attempts.each do |lms_exam_attempt| %>"
 
   $('.modal-body').append("<div id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>\"><h2>Exam Attempt #<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %></h2></div>");
-  
+
   $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score\"></p>");
 
   "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
@@ -27,9 +27,11 @@ $('.modal-body').empty();
 
   "<% end %>"
 
-  var num_questions = <%= lms_exam_attempt.lms_exam_attempt_answers.count %>;
+  var num_questions = <%= lms_exam_attempt.question_count %>;
   var num_correct_answers = <%= lms_exam_attempt.number_correct %>;
-  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score").text("You scored " + Math.floor((num_correct_answers/num_questions)*100) + "%, with " + num_correct_answers + "/" + num_questions + " correct.");
+  var percent_correct = <%= lms_exam_attempt.percent_correct %>;
+
+  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score").text("You scored " + percent_correct + "%, with " + num_correct_answers + "/" + num_questions + " correct.");
 
 "<% end %>"
 
