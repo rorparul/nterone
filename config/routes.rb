@@ -141,7 +141,9 @@ NterOne::Application.routes.draw do
 
   resources :videos
   resources :lms_exams
-  resources :lms_students, only: [:index, :show]
+  resources :lms_students, only: [:index, :show] do
+    resources :courses, only: [:show], controller: :lms_student_courses
+  end
 
   controller :admin do
     get 'admin/queue',                               as: :admin_queue

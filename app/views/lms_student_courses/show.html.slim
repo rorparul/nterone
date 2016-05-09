@@ -1,0 +1,18 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{lms_students_path}"
+    | LMS Students
+  span.seperator
+    | /
+  a href="#{lms_students_path(@student)}"
+    | #{@student.full_name}
+  span.seperator
+    | /
+  span.text-muted= @course.title
+
+.row
+  strong.courses-header.text-muted= @course.title

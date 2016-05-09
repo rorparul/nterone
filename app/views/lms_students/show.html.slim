@@ -16,7 +16,7 @@
 
   - @courses.each do |course|
     .col-xs-12.col-md-6.course-wrapper
-      = link_to platform_subject_path(course.platform, course), class: 'resource-item without-image' do
+      = link_to lms_student_course_path(@student, course), class: 'resource-item without-image' do
           span= course.full_title
 
       .results
