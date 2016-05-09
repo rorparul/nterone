@@ -5,7 +5,7 @@ class Video < ActiveRecord::Base
 
   has_many :watched_videos, dependent: :destroy
   has_many :users,          through: :watched_videos
-  has_many :lms_exams
+  has_many :lms_exams,      dependent: :destroy
   has_many :lms_exam_questions, through: :lms_exams
 
   validates :title, :embed_code, presence: true

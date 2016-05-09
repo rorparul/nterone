@@ -1,0 +1,18 @@
+.nested-fields
+  .form-group
+    = f.label :position
+    = f.text_field :position, class: 'form-control input-sm'
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control input-sm'
+  .row
+    .col-xs-12.col-sm-6
+      .form-group
+        = f.label :embed_code
+        = f.text_area :embed_code, class: 'form-control input-sm'
+    .col-xs-12.col-sm-6
+      .form-group
+        = f.label :free, "Free?"
+        br
+        = f.check_box :free, class: 'form-control input-sm'
+  = link_to_remove_association "Remove video", f
