@@ -23,7 +23,7 @@ html
     = render 'layouts/modal'
     = render 'layouts/header'
     .container-fluid
-      = render 'layouts/sidebar'
+      = render 'layouts/sidebar' if ! @hide_sidebar
       .content-top
         #menu-toggle
           i.fa.fa-bars
