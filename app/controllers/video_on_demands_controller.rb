@@ -33,6 +33,8 @@ class VideoOnDemandsController < ApplicationController
   def show
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
+    @purchased = current_user && @video_on_demand.purchased_by?(current_user)
+    @hide_sidebar = current_user && @video_on_demand.purchased_by?(current_user)
   end
 
   def select
