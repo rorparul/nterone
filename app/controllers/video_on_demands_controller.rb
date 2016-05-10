@@ -120,9 +120,6 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @video = Video.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
-    if user_signed_in?
-      @quiz.users << current_user if @quiz.users.exclude?(current_user)
-    end
   end
 
   def begin_quiz
@@ -188,7 +185,6 @@ class VideoOnDemandsController < ApplicationController
     @platform = @video_on_demand.platform
     lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     lms_exam_attempt.update(completed_at: Time.now)
-    TakenExam.create(lms_exam: lms_exam_attempt.lms_exam, user: current_user)
 
     if params[:next_video_id]
       @video = Video.find(params[:next_video_id])

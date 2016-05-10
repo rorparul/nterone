@@ -45,7 +45,7 @@ module GeneralHelper
 
   def taken_exam_status(user, lms_exam)
     if user
-      if TakenExam.find_by(user_id: user.id, lms_exam_id: lms_exam.id)
+      if LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
         "<span class='fa fa-check text-success'></span>".html_safe
       end
     end
