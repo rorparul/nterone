@@ -173,6 +173,9 @@ class VideoOnDemandsController < ApplicationController
         format.js { render :action => 'next_quiz_question' }
       end
     else
+      @lms_exam_attempt.completed_at = Time.now
+      @lms_exam_attempt.save
+
       respond_to do |format|
         format.html { render :action => 'show' }
         format.js { render :action => 'exit_quiz' }

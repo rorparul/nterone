@@ -1,38 +1,10 @@
 $('.modal-title').html("<%= escape_javascript(@quiz.title) %>");
 
 $('.modal-body').empty();
+$('.modal-body').append("<table class='table table-hover'><thead><td>#</td><td>Taken</td><td>Time to complete</td><td>Results</td></thead><tbody></tbody></table>")
 
-"<% @lms_exam_attempts.each do |lms_exam_attempt| %>"
-
-  $('.modal-body').append("<div id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>\"><h2>Exam Attempt #<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %></h2></div>");
-
-  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p id=\"lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score\"></p>");
-
-  "<% lms_exam_attempt.lms_exam_attempt_answers.each do |lms_exam_attempt_answer| %>"
-
-    "<% if lms_exam_attempt_answer.lms_exam_answer.correct %>"
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p><span class=\"fa fa-check text-success\"></span> <%= lms_exam_attempt_answer.lms_exam_question.question_text %></p>");
-    "<% else %>"
-      $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<p><span class=\"fa fa-times text-danger\"></span> <%= lms_exam_attempt_answer.lms_exam_question.question_text %></p>");
-    "<% end %>"
-
-    "<% lms_exam_attempt_answer.lms_exam_question.lms_exam_answers.each do |lms_exam_answer| %>"
-      "<% if lms_exam_answer.correct %>"
-        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<div class='radio'><label><input type='radio' <% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>checked<% end %>><span class='bg-success'><%= lms_exam_answer.answer_text %></span></label></div>");
-      "<% else %>"
-        $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>").append("<div class='radio'><label><input type='radio' <% if lms_exam_answer.id == lms_exam_attempt_answer.lms_exam_answer.id %>checked<% end %>><%= lms_exam_answer.answer_text %></label></div>");
-      "<% end %>"
-
-    "<% end %>"
-
-  "<% end %>"
-
-  var num_questions = <%= lms_exam_attempt.question_count %>;
-  var num_correct_answers = <%= lms_exam_attempt.number_correct %>;
-  var percent_correct = <%= lms_exam_attempt.percent_correct %>;
-
-  $("#lms-exam-attempt-<%= @lms_exam_attempts.find_index(lms_exam_attempt) + 1 %>-score").text("You scored " + percent_correct + "%, with " + num_correct_answers + "/" + num_questions + " correct.");
-
+"<% @lms_exam_attempts.each do |attempt| %>"
+  $('.modal-body table tbody').append('<tr><td><%= @lms_exam_attempts.find_index(attempt) + 1 %></td><td><%= time_ago_in_words(attempt.created_at).gsub("about","")%>  ago</td><td><%= time_diff(attempt.started_at, attempt.completed_at)%> Minutes</td><td><div class="progress"><div class="progress-bar progress-bar-success" role="progressbar"  aria-valuenow=<%=attempt.percent_correct%> aria-valuemin="0" aria-valuemax="100" style="width: <%=attempt.percent_correct%>%;"><%="#{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})"%></div></div></td></tr>')
 "<% end %>"
 
 $('#myModal').modal('show');

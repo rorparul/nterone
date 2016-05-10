@@ -2,7 +2,7 @@ class LmsExamAttempt < ActiveRecord::Base
   belongs_to :lms_exam
   belongs_to :user
 
-  has_many :lms_exam_attempt_answers
+  has_many :lms_exam_attempt_answers, dependent: :destroy
 
   def number_correct
     num_correct = 0
