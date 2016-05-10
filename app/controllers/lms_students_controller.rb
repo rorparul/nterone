@@ -1,13 +1,10 @@
 class LmsStudentsController < ApplicationController
-  include SmartListing::Helper::ControllerExtensions
-  helper  SmartListing::Helper
-
   before_action :authenticate_user!
   before_action :set_student, only: [:show]
 
   def index
     authorize :lms_student, :index?
-    @students = smart_listing_create(:students, User.lms_students, partial: 'lms_students/listing')
+    @students = User.lms_students
   end
 
   def show
