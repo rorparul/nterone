@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+
     if @user.persisted?
       Role.create(user_id: @user.id)
       CustomMailer.welcome(@user).deliver_now
