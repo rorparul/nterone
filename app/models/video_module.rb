@@ -18,4 +18,14 @@ class VideoModule < ActiveRecord::Base
     end
     count
   end
+
+  def exams_count
+    self.lms_exams.count
+  end
+
+  def completed_exams_count_for(user)
+    self.lms_exams.inject(0) do |sum, quiz|
+      quiz.completed_by?(user) ? sum + 1 : sum
+    end
+  end
 end

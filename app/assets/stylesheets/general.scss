@@ -466,14 +466,6 @@ iframe.wysihtml5-sandbox {
   width: 100% !important;
 }
 
-.video-module-status {
-  float: right;
-  height: 20px;
-  margin: 0;
-  font-size: 12px;
-  padding: 4px;
-}
-
 .text-content {
   margin-bottom: 10px;
   .group-heading {
@@ -2250,5 +2242,34 @@ footer {
   .fa-file-video-o {
     margin-right: 11px;
     font-size: 18px;
+  }
+}
+
+.video-module-results {
+  display: inline-block;
+  float: right;
+
+  .fa-file-video-o, .fa-edit {
+    font-size: 15px;
+    position: relative;
+  }
+
+  .fa-file-video-o {
+    font-size: 12px;
+    top: -1px;
+  }
+
+  .fa-edit {
+    top: 1px;
+  }
+
+  .count {
+    margin-left: 3px;
+    margin-right: 15px;
+  }
+
+  .video-module-status {
+    font-size: 11px;
+    padding: 3px;
   }
 }

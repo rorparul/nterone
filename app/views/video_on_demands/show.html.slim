@@ -64,8 +64,15 @@
                       strong
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
                           = video_module.title
-                        span.label.label-default.video-module-status id="module-#{video_module.id}-status"
-                          = "#{video_module.watched_count(current_user)}/#{video_module.videos.count} Viewed"
+                        .video-module-results
+                          span.fa.fa-file-video-o class=video_completed_class(video_module, current_user)
+                          span.count
+                            = video_completed_ratio(video_module, current_user)
+
+                          span.fa.fa-edit class=exam_completed_class(video_module, current_user)
+                          span.count
+                            = exam_completed_ratio(video_module, current_user)
+                          span.fa.fa-check class=(@video_on_demand.exam_completed_by?(current_user) ? 'text-success' : '')
                     .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
