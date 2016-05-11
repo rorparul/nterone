@@ -96,13 +96,12 @@
                                   - if video.free
                                       tr.quiz
                                         td
-                                          | QUIZ -
+                                          span.fa.fa-edit
                                           = lms_exam.title
-                                          |  -
-                                          a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                            | [TAKE QUIZ]
-                                          a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                            | [SHOW SCORE]
+                                          a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                            | Scores
+                                          a.label.label-success.take-quiz href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                            | Take Quiz
                                         td id="quiz-#{lms_exam.id}-status"
                                           = taken_exam_status(current_user, lms_exam)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
@@ -130,7 +129,7 @@
                       tr
                         th Instructor
                         th Level
-                        th class=(@purchased ? 'hide' : '') Price 
+                        th class=(@purchased ? 'hide' : '') Price
                         - if !user_signed_in? || (user_signed_in? && current_user.member?) || !@purchased
                           th
                     tbody

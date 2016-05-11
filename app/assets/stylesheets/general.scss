@@ -2228,3 +2228,18 @@ footer {
 .progress-bar {
   color: #4A4A4A !important;
 }
+
+.quiz {
+  a.take-quiz, a.show-score {
+    float: right;
+    padding: 4px 7px;
+  }
+
+  a.take-quiz {
+    margin-right: 5px;
+  }
+
+  .fa-edit {
+    margin-right: 8px;
+  }
+}
