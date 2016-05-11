@@ -73,52 +73,55 @@
                             thead
                               tr
                                 th Video
-                                th.fit Viewed
+                                th.fit Status
                             tbody
                               - video_module.videos.order(:position).each do |video|
                                 tr.video
                                   - if video.free
                                     td
-                                      a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                      span.fa.fa-file-video-o
+                                      a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                       span
                                         |  (Free Sample)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
-                                      a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                      span.fa.fa-file-video-o
+                                      a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                   - else
-                                    td.text-muted = video.title
+                                    td
+                                      span.fa.fa-file-video-o
+                                      span.text-muted title="Play Video" = video.title
                                   td id="video-#{video.id}-status"
                                     = video_status(current_user, video)
 
                                 - video.lms_exams.each do |lms_exam|
-                                  - if video.free
+                                  - if false
                                       tr.quiz
                                         td
                                           span.fa.fa-edit
-                                          = lms_exam.title
+                                          a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                            = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
-                                          a.label.label-success.take-quiz href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                            | Take Quiz
                                         td id="quiz-#{lms_exam.id}-status"
                                           = taken_exam_status(current_user, lms_exam)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
-                                    td
-                                      | QUIZ -
-                                        = lms_exam.title
-                                        |  -
-                                      a href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                        = lms_exam.title
-                                      a href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                          | [SHOW SCORE]
-                                    td id="quiz-#{lms_exam.id}-status"
-                                      = taken_exam_status(current_user, lms_exam)
+                                    tr.quiz
+                                      td
+                                        span.fa.fa-edit
+                                        a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          = lms_exam.title
+                                        a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          | Scores
+                                      td id="quiz-#{lms_exam.id}-status"
+                                        = taken_exam_status(current_user, lms_exam)
                                   - else
-                                    td.text-muted
-                                      | QUIZ -
-                                      = lms_exam.title
+                                    tr.quiz
+                                      td
+                                        span.fa.fa-edit
+                                        span.text-muted= lms_exam.title
 
           .row
             .col-xs-12

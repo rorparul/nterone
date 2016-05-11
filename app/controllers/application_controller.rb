@@ -11,13 +11,14 @@ class ApplicationController < ActionController::Base
   after_filter  :store_location
 
   helper_method :forem_user, :resource_name, :resource, :devise_mapping
-  
+
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def forem_user
     current_user
   end
+
   def access_denied(exception)
     redirect_to root_path, alert: exception.message
   end
@@ -25,7 +26,6 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
-
 
   def resource_name
     :user
