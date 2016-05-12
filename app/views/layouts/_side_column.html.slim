@@ -11,7 +11,7 @@
       a href='mailto:sales@nterone.com'
         | Contact
       |  us for more details.
-- unless current_user.lms?      
+- if current_user == nil || ( current_user && current_user.lms? ? false : true )      
   .side-column-graphics
     = link_to main_app.nterone_gives_back_path do
       = image_tag "nterone-gives-back.png"
