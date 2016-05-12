@@ -13,7 +13,6 @@ class LmsExamsController < ApplicationController
   def new
     @exam = LmsExam.new
     @exam_types = LmsExam.exam_types
-    @question_types = LmsExamQuestion.question_types
   end
 
   def create
@@ -30,7 +29,6 @@ class LmsExamsController < ApplicationController
   def edit
     @exam = LmsExam.find(params[:id])
     @exam_types = LmsExam.exam_types
-    @question_types = LmsExamQuestion.question_types
   end
 
   def update
@@ -61,7 +59,6 @@ class LmsExamsController < ApplicationController
                                      :video_on_demand_id,
                                      lms_exam_questions_attributes: [:id,
                                                                     :question_text,
-                                                                    :question_type,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
                                                                                                   :correct]])
@@ -69,10 +66,5 @@ class LmsExamsController < ApplicationController
 
   def sanitize_page_params
     params[:lms_exam][:exam_type] = LmsExam.exam_types.key(params[:lms_exam][:exam_type].to_i)
-
-    params[:lms_exam][:lms_exam_questions_attributes].each do |key, question|
-      params[:lms_exam][:lms_exam_questions_attributes][key][:question_type] =
-        LmsExamQuestion.question_types.key(question[:question_type].to_i)
-    end
   end
 end

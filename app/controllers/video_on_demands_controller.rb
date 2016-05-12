@@ -63,15 +63,16 @@ class VideoOnDemandsController < ApplicationController
   end
 
   def edit
-    @platform        = Platform.find(params[:platform_id])
+    @platform = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+
+    @categories = Category
+      .where(platform_id: @platform.id)
+      .order(:title).select { |category| category if category.parent }
+
     @instructors     = @platform.instructors
     @exam = LmsExam.new
     @exam_types = LmsExam.exam_types
-    @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
 
     @video_on_demand.video_modules.each do |video_module|
@@ -87,6 +88,7 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
+
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
       redirect_to session[:previous_request_url]
@@ -94,23 +96,28 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
+
       @instructors = @platform.instructors
+
       render "edit"
     end
   end
 
   def destroy
     video_on_demand = VideoOnDemand.find(params[:id])
+
     if video_on_demand.destroy
       flash[:success] = 'Video On Demand successfully destroyed!'
     else
       flash[:alert] = 'Video On Demand unsuccessfully destroyed!'
     end
+
     redirect_to session[:previous_request_url]
   end
 
   def play_video
     @video = Video.find(params[:id])
+
     if user_signed_in?
       @video.users << current_user if @video.users.exclude?(current_user)
     end
@@ -183,11 +190,13 @@ class VideoOnDemandsController < ApplicationController
   def exit_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
+
     lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     lms_exam_attempt.update(completed_at: Time.now)
 
     if params[:next_video_id]
       @video = Video.find(params[:next_video_id])
+
       respond_to do |format|
         format.html { render :action => 'show' }
         format.js { render :action => 'play_video' }
