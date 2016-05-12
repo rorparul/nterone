@@ -626,6 +626,17 @@ ActiveRecord::Schema.define(version: 20160512031034) do
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
 
+  create_table "taken_exams", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
+  add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
+
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -773,4 +784,6 @@ ActiveRecord::Schema.define(version: 20160512031034) do
   add_foreign_key "lms_exam_question_joins", "lms_exams"
   add_foreign_key "lms_exams", "video_modules"
   add_foreign_key "lms_exams", "videos"
+  add_foreign_key "taken_exams", "lms_exams"
+  add_foreign_key "taken_exams", "users"
 end
