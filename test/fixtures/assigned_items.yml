@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  assigner_id: 1
+  student_id: 1
+  item_id: 
+  item_type: Item
+
+two:
+  assigner_id: 1
+  student_id: 1
+  item_id: 
+  item_type: Item
