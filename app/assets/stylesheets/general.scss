@@ -2256,7 +2256,6 @@ footer {
 
   .fa-file-video-o {
     font-size: 12px;
-    top: -1px;
   }
 
   .fa-edit {
@@ -2265,11 +2264,16 @@ footer {
 
   .count {
     margin-left: 3px;
-    margin-right: 15px;
+    margin-right: 3px;
   }
 
   .video-module-status {
     font-size: 11px;
     padding: 3px;
+  }
+
+  .item {
+    margin-right: 5px;
+    padding: 4px 6px;
   }
 }
