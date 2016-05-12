@@ -11,16 +11,19 @@
   h4 Students
 
   table.table.table-hover
-    thead
-      td Name
-      td Email
-      td Last Active
-      td Show
-    tbody
-      - @students.each do |student|
-        tr
-          td= student.full_name
-          td= student.email
-          td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
-          td
-            a href=lms_student_path(student) Show
+    - unless @students.empty?
+      thead
+        td Name
+        td Email
+        td Last Active
+        td Show
+      tbody
+        - @students.each do |student|
+          tr
+            td= student.full_name
+            td= student.email
+            td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
+            td
+              a href=lms_student_path(student) Show
+    - else
+      p.text-center No Students Found
