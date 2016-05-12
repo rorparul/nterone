@@ -8,6 +8,12 @@ class GeneralController < ApplicationController
 
   def welcome
     @page = Page.find_by(title: 'Welcome')
+    if current_user && current_user.lms_manager?
+      @students = current_user.lms_managed_students
+      render 'lms/students/index'
+    else
+      render :welcome
+    end
   end
 
   def about_us
