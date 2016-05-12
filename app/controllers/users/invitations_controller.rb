@@ -12,4 +12,15 @@ class Users::InvitationsController < Devise::InvitationsController
   def after_invite_path_for(resource)
     admin_people_path
   end
+
+  private
+
+  # this is called when creating invitation
+  # should return an instance of resource class
+  def invite_resource
+    ## skip sending emails on invite
+    super do |u|
+      u.skip_invitation = params[:skip_invitation] == 'true' ? true : false
+    end
+  end
 end
