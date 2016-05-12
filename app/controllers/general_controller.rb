@@ -12,6 +12,8 @@ class GeneralController < ApplicationController
       @students = current_user.lms_managed_students
       @hide_sidebar = true
       render 'lms/students/index'
+    elsif current_user && current_user.lms_student?
+      @hide_sidebar = true
     else
       render :welcome
     end
