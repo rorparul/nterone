@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
                                   foreign_key: 'seller_id'
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
+  has_many :lms_managed_students
 
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
