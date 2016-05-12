@@ -5,7 +5,8 @@ class Role < ActiveRecord::Base
                          sales_rep: 3,
                          member: 4,
                          lms_manager: 5,
-                         lms_student: 6 },
+                         lms_student: 6,
+                         lms_business: 7 },
                          default: :member,
                          predicates: true
 
@@ -15,24 +16,26 @@ class Role < ActiveRecord::Base
 
   def formatted_role
     normalized_roles = {
-      admin:         "Admin",
-      sales_manager: "Sales Manager",
-      sales_rep:     "Sales",
-      member:        "Member",
-      lms_manager:   "LMS Manager",
-      lms_student:   "LMS Student"
+      admin:         'Admin',
+      sales_manager: 'Sales Manager',
+      sales_rep:     'Sales',
+      member:        'Member',
+      lms_manager:   'LMS Manager',
+      lms_student:   'LMS Student',
+      lms_business: 'LMS Business'
     }
     normalized_roles[self.role.to_sym]
   end
 
   def self.selectable_roles
     [
-      ["Admin", "admin"],
-      ["Sales Manager", "sales_manager"],
-      ["Sales Rep", "sales_rep"],
-      ["Member", "member"],
-      ["LMS Manager", "lms_manager"],
-      ["LMS Student", "lms_student"]
+      ['Admin', 'admin'],
+      ['Sales Manager', 'sales_manager'],
+      ['Sales Rep', 'sales_rep'],
+      ['Member', 'member'],
+      ['LMS Manager', 'lms_manager'],
+      ['LMS Student', 'lms_student'],
+      ['LMS Business', 'lms_business']
     ]
   end
 
