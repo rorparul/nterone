@@ -28,21 +28,22 @@ html
         #header-nav
           .page-title
             = yield :breadcrumbs
-          - if content_for(:actions)
+          - if content_for(:actions) && ( current_user == nil || ( current_user && current_user.lms? ? false : true ) )
             span.header-nav-actions type="button" data-toggle="dropdown"
               i.fa.fa-cog
               | Actions
             ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
               = yield :actions
-          span.header-nav-actions
-            = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
-              i.fa.fa-search
-              | Search
-            - if !user_signed_in? || (user_signed_in? && current_user.member?)
-              = link_to main_app.new_order_path do
-                i.fa.fa-shopping-cart
-                | My Cart
-                span.badge = @cart.order_items.count
+          - if current_user == nil || ( current_user && current_user.lms? ? false : true )
+            span.header-nav-actions
+              = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
+                i.fa.fa-search
+                | Search
+              - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                = link_to main_app.new_order_path do
+                  i.fa.fa-shopping-cart
+                  | My Cart
+                  span.badge = @cart.order_items.count
       hr
       .content-admin
         = render 'layouts/notifications'
