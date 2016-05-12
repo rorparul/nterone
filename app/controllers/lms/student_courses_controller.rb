@@ -1,4 +1,4 @@
-class LmsStudentCoursesController < ApplicationController
+class Lms::StudentCoursesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_student, only: [:show]
   before_action :set_course, only: [:show]
@@ -12,7 +12,7 @@ class LmsStudentCoursesController < ApplicationController
 private
 
   def set_student
-    @student = User.find(params[:lms_student_id])
+    @student = User.find(params[:student_id])
   end
 
   def set_course

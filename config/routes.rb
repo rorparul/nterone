@@ -5,8 +5,6 @@ NterOne::Application.routes.draw do
                             sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
-  get '/lms/', to: 'lms_login#new'
-
   # ActiveAdmin.routes(self)
 
   mount Forem::Engine, :at => '/forums'
@@ -144,8 +142,13 @@ NterOne::Application.routes.draw do
 
   resources :videos
   resources :lms_exams
-  resources :lms_students, only: [:index, :show] do
-    resources :courses, only: [:show], controller: :lms_student_courses
+
+  namespace :lms do
+    get '/', to: 'session#new'
+
+    resources :students, only: [:index, :show] do
+      resources :courses, only: [:show], controller: 'student_courses'
+    end
   end
 
   controller :admin do

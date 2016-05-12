@@ -1,4 +1,4 @@
-class LmsLoginController < ApplicationController
+class Lms::SessionController < ApplicationController
   def new
     if user_signed_in?
       redirect_to root_path
