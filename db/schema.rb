@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425153957) do
+ActiveRecord::Schema.define(version: 20160513133454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,17 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.string   "kind"
     t.string   "title"
   end
+
+  create_table "assigned_items", force: :cascade do |t|
+    t.integer  "assigner_id"
+    t.integer  "student_id"
+    t.integer  "item_id"
+    t.string   "item_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -173,31 +184,31 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",                precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                    precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.boolean  "guaranteed",                                   default: false
-    t.boolean  "active",                                       default: true
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+    t.boolean  "guaranteed",                                       default: false
+    t.boolean  "active",                                           default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
     t.string   "status"
     t.string   "lab_source"
-    t.boolean  "public",                                       default: true
-    t.decimal  "cost_instructor",      precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_lab",             precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_te",              precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_facility",        precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_books",           precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_shipping",        precision: 8, scale: 2, default: 0.0
-    t.boolean  "partner_led",                                  default: false
+    t.boolean  "public",                                           default: true
+    t.decimal  "cost_instructor",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_lab",                 precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_te",                  precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_facility",            precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_books",               precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_shipping",            precision: 8, scale: 2, default: 0.0
+    t.boolean  "partner_led",                                      default: false
     t.string   "time_zone"
-    t.boolean  "sent_webex_invite",                            default: false
-    t.boolean  "sent_course_material",                         default: false
-    t.boolean  "sent_lab_credentials",                         default: false
+    t.boolean  "sent_all_webex_invite",                            default: false
+    t.boolean  "sent_all_course_material",                         default: false
+    t.boolean  "sent_all_lab_credentials",                         default: false
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -383,6 +394,74 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.string   "discount",   default: "0"
   end
 
+  create_table "lms_exam_answers", force: :cascade do |t|
+    t.text     "answer_text"
+    t.integer  "lms_exam_question_id"
+    t.integer  "position"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.boolean  "correct",              default: false
+  end
+
+  add_index "lms_exam_answers", ["lms_exam_question_id"], name: "index_lms_exam_answers_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_attempt_answers", force: :cascade do |t|
+    t.integer  "lms_exam_attempt_id"
+    t.integer  "lms_exam_question_id"
+    t.integer  "lms_exam_answer_id"
+    t.text     "answer_text"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree
+  add_index "lms_exam_attempt_answers", ["lms_exam_attempt_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_attempt_id", using: :btree
+  add_index "lms_exam_attempt_answers", ["lms_exam_question_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_attempts", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "user_id"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "lms_exam_attempts", ["lms_exam_id"], name: "index_lms_exam_attempts_on_lms_exam_id", using: :btree
+  add_index "lms_exam_attempts", ["user_id"], name: "index_lms_exam_attempts_on_user_id", using: :btree
+
+  create_table "lms_exam_question_joins", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "lms_exam_question_id"
+    t.integer  "position"
+    t.boolean  "active"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "lms_exam_question_joins", ["lms_exam_id"], name: "index_lms_exam_question_joins_on_lms_exam_id", using: :btree
+  add_index "lms_exam_question_joins", ["lms_exam_question_id"], name: "index_lms_exam_question_joins_on_lms_exam_question_id", using: :btree
+
+  create_table "lms_exam_questions", force: :cascade do |t|
+    t.text     "question_text"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "lms_exams", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "exam_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "video_module_id"
+    t.integer  "video_id"
+    t.string   "slug"
+  end
+
+  add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
+  add_index "lms_exams", ["video_module_id"], name: "index_lms_exams_on_video_module_id", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "announcement_id"
@@ -392,14 +471,18 @@ ActiveRecord::Schema.define(version: 20160425153957) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "orderable_id"
     t.string   "orderable_type"
     t.integer  "cart_id"
-    t.decimal  "price",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                precision: 8, scale: 2, default: 0.0
     t.integer  "order_id"
     t.integer  "user_id"
+    t.boolean  "sent_webex_invite",                            default: false
+    t.boolean  "sent_course_material",                         default: false
+    t.boolean  "sent_lab_credentials",                         default: false
+    t.string   "status"
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
@@ -504,6 +587,15 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "registrations", force: :cascade do |t|
+    t.boolean  "sent_webex_invite",    default: false
+    t.boolean  "sent_course_material", default: false
+    t.boolean  "sent_lab_credentials", default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "event_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
@@ -546,6 +638,24 @@ ActiveRecord::Schema.define(version: 20160425153957) do
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.date     "date_exp"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "video_on_demand_id"
+  end
+
+  create_table "taken_exams", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
+  add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
@@ -659,6 +769,7 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.text     "intended_audience"
     t.boolean  "partner_led",                               default: false
     t.boolean  "active",                                    default: true
+    t.boolean  "lms",                                       default: false
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree
@@ -672,6 +783,7 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "position",        default: 0
+    t.string   "slug"
   end
 
   create_table "watched_videos", force: :cascade do |t|
@@ -682,4 +794,16 @@ ActiveRecord::Schema.define(version: 20160425153957) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "lms_exam_answers", "lms_exam_questions"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_attempts"
+  add_foreign_key "lms_exam_attempt_answers", "lms_exam_questions"
+  add_foreign_key "lms_exam_attempts", "lms_exams"
+  add_foreign_key "lms_exam_attempts", "users"
+  add_foreign_key "lms_exam_question_joins", "lms_exam_questions"
+  add_foreign_key "lms_exam_question_joins", "lms_exams"
+  add_foreign_key "lms_exams", "video_modules"
+  add_foreign_key "lms_exams", "videos"
+  add_foreign_key "taken_exams", "lms_exams"
+  add_foreign_key "taken_exams", "users"
 end

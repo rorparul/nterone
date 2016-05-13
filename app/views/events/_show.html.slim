@@ -128,20 +128,44 @@
             span title="Add Student" Add Student
       .panel-table
         .responsive-table
-          table.table.table-condensed.table-hover
+          table.table.table-condensed
             thead
               tr
-                th.fit Sales Rep
-                th.fit Student Name
-                th.fit Amount Quoted
-                th.fit Amount Paid
-                th.fit Amount Due
-                th.fit
+                th title="Sent Webex invite"
+                  span.fa.fa-globe
+                th title="Sent course material"
+                  span.fa.fa-book
+                th title="Sent lab credentials"
+                  span.fa.fa-flask
+                th Student
+                th Amount Quoted
+                th Amount Paid
+                th Amount Due
+                th Sales Rep
+                / th
+                / th
             tbody
-              - event.order_items.where(cart_id: nil).each do |order_item|
-                tr
+              - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
+                tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
+                  td
+                    = form_for order_item, remote: true do |f|
+                      = f.check_box :sent_webex_invite,    class: "check-select"
+                  td
+                    = form_for order_item, remote: true do |f|
+                      = f.check_box :sent_course_material, class: "check-select"
+                  td
+                    = form_for order_item, remote: true do |f|
+                      = f.check_box :sent_lab_credentials, class: "check-select"
+                  td = order_item.user.full_name if order_item.user
+                  td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                  - if order_item.order
+                    td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
+                    td = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
+                  - else
+                    td
+                    td
                   - if current_user.admin?
-                    td.fit
+                    td
                       - if order_item.order
                         = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
                           = f.select :seller_id,
@@ -149,21 +173,11 @@
                                      { prompt: true },
                                      { class: 'form-control input-sm table-select' }
                   - else
-                    td.fit = order_item.order.buyer.full_name if order_item.order.buyer
-                  td.fit = order_item.user.full_name if order_item.user
-                  td.fit = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-                  - if order_item.order
-                    td.fit = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
-                    td.fit = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
-                  - else
-                    td.fit
-                    td.fit
-                  td.fit.text-right
-                    = link_to 'Edit', edit_order_path(order_item.order, event: event.id), remote: true
-                    |  | 
-                    = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
+                    td = order_item.order.buyer.full_name if order_item.order.buyer
+                  / td = link_to 'Edit', edit_order_item_path(order_item), remote: true
+                  / td = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
                     
 javascript:
-  $('.table-select').on('change', function() {
+  $('.table-select, .check-select').on('change', function() {
     $(this).closest('form').submit();
   });

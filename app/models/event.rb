@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
   end
 
   def update_status
-    if self.sent_webex_invite && self.sent_course_material && self.sent_lab_credentials
+    if self.sent_all_webex_invite && self.sent_all_course_material && self.sent_all_lab_credentials
       self.status = "Confirmed"
     else
       self.status = "Pending"

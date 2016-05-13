@@ -4,7 +4,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :orderable, polymorphic: true
 
-  before_save :copy_current_orderable_price
+  before_save :copy_current_orderable_price, :update_status
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   # validates :order, presence: true
@@ -26,6 +26,18 @@ class OrderItem < ActiveRecord::Base
       0.0
     else
       sum
+    end
+  end
+
+  def fullfilled?
+    sent_webex_invite && sent_course_material && sent_lab_credentials
+  end
+
+  def update_status
+    if fullfilled?
+      self.status = "complete"
+    else
+      self.status = "pending"
     end
   end
 

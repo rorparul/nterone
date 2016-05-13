@@ -4,8 +4,6 @@ NterOne::Application.routes.draw do
              controllers: { registrations: 'users/registrations',
                             invitations:   'users/invitations' }
 
-  # ActiveAdmin.routes(self)
-
   mount Forem::Engine, :at => '/forums'
 
   resources :users  do
