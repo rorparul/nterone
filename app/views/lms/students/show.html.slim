@@ -1,11 +1,7 @@
 - content_for :breadcrumbs do
-  a href="#{root_path}"
+  a href="#{lms_students_path}"
     span.fa.fa-home
     | Home
-  span.seperator
-    | /
-  a href="#{lms_students_path}"
-    | LMS Students
   span.seperator
     | /
   span.text-muted= @student.full_name
