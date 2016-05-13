@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512031034) do
+ActiveRecord::Schema.define(version: 20160512194153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -461,6 +461,13 @@ ActiveRecord::Schema.define(version: 20160512031034) do
 
   add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
   add_index "lms_exams", ["video_module_id"], name: "index_lms_exams_on_video_module_id", using: :btree
+
+  create_table "lms_managed_students", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"

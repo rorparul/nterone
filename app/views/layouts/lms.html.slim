@@ -23,33 +23,17 @@ html
     = render 'layouts/modal'
     = render 'layouts/header'
     .container-fluid
-      = render 'layouts/sidebar'
       .content-top
         #menu-toggle
           i.fa.fa-bars
         #header-nav
           .page-title
             = yield :breadcrumbs
-          - if content_for(:actions)
-            span.header-nav-actions type="button" data-toggle="dropdown"
-              i.fa.fa-cog
-              | Actions
-            ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
-              = yield :actions
-            span.header-nav-actions
-              = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
-                i.fa.fa-search
-                | Search
-              - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                = link_to main_app.new_order_path do
-                  i.fa.fa-shopping-cart
-                  | My Cart
-                  span.badge = @cart.order_items.count
-      hr
-      .content
+      hr      
+      .content.content-lms
         = render 'layouts/notifications'
         = yield
-    = render 'layouts/footer'
+    = render 'layouts/footer_lms'
     = render 'layouts/ad_words'
 - if Rails.env.production?
 

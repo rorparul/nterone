@@ -1,5 +1,4 @@
 footer.general-footer.text-muted style="text-align: center;"
-  - if current_user == nil || ( current_user && current_user.lms? ? false : true )
     #social-icons
       = link_to 'https://www.facebook.com/NterOne', target: '_blank', class: 'facebook' do
         span.fa.fa-facebook-square
@@ -9,14 +8,12 @@ footer.general-footer.text-muted style="text-align: center;"
         span.fa.fa-linkedin-square
       = link_to 'https://plus.google.com/+Nterone', target: '_blank', class: 'google' do
         span.fa.fa-google-plus-square
-  #legal-docs
-    a href="#{main_app.page_path(Page.find_by(title: "NterOne Privacy Policy"))}" Privacy Policy
-    span  | 
-    a href="#{main_app.page_path(Page.find_by(title: "NterOne Terms and Conditions"))}" Terms and Conditions
-    - if current_user == nil || ( current_user && current_user.lms? ? false : true )
-      span  | 
+    #legal-docs
+      a href="#{main_app.page_path(Page.find_by(title: "NterOne Privacy Policy"))}" Privacy Policy
+      span  |
+      a href="#{main_app.page_path(Page.find_by(title: "NterOne Terms and Conditions"))}" Terms and Conditions
+      span  |
       a href="#{main_app.sitemap_path}" Sitemap
-  - if current_user == nil || ( current_user && current_user.lms? ? false : true )  
-    #copyright
-      | Copyright &copy; 
-      = "#{Date.today.year} NterOne Corporation. All rights reserved."
+      #copyright
+        | Copyright &copy;
+        = "#{Date.today.year} NterOne Corporation. All rights reserved."

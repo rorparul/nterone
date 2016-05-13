@@ -1,4 +1,4 @@
-class Lms::StudentsController < ApplicationController
+class Lms::StudentsController < Lms::BaseController
   before_action :authenticate_user!
   before_action :set_student, only: [:show]
 
