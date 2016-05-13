@@ -5,6 +5,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :orderable, polymorphic: true
 
   before_save :copy_current_orderable_price, :update_status
+  after_save  :update_event_status
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   # validates :order, presence: true
@@ -38,6 +39,16 @@ class OrderItem < ActiveRecord::Base
       self.status = "complete"
     else
       self.status = "pending"
+    end
+  end
+
+  def update_event_status
+    if orderable_type == "Event"
+      if self.orderable.order_items.all? { |order_item| order_item.status == "complete" }
+        orderable.update_attributes(status: "Confirmed")
+      else
+        orderable.update_attributes(status: "Pending")
+      end
     end
   end
 

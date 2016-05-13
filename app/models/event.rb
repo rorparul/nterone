@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
 
-  before_save    :update_status
+  # before_save    :update_status
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
@@ -20,14 +20,6 @@ class Event < ActiveRecord::Base
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
-  end
-
-  def update_status
-    if self.sent_all_webex_invite && self.sent_all_course_material && self.sent_all_lab_credentials
-      self.status = "Confirmed"
-    else
-      self.status = "Pending"
-    end
   end
 
   def self.guaranteed_events

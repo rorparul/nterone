@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513133454) do
+ActiveRecord::Schema.define(version: 20160513182144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,15 +187,15 @@ ActiveRecord::Schema.define(version: 20160513133454) do
     t.decimal  "price",                    precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
     t.boolean  "guaranteed",                                       default: false
     t.boolean  "active",                                           default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
-    t.string   "status"
+    t.string   "status",                                           default: "Pending"
     t.string   "lab_source"
     t.boolean  "public",                                           default: true
     t.decimal  "cost_instructor",          precision: 8, scale: 2, default: 0.0
@@ -525,6 +525,7 @@ ActiveRecord::Schema.define(version: 20160513133454) do
     t.boolean  "verified",                                    default: false
     t.boolean  "invoiced",                                    default: false
     t.string   "invoice_number"
+    t.integer  "status_position"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
