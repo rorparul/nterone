@@ -1,11 +1,12 @@
 class Lms::StudentAssignmentsController < Lms::BaseController
   before_action :authenticate_user!
   before_action :set_student
+  before_action :set_assignment, only: :destroy
 
   def index
     authorize :lms_student_assignment, :index?
 
-    @assignments = @student.assigned_vods
+    @assignments = @student.assigned_items
     @assignable_courses = VideoOnDemand.lms - @student.assigned_vods
   end
 
@@ -22,10 +23,24 @@ class Lms::StudentAssignmentsController < Lms::BaseController
     end
   end
 
+  def destroy
+    if @assignment.destroy
+      flash[:success] = 'assignment was destroyed successfully'
+    else
+      flash[:alert] = 'could not destroy assignment'
+    end
+
+    redirect_to :back
+  end
+
 private
 
   def set_student
     @student = User.find(params[:student_id])
+  end
+
+  def set_assignment
+    @assignment = AssignedItem.find(params[:id])
   end
 
   def assigned_item_params
