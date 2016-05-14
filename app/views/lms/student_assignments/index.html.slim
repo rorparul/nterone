@@ -5,10 +5,10 @@
   span.seperator
     | /
   span.text-muted
-    | #{@student.full_name} Assigments
+    | #{@student.full_name} Assignments
 
 .row
-  = form_for :assigned_item, url: lms_student_assigments_path, remote: false do |f|
+  = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
     .form-group
       = f.label 'Choose Course To Assign'
       br
@@ -17,5 +17,6 @@
 
   br
 
-  - @assigments.each do |assigment|
-    .well= assigment.title
+  - @assignments.each do |assignment|
+    .col-md-6.assig
+    .well= assignment.title

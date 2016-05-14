@@ -12,7 +12,7 @@
         td Name
         td Email
         td Last Active
-        td Assigments
+        td Assignments
         td Show
       tbody
         - @students.each do |student|
@@ -21,7 +21,7 @@
             td= student.email
             td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
             td
-              =link_to 'Manage Assigments', lms_student_assigments_path(student)
+              =link_to 'Manage Assigments', lms_student_assignments_path(student)
             td
               a href=lms_student_path(student) Show
     - else
