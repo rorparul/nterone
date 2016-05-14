@@ -5,7 +5,8 @@ class Lms::StudentAssigmentsController < Lms::BaseController
   def index
     authorize :lms_student_assigment, :index?
 
-    @courses = VideoOnDemand.lms
+    @assigments = @student.assigned_vods
+    @assignable_courses = VideoOnDemand.lms - @student.assigned_vods
   end
 
 private

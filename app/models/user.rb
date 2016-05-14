@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :passed_exams,     dependent:  :destroy
   has_many :exams,            through:    :passed_exams
 
+  has_many :assigned_items,   foreign_key: 'student_id'
+  has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
+
   #TODO: track leads through relationships instead
   has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
   has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy

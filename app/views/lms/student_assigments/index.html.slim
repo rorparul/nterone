@@ -1,1 +1,21 @@
-viri
+- content_for :breadcrumbs do
+  a href="#{lms_students_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted
+    | #{@student.full_name} Assigments
+
+.row
+  = form_for :assigned_item, url: lms_student_assigments_path, remote: false do |f|
+    .form-group
+      = f.label 'Choose Course To Assign'
+      br
+      = f.select :course_id, options_for_select(@assignable_courses.map{|course| ["#{course.title}", course.id]})
+      button.label.label-success type="submit" Assign
+
+  br
+
+  - @assigments.each do |assigment|
+    .well= assigment.title
