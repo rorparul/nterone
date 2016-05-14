@@ -2281,3 +2281,23 @@ footer {
 .content-lms {
   padding-left: 15px !important;
 }
+
+
+.assignment {
+  padding-left: 0px;
+
+  .remove-assignment {
+    padding: 8px;
+  }
+}
+
+.choose-course {
+  button {
+    border: 0px;
+    padding: 4px 10px;
+  }
+
+  select {
+    margin-right: 10px;
+  }
+}

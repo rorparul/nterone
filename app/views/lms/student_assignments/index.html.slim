@@ -8,20 +8,19 @@
     | #{@student.full_name} Assignments
 
 .row
-  = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
-    .form-group
-      = f.label 'Choose Course To Assign'
-      br
-      = f.select :course_id, options_for_select(@assignable_courses.map{|course| ["#{course.title}", course.id]})
-      button.label.label-success type="submit" Assign
-
-  br
+  .choose-course
+    = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
+      .form-group
+        = f.label 'Choose Course To Assign'
+        br
+        = f.select :course_id, options_for_select(@assignable_courses.map{|course| ["#{course.title}", course.id]})
+        button.label.label-success type="submit" Assign
 
   - @assignments.each do |assignment|
-    .col-md-6.assig
+    .col-md-6.assignment
       .well
-        span= assignment.item.title
+        span.lead= assignment.item.title
         =link_to 'Remove Assignment',
           lms_student_assignment_path(@student, assignment),
-          class: 'label label-danger pull-right',
+          class: 'label label-danger pull-right remove-assignment',
           data: { method: :delete, :confirm => 'Are you sure?'}
