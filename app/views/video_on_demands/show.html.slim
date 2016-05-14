@@ -107,11 +107,11 @@
                                     = video_status(current_user, video)
 
                                 - video.lms_exams.each do |lms_exam|
-                                  - if false
+                                  - if video.free
                                       tr.quiz
                                         td
                                           span.fa.fa-edit
-                                          a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
@@ -121,7 +121,7 @@
                                     tr.quiz
                                       td
                                         span.fa.fa-edit
-                                        a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                        a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | Scores
@@ -194,3 +194,15 @@ javascript:
       }, 500);
     }
   });
+
+  window._wq = window._wq || [];
+  _wq.push({ '_all': function(video) {
+    var first_video = video
+
+    video.bind('end', function () {
+      var id = $(first_video.container).parent().data('id')
+      var element = $('.open-' + id).first()
+
+      if (element) element.click()
+    })
+  }});
