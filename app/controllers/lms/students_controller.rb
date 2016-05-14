@@ -9,7 +9,7 @@ class Lms::StudentsController < Lms::BaseController
 
   def show
     authorize :lms_student, :show?
-    @courses = VideoOnDemand.lms
+    @courses = @student.assigned_vods
   end
 
 private
