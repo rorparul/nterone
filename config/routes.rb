@@ -148,6 +148,7 @@ NterOne::Application.routes.draw do
 
     resources :students, only: [:index, :show] do
       resources :courses, only: [:show], controller: 'student_courses'
+      resources :assigments, only: [:index], controller: 'student_assigments'
     end
   end
 
