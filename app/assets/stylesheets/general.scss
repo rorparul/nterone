@@ -2231,36 +2231,20 @@ footer {
     margin-right: 5px;
   }
 
-  .fa-edit {
-    margin-right: 8px;
-    margin-left: 5px;
-    font-size: 18px;
+  .fa-file-text-o {
+    margin-right: 7px;
   }
 }
 
 .video {
-  .fa-file-video-o {
-    margin-right: 11px;
-    font-size: 18px;
+  .fa-play {
+    margin-right: 7px;
   }
 }
 
 .video-module-results {
   display: inline-block;
   float: right;
-
-  .fa-file-video-o, .fa-edit {
-    font-size: 15px;
-    position: relative;
-  }
-
-  .fa-file-video-o {
-    font-size: 12px;
-  }
-
-  .fa-edit {
-    top: 1px;
-  }
 
   .count {
     margin-left: 3px;
