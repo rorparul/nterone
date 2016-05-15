@@ -9,9 +9,9 @@ class GeneralController < ApplicationController
   def welcome
     @page = Page.find_by(title: 'Welcome')
     if current_user && current_user.lms_manager?
-      redirect_to lms_students_path
+      redirect_to lms_manager_path
     elsif current_user && current_user.lms_student?
-      @hide_sidebar = true
+      redirect_to lms_student_path(current_user)
     else
       render :welcome
     end

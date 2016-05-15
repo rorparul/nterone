@@ -145,6 +145,7 @@ NterOne::Application.routes.draw do
 
   namespace :lms do
     get '/', to: 'session#new'
+    get '/manager', to: 'students#index'
 
     resources :students, only: [:index, :show] do
       resources :courses, only: [:show], controller: 'student_courses'
