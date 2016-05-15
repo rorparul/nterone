@@ -8,10 +8,13 @@ class GeneralController < ApplicationController
 
   def welcome
     @page = Page.find_by(title: 'Welcome')
+
     if current_user && current_user.lms_manager?
       redirect_to lms_manager_path
     elsif current_user && current_user.lms_student?
       redirect_to lms_student_path(current_user)
+    elsif current_user && current_user.lms_business?
+      redirect_to lms_business_index_path
     else
       render :welcome
     end

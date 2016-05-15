@@ -4,7 +4,7 @@ class Lms::StudentsController < Lms::BaseController
 
   def index
     authorize :lms_student, :index?
-    @students = User.lms_students
+    @students = User.lms_students_all
   end
 
   def show
