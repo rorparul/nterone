@@ -86,4 +86,5 @@ group :development, :test do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'dotenv-rails'
+  gem 'quiet_assets'
 end

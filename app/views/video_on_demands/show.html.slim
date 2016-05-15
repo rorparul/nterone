@@ -24,7 +24,7 @@
   .col-xs-12.col-central
     #video-on-demand
       .row
-        .col-xs-12
+        .col-xs-10
           span class=(@purchased ? 'hide' : '')
             = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
@@ -66,16 +66,16 @@
                           = video_module.title
                         .video-module-results
                           span.label.item class=video_completed_class(video_module, current_user)
-                            span.fa.fa-file-video-o
+                            span.fa.fa-play
                             span.count
                               = video_completed_ratio(video_module, current_user)
-
-                          span.label.item class=exam_completed_class(video_module, current_user)
-                            span.fa.fa-edit
-                            span.count
-                              = exam_completed_ratio(video_module, current_user)
-
-                          span.fa.fa-check class=(@video_on_demand.exam_completed_by?(current_user) ? 'text-success' : '')
+                          - if video_module.lms_exams.count > 0
+                            span.label.item class=exam_completed_class(video_module, current_user)
+                              span.fa.fa-file-text-o
+                              span.count
+                                = exam_completed_ratio(video_module, current_user)
+                          span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default')
+                            span.fa.fa-check
                     .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
@@ -89,29 +89,29 @@
                                 tr.video
                                   - if video.free
                                     td
-                                      span.fa.fa-file-video-o
+                                      span.fa.fa-play
                                       a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                       span
                                         |  (Free Sample)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
-                                      span.fa.fa-file-video-o
+                                      span.fa.fa-play
                                       a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                   - else
                                     td
-                                      span.fa.fa-file-video-o
+                                      span.fa.fa-play
                                       span.text-muted title="Play Video" = video.title
                                   td id="video-#{video.id}-status"
                                     = video_status(current_user, video)
 
                                 - video.lms_exams.each do |lms_exam|
-                                  - if false
+                                  - if video.free
                                       tr.quiz
                                         td
-                                          span.fa.fa-edit
-                                          a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          span.fa.fa-file-text-o
+                                          a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
@@ -120,8 +120,8 @@
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     tr.quiz
                                       td
-                                        span.fa.fa-edit
-                                        a title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                        span.fa.fa-file-text-o
+                                        a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | Scores
@@ -130,7 +130,7 @@
                                   - else
                                     tr.quiz
                                       td
-                                        span.fa.fa-edit
+                                        span.fa.fa-file-text-o
                                         span.text-muted= lms_exam.title
 
           .row
@@ -194,3 +194,15 @@ javascript:
       }, 500);
     }
   });
+
+  window._wq = window._wq || [];
+  _wq.push({ '_all': function(video) {
+    var first_video = video
+
+    video.bind('end', function () {
+      var id = $(first_video.container).parent().data('id')
+      var element = $('.open-' + id).first()
+
+      if (element) element.click()
+    })
+  }});

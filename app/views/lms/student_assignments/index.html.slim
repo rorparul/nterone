@@ -1,0 +1,26 @@
+- content_for :breadcrumbs do
+  a href="#{lms_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted
+    | #{@student.full_name} Assignments
+
+.row
+  .choose-course
+    = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
+      .form-group
+        = f.label 'Choose Course To Assign'
+        br
+        = f.select :course_id, options_for_select(@assignable_courses.map{|course| ["#{course.title}", course.id]})
+        button.label.label-success type="submit" Assign
+
+  - @assignments.each do |assignment|
+    .col-md-6.assignment
+      .well
+        span.lead= assignment.item.title
+        =link_to 'Remove Assignment',
+          lms_student_assignment_path(@student, assignment),
+          class: 'label label-danger pull-right remove-assignment',
+          data: { method: :delete, :confirm => 'Are you sure?'}

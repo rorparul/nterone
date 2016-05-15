@@ -4,7 +4,7 @@ module VideoOnDemandHelper
   end
 
   def video_completed_class(video_module, user)
-    return '' if video_module.videos.count == 0
+    return 'label-default' if video_module.videos.count == 0
     video_module.watched_count(user) == video_module.videos.count ? 'label-success' : 'label-default'
   end
 
@@ -13,7 +13,7 @@ module VideoOnDemandHelper
   end
 
   def exam_completed_class(video_module, user)
-    return '' if video_module.exams_count == 0
+    return 'label-default' if video_module.exams_count == 0
     video_module.completed_exams_count_for(current_user) == video_module.exams_count ? 'label-success' : 'label-default'
   end
 end

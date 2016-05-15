@@ -4,7 +4,8 @@
     | Home
 
 .row
-  h4 Students
+  span.lead.pull-left Students
+  button.btn.btn-default.pull-right Export Report
 
   table.table.table-hover
     - unless @students.empty?
@@ -12,7 +13,7 @@
         td Name
         td Email
         td Last Active
-        td Assignments
+        td Assigned to
         td Show
       tbody
         - @students.each do |student|
@@ -20,8 +21,7 @@
             td= student.full_name
             td= student.email
             td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
-            td
-              =link_to 'Manage Assigments', lms_student_assignments_path(student)
+            td= student.assigned_to.try(:full_name)
             td
               a href=lms_student_path(student) Show
     - else

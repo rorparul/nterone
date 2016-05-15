@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :passed_exams,     dependent:  :destroy
   has_many :exams,            through:    :passed_exams
 
+  has_many :assigned_items,   foreign_key: 'student_id'
+  has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
+
   #TODO: track leads through relationships instead
   has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
   has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
@@ -35,6 +38,12 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
+  has_many :lms_managers, through: :lms_managers_associacion, source: 'manager'
+  has_many :lms_students, through: :lms_students_associacion, source: 'user'
+
+  has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
+  has_many :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
+
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   devise :database_authenticatable,
@@ -47,7 +56,7 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
 
-  def self.lms_students
+  def self.lms_students_all
     User.includes(:roles).where(roles: { role: 6 })
   end
 
@@ -197,8 +206,12 @@ class User < ActiveRecord::Base
     has_role? :lms_student
   end
 
+  def lms_business?
+    has_role? :lms_business
+  end
+
   def lms?
-    lms_student? || lms_manager?
+    lms_student? || lms_manager? || lms_business?
   end
 
   def sales_manager?
@@ -223,5 +236,9 @@ class User < ActiveRecord::Base
 
   def has_role?(role_param)
     roles.any? { |role| role.role.to_sym == role_param }
+  end
+
+  def assigned_to
+    lms_managers.first
   end
 end

@@ -18,6 +18,7 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build(video_on_demand_params)
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
+
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
       redirect_to platform_category_path(@platform, Category.parent_categories.first)
