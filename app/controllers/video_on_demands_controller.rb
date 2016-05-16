@@ -118,7 +118,6 @@ class VideoOnDemandsController < ApplicationController
 
   def play_video
     @video = Video.find(params[:id])
-    watched_video =
 
     if user_signed_in? && @video.users.exclude?(current_user)
        @video.watched_videos.create(user: current_user, status: 'opened')
