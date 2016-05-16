@@ -204,5 +204,15 @@ javascript:
       var element = $('.open-' + id).first()
 
       if (element) element.click()
+
+      $.ajax({
+        type: 'PUT',
+        url: '/videos/' + id,
+        data: { status: 'completed' },
+        success: function (result) {
+          console.log(result)
+        }
+      })
+
     })
   }});
