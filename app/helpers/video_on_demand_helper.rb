@@ -16,4 +16,10 @@ module VideoOnDemandHelper
     return 'label-default' if video_module.exams_count == 0
     video_module.completed_exams_count_for(current_user) == video_module.exams_count ? 'label-success' : 'label-default'
   end
+
+  def quiz_disabled_class(video, user)
+    return 'disabled' if !user
+
+    video.status_for(user) == 'completed' ? '' : 'disabled'
+  end
 end

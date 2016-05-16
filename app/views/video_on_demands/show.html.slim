@@ -109,28 +109,28 @@
 
                                 - video.lms_exams.each do |lms_exam|
                                   - if video.free
-                                      tr.quiz
+                                      tr.quiz class="video-#{video.id}-quiz"
                                         td id="quiz-#{lms_exam.id}-status"
                                           = taken_exam_status(current_user, lms_exam)
                                         td
                                           span.fa.fa-file-text-o
-                                          a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
                                   - elsif user_signed_in? && video.permit_user?(current_user)
-                                    tr.quiz
+                                    tr.quiz class="video-#{video.id}-quiz"
                                       td id="quiz-#{lms_exam.id}-status"
                                         = taken_exam_status(current_user, lms_exam)
                                       td
                                         span.fa.fa-file-text-o
-                                        a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                        a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | Scores
                                   - else
-                                    tr.quiz
-                                      td 
+                                    tr.quiz class="video-#{video.id}-quiz"
+                                      td
                                       td
                                         span.fa.fa-file-text-o
                                         span.text-muted= lms_exam.title
@@ -212,7 +212,8 @@ javascript:
         url: '/videos/' + id,
         data: { status: 'completed' },
         success: function (result) {
-          console.log(result)
+          $('#video-' + id + '-status span').removeClass('started').addClass('completed')
+          $('.video-' + id + '-quiz a.disabled').removeClass('disabled')
         }
       })
 

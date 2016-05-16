@@ -2237,6 +2237,11 @@ footer {
   .fa-file-text-o {
     margin-right: 7px;
   }
+
+  a.disabled {
+    pointer-events: none;
+    color: #777;
+  }
 }
 
 .video {
