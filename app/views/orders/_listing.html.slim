@@ -27,9 +27,9 @@
                 - if order.status == "Uninvoiced"
                   span.label.label-warning = order.status
                 - if order.status == "Invoiced"
-                  span.label.label-alert = order.status
+                  span.label.label-success = order.status
                 - if order.status == "Paid In Full"
-                  span.label.label-alert = order.status
+                  span.label.label-success = order.status
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
               td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
               td.fit = order.auth_code
@@ -40,9 +40,9 @@
               td = order.buyer.email if order.buyer
               td.fit.actions-column.text-right
                 = link_to "Show", admin_orders_show_path(order), remote: false
-                |  | 
+                |  |
                 = link_to "Edit", edit_order_path(order), remote: true
-                |  | 
+                |  |
                 = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }
   .panel-footer
     = smart_listing.paginate
