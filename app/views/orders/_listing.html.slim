@@ -27,9 +27,9 @@
                 - if order.status == "Uninvoiced"
                   span.label.label-warning = order.status
                 - if order.status == "Invoiced"
-                  span.label.label-success = order.status
+                  span.label.label-alert = order.status
                 - if order.status == "Paid In Full"
-                  span.label.label-success = order.status
+                  span.label.label-alert = order.status
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
               td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
               td.fit = order.auth_code
