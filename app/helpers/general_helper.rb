@@ -36,18 +36,21 @@ module GeneralHelper
   end
 
   def video_status(user, video)
-    if user
-      if WatchedVideo.find_by(user_id: user.id, video_id: video.id)
-        "<span class='fa fa-check text-success'></span>".html_safe
-      end
-    end
+    return if !user
+
+    status = video.status_for(user) || ''
+    "<span class='status-circle #{status}' />".html_safe
   end
 
   def taken_exam_status(user, lms_exam)
-    if user
-      if LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
-        "<span class='fa fa-check text-success'></span>".html_safe
-      end
+    return if !user
+
+    if lms_exam.completed_by?(user)
+      "<span class='status-circle completed' />".html_safe
+    elsif LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
+      "<span class='status-circle started' />".html_safe
+    else
+      "<span class='status-circle' />".html_safe
     end
   end
 

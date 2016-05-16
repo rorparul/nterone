@@ -82,11 +82,14 @@
                           table.table.table-compact
                             thead
                               tr
-                                th Video
                                 th.fit Status
+                                th Video
                             tbody
                               - video_module.videos.order(:position).each do |video|
                                 tr.video
+                                  td id="video-#{video.id}-status"
+                                    = video_status(current_user, video)
+
                                   - if video.free
                                     td
                                       span.fa.fa-play
@@ -103,32 +106,31 @@
                                     td
                                       span.fa.fa-play
                                       span.text-muted title="Play Video" = video.title
-                                  td id="video-#{video.id}-status"
-                                    = video_status(current_user, video)
 
                                 - video.lms_exams.each do |lms_exam|
                                   - if video.free
                                       tr.quiz
+                                        td id="quiz-#{lms_exam.id}-status"
+                                          = taken_exam_status(current_user, lms_exam)
                                         td
                                           span.fa.fa-file-text-o
                                           a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
-                                        td id="quiz-#{lms_exam.id}-status"
-                                          = taken_exam_status(current_user, lms_exam)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     tr.quiz
+                                      td id="quiz-#{lms_exam.id}-status"
+                                        = taken_exam_status(current_user, lms_exam)
                                       td
                                         span.fa.fa-file-text-o
                                         a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | Scores
-                                      td id="quiz-#{lms_exam.id}-status"
-                                        = taken_exam_status(current_user, lms_exam)
                                   - else
                                     tr.quiz
+                                      td 
                                       td
                                         span.fa.fa-file-text-o
                                         span.text-muted= lms_exam.title

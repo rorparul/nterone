@@ -2285,3 +2285,30 @@ footer {
     margin-right: 10px;
   }
 }
+
+.half-circle {
+    background-color:#c06;
+    height:10px;
+    width: 5px;
+    border-radius: 10px 0 0 10px;
+}
+
+.status-circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #5cb85c;
+
+  &.started {
+    width: 5px;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    background-color: #5cb85c;
+  }
+
+  &.completed {
+    border: none;
+    background: #5cb85c;
+  }
+}

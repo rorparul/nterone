@@ -120,7 +120,7 @@ class VideoOnDemandsController < ApplicationController
     @video = Video.find(params[:id])
 
     if user_signed_in? && @video.users.exclude?(current_user)
-       @video.watched_videos.create(user: current_user, status: 'opened')
+       @video.watched_videos.create(user: current_user, status: 'started')
     end
   end
 
