@@ -27,6 +27,7 @@
             | #{time_ago_in_words(attempt.created_at)} ago
           td #{time_diff(attempt.started_at, attempt.completed_at)} Minutes
           td
-            .progress
-              .progress-bar.progress-bar-success role='progressbar' aria-valuenow=attempt.percent_correct aria-valuemin="0" aria-valuemax="100" style="width: #{attempt.percent_correct}%;"
-                | #{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})
+            b.text
+              | #{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})
+            .progress-bar-our
+              .progress-our style="width: #{attempt.percent_correct}%;"

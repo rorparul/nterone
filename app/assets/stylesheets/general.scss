@@ -2214,14 +2214,7 @@ footer {
 
 
 .student-courses-attempts {
-  .progress {
-    margin-bottom: 0px !important;
-    color: #4A4A4A !important;
-  }
 
-  .progress-bar {
-    color: #4A4A4A !important;
-  }
 }
 
 .quiz {
@@ -2318,5 +2311,25 @@ footer {
   &.completed {
     border: none;
     background: #5cb85c;
+  }
+}
+
+
+.progress-bar-our {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 5px 0 0;
+  background: #eee;
+  border-radius: 20px;
+  height: 5px;
+
+  .progress-our {
+    position: relative;
+    max-width: 100%;
+    height: 5px;
+    background: #67d07c;
+    border-radius: 20px;
+    -webkit-transition: width 0.3s;
+    transition: width 0.3s;
   }
 }
