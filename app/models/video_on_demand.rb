@@ -97,6 +97,21 @@ class VideoOnDemand < ActiveRecord::Base
     LmsExamAttempt.where(user: user, lms_exam_id: exam_ids)
   end
 
+  def overal_progress_percent_for(user)
+    all_count = self.all_exams.count + self.video_count
+    completed_count = self.quizes_completed_count_by(user) + self.watched_count(user)
+
+    (overal_progress_count_for(user) * 100) / overal_all_count_for(user)
+  end
+
+  def overal_all_count_for(user)
+    self.all_exams.count + self.video_count
+  end
+
+  def overal_progress_count_for(user)
+    self.quizes_completed_count_by(user) + self.watched_count(user)
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

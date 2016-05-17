@@ -2333,3 +2333,19 @@ footer {
     transition: width 0.3s;
   }
 }
+
+.course-progress {
+  margin-bottom: 10px;
+
+  .progress-bar-our {
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  .progress-our {
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+}

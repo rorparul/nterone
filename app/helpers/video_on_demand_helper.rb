@@ -22,4 +22,8 @@ module VideoOnDemandHelper
 
     video.status_for(user) == 'completed' ? '' : 'disabled'
   end
+
+  def vod_overal_progress(vod, user)
+    "#{vod.overal_progress_percent_for(user)}% (#{vod.overal_progress_count_for(user)}/#{vod.overal_all_count_for(user)})"
+  end
 end
