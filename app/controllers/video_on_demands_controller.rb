@@ -74,6 +74,7 @@ class VideoOnDemandsController < ApplicationController
     @instructors     = @platform.instructors
     @exam = LmsExam.new
     @exam_types = LmsExam.exam_types
+    @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
 
     @video_on_demand.video_modules.each do |video_module|

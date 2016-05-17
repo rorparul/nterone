@@ -98,6 +98,8 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def overal_progress_percent_for(user)
+    return 0 if overal_all_count_for(user).zero?
+
     all_count = self.all_exams.count + self.video_count
     completed_count = self.quizes_completed_count_by(user) + self.watched_count(user)
 
