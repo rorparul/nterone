@@ -27,5 +27,9 @@ module NterOne
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
+
+    config.react.jsx_transform_options = {
+      optional: ['es7.classProperties']
+    }
   end
 end

@@ -14,3 +14,6 @@
 //= require forem
 //= require smart_listing
 //= require general
+//= require react
+//= require react_ujs
+//= require components
