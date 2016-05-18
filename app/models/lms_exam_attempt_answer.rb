@@ -6,4 +6,14 @@ class LmsExamAttemptAnswer < ActiveRecord::Base
   def correct_answer
     lms_exam_question.lms_exam_answers.where(correct: true)
   end
+
+  def correct?
+    if lms_exam_question.free_form?
+      return answer_text == lms_exam_answer.try(:answer_text)
+    end
+
+    if lms_exam_question.multiple_choice?
+      return lms_exam_answer.correct
+    end
+  end
 end
