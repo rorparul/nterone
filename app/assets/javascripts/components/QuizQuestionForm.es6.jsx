@@ -23,6 +23,8 @@ class QuizQuestionForm extends React.Component {
 
   typeChanged = (question, e) => {
     question.type = e.target.value
+    question.answers = []
+
     this.setState({ questions: this.state.questions })
   }
 
