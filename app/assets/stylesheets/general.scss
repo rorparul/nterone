@@ -2349,3 +2349,42 @@ footer {
     border-radius: 5px;
   }
 }
+
+.question-answer-form {
+  margin-bottom: 20px;
+
+  .question {
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 10px;
+  }
+
+  .add-question {
+    margin-bottom: 10px;
+  }
+
+  .question-text {
+    height: 40px;
+    display: inline-block;
+    width: 294px;
+    margin-bottom: 15px;
+    margin-right: 12px;
+    margin-top: 15px;
+  }
+
+  .answers {
+    .answer-text {
+      display: inline-block;
+      width: 294px;
+      margin-bottom: 15px;
+      margin-right: 12px;
+    }
+
+    .answer-correct {
+      margin-left: 6px;
+    }
+  }
+
+  .add-answer {
+    margin-top: 7px;
+  }
+}

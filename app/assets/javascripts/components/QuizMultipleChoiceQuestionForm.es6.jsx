@@ -24,17 +24,33 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
   }
 
   renderAnswer = (answer) => {
-    return <div key={answer.index} className='answer'>
-      <input name={this.answerInputName(answer.index) + '[answer_text]'} />
-      <span>Correct?</span>
-      <input name={this.answerInputName(answer.index) + '[correct]'} type='checkbox' value='true'/>
-    </div>
+    return (
+      <div key={answer.index} className='answer'>
+        <input
+          className='form-control input-sm answer-text'
+          placeholder='Enter Answer...'
+          name={this.answerInputName(answer.index) + '[answer_text]'}
+        />
+        <span>Correct?</span>
+        <input
+          className='answer-correct'
+          name={this.answerInputName(answer.index) + '[correct]'}
+          type='checkbox'
+          value='true'
+        />
+      </div>
+    )
   }
 
   render () {
     return <div className='answers'>
       {this.props.question.answers.map(answer => this.renderAnswer(answer))}
-      <button onClick={this.addAnswerClicked.bind(this)}>Add Answer</button>
+
+      <button
+        onClick={this.addAnswerClicked.bind(this)}
+        className='add-answer btn btn-info'>
+        Add Answer
+      </button>
     </div>
   }
 }

@@ -24,15 +24,26 @@ class QuizFreeFormQuestionForm extends React.Component {
   }
 
   renderAnswer = (answer) => {
-    return <div key={answer.index} className='answer' placeholder='Enter correct Answer..'>
-      <input name={this.answerInputName(answer.index) + '[answer_text]'} />
-    </div>
+    return (
+      <div key={answer.index} className='answer'>
+        <input
+          className='form-control input-sm answer-text'
+          placeholder='Enter correct Answer..'
+          name={this.answerInputName(answer.index) + '[answer_text]'}
+          />
+      </div>
+    )
   }
 
   renderAddAnswer = () => {
-    if (this.props.question.answers.length == 0) {
-      return <button onClick={this.addAnswerClicked.bind(this)}>Add Answer</button>
-    }
+    if (this.props.question.answers.length > 0) return false
+
+    return (
+      <button onClick={this.addAnswerClicked.bind(this)}
+        className='add-answer btn btn-info'>
+        Add Answer
+      </button>
+    )
   }
 
   render () {
