@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517004050) do
+ActiveRecord::Schema.define(version: 20160519122915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,7 @@ ActiveRecord::Schema.define(version: 20160517004050) do
     t.text     "answer_text"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "position"
   end
 
   add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree

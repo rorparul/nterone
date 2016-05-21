@@ -2379,8 +2379,23 @@ footer {
       margin-right: 12px;
     }
 
+    .answer-position {
+      display: inline-block;
+      width: 80px;
+      margin-left: 10px
+    }
+
     .answer-correct {
       margin-left: 6px;
+    }
+
+    .placeholder {
+      background: rgb(255,240,120);
+    }
+
+    placeholder:before {
+      content: 'Drop here';
+      color: rgb(225,210,90);
     }
   }
 

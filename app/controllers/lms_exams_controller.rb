@@ -65,6 +65,7 @@ class LmsExamsController < ApplicationController
                                                                     :question_type,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
+                                                                                                  :position,
                                                                                                   :correct]])
   end
 

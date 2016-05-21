@@ -1,7 +1,7 @@
 'use strict'
 
 class QuizMultipleChoiceQuestionForm extends React.Component {
-  static PropTypes = {
+  static propTypes = {
     question: React.PropTypes.object,
     questionInputName: React.PropTypes.string,
     addAnswer: React.PropTypes.func

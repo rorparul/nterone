@@ -33,6 +33,10 @@ class QuizQuestionForm extends React.Component {
     this.setState({ questions: this.state.questions })
   }
 
+  updateQuestion = () => {
+    this.setState({ questions: this.state.questions })
+  }
+
   renderAnswerForm (question) {
     if (question.type == '0') {
       return <QuizMultipleChoiceQuestionForm
@@ -47,6 +51,15 @@ class QuizQuestionForm extends React.Component {
         question={question}
         questionInputName={this.questionInputName(question.index)}
         addAnswer={this.addAnswer}
+      />
+    }
+
+    if (question.type == '2') {
+      return <QuizCorrectOrderQuestionForm
+        question={question}
+        questionInputName={this.questionInputName(question.index)}
+        addAnswer={this.addAnswer}
+        updateQuestion={this.updateQuestion}
       />
     }
   }
@@ -65,6 +78,7 @@ class QuizQuestionForm extends React.Component {
       >
         <option value='0'>Multiple Choice</option>
         <option value='1'>Free Choice</option>
+        <option value='2'>Correct Order</option>
       </select>
 
       {this.renderAnswerForm(question)}
