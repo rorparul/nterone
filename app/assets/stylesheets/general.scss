@@ -2403,3 +2403,18 @@ footer {
     margin-top: 7px;
   }
 }
+
+.quiz-answers {
+  margin-bottom: 20px;
+
+  .position-input {
+    width: 40px;
+    padding-left: 10px;
+    margin-left: 15px;
+  }
+
+  .answer-text-input {
+    width: 300px;
+    padding: 8px;
+  }
+}

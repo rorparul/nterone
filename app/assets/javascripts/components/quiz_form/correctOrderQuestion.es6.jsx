@@ -16,7 +16,7 @@ class QuizCorrectOrderQuestionForm extends React.Component {
     let answer = {
       answer_text: '',
       correct: true,
-      position: this.props.question.answers.length
+      position: this.props.question.answers.length + 1
     }
 
     this.props.addAnswer(this.props.question, answer)

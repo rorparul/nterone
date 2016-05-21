@@ -17,11 +17,11 @@ class QuizQuestions extends React.Component {
   }
 
   renderFreeForm = (answers) => {
-    return <div>
+    return <div className='quiz-answers'>
       {answers.map(answer => {
         return <div key={answer.id}>
           <input type='hidden' name='answer_id' value={answer.id} />
-          <input name='answer' />
+          <input name='answer' placeholder='Enter correct answer'className='answer-text-input'/>
           <br/>
         </div>
       })}
@@ -29,12 +29,12 @@ class QuizQuestions extends React.Component {
   }
 
   renderCorrectOrder = (answers) => {
-    return <div>
+    return <div className='quiz-answers'>
       {answers.map((answer, i) => {
         return <div key={answer.id}>
           <input type='hidden' name={'answers[' + i + '][answer]'} value={answer.id} />
           {answer.answer_text}
-          <input type='number' name={'answers[' + i + '][position]'} defaultValue={i} />
+          <input type='number' name={'answers[' + i + '][position]'} defaultValue={i + 1} className='position-input'/>
           <br/>
         </div>
       })}
