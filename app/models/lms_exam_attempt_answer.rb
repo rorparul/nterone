@@ -9,7 +9,7 @@ class LmsExamAttemptAnswer < ActiveRecord::Base
 
   def correct?
     if lms_exam_question.free_form?
-      return answer_text == lms_exam_answer.try(:answer_text)
+      return answer_text.downcase == lms_exam_answer.answer_text.downcase
     end
 
     if lms_exam_question.multiple_choice?
