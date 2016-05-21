@@ -237,11 +237,22 @@ class VideoOnDemandsController < ApplicationController
 
   def save_answer
     question = LmsExamQuestion.find(params[:lms_exam_question])
+
+    return save_correct_order_answer if question.correct_order?
+
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
     attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
 
     attempt_answer.answer_text = params[:answer] if question.free_form?
     attempt_answer.save
+  end
+
+  def save_correct_order_answer
+    question = LmsExamQuestion.find(params[:lms_exam_question])
+    attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    answer_text = params[:answers].values.map{|a| a[:answer] + ':' + a[:position]}.join(',')
+
+    LmsExamAttemptAnswer.create(lms_exam_attempt: attempt, lms_exam_question: question, answer_text: answer_text)
   end
 end

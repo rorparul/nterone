@@ -1,5 +1,3 @@
-'use strict'
-
 class QuizQuestionForm extends React.Component {
   state = {
     questions: []

@@ -15,5 +15,23 @@ class LmsExamAttemptAnswer < ActiveRecord::Base
     if lms_exam_question.multiple_choice?
       return lms_exam_answer.correct
     end
+
+    if lms_exam_question.correct_order?
+      return correct_order_correct?
+    end
+  end
+
+  private
+
+  def correct_order_correct?
+    result = true
+
+    self.answer_text.split(',').each do |answer|
+      id = answer.split(':').first.to_i
+      position = answer.split(':').second.to_i
+      result = false if LmsExamAnswer.find(id).position != position
+    end
+
+    return result
   end
 end

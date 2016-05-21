@@ -1,8 +1,3 @@
-'use strict'
-
-var placeholder = document.createElement('li')
-placeholder.className = 'placeholder'
-
 class QuizCorrectOrderQuestionForm extends React.Component {
   static propTypes = {
     question: React.PropTypes.object,
