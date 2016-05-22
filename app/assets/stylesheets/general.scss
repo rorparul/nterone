@@ -2418,3 +2418,16 @@ footer {
     padding: 8px;
   }
 }
+
+.update-exam {
+  margin-bottom: 10px;
+
+  .edit-exam {
+    color: #337ab7;
+    margin-right: 15px;
+  }
+
+  .destroy-exam {
+    color: #a94442;
+  }
+}

@@ -30,6 +30,20 @@
       hr
       #questions
         = react_component('QuizQuestionForm')
+
+      table.table.table-hover.update-exam
+        thead
+          td Title
+          td Actions
+        tbody
+          - @video_on_demand.all_exams.each do |exam|
+            tr
+              td= exam.title
+              td
+                = link_to 'Edit', edit_lms_exam_path(exam), class: 'edit-exam'
+                = link_to 'Remove', lms_exam_path(exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'destroy-exam'
+
+
       .form-buttons
         button.btn.btn-success type="submit" Upload
   - else

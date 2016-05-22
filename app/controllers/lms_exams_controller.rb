@@ -1,14 +1,6 @@
 class LmsExamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :sanitize_page_params
-
-  def index
-
-  end
-
-  def show
-
-  end
+  before_action :sanitize_page_params, only: [:create, :update]
 
   def new
     @exam = LmsExam.new
@@ -41,12 +33,13 @@ class LmsExamsController < ApplicationController
   def destroy
     @exam = LmsExam.find(params[:id])
 
-    if @exam.delete
+    if @exam.destroy
       flash[:success] = 'Exam successfully deleted!'
     else
       flash[:alert] = 'Exam unsuccessfully deleted!'
     end
-    redirect_to new_lms_exam_path()
+
+    redirect_to :back
   end
 
   private
