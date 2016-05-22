@@ -5,7 +5,8 @@
 
 .row
   span.lead.pull-left Students
-  button.btn.btn-default.pull-right Export Report
+  =link_to 'Export Progress', lms_export_progress_path, class: 'btn btn-default pull-right'
+  =link_to 'Export Grades', lms_export_grades_path, class: 'btn btn-default pull-right'
 
   table.table.table-hover
     - unless @students.empty?

@@ -73,6 +73,7 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
+
     resources :subjects, path: 'certifications' do
       collection do
         get  'select'
@@ -80,24 +81,28 @@ NterOne::Application.routes.draw do
       end
       resources :groups, except: [:index, :show]
     end
+
     resources :dividers, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exam_and_course_dynamics, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exams, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :courses, except: [:index] do
       collection do
         get  'page'
@@ -106,6 +111,7 @@ NterOne::Application.routes.draw do
         get  'courses/:id/download'      => 'courses#download',      as: :course_download
         get  'courses/:id/video_preview' => 'courses#video_preview', as: :course_video_preview
       end
+
       resources :events do
         collection do
           get  'select'
@@ -113,6 +119,7 @@ NterOne::Application.routes.draw do
         end
       end
     end
+
     resources :video_on_demands, path: 'video-on-demand' do
       collection do
         get  'select'
@@ -125,19 +132,20 @@ NterOne::Application.routes.draw do
         get  '/:video_id/quiz/:id/scores' => 'video_on_demands#show_scores', as: :show_scores
       end
     end
+
     resources :custom_items, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :instructors do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
-
   end
 
   resources :videos
@@ -150,6 +158,11 @@ NterOne::Application.routes.draw do
     resources :students, only: [:index, :show] do
       resources :courses, only: [:show], controller: 'student_courses'
       resources :assignments, only: [:index, :create, :destroy], controller: 'student_assignments'
+    end
+
+    namespace :export do
+      get 'grades'
+      get 'progress'
     end
 
     resources :business, only: :index
