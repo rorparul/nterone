@@ -5,8 +5,11 @@
 
 .row
   span.lead.pull-left Students
-  =link_to 'Export Progress', lms_export_progress_path, class: 'btn btn-default pull-right'
-  =link_to 'Export Grades', lms_export_grades_path, class: 'btn btn-default pull-right'
+  =link_to 'Export Progress CSV', lms_export_progress_path(format: 'csv'), class: 'btn btn-default pull-right'
+  =link_to 'Export Grades CSV', lms_export_grades_path(format: 'csv'), class: 'btn btn-default pull-right'
+  =link_to 'Export Progress Excel', lms_export_progress_path(format: 'xls'), class: 'btn btn-default pull-right'
+  =link_to 'Export Grades Excel', lms_export_grades_path(format: 'xls'), class: 'btn btn-default pull-right'
+  br
 
   table.table.table-hover
     - unless @students.empty?
