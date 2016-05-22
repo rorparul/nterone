@@ -6,6 +6,7 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
     @video_on_demand.video_modules.build.videos.build
+
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
@@ -18,6 +19,8 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build(video_on_demand_params)
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
+
+    authorize @video_on_demand
 
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
@@ -67,6 +70,8 @@ class VideoOnDemandsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
 
+    authorize @video_on_demand
+
     @categories = Category
       .where(platform_id: @platform.id)
       .order(:title).select { |category| category if category.parent }
@@ -91,6 +96,8 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
 
+    authorize @video_on_demand
+
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
       redirect_to session[:previous_request_url]
@@ -107,6 +114,8 @@ class VideoOnDemandsController < ApplicationController
 
   def destroy
     video_on_demand = VideoOnDemand.find(params[:id])
+
+    authorize video_on_demand
 
     if video_on_demand.destroy
       flash[:success] = 'Video On Demand successfully destroyed!'
