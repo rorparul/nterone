@@ -74,6 +74,11 @@ class VideoOnDemand < ActiveRecord::Base
     LmsExam.where(video_module_id: ids)
   end
 
+  def all_videos
+    ids = video_modules.pluck(:id)
+    Video.where(video_module_id: ids)
+  end
+
   def quizes_count
     self.quizes.count
   end

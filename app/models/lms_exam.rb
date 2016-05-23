@@ -26,4 +26,14 @@ class LmsExam < ActiveRecord::Base
 
     completed
   end
+
+  def attempt_count_for(user)
+    lms_exam_attempts.where(user: user).count
+  end
+
+  def status_for(user)
+    return 'completed' if completed_by?(user)
+    return "tried #{attempt_count_for(user)} times" if attempt_count_for(user) > 0
+    return 'never started'
+  end
 end
