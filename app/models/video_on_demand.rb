@@ -89,13 +89,8 @@ class VideoOnDemand < ActiveRecord::Base
     end
   end
 
-  def course_exam
-    ids = video_modules.pluck(:id)
-    LmsExam.where(video_module_id: ids, exam_type: 1).first
-  end
-
   def exam_completed_by?(user)
-    course_exam.present? ? course_exam.completed_by?(user) : false
+    lms_exam.present? ? lms_exam.completed_by?(user) : false
   end
 
   def exam_attempts_for(user)

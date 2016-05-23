@@ -10,12 +10,15 @@ class LmsExamsController < ApplicationController
 
   def create
     @platform = Platform.find(exam_params[:platform_id])
+    @video = Video.find(exam_params[:video_id])
     @video_on_demand = VideoOnDemand.find(exam_params[:video_on_demand_id])
     @exam = LmsExam.new(exam_params.except(:platform_id, :video_on_demand_id))
     @question_types = LmsExamQuestion.question_types
 
+    @exam.video_on_demand = @video_on_demand if @exam.exam_type == 'test'
+    @exam.video_module = @video.video_module
+
     if @exam.save
-      @exam.update(video_module_id: Video.find(exam_params[:video_id]).video_module.id)
       flash[:success] = "Exam was uploaded for the #{@exam.video.title} video of the #{@exam.video.video_module.title} module!"
       redirect_to edit_platform_video_on_demand_path(@platform, @video_on_demand)
     end

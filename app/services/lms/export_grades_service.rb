@@ -25,7 +25,7 @@ private
 
   def append_student_exams(student, i)
     student.assigned_vods.each do |vod|
-      exam = vod.course_exam
+      exam = vod.lms_exam
       @exams << exam_data(i, student, vod, exam) if exam.present?
     end
   end
