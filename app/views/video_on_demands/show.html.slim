@@ -68,8 +68,10 @@
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong
+
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
-                          = video_module.title
+                          span.fa.fa-caret-down.collapse-module-icon
+                          span= video_module.title
                         .video-module-results
                           span.label.item class=video_completed_class(video_module, current_user)
                             span.fa.fa-play
