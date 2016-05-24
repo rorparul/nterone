@@ -153,6 +153,7 @@ NterOne::Application.routes.draw do
 
   namespace :lms do
     get '/', to: 'session#new'
+    get '/signup', to: 'session#signup'
     get '/manager', to: 'students#index'
 
     resources :students, only: [:index, :show] do

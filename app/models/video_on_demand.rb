@@ -95,7 +95,6 @@ class VideoOnDemand < ActiveRecord::Base
 
   def exam_attempts_for(user)
     exam_ids = self.all_exams.pluck(:id)
-
     LmsExamAttempt.where(user: user, lms_exam_id: exam_ids)
   end
 
