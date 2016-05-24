@@ -54,6 +54,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'react-rails'
 
 group :development do
   gem 'annotate'

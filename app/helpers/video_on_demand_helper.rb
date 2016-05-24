@@ -16,4 +16,14 @@ module VideoOnDemandHelper
     return 'label-default' if video_module.exams_count == 0
     video_module.completed_exams_count_for(current_user) == video_module.exams_count ? 'label-success' : 'label-default'
   end
+
+  def quiz_disabled_class(video, user)
+    return 'disabled' if !user
+
+    video.status_for(user) == 'completed' ? '' : 'disabled'
+  end
+
+  def vod_overal_progress(vod, user)
+    "#{vod.overal_progress_percent_for(user)}% (#{vod.overal_progress_count_for(user)}/#{vod.overal_all_count_for(user)})"
+  end
 end

@@ -1,11 +1,9 @@
 $('.modal-body').addClass('quiz-container')
 $('.modal-title').html("<%= escape_javascript(@quiz.title) %>");
-
 $('.modal-body').html("<div class='lead'><%= escape_javascript(@next_question.question_text) %></div><form name=\"question\" action=\"<%= escape_javascript(next_quiz_question_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\" data-remote=\"true\"><input type=\"hidden\" name=\"lms_exam_attempt\" value=\"<%= @lms_exam_attempt.id %>\"><input type=\"hidden\" name=\"lms_exam_question\" value=\"<%= @next_question.id %>\"></form>");
 
-"<% @next_question.lms_exam_answers.each do |lms_exam_answer| %>"
-	$('form[name=question]').append("<input type=\"radio\" name=\"answer\" value=\"<%= lms_exam_answer.id %>\"> <%= lms_exam_answer.answer_text %><br>");
-"<% end %>"
+var result = '<%= react_component("QuizQuestions", { type: @next_question.question_type, answers: @next_question.lms_exam_answers }, { prerender: true }) %>';
+$('form[name=question]').append(result);
 
 $('form[name=question]').append("<button class='btn btn-success btn-quiz-medium'>Submit</button>");
 

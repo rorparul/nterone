@@ -1,6 +1,7 @@
 module GeneralHelper
   def personal_greeting
     personal_greeting = "Guest"
+
     if user_signed_in?
       if current_user.first_name.present?
         personal_greeting = current_user.first_name
@@ -14,6 +15,7 @@ module GeneralHelper
         end
       end
     end
+
     "<span class='text'>Welcome #{personal_greeting}<span/>".html_safe
   end
 
@@ -29,30 +31,9 @@ module GeneralHelper
     end
   end
 
-  def passed_exam(user, exam)
-    user.passed_exams.any? do |passed_exam|
-      passed_exam.exam == exam
-    end
-  end
-
-  def video_status(user, video)
-    if user
-      if WatchedVideo.find_by(user_id: user.id, video_id: video.id)
-        "<span class='fa fa-check text-success'></span>".html_safe
-      end
-    end
-  end
-
-  def taken_exam_status(user, lms_exam)
-    if user
-      if LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
-        "<span class='fa fa-check text-success'></span>".html_safe
-      end
-    end
-  end
-
   def formatted_price_or_range_of_upcoming_events_for(course)
     events = course.upcoming_events.order(:price)
+
     if events.any?
       if events.first.price == events.last.price
         "$#{number_with_delimiter(number_with_precision(events.first.price, precision: 2))}"
@@ -67,6 +48,7 @@ module GeneralHelper
   def formatted_price_or_range_of_my_plan_for(user)
     low  = user.my_plan_total_low
     high = user.my_plan_total_high
+
     unless low == nil && high == nil
       if low == nil
         "$#{number_with_delimiter(number_with_precision(high, precision: 2))}"

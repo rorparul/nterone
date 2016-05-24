@@ -8,6 +8,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       Role.create(user_id: @user.id)
       CustomMailer.welcome(@user).deliver_now
     end
+
+    if @user.persisted? && lms_path?
+      Role.create(user: @user, role: 6)
+    end
   end
 
   protected
@@ -25,5 +29,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       self.resource = resource_class.new sign_up_params
       respond_with_navigational(resource) { render :new }
     end
+  end
+
+  def lms_path?
+    request.referer.present? && request.referer.include?('/lms')
   end
 end

@@ -4,7 +4,7 @@ $('.modal-body').empty();
 $('.modal-body').append("<table class='table table-hover'><thead><td>#</td><td>Taken</td><td>Time to complete</td><td>Results</td></thead><tbody></tbody></table>")
 
 "<% @lms_exam_attempts.each do |attempt| %>"
-  $('.modal-body table tbody').append('<tr><td><%= @lms_exam_attempts.find_index(attempt) + 1 %></td><td><%= time_ago_in_words(attempt.created_at).gsub("about","")%>  ago</td><td><%= time_diff(attempt.started_at, attempt.completed_at)%> Minutes</td><td><div class="progress"><div class="progress-bar progress-bar-success" role="progressbar"  aria-valuenow=<%=attempt.percent_correct%> aria-valuemin="0" aria-valuemax="100" style="width: <%=attempt.percent_correct%>%;"><%="#{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})"%></div></div></td></tr>')
+  $('.modal-body table tbody').append('<tr><td><%= @lms_exam_attempts.find_index(attempt) + 1 %></td><td><%= time_ago_in_words(attempt.created_at).gsub("about","")%>  ago</td><td><%= time_diff(attempt.started_at, attempt.completed_at)%> Minutes</td><td><b class="text"><%="#{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})"%></b><div class="progress-bar-our"><div class="progress-our"style="width: <%=attempt.percent_correct%>%;"></div></div></td></tr>')
 "<% end %>"
 
 $('#myModal').modal('show');

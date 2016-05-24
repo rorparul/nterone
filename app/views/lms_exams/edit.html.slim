@@ -13,11 +13,11 @@
   span.seperator
     | /
   a href="#"
-    | New
+    | Edit
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Add New Exam
+    strong.text-muted Edit Exam #{@exam.title}
   .panel-body
     = render partial: "form", locals: { exam: @exam }
 

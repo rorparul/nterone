@@ -58,12 +58,20 @@
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
+                - if user_signed_in?
+                  .course-progress
+                    .progress-bar-our
+                      .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
+                        | #{vod_overal_progress(@video_on_demand, current_user)}
+
                 - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong
+
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
-                          = video_module.title
+                          span.fa.fa-caret-down.collapse-module-icon
+                          span= video_module.title
                         .video-module-results
                           span.label.item class=video_completed_class(video_module, current_user)
                             span.fa.fa-play
@@ -82,11 +90,14 @@
                           table.table.table-compact
                             thead
                               tr
-                                th Video
                                 th.fit Status
+                                th Video
                             tbody
                               - video_module.videos.order(:position).each do |video|
                                 tr.video
+                                  td id="video-#{video.id}-status"
+                                    = video_status(current_user, video)
+
                                   - if video.free
                                     td
                                       span.fa.fa-play
@@ -103,32 +114,31 @@
                                     td
                                       span.fa.fa-play
                                       span.text-muted title="Play Video" = video.title
-                                  td id="video-#{video.id}-status"
-                                    = video_status(current_user, video)
 
                                 - video.lms_exams.each do |lms_exam|
                                   - if video.free
-                                      tr.quiz
+                                      tr.quiz class="video-#{video.id}-quiz"
+                                        td id="quiz-#{lms_exam.id}-status"
+                                          = taken_exam_status(current_user, lms_exam)
                                         td
                                           span.fa.fa-file-text-o
-                                          a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             = lms_exam.title
                                           a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                             | Scores
-                                        td id="quiz-#{lms_exam.id}-status"
-                                          = taken_exam_status(current_user, lms_exam)
                                   - elsif user_signed_in? && video.permit_user?(current_user)
-                                    tr.quiz
+                                    tr.quiz class="video-#{video.id}-quiz"
+                                      td id="quiz-#{lms_exam.id}-status"
+                                        = taken_exam_status(current_user, lms_exam)
                                       td
                                         span.fa.fa-file-text-o
-                                        a class="open-#{video.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                        a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         a.label.label-info.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
                                           | Scores
-                                      td id="quiz-#{lms_exam.id}-status"
-                                        = taken_exam_status(current_user, lms_exam)
                                   - else
-                                    tr.quiz
+                                    tr.quiz class="video-#{video.id}-quiz"
+                                      td
                                       td
                                         span.fa.fa-file-text-o
                                         span.text-muted= lms_exam.title
@@ -150,7 +160,7 @@
                         td
                           - if @video_on_demand.instructor
                             a href="#{platform_instructor_path(@video_on_demand.platform, @video_on_demand.instructor)}" data-remote="true"
-                              = @video_on_demand.instructor.full_name if @video_on_demand.instructor
+                              = @video_on_demand.instructor.full_name
                         td = @video_on_demand.level
                         td class=(@purchased ? 'hide' : '') = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))}/year"
                         - if !user_signed_in? || (user_signed_in? && current_user.member? && !@purchased)
@@ -180,6 +190,14 @@
     button#back Back
 
 javascript:
+  var videoPlaying = false
+
+  document.addEventListener('visibilitychange', function () {
+    var changedTab = document.hidden
+
+    if (changedTab && videoPlaying) alert('You are watching video')
+  })
+
   $('.training-tab').addClass('active');
 
   $('#back').on('click', function() {
@@ -199,10 +217,30 @@ javascript:
   _wq.push({ '_all': function(video) {
     var first_video = video
 
+    video.bind('play', function () {
+      videoPlaying = true
+    })
+
+    video.bind('pause', function () {
+      videoPlaying = false
+    })
+
     video.bind('end', function () {
+      videoPlaying = false
+
       var id = $(first_video.container).parent().data('id')
       var element = $('.open-' + id).first()
 
       if (element) element.click()
+      $.ajax({
+        type: 'PUT',
+        url: '/videos/' + id,
+        data: { status: 'completed' },
+        success: function (result) {
+          $('#video-' + id + '-status span').removeClass('started').addClass('completed')
+          $('.video-' + id + '-quiz a.disabled').removeClass('disabled')
+        }
+      })
+
     })
   }});

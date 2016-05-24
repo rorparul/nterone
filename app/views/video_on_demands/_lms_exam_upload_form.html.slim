@@ -2,20 +2,20 @@
 
   - if video_exists
     = form_for [lms_exam], remote: false do |f|
-            
+
       .form-group
         = f.label :video_id
         br
-        = f.select :video_id, options_for_select(video_on_demand.videos.map{|video| ["#{video.title}", video.id]})  
-      
+         = f.select :video_id, options_for_select(video_on_demand.videos.map{|video| ["#{video.title}", video.id]})
+
       .form-group
         = f.label :title, 'Exam Title'
         = f.text_field :title, class: 'form-control input-sm', :required => true
-        
+
       .form-group
         = f.label :description, 'Exam Description'
         = f.text_area :description, class: 'form-control input-sm', :required => true
-      
+
       .form-group
         = f.label 'Exam Type'
         = f.select(:exam_type, options_for_select(lms_exam_types), {}, class: 'form-control')
@@ -25,18 +25,27 @@
         = f.hidden_field :video_on_demand_id, :value => @video_on_demand.id
 
       hr
-            
+
       h4 Questions
       hr
       #questions
-        = f.fields_for :lms_exam_questions do |ff|
-          = render 'lms_exam_question_fields', f: ff
-        .links
-          = link_to_add_association 'Add Question', f, :lms_exam_questions
-        
+        = react_component('QuizQuestionForm')
+
+      table.table.table-hover.update-exam
+        thead
+          td Title
+          td Actions
+        tbody
+          - @video_on_demand.all_exams.each do |exam|
+            tr
+              td= exam.title
+              td
+                = link_to 'Edit', edit_lms_exam_path(exam), class: 'edit-exam'
+                = link_to 'Remove', lms_exam_path(exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'destroy-exam'
+
+
       .form-buttons
         button.btn.btn-success type="submit" Upload
   - else
     h1
     | Please upload a video in the "Video Upload" section of this Video On Demand.
-

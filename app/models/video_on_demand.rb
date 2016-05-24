@@ -74,6 +74,11 @@ class VideoOnDemand < ActiveRecord::Base
     LmsExam.where(video_module_id: ids)
   end
 
+  def all_videos
+    ids = video_modules.pluck(:id)
+    Video.where(video_module_id: ids)
+  end
+
   def quizes_count
     self.quizes.count
   end
@@ -85,16 +90,29 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def exam_completed_by?(user)
-    ids = video_modules.pluck(:id)
-    exam = LmsExam.where(video_module_id: ids, exam_type: 1).first
-
-    exam.present? ? exam.completed_by?(user) : false
+    lms_exam.present? ? lms_exam.completed_by?(user) : false
   end
 
   def exam_attempts_for(user)
     exam_ids = self.all_exams.pluck(:id)
-
     LmsExamAttempt.where(user: user, lms_exam_id: exam_ids)
+  end
+
+  def overal_progress_percent_for(user)
+    return 0 if overal_all_count_for(user).zero?
+
+    all_count = self.all_exams.count + self.video_count
+    completed_count = self.quizes_completed_count_by(user) + self.watched_count(user)
+
+    (overal_progress_count_for(user) * 100) / overal_all_count_for(user)
+  end
+
+  def overal_all_count_for(user)
+    self.all_exams.count + self.video_count
+  end
+
+  def overal_progress_count_for(user)
+    self.quizes_completed_count_by(user) + self.watched_count(user)
   end
 
   private

@@ -9,11 +9,11 @@ class GeneralController < ApplicationController
   def welcome
     @page = Page.find_by(title: 'Welcome')
 
-    if current_user && current_user.lms_manager?
+    if current_user && current_user.lms_manager? && lms_path?
       redirect_to lms_manager_path
-    elsif current_user && current_user.lms_student?
+    elsif current_user && current_user.lms_student? && lms_path?
       redirect_to lms_student_path(current_user)
-    elsif current_user && current_user.lms_business?
+    elsif current_user && current_user.lms_business? && lms_path?
       redirect_to lms_business_index_path
     else
       render :welcome
@@ -93,5 +93,9 @@ class GeneralController < ApplicationController
 
   def contact_us_params
     params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :feedback)
+  end
+
+  def lms_path?
+    request.referer.present? && request.referer.include?('/lms')
   end
 end

@@ -4,6 +4,6 @@ class LmsStudentPolicy < Struct.new(:user, :lms_student)
   end
 
   def show?
-    user.lms_manager?
+    user.lms_student? || user.lms_manager? || user.lms_business?
   end
 end

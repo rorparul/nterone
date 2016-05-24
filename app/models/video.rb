@@ -25,4 +25,8 @@ class Video < ActiveRecord::Base
 
     next_video
   end
+
+  def status_for(user)
+    watched_videos.where(user: user).first.try(:status)
+  end
 end

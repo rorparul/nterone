@@ -6,6 +6,7 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
     @video_on_demand.video_modules.build.videos.build
+
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
@@ -18,6 +19,8 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build(video_on_demand_params)
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
+
+    authorize @video_on_demand
 
     if @video_on_demand.save
       flash[:success] = 'Video On Demand successfully created!'
@@ -67,6 +70,8 @@ class VideoOnDemandsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
 
+    authorize @video_on_demand
+
     @categories = Category
       .where(platform_id: @platform.id)
       .order(:title).select { |category| category if category.parent }
@@ -74,6 +79,7 @@ class VideoOnDemandsController < ApplicationController
     @instructors     = @platform.instructors
     @exam = LmsExam.new
     @exam_types = LmsExam.exam_types
+    @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
 
     @video_on_demand.video_modules.each do |video_module|
@@ -89,6 +95,8 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
+
+    authorize @video_on_demand
 
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
@@ -107,6 +115,8 @@ class VideoOnDemandsController < ApplicationController
   def destroy
     video_on_demand = VideoOnDemand.find(params[:id])
 
+    authorize video_on_demand
+
     if video_on_demand.destroy
       flash[:success] = 'Video On Demand successfully destroyed!'
     else
@@ -119,8 +129,8 @@ class VideoOnDemandsController < ApplicationController
   def play_video
     @video = Video.find(params[:id])
 
-    if user_signed_in?
-      @video.users << current_user if @video.users.exclude?(current_user)
+    if user_signed_in? && @video.users.exclude?(current_user)
+       @video.watched_videos.create(user: current_user, status: 'started')
     end
   end
 
@@ -159,7 +169,7 @@ class VideoOnDemandsController < ApplicationController
     @video = Video.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
-    LmsExamAttemptAnswer.create(lms_exam_attempt: LmsExamAttempt.find(params[:lms_exam_attempt]), lms_exam_question: LmsExamQuestion.find(params[:lms_exam_question]), lms_exam_answer: LmsExamAnswer.find(params[:answer]))
+    save_answer
 
     @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
 
@@ -224,38 +234,34 @@ class VideoOnDemandsController < ApplicationController
   private
 
   def video_on_demand_params
-    params.require(:video_on_demand).permit(:id,
-                                            :page_title,
-                                            :page_description,
-                                            :title,
-                                            :abbreviation,
-                                            :course_id,
-                                            :instructor_id,
-                                            :level,
-                                            :price,
-                                            :intro,
-                                            :overview,
-                                            :outline,
-                                            :intended_audience,
-                                            :partner_led,
-                                            :active,
-                                            :lms,
-                                            :answer,
-                                            :lms_exam_attempt,
-                                            :lms_exam_question,
-                                            :platform_id,
-                                            :video_id,
-                                            category_ids: [],
-                                            video_modules_attributes: [:id,
-                                                                       :position,
-                                                                       :title,
-                                                                       :_destroy,
-                                                                       videos_attributes: [:id,
-                                                                                           :position,
-                                                                                           :title,
-                                                                                           :embed_code,
-                                                                                           :free,
-                                                                                           :_destroy,
-                                                                                            lms_exams_attributes: [:id]]])
+    params.require(:video_on_demand).permit(
+      :id, :page_title, :page_description, :title, :abbreviation, :course_id,
+      :instructor_id, :level, :price, :intro, :overview, :outline, :intended_audience,
+      :partner_led, :active, :lms, :answer, :lms_exam_attempt, :lms_exam_question,
+      :platform_id, :video_id, category_ids: [], video_modules_attributes: [
+        :id, :position, :title, :_destroy, videos_attributes: [
+          :id,:position, :title, :embed_code, :free, :_destroy, lms_exams_attributes: [:id]
+    ]])
+  end
+
+  def save_answer
+    question = LmsExamQuestion.find(params[:lms_exam_question])
+
+    return save_correct_order_answer if question.correct_order?
+
+    attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
+    attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
+
+    attempt_answer.answer_text = params[:answer] if question.free_form?
+    attempt_answer.save
+  end
+
+  def save_correct_order_answer
+    question = LmsExamQuestion.find(params[:lms_exam_question])
+    attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    answer_text = params[:answers].values.map{|a| a[:answer] + ':' + a[:position]}.join(',')
+
+    LmsExamAttemptAnswer.create(lms_exam_attempt: attempt, lms_exam_question: question, answer_text: answer_text)
   end
 end
