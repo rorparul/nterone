@@ -69,7 +69,7 @@
                     .panel-heading role="tab" id="heading#{index}"
                       strong
 
-                        a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}"
+                        a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}" class='collapse-module'
                           span.fa.fa-caret-down.collapse-module-icon
                           span= video_module.title
                         .video-module-results
@@ -196,6 +196,10 @@ javascript:
     var changedTab = document.hidden
 
     if (changedTab && videoPlaying) alert('You are watching video')
+  })
+
+  $('.collapse-module').click(function (e) {
+    $(this).find('.collapse-module-icon').toggleClass('collapsed')
   })
 
   $('.training-tab').addClass('active');
