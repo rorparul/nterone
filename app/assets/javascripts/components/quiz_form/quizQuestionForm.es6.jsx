@@ -1,17 +1,17 @@
 class QuizQuestionForm extends React.Component {
   state = {
-    questions: []
+    questions: this.props.questions || []
   }
 
-  questionInputName = (index) => {
-    return `lms_exam[lms_exam_questions_attributes][${index}]`
+  questionInputName = (id) => {
+    return `lms_exam[lms_exam_questions_attributes][${id}]`
   }
 
   addQuestion = (e) => {
     e.preventDefault()
 
     let questions = this.state.questions.concat([{
-      index: this.state.questions.length,
+      id: this.state.questions.length,
       type: '0',
       answers: []
     }])
@@ -39,7 +39,7 @@ class QuizQuestionForm extends React.Component {
     if (question.type == '0') {
       return <QuizMultipleChoiceQuestionForm
         question={question}
-        questionInputName={this.questionInputName(question.index)}
+        questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
       />
     }
@@ -47,7 +47,7 @@ class QuizQuestionForm extends React.Component {
     if (question.type == '1') {
       return <QuizFreeFormQuestionForm
         question={question}
-        questionInputName={this.questionInputName(question.index)}
+        questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
       />
     }
@@ -55,7 +55,7 @@ class QuizQuestionForm extends React.Component {
     if (question.type == '2') {
       return <QuizCorrectOrderQuestionForm
         question={question}
-        questionInputName={this.questionInputName(question.index)}
+        questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
         updateQuestion={this.updateQuestion}
       />
@@ -63,14 +63,16 @@ class QuizQuestionForm extends React.Component {
   }
 
   renderQuestion = (question) => {
-    return <div key={question.index} className='question'>
+    return <div key={question.id} className='question'>
+      <input type='hidden' name={this.questionInputName(question.id) + '[question_id]'} value={question.id} />
       <input
         className='form-control input-sm question-text'
         placeholder='Enter your Question'
-        name={this.questionInputName(question.index) + '[question_text]'}
+        defaultValue={question.text}
+        name={this.questionInputName(question.id) + '[question_text]'}
       />
       <select
-        name={this.questionInputName(question.index) + '[question_type]'}
+        name={this.questionInputName(question.id) + '[question_type]'}
         defaultValue={question.type}
         onChange={this.typeChanged.bind(this, question)}
       >
@@ -84,6 +86,7 @@ class QuizQuestionForm extends React.Component {
   }
 
   render () {
+    console.log(this.props.questions)
     return (
       <div className='question-answer-form'>
         <button

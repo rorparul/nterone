@@ -5,17 +5,17 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
     addAnswer: React.PropTypes.func
   }
 
-  answerInputName = (index) => {
-    return `${this.props.questionInputName}[lms_exam_answers_attributes][${index}]`
+  answerInputName = (id) => {
+    return `${this.props.questionInputName}[lms_exam_answers_attributes][${id}]`
   }
 
   addAnswerClicked = (e) => {
     e.preventDefault()
 
     let answer = {
+      id: this.props.question.answers.length,
       answer_text: '',
-      correct: false,
-      index: this.props.question.answers.length
+      correct: false
     }
 
     this.props.addAnswer(this.props.question, answer)
@@ -23,18 +23,19 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
 
   renderAnswer = (answer) => {
     return (
-      <div key={answer.index} className='answer'>
+      <div key={answer.id} className='answer'>
         <input
           className='form-control input-sm answer-text'
           placeholder='Enter Answer...'
-          name={this.answerInputName(answer.index) + '[answer_text]'}
+          defaultValue={answer.answer_text}
+          name={this.answerInputName(answer.id) + '[answer_text]'}
         />
         <span>Correct?</span>
         <input
           className='answer-correct'
-          name={this.answerInputName(answer.index) + '[correct]'}
+          name={this.answerInputName(answer.id) + '[correct]'}
+          defaultChecked={answer.correct}
           type='checkbox'
-          value='true'
         />
       </div>
     )

@@ -30,7 +30,10 @@ class LmsExamsController < ApplicationController
   end
 
   def update
+    @exam = LmsExam.find(params[:id])
+    @exam.update(exam_params)
 
+    redirect_to :back
   end
 
   def destroy
