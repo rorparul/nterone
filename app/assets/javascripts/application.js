@@ -9,6 +9,7 @@
 //= require parsley
 //= require bootstrap
 //= require bootstrap-select
+//= require bootstrap/tab
 //= require bootstrap-wysihtml5
 //= require cocoon
 //= require forem
