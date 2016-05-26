@@ -1,16 +1,14 @@
-.nested-fields
-  .form-group
-    = f.label :position
-    = f.text_field :position, class: 'form-control input-sm'
-  .form-group
+.nested-fields.video-on-demand-fields
+  .form-group.title
     = f.label :title
     = f.text_field :title, class: 'form-control input-sm'
+  .form-group.position
+    = f.label :position
+    = f.text_field :position, class: 'form-control input-sm'
 
   h4  Module Videos
   .row
-    .col-xs-10.col-xs-offset-2.col-md-8.col-md-offset-1
-
-      hr.hr-sub
+    .col-xs-10.col-md-10
       #videos
         = f.fields_for :videos do |ff|
           = render 'video_fields', f: ff

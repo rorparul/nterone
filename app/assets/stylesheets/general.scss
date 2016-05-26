@@ -2441,4 +2441,44 @@ footer {
   position: relative;
   top: 1px;
   font-size: 1.2em;
+
+  &.collapsed {
+    transform: rotate(-90deg);
+  }
+}
+
+#vod-tabs {
+  .tab-content {
+    margin-top: 10px;
+  }
+}
+
+.video-on-demand-fields, .video-fields {
+  .title {
+    display: inline-block;
+    width: 70%;
+  }
+
+  .position, .free {
+    display: inline-block;
+    width: 50px;
+    margin-left: 5px;
+  }
+
+  #videos {
+    margin-left: 20px;
+  }
+}
+
+.video-fields {
+  .free {
+    position: relative;
+    top: -28px;
+    margin-left: 15px;
+  }
+
+  .embed-code {
+    width: 70%;
+    margin-top: -30px;
+  }
 }

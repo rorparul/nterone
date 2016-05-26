@@ -6,14 +6,15 @@ class QuizCorrectOrderQuestionForm extends React.Component {
     updateQuestion: React.PropTypes.func
   }
 
-  answerInputName = (position) => {
-    return `${this.props.questionInputName}[lms_exam_answers_attributes][${position}]`
+  answerInputName = (id) => {
+    return `${this.props.questionInputName}[lms_exam_answers_attributes][${id}]`
   }
 
   addAnswerClicked = (e) => {
     e.preventDefault()
 
     let answer = {
+      id: this.props.question.answers.length + 1,
       answer_text: '',
       correct: true,
       position: this.props.question.answers.length + 1
@@ -28,23 +29,22 @@ class QuizCorrectOrderQuestionForm extends React.Component {
   }
 
   renderAnswer = (answer) => {
-    let position = answer.position
-
     return (
-      <div key={position} className='answer'>
-        <input type='hidden' value='true' name={this.answerInputName(position) + '[correct]'}/>
+      <div key={answer.id} className='answer'>
+        <input type='hidden' name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
+        <input type='hidden' value='true' name={this.answerInputName(answer.id) + '[correct]'}/>
 
         <input className='form-control input-sm answer-text'
           placeholder='Enter Answer...'
           defaultValue={answer.answer_text}
-          name={this.answerInputName(position) + '[answer_text]'}
+          name={this.answerInputName(answer.id) + '[answer_text]'}
           onChange={this.changeAnswerText.bind(this, answer)}
         />
 
         <input type='number'
           className='form-control input-sm answer-position'
-          defaultValue={position}
-          name={this.answerInputName(position) + '[position]'}
+          defaultValue={answer.position}
+          name={this.answerInputName(answer.id) + '[position]'}
         />
       </div>
     )

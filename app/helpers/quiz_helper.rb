@@ -16,4 +16,22 @@ module QuizHelper
       "<span class='status-circle' />".html_safe
     end
   end
+
+  def questions_for_react(questions)
+    questions.map do |question|
+      {
+        id: question.id,
+        text: question.question_text,
+        type: question_type_mapping(question.question_type),
+        answers: question.lms_exam_answers
+      }
+    end
+  end
+
+private
+  def question_type_mapping(type)
+    return 0 if type == 'multiple_choice'
+    return 1 if type == 'free_form'
+    return 2 if type == 'correct_order'
+  end
 end
