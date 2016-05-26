@@ -399,6 +399,7 @@ GEM
       rdoc (~> 4.0)
     search_cop (1.0.6)
       treetop
+    seedbank (0.3.0)
     select2-rails (3.5.10)
       thor (~> 0.14)
     sidekiq (4.1.1)
@@ -527,6 +528,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.3)
   sdoc
   search_cop
+  seedbank
   sidekiq
   simple_form
   sitemap_generator

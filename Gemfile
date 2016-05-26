@@ -19,8 +19,8 @@ gem 'devise_invitable'
 gem 'enumerize', '~> 0.11.0'
 gem 'exception_notification'
 gem 'figaro'
-gem "font-awesome-rails"
-gem 'forem', :github => "radar/forem", :branch => "rails4"
+gem 'font-awesome-rails'
+gem 'forem', :github => 'radar/forem', :branch => 'rails4'
 gem 'forem-theme-base', :github => 'radar/forem-theme-base'
 gem 'friendly_id'
 gem 'jbuilder', '~> 1.2'
@@ -36,7 +36,7 @@ gem 'public_activity'
 gem 'pundit', '~> 1.0.1'
 gem 'rails', '4.2.6'
 gem 'rack-rewrite', '~> 1.5.0'
-gem "recaptcha", require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
 gem 'remotipart'
 gem 'roo', '~> 2.1.0'
 gem 'sass-rails', '~> 5.0.3'
@@ -46,7 +46,7 @@ gem 'simple_form'
 gem 'sitemap_generator'
 gem 'slack-notifier'
 gem 'slim', '~> 3.0.3'
-gem "smart_listing"
+gem 'smart_listing'
 gem 'sprockets-rails', '~> 2.3.1'
 gem 'truncate_html'
 gem 'turbolinks'
@@ -55,6 +55,8 @@ gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'react-rails'
+gem 'seedbank'
+
 
 group :development do
   gem 'annotate'

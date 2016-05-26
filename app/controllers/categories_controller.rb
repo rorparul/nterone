@@ -74,7 +74,7 @@ class CategoriesController < ApplicationController
   end
 
   def category_items(category)
-    items = category.parent ? category.items : category.children_items
+    items = category.items + category.children_items
 
     return items if current_user.try(:lms?)
     items.select { |item| item.class.name != 'VideoOnDemand' || !item.lms }
