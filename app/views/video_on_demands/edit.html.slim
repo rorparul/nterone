@@ -19,34 +19,25 @@
   span.text-muted Edit
 
 
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Edit Video On Demand
+  .panel-body
+    #vod-tabs
+      ul.nav.nav-tabs role="tablist"
+        li.active role="presentation"
+          a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  Overview
+        li role="presentation"
+          a aria-controls="video-upload" data-toggle="tab" href="#video-upload" role="tab"  Video Upload
+        li role="presentation"
+          a aria-controls="quiz-upload" data-toggle="tab" href="#quiz-upload" role="tab"  Quiz Upload
 
-#vod-tabs
-  ul.nav.nav-tabs role="tablist"
-    li.active role="presentation"
-      a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  Overview
-    li role="presentation"
-      a aria-controls="video-upload" data-toggle="tab" href="#video-upload" role="tab"  Video Upload
-    li role="presentation"
-      a aria-controls="quiz-upload" data-toggle="tab" href="#quiz-upload" role="tab"  Quiz Upload
-
-  .tab-content
-    #overview.tab-pane.active role="tabpanel"
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted Edit Video On Demand
-        .panel-body
+      .tab-content
+        #overview.tab-pane.active role="tabpanel"
           = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
-    #video-upload.tab-pane.fade role="tabpanel"
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted Upload Videos
-        .panel-body
+        #video-upload.tab-pane.fade role="tabpanel"
           = render partial: "video_upload_form", locals: { video_on_demand: @video_on_demand, video: Video.new }
-    #quiz-upload.tab-pane.fade role="tabpanel"
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted Upload Quiz
-        .panel-body
+        #quiz-upload.tab-pane.fade role="tabpanel"
           = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
 
 javascript:
