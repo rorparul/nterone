@@ -27,9 +27,10 @@
         .col-xs-10
           span class=(@purchased ? 'hide' : '')
             = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
-          .panel.panel-default
-            .panel-body
-              = @video_on_demand.intro.html_safe if @video_on_demand.intro
+          - if @video_on_demand.intro
+            .panel.panel-default
+              .panel-body
+                = @video_on_demand.intro.html_safe
           #accordion.panel-group role="tablist" aria-multiselectable="true" class=(@purchased ? 'hide' : '')
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
