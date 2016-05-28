@@ -21,7 +21,7 @@ html
         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
   body
     = render 'layouts/modal'
-    = render 'layouts/header'
+    = render 'layouts/header_lms'
     .container-fluid
       .content-top
         #menu-toggle
@@ -29,7 +29,7 @@ html
         #header-nav
           .page-title
             = yield :breadcrumbs
-      hr      
+      hr
       .content.content-lms
         = render 'layouts/notifications'
         = yield
