@@ -58,7 +58,7 @@
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - if user_signed_in?
+                - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
                   .course-progress
                     .progress-bar-our
                       .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
