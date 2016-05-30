@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
     User.includes(:roles).where(roles: { role: 6 })
   end
 
+  def self.lms_managers_all
+    User.includes(:roles).where(roles: { role: 5 })
+  end
+
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"

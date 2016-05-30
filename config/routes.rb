@@ -167,6 +167,7 @@ NterOne::Application.routes.draw do
     end
 
     resources :business, only: :index
+    resources :assign_manager, only: [:index, :create]
   end
 
   controller :admin do
