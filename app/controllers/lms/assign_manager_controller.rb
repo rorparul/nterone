@@ -6,7 +6,18 @@ class Lms::AssignManagerController < Lms::BaseController
   end
 
   def create
-    binding.pry
+    lms_managed_student = LmsManagedStudent.new(
+      user: current_user,
+      manager_id: assign_manager_params[:manager_id]
+    )
+
+    if lms_managed_student.save
+      flash[:success] = "you were successfully assigned to #{lms_managed_student.manager.full_name}"
+      redirect_to lms_student_path(current_user)
+    else
+      flash[:alert] = 'could not assign to manager'
+      redirect_to :back
+    end
   end
 
 private
