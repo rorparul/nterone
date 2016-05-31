@@ -16,6 +16,16 @@ class Users::InvitationsController < Devise::InvitationsController
     end
   end
 
+  def resend
+    if params[:id].present?
+      user = User.find_by(id: params[:id])
+      user.invite! if user.present?
+      flash[:success] = 'Invitation resent!' if user.present?
+    end
+
+    redirect_to admin_people_path
+  end
+
   def after_invite_path_for(resource)
     admin_people_path
   end
