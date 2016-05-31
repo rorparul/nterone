@@ -1,6 +1,6 @@
 class Lms::StudentAssignmentsController < Lms::BaseController
-  before_action :authenticate_user!
-  before_action :set_student
+  before_action :authenticate_user!, except: :assign
+  before_action :set_student, except: :assign
   before_action :set_assignment, only: :destroy
 
   def index
@@ -31,6 +31,13 @@ class Lms::StudentAssignmentsController < Lms::BaseController
     end
 
     redirect_to :back
+  end
+
+  def assign
+    return redirect_to lms_path unless user_signed_in?
+
+    vod = VideoOnDemand.friendly.find(params[:item_id])
+    render json: vod
   end
 
 private

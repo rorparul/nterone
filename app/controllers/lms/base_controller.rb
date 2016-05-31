@@ -8,6 +8,7 @@ private
   end
 
   def lms_path?
-    request.referer.present? && request.referer.include?('/lms')
+    path = request.referer || request.path
+    path.include?('/lms')
   end
 end

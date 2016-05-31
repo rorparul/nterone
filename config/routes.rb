@@ -155,6 +155,8 @@ NterOne::Application.routes.draw do
     get '/', to: 'session#new'
     get '/signup', to: 'session#signup'
     get '/manager', to: 'students#index'
+    get '/assign/:item_id', to: 'student_assignments#assign'
+
 
     resources :students, only: [:index, :show] do
       resources :courses, only: [:show], controller: 'student_courses'
