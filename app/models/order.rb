@@ -15,11 +15,55 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
-  before_save   :add_up_total, :update_status
-  before_create :define_status, :define_clc_quantity
+  before_save   :add_up_total,  :update_status
+  before_create :update_status, :define_clc_quantity
 
   def update_status
-
+    if self.total == 0
+      self.status = "No Charge"
+      self.status_position = 3
+    else
+      case self.payment_type
+      when "Credit Card"
+        if self.paid == self.total
+          self.status = "Paid in Full"
+          self.status_position = 3
+        elsif self.paid == 0
+          self.status = "Not Charged"
+          self.status_position = 1
+        else
+          self.status = "Paid in Partial"
+          self.status_position = 2
+        end
+      when "Cisco Learning Credits"
+        if self.verified
+          self.status = "Verified SO"
+          self.status_position = 3
+        else
+          self.status = "Unverified SO"
+          self.status_position = 1
+        end
+      when "Purchase Order"
+        if self.invoice_number.blank?
+          self.status = "Uninvoiced"
+          self.status_position = 1
+        else
+          if self.po_number.present? && self.po_paid == self.total
+            self.status = "Paid in Full"
+            self.status_position = 3
+          else
+            self.status = "Invoiced"
+            self.status_position = 2
+          end
+        end
+      when "Bundled"
+        self.status = "Bundled"
+        self.status_position = 3
+      when "No Charge"
+        self.status = "No Charge"
+        self.status_position = 3
+      end
+    end
   end
 
   def add_order_items_from_cart(cart)
@@ -37,16 +81,6 @@ class Order < ActiveRecord::Base
     self.order_items.to_a.sum { |item| item.price }
   end
 
-  def define_status
-    if self.payment_type == "Credit Card"
-      if self.paid == self.total
-        self.status = "Paid in Full"
-      end
-    else
-      self.status = "Unverified"
-    end
-  end
-
   def define_clc_quantity
     self.clc_quantity ||= 0
   end
@@ -56,51 +90,3 @@ class Order < ActiveRecord::Base
     sum > 0.00 ? sum : 0.00
   end
 end
-
-# t.datetime "created_at",                                                         null: false
-# t.datetime "updated_at",                                                         null: false
-# t.string   "auth_code"
-# t.string   "first_name"
-# t.string   "last_name"
-# t.string   "shipping_street"
-# t.string   "shipping_city"
-# t.string   "shipping_state"
-# t.string   "shipping_zip_code"
-# t.string   "shipping_country"
-# t.string   "email"
-# t.string   "clc_number"
-# t.string   "billing_name"
-# t.string   "billing_zip_code"
-# t.decimal  "paid",                precision: 8, scale: 2, default: 0.0
-# t.string   "billing_street"
-# t.string   "billing_city"
-# t.string   "billing_state"
-# t.integer  "seller_id"
-# t.integer  "buyer_id"
-# t.string   "status",                                      default: "Uninvoiced"
-# t.decimal  "total",               precision: 8, scale: 2, default: 0.0
-# t.string   "billing_country"
-# t.string   "payment_type"
-# t.integer  "clc_quantity",                                default: 0
-# t.string   "billing_first_name"
-# t.string   "billing_last_name"
-# t.string   "shipping_company"
-# t.string   "billing_company"
-# t.boolean  "same_addresses",                              default: false
-# t.string   "shipping_first_name"
-# t.string   "shipping_last_name"
-# t.string   "po_number"
-# t.decimal  "po_paid",             precision: 8, scale: 2, default: 0.0
-# t.boolean  "verified",                                    default: false
-# t.boolean  "invoiced",                                    default: false
-# t.string   "invoice_number"
-
-
-# = form_for order, url: order_path(order), method: :patch, remote: true do |f|
-#   = f.select :status,
-#              [['Uninvoiced', 'Uninvoiced'],
-#               ['Unverified', 'Unverified'],
-#               ['Paid in Full', 'Paid in Full'],
-#               ['Verified', 'Verified']],
-#               { prompt: true },
-#               { class: 'form-control input-sm table-select' }
