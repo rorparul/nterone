@@ -35,6 +35,7 @@ class Lms::StudentAssignmentsController < Lms::BaseController
 
   def assign
     return redirect_to lms_path unless user_signed_in?
+    authorize :lms_student_assignment, :assign?
 
     vod = VideoOnDemand.friendly.find(params[:item_id])
     assignment = Assignment::CreateService.new(nil, current_user, vod).call
