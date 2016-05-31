@@ -8,6 +8,8 @@ class Users::InvitationsController < Devise::InvitationsController
       elsif current_user.sales?
         Lead.create(seller_id: current_user.id, status: 'assigned')
       end
+
+      flash[:success] = 'Successfully Saved!' if skip_invitation?
     else
       flash[:alert] = 'User with specified email is already invited'
       redirect_to :back
@@ -25,7 +27,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def invite_resource
     ## skip sending emails on invite
     super do |u|
-      u.skip_invitation = params[:skip_invitation] == 'true' ? true : false
+      u.skip_invitation = skip_invitation?
     end
   end
 
@@ -33,6 +35,10 @@ class Users::InvitationsController < Devise::InvitationsController
     if invite_params[:email].present?
       !User.where(email: invite_params[:email]).present?
     end
+  end
+
+  def skip_invitation?
+    params[:skip_invitation] == 'true' ? true : false
   end
 
   def invite_params
