@@ -12,9 +12,9 @@ class Lms::StudentAssignmentsController < Lms::BaseController
 
   def create
     item = VideoOnDemand.find(assigned_item_params[:course_id])
-    assigned_item = AssignedItem.new(item: item, student: @student, assigner: current_user)
+    assignment = Assignment::CreateService.new(current_user, @student, item).call
 
-    if assigned_item.save
+    if assignment.success?
       flash[:success] = "#{item.title} was successfully assigned to #{@student.full_name}"
       redirect_to :back
     else
