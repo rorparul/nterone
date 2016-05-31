@@ -1,11 +1,16 @@
 class Users::InvitationsController < Devise::InvitationsController
   def create
-    super
-    Role.create(user_id: @user.id)
-    if current_user.sales_manager?
-      Lead.create(buyer_id: @user.id)
-    elsif current_user.sales?
-      Lead.create(seller_id: current_user.id, status: 'assigned')
+    if not_invited?
+      super
+      Role.create(user_id: @user.id)
+      if current_user.sales_manager?
+        Lead.create(buyer_id: @user.id)
+      elsif current_user.sales?
+        Lead.create(seller_id: current_user.id, status: 'assigned')
+      end
+    else
+      flash[:alert] = 'User with specified email is already invited'
+      redirect_to :back
     end
   end
 
@@ -22,5 +27,15 @@ class Users::InvitationsController < Devise::InvitationsController
     super do |u|
       u.skip_invitation = params[:skip_invitation] == 'true' ? true : false
     end
+  end
+
+  def not_invited?
+    if invite_params[:email].present?
+      !User.where(email: invite_params[:email]).present?
+    end
+  end
+
+  def invite_params
+    params.require(:user).permit(:email, :first_name, :last_name)
   end
 end
