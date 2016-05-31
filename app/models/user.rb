@@ -241,4 +241,8 @@ class User < ActiveRecord::Base
   def has_role?(role_param)
     roles.any? { |role| role.role.to_sym == role_param }
   end
+
+  def can_resend_invitation?
+    admin? || sales_rep?
+  end
 end

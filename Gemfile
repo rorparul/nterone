@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'activeadmin', github: 'activeadmin'
 gem 'authorizenet'
 gem 'autonumeric-rails'
 gem 'bootstrap-sass', '~> 3.3.4'

@@ -142,9 +142,9 @@ class EventsController < ApplicationController
                                   :cost_shipping,
                                   :partner_led,
                                   :time_zone,
-                                  :sent_webex_invite,
-                                  :sent_course_material,
-                                  :sent_lab_credentials)
+                                  :sent_all_webex_invite,
+                                  :sent_all_course_material,
+                                  :sent_all_lab_credentials)
   end
 
   def error_rows(events)

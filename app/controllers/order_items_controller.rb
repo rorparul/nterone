@@ -1,5 +1,5 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order_item, only: [:destroy]
+  before_action :set_order_item, only: [:edit, :update, :destroy]
 
   def create
     @cart.order_items << find_orderable.order_items.build
@@ -9,6 +9,17 @@ class OrderItemsController < ApplicationController
       flash[:alert] = "Item failed to add to cart!"
     end
     redirect_to :back
+  end
+
+  def edit
+  end
+
+  def update
+    if @order_item.update_attributes(order_item_params)
+      flash[:success] = "Registration successfully updated."
+    else
+      flash[:alert] = "Registration failed to update."
+    end
   end
 
   def destroy
@@ -26,7 +37,11 @@ class OrderItemsController < ApplicationController
     end
 
     def order_item_params
-      params.require(:order_item).permit(:event_id, :video_on_demand_id)
+      params.require(:order_item).permit(:event_id,
+                                         :video_on_demand_id,
+                                         :sent_webex_invite,
+                                         :sent_course_material,
+                                         :sent_lab_credentials)
     end
 
     def find_orderable
