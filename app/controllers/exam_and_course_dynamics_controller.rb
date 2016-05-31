@@ -1,6 +1,6 @@
 class ExamAndCourseDynamicsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def new
     @platform                = Platform.find(params[:platform_id])
     @exam_and_course_dynamic = ExamAndCourseDynamic.new

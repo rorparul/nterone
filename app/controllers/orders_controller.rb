@@ -107,17 +107,14 @@ class OrdersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @order.update(order_params_admin)
-        format.html do
-          flash[:success] = 'Order was successfully updated.'
-          redirect_to :back
-        end
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit_admin' }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.update_attributes(order_params_admin)
+      flash[:success] = 'Order was successfully updated.'
+      redirect_to :back
+    else
+      flash[:alert] = 'Order failed to update.'
+      # format.html { render action: 'edit_admin' }
+      # format.json { render json: @order.errors, status: :unprocessable_entity }
+      redirect_to :back
     end
   end
 

@@ -1,0 +1,33 @@
+.form-container
+  = form_for order_item do |f|
+    - if order_item.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(order_item.errors.count, 'error')}:"
+        ul
+          - order_item.errors.full_messages.each do |msg|
+            li = msg
+            
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_webex_invite, "Sent Webex invite"
+          br
+          = f.check_box :sent_webex_invite
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_course_material, "Sent course material"
+          br
+          = f.check_box :sent_course_material
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :sent_lab_credentials, 'Sent lab credentials'
+          br
+          = f.check_box :sent_lab_credentials
+    
+    hr
+    
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

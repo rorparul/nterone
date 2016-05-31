@@ -184,31 +184,31 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",                precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                    precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.boolean  "guaranteed",                                   default: false
-    t.boolean  "active",                                       default: true
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
+    t.boolean  "guaranteed",                                       default: false
+    t.boolean  "active",                                           default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
-    t.string   "status"
+    t.string   "status",                                           default: "Pending"
     t.string   "lab_source"
-    t.boolean  "public",                                       default: true
-    t.decimal  "cost_instructor",      precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_lab",             precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_te",              precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_facility",        precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_books",           precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_shipping",        precision: 8, scale: 2, default: 0.0
-    t.boolean  "partner_led",                                  default: false
+    t.boolean  "public",                                           default: true
+    t.decimal  "cost_instructor",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_lab",                 precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_te",                  precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_facility",            precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_books",               precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_shipping",            precision: 8, scale: 2, default: 0.0
+    t.boolean  "partner_led",                                      default: false
     t.string   "time_zone"
-    t.boolean  "sent_webex_invite",                            default: false
-    t.boolean  "sent_course_material",                         default: false
-    t.boolean  "sent_lab_credentials",                         default: false
+    t.boolean  "sent_all_webex_invite",                            default: false
+    t.boolean  "sent_all_course_material",                         default: false
+    t.boolean  "sent_all_lab_credentials",                         default: false
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -482,14 +482,18 @@ ActiveRecord::Schema.define(version: 20160523050844) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "orderable_id"
     t.string   "orderable_type"
     t.integer  "cart_id"
-    t.decimal  "price",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                precision: 8, scale: 2, default: 0.0
     t.integer  "order_id"
     t.integer  "user_id"
+    t.boolean  "sent_webex_invite",                            default: false
+    t.boolean  "sent_course_material",                         default: false
+    t.boolean  "sent_lab_credentials",                         default: false
+    t.string   "status"
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
@@ -532,6 +536,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.boolean  "verified",                                    default: false
     t.boolean  "invoiced",                                    default: false
     t.string   "invoice_number"
+    t.integer  "status_position"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -594,6 +599,15 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "registrations", force: :cascade do |t|
+    t.boolean  "sent_webex_invite",    default: false
+    t.boolean  "sent_course_material", default: false
+    t.boolean  "sent_lab_credentials", default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "event_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
@@ -636,6 +650,13 @@ ActiveRecord::Schema.define(version: 20160523050844) do
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.date     "date_exp"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "video_on_demand_id"
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"

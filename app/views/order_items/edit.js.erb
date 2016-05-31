@@ -1,0 +1,3 @@
+$('.modal-title').html('Edit Registration');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { order_item: @order_item }) %>");
+$('#myModal').modal('show');
