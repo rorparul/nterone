@@ -37,7 +37,15 @@ class Lms::StudentAssignmentsController < Lms::BaseController
     return redirect_to lms_path unless user_signed_in?
 
     vod = VideoOnDemand.friendly.find(params[:item_id])
-    render json: vod
+    assignment = Assignment::CreateService.new(nil, current_user, vod).call
+
+    if assignment.success?
+      flash[:success] = 'assigned successfully'
+    else
+      flash[:alert] = 'could not create assignment'
+    end
+
+    redirect_to lms_student_path(current_user)
   end
 
 private
