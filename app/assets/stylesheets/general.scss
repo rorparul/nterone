@@ -2338,15 +2338,17 @@ footer {
   margin-bottom: 10px;
 
   .progress-bar-our {
-    height: 20px;
+    height: 25px;
     border-radius: 5px;
   }
 
   .progress-our {
-    height: 20px;
+    height: 25px;
     text-align: center;
     font-weight: bold;
     border-radius: 5px;
+    color: #fff;
+    line-height: 25px;
   }
 }
 

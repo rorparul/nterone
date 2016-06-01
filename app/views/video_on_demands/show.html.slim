@@ -63,7 +63,7 @@
                   .course-progress
                     .progress-bar-our
                       .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
-                        | #{vod_overal_progress(@video_on_demand, current_user)}
+                        | #{@video_on_demand.overal_progress_percent_for(current_user)}%
 
                 - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
                   .panel.panel-default
