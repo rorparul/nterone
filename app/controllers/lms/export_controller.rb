@@ -10,7 +10,7 @@ class Lms::ExportController < Lms::BaseController
 
     respond_to do |format|
       format.csv { send_data csv_exporter.to_csv }
-      format.xls
+      format.xlsx
     end
   end
 
@@ -22,7 +22,7 @@ class Lms::ExportController < Lms::BaseController
 
     respond_to do |format|
       format.csv { send_data csv_exporter.to_csv }
-      format.xls
+      format.xlsx
     end
   end
 

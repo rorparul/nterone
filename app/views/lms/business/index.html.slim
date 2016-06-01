@@ -6,10 +6,10 @@
 .row
   span.lead.pull-left Students
   =link_to 'Progress CSV', lms_export_progress_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Progress XLS', lms_export_progress_path(format: 'xls'), class: 'btn btn-info pull-right export-button'
+  =link_to 'Progress Excell', lms_export_progress_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
 
   =link_to 'Grades CSV', lms_export_grades_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Grades XLS', lms_export_grades_path(format: 'xls'), class: 'btn btn-info pull-right export-button'
+  =link_to 'Grades Excell', lms_export_grades_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
 
   table.table.table-hover
     - unless @students.empty?

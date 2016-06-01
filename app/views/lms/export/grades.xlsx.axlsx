@@ -1,0 +1,12 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Grades') do |sheet|
+    sheet.add_row ['Index', 'Student name', 'Course Name', 'Exam Name', 'Status'], style: Array.new(5, color)
+    @exams.each do |exam|
+      sheet.add_row exam
+    end
+  end
+end
