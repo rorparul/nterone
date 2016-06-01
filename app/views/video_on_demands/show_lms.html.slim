@@ -21,10 +21,10 @@
   span.text-muted = "#{@video_on_demand.abbreviation}"
 
 .row
-  .col-xs-12.col-central
+  .col-central.vod-lms-show
     #video-on-demand
       .row
-        .col-xs-10
+        .col-xs-10.col-xs-offset-1
           span class=(@purchased ? 'hide' : '')
             = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
           - if @video_on_demand.intro
