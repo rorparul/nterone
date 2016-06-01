@@ -30,6 +30,9 @@ html
         #header-nav
           .page-title
             = yield :breadcrumbs
+          =link_to main_app.destroy_user_session_path, method: :delete, class: 'pull-right btn btn-default'
+            | sign out
+
       hr
       .content.content-lms
         = render 'layouts/notifications'
