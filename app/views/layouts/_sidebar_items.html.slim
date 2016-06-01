@@ -47,6 +47,6 @@ li = link_to main_app.labs_path, class: "labs-tab" do
     span.fa.fa-envelope-o
     span Contact Us
 - if user_signed_in?
-  li = link_to 'sign out', logout_path do
+  li = link_to logout_path do
     span.fa.fa-sign-out
     span Logout
