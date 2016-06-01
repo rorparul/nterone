@@ -39,6 +39,12 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand = VideoOnDemand.find(params[:id])
     @purchased = current_user && @video_on_demand.purchased_by?(current_user)
     @hide_sidebar = current_user && @video_on_demand.purchased_by?(current_user)
+
+    if current_user.lms?
+      render 'video_on_demands/show_lms', layout: 'lms'
+    else
+      render 'video_on_demands/show'
+    end
   end
 
   def select
