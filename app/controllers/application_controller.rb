@@ -42,8 +42,12 @@ class ApplicationController < ActionController::Base
   private
 
   def store_location
-    # store last url as long as it isn't a /users path
-    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+    session[:previous_url] = request.fullpath unless skip_path_store?
+  end
+
+  def skip_path_store?
+    path = request.fullpath
+    path =~ /\/users/ || path =~ /\/lms\/signup/ || path =~ /\/lms$/
   end
 
   def update_request_urls

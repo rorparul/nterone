@@ -6,10 +6,10 @@
 .row
   span.lead.pull-left Students
   =link_to 'Progress CSV', lms_export_progress_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Progress XLS', lms_export_progress_path(format: 'xls'), class: 'btn btn-info pull-right export-button'
+  =link_to 'Progress Excell', lms_export_progress_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
 
   =link_to 'Grades CSV', lms_export_grades_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Grades XLS', lms_export_grades_path(format: 'xls'), class: 'btn btn-info pull-right export-button'
+  =link_to 'Grades Excell', lms_export_grades_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
 
   table.table.table-hover
     - unless @students.empty?
@@ -25,7 +25,7 @@
             td= student.full_name
             td= student.email
             td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
-            td= student.assigned_to.try(:full_name)
+            td= student.lms_manager.try(:full_name)
             td
               a href=lms_student_path(student) Show
     - else

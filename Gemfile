@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'activeadmin', github: 'activeadmin'
 gem 'authorizenet'
 gem 'autonumeric-rails'
 gem 'bootstrap-sass', '~> 3.3.4'
@@ -38,7 +37,6 @@ gem 'rails', '4.2.6'
 gem 'rack-rewrite', '~> 1.5.0'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'remotipart'
-gem 'roo', '~> 2.1.0'
 gem 'sass-rails', '~> 5.0.3'
 gem 'search_cop'
 gem 'sidekiq'
@@ -57,6 +55,11 @@ gem 'wkhtmltopdf-binary'
 gem 'react-rails'
 gem 'seedbank'
 
+gem 'roo', '1.13.2'
+gem 'zip-zip'
+gem 'rubyzip', '>= 1.0.0'
+gem 'axlsx', '2.0.1'
+gem 'axlsx_rails'
 
 group :development do
   gem 'annotate'

@@ -9,6 +9,8 @@ class GeneralController < ApplicationController
   def welcome
     @page = Page.find_by(title: 'Welcome')
 
+    return redirect_to lms_assign_manager_index_path if lms_signup_path?
+
     if current_user && current_user.lms_manager? && lms_path?
       redirect_to lms_manager_path
     elsif current_user && current_user.lms_student? && lms_path?
@@ -97,5 +99,9 @@ class GeneralController < ApplicationController
 
   def lms_path?
     request.referer.present? && request.referer.include?('/lms')
+  end
+
+  def lms_signup_path?
+    request.referer.present? && request.referer.include?('/lms/signup')
   end
 end

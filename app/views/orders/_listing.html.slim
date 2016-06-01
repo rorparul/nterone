@@ -5,7 +5,7 @@
         thead
           tr
             th.fit = smart_listing.sortable "ID", :id
-            th.fit = smart_listing.sortable "Status", :status
+            th.fit = smart_listing.sortable "Status", :status_position
             th.fit = smart_listing.sortable "Total", :total
             th.fit Charged
             th.fit = smart_listing.sortable "Auth Code", :auth_code
@@ -20,16 +20,12 @@
             tr
               td.fit = order.id
               td.fit
-                - if order.status == "Unverified SO"
+                - if order.status == "Uninvoiced" || order.status == "Unverified SO" || order.status == "Not Charged"
+                  span.label.label-danger = order.status
+                - if order.status == "Invoiced" || order.status == "Paid in Partial"
                   span.label.label-warning = order.status
-                - if order.status == "Verified SO"
+                - if order.status == "Verified SO" || order.status == "Paid in Full" || order.status == "Bundled" || order.status == "No Charge"
                   span.label.label-success = order.status
-                - if order.status == "Uninvoiced"
-                  span.label.label-warning = order.status
-                - if order.status == "Invoiced"
-                  span.label.label-alert = order.status
-                - if order.status == "Paid In Full"
-                  span.label.label-alert = order.status
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
               td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
               td.fit = order.auth_code

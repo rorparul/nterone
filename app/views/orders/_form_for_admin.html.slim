@@ -1,5 +1,5 @@
 .form-container
-  = form_for order, url: orders_path do |f|
+  = form_for order do |f|
     .row
       .col-xs-12.col-sm-4
         .form-group
@@ -19,21 +19,25 @@
       = f.label :seller_id, 'Sales Rep'
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 {prompt: true},
-                 {class: "form-control input-sm"}
+                 { prompt: true },
+                 { class: "form-control input-sm" }
                  
-    .form-group
-      = f.label :buyer_id, 'Student'
-      = f.select :buyer_id,
-                 User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 {prompt: true, selected: user.try(:id)},
-                 {class: "form-control input-sm"}
+    - if order.id
+      .form-group
+        = f.label :buyer_id, 'Student'
+        = f.select :buyer_id,
+                   User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                   { prompt: true },
+                   { class: "form-control input-sm" }
+    - else
+      .form-group
+        = f.label :buyer_id, 'Student'
+        = f.select :buyer_id,
+                   User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                   { prompt: true, selected: user.try(:id) },
+                   { class: "form-control input-sm" }
                  
     hr
-    
-    / = f.fields_for :order_items do |ff|
-    /   = ff.hidden_field :orderable_type, value: "Event"
-    /   = ff.hidden_field :orderable_id,   value: event.id
     
     - if order.id
       #order-items

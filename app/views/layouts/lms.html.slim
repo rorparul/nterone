@@ -21,15 +21,18 @@ html
         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
   body
     = render 'layouts/modal'
-    = render 'layouts/header'
+    = render 'layouts/header_lms'
+
     .container-fluid
-      .content-top
+      .content-top.content-top-lms
         #menu-toggle
           i.fa.fa-bars
         #header-nav
           .page-title
             = yield :breadcrumbs
-      hr      
+          = link_to 'sign out', logout_path, class: 'pull-right btn btn-default'
+
+      hr
       .content.content-lms
         = render 'layouts/notifications'
         = yield

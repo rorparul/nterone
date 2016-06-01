@@ -1,0 +1,5 @@
+<% if @order_item.status == "complete" %>
+  $("#order_item_<%= @order_item.id %>").addClass("success");
+<% elsif @order_item.status == "pending" %>
+  $("#order_item_<%= @order_item.id %>").removeClass("success");
+<% end %>

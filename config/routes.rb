@@ -5,6 +5,14 @@ NterOne::Application.routes.draw do
                             sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
+  devise_scope :user do
+    post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
+    get '/logout' => 'devise/sessions#destroy'
+  end
+
+
+
+
   # ActiveAdmin.routes(self)
 
   mount Forem::Engine, :at => '/forums'
@@ -155,6 +163,8 @@ NterOne::Application.routes.draw do
     get '/', to: 'session#new'
     get '/signup', to: 'session#signup'
     get '/manager', to: 'students#index'
+    get '/assign/:item_id', to: 'student_assignments#assign'
+
 
     resources :students, only: [:index, :show] do
       resources :courses, only: [:show], controller: 'student_courses'
@@ -167,6 +177,7 @@ NterOne::Application.routes.draw do
     end
 
     resources :business, only: :index
+    resources :assign_manager, only: [:index, :create]
   end
 
   controller :admin do

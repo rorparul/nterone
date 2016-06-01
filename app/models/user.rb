@@ -38,11 +38,11 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
-  has_many :lms_managers, through: :lms_managers_associacion, source: 'manager'
+  has_one :lms_manager, through: :lms_managers_associacion, source: 'manager'
   has_many :lms_students, through: :lms_students_associacion, source: 'user'
 
   has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
-  has_many :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
+  has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
 
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
 
   def self.lms_students_all
     User.includes(:roles).where(roles: { role: 6 })
+  end
+
+  def self.lms_managers_all
+    User.includes(:roles).where(roles: { role: 5 })
   end
 
   def password_complexity
@@ -238,7 +242,7 @@ class User < ActiveRecord::Base
     roles.any? { |role| role.role.to_sym == role_param }
   end
 
-  def assigned_to
-    lms_managers.first
+  def can_resend_invitation?
+    admin? || sales_rep?
   end
 end
