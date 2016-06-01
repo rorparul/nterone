@@ -7,7 +7,11 @@ NterOne::Application.routes.draw do
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
+    get '/logout' => 'devise/sessions#destroy'
   end
+
+
+
 
   # ActiveAdmin.routes(self)
 
