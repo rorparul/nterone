@@ -809,6 +809,7 @@ iframe.wysihtml5-sandbox {
       padding: 9px;
       text-decoration: none;
       display: block;
+
       p {
         color: #505050;
         margin: 0 0 0 70px;
@@ -823,6 +824,11 @@ iframe.wysihtml5-sandbox {
       	-ms-transform: translateY(-50%);
       	transform: translateY(-50%);
       }
+
+      .course-links {
+        margin-top: 20px;
+      }
+
       &.with-image {
         img {
           float: left;
@@ -2173,7 +2179,7 @@ footer {
   position: relative;
 
   a {
-    padding-top: 30px !important;
+    margin-right: 10px
   }
 
   .results {
