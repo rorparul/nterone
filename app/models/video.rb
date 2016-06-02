@@ -13,7 +13,7 @@ class Video < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :finders]
 
   def permit_user?(user)
-    video_module.video_on_demand.purchased_by?(user)
+    video_module.video_on_demand.purchased_by?(user) || video_module.video_on_demand.assigned_to?(user)
   end
 
   def next_video

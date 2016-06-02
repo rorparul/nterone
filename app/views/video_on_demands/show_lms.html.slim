@@ -85,7 +85,7 @@
                                 = exam_completed_ratio(video_module, current_user)
                           span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default')
                             span.fa.fa-check
-                    .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
+                    .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
                       .panel-body
                         .table-responsive
                           table.table.table-compact
