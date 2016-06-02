@@ -12,8 +12,10 @@
 
   - @courses.each do |course|
     .col-xs-12.col-md-6.course-wrapper
-      = link_to lms_student_course_path(@student, course), class: 'resource-item without-image' do
-          span= course.full_title
+      .resource-item.without-image
+        .course-links
+          = link_to course.full_title, platform_video_on_demand_path(course.platform, course)
+          = link_to 'Exam Attempts', lms_student_course_path(@student, course), class: 'label label-info'
 
       .results
         span.label class=watched_count_class(course, @student)
