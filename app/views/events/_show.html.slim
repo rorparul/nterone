@@ -137,6 +137,7 @@
                   span.fa.fa-book
                 th title="Sent lab credentials"
                   span.fa.fa-flask
+                th Invoice #
                 th Student
                 th Amount Quoted
                 th Amount Paid
@@ -155,6 +156,9 @@
                   td
                     = form_for order_item, remote: true do |f|
                       = f.check_box :sent_lab_credentials, class: "check-select"
+                  td
+                    = form_for order_item.order, remote: true do |f|
+                      = f.text_field :invoice_number, class: "form-control form-async"
                   td = order_item.user.full_name if order_item.user
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   - if order_item.order
@@ -184,5 +188,9 @@
                     
 javascript:
   $('.table-select, .check-select').on('change', function() {
+    $(this).closest('form').submit();
+  });
+  
+  $('.form-async').on('keyup', function() {
     $(this).closest('form').submit();
   });
