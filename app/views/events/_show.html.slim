@@ -142,8 +142,7 @@
                 th Amount Paid
                 th Amount Due
                 th Sales Rep
-                / th
-                / th
+                th Note
             tbody
               - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
@@ -174,6 +173,12 @@
                                      { class: 'form-control input-sm table-select' }
                   - else
                     td = order_item.order.buyer.full_name if order_item.order.buyer
+                  td
+                    = link_to edit_order_item_path(order_item), remote: true do
+                      - if order_item.note.present?
+                        span.fa.fa-sticky-note
+                      - else
+                        span.fa.fa-sticky-note-o
                   / td = link_to 'Edit', edit_order_item_path(order_item), remote: true
                   / td = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
                     

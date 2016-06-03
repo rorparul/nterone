@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513182144) do
+ActiveRecord::Schema.define(version: 20160603051219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,7 @@ ActiveRecord::Schema.define(version: 20160513182144) do
     t.text     "answer_text"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "position"
   end
 
   add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree
@@ -444,23 +445,33 @@ ActiveRecord::Schema.define(version: 20160513182144) do
 
   create_table "lms_exam_questions", force: :cascade do |t|
     t.text     "question_text"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "question_type", default: 0
   end
 
   create_table "lms_exams", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "exam_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "video_module_id"
     t.integer  "video_id"
     t.string   "slug"
+    t.integer  "video_on_demand_id"
   end
 
   add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
   add_index "lms_exams", ["video_module_id"], name: "index_lms_exams_on_video_module_id", using: :btree
+  add_index "lms_exams", ["video_on_demand_id"], name: "index_lms_exams_on_video_on_demand_id", using: :btree
+
+  create_table "lms_managed_students", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -483,6 +494,7 @@ ActiveRecord::Schema.define(version: 20160513182144) do
     t.boolean  "sent_course_material",                         default: false
     t.boolean  "sent_lab_credentials",                         default: false
     t.string   "status"
+    t.text     "note"
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
@@ -804,6 +816,7 @@ ActiveRecord::Schema.define(version: 20160513182144) do
   add_foreign_key "lms_exam_question_joins", "lms_exam_questions"
   add_foreign_key "lms_exam_question_joins", "lms_exams"
   add_foreign_key "lms_exams", "video_modules"
+  add_foreign_key "lms_exams", "video_on_demands"
   add_foreign_key "lms_exams", "videos"
   add_foreign_key "taken_exams", "lms_exams"
   add_foreign_key "taken_exams", "users"
