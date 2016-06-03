@@ -18,3 +18,4 @@ erd.pdf
 /config/application.yml
 
 sitemap.xml.gz
+.DS_Store

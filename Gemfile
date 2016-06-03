@@ -71,10 +71,11 @@ group :doc do
 end
 
 group :test do
-  gem 'database_cleaner', '~> 1.4.1'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.4.3'
-  gem 'rspec-rails', '~> 3.3.1'
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails'
+  gem 'ffaker', '~> 2.1'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', require: false
 end
 
 group :development, :test do
