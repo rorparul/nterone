@@ -22,6 +22,9 @@
                 - if user.member?
                   = link_to "Add Order", new_order_path(user: user.id), remote: true
                   = " | "
+                - if current_user.can_resend_invitation?
+                  = link_to('Re-invite', resend_invite_path(user), method: :post)
+                  = " | "
                 = link_to "Edit", edit_user_path(user)
                 = " | "
                 = link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }

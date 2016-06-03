@@ -4,6 +4,10 @@ NterOne::Application.routes.draw do
              controllers: { registrations: 'users/registrations',
                             invitations:   'users/invitations' }
 
+  devise_scope :user do
+    post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
+  end
+
   mount Forem::Engine, :at => '/forums'
 
   resources :users  do
