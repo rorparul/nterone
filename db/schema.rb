@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603051219) do
+ActiveRecord::Schema.define(version: 20160603204655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -538,6 +538,7 @@ ActiveRecord::Schema.define(version: 20160603051219) do
     t.boolean  "invoiced",                                    default: false
     t.string   "invoice_number"
     t.integer  "status_position"
+    t.boolean  "reviewed",                                    default: false
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -693,12 +694,12 @@ ActiveRecord::Schema.define(version: 20160603051219) do
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",               null: false
-    t.string   "encrypted_password",     default: "",               null: false
+    t.string   "email",                   default: "",               null: false
+    t.string   "encrypted_password",      default: "",               null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                null: false
+    t.integer  "sign_in_count",           default: 0,                null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -715,7 +716,7 @@ ActiveRecord::Schema.define(version: 20160603051219) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
-    t.boolean  "archived",               default: false
+    t.boolean  "archived",                default: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -727,16 +728,16 @@ ActiveRecord::Schema.define(version: 20160603051219) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",       default: 0
     t.datetime "last_active_at"
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_zip_code"
-    t.boolean  "same_addresses",         default: false
-    t.boolean  "forem_admin",            default: false
-    t.string   "forem_state",            default: "pending_review"
-    t.boolean  "forem_auto_subscribe",   default: false
+    t.boolean  "same_addresses",          default: false
+    t.boolean  "forem_admin",             default: false
+    t.string   "forem_state",             default: "pending_review"
+    t.boolean  "forem_auto_subscribe",    default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_first_name"
@@ -747,6 +748,7 @@ ActiveRecord::Schema.define(version: 20160603051219) do
     t.string   "shipping_zip_code"
     t.string   "shipping_company"
     t.string   "billing_company"
+    t.string   "referring_partner_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

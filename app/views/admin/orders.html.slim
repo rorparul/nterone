@@ -42,3 +42,7 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .orders').addClass('active-category');
+  
+  $(".panel").on('change', ".check-select", function() {
+    $(this).closest('form').submit();
+  });

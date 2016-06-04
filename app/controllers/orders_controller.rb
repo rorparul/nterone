@@ -202,7 +202,7 @@ class OrdersController < ApplicationController
                                   :paid,
                                   :po_paid,
                                   :invoice_number,
-                                  :verified,
+                                  :reviewed,
                                   order_items_attributes: [:id,
                                                            :user_id,
                                                            :orderable_id,

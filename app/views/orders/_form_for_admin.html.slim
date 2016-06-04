@@ -1,17 +1,22 @@
 .form-container
   = form_for order do |f|
     .row
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :invoice_number, "Invoice #"
-          br
-          = f.text_field :invoice_number, class: 'form-control input-sm'
-          
-      .col-xs-12.col-sm-4
+      - if current_user.admin?
+        .col-xs-12.col-sm-3
+          .form-group
+            = f.label :reviewed, "Reviewed"
+            br
+            = f.check_box :reviewed
+      .col-xs-12.col-sm-3
         .form-group
           = f.label :verified, "Verfied SO #"
           br
           = f.check_box :verified
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :invoice_number, "Invoice #"
+          br
+          = f.text_field :invoice_number, class: 'form-control input-sm'
       
     hr
             
