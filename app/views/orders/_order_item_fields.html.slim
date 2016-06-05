@@ -7,7 +7,7 @@
       = f.label :orderable_id, 'Classes'
       br
       = f.select :orderable_id,
-                 Event.all.collect { |event| [event.course.full_title, event.id] },
+                 Event.all.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date})", event.id] },
                  { prompt: true },
                  { class: "form-control sub-select input-sm" }
     = link_to_remove_association 'Remove Class', f
