@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  include AuthorizeNet::API
-
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -39,31 +37,10 @@ class OrdersController < ApplicationController
       # Create transaction
       @order = current_user.buyer_orders.build
       if order_params[:payment_type] == "Credit Card"
-        request                                       = CreateTransactionRequest.new
-        request.transactionRequest                    = TransactionRequestType.new
-        request.transactionRequest.amount             = cc_params[:paid]
-        request.transactionRequest.payment            = PaymentType.new
-        request.transactionRequest.payment.creditCard = CreditCardType.new(cc_params[:credit_card_number],
-                                                                           cc_params[:expiration_month] +
-                                                                           cc_params[:expiration_year],
-                                                                           cc_params[:security_code])
-        request.transactionRequest.billTo             = NameAndAddressType.new
-        request.transactionRequest.billTo.firstName   = order_params[:billing_first_name]
-        request.transactionRequest.billTo.lastName    = order_params[:billing_last_name]
-        request.transactionRequest.billTo.address     = order_params[:billing_street]
-        request.transactionRequest.billTo.city        = order_params[:billing_city]
-        request.transactionRequest.billTo.state       = order_params[:billing_state]
-        request.transactionRequest.billTo.zip         = order_params[:billing_zip_code]
-        request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
+        payment_result = Payment::createService(order_params, cc_params).call
+        response = payment_result.data
 
-        if Rails.env.development?
-          transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
-        elsif Rails.env.production?
-          transaction = Transaction.new("6n4RAa4uz", "8DRM235rU88yx5w4", gateway: :production)
-        end
-
-        response = transaction.create_transaction(request)
-        if response.messages.resultCode == MessageTypeEnum::Ok
+        if payment_result.success?
           puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
           @order.auth_code = response.transactionResponse.authCode
           @order.paid      = request.transactionRequest.amount
@@ -74,6 +51,7 @@ class OrdersController < ApplicationController
             logger.info response.transactionResponse.errors.errors[0].errorCode
             logger.info response.transactionResponse.errors.errors[0].errorText
           end
+
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
