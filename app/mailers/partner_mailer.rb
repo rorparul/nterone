@@ -1,9 +1,11 @@
 class PartnerMailer < ApplicationMailer
-  def student_added(user, partner_email)
-    @user = user
-    mail(to: partner_email,
-         bcc: ["ashlie@nterone.com", "leslie@nterone.com"],
-         subject: 'NterOne Web Student Added Confirmation',
+  def registration_made(user, event)
+    @user  = user
+    @event = event
+    attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
+    mail(to: @user.referring_partner_email,
+        #  bcc: ["ashlie@nterone.com", "leslie@nterone.com"], TODO: Uncomment after completion
+         subject:       'NterOne Web Student Added Confirmation',
          template_path: 'mailers',
          template_name: 'student_added')
   end

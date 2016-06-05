@@ -1,4 +1,14 @@
-[LOGO]
+css:
+  td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  
+  .text-red {
+    color: red;
+  }
+
+= image_tag attachments["logo.png"].url
  
 p Hello Dave Clearman,
 
@@ -9,55 +19,55 @@ p
 p Special information regarding this course may be listed below – please read completely.
 
 p NterOne Corporation invites you to participate as an attendee in the following training session:
+table
+  tr
+    td Course
+    td.text-red = @event.course.full_title
+  tr
+    td Name
+    td = @user.full_name
+  tr
+    td Location
+    td = @event.format
+  tr
+    td Date
+    td.text-red = "#{@event.start_date} thru #{@event.end_date}"
+  tr
+    td Start Time
+    td.text-red = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+  tr
+    td End Time
+    td.text-red = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+  tr
+    td colspan="2" WebEx sessions are available 30 minutes before class begins.
 
- 
+p.text-red For optimal class experience, we strongly recommend that you use two screens in order to view course material and participate in lab simultaneously.
 
-Course Information: DCNX7K: Configuring Cisco Nexus 7000 Switches v3.0
+p
+  span.text-red Note: 
+  | You can check WebEx connectivity by going to this link: 
+  a href="http://www.webex.com/test-meeting.html" http://www.webex.com/test-meeting.html
 
-Name: Dave Clearman
+p
+  | Although WebEx supports Internet Explorer, we have found more success with recommending Firefox, Safari and Google Chrome in our daily use of WebEx. 
+  | WebEx login information will be emailed to each student the week before class begins. Course materials will be delivered via email 3-5 days before class begins.
 
-Location: Live Online                     
+p
+  span.text-red Windows 10 Support: 
+  | Windows 10 is not officially supported, but most functionality in Internet Explorer should work. The Edge browser in Windows 10 is not supported. 
+  | LINUX is also not well supported in WebEx. You will be unable to successfully join audio: the only workaround discovered is to use a Windows VM.
 
-Date: Monday, April 25 thru Friday, April 29, 2016
-
-Start Time: 10 AM EST
-
-End Time: 6 PM EST
-
-WebEx sessions are available 30 minutes before class begins.
-
- 
-
-**For optimal class experience, we strongly recommend that you use two screens in order to view course material and participate in lab simultaneously.
-
- 
-
-Note: You can check WebEx connectivity by going to this link: http://www.webex.com/test-meeting.html
-
-Although WebEx supports Internet Explorer, we have found more success with recommending Firefox, Safari and Google Chrome in our daily use of WebEx.  WebEx login information will be emailed to each student the week before class begins.  Course materials will be delivered via email 3-5 days before class begins.
-
- 
-
-Windows 10 Support:  Windows 10 is not officially supported, but most functionality in Internet Explorer should work.  The Edge browser in Windows 10 is not supported.  LINUX is also not well supported in WebEx.  You will be unable to successfully join audio: the only workaround discovered is to use a Windows VM.
-
- 
-
-Need Help? Call Customer Service
-
- 
-
-·         E-Mail: Helpdesk@Nterone.com
-
-·         Phone: 703 972 2288 Ext. 1022
-
-·         Hours: 8:00am – 8:00pm EST
-
- 
-
- 
+p Need Help? Call Customer Service:
+ul
+  li
+    | E-Mail: 
+    a href="mailto:helpdesk@nterone.com" HelpDesk@NterOne.com
+  li Phone: 703-972-2288 Ext. 1022
+  li Hours: 8:00am EST – 8:00pm EST
 
 p Thank you very much for your business,
 
 p Customer Service,
 
-p www.NterOne.com
+p
+  a href="www.nterone.com" www.NterOne.com

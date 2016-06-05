@@ -7,7 +7,10 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     if not_invited?
       super
-      Role.create(user_id: @user.id)
+
+      @user.roles.create
+      @user.update_attributes(referring_partner_email_params)
+
       if current_user.sales_manager?
         Lead.create(buyer_id: @user.id)
       elsif current_user.sales?
@@ -61,6 +64,10 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def invite_params
-    params.require(:user).permit(:first_name, :last_name, :email, :referring_partner_email)
+    params.require(:user).permit(:first_name, :last_name, :email)
+  end
+
+  def referring_partner_email_params
+    params.require(:user).permit(:referring_partner_email)
   end
 end
