@@ -187,20 +187,6 @@ class OrdersController < ApplicationController
                                                            :orderable_type])
   end
 
-  def log_payment_error(response)
-    transaction_res = response.transactionResponse
-    first_error = transaction_res.errors.errors[0]
-    should_log = response && transaction_res && transaction_res.errors && first_error
-
-    logger.info response.messages.messages[0].text
-    logger.info response
-
-    if should_log
-      logger.info first_error.errorCode
-      logger.info first_error.errorText
-    end
-  end
-
   def handle_credit_card_payment
     payment_result = Payment::CreateService.new(order_params, cc_params).call
     response = payment_result.data
@@ -215,6 +201,20 @@ class OrdersController < ApplicationController
     else
       log_payment_error(response)
       return ResultObjects::Failure.new(response)
+    end
+  end
+
+  def log_payment_error(response)
+    transaction_res = response.transactionResponse
+    first_error = transaction_res.errors.errors[0]
+    should_log = response && transaction_res && transaction_res.errors && first_error
+
+    logger.info response.messages.messages[0].text
+    logger.info response
+
+    if should_log
+      logger.info first_error.errorCode
+      logger.info first_error.errorText
     end
   end
 end

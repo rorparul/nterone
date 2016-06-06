@@ -60,8 +60,6 @@ group :development do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'letter_opener'
   gem 'meta_request', '~> 0.3.4'
-  gem 'pry-byebug', '~> 3.1.0'
-  gem 'pry-rails', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
 end
@@ -86,4 +84,6 @@ group :development, :test do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'dotenv-rails'
+  gem 'pry-byebug', '~> 3.1.0'
+  gem 'pry-rails', '~> 0.3.4'
 end

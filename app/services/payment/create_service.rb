@@ -22,10 +22,7 @@ class Payment::CreateService
     response = create_transaction(request)
 
     if successfull_response?(response)
-      ResultObjects::Success.new({
-        auth_code: response.transactionResponse.authCode,
-        amount: request.transactionRequest.amount
-      })
+      ResultObjects::Success.new(response_data(response))
     else
       ResultObjects::Failure.new(response)
     end
@@ -60,7 +57,7 @@ private
   end
 
   def create_transaction(request)
-    if Rails.env.development?
+    if Rails.env.development? || Rails.env.test?
       Transaction.new(DEV_API_LOGIN, DEV_API_KEY, gateway: :sandbox).create_transaction(request)
     elsif Rails.env.production?
       Transaction.new(PROD_API_LOGIN, PROD_API_KEY, gateway: :production).create_transaction(request)
@@ -73,5 +70,12 @@ private
 
   def exparation_date
     @cc_params[:expiration_month] + @cc_params[:expiration_year]
+  end
+
+  def response_data(response)
+    {
+      auth_code: response.transactionResponse.authCode,
+      amount: request.transactionRequest.amount
+    }
   end
 end
