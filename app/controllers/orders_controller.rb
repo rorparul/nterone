@@ -11,8 +11,7 @@ class OrdersController < ApplicationController
   def new
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new
-      # order_item = @order.order_items.build
-      @user = params[:user] ? User.find(params[:user]) : nil
+      @user  = params[:user] ? User.find(params[:user]) : nil
       @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
       render "new_admin"
     else
@@ -24,6 +23,7 @@ class OrdersController < ApplicationController
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
       @order.order_items.each do |order_item|
+        p "OUTSIDE: #{order_item.inspect}"
         order_item.user_id = @order.buyer_id
       end
       if @order.save
@@ -206,6 +206,7 @@ class OrdersController < ApplicationController
                                   order_items_attributes: [:id,
                                                            :user_id,
                                                            :orderable_id,
-                                                           :orderable_type])
+                                                           :orderable_type,
+                                                           :_destroy])
   end
 end

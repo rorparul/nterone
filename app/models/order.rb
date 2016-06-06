@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  include ModelSearch
+  include SearchCop
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
@@ -13,12 +13,31 @@ class Order < ActiveRecord::Base
   validates_presence_of :clc_number, unless: lambda { self.payment_type != "Cisco Learning Credits" }
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
 
-  accepts_nested_attributes_for :order_items
+  accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
-  before_save   :add_up_total,  :update_status
-  before_create :update_status, :define_clc_quantity
+  before_save   :set_total, :set_paid, :set_balance, :set_status
+  before_create :define_clc_quantity
 
-  def update_status
+  search_scope :custom_search do
+    # attributes :buyer => ["buyer.first_name", "buyer.last_name", "buyer.email"]
+  end
+
+  def set_total
+    # TODO: Figure out a way to derive the price fun the order_items
+    self.total = self.order_items.to_a.sum do |item|
+      item.orderable.price
+    end
+  end
+
+  def set_paid
+  # TODO: Add logic here to account for combination payment methods
+  end
+
+  def set_balance
+    self.balance = self.total - self.paid
+  end
+
+  def set_status
     if self.total == 0
       self.status = "No Charge"
       self.status_position = 3
@@ -73,20 +92,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def add_up_total
-    self.total = self.total_price
-  end
-
-  def total_price
-    self.order_items.to_a.sum { |item| item.price }
-  end
-
   def define_clc_quantity
     self.clc_quantity ||= 0
-  end
-
-  def balance
-    sum = self.total - self.paid - (self.clc_quantity * 100)
-    sum > 0.00 ? sum : 0.00
   end
 end

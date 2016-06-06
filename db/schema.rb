@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603204655) do
+ActiveRecord::Schema.define(version: 20160605200539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -539,6 +539,7 @@ ActiveRecord::Schema.define(version: 20160603204655) do
     t.string   "invoice_number"
     t.integer  "status_position"
     t.boolean  "reviewed",                                    default: false
+    t.decimal  "balance",             precision: 8, scale: 2, default: 0.0
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
