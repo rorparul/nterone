@@ -22,7 +22,10 @@ class Payment::CreateService
     response = create_transaction(request)
 
     if successfull_response?(response)
-      ResultObjects::Success.new(response)
+      ResultObjects::Success.new({
+        auth_code: response.transactionResponse.authCode,
+        amount: request.transactionRequest.amount
+      })
     else
       ResultObjects::Failure.new(response)
     end

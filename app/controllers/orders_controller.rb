@@ -24,6 +24,18 @@ class OrdersController < ApplicationController
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
+
+      if order_params[:payment_type] == "Credit Card"
+        result = handle_credit_card_payment()
+
+        if result.failure?
+          flash[:alert] = "Failed to charge card."
+          return redirect_to :back
+        end
+      elsif order_params[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(clc_params)
+      end
+
       if @order.save
         flash[:success] = "Purchase successfully created."
       else
@@ -37,21 +49,9 @@ class OrdersController < ApplicationController
       # Create transaction
       @order = current_user.buyer_orders.build
       if order_params[:payment_type] == "Credit Card"
-        payment_result = Payment::createService(order_params, cc_params).call
-        response = payment_result.data
+        result = handle_credit_card_payment()
 
-        if payment_result.success?
-          puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
-          @order.auth_code = response.transactionResponse.authCode
-          @order.paid      = request.transactionRequest.amount
-        else
-          logger.info response.messages.messages[0].text
-          logger.info response
-          if response && response.transactionResponse && response.transactionResponse.errors && response.transactionResponse.errors.errors[0]
-            logger.info response.transactionResponse.errors.errors[0].errorCode
-            logger.info response.transactionResponse.errors.errors[0].errorText
-          end
-
+        if result.failure?
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
@@ -185,5 +185,36 @@ class OrdersController < ApplicationController
                                                            :user_id,
                                                            :orderable_id,
                                                            :orderable_type])
+  end
+
+  def log_payment_error(response)
+    transaction_res = response.transactionResponse
+    first_error = transaction_res.errors.errors[0]
+    should_log = response && transaction_res && transaction_res.errors && first_error
+
+    logger.info response.messages.messages[0].text
+    logger.info response
+
+    if should_log
+      logger.info first_error.errorCode
+      logger.info first_error.errorText
+    end
+  end
+
+  def handle_credit_card_payment
+    payment_result = Payment::CreateService.new(order_params, cc_params).call
+    response = payment_result.data
+
+    if payment_result.success?
+      puts "Successful charge (auth + capture) (authorization code: #{response[:auth_code]})"
+
+      @order.auth_code = response[:auth_code]
+      @order.paid = response[:amount]
+
+      return ResultObjects::Success.new(response)
+    else
+      log_payment_error(response)
+      return ResultObjects::Failure.new(response)
+    end
   end
 end
