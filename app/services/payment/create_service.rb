@@ -22,7 +22,7 @@ class Payment::CreateService
     response = create_transaction(request)
 
     if successfull_response?(response)
-      ResultObjects::Success.new(response_data(response))
+      ResultObjects::Success.new(response_data(request, response))
     else
       ResultObjects::Failure.new(response)
     end
@@ -72,7 +72,7 @@ private
     @cc_params[:expiration_month] + @cc_params[:expiration_year]
   end
 
-  def response_data(response)
+  def response_data(request, response)
     {
       auth_code: response.transactionResponse.authCode,
       amount: request.transactionRequest.amount
