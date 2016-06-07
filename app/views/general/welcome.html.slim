@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
@@ -8,13 +8,15 @@
   a href="#{root_path}"
     span.fa.fa-home
     | Home
-    
+
 .row
   .col-sm-12.text-align.col-central
     #carousel
       = link_to main_app.platforms_path do
+        = image_tag "promotion.png", class: 'promotion'
+      = link_to main_app.platforms_path do
         = image_tag "welcome-banners/welcome-banner-3.png"
-        
+
     .row
       .col-xs-12
         = form_tag search_path, method: :get, "data-parsley-validate" => true do
@@ -51,6 +53,6 @@
               strong Global Data Center Offering 24x7 Lab Access
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
-    
+
 javascript:
   $('.home-tab').addClass('active');
