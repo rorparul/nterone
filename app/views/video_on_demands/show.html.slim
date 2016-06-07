@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @video_on_demand.page_title.present? ? @video_on_demand.page_title : @video_on_demand.full_title
-  
+
 - content_for :page_description do
   = @video_on_demand.page_description
 
@@ -19,7 +19,7 @@
   span.seperator
     | /
   span.text-muted = "#{@video_on_demand.abbreviation}"
-      
+
 .row
   .col-xs-12.col-central
     #video-on-demand
@@ -33,25 +33,25 @@
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
                 h4
-                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                     | Prequisites &amp; Course Objectives
-              #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+              #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @video_on_demand.overview.html_safe if @video_on_demand.overview
             .panel.panel-default
               .panel-heading role="tab" id="headingTwo"
                 h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                     | Course Outline
-              #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+              #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
                   = @video_on_demand.outline.html_safe if @video_on_demand.outline
             .panel.panel-default
               .panel-heading role="tab" id="headingThree"
                 h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
                     | Who Should Attend
-              #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+              #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
           .row
@@ -119,7 +119,7 @@
             .col-xs-12
               #degrees
                 = image_tag '360-degrees.png', class: 'degrees'
-              
+
   .col-xs-12.side-column
     .panel.panel-default
       .panel-body
@@ -127,27 +127,27 @@
           strong Questions?
         p The NterOne team will be happy to answer your questions.
         p
-          | Email: 
+          | Email:
           a href="mailto:sales@nterone.com" sales@nterone.com
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
-    
+
 .row
   .col-xs-12
     button#back Back
-    
+
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
-  
+
   $('#accordion').on('shown.bs.collapse', function (e) {
     var offset = $('.panel.panel-default > .panel-collapse.in').offset();
     if(offset) {
       $('html,body').animate({
         scrollTop: $('.panel-heading h4').offset().top -20
-      }, 500); 
+      }, 500);
     }
   });
