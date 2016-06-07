@@ -26,11 +26,14 @@ class OrdersController < ApplicationController
         p "OUTSIDE: #{order_item.inspect}"
         order_item.user_id = @order.buyer_id
       end
+
       if @order.save
+        @order.update_columns(status: 'Unreviewed') if current_user.sales_rep?
         flash[:success] = "Purchase successfully created."
       else
         flash[:alert] = "Purchase failed to create."
       end
+
       redirect_to :back
     else
       # Update user information
