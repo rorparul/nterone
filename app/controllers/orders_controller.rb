@@ -185,6 +185,7 @@ class OrdersController < ApplicationController
                                                            :user_id,
                                                            :orderable_id,
                                                            :orderable_type,
+                                                           :price,
                                                            :_destroy])
   end
 
