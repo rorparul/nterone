@@ -7,9 +7,10 @@
       = f.label :orderable_id, 'Classes'
       br
       = f.select :orderable_id,
-                 Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date})", event.id] },
+                 Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)}", event.id] },
                  { prompt: true },
-                 { class: "form-control sub-select input-sm", disabled: !order.new_record? }
+                 { class: "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
+      = f.text_field :price, placeholder: 'Price', class: 'order-item-price'
     - if order.new_record?
       = link_to_remove_association 'Remove Class', f
 - when 'VideoOnDemand'
@@ -22,7 +23,19 @@
       = f.select :orderable_id,
                  VideoOnDemand.all.collect { |vod| ["#{vod.full_title} - #{dollar_value(vod.price)}", vod.id] },
                  { prompt: true },
-                 { class: "form-control sub-select input-sm", disabled: !order.new_record? }
-
+                 { class: "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
+      = f.text_field :price, placeholder: 'Price', class: 'order-item-price'
     - if order.new_record?
       = link_to_remove_association 'Remove VOD', f
+
+javascript:
+  $('.order-item-selector').on('change', function (e) {
+    var value = $(this).find('option:selected').text()
+    var match = value.match(/-\s\$(.+)$/)
+
+    if (match) {
+      value = match[1]
+    }
+
+    $(this).next('.order-item-price').val(value)
+  })
