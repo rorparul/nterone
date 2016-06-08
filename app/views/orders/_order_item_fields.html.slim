@@ -20,8 +20,9 @@
       = f.label :orderable_id, 'VODs'
       br
       = f.select :orderable_id,
-                 VideoOnDemand.all.collect { |vod| [vod.full_title, vod.id] },
+                 VideoOnDemand.all.collect { |vod| ["#{vod.full_title} - #{dollar_value(vod.price)}", vod.id] },
                  { prompt: true },
                  { class: "form-control sub-select input-sm", disabled: !order.new_record? }
+
     - if order.new_record?
       = link_to_remove_association 'Remove VOD', f
