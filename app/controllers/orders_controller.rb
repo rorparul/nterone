@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  include AuthorizeNet::API
-
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -27,6 +25,17 @@ class OrdersController < ApplicationController
         order_item.user_id = @order.buyer_id
       end
 
+      if order_params[:payment_type] == "Credit Card"
+        result = handle_credit_card_payment()
+
+        if result.failure?
+          flash[:alert] = "Failed to charge card."
+          return redirect_to :back
+        end
+      elsif order_params[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(clc_params)
+      end
+
       if @order.save
         flash[:success] = "Purchase successfully created."
       else
@@ -41,41 +50,9 @@ class OrdersController < ApplicationController
       # Create transaction
       @order = current_user.buyer_orders.build
       if order_params[:payment_type] == "Credit Card"
-        request                                       = CreateTransactionRequest.new
-        request.transactionRequest                    = TransactionRequestType.new
-        request.transactionRequest.amount             = cc_params[:paid]
-        request.transactionRequest.payment            = PaymentType.new
-        request.transactionRequest.payment.creditCard = CreditCardType.new(cc_params[:credit_card_number],
-                                                                           cc_params[:expiration_month] +
-                                                                           cc_params[:expiration_year],
-                                                                           cc_params[:security_code])
-        request.transactionRequest.billTo             = NameAndAddressType.new
-        request.transactionRequest.billTo.firstName   = order_params[:billing_first_name]
-        request.transactionRequest.billTo.lastName    = order_params[:billing_last_name]
-        request.transactionRequest.billTo.address     = order_params[:billing_street]
-        request.transactionRequest.billTo.city        = order_params[:billing_city]
-        request.transactionRequest.billTo.state       = order_params[:billing_state]
-        request.transactionRequest.billTo.zip         = order_params[:billing_zip_code]
-        request.transactionRequest.transactionType    = TransactionTypeEnum::AuthCaptureTransaction
+        result = handle_credit_card_payment()
 
-        if Rails.env.development?
-          transaction = Transaction.new(ENV['anet_api_login_id'], ENV['anet_transaction_id'], gateway: :sandbox)
-        elsif Rails.env.production?
-          transaction = Transaction.new("6n4RAa4uz", "8DRM235rU88yx5w4", gateway: :production)
-        end
-
-        response = transaction.create_transaction(request)
-        if response.messages.resultCode == MessageTypeEnum::Ok
-          puts "Successful charge (auth + capture) (authorization code: #{response.transactionResponse.authCode})"
-          @order.auth_code = response.transactionResponse.authCode
-          @order.paid      = request.transactionRequest.amount
-        else
-          logger.info response.messages.messages[0].text
-          logger.info response
-          if response && response.transactionResponse && response.transactionResponse.errors && response.transactionResponse.errors.errors[0]
-            logger.info response.transactionResponse.errors.errors[0].errorCode
-            logger.info response.transactionResponse.errors.errors[0].errorText
-          end
+        if result.failure?
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
@@ -210,5 +187,36 @@ class OrdersController < ApplicationController
                                                            :orderable_id,
                                                            :orderable_type,
                                                            :_destroy])
+  end
+
+  def handle_credit_card_payment
+    payment_result = Payment::CreateService.new(order_params, cc_params).call
+    response = payment_result.data
+
+    if payment_result.success?
+      puts "Successful charge (auth + capture) (authorization code: #{response[:auth_code]})"
+
+      @order.auth_code = response[:auth_code]
+      @order.paid = response[:amount]
+
+      return ResultObjects::Success.new(response)
+    else
+      log_payment_error(response)
+      return ResultObjects::Failure.new(response)
+    end
+  end
+
+  def log_payment_error(response)
+    transaction_res = response.transactionResponse
+    first_error = transaction_res.errors.errors[0]
+    should_log = response && transaction_res && transaction_res.errors && first_error
+
+    logger.info response.messages.messages[0].text
+    logger.info response
+
+    if should_log
+      logger.info first_error.errorCode
+      logger.info first_error.errorText
+    end
   end
 end

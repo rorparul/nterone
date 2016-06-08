@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @course.page_title.present? ? @course.page_title : @course.full_title
-  
+
 - content_for :page_description do
   = @course.page_description
 
@@ -19,7 +19,7 @@
   span.seperator
     | /
   span.text-muted = "#{@course.abbreviation}"
-    
+
 - content_for :actions do
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_course_event_path(@platform, @course), remote: true do
@@ -28,7 +28,7 @@
     li = link_to select_platform_course_events_path(@platform, @course), remote: true do
       i.fa.fa-pencil
       | Edit Event
-      
+
 .row
   .col-xs-12.col-central
     #course
@@ -41,25 +41,25 @@
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
                 h4
-                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                     | Prequisites &amp; Course Objectives
-              #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+              #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @course.overview.html_safe if @course.overview
             .panel.panel-default
               .panel-heading role="tab" id="headingTwo"
                 h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                     | Course Outline
-              #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+              #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
                   = @course.outline.html_safe if @course.outline
             .panel.panel-default
               .panel-heading role="tab" id="headingThree"
                 h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
                     | Who Should Attend
-              #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+              #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @course.intended_audience.html_safe if @course.intended_audience
       .row
@@ -124,15 +124,15 @@
                             - elsif user_signed_in? && current_user.admin?
                               td.fit.text-right
                                 = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                |  | 
+                                |  |
                                 = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
                     - else
                       tr
                         td.text-center
-                          | Contact 
+                          | Contact
                           = link_to "sales@nterone.com", "mailto:sales@nterone.com"
                           |  for training schedule.
-                  
+
           .row
             .col-xs-12
               #degrees
@@ -151,27 +151,27 @@
           strong Questions?
         p The NterOne team will be happy to answer your questions.
         p
-          | Email: 
+          | Email:
           a href="mailto:sales@nterone.com" sales@nterone.com
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
-    
+
 .row
   .col-xs-12
     button#back Back
-    
+
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
-  
+
   $('#accordion').on('shown.bs.collapse', function (e) {
     var offset = $('.panel.panel-default > .panel-collapse.in').offset();
     if(offset) {
       $('html,body').animate({
         scrollTop: $('.panel-heading h4').offset().top -20
-      }, 500); 
+      }, 500);
     }
   });
