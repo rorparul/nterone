@@ -81,6 +81,9 @@ class Order < ActiveRecord::Base
       when "No Charge"
         self.status = "No Charge"
         self.status_position = 3
+      when 'None'
+        self.status = 'Unreviewed'
+        self.status_position = 1
       end
     end
   end

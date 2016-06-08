@@ -28,7 +28,6 @@ class OrdersController < ApplicationController
       end
 
       if @order.save
-        @order.update_columns(status: 'Unreviewed') if current_user.sales_rep?
         flash[:success] = "Purchase successfully created."
       else
         flash[:alert] = "Purchase failed to create."

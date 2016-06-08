@@ -260,6 +260,9 @@
               = f.label :shipping_zip_code, 'Zip Code'
               = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
+    - if current_user.sales_rep?
+      = f.hidden_field :payment_type, value: 'None'
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
