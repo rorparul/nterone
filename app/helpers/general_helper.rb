@@ -90,3 +90,10 @@ module GeneralHelper
     string[0...-2]
   end
 end
+
+def contact_info(user)
+  phone = user.contact_number || ''
+  email = user.email || ''
+
+  [phone, email].join(' ')
+end

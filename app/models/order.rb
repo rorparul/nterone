@@ -95,4 +95,8 @@ class Order < ActiveRecord::Base
   def define_clc_quantity
     self.clc_quantity ||= 0
   end
+
+  def shipping_address
+    [shipping_street, shipping_city, shipping_state, shipping_zip_code, shipping_country].reject(&:blank?).join(' ')
+  end
 end
