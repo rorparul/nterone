@@ -98,4 +98,12 @@ class Order < ActiveRecord::Base
   def define_clc_quantity
     self.clc_quantity ||= 0
   end
+
+  def confirm_with_partner
+    return if referring_partner_email.blank?
+
+    order_items.where(orderable_type: 'Event').each do |item|
+      PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
+    end
+  end
 end
