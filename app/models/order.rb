@@ -23,9 +23,9 @@ class Order < ActiveRecord::Base
   end
 
   def set_total
-    # TODO: Figure out a way to derive the price fun the order_items
+    # TODO: Figure out a way to derive the price f the order_items
     self.total = self.order_items.to_a.sum do |item|
-      item.orderable.price
+      item.price || item.orderable.price
     end
   end
 
