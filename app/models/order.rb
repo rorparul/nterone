@@ -99,12 +99,8 @@ class Order < ActiveRecord::Base
   def confirm_with_partner
     return if referring_partner_email.blank?
 
-    if get_event.present?
-      PartnerMailer.registration_made(referring_partner_email, buyer, get_event).deliver_now
+    order_items.where(orderable_type: 'Event').each do |item|
+      PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
     end
-  end
-
-  def get_event
-    order_items.where(orderable_type: 'Event').first.try(:orderable)
   end
 end
