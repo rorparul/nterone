@@ -292,3 +292,14 @@ javascript:
 
     })
   })
+  
+  $('#order-items').on('change', '.order-item-selector', function (e) {
+    var value = $(this).find('option:selected').text();
+    var match = value.match(/-\s\$(.+)$/);
+
+    if (match) {
+      value = match[1];
+    }
+    
+    $(this).closest('.row').find('.order-item-price').val(value);
+  })
