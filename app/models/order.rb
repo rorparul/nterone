@@ -19,7 +19,7 @@ class Order < ActiveRecord::Base
   before_create :define_clc_quantity
 
   search_scope :custom_search do
-    # attributes :buyer => ["buyer.first_name", "buyer.last_name", "buyer.email"]
+    attributes buyer: ['buyer.first_name', 'buyer.email']
   end
 
   def set_total
