@@ -269,6 +269,7 @@
 
     .form-buttons
       button.btn.btn-success type="submit" Save
+      = f.button 'Save & Confirm with Partner', class: 'button btn btn-success', name: 'confirm_with_partner', value: true
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
 
 javascript:
