@@ -30,7 +30,10 @@ class Order < ActiveRecord::Base
   end
 
   def set_paid
-  # TODO: Add logic here to account for combination payment methods
+    # TODO: Add logic here to account for combination payment methods
+    if self.payment_type == 'Cisco Learning Credits'
+      self.paid = self.clc_quantity * 100
+    end
   end
 
   def set_balance
