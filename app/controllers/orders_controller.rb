@@ -133,7 +133,8 @@ class OrdersController < ApplicationController
                                   :shipping_street,
                                   :shipping_city,
                                   :shipping_state,
-                                  :shipping_zip_code)
+                                  :shipping_zip_code,
+                                  :referring_partner_email)
   end
 
   def order_params
