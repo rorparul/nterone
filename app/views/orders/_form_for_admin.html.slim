@@ -41,7 +41,7 @@
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: true, selected: user.try(:id) },
-                 { class: "form-control input-sm", disabled: !order.new_record? }
+                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
 
     hr
 
@@ -80,7 +80,9 @@
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
 
     hr
-    - if !current_user.sales_rep?
+    - if current_user.sales_rep?
+      = f.hidden_field :payment_type, value: 'None'
+    - else
       fieldset
         .form-group
           .radio.radio-container
@@ -170,9 +172,17 @@
         hr
 
       fieldset
+        .row
+          .col-xs-6.col-sm-6
+            .form-group
+              = f.label :referring_partner_email, 'Refering Partner Email'
+              - if order.id
+                = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
+              - else
+                = f.text_field :referring_partner_email, class: 'form-control input-sm'
         label Billing Address
         .row
-          .col-xs-12.col-sm-6
+          .col-xs-6.col-sm-6
             .form-group
               = f.label :billing_company, 'Company'
               = f.text_field :billing_company, class: 'form-control input-sm'
@@ -260,9 +270,39 @@
               = f.label :shipping_zip_code, 'Zip Code'
               = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
-    - if current_user.sales_rep?
-      = f.hidden_field :payment_type, value: 'None'
-
     .form-buttons
       button.btn.btn-success type="submit" Save
+      = f.button 'Save & Confirm with Partner', class: 'button btn btn-success', name: 'confirm_with_partner', value: true
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
+
+javascript:
+  $('.buyer-selector').on('change', function () {
+    var userId = this.value
+    var url = '/api/users/' + userId
+
+    $.get(url, function (data) {
+      var fields = [
+        'shipping_first_name', 'shipping_last_name', 'shipping_street',
+        'shipping_city', 'shipping_state', 'shipping_zip_code', 'shipping_company',
+        'billing_street', 'billing_city', 'billing_state', 'billing_zip_code',
+        'billing_first_name', 'billing_last_name', 'billing_company',
+        'referring_partner_email'
+      ]
+
+      fields.forEach(function (field) {
+        if (data[field]) $('#order_' + field).val(data[field])
+      })
+
+    })
+  })
+
+  $('#order-items').on('change', '.order-item-selector', function (e) {
+    var value = $(this).find('option:selected').text();
+    var match = value.match(/-\s\$(.+)$/);
+
+    if (match) {
+      value = match[1];
+    }
+
+    $(this).closest('.row').find('.order-item-price').val(value);
+  })

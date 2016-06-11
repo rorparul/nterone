@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
       @order.order_items.each do |order_item|
@@ -37,6 +38,7 @@ class OrdersController < ApplicationController
       end
 
       if @order.save
+        @order.confirm_with_partner if confirm_with_partner?
         flash[:success] = "Purchase successfully created."
       else
         flash[:alert] = "Purchase failed to create."
@@ -134,7 +136,8 @@ class OrdersController < ApplicationController
                                   :shipping_street,
                                   :shipping_city,
                                   :shipping_state,
-                                  :shipping_zip_code)
+                                  :shipping_zip_code,
+                                  :referring_partner_email)
   end
 
   def order_params
@@ -182,10 +185,12 @@ class OrdersController < ApplicationController
                                   :po_paid,
                                   :invoice_number,
                                   :reviewed,
+                                  :referring_partner_email,
                                   order_items_attributes: [:id,
                                                            :user_id,
                                                            :orderable_id,
                                                            :orderable_type,
+                                                           :price,
                                                            :_destroy])
   end
 
@@ -218,5 +223,9 @@ class OrdersController < ApplicationController
       logger.info first_error.errorCode
       logger.info first_error.errorText
     end
+  end
+
+  def confirm_with_partner?
+    params[:confirm_with_partner] == 'true'
   end
 end
