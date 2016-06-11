@@ -17,16 +17,16 @@
           = f.label :invoice_number, "Invoice #"
           br
           = f.text_field :invoice_number, class: 'form-control input-sm'
-      
+
     hr
-            
+
     .form-group
       = f.label :seller_id, 'Sales Rep'
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: true },
                  { class: "form-control input-sm" }
-                 
+
     / - if order.id
     /   .form-group
     /     = f.label :buyer_id, 'Student'
@@ -40,10 +40,10 @@
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: true, selected: user.try(:id) },
-                 { class: "form-control input-sm", disabled: !order.new_record? }
-                 
+                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+
     hr
-    
+
     - if order.id
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
@@ -77,9 +77,9 @@
             render_options: {locals: {type: 'Event', order: order}}
           = link_to_add_association 'Add VOD', f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
-            
+
     hr
-    
+
     fieldset
       .form-group
         .radio.radio-container
@@ -108,25 +108,25 @@
           .form-group
             = f.label :paid, 'Paid'
             = f.text_field :paid, data: { autonumeric: true }, class: 'form-control input-sm'
-            
+
       .form-group
         .radio.radio-container
           label
             = f.radio_button :payment_type, "Cisco Learning Credits", class: 'payment-type-radio-button'
-            strong Cisco Learning Credits 
+            strong Cisco Learning Credits
       .row
         - if @cart.any_not_applicable_for_credits?
           .col-xs-12
             .form-group
               .text-warning
-                strong  
+                strong
                   = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
-                |  of this order is not applicable to be purchased with credits. 
-                | If you wish to split payment between a credit card and credits, 
-                | please contact NterOne by email at 
+                |  of this order is not applicable to be purchased with credits.
+                | If you wish to split payment between a credit card and credits,
+                | please contact NterOne by email at
                 = mail_to "sales@nterone.com", "sales@nterone.com"
-                | , or by phone at 
-                strong 703-972-2288, 
+                | , or by phone at
+                strong 703-972-2288,
                 | for assistance.
         - else
           .col-xs-12.col-sm-9
@@ -137,7 +137,7 @@
             .form-group
               = f.label :clc_quantity, 'Credits Applied'
               = f.number_field :clc_quantity, class: 'form-control input-sm'
-              
+
       .form-group
         .radio.radio-container
           label
@@ -148,30 +148,38 @@
           .form-group
             = f.label :po_number, 'Number'
             = f.text_field :po_number, class: 'form-control input-sm input-cc'
-            
+
         .col-xs-12.col-sm-3
           .form-group
             = f.label :po_paid, 'Paid'
             = f.text_field :po_paid, data: { autonumeric: true }, class: 'form-control input-sm'
-              
+
       .form-group
         .radio.radio-container
           label
             = f.radio_button :payment_type, "Bundled", class: 'payment-type-radio-button'
             strong Bundled
-            
+
       .form-group
         .radio.radio-container
           label
             = f.radio_button :payment_type, "No Charge", class: 'payment-type-radio-button'
             strong No Charge
-            
+
       hr
-      
+
     fieldset
+      .row
+        .col-xs-6.col-sm-6
+          .form-group
+            = f.label :referring_partner_email, 'Refering Partner Email'
+            - if order.id
+              = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
+            - else
+              = f.text_field :referring_partner_email, class: 'form-control input-sm'
       label Billing Address
       .row
-        .col-xs-12.col-sm-6
+        .col-xs-6.col-sm-6
           .form-group
             = f.label :billing_company, 'Company'
             = f.text_field :billing_company, class: 'form-control input-sm'
@@ -227,12 +235,12 @@
           .form-group
             = f.label :shipping_first_name, 'First Name'
             = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
-            
+
         .col-xs-12.col-sm-6
           .form-group
             = f.label :shipping_last_name, 'Last Name'
             = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
-        
+
       .form-group
         = f.label :shipping_street, 'Street'
         = f.text_field :shipping_street, class: 'form-control input-sm disableable'
@@ -261,4 +269,37 @@
 
     .form-buttons
       button.btn.btn-success type="submit" Save
+      = f.button 'Save & Confirm with Partner', class: 'button btn btn-success', name: 'confirm_with_partner', value: true
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
+
+javascript:
+  $('.buyer-selector').on('change', function () {
+    var userId = this.value
+    var url = '/api/users/' + userId
+
+    $.get(url, function (data) {
+      var fields = [
+        'shipping_first_name', 'shipping_last_name', 'shipping_street',
+        'shipping_city', 'shipping_state', 'shipping_zip_code', 'shipping_company',
+        'billing_street', 'billing_city', 'billing_state', 'billing_zip_code',
+        'billing_first_name', 'billing_last_name', 'billing_company',
+        'referring_partner_email'
+      ]
+
+      fields.forEach(function (field) {
+        if (data[field]) $('#order_' + field).val(data[field])
+      })
+
+    })
+  })
+  
+  $('#order-items').on('change', '.order-item-selector', function (e) {
+    var value = $(this).find('option:selected').text();
+    var match = value.match(/-\s\$(.+)$/);
+
+    if (match) {
+      value = match[1];
+    }
+    
+    $(this).closest('.row').find('.order-item-price').val(value);
+  })

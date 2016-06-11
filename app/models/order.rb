@@ -19,18 +19,21 @@ class Order < ActiveRecord::Base
   before_create :define_clc_quantity
 
   search_scope :custom_search do
-    # attributes :buyer => ["buyer.first_name", "buyer.last_name", "buyer.email"]
+    attributes buyer: ['buyer.first_name', 'buyer.email']
   end
 
   def set_total
-    # TODO: Figure out a way to derive the price fun the order_items
+    # TODO: Figure out a way to derive the price f the order_items
     self.total = self.order_items.to_a.sum do |item|
-      item.orderable.price
+      item.price || item.orderable.price
     end
   end
 
   def set_paid
-  # TODO: Add logic here to account for combination payment methods
+    # TODO: Add logic here to account for combination payment methods
+    if self.payment_type == 'Cisco Learning Credits'
+      self.paid = self.clc_quantity * 100
+    end
   end
 
   def set_balance
@@ -98,5 +101,13 @@ class Order < ActiveRecord::Base
 
   def shipping_address
     [shipping_street, shipping_city, shipping_state, shipping_zip_code, shipping_country].reject(&:blank?).join(' ')
+  end
+
+  def confirm_with_partner
+    return if referring_partner_email.blank?
+
+    order_items.where(orderable_type: 'Event').each do |item|
+      PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
+    end
   end
 end

@@ -135,6 +135,10 @@ NterOne::Application.routes.draw do
     end
   end
 
+  namespace :api do
+    get '/users/:id' => 'users#show', as: :user
+  end
+
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders

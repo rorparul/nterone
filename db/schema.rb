@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608043713) do
+ActiveRecord::Schema.define(version: 20160608141053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -500,8 +500,8 @@ ActiveRecord::Schema.define(version: 20160608043713) do
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                                                          null: false
-    t.datetime "updated_at",                                                          null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
@@ -514,36 +514,37 @@ ActiveRecord::Schema.define(version: 20160608043713) do
     t.string   "clc_number"
     t.string   "billing_name"
     t.string   "billing_zip_code"
-    t.decimal  "paid",                 precision: 8, scale: 2, default: 0.0
+    t.decimal  "paid",                    precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.integer  "seller_id"
     t.integer  "buyer_id"
-    t.string   "status",                                       default: "Uninvoiced"
-    t.decimal  "total",                precision: 8, scale: 2, default: 0.0
+    t.string   "status",                                          default: "Uninvoiced"
+    t.decimal  "total",                   precision: 8, scale: 2, default: 0.0
     t.string   "billing_country"
     t.string   "payment_type"
-    t.integer  "clc_quantity",                                 default: 0
+    t.integer  "clc_quantity",                                    default: 0
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_company"
     t.string   "billing_company"
-    t.boolean  "same_addresses",                               default: false
+    t.boolean  "same_addresses",                                  default: false
     t.string   "shipping_first_name"
     t.string   "shipping_last_name"
     t.string   "po_number"
-    t.decimal  "po_paid",              precision: 8, scale: 2, default: 0.0
-    t.boolean  "verified",                                     default: false
-    t.boolean  "invoiced",                                     default: false
+    t.decimal  "po_paid",                 precision: 8, scale: 2, default: 0.0
+    t.boolean  "verified",                                        default: false
+    t.boolean  "invoiced",                                        default: false
     t.string   "invoice_number"
     t.integer  "status_position"
-    t.boolean  "reviewed",                                     default: false
-    t.decimal  "balance",              precision: 8, scale: 2, default: 0.0
+    t.boolean  "reviewed",                                        default: false
+    t.decimal  "balance",                 precision: 8, scale: 2, default: 0.0
     t.string   "gilmore_order_number"
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
+    t.string   "referring_partner_email"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree

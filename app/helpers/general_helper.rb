@@ -97,3 +97,7 @@ def contact_info(user)
 
   [phone, email].join(' ')
 end
+
+def dollar_value(price)
+  "$#{number_with_delimiter(number_with_precision(price, precision: 2))}"
+end
