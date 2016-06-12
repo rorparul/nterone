@@ -1,6 +1,12 @@
 class Event < ActiveRecord::Base
   include SearchCop
 
+  enum remind_period: {
+    one_week: 0,
+    two_week: 1,
+    one_month: 2
+  }
+
   belongs_to :course
   belongs_to :instructor
 
