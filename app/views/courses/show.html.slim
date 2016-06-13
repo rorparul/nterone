@@ -175,3 +175,27 @@ javascript:
       }, 500);
     }
   });
+
+script type="application/ld+json"
+  - @course.upcoming_events.each do |event|
+    | {
+    | "@context": "http://schema.org",
+    | "@type": "EducationEvent",
+    | "name": "#{@course.full_title}",
+    | "location": {
+    | "@type": "Place",
+    | "name": "#{@course.full_title}",
+    | "address": {
+    | "@type": "PostalAddress",
+    | "addressCountry": "USA"
+    | },
+    | "url": "#{platform_course_path(@course.platform, @course)}"
+    | },
+    | "offers":{
+    | "@type": "Offer",
+    | "Price": "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+    | },
+    | "startDate": "#{event.start_date.strftime("%-m/%-d/%y")} to ",
+    | "endDate": "#{event.end_date.strftime("%-m/%-d/%y")} to ",
+    | "url": "#{platform_course_path(@course.platform, @course)}"
+    | }
