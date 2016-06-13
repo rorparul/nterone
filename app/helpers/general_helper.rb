@@ -91,6 +91,13 @@ module GeneralHelper
   end
 end
 
+def contact_info(user)
+  phone = user.contact_number || ''
+  email = user.email || ''
+
+  [phone, email].join(' ')
+end
+
 def dollar_value(price)
   "$#{price}"
 end

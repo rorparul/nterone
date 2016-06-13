@@ -71,7 +71,7 @@
                     td.text-right
                       strong Active:
                     td = event.active ? 'Yes' : 'No'
-                
+
         .col-xs-12.col-md-6.table-col
           .panel-table
             .responsive-table
@@ -117,7 +117,7 @@
                     td.text-right
                       strong Net Revenue:
                     td.text-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
-                
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -127,7 +127,7 @@
           = link_to new_order_path(event: event.id), remote: true do
             span title="Add Student" Add Student
       .panel-table
-        .responsive-table
+        .responsive-table.table-scrollable
           table.table.table-condensed
             thead
               tr
@@ -139,11 +139,20 @@
                   span.fa.fa-flask
                 th Invoice #
                 th Student
+                th Contacts
+                th Company
+                th Ship to address
+                th Partner email
                 th Amount Quoted
                 th Amount Paid
                 th Amount Due
                 th Sales Rep
                 th Note
+                th Gilmore order number
+                th Gilmore invoice
+                th Royalty id
+                th Po number
+                th Closed Date
             tbody
               - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
@@ -160,6 +169,10 @@
                     = form_for order_item.order, remote: true do |f|
                       = f.text_field :invoice_number, class: "form-control form-async"
                   td = order_item.user.full_name if order_item.user
+                  td = contact_info(order_item.user) if order_item.user
+                  td = order_item.user.company_name if order_item.user
+                  td = order_item.try(:order).shipping_address
+                  td = order_item.user.referring_partner_email if order_item.user
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   - if order_item.order
                     td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
@@ -183,14 +196,29 @@
                         span.fa.fa-sticky-note
                       - else
                         span.fa.fa-sticky-note-o
+
+                  td = form_for order_item.order, remote: true do |f|
+                      = f.text_field :gilmore_order_number, class: "form-control form-async"
+
+                  td = form_for order_item.order, remote: true do |f|
+                      = f.text_field :gilmore_invoice, class: "form-control form-async"
+
+                  td = form_for order_item.order, remote: true do |f|
+                      = f.text_field :royalty_id, class: "form-control form-async"
+
+                  td = form_for order_item.order, remote: true do |f|
+                      = f.text_field :po_number, class: "form-control form-async"
+
+                  td = form_for order_item.order, remote: true do |f|
+                      = f.date_field :closed_date, class: "form-control form-async"
                   / td = link_to 'Edit', edit_order_item_path(order_item), remote: true
                   / td = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
-                    
+
 javascript:
   $('.table-select, .check-select').on('change', function() {
     $(this).closest('form').submit();
   });
-  
+
   $('.form-async').on('keyup', function() {
     $(this).closest('form').submit();
   });
