@@ -37,6 +37,78 @@
           = image_tag "course-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body = @course.intro.html_safe if @course.intro
+            
+          .row
+            .col-xs-12
+              #upcoming-classes
+                .panel.panel-default
+                  .panel-heading
+                    strong Upcoming Classes
+                    - if user_signed_in? && current_user.admin?
+                      = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
+                  .table-responsive
+                    table.table.table-compact
+                      - if @course.upcoming_events.any?
+                        thead
+                          tr
+                            th Date
+                            th Length
+                            th Format
+                            th Location
+                            th Status
+                            th Price
+                            - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                              th
+                            - elsif user_signed_in? && current_user.admin?
+                              th
+                      tbody
+                        - if @course.upcoming_events.any?
+                          - @course.upcoming_events.each do |event|
+                            tr
+                              div itemscope="true" itemtype="http://schema.org/EducationEvent"
+                                td
+                                  meta itemprop="startDate" content="#{event.start_date}"
+                                    = "#{event.start_date.strftime("%-m/%-d/%y")} to "
+                                  meta itemprop="endDate" content="#{event.end_date}"
+                                    = "#{event.end_date.strftime("%-m/%-d/%y")}"
+                                td = "#{pluralize(event.length, 'Day')}"
+                                td = event.format
+                                - if event.city.present? || event.state.present?
+                                  td = "#{event.city}, #{event.state}"
+                                - else
+                                  - if event.format == "Live Online"
+                                    td Webex
+                                  - else
+                                    td
+                                td Available
+                                - if event.price > 0.00
+                                  td
+                                    div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
+                                      | $
+                                      span itemprop="price"
+                                        = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                                - else
+                                  td
+                                    div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
+                                      span itemprop="price"
+                                        | Free
+                                - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                                  td.fit.text-right
+                                    = form_for :order_item, url: order_items_path do |f|
+                                      = f.hidden_field :event_id, value: event.id
+                                      = link_to_cart(event)
+                                - elsif user_signed_in? && current_user.admin?
+                                  td.fit.text-right
+                                    = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                                    |  |
+                                    = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                        - else
+                          tr
+                            td.text-center
+                              | Contact
+                              = link_to "sales@nterone.com", "mailto:sales@nterone.com"
+                              |  for training schedule.
+            
           #accordion.panel-group role="tablist" aria-multiselectable="true"
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
@@ -62,77 +134,6 @@
               #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @course.intended_audience.html_safe if @course.intended_audience
-      .row
-        .col-xs-12
-          #upcoming-classes
-            .panel.panel-default
-              .panel-heading
-                strong Upcoming Classes
-                - if user_signed_in? && current_user.admin?
-                  = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
-              .table-responsive
-                table.table.table-compact
-                  - if @course.upcoming_events.any?
-                    thead
-                      tr
-                        th Date
-                        th Length
-                        th Format
-                        th Location
-                        th Status
-                        th Price
-                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                          th
-                        - elsif user_signed_in? && current_user.admin?
-                          th
-                  tbody
-                    - if @course.upcoming_events.any?
-                      - @course.upcoming_events.each do |event|
-                        tr
-                          div itemscope="true" itemtype="http://schema.org/EducationEvent"
-                            td
-                              meta itemprop="startDate" content="#{event.start_date}"
-                                = "#{event.start_date.strftime("%-m/%-d/%y")} to "
-                              meta itemprop="endDate" content="#{event.end_date}"
-                                = "#{event.end_date.strftime("%-m/%-d/%y")}"
-                            td = "#{pluralize(event.length, 'Day')}"
-                            td = event.format
-                            - if event.city.present? || event.state.present?
-                              td = "#{event.city}, #{event.state}"
-                            - else
-                              - if event.format == "Live Online"
-                                td Webex
-                              - else
-                                td
-                            td Available
-                            - if event.price > 0.00
-                              td
-                                div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
-                                  | $
-                                  span itemprop="price"
-                                    = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
-                            - else
-                              td
-                                div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
-                                  span itemprop="price"
-                                    | Free
-                            - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                              td.fit.text-right
-                                = form_for :order_item, url: order_items_path do |f|
-                                  = f.hidden_field :event_id, value: event.id
-                                  = link_to_cart(event)
-                            - elsif user_signed_in? && current_user.admin?
-                              td.fit.text-right
-                                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                |  |
-                                = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
-                    - else
-                      tr
-                        td.text-center
-                          | Contact
-                          = link_to "sales@nterone.com", "mailto:sales@nterone.com"
-                          |  for training schedule.
-
           .row
             .col-xs-12
               #degrees

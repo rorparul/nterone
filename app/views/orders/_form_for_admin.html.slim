@@ -1,12 +1,12 @@
 .form-container
   = form_for order do |f|
     .row
-      - if current_user.admin?
-        .col-xs-12.col-sm-3
-          .form-group
-            = f.label :reviewed, "Reviewed"
-            br
-            = f.check_box :reviewed
+      / - if current_user.admin?
+      /   .col-xs-12.col-sm-3
+      /     .form-group
+      /       = f.label :reviewed, "Reviewed"
+      /       br
+      /       = f.check_box :reviewed
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
           .form-group

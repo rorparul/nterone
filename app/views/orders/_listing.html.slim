@@ -5,9 +5,9 @@
         thead
           tr
             th.fit = smart_listing.sortable "ID", :id
-            - if current_user.admin?
-              th.fit title="Reviewed"
-                = smart_listing.sortable "R", :reviewed
+            / - if current_user.admin?
+            /   th.fit title="Reviewed"
+            /     = smart_listing.sortable "R", :reviewed
             th.fit = smart_listing.sortable "Status", :status_position
             th.fit = smart_listing.sortable "Total", :total
             th.fit = smart_listing.sortable "Paid", :paid
@@ -22,10 +22,10 @@
           - smart_listing.collection.each do |order|
             tr
               td.fit = order.id
-              - if current_user.admin?
-                td.fit
-                  = form_for order, remote: true do |f|
-                    = f.check_box :reviewed, class: "check-select"
+              / - if current_user.admin?
+              /   td.fit
+              /     = form_for order, remote: true do |f|
+              /       = f.check_box :reviewed, class: "check-select"
               td.fit
                 - if order.status == "Uninvoiced" || order.status == "Unverified SO" || order.status == "Not Charged" || order.status == "Unreviewed"
                   span.label.label-danger = order.status
@@ -43,9 +43,9 @@
               td = order.buyer.email if order.buyer
               td.fit.actions-column.text-right
                 = link_to "Actions", edit_order_path(order), remote: true
-                |  |
+                |  | 
                 = link_to "Details", admin_orders_show_path(order), remote: false
-                |  |
+                |  | 
                 = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }
   .panel-footer
     = smart_listing.paginate
