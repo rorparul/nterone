@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
         result = handle_credit_card_payment()
 
         if result.failure?
-          flash[:alert] = "Failed to charge card."
+          flash[:alert] = get_error_msg(result.data) || "Failed to charge card."
           return redirect_to :back
         end
       elsif order_params[:payment_type] == "Cisco Learning Credits"
@@ -222,6 +222,14 @@ class OrdersController < ApplicationController
       logger.info first_error.errorCode
       logger.info first_error.errorText
     end
+  end
+
+  def get_error_msg(response)
+    transaction_res = response.transactionResponse
+    first_error = transaction_res.errors.errors[0]
+    error_exists = response && transaction_res && transaction_res.errors && first_error
+
+    error_exists ? first_error.errorText : nil
   end
 
   def confirm_with_partner?
