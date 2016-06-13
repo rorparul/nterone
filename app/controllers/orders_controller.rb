@@ -43,6 +43,7 @@ class OrdersController < ApplicationController
       else
         flash[:alert] = "Purchase failed to create."
       end
+
       redirect_to :back
     else
       # Update user information
