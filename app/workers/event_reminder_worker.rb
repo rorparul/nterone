@@ -5,11 +5,12 @@ class EventReminderWorker
   recurrence { daily }
 
   def perform
-    events = Event.where('start_date > ?', Time.now).where(should_remind: true)
+    events = Event.remind_needed
 
     events.each do |event|
-      should_sent = (remind_time(event) .. event.start_date).cover?(Time.now)
-      
+      if (remind_time(event) .. event.start_date).cover?(Time.now)
+        sent_reminders(event)
+      end
     end
   end
 
@@ -23,5 +24,13 @@ private
     when 'one_month'
       event.start_date - 1.month
     end
+  end
+
+  def sent_reminders(event)
+    event.users.each do |user|
+      EventMailer.reminder(event, user).deliver_now
+    end
+
+    event.update(reminder_sent: true)
   end
 end

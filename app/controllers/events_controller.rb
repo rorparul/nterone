@@ -64,6 +64,9 @@ class EventsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
+
+    EventReminderWorker.perform
+
     if @event.update_attributes(event_params)
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
