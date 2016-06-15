@@ -41,7 +41,7 @@ class VideoOnDemandsController < ApplicationController
     @purchased = vod_purchased?
     @hide_sidebar = vod_purchased?
 
-    if current_user.lms?
+    if current_user.present? && current_user.lms?
       render 'video_on_demands/show_lms', layout: 'lms'
     else
       render 'video_on_demands/show'
