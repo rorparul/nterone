@@ -40,7 +40,7 @@
       = f.label :buyer_id, 'Student'
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 { prompt: true, selected: user.try(:id) },
+                 { prompt: true },
                  { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
 
     hr
