@@ -209,7 +209,7 @@
                   td = form_for order_item.order, remote: true do |f|
                       = f.text_field :po_number, class: "form-control form-async"
 
-                  td = form_for order_item.order, remote: true do |f|
+                  td.closed-date = form_for order_item.order, remote: true do |f|
                       = f.date_field :closed_date, class: "form-control form-async"
                   / td = link_to 'Edit', edit_order_item_path(order_item), remote: true
                   / td = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
@@ -221,4 +221,8 @@ javascript:
 
   $('.form-async').on('keyup', function() {
     $(this).closest('form').submit();
+  });
+
+  $('.closed-date form').on('change', function() {
+    $(this).submit();
   });

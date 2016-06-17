@@ -94,13 +94,17 @@ class OrdersController < ApplicationController
           flash[:success] = "Order was successfully updated."
           redirect_to :back
         end
-        format.js {  }
+
+        format.js do
+          render json: { success: true }
+        end
       else
         format.html do
           flash[:alert] = "Order failed to update."
           redirect_to :back
         end
-        format.js {  }
+
+        format.js
       end
     end
   end
