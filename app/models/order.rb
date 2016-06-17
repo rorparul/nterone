@@ -27,6 +27,8 @@ class Order < ActiveRecord::Base
     self.total = self.order_items.to_a.sum do |item|
       item.price || item.orderable.price
     end
+
+    self.total = 0 if no_charge?
   end
 
   def set_paid
@@ -89,6 +91,10 @@ class Order < ActiveRecord::Base
         self.status_position = 1
       end
     end
+  end
+
+  def no_charge?
+    self.payment_type == 'No Charge'
   end
 
   def add_order_items_from_cart(cart)
