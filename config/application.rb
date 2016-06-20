@@ -24,6 +24,8 @@ module NterOne
     # config.assets.precompile += %w( brands.js general.js rules.js subjects.js )
     config.active_job.queue_adapter = :sidekiq
 
+    config.autoload_paths += %W(#{config.root}/app/workers)
+
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
