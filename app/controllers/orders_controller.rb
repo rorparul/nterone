@@ -94,13 +94,17 @@ class OrdersController < ApplicationController
           flash[:success] = "Order was successfully updated."
           redirect_to :back
         end
-        format.js {  }
+
+        format.js do
+          render json: { success: true }
+        end
       else
         format.html do
           flash[:alert] = "Order failed to update."
           redirect_to :back
         end
-        format.js {  }
+
+        format.js
       end
     end
   end
@@ -233,24 +237,24 @@ class OrdersController < ApplicationController
 
   def log_payment_error(response)
     transaction_res = response.transactionResponse
-    first_error = transaction_res.errors.errors[0]
     should_log = response && transaction_res && transaction_res.errors && first_error
+
+    return unless should_log
+
+    first_error = transaction_res.errors.errors[0]
 
     logger.info response.messages.messages[0].text
     logger.info response
 
-    if should_log
-      logger.info first_error.errorCode
-      logger.info first_error.errorText
-    end
+    logger.info first_error.errorCode
+    logger.info first_error.errorText
   end
 
   def get_error_msg(response)
     transaction_res = response.transactionResponse
-    first_error = transaction_res.errors.errors[0]
     error_exists = response && transaction_res && transaction_res.errors && first_error
 
-    error_exists ? first_error.errorText : nil
+    error_exists ? transaction_res.errors.errors[0].errorText : nil
   end
 
   def confirm_with_partner?
