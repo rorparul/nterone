@@ -64,6 +64,9 @@ class EventsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
+
+    EventReminderWorker.perform
+
     if @event.update_attributes(event_params)
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
@@ -142,6 +145,8 @@ class EventsController < ApplicationController
                                   :cost_shipping,
                                   :partner_led,
                                   :time_zone,
+                                  :should_remind,
+                                  :remind_period,
                                   :sent_all_webex_invite,
                                   :sent_all_course_material,
                                   :sent_all_lab_credentials)

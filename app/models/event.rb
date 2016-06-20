@@ -1,6 +1,12 @@
 class Event < ActiveRecord::Base
   include SearchCop
 
+  enum remind_period: {
+    one_week: 0,
+    two_week: 1,
+    one_month: 2
+  }
+
   belongs_to :course
   belongs_to :instructor
 
@@ -14,6 +20,8 @@ class Event < ActiveRecord::Base
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
+
+  scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
   search_scope :custom_search do
     attributes :format, :start_date, :public, :guaranteed
