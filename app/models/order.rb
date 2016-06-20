@@ -23,12 +23,13 @@ class Order < ActiveRecord::Base
   end
 
   def set_total
-    # TODO: Figure out a way to derive the price f the order_items
-    self.total = self.order_items.to_a.sum do |item|
-      item.price || item.orderable.price
+    if no_charge?
+      self.total = 0
+    else
+      self.total = self.order_items.to_a.sum do |item|
+        item.price || item.orderable.price
+      end
     end
-
-    self.total = 0 if no_charge?
   end
 
   def set_paid

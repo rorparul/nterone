@@ -60,6 +60,20 @@
                                ActiveSupport::TimeZone.us_zones,
                                { prompt: 'Eastern Time (US & Canada)' },
                                { class: 'form-control input-sm' }
+                  
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :should_remind, 'Remind Students?'
+          br
+          = f.check_box :should_remind
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :remind_period, 'Remind Period'
+          br
+          = f.select :remind_period, [['One week', 'one_week'], ['Two weeks', 'two_week'], ['One month', 'one_month']],
+                     {},
+                     class: 'form-control input-sm'
 
     .row
       .col-xs-12.col-sm-6
@@ -142,20 +156,9 @@
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
-
-    .row
-      .col-xs-12.col-sm-3
-        = f.label :should_remind, 'Remind Students?'
-        br
-        = f.check_box :should_remind
-      .col-xs-12.col-sm-3
-        = f.label :remind_period, 'Remind Period'
-        br
-        = f.select :remind_period, [['One Week', 'one_week'], ['Two week', 'two_week'], ['One month', 'one_month']]
-
-
+            
     hr
-
+    
     .row
       .col-xs-12.col-sm-3
         .form-group
