@@ -221,54 +221,55 @@
               = f.label :billing_zip_code, 'Zip Code'
               = f.text_field :billing_zip_code, class: 'form-control input-sm'
         hr
-      fieldset
-        label Shipping Address
+    fieldset
+      label Shipping Address
+      - unless current_user.sales_rep?
         .form-group
           .checkbox.checkbox-container
             label
               = f.check_box :same_addresses, class: 'shipping-address-box'
               |  Same as Billing
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_company, 'Company'
-              = f.text_field :shipping_company, class: 'form-control input-sm disableable'
-        .row
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_first_name, 'First Name'
-              = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_company, 'Company'
+            = f.text_field :shipping_company, class: 'form-control input-sm disableable'
+      .row
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_first_name, 'First Name'
+            = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
 
-          .col-xs-12.col-sm-6
-            .form-group
-              = f.label :shipping_last_name, 'Last Name'
-              = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
+        .col-xs-12.col-sm-6
+          .form-group
+            = f.label :shipping_last_name, 'Last Name'
+            = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
 
-        .form-group
-          = f.label :shipping_street, 'Street'
-          = f.text_field :shipping_street, class: 'form-control input-sm disableable'
-        .row
-          .col-xs-12.col-md-6
-            .form-group
-              = f.label :shipping_city, 'City'
-              = f.text_field :shipping_city, class: 'form-control input-sm disableable'
-          .col-xs-12.col-md-4
-            .form-group
-              = f.label :shipping_state, 'State'
-              - if user_signed_in?
-                = f.select :shipping_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm disableable' }
-              - else
-                = f.select :shipping_state,
-                           us_states,
-                           { prompt: true },
-                           { class: 'form-control input-sm disableable' }
-          .col-xs-12.col-md-2
-            .form-group
-              = f.label :shipping_zip_code, 'Zip Code'
-              = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
+      .form-group
+        = f.label :shipping_street, 'Street'
+        = f.text_field :shipping_street, class: 'form-control input-sm disableable'
+      .row
+        .col-xs-12.col-md-6
+          .form-group
+            = f.label :shipping_city, 'City'
+            = f.text_field :shipping_city, class: 'form-control input-sm disableable'
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :shipping_state, 'State'
+            - if user_signed_in?
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm disableable' }
+            - else
+              = f.select :shipping_state,
+                         us_states,
+                         { prompt: true },
+                         { class: 'form-control input-sm disableable' }
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :shipping_zip_code, 'Zip Code'
+            = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
     .form-buttons
       button.btn.btn-success type="submit" Save

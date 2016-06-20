@@ -37,7 +37,7 @@
           = image_tag "course-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body = @course.intro.html_safe if @course.intro
-            
+
           .row
             .col-xs-12
               #upcoming-classes
@@ -105,10 +105,10 @@
                         - else
                           tr
                             td.text-center
-                              | Contact
+                              | Contact 
                               = link_to "sales@nterone.com", "mailto:sales@nterone.com"
                               |  for training schedule.
-            
+
           #accordion.panel-group role="tablist" aria-multiselectable="true"
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
