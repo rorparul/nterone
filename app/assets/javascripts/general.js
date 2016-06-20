@@ -25,6 +25,8 @@ $(function() {
   });
 
   $(document).on('scroll', function() {
+    if (!$('.content').offset()) return
+
 		var windowScroll = $(window).scrollTop();
 		var offerOffSet = $('.content').offset().top;
 		var difference = windowScroll - offerOffSet;
