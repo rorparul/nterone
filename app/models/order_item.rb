@@ -4,8 +4,9 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :orderable, polymorphic: true
 
-  before_save :copy_current_orderable_price, :update_status
-  after_save  :update_event_status
+  before_create :copy_current_orderable_price
+  before_save   :update_status
+  after_save    :update_event_status
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   # validates :order, presence: true
@@ -55,6 +56,6 @@ class OrderItem < ActiveRecord::Base
   private
 
   def copy_current_orderable_price
-    self.price ||= self.orderable.price
+    self.price = self.orderable.price
   end
 end
