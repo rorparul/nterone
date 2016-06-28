@@ -48,7 +48,7 @@
                       = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
                   .table-responsive
                     table.table.table-compact
-                      - if @course.upcoming_events.any?
+                      - if @course.upcoming_public_events.any?
                         thead
                           tr
                             th Date
@@ -62,8 +62,8 @@
                             - elsif user_signed_in? && current_user.admin?
                               th
                       tbody
-                        - if @course.upcoming_events.any?
-                          - @course.upcoming_events.each do |event|
+                        - if @course.upcoming_public_events.any?
+                          - @course.upcoming_public_events.each do |event|
                             tr
                               div itemscope="true" itemtype="http://schema.org/EducationEvent"
                                 td
@@ -100,7 +100,7 @@
                                 - elsif user_signed_in? && current_user.admin?
                                   td.fit.text-right
                                     = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                    |  |
+                                    |  | 
                                     = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
                         - else
                           tr
@@ -178,7 +178,7 @@ javascript:
   });
 
 script type="application/ld+json"
-  - @course.upcoming_events.each do |event|
+  - @course.upcoming_public_events.each do |event|
     | {
     | "@context": "http://schema.org",
     | "@type": "EducationEvent",

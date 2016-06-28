@@ -19,7 +19,7 @@
     .panel.panel-default
       .panel-body = @page.content.html_safe
     - @platforms.each do |platform|
-      - if platform.featured_upcoming_events.any?
+      - if platform.upcoming_public_featured_events.any?
         #featured-classes
           .panel.panel-default
             .panel-heading
@@ -39,7 +39,7 @@
                     - elsif user_signed_in? && current_user.admin?
                       th
                 tbody
-                  - platform.featured_upcoming_events.each do |event|
+                  - platform.upcoming_public_featured_events.each do |event|
                     tr
                       td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
                       td

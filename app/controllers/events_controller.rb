@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   end
 
   def feed
-    @events = Event.upcoming_events
+    @events = Event.upcoming_public_events
     respond_to do |format|
       format.rss { render :layout => false }
     end

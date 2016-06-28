@@ -44,7 +44,7 @@ module GeneralHelper
   end
 
   def formatted_price_or_range_of_upcoming_events_for(course)
-    events = course.upcoming_events.order(:price)
+    events = course.upcoming_public_events.order(:price)
     if events.any?
       if events.first.price == events.last.price
         "$#{number_with_delimiter(number_with_precision(events.first.price, precision: 2))}"

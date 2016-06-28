@@ -31,4 +31,8 @@ class Platform < ActiveRecord::Base
   def featured_upcoming_events
     events.where("events.active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today }).order(:start_date)
   end
+
+  def upcoming_public_featured_events
+    events.where("events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date", { active: true, public: true, guaranteed: true, start_date: Date.today }).order(:start_date)
+  end
 end
