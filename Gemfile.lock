@@ -235,8 +235,6 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    ledermann-rails-settings (2.4.2)
-      activerecord (>= 3.1)
     letter_opener (1.4.1)
       launchy (~> 2.2)
     loofah (2.0.3)
@@ -315,6 +313,8 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-settings-cached (0.6.5)
+      rails (>= 4.2.0)
     railties (4.2.6)
       actionpack (= 4.2.6)
       activesupport (= 4.2.6)
@@ -481,7 +481,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails (~> 5.0.5)
   kaminari
-  ledermann-rails-settings
   letter_opener
   meta_request (~> 0.3.4)
   mini_magick
@@ -495,6 +494,7 @@ DEPENDENCIES
   rack-rewrite (~> 1.5.0)
   rails (= 4.2.6)
   rails-erd
+  rails-settings-cached
   recaptcha
   remotipart
   roo (~> 2.1.0)
