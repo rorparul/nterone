@@ -26,6 +26,34 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |user|
+      user.permit(:first_name,
+                  :last_name,
+                  :email,
+                  :password,
+                  :password_confirmation,
+                  interest_attributes: [:id,
+                                        :data_center,
+                                        :collaboration,
+                                        :network,
+                                        :security,
+                                        :associate_level_certification,
+                                        :professional_level_certification,
+                                        :expert_level_certification,
+                                        :other])
+    end
+
+    devise_parameter_sanitizer.for(:account_update) do |user|
+      user.permit(:email,
+                  :current_password,
+                  :password,
+                  :password_confirmation)
+    end
+  end
+
   private
 
   def store_location
@@ -47,23 +75,6 @@ class ApplicationController < ActionController::Base
 
   def record_user_activity
     current_user.touch(:last_active_at) if user_signed_in?
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |user|
-      user.permit(:first_name,
-                  :last_name,
-                  :email,
-                  :password,
-                  :password_confirmation)
-    end
-
-    devise_parameter_sanitizer.for(:account_update) do |user|
-      user.permit(:email,
-                  :current_password,
-                  :password,
-                  :password_confirmation)
-    end
   end
 
   def user_not_authorized

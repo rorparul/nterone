@@ -4,11 +4,15 @@
   = f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'form-control session-input'
   = f.submit "Login", id: 'LogIn-bt', class: 'btn btn-lg btn-block'
 
-  .forgot
+  .forgot style="margin-top: 18px;"
     = f.check_box :remember_me
     | Keep me logged in
-  .forgot
+  .forgot style="margin-bottom: 15px;"
     p = link_to "Forgot password?", new_password_path(resource_name)
   .or
     = image_tag asset_path('or.png')
   = link_to "Register", new_registration_path(resource_name), class: 'btn btn-lg btn-block', id: 'newUser'
+  = link_to new_registration_path(resource_name, special_event: true), class: 'btn btn-lg btn-block btn-promotion', id: 'newUser' do
+    span Cisco Live, Attendees
+    br
+    span Register Here

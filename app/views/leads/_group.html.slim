@@ -9,6 +9,7 @@
             th title="Requested" Requested
             th title="Name" Name
             th title="Email" Email
+            th title="Interests" Interests
             th title="Phone" Phone
             th title="Price" Price
             th title="Discount" DC
@@ -21,6 +22,18 @@
                 td.fit = "#{time_ago_in_words(lead.created_at)} ago"
                 td.fit = lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A"
                 td.fit = lead.buyer.email
+                td.fit
+                  - if lead.buyer.settings.poker_chip_number
+                    | PCN: 
+                    = lead.buyer.settings.poker_chip_number
+                    br
+                  - if lead.buyer.interest
+                    - lead.buyer.interest.attributes.each do |key, value|
+                      - if value == true
+                        span = key.to_s.titleize
+                        br
+                    - if lead.buyer.interest.other
+                      span = lead.buyer.interest.other
                 td.fit = lead.buyer.contact_number ? lead.buyer.contact_number : "N/A"
                 td.fit = "#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
                 td.fit = "#{lead.discount}%"
@@ -30,7 +43,7 @@
                     = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
                       = f.select :seller_id, sales_force.collect { |sales| [sales.user.full_name ? sales.user.full_name : sales.user.email, sales.user.id] }.unshift(["Unassigned", 0]), {}, class: "form-control seller_selector"
                 td.fit.actions-column
-                  = link_to 'Member Plan', lead_path(lead.buyer)
+                  = link_to 'My Plan', lead_path(lead.buyer)
                   = " | "
                   = link_to 'Discount', edit_lead_path(lead.id), remote: true
                   = " | "

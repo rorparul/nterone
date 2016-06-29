@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
+  include RailsSettings::Extend
   include ModelSearch
+
+  has_one :interest,          dependent:  :destroy
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
@@ -35,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
+  accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   devise :database_authenticatable,

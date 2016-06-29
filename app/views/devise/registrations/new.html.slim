@@ -10,6 +10,46 @@
   = f.password_field :password,              autocomplete: "off", placeholder: 'Password',         class: 'form-control sign-in-field session-input', id: 'password',         required: true
   = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm Password', class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
   #instructions Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number.
+  
+  - if @special_event || resource.interest
+    div style="margin-top: 12px;"
+      = text_field_tag 'poker_chip_number', nil, placeholder: 'Poker Chip Number', class: 'form-control sign-in-field session-input'
+    
+    p style="margin-top: 12px;" Interested In (Please Select All That Apply):
+    - resource.build_interest
+    = f.fields_for :interest do |ff|
+      .checkbox
+        label
+          = ff.check_box :data_center
+          | Data Center
+      .checkbox
+        label
+          = ff.check_box :collaboration
+          | Collaboration
+      .checkbox
+        label
+          = ff.check_box :network
+          | Network
+      .checkbox
+        label
+          = ff.check_box :security
+          | Security
+      .checkbox
+        label
+          = ff.check_box :associate_level_certification
+          | Associate Level Certification
+      .checkbox
+        label
+          = ff.check_box :professional_level_certification
+          | Professional Level Certification
+      .checkbox
+        label
+          = ff.check_box :expert_level_certification
+          | Expert Level Certification
+      p Other:
+      div style="margin-bottom: 14px;"
+        = ff.text_field :other, class: 'form-control sign-in-field session-input'
+        
   #recapcha
     = recaptcha_tags
   = f.submit "Register", class: 'btn btn-lg btn-primary btn-block', id: 'newUser'
