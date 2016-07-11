@@ -7,7 +7,7 @@ class CustomMailer < Devise::Mailer
   def welcome(user)
     @user = user
     mail(to: @user.email,
-        #  bcc: ["sales@nterone.com", "helpdesk@nterone.com", "billing@nterone.com"],
+         bcc: ["sales@nterone.com", "helpdesk@nterone.com", "billing@nterone.com"],
          subject: 'Welcome to NterOne.com!')
   end
 end
