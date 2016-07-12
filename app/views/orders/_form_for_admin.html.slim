@@ -1,12 +1,6 @@
 .form-container
   = form_for order do |f|
     .row
-      / - if current_user.admin?
-      /   .col-xs-12.col-sm-3
-      /     .form-group
-      /       = f.label :reviewed, "Reviewed"
-      /       br
-      /       = f.check_box :reviewed
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
           .form-group
@@ -27,15 +21,7 @@
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: true },
                  { class: "form-control input-sm" }
-
-    / - if order.id
-    /   .form-group
-    /     = f.label :buyer_id, 'Student'
-    /     = f.select :buyer_id,
-    /                User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-    /                { prompt: true },
-    /                { class: "form-control input-sm" }
-    / - if order.new_record?
+                 
     .form-group
       = f.label :buyer_id, 'Student'
       = f.select :buyer_id,
@@ -51,11 +37,7 @@
           = render 'order_item_fields', f: order_item,
                                         type: order_item.object.orderable_type,
                                         order: order
-        / .links
-        /   = link_to_add_association 'Add Class', f, :order_items,
-        /     render_options: {locals: {type: 'Event', order: order}}
-        /   = link_to_add_association 'Add VOD', f, :order_items,
-        /     render_options: {locals: {type: 'VideoOnDemand', order: order}}
+                                        
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|

@@ -22,7 +22,6 @@ class OrdersController < ApplicationController
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
       @order.order_items.each do |order_item|
-        p "OUTSIDE: #{order_item.inspect}"
         order_item.user_id = @order.buyer_id
       end
 

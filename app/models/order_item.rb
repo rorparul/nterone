@@ -56,6 +56,8 @@ class OrderItem < ActiveRecord::Base
   private
 
   def copy_current_orderable_price
-    self.price = self.orderable.price
+    if self.cart_id
+      self.price = self.orderable.price
+    end
   end
 end
