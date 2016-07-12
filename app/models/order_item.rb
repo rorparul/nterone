@@ -45,7 +45,7 @@ class OrderItem < ActiveRecord::Base
 
   def update_event_status
     if orderable_type == "Event"
-      if self.orderable.order_items.all? { |order_item| order_item.status == "complete" }
+      if self.orderable.order_items.where(cart_id: nil).all? { |order_item| order_item.status == "complete" }
         orderable.update_attributes(status: "Confirmed")
       else
         orderable.update_attributes(status: "Pending")
