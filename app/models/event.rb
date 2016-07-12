@@ -30,12 +30,16 @@ class Event < ActiveRecord::Base
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
   end
 
+  def self.upcoming_events
+    where("start_date >= :start_date", {start_date: Date.today})
+  end
+
   def self.guaranteed_events
     where(guaranteed: true).order(:start_date)
   end
 
-  def self.upcoming_events
-    where("start_date >= :start_date", {start_date: Date.today})
+  def self.upcoming_public_events
+    where('active = ? and public = ? and start_date >= ?', true, true, Date.today).order(:start_date)
   end
 
   def self.guaranteed_upcoming_events
