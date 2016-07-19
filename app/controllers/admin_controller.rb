@@ -24,7 +24,7 @@ class AdminController < ApplicationController
   def orders
     orders_scope = Order.all
     orders_scope = Order.custom_search(params[:filter]) if params[:filter]
-    @orders = smart_listing_create(:orders, orders_scope, partial: "orders/listing", default_sort: { created_at: "desc"})
+    @orders = smart_listing_create(:orders, orders_scope, partial: "orders/listing", default_sort: { "orders.created_at": "desc"})
 
     respond_to do |format|
       format.html
