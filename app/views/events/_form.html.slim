@@ -9,25 +9,6 @@
           - event.errors.full_messages.each do |msg|
             li = msg
 
-    / .row
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_webex_invite, "Sent Webex invite"
-    /       br
-    /       = f.check_box :sent_webex_invite
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_course_material, "Sent course material"
-    /       br
-    /       = f.check_box :sent_course_material
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_lab_credentials, 'Sent lab credentials'
-    /       br
-    /       = f.check_box :sent_lab_credentials
-    /
-    / hr
-
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -110,16 +91,15 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
+          = f.label :lab_source, 'Lab Source'
+          br
+          = f.text_field :lab_source, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
           = f.label :price
           .input-group.input-group-sm
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
-
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :remind_period, 'Lab Source'
-          br
-          = f.text_field :lab_source, class: 'form-control', style: 'border-radius: 0; height: 30px;'
 
     hr
 
