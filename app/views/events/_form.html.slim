@@ -60,7 +60,7 @@
                                ActiveSupport::TimeZone.us_zones,
                                { prompt: 'Eastern Time (US & Canada)' },
                                { class: 'form-control input-sm' }
-                  
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -115,6 +115,12 @@
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
 
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :remind_period, 'Lab Source'
+          br
+          = f.text_field :lab_source, class: 'form-control', style: 'border-radius: 0; height: 30px;'
+
     hr
 
     .row
@@ -156,9 +162,9 @@
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
-            
+
     hr
-    
+
     .row
       .col-xs-12.col-sm-3
         .form-group
