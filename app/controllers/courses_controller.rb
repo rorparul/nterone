@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
     @course.set_image(url_param: params['course'], for: :image)
     if @course.save
       flash[:success] = 'Course successfully created!'
-      redirect_to session[:previous_request_url]
+      redirect_to session[:previous_request_url] || platform_course_path(@platform, @course)
     else
       render 'new'
     end
