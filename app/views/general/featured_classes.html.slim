@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
@@ -12,7 +12,7 @@
     | /
   span.text-muted
     | Featured Classes
-    
+
 .row
   .col-xs-12.col-central
     = image_tag "featured-classes.png", class: "course-banner"
@@ -75,12 +75,16 @@
                       - elsif user_signed_in? && current_user.admin?
                         td.fit.text-right
                           = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                          |  | 
+                          |  |
                           = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
-    
+    br
+    .row
+      .col-md-5 style="float: none; margin: 0 auto;"
+        = link_to 'Download Featured Classes Spreadsheet', featured_classes_path(format: 'xlsx')
+
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
-    
+
 javascript:
   $('.home-tab').addClass('active');

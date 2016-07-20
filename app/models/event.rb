@@ -89,6 +89,14 @@ class Event < ActiveRecord::Base
     revenue - total_cost
   end
 
+  def full_location
+    if city.present? || state.present?
+      "#{city}, #{state}"
+    else
+      format == 'Live Online' ? 'Webex' : ''
+    end
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart
