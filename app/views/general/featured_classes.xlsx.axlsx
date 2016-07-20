@@ -24,7 +24,7 @@ wb.styles do |style|
 
         sheet.add_row [
           event.course.abbreviation,
-          event.course.full_title,
+          event.course.title,
           platform.title,
           event.start_date.strftime("%-m/%-d/%y"),
           event.end_date.strftime("%-m/%-d/%y"),
