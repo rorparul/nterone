@@ -38,6 +38,7 @@
                       th
                     - elsif user_signed_in? && current_user.admin?
                       th
+                      th
                 tbody
                   - platform.upcoming_public_featured_events.each do |event|
                     tr
@@ -73,14 +74,13 @@
                             = f.hidden_field :event_id, value: event.id
                             = link_to_cart(event)
                       - elsif user_signed_in? && current_user.admin?
-                        td.fit.text-right
+                        td.fit
                           = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                          |  |
+                        td.fit
                           = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
 
-    br
     .row
-      .col-md-5 style="float: none; margin: 0 auto;"
+      .col-xs-12.text-center
         = link_to 'Download Featured Classes', featured_classes_path(format: 'xlsx')
 
   .col-xs-12.side-column
