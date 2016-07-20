@@ -56,6 +56,11 @@ class GeneralController < ApplicationController
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
     @platforms = Platform.order(:title)
+
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   def contact_us_new
