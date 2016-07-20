@@ -89,6 +89,10 @@ class Event < ActiveRecord::Base
     revenue - total_cost
   end
 
+  def start_week
+    self.start_date.at_beginning_of_week.strftime("%-d %B %Y")
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

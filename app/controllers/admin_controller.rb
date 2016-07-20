@@ -53,6 +53,11 @@ class AdminController < ApplicationController
                                                      [:lab_source, "lab_source"],
                                                      [:guaranteed, "guaranteed"]],
                                    default_sort: { start_date: "asc"} )
+
+    if params.dig(:events_smart_listing, :sort, :start_date).present?
+      @grouped_events = @events.group_by(&:start_week)
+    end
+
     respond_to do |format|
       format.html
       format.js
