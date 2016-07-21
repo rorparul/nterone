@@ -57,7 +57,7 @@ class AdminController < ApplicationController
     if params.dig(:events_smart_listing, :sort, :start_date).present?
       @grouped_events = @events.group_by(&:week_range)
     end
-    
+
     respond_to do |format|
       format.html
       format.js
