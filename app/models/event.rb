@@ -89,7 +89,7 @@ class Event < ActiveRecord::Base
     revenue - total_cost
   end
 
-  def start_week
+  def week_range
     [
       self.start_date.at_beginning_of_week.strftime("%-d %B %Y"),
       ' - ',
