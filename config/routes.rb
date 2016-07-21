@@ -135,6 +135,8 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :generate_commission_reports, only: [:new, :create]
+
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
   end
