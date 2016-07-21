@@ -1,6 +1,6 @@
 p
   | This is friendly reminder that class
-  = link_to event.course.full_title, platform_course_url(event.course.platform, event.course), target: "_blank"
-  | Starts on #{event.start_date.strftime("%-m/%-d/%y")}
+  = link_to @event.course.full_title, platform_course_url(@event.course.platform, @event.course), target: "_blank"
+  | Starts on #{@event.start_date.strftime("%-m/%-d/%y")}
 
 p Thanks the NterOne Team
