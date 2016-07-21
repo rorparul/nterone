@@ -93,6 +93,14 @@ class Event < ActiveRecord::Base
     self.start_date.at_beginning_of_week.strftime("%-d %B %Y")
   end
 
+  def full_location
+    if city.present? || state.present?
+      "#{city}, #{state}"
+    else
+      format == 'Live Online' ? 'Webex' : ''
+    end
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

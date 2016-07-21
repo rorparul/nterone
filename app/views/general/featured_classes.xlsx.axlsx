@@ -1,0 +1,39 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Featured Classes') do |sheet|
+    headers = [
+      'Course Abbreviation',
+      'Course Title',
+      'Platform',
+      'Start Date',
+      'Start Date',
+      'Length',
+      'Format',
+      'Location',
+      'Price'
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @platforms.each do |platform|
+      platform.upcoming_public_featured_events.each do |event|
+        event_price = event.price > 0.00 ? number_with_delimiter(number_with_precision(event.price, precision: 2)) : 'Free'
+
+        sheet.add_row [
+          event.course.abbreviation,
+          event.course.title,
+          platform.title,
+          event.start_date.strftime("%-m/%-d/%y"),
+          event.end_date.strftime("%-m/%-d/%y"),
+          pluralize(event.length, 'Day'),
+          event.format,
+          event.full_location,
+          event_price
+        ]
+      end
+    end
+  end
+end
