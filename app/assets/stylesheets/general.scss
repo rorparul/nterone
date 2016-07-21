@@ -1543,7 +1543,7 @@ select[multiple="multiple"] {
 }
 
 .lead {
-  
+
 }
 
 .lead-date, .lead-my-plan, .lead-selector, .lead-buttons {
@@ -2174,4 +2174,10 @@ footer {
 
 .table-scrollable {
   overflow-x: scroll;
+}
+
+.link-diver {
+  display: inline;
+  margin-left: 5px;
+  margin-right: 5px;
 }

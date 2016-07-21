@@ -43,11 +43,11 @@
                   td.fit = event.guaranteed ? 'Yes' : 'No'
                   td.fit
                     = link_to "Add Student", new_order_path(event: event.id), remote: true, title: "Register Student"
-                    |  |
+                    .link-diver |
                     = link_to "View", admin_classes_show_path(event), title: "View Details"
-                    |  |
+                    .link-diver |
                     = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                    |  |
+                    .link-diver |
                     = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, title: "Delete"
 
           - else
@@ -71,11 +71,11 @@
                 td.fit = event.guaranteed ? 'Yes' : 'No'
                 td.fit
                   = link_to "Add Student", new_order_path(event: event.id), remote: true, title: "Register Student"
-                  |  |
+                  .link-diver |
                   = link_to "View", admin_classes_show_path(event), title: "View Details"
-                  |  |
+                  .link-diver |
                   = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                  |  |
+                  .link-diver |
                   = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, title: "Delete"
   .panel-footer
     = smart_listing.paginate
