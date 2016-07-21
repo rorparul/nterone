@@ -90,7 +90,11 @@ class Event < ActiveRecord::Base
   end
 
   def start_week
-    self.start_date.at_beginning_of_week.strftime("%-d %B %Y")
+    [
+      self.start_date.at_beginning_of_week.strftime("%-d %B %Y"),
+      ' - ',
+      self.start_date.at_end_of_week.strftime("%-d %B %Y")
+    ].join
   end
 
   def full_location

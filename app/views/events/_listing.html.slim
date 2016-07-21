@@ -21,7 +21,7 @@
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
               tr
-                td(style="background-color: #D5DDF2;" colspan=15)= date_str
+                td(style="background-color: #D5DDF2;" colspan=15) Week: #{date_str}
 
               - events.each do |event|
                 tr
