@@ -1,5 +1,5 @@
 .form-container
-  =form_for :data, url: generate_commission_reports_path, method: 'post' do |f|
+  =form_for :report, url: generate_commission_reports_path(format: :xlsx) do |f|
     .form-group
       = f.label :start_date, 'Range Start:', style: 'margin-right: 5px;'
       = f.date_field :start_date
