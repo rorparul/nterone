@@ -8,27 +8,31 @@
         ul
           - instructor.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :first_name, "First Name"
       = f.text_field :first_name, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :last_name, "Last Name"
       = f.text_field :last_name, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :email
       = f.text_field :email, class: 'form-control input-sm'
-    
+
     .form-group
       = f.label :phone
       = f.text_field :phone, class: 'form-control input-sm'
-            
+
     .form-group
       = f.label :biography
       = f.text_area :biography, class: 'form-control input-sm'
-      
+
+    .form-group
+      = f.label :status
+      = f.select :status, Instructor.statuses.keys.to_a.map { |w| [w.humanize, w] }
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
