@@ -1,16 +1,16 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
-  
+
 - content_for :actions do
   li
     = link_to new_user_invitation_path(origin: "orders"), remote: true do
       i.fa.fa-plus
       | Add User
-    
+
 .row
   .col-xs-12
     = render 'tabs'
-    
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -20,9 +20,9 @@
             strong.text-muted Orders
           .col-xs-6
             = link_to "Add", new_order_path, remote: true, class: "table-header-action"
-            
+
             = smart_listing_controls_for(:orders, {class: "form-inline text-right"}) do
-              
+
               / .checkbox
               /   label.checkbox.inline
               /     = hidden_field_tag :with_credit_card, "0"
@@ -30,19 +30,19 @@
               /     = "Has credit card?"
 
               .input-group.input-group-sm.filter.input-append
-                = text_field_tag :filter, '', class: "search form-control input-sm", 
+                = text_field_tag :filter, '', class: "search form-control input-sm",
                                               placeholder: "Search",
                                               autocomplete: :off
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"
                     span.glyphicon.glyphicon-search
-            
+
       = smart_listing_render(:orders)
-    
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .orders').addClass('active-category');
-  
+
   $(".panel").on('change', ".check-select", function() {
     $(this).closest('form').submit();
   });
