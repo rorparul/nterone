@@ -91,9 +91,9 @@ class Event < ActiveRecord::Base
 
   def week_range
     [
-      self.start_date.at_beginning_of_week.strftime("%-d %B %Y"),
+      self.start_date.at_beginning_of_week.to_formatted_s(:rfc822),
       ' - ',
-      self.start_date.at_end_of_week.strftime("%-d %B %Y")
+      self.start_date.at_end_of_week.to_formatted_s(:rfc822)
     ].join
   end
 
