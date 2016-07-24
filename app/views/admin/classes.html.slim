@@ -1,6 +1,11 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
+- content_for :actions do
+  li
+    = link_to new_reports_commission_path, remote: true do
+      | Generate Commissions Report
+
 .row
   .col-xs-12
     = render 'tabs'

@@ -120,4 +120,11 @@ class Order < ActiveRecord::Base
       PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
     end
   end
+
+  def self.events_in_range_for(seller_id, start_date, end_date)
+    orders = Order
+      .where(seller_id: seller_id, created_at: start_date..end_date)
+      .joins(:order_items).where(order_items: { orderable_type: 'Event' })
+      .distinct
+  end
 end
