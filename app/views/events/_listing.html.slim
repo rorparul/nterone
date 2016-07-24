@@ -21,11 +21,12 @@
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
               tr
-                td(style="background-color: #D5DDF2;" colspan=12)
+                td(style="background-color: #D5DDF2;" colspan=8)
                   strong
                     = date_str
                 td(style="background-color: #D5DDF2;" colspan=2)
                   strong $#{events_revenue_total(events)}
+                td(style="background-color: #D5DDF2;" colspan=3)
 
               - events.each do |event|
                 tr
