@@ -1,14 +1,20 @@
 .form-container
   =form_for :report, url: reports_commissions_path(format: :xlsx) do |f|
-    .form-group
-      = f.label :start_date, 'Range Start:', style: 'margin-right: 5px;'
-      = f.date_field :start_date
-      = f.label :end_date, 'Range End:', style: 'margin-right: 5px; margin-left: 10px;'
-      = f.date_field :end_date
+    label Date Range
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :start_date, 'Start'
+          = f.date_field :start_date, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :end_date, 'End'
+          = f.date_field :end_date, class: 'form-control input-sm'
 
-    .form-group
-      .row
-        .col-md-6
+
+    .row
+      .col-xs-6
+        .form-group
           = f.label :sales_rep, 'Sales Rep'
           = f.select :sales_rep,
                      User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },

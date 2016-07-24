@@ -1,4 +1,6 @@
 class Instructor < ActiveRecord::Base
+  enum status: { employee: 0, contractor: 1 }
+
   belongs_to :platform
   has_many   :events
   has_many   :video_on_demands
