@@ -5,11 +5,11 @@
   span.seperator
     | /
   span.text-muted My Account
-    
+
 .row
   .col-xs-12
     = render 'tabs'
-    
+
 .page-header
   h3 Purchased Classes and Subscriptions
 
@@ -32,6 +32,7 @@
                   th Duration
                   th Format
                   th Countdown
+                  th Details
             tbody
               - if current_user.upcoming_events.any?
                 - current_user.upcoming_events.each do |event|
@@ -44,10 +45,15 @@
                     td.fit = pluralize(event.length, 'day')
                     td.fit = event.format
                     td.fit = distance_of_time_in_words(Date.today, event.start_date)
+                    td.fit
+                      = render partial: 'details_modal', locals: {event: event}
+                      a data-toggle="modal" data-target="#details" Details
+
+
               - else
                 tr
                   td.text-center You have no upcoming classes.
-              
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -72,7 +78,7 @@
               - else
                 tr
                   td.text-center You have no self-paced subscriptions.
-                  
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -118,7 +124,7 @@
       .row#subject-groups
         - planned_subject.subject.groups.each do |group|
           = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
-          
+
       .row
         .col-xs-12
           - if planned_subject.subject.platform.url
@@ -152,7 +158,7 @@
         h3 Activity History
       ul
         = render_activities(@activities, fallback: 'default')
-    
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .plan').addClass('active-category');
