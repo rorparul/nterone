@@ -1543,7 +1543,7 @@ select[multiple="multiple"] {
 }
 
 .lead {
-  
+
 }
 
 .lead-date, .lead-my-plan, .lead-selector, .lead-buttons {
@@ -2174,4 +2174,17 @@ footer {
 
 .table-scrollable {
   overflow-x: scroll;
+}
+
+.fixed-table {
+  table-layout:fixed;
+
+  .fixed-cell {
+    max-width:1px;
+    width:90%;
+
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+  }
 }
