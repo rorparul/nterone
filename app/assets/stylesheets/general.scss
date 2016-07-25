@@ -2207,5 +2207,10 @@ footer {
 
   .modal-body {
     overflow-y: scroll;
+
+    .event-note {
+      word-break: break-all;
+      white-space: normal;
+    }
   }
 }
