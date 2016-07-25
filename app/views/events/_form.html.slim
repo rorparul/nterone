@@ -143,6 +143,10 @@
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
 
+      .col-xs-12.col-sm-12
+        .form-group
+          = f.label :note
+          = f.text_area :note, class: 'form-control input-md'
     hr
 
     .row
