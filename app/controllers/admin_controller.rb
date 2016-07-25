@@ -109,6 +109,8 @@ class AdminController < ApplicationController
   end
 
   def should_group_classes?
-    params.dig(:events_smart_listing, :sort, :start_date).present? || params.dig(:events_smart_listing).blank?
+    params.dig(:events_smart_listing, :sort, :start_date).present? ||
+      params.dig(:events_smart_listing, :sort, 'events.start_date').present? ||
+      params.dig(:events_smart_listing, :sort).blank?
   end
 end
