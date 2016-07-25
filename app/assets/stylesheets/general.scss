@@ -2176,6 +2176,19 @@ footer {
   overflow-x: scroll;
 }
 
+.fixed-table {
+  table-layout:fixed;
+
+  .fixed-cell {
+    max-width:1px;
+    width:90%;
+
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+  }
+}
+
 .link-diver {
   display: inline;
   margin-left: 5px;
