@@ -53,6 +53,11 @@ class AdminController < ApplicationController
                                                      [:lab_source, "lab_source"],
                                                      [:guaranteed, "guaranteed"]],
                                    default_sort: { "events.start_date": "asc"} )
+
+    if should_group_classes?
+      @grouped_events = @events.group_by(&:week_range)
+    end
+
     respond_to do |format|
       format.html
       format.js
@@ -101,5 +106,9 @@ class AdminController < ApplicationController
     unless current_user.admin? || current_user.sales?
       redirect_to root_path
     end
+  end
+
+  def should_group_classes?
+    params.dig(:events_smart_listing, :sort, :start_date).present? || params.dig(:events_smart_listing).blank?
   end
 end

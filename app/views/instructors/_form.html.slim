@@ -30,8 +30,10 @@
       = f.text_area :biography, class: 'form-control input-sm'
 
     .form-group
-      = f.label :status
-      = f.select :status, Instructor.statuses.keys.to_a.map { |w| [w.humanize, w] }
+      = f.label :status, "Role"
+      = f.select :status, Instructor.statuses.keys.to_a.map { |w| [w.humanize, w] },
+                          options = { selected: "None" },
+                          html_options = { class: "form-control input-sm" }
 
     .form-buttons
       button.btn.btn-success type="submit" Save
