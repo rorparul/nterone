@@ -37,7 +37,7 @@ class AdminController < ApplicationController
   end
 
   def classes
-    events_scope = params[:including_past] == "1" ? Event.all : Event.upcoming_events.joins(:course)
+    events_scope = params[:including_past] == "1" ? Event.joins(:course) : Event.upcoming_events.joins(:course)
     events_scope = events_scope.with_students                  if params[:only_registered] == "1"
     events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
     @events = smart_listing_create(:events,
@@ -52,7 +52,7 @@ class AdminController < ApplicationController
                                                      [:format, "format"],
                                                      [:lab_source, "lab_source"],
                                                      [:guaranteed, "guaranteed"]],
-                                   default_sort: { "start_date": "asc"} )
+                                   default_sort: { start_date: "asc"} )
 
     if should_group_classes?
       @grouped_events = @events.group_by(&:week_range)
