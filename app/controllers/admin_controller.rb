@@ -52,7 +52,7 @@ class AdminController < ApplicationController
                                                      [:format, "format"],
                                                      [:lab_source, "lab_source"],
                                                      [:guaranteed, "guaranteed"]],
-                                   default_sort: { "events.start_date": "asc"} )
+                                   default_sort: { "start_date": "asc"} )
 
     if should_group_classes?
       @grouped_events = @events.group_by(&:week_range)

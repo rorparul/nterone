@@ -47,7 +47,7 @@
                     td.fit = distance_of_time_in_words(Date.today, event.start_date)
                     td.fit
                       = render partial: 'details_modal', locals: {event: event}
-                      a data-toggle="modal" data-target="#details" Details
+                      a href="#" data-toggle="modal" data-target="#details" Details
 
 
               - else

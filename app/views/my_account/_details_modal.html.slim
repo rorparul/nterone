@@ -1,10 +1,9 @@
 .modal.fade id="details" tabindex="-1" role="dialog" aria-labelledby="details"
   .modal-dialog role="document"
-    .modal-content
-      .modal-header
-        button.close type="button" data-dismiss="modal" aria-label="Close"
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted.modal-title Details
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
           span aria-hidden="true" &times;
-        h4 class="modal-title" id="details" Details
-      .modal-body
-        h3 note
-        p.event-note= event.note
+      .modal-body.panel-body
+        p = event.note

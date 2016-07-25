@@ -102,6 +102,11 @@
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
 
     hr
+    
+    .form-group
+      = f.label :note
+      = f.text_area :note, class: 'form-control input-sm'
+      #instructions style="margin-top: 6px;" Viewable by all registrants of the class.
 
     .row
       .col-xs-12.col-sm-6
@@ -142,11 +147,6 @@
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
-
-      .col-xs-12.col-sm-12
-        .form-group
-          = f.label :note
-          = f.text_area :note, class: 'form-control input-md'
     hr
 
     .row
