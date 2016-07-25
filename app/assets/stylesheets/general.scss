@@ -2194,3 +2194,36 @@ footer {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.modal#details {
+
+  .modal-content {
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    outline: 0;
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  }
+
+  .modal-header {
+    padding-top: 15px;
+    height: 50px;
+
+    .close {
+      margin-right: 20px;
+    }
+  }
+
+  .modal-body {
+    overflow-y: scroll;
+
+    .event-note {
+      word-break: break-all;
+      white-space: normal;
+    }
+  }
+}
