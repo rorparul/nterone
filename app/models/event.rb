@@ -46,6 +46,10 @@ class Event < ActiveRecord::Base
     where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
   end
 
+  def self.in_range(start_date, end_date)
+    Event.where(created_at: start_date..end_date)
+  end
+
   def length
     if self.end_date && self.start_date
       count = (self.start_date..self.end_date).select { |day| (1..5).include?(day.wday) }.count

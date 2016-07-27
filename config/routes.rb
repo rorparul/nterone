@@ -137,6 +137,7 @@ NterOne::Application.routes.draw do
 
   namespace :reports do
     resources :commissions, only: [:new, :create]
+    resources :profit_sheets, only: [:new, :create]
   end
 
   namespace :api do

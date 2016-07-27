@@ -1,0 +1,25 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Commission Reports') do |sheet|
+    headers = [
+      'Class',
+      'Class Date Range',
+      'Revenue',
+      'Expenses',
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @events.each do |event|
+      sheet.add_row [
+        event.course.title,
+        "#{event.start_date.strftime('%-m/%-d/%y')} - #{event.end_date.strftime('%-m/%-d/%y')}",
+        "$#{event.revenue}",
+        'Expenses'
+      ]
+    end
+  end
+end
