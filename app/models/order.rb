@@ -121,10 +121,9 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.events_in_range_for(seller_id, start_date, end_date)
-    orders = Order
-      .where(seller_id: seller_id, created_at: start_date..end_date)
-      .joins(:order_items).where(order_items: { orderable_type: 'Event' })
-      .distinct
+  def self.items_in_range_for(seller_id, start_date, end_date)
+    order_ids = Order.where(seller_id: seller_id, created_at: start_date..end_date).distinct
+
+    OrderItem.where(order_id: order_ids, orderable_type: 'Event').distinct
   end
 end

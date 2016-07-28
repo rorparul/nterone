@@ -6,7 +6,7 @@ class Reports::CommissionsController < ApplicationController
   end
 
   def create
-    @orders = Order.events_in_range_for(*report_params.values)
+    @order_items = Order.items_in_range_for(*report_params.values)
 
     respond_to do |format|
       format.xlsx
