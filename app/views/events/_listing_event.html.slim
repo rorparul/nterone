@@ -1,9 +1,5 @@
 tr
-  td.fit
-    - if event.status == "Pending"
-      span.label.label-warning = event.status
-    - if event.status == "Confirmed"
-      span.label.label-success = event.status
+  td.fit = event.id
   td.fit = event.course.abbreviation
   td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
   td.fit = event.length
@@ -14,7 +10,14 @@ tr
   td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
   td.fit = event.lab_source
   td.fit = event.public ? 'Yes' : 'No'
-  td.fit = event.guaranteed ? 'Yes' : 'No'
+  td.fit
+    - if event.guaranteed
+      span.label.label-success Yes
+    - if !event.guaranteed
+      span.label.label-default No
+  td.fit
+    - if event.status == "Confirmed"
+      i.fa.fa-check.text-success aria-hidden="true"
   td.fit
     = link_to "Add Student", new_order_path(event: event.id), remote: true, title: "Register Student"
     .link-diver |
