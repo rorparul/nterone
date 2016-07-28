@@ -28,5 +28,13 @@ wb.styles do |style|
         "$#{commission_amount}"
       ]
     end
+
+
+    style = style.add_style(bg_color: 'F7B079', alignment: { horizontal: :left })
+
+    sheet.add_row(
+      ['', '', '', "$#{orders_revenue_total(@order_items)}", '', "$#{orders_commission_total(@order_items)}"],
+      style: [nil, nil, nil, style, nil, style]
+    )
   end
 end
