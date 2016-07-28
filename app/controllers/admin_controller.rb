@@ -10,7 +10,7 @@ class AdminController < ApplicationController
 
   def queue
     if current_user.sales_manager? || current_user.admin?
-      @sales_force      = Role.where(role: 3)
+      @sales_force      = Role.where(role: [2, 3])
       @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0], buyer_id: nil).order(created_at: :asc)
       @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).where.not(buyer_id: nil).order(created_at: :asc)
       @archived_leads   = Lead.where(status: 'archived').where.not(buyer_id: nil).order(created_at: :desc)
@@ -37,7 +37,7 @@ class AdminController < ApplicationController
   end
 
   def classes
-    events_scope = params[:including_past] == "1" ? Event.joins(:course) : Event.upcoming_events.joins(:course)
+    events_scope = params[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
     events_scope = events_scope.with_students                  if params[:only_registered] == "1" || params[:only_registered].blank?
     events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
 

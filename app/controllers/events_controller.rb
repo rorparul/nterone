@@ -150,7 +150,8 @@ class EventsController < ApplicationController
                                   :sent_all_webex_invite,
                                   :sent_all_course_material,
                                   :sent_all_lab_credentials,
-                                  :note)
+                                  :note,
+                                  :count_weekends)
   end
 
   def error_rows(events)
