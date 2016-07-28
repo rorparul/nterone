@@ -10,7 +10,7 @@ class AdminController < ApplicationController
 
   def queue
     if current_user.sales_manager? || current_user.admin?
-      @sales_force      = Role.where(role: 3)
+      @sales_force      = Role.where(role: [2, 3])
       @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0], buyer_id: nil).order(created_at: :asc)
       @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).where.not(buyer_id: nil).order(created_at: :asc)
       @archived_leads   = Lead.where(status: 'archived').where.not(buyer_id: nil).order(created_at: :desc)
