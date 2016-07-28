@@ -53,6 +53,14 @@ class OrderItem < ActiveRecord::Base
     end
   end
 
+  def revenue
+    self.price
+  end
+
+  def commission
+    self.price * self.orderable.commission_percent
+  end
+
   private
 
   def copy_current_orderable_price
