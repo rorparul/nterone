@@ -1,7 +1,7 @@
 wb = xlsx_package.workbook
 
 wb.styles do |style|
-  color = style.add_style(bg_color: '9CBA5F')
+  color = style.add_style(bg_color: 'BEC0BF', :border => { :style => :thin, :color =>"959595" })
 
   wb.add_worksheet(name: 'Commission Reports') do |sheet|
     headers = [
@@ -9,6 +9,7 @@ wb.styles do |style|
       'Class Date Range',
       'Revenue',
       'Expenses',
+      '',
       'Profit'
     ]
 
@@ -19,21 +20,25 @@ wb.styles do |style|
         event.course.title,
         "#{event.start_date.strftime('%-m/%-d/%y')} - #{event.end_date.strftime('%-m/%-d/%y')}",
         "$#{event.revenue}",
+        'Total',
         "$#{event.total_cost}",
         "$#{event.net_revenue}"
       ]
 
-      color = style.add_style(bg_color: 'DDDDDD')
+      color = style.add_style(bg_color: 'EDEFEF', :border => { :style => :thin, :color =>"959595" })
+      items = {
+        'Instructor': event.cost_instructor,
+        'Commission': event.commission,
+        'Lab': event.cost_lab,
+        'T & E': event.cost_te,
+        'Books': event.cost_books,
+        'Facility': event.cost_facility,
+        'Shipping': event.cost_shipping
+      }
 
-      sheet.add_row [
-        "Instructor $#{event.cost_instructor}",
-        "Commission $#{event.commission}",
-        "Lab $#{event.cost_lab}",
-        "Te $#{event.cost_te}",
-        "Books $#{event.cost_books}",
-        "Facility $#{event.cost_facility}",
-        "Shipping $#{event.cost_shipping}",
-      ], style: Array.new(7, color)
+      items.each do |name, price|
+        sheet.add_row ['', '', '', name, "$#{price}", ''], style: Array.new(7, color)
+      end
     end
   end
 end
