@@ -17,15 +17,25 @@ wb.styles do |style|
 
     @orders.each do |order|
       order.order_items.each do |item|
-        sheet.add_row [
-          item.orderable.start_date.strftime("%-m/%-d/%y"),
-          item.orderable.course.title,
-          item.order.buyer.full_name,
-          "$#{item.orderable.revenue}",
-          "#{(item.orderable.commission_percent * 100).round}%",
-          "$#{item.orderable.commission}"
-        ]
+        if item.orderable_type == 'Event'
+          sheet.add_row [
+            item.orderable.start_date.strftime("%-m/%-d/%y"),
+            item.orderable.course.title,
+            item.order.buyer.full_name,
+            "$#{item.orderable.revenue}",
+            "#{(item.orderable.commission_percent * 100).round}%",
+            "$#{item.orderable.commission}"
+          ]
+        end
       end
     end
+
+
+    style = style.add_style(bg_color: 'F7B079', alignment: { horizontal: :left })
+
+    sheet.add_row(
+      ['', '', '', "$#{orders_revenue_total(@orders)}", '', "$#{orders_commission_total(@orders)}"],
+      style: [nil, nil, nil, style, nil, style]
+    )
   end
 end

@@ -76,7 +76,7 @@ class Event < ActiveRecord::Base
   end
 
   def commission
-    invoiced_amount * commission_percent
+    revenue * commission_percent
   end
 
   def revenue

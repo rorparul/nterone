@@ -1,0 +1,25 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Commission Reports') do |sheet|
+    headers = [
+      'Instructor Name',
+      'Days Taught',
+      'Revenue',
+      'Role'
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @instructors.each do |instructor|
+      sheet.add_row [
+        instructor.full_name,
+        instructor.events.to_a.sum(&:length),
+        "$#{instructor.events.to_a.sum(&:revenue)}",
+        instructor.status
+      ]
+    end
+  end
+end
