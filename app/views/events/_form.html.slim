@@ -32,6 +32,9 @@
           = f.label :end_time, 'End Time'
           br
           = f.time_select :end_time, { ampm: true }, {}
+
+    hr
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -42,12 +45,13 @@
                                { prompt: 'Eastern Time (US & Canada)' },
                                { class: 'form-control input-sm' }
 
-    .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :should_remind, 'Remind Students?'
+          = f.label :count_weekends, 'Count Weekends?'
           br
-          = f.check_box :should_remind
+          = f.check_box :count_weekends
+
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :remind_period, 'Remind Period'
@@ -55,6 +59,12 @@
           = f.select :remind_period, [['One week', 'one_week'], ['Two weeks', 'two_week'], ['One month', 'one_month']],
                      {},
                      class: 'form-control input-sm'
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :should_remind, 'Remind Students?'
+          br
+          = f.check_box :should_remind
 
     .row
       .col-xs-12.col-sm-6
@@ -102,7 +112,7 @@
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
 
     hr
-    
+
     .form-group
       = f.label :note
       = f.text_area :note, class: 'form-control input-sm'
