@@ -20,7 +20,7 @@ wb.styles do |style|
         item.orderable.start_date.strftime("%-m/%-d/%y"),
         item.orderable.course.title,
         item.order.buyer.full_name,
-        "$#{item.orderable.revenue}",
+        "$#{item.orderable.revenue_by(@sales_rep_id)}",
         "#{(item.orderable.commission_percent * 100).round}%",
         "$#{item.orderable.commission}"
       ]

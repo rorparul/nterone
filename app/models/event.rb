@@ -85,6 +85,10 @@ class Event < ActiveRecord::Base
     order_items.where.not(order_id: nil).sum(:price)
   end
 
+  def revenue_by(user_id)
+    order_items.where.not(order_id: nil).joins(:order).where(orders: { seller_id: user_id}).sum(:price)
+  end
+
   def total_cost
     cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping + commission
   end

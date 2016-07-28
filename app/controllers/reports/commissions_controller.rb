@@ -7,6 +7,7 @@ class Reports::CommissionsController < ApplicationController
 
   def create
     @order_items = Order.items_in_range_for(*report_params.values)
+    @sales_rep_id = report_params[:sales_rep]
 
     respond_to do |format|
       format.xlsx
