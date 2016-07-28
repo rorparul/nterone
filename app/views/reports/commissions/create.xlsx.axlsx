@@ -16,7 +16,6 @@ wb.styles do |style|
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @order_items.each do |item|
-      commission_amount = item.orderable.orders.sum(:total) * item.orderable.commission_percent
       commission_percent = (item.orderable.commission_percent * 100).round
 
       sheet.add_row [
@@ -25,7 +24,7 @@ wb.styles do |style|
         item.order.buyer.full_name,
         "$#{item.orderable.revenue_by(@sales_rep_id)}",
         "#{commission_percent}%",
-        "$#{commission_amount}"
+        "$#{item.orderable.commission}"
       ]
     end
 
@@ -33,7 +32,7 @@ wb.styles do |style|
     style = style.add_style(bg_color: 'F7B079', alignment: { horizontal: :left })
 
     sheet.add_row(
-      ['', '', '', "$#{orders_revenue_total(@order_items)}", '', "$#{orders_commission_total(@order_items)}"],
+      ['', '', '', "$#{orders_revenue_total(@order_items, @sales_rep_id)}", '', "$#{orders_commission_total(@order_items)}"],
       style: [nil, nil, nil, style, nil, style]
     )
   end
