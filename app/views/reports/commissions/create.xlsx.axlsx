@@ -22,9 +22,9 @@ wb.styles do |style|
         item.orderable.start_date.strftime("%-m/%-d/%y"),
         item.orderable.course.title,
         item.order.buyer.full_name,
-        "$#{item.orderable.revenue_by(@sales_rep_id)}",
+        "$#{item.revenue}",
         "#{commission_percent}%",
-        "$#{item.orderable.commission}"
+        "$#{item.commission}"
       ]
     end
 
