@@ -16,13 +16,16 @@ wb.styles do |style|
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @order_items.each do |item|
+      commission_amount = item.orderable.orders.sum(:total) * item.orderable.commission_percent
+      commission_percent = (item.orderable.commission_percent * 100).round
+
       sheet.add_row [
         item.orderable.start_date.strftime("%-m/%-d/%y"),
         item.orderable.course.title,
         item.order.buyer.full_name,
         "$#{item.orderable.revenue_by(@sales_rep_id)}",
-        "#{(item.orderable.commission_percent * 100).round}%",
-        "$#{item.orderable.commission}"
+        "#{commission_percent}%",
+        "$#{commission_amount}"
       ]
     end
   end
