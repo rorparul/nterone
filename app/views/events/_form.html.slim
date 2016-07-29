@@ -81,7 +81,7 @@
           = f.label :instructor_id, "Instructor"
           = f.select :instructor_id,
                      instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                     { prompt: true },
+                     { prompt: true, include_blank: "Please select" },
                      { class: 'form-control input-sm' }
 
     .row
