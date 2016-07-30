@@ -1,0 +1,3 @@
+$('.modal-title').html('In house Note');
+$('.modal-body').html("<%= escape_javascript(render partial: 'in_house_note_form', locals: { event: @event }) %>");
+$('#myModal').modal('show');
