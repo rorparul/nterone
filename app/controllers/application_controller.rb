@@ -54,6 +54,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def parse_date_select(params, name)
+    parts = (1..6).map do |e|
+      params["#{name}(#{e}i)"].to_i
+    end
+
+    # remove trailing zeros
+    parts = parts.slice(0, parts.rindex{|e| e != 0}.to_i + 1)
+    return nil if parts[0] == 0  # empty date fields set
+
+    Date.new(*parts)
+  end
+
   private
 
   def store_location

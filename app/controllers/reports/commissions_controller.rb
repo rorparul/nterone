@@ -6,7 +6,10 @@ class Reports::CommissionsController < ApplicationController
   end
 
   def create
-    @order_items  = Order.items_in_range_for(*report_params.values)
+    start_date = parse_date_select(report_params, :start_date)
+    end_date = parse_date_select(report_params, :end_date)
+
+    @order_items  = Order.items_in_range_for(report_params[:sales_rep], start_date, end_date)
     @sales_rep_id = report_params[:sales_rep]
 
     respond_to do |format|
