@@ -1,14 +1,15 @@
 .form-container
   =form_for :report, url: reports_instructor_utilizations_path(format: :xlsx) do |f|
-    label Date Range
     .row
       .col-xs-12.col-md-6
         .form-group
           = f.label :start_date, 'Start'
+          br
           = f.date_select :start_date, class: 'form-control input-sm'
       .col-xs-12.col-md-6
         .form-group
           = f.label :end_date, 'End'
+          br
           = f.date_select :end_date, class: 'form-control input-sm'
 
     button.btn.btn-success Generate
