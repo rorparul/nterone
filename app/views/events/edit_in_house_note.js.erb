@@ -1,4 +1,4 @@
-$('.modal-title').html('In house Note')
+$('.modal-title').html('In-house Note')
 $('.modal-body').html("<%= escape_javascript(render partial: 'in_house_note_form', locals: { event: @event }) %>")
 $('#myModal').data('id', "<%= @event.id %>").modal('show')
 
@@ -14,10 +14,10 @@ $('#myModal form').submit(function(e) {
     dataType: 'JSON'
   }).success(function(json){
     if (json.success) {
-      var id = $('#myModal').data('id')
+      var id = $('#myModal').data('id');
 
-      $('.in-house-note-icon-' + id).removeClass('fa-sticky-note-o').addClass('fa-sticky-note')
-      $('#myModal').modal('hide')
+      $('.in-house-note-icon-' + id).removeClass('fa-sticky-note-o').addClass('fa-sticky-note');
+      $('#myModal').modal('hide');
     }
   })
 })
