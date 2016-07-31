@@ -131,7 +131,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js
+      format.js { render json: { success: true } }
     end
   end
 
