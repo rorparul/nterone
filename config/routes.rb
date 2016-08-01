@@ -205,6 +205,9 @@ NterOne::Application.routes.draw do
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
 
+  get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
+  put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
+
   # Redirects from old site:
   get '/courses/:id',                          to: redirect('/training')
   get '/certifications/:id',                   to: redirect('/training')

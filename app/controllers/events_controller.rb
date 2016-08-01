@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: :feed
+  before_action :set_event, only: [:edit_in_house_note, :update_in_house_note]
 
   def page
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
@@ -118,6 +119,19 @@ class EventsController < ApplicationController
     redirect_to :back
   end
 
+  def edit_in_house_note
+  end
+
+  def update_in_house_note
+    @event.update_attributes(in_house_note_params)
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js { render json: {
+        success: true, in_house_note: @event.in_house_note
+      }}
+    end
+  end
+
   private
 
   def event_params
@@ -151,7 +165,12 @@ class EventsController < ApplicationController
                                   :sent_all_course_material,
                                   :sent_all_lab_credentials,
                                   :note,
+                                  :in_house_note,
                                   :count_weekends)
+  end
+
+  def in_house_note_params
+    params.require(:event).permit(:in_house_note)
   end
 
   def error_rows(events)
@@ -169,5 +188,9 @@ class EventsController < ApplicationController
               "</tr>"
     end
     rows
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
   end
 end
