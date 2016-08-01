@@ -6,7 +6,10 @@ class Reports::ProfitSheetsController < ApplicationController
   end
 
   def create
-    @events = Event.in_range(report_params[:start_date], report_params[:end_date])
+    start_date = parse_date_select(report_params, :start_date)
+    end_date = parse_date_select(report_params, :end_date)
+
+    @events = Event.in_range(start_date, end_date)
 
     respond_to do |format|
       format.xlsx

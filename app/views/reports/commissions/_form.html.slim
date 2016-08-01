@@ -1,24 +1,25 @@
 .form-container
   =form_for :report, url: reports_commissions_path(format: :xlsx) do |f|
-    label Date Range
     .row
       .col-xs-12.col-md-6
         .form-group
           = f.label :start_date, 'Start'
-          = f.date_field :start_date, class: 'form-control input-sm'
+          br
+          = f.date_select :start_date, class: 'form-control input-sm', required: true
       .col-xs-12.col-md-6
         .form-group
           = f.label :end_date, 'End'
-          = f.date_field :end_date, class: 'form-control input-sm'
+          br
+          = f.date_select :end_date, class: 'form-control input-sm', required: true
 
-
-    .row
-      .col-xs-6
-        .form-group
-          = f.label :sales_rep, 'Sales Rep'
-          = f.select :sales_rep,
-                     User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                     {prompt: true},
-                     class: "form-control input-sm"
+    - unless current_user.sales_rep?
+      .row
+        .col-xs-6
+          .form-group
+            = f.label :sales_rep, 'Sales Rep'
+            = f.select :sales_rep,
+                       User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                       {prompt: true},
+                       class: "form-control input-sm"
 
     button.btn.btn-success Generate
