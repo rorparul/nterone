@@ -8,28 +8,32 @@
         ul
           - course.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :page_title, 'Page Title'
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :page_description, 'Page Description'
       = f.text_area :page_description, class: 'form-control input-sm'
-    
+
     hr
-            
+
     .form-group
       = f.label :category_ids, 'Categories'
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
                  html_options = { class: "form-control input-sm", multiple: 'true' }
-            
+
     .form-group
       = f.label :title
       = f.text_field :title, class: 'form-control input-sm'
-      
+
+    .form-group
+      = f.label :slug
+      = f.text_field :slug, class: 'form-control input-sm'
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -39,7 +43,7 @@
         .form-group
           = f.label :pdf, 'PDF'
           = f.file_field :pdf, class: 'form-control input-sm'
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -54,23 +58,23 @@
         .form-group
           = f.label :video_preview, "Video Preview"
           = f.text_area :video_preview, class: 'form-control input-sm'
-          
+
     .form-group
       = f.label :intro, 'Introduction'
       = f.text_area :intro, class: 'form-control input-sm wysihtml5'
-      
+
     .form-group
       = f.label :overview, 'Overview'
       = f.text_area :overview, class: 'form-control input-sm wysihtml5'
-    
+
     .form-group
       = f.label :outline, 'Outline'
       = f.text_area :outline, class: 'form-control input-sm wysihtml5'
-      
+
     .form-group
       = f.label :intended_audience, 'Who Should Attend'
       = f.text_area :intended_audience, class: 'form-control input-sm wysihtml5'
-      
+
     .row
       .col-xs-6.col-md-3
         .form-group
@@ -82,7 +86,7 @@
           = f.label :partner_led, "Partner Led"
           br
           = f.check_box :partner_led
-      
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel

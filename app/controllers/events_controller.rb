@@ -123,12 +123,7 @@ class EventsController < ApplicationController
   end
 
   def update_in_house_note
-    if @event.update_attributes(in_house_note_params)
-      flash[:success] = "In house note successfully updated."
-    else
-      flash[:alert] = "In house note failed to update."
-    end
-
+    @event.update_attributes(in_house_note_params)
     respond_to do |format|
       format.html { redirect_to :back }
       format.js { render json: {
