@@ -5,12 +5,13 @@
   li
     = link_to new_reports_commission_path, remote: true do
       | Generate Commissions Report
-  li
-    = link_to new_reports_profit_sheet_path, remote: true do
-      | Generate Profit Sheets Report
-  li
-    = link_to new_reports_instructor_utilization_path, remote: true do
-      | Generate Instructor Utilization Report
+  - if current_user.admin?
+    li
+      = link_to new_reports_profit_sheet_path, remote: true do
+        | Generate Profit Sheets Report
+    li
+      = link_to new_reports_instructor_utilization_path, remote: true do
+        | Generate Instructor Utilization Report
 
 .row
   .col-xs-12
