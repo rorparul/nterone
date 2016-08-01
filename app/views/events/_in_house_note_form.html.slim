@@ -1,0 +1,8 @@
+.form-container
+  = form_for event, url: update_in_house_note_path, method: 'PUT' do |f|
+    .form-group
+      = f.text_area :in_house_note, class: "form-control"
+
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

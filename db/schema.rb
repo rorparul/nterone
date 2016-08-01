@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728085703) do
+ActiveRecord::Schema.define(version: 20160729140039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 20160728085703) do
     t.boolean  "reminder_sent",                                    default: false
     t.text     "note"
     t.boolean  "count_weekends",                                   default: false
+    t.text     "in_house_note"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|

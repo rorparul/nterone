@@ -5,6 +5,7 @@
         thead
           tr
             th.fit = smart_listing.sortable "ID", :id
+            th.fit = 'Note'
             th.fit = smart_listing.sortable "Course", :course
             th.fit = smart_listing.sortable "Start Date", :start_date
             th.fit title="Length" Len
@@ -22,7 +23,7 @@
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
               tr
-                td(style="background-color: #D5DDF2;" colspan=8)
+                td(style="background-color: #D5DDF2;" colspan=9)
                   strong
                     = date_str
                 td(style="background-color: #D5DDF2;" colspan=3)
