@@ -131,7 +131,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render json: { success: true } }
+      format.js { render json: {
+        success: true, in_house_note: @event.in_house_note
+      }}
     end
   end
 

@@ -16,7 +16,12 @@ $('#myModal form').submit(function(e) {
     if (json.success) {
       var id = $('#myModal').data('id')
 
-      $('.in-house-note-icon-' + id).removeClass('fa-sticky-note-o').addClass('fa-sticky-note')
+      if (json.in_house_note.trim() == '') {
+        $('.in-house-note-icon-' + id).removeClass('fa-sticky-note').addClass('fa-sticky-note-o')
+      } else {
+        $('.in-house-note-icon-' + id).removeClass('fa-sticky-note-o').addClass('fa-sticky-note')
+      }
+
       $('#myModal').modal('hide')
     }
   })
