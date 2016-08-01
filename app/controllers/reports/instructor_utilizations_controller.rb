@@ -6,6 +6,8 @@ class Reports::InstructorUtilizationsController < ApplicationController
   end
 
   def create
+    @start_date = parse_date_select(report_params, :start_date)
+    @end_date = parse_date_select(report_params, :end_date)
     @instructors = Instructor.all
 
     respond_to do |format|

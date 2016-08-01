@@ -11,4 +11,8 @@ class Instructor < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def events_in_range(start_date, end_date)
+    self.events.where(start_date: start_date..end_date)
+  end
 end
