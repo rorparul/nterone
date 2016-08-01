@@ -48,7 +48,9 @@ class Event < ActiveRecord::Base
   end
 
   def self.in_range(start_date, end_date)
-    Event.joins(:registrations).where(start_date: start_date..end_date)
+    Event.joins(:order_items)
+      .where(start_date: start_date..end_date, order_items: { cart_id: nil })
+      .where.not(order_items: { order_id: nil }).distinct
   end
 
   def length
