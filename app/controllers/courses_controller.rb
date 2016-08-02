@@ -123,7 +123,6 @@ class CoursesController < ApplicationController
     if new_course.save
       flash[:success] = 'Course successfully cloned!'
     else
-      binding.pry
       flash[:alert] = 'Course unsuccessfully cloned!'
     end
 
