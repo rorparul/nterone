@@ -107,6 +107,10 @@ NterOne::Application.routes.draw do
         get  'courses/:id/download'      => 'courses#download',      as: :course_download
         get  'courses/:id/video_preview' => 'courses#video_preview', as: :course_video_preview
       end
+
+      get 'clone_form', on: :member
+      post 'clone', on: :member
+
       resources :events do
         collection do
           get  'select'

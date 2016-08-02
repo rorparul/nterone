@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :download]
+  before_action :set_course, only: [:clone_form, :clone]
 
   def page
     @courses = Course.order(:title).page(params[:page])
@@ -111,6 +112,24 @@ class CoursesController < ApplicationController
               type: "application/pdf")
   end
 
+  def clone_form
+  end
+
+  def clone
+    new_course = @course.dup
+    new_course.slug = params[:course][:slug]
+    new_course.categories << @course.categories.first
+
+    if new_course.save
+      flash[:success] = 'Course successfully cloned!'
+    else
+      binding.pry
+      flash[:alert] = 'Course unsuccessfully cloned!'
+    end
+
+    redirect_to session[:previous_request_url]
+  end
+
   private
 
   def course_params
@@ -131,5 +150,9 @@ class CoursesController < ApplicationController
                                    :video_preview,
                                    :partner_led,
                                    category_ids: [])
+  end
+
+  def set_course
+    @course = Course.friendly.find(params[:id])
   end
 end
