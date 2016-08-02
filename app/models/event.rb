@@ -13,6 +13,7 @@ class Event < ActiveRecord::Base
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
+  has_many :registrations
 
   # before_save    :update_status
   before_destroy :ensure_not_purchased_or_in_cart
@@ -47,7 +48,9 @@ class Event < ActiveRecord::Base
   end
 
   def self.in_range(start_date, end_date)
-    Event.where(created_at: start_date..end_date)
+    Event.joins(:order_items)
+      .where(start_date: start_date..end_date, order_items: { cart_id: nil })
+      .where.not(order_items: { order_id: nil }).distinct
   end
 
   def length
