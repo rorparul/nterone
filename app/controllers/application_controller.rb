@@ -26,6 +26,12 @@ class ApplicationController < ActionController::Base
     session[:previous_url] || root_path
   end
 
+  def authenticate_admin!
+    if current_user.blank? || !current_user.admin?
+      redirect_to root_path, alert: 'you are not authorized'
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
