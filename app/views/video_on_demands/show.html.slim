@@ -26,6 +26,9 @@
       .row
         .col-xs-12
           = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
+
+          - if @video_on_demand.heading.present?
+            h1= @video_on_demand.heading
           .panel.panel-default
             .panel-body
               = @video_on_demand.intro.html_safe if @video_on_demand.intro

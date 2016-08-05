@@ -113,6 +113,7 @@ class VideoOnDemandsController < ApplicationController
                                             :instructor_id,
                                             :level,
                                             :price,
+                                            :heading,
                                             :intro,
                                             :overview,
                                             :outline,

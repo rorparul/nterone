@@ -8,28 +8,28 @@
         ul
           - video_on_demand.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :page_title, 'Page Title'
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :page_description, 'Page Description'
       = f.text_area :page_description, class: 'form-control input-sm'
-    
+
     hr
-            
+
     .form-group
       = f.label :category_ids, 'Categories'
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
                  html_options = { class: 'form-control input-sm', multiple: 'true' }
-                 
+
     .form-group
       = f.label :title
       = f.text_field :title, class: 'form-control input-sm'
-      
+
     .row
       .col-xs-12.col-sm-4
         .form-group
@@ -50,14 +50,14 @@
           .input-group
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :instructor_id, "Instructor"
       = f.select :instructor_id,
                  instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
                  { prompt: true },
                  { class: "form-control input-sm" }
-                
+
     .row
       .col-xs-12.col-md-6
         .form-group
@@ -78,23 +78,27 @@
           = f.label :active, "Active"
           br
           = f.check_box :active
-            
+
+    .form-group
+      = f.label :heading, 'Heading'
+      = f.text_field :heading, class: 'form-control input-sm'
+
     .form-group
       = f.label :intro, 'Introduction'
       = f.text_area :intro, class: 'form-control input-sm wysihtml5'
-      
+
     .form-group
       = f.label :overview, 'Overview'
       = f.text_area :overview, class: 'form-control input-sm wysihtml5'
-    
+
     .form-group
       = f.label :outline, 'Outline'
       = f.text_area :outline, class: 'form-control input-sm wysihtml5'
-      
+
     .form-group
       = f.label :intended_audience, 'Who Should Attend'
       = f.text_area :intended_audience, class: 'form-control input-sm wysihtml5'
-          
+
     h4 Modules
     hr
     #modules
@@ -102,7 +106,7 @@
         = render 'video_module_fields', f: ff
       .links
         = link_to_add_association 'Add module', f, :video_modules
-      
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
