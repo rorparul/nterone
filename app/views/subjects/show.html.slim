@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @subject.page_title.present? ? @subject.page_title : @subject.full_title
-  
+
 - content_for :page_description do
   = @subject.page_description
 
@@ -28,6 +28,8 @@
 
 .row#subject-description
   .col-xs-12
+    h1= @subject.heading
+
     .page-header
       h3 = @subject.full_title
     = @subject.description.html_safe
@@ -70,7 +72,7 @@
 
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });

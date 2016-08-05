@@ -112,6 +112,7 @@ class SubjectsController < ApplicationController
                                     :page_description,
                                     :title,
                                     :abbreviation,
+                                    :heading,
                                     :description,
                                     :type,
                                     :partner_led,
