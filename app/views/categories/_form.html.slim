@@ -8,32 +8,36 @@
         ul
           - category.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :parent_id
       = f.collection_select(:parent_id, platform.categories.parent_categories.where.not(id: category.id), :id, :title,
                             { prompt: 'None' }, { class: 'form-control input-sm' })
-                            
+
     .form-group
       = f.label :title
       = f.text_field :title, class: 'form-control input-sm'
-      
+
+    .form-group
+      = f.label :page_title, "Page Title"
+      = f.text_field :page_title, class: 'form-control input-sm'
+
     .form-group
       = f.label :description
       = f.text_area :description, class: 'form-control input-sm wysihtml5'
-      
+
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :position
           = f.text_field :position, class: 'form-control input-sm'
-      
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal" Cancel
       - if category.id
         = link_to 'Delete', platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
-        
+
 javascript:
   $('.wysihtml5').wysihtml5({
     toolbar: {
