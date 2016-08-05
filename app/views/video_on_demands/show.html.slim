@@ -26,11 +26,9 @@
       .row
         .col-xs-12
           = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
-
-          - if @video_on_demand.heading.present?
-            h1= @video_on_demand.heading
           .panel.panel-default
             .panel-body
+              h1 style="margin: 0 0 10px 0; font-size: 28px;" = @video_on_demand.heading
               = @video_on_demand.intro.html_safe if @video_on_demand.intro
           .row
             .col-xs-12
@@ -96,7 +94,7 @@
           #accordion.panel-group role="tablist" aria-multiselectable="true"
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
-                h4
+                strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                     | Prequisites &amp; Course Objectives
               #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
@@ -104,7 +102,7 @@
                   = @video_on_demand.overview.html_safe if @video_on_demand.overview
             .panel.panel-default
               .panel-heading role="tab" id="headingTwo"
-                h4
+                strong
                   a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                     | Course Outline
               #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
@@ -112,7 +110,7 @@
                   = @video_on_demand.outline.html_safe if @video_on_demand.outline
             .panel.panel-default
               .panel-heading role="tab" id="headingThree"
-                h4
+                strong
                   a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
                     | Who Should Attend
               #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"

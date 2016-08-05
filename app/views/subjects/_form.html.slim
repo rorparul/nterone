@@ -34,10 +34,6 @@
       = f.label :abbreviation, 'Label'
       = f.text_field :abbreviation, class: 'form-control input-sm'
 
-    .form-group
-      = f.label :heading, 'Heading'
-      = f.text_field :heading, class: 'form-control input-sm'
-
     .row
       .col-xs-12.col-md-6
         .form-group
@@ -58,6 +54,10 @@
           = f.label :active, "Active"
           br
           = f.check_box :active
+
+    / .form-group
+    /   = f.label :heading, 'Heading'
+    /   = f.text_field :heading, class: 'form-control input-sm'
 
     .form-group
       = f.label :description
