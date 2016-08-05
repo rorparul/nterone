@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @platform.page_title.present? ? @platform.page_title : @platform.title
-  
+
 - content_for :page_description do
   = @platform.page_description
 
@@ -72,10 +72,13 @@
     li = link_to select_platform_instructors_path(@platform), remote: true do
       i.fa.fa-pencil
       | Edit Instructor
-      
+
 = render partial: 'platforms/categories_menu', locals: { category: @category,
                                                          categories: @categories }
-                                                         
+
+.row
+  .col-xs-12.category-heading
+    = @category.heading
 .row
   .col-xs-12.category-description
     = @category.description.try(:html_safe)
