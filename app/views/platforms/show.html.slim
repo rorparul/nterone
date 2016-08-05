@@ -78,7 +78,7 @@
 
 .row
   .col-xs-12.category-heading
-    = @category.heading
+    h1= @category.heading
 .row
   .col-xs-12.category-description
     = @category.description.try(:html_safe)
