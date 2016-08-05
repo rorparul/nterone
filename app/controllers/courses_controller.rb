@@ -141,6 +141,7 @@ class CoursesController < ApplicationController
                                    :active,
                                    :abbreviation,
                                    :sku,
+                                   :heading,
                                    :intro,
                                    :overview,
                                    :outline,
