@@ -77,10 +77,11 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:id,
+                                     :parent_id,
                                      :title,
+                                     :page_title,
                                      :heading,
                                      :description,
-                                     :parent_id,
                                      :position)
   end
 end

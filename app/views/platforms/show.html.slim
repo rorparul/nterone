@@ -1,5 +1,5 @@
 - content_for :page_title do
-  = @platform.page_title.present? ? @platform.page_title : @platform.title
+  = @category.page_title.present? ? @category.page_title : @category.title
 
 - content_for :page_description do
   = @platform.page_description
@@ -27,21 +27,21 @@
     li = link_to new_platform_subject_path(@platform), remote: false do
       i.fa.fa-plus
       | Add Certification
-    / li = link_to select_platform_subjects_path(@platform), remote: true do
-    /   i.fa.fa-pencil
-    /   | Edit Certification
+    li = link_to select_platform_subjects_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Certification
     li = link_to new_platform_course_path(@platform), remote: false do
       i.fa.fa-plus
       | Add Course
-    / li = link_to select_platform_courses_path(@platform), remote: true do
-    /   i.fa.fa-pencil
-    /   | Edit Course
+    li = link_to select_platform_courses_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Course
     li = link_to new_platform_video_on_demand_path(@platform), remote: false do
       i.fa.fa-plus
       | Add Video On Demad
-    / li = link_to select_platform_video_on_demands_path(@platform), remote: true do
-    /   i.fa.fa-pencil
-    /   | Edit Video On Demand
+    li = link_to select_platform_video_on_demands_path(@platform), remote: true do
+      i.fa.fa-pencil
+      | Edit Video On Demand
     li = link_to new_platform_exam_path(@platform), remote: true do
       i.fa.fa-plus
       | Add Exam
@@ -76,11 +76,13 @@
 = render partial: 'platforms/categories_menu', locals: { category: @category,
                                                          categories: @categories }
 
-.row
-  .col-xs-12.category-heading
-    h1= @category.heading
+/ .row
+/   .col-xs-12.category-heading
+/     h1= @category.heading
+    
 .row
   .col-xs-12.category-description
+    h1 style="margin: 20px 0 10px 0; font-size: 28px; color: gray;" = @category.heading
     = @category.description.try(:html_safe)
 
 .row.subjects
