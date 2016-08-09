@@ -229,4 +229,6 @@ NterOne::Application.routes.draw do
   get "/register/"                             => redirect("/users/sign_in")
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
+
+  post "public/uploads/froala"                 => 'users#upload_photo'
 end
