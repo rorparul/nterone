@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  protect_from_forgery :except => [:upload_photo]
 
   def page
     @users = User.order(:last_name).page(params[:page])
@@ -40,6 +41,16 @@ class UsersController < ApplicationController
       flash[:alert] = "User unsuccessfully #{user.archived ? 'unarchived' : 'archived'}"
     end
     redirect_to :back
+  end
+
+  def upload_photo
+    uploaded_photo = params[:file].tempfile
+    uploader = FroalaImageUploader.new
+    uploader.store!(uploaded_photo)
+
+    img_url_res = { link: uploader.url }
+
+    render json: img_url_res
   end
 
   def destroy

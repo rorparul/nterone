@@ -39,6 +39,7 @@ $(function() {
 
   $('.froala').froalaEditor({
     height: 240,
-    fontSizeSelection: true
+    imageUploadURL: '/public/uploads/froala',
+    imageUploadMethod: 'POST'
   });
 });
