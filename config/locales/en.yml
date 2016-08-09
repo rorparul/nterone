@@ -66,6 +66,24 @@ en:
       website: "Website"
       messages: "Messages"
       settings: "Settings"
+    action:
+      commissions_report: "Generate Commissions Report"
+      profits_report: "Generate Profit Sheets Report"
+      utilization_report: "Generate Instructor Utilization Report"
+      form:
+        commissions_report:
+          title: "Generate Commissions Report"
+          start: "Start"
+          end: "End"
+          sales_rep: "Sales Rep"
+        profits_report:
+          title: "Generate Profit Sheets Report"
+          start: "Start"
+          end: "End"
+        utilization_report:
+          title: "Generate Instructor Utilization Report"
+          start: "Start"
+          end: "End"
     admin_queue:
       row:
         assigned_lead: "Assigned Lead"
@@ -292,7 +310,11 @@ en:
       exective: "Executive Bios"
       instructor: "Instructor Bios"
       press: "Press"
+      blog: "Blog"
       industry: "Industry"
+  training:
+    label:
+      browse: "Browse By"
   footer:
     privacy: "Privacy Policy"
     terms: "Terms and Conditions"
@@ -305,6 +327,7 @@ en:
     select:
       placeholder: "Please select"
     button:
+      generate: "Generate"
       save: "Save"
       save_partner_confirm: "Save & Confirm with Partner"
       upload: "Upload"

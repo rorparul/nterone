@@ -3,13 +3,14 @@
     .row
       .col-xs-12.col-md-6
         .form-group
-          = f.label :start_date, 'Start'
+          = f.label :start_date, t('admin.action.form.utilization_report.start')
           br
           = f.date_select :start_date, class: 'form-control input-sm'
       .col-xs-12.col-md-6
         .form-group
-          = f.label :end_date, 'End'
+          = f.label :end_date, t('admin.action.form.utilization_report.end')
           br
           = f.date_select :end_date, class: 'form-control input-sm'
 
-    button.btn.btn-success Generate
+    button.btn.btn-success
+      = t 'generic.button.generate'
