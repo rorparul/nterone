@@ -20,4 +20,262 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  header:
+    partner: "A Veteran-Owned Business"
+    contact_us: "Contact Us at 703.972.2288"
+  breadcrumbs:
+    home: "Home"
+    admin: "My Admin"
+    search: "Search"
+    actions: "Actions"
+  side_menu: 
+    welcome: "Welcome"
+    login: "Login"
+    about_us: "About Us"
+    training: "Training"
+    testimonials: "Testimonials"
+    forums: "Forums"
+    consulting: "Consulting"
+    partners: "Partners"
+    labs: "Labs"
+    contact_us: "Contact Us"
+    logout: "Logout"
+  categories:
+    queue: "Queue"
+    orders: "Orders"
+    classes: "Classes"
+    courses: "Courses"
+    announcements: "Announcements"
+    people: "People"
+    website: "Website"
+    messages: "Messages"
+    settings: "Settings"
+  home:
+    search_form:
+      placeholder: "Search by certification, course, or exam"
+    featured_courses:
+      vendor: "Courses by Vendor"
+      vendor_paragraph: "Find your course by technology, product, or certification."
+      classes: "Featured Classes"
+      classes_paragraph: "View a list of our most popular courses broken down by vendor."
+      labs: "Labs"
+      labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
+    redeem_credits_panel:
+      title: "Redeem Your Credits"
+      paragraph: "NterOne can redeem all of your vouchers and credits for free training!"
+      contact_us_link: "Contact"
+      contact_us_body: " us for more details."
+  admin_queue:
+    row:
+      assigned_lead: "Assigned Lead"
+      unassigned_lead: "Unassigned Lead"
+      archived_lead: "Archived Lead"
+  admin_orders:
+    row: 
+      title: "Orders"
+    form:
+      title: "Add Order"
+      verified: "Verfied SO #"
+      invoice: "Invoice #"
+      seller: "Sales Rep"
+      buyer: "Student"
+      courses:
+        classes:
+          header: "Classes"
+          price: "Price"
+          add: "Add Class"
+          remove: "Remove Class"
+        video_on_demand:
+          header: "VODs"
+          price: "Price"
+          add: "Add VOD"
+          remove: "Remove VOD"
+      credit_card:
+        header: "Credit Card"
+        cc_num: "Number"
+        cc_exp_month: "Exp. M."
+        cc_exp_year: "Exp. Y."
+        cc_code: "Code"
+        cc_paid: "Paid"
+      learning_credits: 
+        header: "Cisco Learning Credits"
+        lc_num: "Number"
+        lc_applied: "Credits Applied"
+      purchase_order:
+        header: "Purchase Order"
+        p_num: "Number"
+        p_paid: "Paid"
+      bundled:
+        header: "Bundled"
+      no_charge:
+        header: "No Charge"
+      referrer: "Referring Partner Email"
+      billing_address: 
+        header: "Billing Address"
+        company: "Company"
+        f_name: "First Name"
+        l_name: "Last Name"
+        street: "Street"
+        city: "City"
+        state: "State"
+        zip: "Zipcode"
+      shipping_address:
+        header: "Shipping Address"
+        same_as: "Same as Billing"
+        company: "Company"
+        f_name: "First Name"
+        l_name: "Last Name"
+        street: "Street"
+        city: "City"
+        state: "State"
+        zip: "Zipcode"
+  admin_classes:
+    row: 
+      title: "Classes"
+      filter:
+        registered: "Only registered"
+        past: "Including past"
+    form:
+      title: "Upload Classes"
+  admin_courses:
+    row:
+      title: "Courses"
+      column:
+        course_id: "Course ID"
+        course_title: "Title"
+        course_events: "Upcoming Events"
+  admin_announcements:
+    row:
+      new_announcement: 
+        title: "New Announcement"
+        button:
+          all: "All"
+          members: "Members"
+          sales_rep: "Sales Reps"
+          sales_member: "Sales Managers"
+          members_sales_reps: "Members & Sales Reps"
+      announcements:
+        title: "Announcements"
+        column:
+          announcements_content: "Content"
+          announcements_target: "Target"
+          announcements_poster: "Poster"
+          announcements_status: 
+            title: "Status"
+            value:
+              active: "Active"
+              inactive: "Inactive"
+  admin_people:
+    row:
+      title: "Users"
+      filter:
+        non_students: "Including non-students"
+      column:
+        f_name: "First Name"
+        l_name: "Last Name"
+        email: "Email"
+        roles: "Roles"
+        last_active: "Last Active"
+      action:
+        add_order: "Add Order"
+        reinvite: "Re-invite"
+        edit: "Edit"
+        delete: "Delete"
+  admin_website:
+    row:
+      static_pages: 
+        title: "Static Pages"
+        column:
+          title: "Title"
+      dynamic_pages:
+        title: "Dynamic Pages"
+        column:
+          title: "Title"
+          url: "URL"
+        action:
+          edit: "Edit"
+          delete: "Delete"
+      articles:
+        title: "Articles"
+        column:
+          title: "Title"
+          kind: "Kind"
+          published: "Published"
+      testimonials:
+        title: "Testimonials"
+        column:
+          quotation: "Quotation"
+          author: "Author"
+          company: "Company"
+          course: "Course"
+      images:
+        title: "Images"
+        column:
+          title: "Title"
+          url: "URL"
+  admin_messages:
+    row:
+      title: "Message"
+      column:
+        date: "Date"
+        from: "From"
+        message: "Message"
+  admin_settings:
+    row:
+      contact_info: 
+        title: "Contact Info"
+        form:
+          company: "Company Name"
+          f_name: "First Name"
+          l_name: "Last Name"
+          phone: "Phone"
+          billing_address: 
+            header: "Billing Address"
+            company: "Company"
+            f_name: "First Name"
+            l_name: "Last Name"
+            street: "Street"
+            city: "City"
+            state: "State"
+            zip: "Zipcode"
+          shipping_address:
+            header: "Shipping Address"
+            same_as: "Same as Billing"
+            company: "Company"
+            f_name: "First Name"
+            l_name: "Last Name"
+            street: "Street"
+            city: "City"
+            state: "State"
+            zip: "Zipcode"
+      security_info:
+        title: "Security Info"
+        form: 
+          email: "Email"
+          new_password: "New Password"
+          new_password_confirm: "New Password Confirmation"
+          current_password: "Current Password"
+  footer:
+    privacy: "Privacy Policy"
+    terms: "Terms and Conditions"
+    sitemap: "Sitemap"
+    copyright: "Copyright"
+    copyright_company: "NterOne Corporation. All rights reserved."
+  generic: 
+    search:
+      placeholder: "Search"
+    select:
+      placeholder: "Please select"
+    button:
+      save: "Save"
+      save_partner_confirm: "Save & Confirm with Partner"
+      upload: "Upload"
+      cancel: "Cancel"
+    action:
+      add: "Add"
+      edit: "Edit"
+      delete: "Delete"
+      upload: "Upload"
+    prompt:
+      confirm_delete: "Are you sure?"
+    no_records: "No records found."

@@ -9,32 +9,37 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Static Pages
+        strong.text-muted
+          = t 'admin_website.row.static_pages.title'
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th Title
+              th
+                = t 'admin_website.row.static_pages.column.title'
               th
           tbody#pages
             - @static_pages.each do |page|
               tr
                 td = page.title
                 td.actions-column.fit
-                  = link_to "Edit", edit_page_path(page), remote: false
+                  = link_to t('generic.action.edit'), edit_page_path(page), remote: false
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Dynamic Pages
-        = link_to "Add", new_page_path, remote: false, class: "panel-heading-controls"
+        strong.text-muted
+          = t 'admin_website.row.dynamic_pages.title'
+        = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th Title
-              th URL
+              th
+                = t 'admin_website.row.dynamic_pages.column.title'
+              th
+                = t 'admin_website.row.dynamic_pages.column.url'
               th
           tbody#pages
             - @dynamic_pages.each do |page|
@@ -42,23 +47,27 @@
                 td = page.title
                 td = "#{request.base_url}#{page_path(page)}"
                 td.actions-column.fit
-                  = link_to "Edit", edit_page_path(page), remote: false
+                  = link_to t('generic.action.edit'), edit_page_path(page), remote: false
                   = " | "
-                  = link_to 'Delete', page_path(page), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                  = link_to t('generic.action.delete'), page_path(page), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
           
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Articles
-        = link_to "Add", new_article_path, remote: false, class: "panel-heading-controls"
+        strong.text-muted
+          = t 'admin_website.row.articles.title'
+        = link_to t('generic.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th Title
-              th Kind
-              th Published
+              th
+                = t 'admin_website.row.articles.column.title'
+              th
+                = t 'admin_website.row.articles.column.kind'
+              th
+                = t 'admin_website.row.articles.column.published'
               th
           tbody#press-releases
             - @articles.each do |article|
@@ -67,24 +76,29 @@
                 td = article.kind
                 td = article.created_at.strftime("%b. %d, %Y")
                 td.actions-column.fit
-                  = link_to "Edit", edit_article_path(article), remote: false
+                  = link_to t('generic.action.edit'), edit_article_path(article), remote: false
                   = " | "
-                  = link_to 'Delete', article_path(article), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                  = link_to t('generic.action.delete'), article_path(article), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Testimonials
+        strong.text-muted
+          = t 'admin_website.row.testimonials.title'
         = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th Quotation
-              th Author
-              th Company
-              th Course
+              th
+                = t 'admin_website.row.testimonials.column.quotation'
+              th
+                = t 'admin_website.row.testimonials.column.author'
+              th
+                = t 'admin_website.row.testimonials.column.company'
+              th
+                = t 'admin_website.row.testimonials.column.course'
               th
           tbody#testimonials
             = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
@@ -96,14 +110,17 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Images
-        = link_to "Add", new_image_store_unit_path, remote: true, class: "panel-heading-controls"
+        strong.text-muted
+          = t 'admin_website.row.images.title'
+        = link_to t('generic.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th Title
-              th URL
+              th
+                = t 'admin_website.row.images.column.title'
+              th
+                = t 'admin_website.row.images.column.url'
               th
           tbody#press-releases
             - @image_store_units.each do |image_store_unit|
@@ -113,9 +130,9 @@
                   = link_to image_store_unit.image.file.url do
                     = image_store_unit.image.file.url
                 td.actions-column.fit
-                  = link_to "Edit", edit_image_store_unit_path(image_store_unit), remote: true
+                  = link_to t('generic.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
                   = " | "
-                  = link_to 'Delete', image_store_unit_path(image_store_unit), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                  = link_to t('generic.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:
   $('.role-tab').addClass('active');

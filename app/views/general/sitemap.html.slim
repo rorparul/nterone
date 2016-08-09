@@ -7,7 +7,7 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t 'breadcrumbs.home'
   span.seperator
     | /
   span.text-muted Sitemap
@@ -21,7 +21,7 @@
   .col-xs-12.col-sm-6
     h4 General
     ul
-      li = link_to "Home", root_path
+      li = link_to t('breadcrumbs.home'), root_path
       li = link_to "Consulting", consulting_path
       li = link_to "Partners", partners_path
       li = link_to "Labs", labs_path

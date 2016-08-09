@@ -4,11 +4,12 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "First Name", :first_name
-            th.fit = smart_listing.sortable "Last Name", :last_name
-            th.fit = smart_listing.sortable "Email", :email
-            th.fit Roles
-            th.fit = smart_listing.sortable "Last Active", :last_active_at
+            th.fit = smart_listing.sortable t('admin_people.row.column.f_name'), :first_name
+            th.fit = smart_listing.sortable t('admin_people.row.column.l_name'), :last_name
+            th.fit = smart_listing.sortable t('admin_people.row.column.email'), :email
+            th.fit 
+              = t 'admin_people.row.column.roles'
+            th.fit = smart_listing.sortable t('admin_people.row.column.last_active'), :last_active_at
             th.fit
         tbody
           - smart_listing.collection.each do |user|
@@ -20,14 +21,14 @@
               td = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
               td.actions-column.fit.text-right
                 - if user.member?
-                  = link_to "Add Order", new_order_path(user: user.id), remote: true
+                  = link_to t('admin_people.row.action.add_order'), new_order_path(user: user.id), remote: true
                   = " | "
                 - if current_user.can_resend_invitation?
-                  = link_to('Re-invite', resend_invite_path(user), method: :post)
+                  = link_to(t('admin_people.row.action.reinvite'), resend_invite_path(user), method: :post)
                   = " | "
-                = link_to "Edit", edit_user_path(user)
+                = link_to t('admin_people.row.action.edit'), edit_user_path(user)
                 = " | "
-                = link_to "Delete", user_path(user), method: :delete, data: { confirm: "Are you sure?" }
+                = link_to t('admin_people.row.action.delete'), user_path(user), method: :delete, data: { confirm: "Are you sure?" }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
@@ -37,4 +38,5 @@
       table.table.table-condensed
         tbody
           tr
-            td.text-center No records found.
+            td.text-center
+              = t 'generic.no_records'

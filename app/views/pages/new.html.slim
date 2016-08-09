@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t 'breadcrumbs.home'
   span.seperator
     | /
   a href="#{admin_website_path}"
-    | My Admin
+    = t 'breadcrumbs.admin'
     
 .row
   .col-xs-12

@@ -8,7 +8,8 @@
         - if current_user.admin?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-gear
-            span.text My Admin
+            span.text
+            = t 'breadcrumbs.admin'
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.sales?
@@ -26,36 +27,36 @@
       - else
         li = link_to main_app.new_user_session_path, class: "login-tab" do
           span.fa.fa-sign-in
-          span.text Login
+          span.text = t 'side_menu.login'
       li = link_to main_app.about_us_path, class: 'about-us-tab' do
         span.fa.fa-info-circle
-        span.text About Us
+        span.text = t 'side_menu.about_us'
       li = link_to main_app.platforms_path, class: 'training-tab' do
         span.fa.fa-book
-        span.text Training
+        span.text = t 'side_menu.training'
       li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
         span.fa.fa-thumbs-o-up
-        span.text Testimonials
+        span.text = t 'side_menu.testimonials'
       li = link_to forem.root_path, class: "forums-tab" do
         span.fa.fa-comments-o
-        span.text Forums
+        span.text = t 'side_menu.forums'
       li = link_to main_app.consulting_path, class: "consulting-tab" do
         span.fa.fa-puzzle-piece
-        span.text Consulting
+        span.text = t 'side_menu.consulting'
       li = link_to main_app.partners_path, class: "partners-tab" do
         span.fa.fa-users
-        span.text Partners
+        span.text = t 'side_menu.partners'
       li = link_to main_app.labs_path, class: "labs-tab" do
         span.fa.fa-server
-        span.text Labs
+        span.text = t 'side_menu.labs'
       - if !user_signed_in? || (user_signed_in? && current_user.member?)
         li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
           span.fa.fa-envelope-o
-          span.text Contact Us
+          span.text = t 'side_menu.contact_us'
       - if user_signed_in?
         li = link_to main_app.destroy_user_session_path, method: :delete do
           span.fa.fa-sign-out
-          span.text Logout
+          span.text = t 'side_menu.logout'
 
 .sidebar-mobile.visible-xs
   .sidebar-content
@@ -63,5 +64,5 @@
       li
       li = link_to main_app.root_path, class: 'home-tab' do
         span.fa.fa-home
-        span Home
+        span = t 'breadcrumbs.home'
       = render 'layouts/sidebar_items'

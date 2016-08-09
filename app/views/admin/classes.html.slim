@@ -23,9 +23,10 @@
       .panel-heading.panel-heading-with-search
         .row
           .col-xs-6
-            strong.text-muted Classes
+            strong.text-muted
+              = t 'admin_classes.row.title'
           .col-xs-6
-            = link_to "Upload", events_upload_path, remote: true, class: "table-header-action"
+            = link_to t('generic.action.upload'), events_upload_path, remote: true, class: "table-header-action"
 
             = smart_listing_controls_for(:events, {class: "form-inline"}) do
 
@@ -33,17 +34,17 @@
                 label.checkbox.inline
                   = hidden_field_tag :only_registered, "0"
                   = check_box_tag :only_registered, 1, true
-                  | Only registered
+                  = t 'admin_classes.row.filter.registered'
 
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :including_past, "0"
                   = check_box_tag :including_past
-                  | Including past
+                  = t 'admin_classes.row.filter.past'
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
-                                              placeholder: "Search",
+                                              placeholder: t('generic.search.placeholder'),
                                               autocomplete: :off
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"

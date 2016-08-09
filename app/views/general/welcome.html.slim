@@ -7,7 +7,7 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t 'breadcrumbs.home'
 
 .row
   .col-sm-12.text-align.col-central
@@ -22,7 +22,7 @@
         = form_tag search_path, method: :get, "data-parsley-validate" => true do
           .form-group style="margin-bottom: 20px;"
             .input-group.input-group-lg
-              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: "Search by certification, course, or exam"
+              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: t('home.search_form.placeholder')
               span class="input-group-btn"
                 button class="btn btn-default" type="submit" style="border: 1px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
 
@@ -32,25 +32,31 @@
           .panel.panel-default.text-center
             .panel-heading
               span.fa.fa-book
-              h3 Courses by Vendor
+              h3 
+                = t 'home.featured_courses.vendor'
             .panel-body
-              strong Find your course by technology, product, or certification.
+              strong 
+                = t 'home.featured_courses.vendor_paragraph'
       .col-xs-12.col-lg-4
         a.featured-container href="#{featured_classes_path}"
           .panel.panel-default.text-center
             .panel-heading
               span.fa.fa-calendar-check-o
-              h3 Featured Classes
+              h3 
+                = t 'home.featured_courses.classes'
             .panel-body
-              strong View a list of our most popular courses broken down by vendor.
+              strong
+                = t 'home.featured_courses.classes_paragraph'
       .col-xs-12.col-lg-4
         a.featured-container href="#{labs_path}"
           .panel.panel-default.text-center
             .panel-heading
               span.fa.fa-server
-              h3 Labs
+              h3
+                = t 'home.featured_courses.labs'
             .panel-body
-              strong Global Data Center Offering 24x7 Lab Access
+              strong 
+                = t 'home.featured_courses.labs_paragraph'
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
 

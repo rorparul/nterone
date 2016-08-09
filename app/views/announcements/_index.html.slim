@@ -2,17 +2,22 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Announcements
+        strong.text-muted
+          = t 'admin_announcements.row.announcements.title'
       .panel-table
         .table-responsive
           table.table.table-condensed
             thead
               tr
-                th Content
-                th Target
+                th 
+                  = t 'admin_announcements.row.announcements.column.announcements_content'
+                th
+                  = t 'admin_announcements.row.announcements.column.announcements_target'
                 - if user_signed_in? && current_user.admin?
-                  th Poster
-                th Status
+                  th
+                    = t 'admin_announcements.row.announcements.column.announcements_poster'
+                th
+                  = t 'admin_announcements.row.announcements.column.announcements_status.title'
                 th
             tbody#announcements
               - announcements.each do |announcement|

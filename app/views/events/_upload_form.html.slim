@@ -2,5 +2,7 @@
   .form-group
     = f.file_field :file, class: 'form-control input-sm'
   .form-buttons
-    button.btn.btn-success type="submit" Upload
-    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    button.btn.btn-success type="submit"
+      = t 'generic.button.upload'
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t 'generic.button.cancel'

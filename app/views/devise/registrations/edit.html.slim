@@ -1,11 +1,12 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t 'breadcrumbs.home'
   span.seperator
     | /
   - if current_user.admin?
-    span.text-muted My Admin
+    span.text-muted
+    = t 'breadcrumbs.admin'
   - if current_user.sales?
     span.text-muted My Sales
   - if current_user.member?
