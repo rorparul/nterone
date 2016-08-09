@@ -94,8 +94,6 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap-select-rails (1.6.3)
-    bootstrap-wysihtml5-rails (0.3.3.8)
-      railties (>= 3.0)
     builder (3.2.2)
     bullet (5.1.0)
       activesupport (>= 3.0.0)
@@ -452,6 +450,9 @@ GEM
     wicked_pdf (1.0.6)
     wkhtmltopdf-binary (0.9.9.3)
     workflow (1.0.0)
+    wysiwyg-rails (2.3.4)
+      font-awesome-rails (~> 4.4, >= 4.4.0.0)
+      railties (>= 3.2, < 6.0)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
 
@@ -468,7 +469,6 @@ DEPENDENCIES
   binding_of_caller (~> 0.7.2)
   bootstrap-sass (~> 3.3.4)
   bootstrap-select-rails
-  bootstrap-wysihtml5-rails
   bullet
   canonical-rails
   capistrano
@@ -537,6 +537,7 @@ DEPENDENCIES
   whenever
   wicked_pdf
   wkhtmltopdf-binary
+  wysiwyg-rails
   zip-zip
 
 BUNDLED WITH

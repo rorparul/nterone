@@ -37,19 +37,8 @@ $(function() {
 		}
 	});
 
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': true,
-      'link': true,
-      'image': false,
-      'smallmodals': true
-    }
+  $('.froala').froalaEditor({
+    height: 240,
+    fontSizeSelection: true
   });
 });

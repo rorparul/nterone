@@ -338,29 +338,8 @@ body {
   margin-bottom: 10px;
 }
 
-iframe.wysihtml5-sandbox {
-  height: 240px !important;
-  padding: 5px 10px !important;
-}
-
 .order-register {
   display: none;
-}
-
-.bootstrap-wysihtml5-insert-link-modal {
-  .modal-dialog {
-    margin: 0 !important;
-    .modal-header {
-      display: none !important;
-    }
-    .modal-body {
-      .form-control {
-        height: 30px;
-        padding: 5px 10px;
-        font-size: 12px;
-      }
-    }
-  }
 }
 
 .panel-heading {
@@ -901,10 +880,6 @@ iframe.wysihtml5-sandbox {
 
 .minicolors-input {
   padding-left: 32px !important;
-}
-
-iframe.wysihtml5-sandbox {
-  margin: 0 !important;
 }
 
 .btn {
@@ -1749,10 +1724,6 @@ input[type='file'] {
 
 .group-items-divider {
   margin-top: 0;
-}
-
-.wysihtml5-toolbar .btn {
-  margin-right: 0;
 }
 
 .nested-fields {

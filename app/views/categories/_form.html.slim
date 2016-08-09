@@ -28,7 +28,7 @@
 
     .form-group
       = f.label :description
-      = f.text_area :description, class: 'form-control input-sm wysihtml5'
+      = f.text_area :description, class: 'form-control input-sm froala'
 
     .row
       .col-xs-12.col-sm-6
@@ -43,18 +43,6 @@
         = link_to 'Delete', platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
 
 javascript:
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': true,
-      'link': false,
-      'image': false,
-      'smallmodals': true
-    }
+  $('.froala').froalaEditor({
+    height: 240
   });

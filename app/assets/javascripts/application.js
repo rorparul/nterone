@@ -9,8 +9,15 @@
 //= require parsley
 //= require bootstrap
 //= require bootstrap-select
-//= require bootstrap-wysihtml5
 //= require cocoon
 //= require forem
 //= require smart_listing
 //= require general
+//= require froala_editor.min.js
+//= require plugins/font_family.min.js
+//= require plugins/font_size.min.js
+//= require plugins/align.min.js
+//= require plugins/lists.min.js
+//= require plugins/image.min.js
+//= require plugins/image_manager.min.js
+//= require plugins/link.min.js
