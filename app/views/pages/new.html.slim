@@ -13,7 +13,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Add Page
+    strong.text-muted
+      = t 'admin.admin_website.form.title'
   .panel-body
     = render partial: "form", locals: { page: @page }
 

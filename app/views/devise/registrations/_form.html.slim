@@ -3,109 +3,109 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-           = t 'admin_settings.row.contact_info.title'
+           = t 'admin.admin_settings.row.contact_info.title'
       .panel-body
         = form_for current_user, url: user_path(current_user), html: { method: :put } do |f|
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :company_name, t('admin_settings.row.contact_info.form.company')
+                = f.label :company_name, t('admin.admin_settings.row.contact_info.form.company')
                 = f.text_field :company_name, class: "form-control input-sm"
                 
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :first_name, t('admin_settings.row.contact_info.form.f_name')
+                = f.label :first_name, t('admin.admin_settings.row.contact_info.form.f_name')
                 = f.text_field :first_name, class: "form-control input-sm"
             .col-xs-12.col-md-6
               .form-group
-                = f.label :last_name, t('admin_settings.row.contact_info.form.l_name')
+                = f.label :last_name, t('admin.admin_settings.row.contact_info.form.l_name')
                 = f.text_field :last_name, class: "form-control input-sm"
           
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :contact_number, t('admin_settings.row.contact_info.form.phone')
+                = f.label :contact_number, t('admin.admin_settings.row.contact_info.form.phone')
                 = f.text_field :contact_number, class: "form-control input-sm"
           hr
           fieldset
             label
-              = t 'admin_settings.row.contact_info.form.billing_address.header'
+              = t 'admin.admin_settings.row.contact_info.form.billing_address.header'
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :billing_company, t('admin_settings.row.contact_info.form.billing_address.company')
+                  = f.label :billing_company, t('admin.admin_settings.row.contact_info.form.billing_address.company')
                   = f.text_field :billing_company, class: 'form-control input-sm'
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_first_name, t('admin_settings.row.contact_info.form.billing_address.f_name')
+                  = f.label :billing_first_name, t('admin.admin_settings.row.contact_info.form.billing_address.f_name')
                   = f.text_field :billing_first_name, class: 'form-control input-sm'
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_last_name, t('admin_settings.row.contact_info.form.billing_address.l_name')
+                  = f.label :billing_last_name, t('admin.admin_settings.row.contact_info.form.billing_address.l_name')
                   = f.text_field :billing_last_name, class: 'form-control input-sm'
             .form-group
-              = f.label :billing_street, t('admin_settings.row.contact_info.form.billing_address.street')
+              = f.label :billing_street, t('admin.admin_settings.row.contact_info.form.billing_address.street')
               = f.text_field :billing_street, class: "form-control input-sm"
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_city, t('admin_settings.row.contact_info.form.billing_address.city')
+                  = f.label :billing_city, t('admin.admin_settings.row.contact_info.form.billing_address.city')
                   = f.text_field :billing_city, class: "form-control input-sm"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :billing_state, t('admin_settings.row.contact_info.form.billing_address.state')
+                  = f.label :billing_state, t('admin.admin_settings.row.contact_info.form.billing_address.state')
                   = f.select :billing_state,
                              us_states,
                              { prompt: t('generic.select.placeholder') },
                              { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :billing_zip_code, t('admin_settings.row.contact_info.form.billing_address.zip')
+                  = f.label :billing_zip_code, t('admin.admin_settings.row.contact_info.form.billing_address.zip')
                   = f.text_field :billing_zip_code, class: "form-control input-sm"
 
           hr
           fieldset.hideable
             label
-              = t 'admin_settings.row.contact_info.form.shipping_address.header'
+              = t 'admin.admin_settings.row.contact_info.form.shipping_address.header'
             .form-group
               .checkbox
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
-                  = t 'admin_settings.row.contact_info.form.shipping_address.same_as'
+                  = t 'admin.admin_settings.row.contact_info.form.shipping_address.same_as'
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :shipping_company, t('admin_settings.row.contact_info.form.shipping_address.company')
+                  = f.label :shipping_company, t('admin.admin_settings.row.contact_info.form.shipping_address.company')
                   = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_first_name, t('admin_settings.row.contact_info.form.shipping_address.f_name')
+                  = f.label :shipping_first_name, t('admin.admin_settings.row.contact_info.form.shipping_address.f_name')
                   = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_last_name, t('admin_settings.row.contact_info.form.shipping_address.l_name')
+                  = f.label :shipping_last_name, t('admin.admin_settings.row.contact_info.form.shipping_address.l_name')
                   = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
             .form-group
-              = f.label :shipping_street, t('admin_settings.row.contact_info.form.shipping_address.street')
+              = f.label :shipping_street, t('admin.admin_settings.row.contact_info.form.shipping_address.street')
               = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_city, t('admin_settings.row.contact_info.form.shipping_address.city')
+                  = f.label :shipping_city, t('admin.admin_settings.row.contact_info.form.shipping_address.city')
                   = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :shipping_state, t('admin_settings.row.contact_info.form.shipping_address.state')
+                  = f.label :shipping_state, t('admin.admin_settings.row.contact_info.form.shipping_address.state')
                   = f.select :shipping_state,
                              us_states,
                              { prompt: t('generic.select.placeholder') },
                              { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :shipping_zip_code, t('admin_settings.row.contact_info.form.shipping_address.zip')
+                  = f.label :shipping_zip_code, t('admin.admin_settings.row.contact_info.form.shipping_address.zip')
                   = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
 
           .form-buttons
@@ -116,27 +116,27 @@
     .panel.panel-default
       .panel-heading
         strong.text-mute
-          = t 'admin_settings.row.security_info.title'
+          = t 'admin.admin_settings.row.security_info.title'
       .panel-body
         = form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f|
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :email, t('admin_settings.row.security_info.form.email')
+                = f.label :email, t('admin.admin_settings.row.security_info.form.email')
                 = f.email_field :email, class: "form-control input-sm"
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :password, t('admin_settings.row.security_info.form.new_password')
+                = f.label :password, t('admin.admin_settings.row.security_info.form.new_password')
                 = f.password_field :password, class: "form-control input-sm"
             .col-xs-12.col-md-6
               .form-group
-                = f.label :password_confirmation, t('admin_settings.row.security_info.form.new_password_confirm')
+                = f.label :password_confirmation, t('admin.admin_settings.row.security_info.form.new_password_confirm')
                 = f.password_field :password_confirmation, class: "form-control input-sm"
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :current_password, t('admin_settings.row.security_info.form.current_password')
+                = f.label :current_password, t('admin.admin_settings.row.security_info.form.current_password')
                 = f.password_field :current_password, class: "form-control input-sm"
           .form-buttons
             = f.submit t('generic.button.save'), class: 'btn btn-success'

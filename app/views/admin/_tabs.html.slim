@@ -1,49 +1,49 @@
-.categories.hidden-xs.role-tabs
+.admin.categories.hidden-xs.role-tabs
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{admin_queue_path}"
-        = t 'categories.queue'
+        = t 'admin.categories.queue'
       a.btn.category.btn-category.orders href="#{admin_orders_path}"
-        = t 'categories.orders'
+        = t 'admin.categories.orders'
       a.btn.category.btn-category.classes href="#{admin_classes_path}"
-        = t 'categories.classes'
+        = t 'admin.categories.classes'
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
-        = t 'categories.courses'
+        = t 'admin.categories.courses'
       - if current_user.admin?
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
-          = t 'categories.announcements'
+          = t 'admin.categories.announcements'
         a.btn.category.btn-category.people href="#{admin_people_path}"
-          = t 'categories.people'
+          = t 'admin.categories.people'
         a.btn.category.btn-category.website href="#{admin_website_path}"
-          = t 'categories.website'
+          = t 'admin.categories.website'
       a.btn.category.btn-category.messages href="#{admin_messages_path}"
-        = t 'categories.messages'
+        = t 'admin.categories.messages'
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'categories.settings'
+        = t 'admin.categories.settings'
       
 .categories-mobile.visible-xs.role-tabs
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{admin_queue_path}"
-        = t 'categories.queue'
+        = t 'admin.categories.queue'
       a.btn.category.btn-category.orders href="#{admin_orders_path}"
-        = t 'categories.orders'
+        = t 'admin.categories.orders'
       a.btn.category.btn-category.classes href="#{admin_classes_path}"
-        = t 'categories.classes'
+        = t 'admin.categories.classes'
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
-        = t 'categories.courses'
+        = t 'admin.categories.courses'
       - if current_user.admin?
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
-          = t 'categories.announcements'
+          = t 'admin.categories.announcements'
         a.btn.category.btn-category.people href="#{admin_people_path}"
-          = t 'categories.people'
+          = t 'admin.categories.people'
         a.btn.category.btn-category.website href="#{admin_website_path}"
-          = t 'categories.website'
+          = t 'admin.categories.website'
       a.btn.category.btn-category.messages href="#{admin_messages_path}"
-        = t 'categories.messages'
+        = t 'admin.categories.messages'
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'categories.settings'
+        = t 'admin.categories.settings'

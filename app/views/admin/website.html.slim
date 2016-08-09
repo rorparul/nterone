@@ -10,13 +10,13 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin_website.row.static_pages.title'
+          = t 'admin.admin_website.row.static_pages.title'
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin_website.row.static_pages.column.title'
+                = t 'admin.admin_website.row.static_pages.column.title'
               th
           tbody#pages
             - @static_pages.each do |page|
@@ -30,16 +30,16 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin_website.row.dynamic_pages.title'
+          = t 'admin.admin_website.row.dynamic_pages.title'
         = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin_website.row.dynamic_pages.column.title'
+                = t 'admin.admin_website.row.dynamic_pages.column.title'
               th
-                = t 'admin_website.row.dynamic_pages.column.url'
+                = t 'admin.admin_website.row.dynamic_pages.column.url'
               th
           tbody#pages
             - @dynamic_pages.each do |page|
@@ -56,18 +56,18 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin_website.row.articles.title'
+          = t 'admin.admin_website.row.articles.title'
         = link_to t('generic.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin_website.row.articles.column.title'
+                = t 'admin.admin_website.row.articles.column.title'
               th
-                = t 'admin_website.row.articles.column.kind'
+                = t 'admin.admin_website.row.articles.column.kind'
               th
-                = t 'admin_website.row.articles.column.published'
+                = t 'admin.admin_website.row.articles.column.published'
               th
           tbody#press-releases
             - @articles.each do |article|
@@ -85,20 +85,20 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin_website.row.testimonials.title'
+          = t 'admin.admin_website.row.testimonials.title'
         = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin_website.row.testimonials.column.quotation'
+                = t 'admin.admin_website.row.testimonials.column.quotation'
               th
-                = t 'admin_website.row.testimonials.column.author'
+                = t 'admin.admin_website.row.testimonials.column.author'
               th
-                = t 'admin_website.row.testimonials.column.company'
+                = t 'admin.admin_website.row.testimonials.column.company'
               th
-                = t 'admin_website.row.testimonials.column.course'
+                = t 'admin.admin_website.row.testimonials.column.course'
               th
           tbody#testimonials
             = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
@@ -111,16 +111,16 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin_website.row.images.title'
+          = t 'admin.admin_website.row.images.title'
         = link_to t('generic.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin_website.row.images.column.title'
+                = t 'admin.admin_website.row.images.column.title'
               th
-                = t 'admin_website.row.images.column.url'
+                = t 'admin.admin_website.row.images.column.url'
               th
           tbody#press-releases
             - @image_store_units.each do |image_store_unit|

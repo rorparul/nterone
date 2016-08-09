@@ -6,7 +6,7 @@ tr.announcement class=["announcement-#{announcement.id}"]
   td.actions-column.fit
     = form_for announcement, html: {class: 'status', method: :put} do |f|
       = f.hidden_field :id, value: announcement.id
-      = f.select :status, [[t('admin_announcements.row.announcements.column.announcements_status.value.active'), "open"], [t('admin_announcements.row.announcements.column.announcements_status.value.inactive'), "closed"]], {}, class: "form-control status-selector"
+      = f.select :status, [[t('admin.admin_announcements.row.announcements.column.announcements_status.value.active'), "open"], [t('admin.admin_announcements.row.announcements.column.announcements_status.value.inactive'), "closed"]], {}, class: "form-control status-selector"
   td.fit.text-right
     = link_to t('generic.action.edit'), edit_announcement_path(announcement), remote: true
     = " | "

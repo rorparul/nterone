@@ -1,18 +1,18 @@
 .panel.panel-default
   .panel-heading
     strong.text-muted 
-      = t 'admin_courses.row.title'
+      = t 'admin.admin_courses.row.title'
     / = link_to "Upload", events_upload_path, remote: true, class: "panel-heading-controls"
   .panel-table
     .responsive-table
       table.table.table-condensed.table-hover
         thead
           tr
-            th.fit title=t('admin_courses.row.column.course_id') #
+            th.fit title=t('admin.admin_courses.row.column.course_id') #
             th.fit
-              = t 'admin_courses.row.column.course_title'
+              = t 'admin.admin_courses.row.column.course_title'
             th.fit 
-              = t 'admin_courses.row.column.course_events'
+              = t 'admin.admin_courses.row.column.course_events'
             th.fit
         tbody#courses
           = render partial: 'courses/courses', locals: { courses: @courses }
