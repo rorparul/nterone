@@ -1,7 +1,13 @@
 .categories.categories-repurposed.text-center
-  a.btn.category.btn-category.about-nterone href="#{about_us_path}" About NterOne
-  a.btn.category.btn-category.executive-bios href="#{executives_bios_path}" Executive Bios
-  a.btn.category.btn-category.instructor-bios href="#{instructors_bios_path}" Instructor Bios
-  a.btn.category.btn-category.press href="#{press_path}" Press
-  / a.btn.category.btn-category.blog href="#{blog_path}" Blog
-  a.btn.category.btn-category.industry href="#{industry_path}" Industry
+  a.btn.category.btn-category.about-nterone href="#{about_us_path}"
+    = t 'about_us.categories.about'
+  a.btn.category.btn-category.executive-bios href="#{executives_bios_path}"
+    = t 'about_us.categories.exective'
+  a.btn.category.btn-category.instructor-bios href="#{instructors_bios_path}"
+    = t 'about_us.categories.instructor'
+  a.btn.category.btn-category.press href="#{press_path}"
+    = t 'about_us.categories.press'
+  / a.btn.category.btn-category.blog href="#{blog_path}"
+    / = t 'about_us.categories.blog'
+  a.btn.category.btn-category.industry href="#{industry_path}"
+    = t 'about_us.categories.industry'
