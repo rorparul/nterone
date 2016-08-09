@@ -230,5 +230,5 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/froala"                 => 'users#upload_photo'
+  post "public/uploads/froala"                 => 'general#editor_upload_photo'
 end

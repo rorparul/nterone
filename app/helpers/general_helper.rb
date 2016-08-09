@@ -14,7 +14,7 @@ module GeneralHelper
         end
       end
     end
-    "<span class='text'>Welcome #{personal_greeting}<span/>".html_safe
+    "<span class='text'>".html_safe + t("side_menu.welcome").html_safe + " #{personal_greeting}<span/>".html_safe
   end
 
   def planned_course(user, course)

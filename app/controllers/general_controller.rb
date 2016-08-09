@@ -1,4 +1,6 @@
 class GeneralController < ApplicationController
+  protect_from_forgery :except => [:upload_photo]
+
   def new_search
   end
 
@@ -82,6 +84,16 @@ class GeneralController < ApplicationController
 
   def sitemap
     @page = Page.find_by(title: "Sitemap")
+  end
+
+  def editor_upload_photo
+    uploaded_photo = params[:file].tempfile 
+    uploader = FroalaImageUploader.new(original_filename: params[:file].original_filename)
+    uploader.store!(uploaded_photo)
+
+    img_url_res = { link: uploader.url }
+
+    render json: img_url_res
   end
 
   private
