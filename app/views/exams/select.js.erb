@@ -1,4 +1,4 @@
-$('.modal-title').html('Edit Exam');
+$('.modal-title').html("<%= t('training.category.action.form.edit_exam.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, exam: @exam, exams: @exams}) %>");
 $('.modal-body').append("<hr>");
 $('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, exam: @exam}) %>");

@@ -14,12 +14,12 @@
       br
       br
     = f.fields_for :image do |ff|
-      = ff.label :file, t('admin.admin_website.form.add_image.image')
+      = ff.label :file, t('admin.admin_website.form.add_image.label.image')
       = ff.file_field :file
       = ff.hidden_field :file_cache
 
   .form-group
-    = f.label :title, t('admin.admin_website.form.add_image.image_title')
+    = f.label :title, t('admin.admin_website.form.add_image.label.image_title')
     = f.text_field :title, class: 'form-control input-sm'
       
   .form-buttons

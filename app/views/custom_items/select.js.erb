@@ -1,4 +1,4 @@
-$('.modal-title').html('Edit Custom Item');
+$('.modal-title').html("<%= t('training.category.action.form.edit_custom_item.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, custom_item: @custom_item, custom_items: @custom_items}) %>");
 $('.modal-body').append("<hr>");
 $('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, custom_item: @custom_item}) %>");

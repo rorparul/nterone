@@ -23,12 +23,16 @@ en:
   header:
     partner: "A Veteran-Owned Business"
     contact_us: "Contact Us at 703.972.2288"
+    search: "Search"
+    actions: "Actions"
   breadcrumbs:
     home: "Home"
     admin: "My Admin"
+    about_us: "About Us"
     training: "Training"
     search: "Search"
-    actions: "Actions"
+    new: "New"
+    edit: "Edit"
   side_menu: 
     welcome: "Welcome"
     login: "Login"
@@ -57,7 +61,7 @@ en:
       contact_us_link: "Contact"
       contact_us_body: " us for more details."
   admin:
-    categories:
+    filter:
       queue: "Queue"
       orders: "Orders"
       classes: "Classes"
@@ -74,96 +78,105 @@ en:
       form:
         commissions_report:
           title: "Generate Commissions Report"
-          start: "Start"
-          end: "End"
-          sales_rep: "Sales Rep"
+          label:
+            start: "Start"
+            end: "End"
+            sales_rep: "Sales Rep"
         profits_report:
           title: "Generate Profit Sheets Report"
-          start: "Start"
-          end: "End"
+          label:
+            start: "Start"
+            end: "End"
         utilization_report:
           title: "Generate Instructor Utilization Report"
-          start: "Start"
-          end: "End"
+          label:
+            start: "Start"
+            end: "End"
     admin_queue:
       row:
         assigned_lead: "Assigned Lead"
         unassigned_lead: "Unassigned Lead"
         archived_lead: "Archived Lead"
     admin_orders:
-      row: 
-        title: "Orders"
+      row:
+        orders:
+          title: "Orders"
       form:
-        title: "Add Order"
-        verified: "Verfied SO #"
-        invoice: "Invoice #"
-        seller: "Sales Rep"
-        buyer: "Student"
-        courses:
-          classes:
-            header: "Classes"
-            price: "Price"
-            add: "Add Class"
-            remove: "Remove Class"
-          video_on_demand:
-            header: "VODs"
-            price: "Price"
-            add: "Add VOD"
-            remove: "Remove VOD"
-        credit_card:
-          header: "Credit Card"
-          cc_num: "Number"
-          cc_exp_month: "Exp. M."
-          cc_exp_year: "Exp. Y."
-          cc_code: "Code"
-          cc_paid: "Paid"
-        learning_credits: 
-          header: "Cisco Learning Credits"
-          lc_num: "Number"
-          lc_applied: "Credits Applied"
-        purchase_order:
-          header: "Purchase Order"
-          p_num: "Number"
-          p_paid: "Paid"
-        bundled:
-          header: "Bundled"
-        no_charge:
-          header: "No Charge"
-        referrer: "Referring Partner Email"
-        billing_address: 
-          header: "Billing Address"
-          company: "Company"
-          f_name: "First Name"
-          l_name: "Last Name"
-          street: "Street"
-          city: "City"
-          state: "State"
-          zip: "Zipcode"
-        shipping_address:
-          header: "Shipping Address"
-          same_as: "Same as Billing"
-          company: "Company"
-          f_name: "First Name"
-          l_name: "Last Name"
-          street: "Street"
-          city: "City"
-          state: "State"
-          zip: "Zipcode"
+        add_order:
+          title: "Add Order"
+          label:
+            verified: "Verfied SO #"
+            invoice: "Invoice #"
+            seller: "Sales Rep"
+            buyer: "Student"
+            courses:
+              classes:
+                header: "Classes"
+                price: "Price"
+                add: "Add Class"
+                remove: "Remove Class"
+              video_on_demand:
+                header: "VODs"
+                price: "Price"
+                add: "Add VOD"
+                remove: "Remove VOD"
+            credit_card:
+              header: "Credit Card"
+              cc_num: "Number"
+              cc_exp_month: "Exp. M."
+              cc_exp_year: "Exp. Y."
+              cc_code: "Code"
+              cc_paid: "Paid"
+            learning_credits: 
+              header: "Cisco Learning Credits"
+              lc_num: "Number"
+              lc_applied: "Credits Applied"
+            purchase_order:
+              header: "Purchase Order"
+              p_num: "Number"
+              p_paid: "Paid"
+            bundled:
+              header: "Bundled"
+            no_charge:
+              header: "No Charge"
+            referrer: "Referring Partner Email"
+            billing_address: 
+              header: "Billing Address"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
+            shipping_address:
+              header: "Shipping Address"
+              same_as: "Same as Billing"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
     admin_classes:
       row: 
-        title: "Classes"
-        filter:
-          registered: "Only registered"
-          past: "Including past"
+        classes:
+          title: "Classes"
+          filter:
+            registered: "Only registered"
+            past: "Including past"
       form:
-        title: "Upload Classes"
+        upload_classes:
+          title: "Upload Classes"
     admin_courses:
       row:
-        title: "Courses"
-        column:
-          course_id: "Course ID"
-          course_title: "Title"
-          course_events: "Upcoming Events"
+        courses:
+          title: "Courses"
+          column:
+            course_id: "Course ID"
+            course_title: "Title"
+            course_events: "Upcoming Events"
     admin_announcements:
       row:
         new_announcement: 
@@ -187,20 +200,21 @@ en:
                 inactive: "Inactive"
     admin_people:
       row:
-        title: "Users"
-        filter:
-          non_students: "Including non-students"
-        column:
-          f_name: "First Name"
-          l_name: "Last Name"
-          email: "Email"
-          roles: "Roles"
-          last_active: "Last Active"
-        action:
-          add_order: "Add Order"
-          reinvite: "Re-invite"
-          edit: "Edit"
-          delete: "Delete"
+        people:
+          title: "Users"
+          filter:
+            non_students: "Including non-students"
+          column:
+            f_name: "First Name"
+            l_name: "Last Name"
+            email: "Email"
+            roles: "Roles"
+            last_active: "Last Active"
+          action:
+            add_order: "Add Order"
+            reinvite: "Re-invite"
+            edit: "Edit"
+            delete: "Delete"
     admin_website:
       row:
         static_pages: 
@@ -236,40 +250,45 @@ en:
       form:
         add_page:
           title: "Add Page"
-          page_title: "Page Title"
-          page_description: "Page Description"
-          content_title: "Title"
-          content_body: "Content"
+          label:
+            page_title: "Page Title"
+            page_description: "Page Description"
+            title: "Title"
+            content: "Content"
         add_article: 
           title: "Add Article"
-          page_title: "Page Title"
-          page_description: "Page Description"
-          type: 
-            title: "Type"
-            option:
-              press_release: "Press Release"
-              blog_post: "Blog Post"
-              industry_article: "Industry Article"
-          content_title: "Title"
-          content_body: "Content"
-          published: "Published"
+          label:
+            page_title: "Page Title"
+            page_description: "Page Description"
+            type: 
+              title: "Type"
+              option:
+                press_release: "Press Release"
+                blog_post: "Blog Post"
+                industry_article: "Industry Article"
+            title: "Title"
+            content: "Content"
+            published: "Published"
         add_testimonial:
           title: "Add Testimonial"
-          quotation: "Quotation"
-          author: "Author"
-          company: "Company"
-          course_attended: "Course Attended"
+          label:
+            quotation: "Quotation"
+            author: "Author"
+            company: "Company"
+            course_attended: "Course Attended"
         add_image:
           title: "Add Image"
-          image: "Image"
-          image_title: "Title"
+          label:
+            image: "Image"
+            image_title: "Title"
     admin_messages:
       row:
-        title: "Message"
-        column:
-          date: "Date"
-          from: "From"
-          message: "Message"
+        messages:
+          title: "Message"
+          column:
+            date: "Date"
+            from: "From"
+            message: "Message"
     admin_settings:
       row:
         contact_info: 
@@ -318,14 +337,16 @@ en:
       action: 
         title: "Add Platform"
         form:
-          title: "Add Platform"
+          add_platform:
+            title: "Add Platform"
       form:
-        title: "Edit Platform"
-        page_title: "Page Title"
-        page_description: "Page Description"
-        platform_title: "Title"
-        test_center_url: "URL To Find Test Center"
-        image: "Image"
+        edit_platform:
+          title: "Edit Platform"
+          page_title: "Page Title"
+          page_description: "Page Description"
+          platform_title: "Title"
+          test_center_url: "URL To Find Test Center"
+          image: "Image"
       label:
         browse: "Browse By"
     category:
@@ -342,12 +363,155 @@ en:
         edit_exam: "Edit Exam"
         add_exam_course: "Add Exam Course"
         edit_exam_course: "Edit Exam Course"
-        add_driver: "Add Divider"
-        edit_driver: "Edit Divider"
+        add_divider: "Add Divider"
+        edit_divider: "Edit Divider"
         add_custom_item: "Add Custom Item"
         edit_custom_item: "Edit Custom Item"
         add_instructor: "Add Instructor"
         edit_instructor: "Edit Instructor"
+        form:
+          add_category:
+            title: "Add Category"
+            label:
+              parent: "Parent"
+              title: "Title"
+              page_title: "Page Title"
+              heading: "Heading (H1)"
+              description: "Description"
+              position: "Position"
+          edit_category:
+            title: "Edit Category"
+          add_certification:
+            title: "Add Certification"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              catgories: "Categories"
+              title: "Title"
+              label: "Label"
+              icon: "Icon"
+              partner: "Partner Led"
+              active: "Active"
+              description: "Description"
+          edit_certification:
+            title: "Edit Certification"
+            label:
+              certifications: "Certifications"
+          add_course:
+            title: "Add Course"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              catgories: "Categories"
+              title: "Title"
+              slug: "Slug"
+              abbr: "Abbreviation"
+              pdf: "PDF"
+              icon: "Icon"
+              video_preview: "Video Preview"
+              heading: "Heading (H1)"
+              introduction: "Introduction"
+              overview: "Overview"
+              outline: "Outline"
+              attend: "Who Should Attend"
+              active: "Active"
+              partner: "Partner Led"
+          edit_course:
+            title: "Edit Courses"
+            label: 
+              courses: "Courses"
+          add_video_on_demand:
+            title: "Add Video On Demand"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              categories: "Categories"
+              title: "Title"
+              abbr: "Abbreviation"
+              level:
+                title: "Level"
+                value: 
+                  beginner: "Beginner"
+                  intermediate: "Intermediate"
+                  advanced: "Advanced"
+              price: "Price"
+              instructor: "Instructor"
+              icon: "Icon"
+              partner: "Partner Led"
+              active: "Active"
+              heading: "Heading (H1)"
+              introduction: "Introduction"
+              overview: "Overview"
+              outline: "Outline"
+              attend: "Who Should Attend"
+              modules: 
+                header: "Modules"
+                label: 
+                  position: "Position"
+                  title: "Title"
+                add: "Add module"
+                remove: "Remove module"
+              module_videos:
+                header: "Module Videos"
+                label:
+                  position: "Position"
+                  title: "Title"
+                  code: "Embed code"
+                  free: "Free?"
+                add: "Add video"
+                remove: "Remove video"
+          edit_video_on_demand:
+            title: "Edit Video On Demand"
+            label:
+              video_on_demand: "Video On Demand"
+          add_exam:
+            title: "Add Exam"
+            label:
+              title: "Title"
+          edit_exam:
+            title: "Edit Exam"
+            label:
+              exam: "Exam"
+          add_exam_course:
+            title: "Add Exam-Course"
+            label:
+              label: "Label"
+              courses: "Courses"
+              exams: "Exams"
+          edit_exam_course:
+            title: "Edit Exam-Course"
+            label:
+              exam_courses: "Exam-Courses"
+          add_divider:
+            title: "Add Divider"
+            label:
+              content: "Content"
+          edit_divider:
+            title: "Edit Divider"
+            label:
+              divider: "Divider"
+          add_custom_item:
+            title: "Add Custom Item"
+            label:
+              label: "Label"
+              content: "Content"
+          edit_custom_item:
+            title: "Edit Custom Item"
+            label:
+              custom_item: "Custom Item"
+          add_instructor:
+            title: "Add Instructor"
+            label:
+              f_name: "First Name"
+              l_name: "Last Name"
+              email: "Email"
+              phone: "Phone"
+              bio: "Biography"
+              role: "Role"
+          edit_instructor:
+            title: "Edit Instructor"
+            label:
+              instructor: "Instructor"
       filter:
         show_all: "Show All"
   footer:
@@ -373,5 +537,8 @@ en:
       delete: "Delete"
       upload: "Upload"
     prompt:
+      none_select: "None"
       confirm_delete: "Are you sure?"
+    caption:
+      form_instructions: "Hold down the control button (Windows) or the command button (Mac) to select multiple options."
     no_records: "No records found."

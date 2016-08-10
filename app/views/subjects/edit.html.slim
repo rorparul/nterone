@@ -5,7 +5,7 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t 'breadcrumbs.training'
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -16,7 +16,8 @@
     = "#{@subject.abbreviation}"
   span.seperator
     | /
-  span.text-muted Edit
+  span.text-muted
+    = t 'breadcrumbs.edit'
 
 .panel.panel-default
   .panel-heading

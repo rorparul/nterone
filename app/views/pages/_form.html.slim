@@ -10,22 +10,22 @@
             li = msg
             
     .form-group
-      = f.label :page_title, t('admin.admin_website.form.add_page.page_title')
+      = f.label :page_title, t('admin.admin_website.form.add_page.label.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
       
     .form-group
-      = f.label :page_description, t('admin.admin_website.form.add_page.page_description')
+      = f.label :page_description, t('admin.admin_website.form.add_page.label.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
     
     hr
     
     - unless page.static
       .form-group
-        = f.label :title, t('admin.admin_website.form.add_page.content_title')
+        = f.label :title, t('admin.admin_website.form.add_page.label.title')
         = f.text_field :title, class: 'form-control input-sm'
           
     .form-group
-      = f.label :content, t('admin.admin_website.form.add_page.content_body')
+      = f.label :content, t('admin.admin_website.form.add_page.label.content')
       = f.text_area :content, class: 'form-control input-sm froala'
       
     .form-buttons

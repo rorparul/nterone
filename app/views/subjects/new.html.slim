@@ -5,7 +5,7 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t 'breadcrumbs.training'
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -13,11 +13,12 @@
   span.seperator
     | /
   a href="#{new_platform_subject_path(@platform, @subject)}"
-    | New
+    = t 'breadcrumbs.new'
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Add Certification
+    strong.text-muted
+      = t 'training.category.action.form.add_certification.title'
   .panel-body
     = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
 

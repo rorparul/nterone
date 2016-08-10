@@ -3,12 +3,12 @@
     .row
       .col-xs-12.col-md-6
         .form-group
-          = f.label :start_date, t('admin.action.form.commissions_report.start')
+          = f.label :start_date, t('admin.action.form.commissions_report.label.start')
           br
           = f.date_select :start_date, class: 'form-control input-sm', required: true
       .col-xs-12.col-md-6
         .form-group
-          = f.label :end_date, t('admin.action.form.commissions_report.end')
+          = f.label :end_date, t('admin.action.form.commissions_report.label.end')
           br
           = f.date_select :end_date, class: 'form-control input-sm', required: true
 
@@ -16,7 +16,7 @@
       .row
         .col-xs-6
           .form-group
-            = f.label :sales_rep, t('admin.action.form.commissions_report.sales_rep')
+            = f.label :sales_rep, t('admin.action.form.commissions_report.label.sales_rep')
             = f.select :sales_rep,
                        User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                        {prompt: t('generic.select.placeholder')},

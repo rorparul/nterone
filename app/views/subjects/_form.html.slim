@@ -10,28 +10,28 @@
             li = msg
 
     .form-group
-      = f.label :page_title, 'Page Title'
+      = f.label :page_title, t('training.category.action.form.add_certification.label.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
 
     .form-group
-      = f.label :page_description, 'Page Description'
+      = f.label :page_description, t('training.category.action.form.add_certification.label.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
 
     hr
 
     .form-group
-      = f.label :category_ids, "Categories"
+      = f.label :category_ids, t('training.category.action.form.add_certification.label.categories')
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
                  { class: 'form-control input-sm', multiple: 'true' }
 
     .form-group
-      = f.label :title
+      = f.label :title, t('training.category.action.form.add_certification.label.title')
       = f.text_field :title, class: 'form-control input-sm'
 
     .form-group
-      = f.label :abbreviation, 'Label'
+      = f.label :abbreviation, t('training.category.action.form.add_certification.label.label')
       = f.text_field :abbreviation, class: 'form-control input-sm'
 
     .row
@@ -41,26 +41,28 @@
             = image_tag subject.image.file_url(:subject_icon)
             br
           = f.fields_for :image do |icon|
-            = icon.label :file, "Icon"
+            = icon.label :file, t('training.category.action.form.add_certification.label.icon')
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
       .col-xs-12.col-md-3
         .form-group
-          = f.label :partner_led, "Partner Led"
+          = f.label :partner_led, t('training.category.action.form.add_certification.label.partner')
           br
           = f.check_box :partner_led
       .col-xs-12.col-md-3
         .form-group
-          = f.label :active, "Active"
+          = f.label :active, t('training.category.action.form.add_certification.label.active')
           br
           = f.check_box :active
 
     .form-group
-      = f.label :description
+      = f.label :description, t('training.category.action.form.add_certification.label.description')
       = f.text_area :description, class: 'form-control input-sm froala'
 
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit" 
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'
       - if subject.id
-        = link_to 'Delete', platform_subject_path(platform, subject), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+        = link_to t('generic.action.delete'), platform_subject_path(platform, subject), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

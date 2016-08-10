@@ -4,26 +4,26 @@
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
           .form-group
-            = f.label :verified, t('admin.admin_orders.form.verified')
+            = f.label :verified, t('admin.admin_orders.form.add_order.label.verified')
             br
             = f.check_box :verified
         .col-xs-12.col-sm-3
           .form-group
-            = f.label :invoice_number, t('admin.admin_orders.form.invoice')
+            = f.label :invoice_number, t('admin.admin_orders.form.add_order.label.invoice')
             br
             = f.text_field :invoice_number, class: 'form-control input-sm'
 
     hr
 
     .form-group
-      = f.label :seller_id, t('admin.admin_orders.form.seller')
+      = f.label :seller_id, t('admin.admin_orders.form.add_order.label.seller')
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm" }
                  
     .form-group
-      = f.label :buyer_id, t('admin.admin_orders.form.buyer')
+      = f.label :buyer_id, t('admin.admin_orders.form.add_order.label.buyer')
       = f.select :buyer_id,
                  User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: t('generic.select.placeholder') },
@@ -45,9 +45,9 @@
                                         type: "Event",
                                         order: order
         .links
-          = link_to_add_association t('admin.admin_orders.form.courses.classes.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add'), f, :order_items,
             render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('admin.admin_orders.form.courses.video_on_demand.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add'), f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - else
       #order-items
@@ -56,9 +56,9 @@
                                         type: nil,
                                         order: order
         .links
-          = link_to_add_association t('admin.admin_orders.form.courses.classes.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add'), f, :order_items,
             render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('admin.admin_orders.form.courses.video_on_demand.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add'), f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
 
     hr
@@ -69,38 +69,38 @@
         .form-group
           .radio.radio-container
             label
-              = f.radio_button :payment_type, t('admin.admin_orders.form.credit_card.header'), class: 'payment-type-radio-button', checked: true
+              = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.credit_card.header'), class: 'payment-type-radio-button', checked: true
               strong
-                = t('admin.admin_orders.form.credit_card.header')
+                = t('admin.admin_orders.form.add_order.label.credit_card.header')
         .row
           .col-xs-12
             .form-group
-              = f.label :credit_card_number, t('admin.admin_orders.form.credit_card.cc_num')
+              = f.label :credit_card_number, t('admin.admin_orders.form.add_order.label.credit_card.cc_num')
               = f.text_field :credit_card_number, class: 'form-control input-sm input-cc'
               = image_tag 'credit-card-icons.png', class: "credit-card-logos"
           .col-xs-12.col-md-3
             .form-group
-              = f.label :expiration_month, t('admin.admin_orders.form.credit_card.cc_exp_month')
+              = f.label :expiration_month, t('admin.admin_orders.form.add_order.label.credit_card.cc_exp_month')
               = f.select :expiration_month, options_for_select(cc_months), { prompt: t('generic.select.placeholder') }, class: 'form-control input-sm input-cc'
           .col-xs-12.col-md-3
             .form-group
-              = f.label :expiration_year, t('admin.admin_orders.form.credit_card.cc_exp_year')
+              = f.label :expiration_year, t('admin.admin_orders.form.add_order.label.credit_card.cc_exp_year')
               = f.select :expiration_year, options_for_select(cc_years), { prompt: t('generic.select.placeholder') }, class: 'form-control input-sm input-cc'
           .col-xs-12.col-md-3
             .form-group
-              = f.label :security_code, t('admin.admin_orders.form.credit_card.cc_code')
+              = f.label :security_code, t('admin.admin_orders.form.add_order.label.credit_card.cc_code')
               = f.text_field :security_code, class: 'form-control input-sm input-cc'
           .col-xs-12.col-md-3
             .form-group
-              = f.label :paid, t('admin.admin_orders.form.credit_card.cc_paid')
+              = f.label :paid, t('admin.admin_orders.form.add_order.label.credit_card.cc_paid')
               = f.text_field :paid, data: { autonumeric: true }, class: 'form-control input-sm'
 
         .form-group
           .radio.radio-container
             label
-              = f.radio_button :payment_type, t('admin.admin_orders.form.learning_credits.header'), class: 'payment-type-radio-button'
+              = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.learning_credits.header'), class: 'payment-type-radio-button'
               strong
-                = t('admin.admin_orders.form.learning_credits.header')
+                = t('admin.admin_orders.form.add_order.label.learning_credits.header')
         .row
           - if @cart.any_not_applicable_for_credits?
             .col-xs-12
@@ -118,43 +118,43 @@
           - else
             .col-xs-12.col-sm-9
               .form-group
-                = f.label :clc_number, t('admin.admin_orders.form.learning_credits.lc_num')
+                = f.label :clc_number, t('admin.admin_orders.form.add_order.label.learning_credits.lc_num')
                 = f.text_field :clc_number, class: 'form-control input-sm input-clc'
             .col-xs-12.col-sm-3
               .form-group
-                = f.label :clc_quantity, t('admin.admin_orders.form.learning_credits.lc_applied')
+                = f.label :clc_quantity, t('admin.admin_orders.form.add_order.label.learning_credits.lc_applied')
                 = f.number_field :clc_quantity, class: 'form-control input-sm'
 
         .form-group
           .radio.radio-container
             label
-              = f.radio_button :payment_type, t('admin.admin_orders.form.purchase_order.header'), class: 'payment-type-radio-button'
+              = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.purchase_order.header'), class: 'payment-type-radio-button'
               strong
-                = t('admin.admin_orders.form.purchase_order.header')
+                = t('admin.admin_orders.form.add_order.label.purchase_order.header')
         .row
           .col-xs-12.col-sm-9
             .form-group
-              = f.label :po_number, t('admin.admin_orders.form.purchase_order.p_num')
+              = f.label :po_number, t('admin.admin_orders.form.add_order.label.purchase_order.p_num')
               = f.text_field :po_number, class: 'form-control input-sm input-cc'
 
           .col-xs-12.col-sm-3
             .form-group
-              = f.label :po_paid, t('admin.admin_orders.form.purchase_order.p_paid')
+              = f.label :po_paid, t('admin.admin_orders.form.add_order.label.purchase_order.p_paid')
               = f.text_field :po_paid, data: { autonumeric: true }, class: 'form-control input-sm'
 
         .form-group
           .radio.radio-container
             label
-              = f.radio_button :payment_type, t('admin.admin_orders.form.bundled.header'), class: 'payment-type-radio-button'
+              = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.bundled.header'), class: 'payment-type-radio-button'
               strong 
-                = t('admin.admin_orders.form.bundled.header')
+                = t('admin.admin_orders.form.add_order.label.bundled.header')
 
         .form-group
           .radio.radio-container
             label
-              = f.radio_button :payment_type, t('admin.admin_orders.form.no_charge.header'), class: 'payment-type-radio-button'
+              = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.no_charge.header'), class: 'payment-type-radio-button'
               strong 
-                = t('admin.admin_orders.form.no_charge.header')
+                = t('admin.admin_orders.form.add_order.label.no_charge.header')
 
         hr
 
@@ -162,38 +162,38 @@
         .row
           .col-xs-6.col-sm-6
             .form-group
-              = f.label :referring_partner_email, t('admin.admin_orders.form.referrer')
+              = f.label :referring_partner_email, t('admin.admin_orders.form.add_order.label.referrer')
               - if order.id
                 = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
               - else
                 = f.text_field :referring_partner_email, class: 'form-control input-sm'
         label 
-          = t('admin.admin_orders.form.billing_address.header')
+          = t('admin.admin_orders.form.add_order.label.billing_address.header')
         .row
           .col-xs-6.col-sm-6
             .form-group
-              = f.label :billing_company, t('admin.admin_orders.form.billing_address.company')
+              = f.label :billing_company, t('admin.admin_orders.form.add_order.label.billing_address.company')
               = f.text_field :billing_company, class: 'form-control input-sm'
         .row
           .col-xs-12.col-sm-6
             .form-group
-              = f.label :billing_first_name, t('admin.admin_orders.form.billing_address.f_name')
+              = f.label :billing_first_name, t('admin.admin_orders.form.add_order.label.billing_address.f_name')
               = f.text_field :billing_first_name, class: 'form-control input-sm'
           .col-xs-12.col-sm-6
             .form-group
-              = f.label :billing_last_name, t('admin.admin_orders.form.billing_address.l_name')
+              = f.label :billing_last_name, t('admin.admin_orders.form.add_order.label.billing_address.l_name')
               = f.text_field :billing_last_name, class: 'form-control input-sm'
         .form-group
-          = f.label :billing_street, t('admin.admin_orders.form.billing_address.street')
+          = f.label :billing_street, t('admin.admin_orders.form.add_order.label.billing_address.street')
           = f.text_field :billing_street, class: 'form-control input-sm'
         .row
           .col-xs-12.col-md-6
             .form-group
-              = f.label :billing_city, t('admin.admin_orders.form.billing_address.city')
+              = f.label :billing_city, t('admin.admin_orders.form.add_order.label.billing_address.city')
               = f.text_field :billing_city, class: 'form-control input-sm'
           .col-xs-12.col-md-4
             .form-group
-              = f.label :billing_state, t('admin.admin_orders.form.billing_address.state')
+              = f.label :billing_state, t('admin.admin_orders.form.add_order.label.billing_address.state')
               - if user_signed_in?
                 = f.select :billing_state,
                            us_states,
@@ -206,45 +206,45 @@
                            { class: 'form-control input-sm' }
           .col-xs-12.col-md-2
             .form-group
-              = f.label :billing_zip_code, t('admin.admin_orders.form.billing_address.zip')
+              = f.label :billing_zip_code, t('admin.admin_orders.form.add_order.label.billing_address.zip')
               = f.text_field :billing_zip_code, class: 'form-control input-sm'
         hr
     fieldset
       label
-        = t('admin.admin_orders.form.shipping_address.header')
+        = t('admin.admin_orders.form.add_order.label.shipping_address.header')
       - unless current_user.sales_rep?
         .form-group
           .checkbox.checkbox-container
             label
               = f.check_box :same_addresses, class: 'shipping-address-box'
-              = t('admin.admin_orders.form.shipping_address.same_as')
+              = t('admin.admin_orders.form.add_order.label.shipping_address.same_as')
       .row
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :shipping_company, t('admin.admin_orders.form.shipping_address.company')
+            = f.label :shipping_company, t('admin.admin_orders.form.add_order.label.shipping_address.company')
             = f.text_field :shipping_company, class: 'form-control input-sm disableable'
       .row
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :shipping_first_name, t('admin.admin_orders.form.shipping_address.f_name')
+            = f.label :shipping_first_name, t('admin.admin_orders.form.add_order.label.shipping_address.f_name')
             = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
 
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :shipping_last_name, t('admin.admin_orders.form.shipping_address.l_name')
+            = f.label :shipping_last_name, t('admin.admin_orders.form.add_order.label.shipping_address.l_name')
             = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
 
       .form-group
-        = f.label :shipping_street, t('admin.admin_orders.form.shipping_address.street')
+        = f.label :shipping_street, t('admin.admin_orders.form.add_order.label.shipping_address.street')
         = f.text_field :shipping_street, class: 'form-control input-sm disableable'
       .row
         .col-xs-12.col-md-6
           .form-group
-            = f.label :shipping_city, t('admin.admin_orders.form.shipping_address.city')
+            = f.label :shipping_city, t('admin.admin_orders.form.add_order.label.shipping_address.city')
             = f.text_field :shipping_city, class: 'form-control input-sm disableable'
         .col-xs-12.col-md-4
           .form-group
-            = f.label :shipping_state, t('admin.admin_orders.form.shipping_address.state')
+            = f.label :shipping_state, t('admin.admin_orders.form.add_order.label.shipping_address.state')
             - if user_signed_in?
               = f.select :shipping_state,
                          us_states,
@@ -257,7 +257,7 @@
                          { class: 'form-control input-sm disableable' }
         .col-xs-12.col-md-2
           .form-group
-            = f.label :shipping_zip_code, t('admin.admin_orders.form.shipping_address.zip')
+            = f.label :shipping_zip_code, t('admin.admin_orders.form.add_order.label.shipping_address.zip')
             = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
     .form-buttons

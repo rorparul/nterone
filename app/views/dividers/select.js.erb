@@ -1,4 +1,4 @@
-$('.modal-title').html('Edit Divider');
+$('.modal-title').html("<%= t('training.category.action.form.edit_divider.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: {platform: @platform, divider: @divider, dividers: @dividers}) %>");
 $('.modal-body').append("<hr>");
 $('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: {platform: @platform, divider: @divider}) %>");

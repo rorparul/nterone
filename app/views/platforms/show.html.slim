@@ -11,7 +11,7 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t 'breadcrumbs.training'
   span.seperator
     | /
   span.text-muted = @platform.title
@@ -35,7 +35,7 @@
       = t 'training.category.action.add_course'
     li = link_to select_platform_courses_path(@platform), remote: true do
       i.fa.fa-pencil
-      = t 'training.category.action.edit_certification'
+      = t 'training.category.action.edit_course'
     li = link_to new_platform_video_on_demand_path(@platform), remote: false do
       i.fa.fa-plus
       = t 'training.category.action.add_video_on_demand'

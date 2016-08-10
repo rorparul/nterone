@@ -10,11 +10,13 @@
             li = msg
             
     .form-group
-      = f.label :title
+      = f.label :title, t('training.category.action.form.add_exam.label.title')
       = f.text_field :title, class: 'form-control input-sm'
       
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'
       - if exam.id
-        = link_to 'Delete', platform_exam_path(platform, exam), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+        = link_to t('generic.action.delete'), platform_exam_path(platform, exam), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'

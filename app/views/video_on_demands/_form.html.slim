@@ -10,52 +10,52 @@
             li = msg
 
     .form-group
-      = f.label :page_title, 'Page Title'
+      = f.label :page_title, t('training.category.action.form.add_video_on_demand.label.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
 
     .form-group
-      = f.label :page_description, 'Page Description'
+      = f.label :page_description, t('training.category.action.form.add_video_on_demand.label.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
 
     hr
 
     .form-group
-      = f.label :category_ids, 'Categories'
+      = f.label :category_ids, t('training.category.action.form.add_video_on_demand.label.categories')
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
                  html_options = { class: 'form-control input-sm', multiple: 'true' }
 
     .form-group
-      = f.label :title
+      = f.label :title, t('training.category.action.form.add_video_on_demand.label.title')
       = f.text_field :title, class: 'form-control input-sm'
 
     .row
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :abbreviation
+          = f.label :abbreviation, t('training.category.action.form.add_video_on_demand.label.abbr')
           = f.text_field :abbreviation, class: 'form-control input-sm'
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :level
+          = f.label :level, t('training.category.action.form.add_video_on_demand.label.level.title')
           = f.select :level,
-                     [['Beginner', 'Beginner'],
-                      ['Intermediate', 'Intermediate'],
-                      ['Advanced', 'Advanced']],
-                     { prompt: true },
+                     [[t('training.category.action.form.add_video_on_demand.label.level.value.beginner'), 'Beginner'],
+                      [t('training.category.action.form.add_video_on_demand.label.level.value.intermediate'), 'Intermediate'],
+                      [t('training.category.action.form.add_video_on_demand.label.level.value.advanced'), 'Advanced']],
+                     { prompt: t('generic.select.placeholder') },
                      { class: "form-control input-sm" }
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :price
+          = f.label :price, t('training.category.action.form.add_video_on_demand.label.price')
           .input-group
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm'
 
     .form-group
-      = f.label :instructor_id, "Instructor"
+      = f.label :instructor_id, t('training.category.action.form.add_video_on_demand.label.instructor')
       = f.select :instructor_id,
                  instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                 { prompt: true },
+                 { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm" }
 
     .row
@@ -65,50 +65,53 @@
             = image_tag video_on_demand.image.file_url(:subject_icon)
             br
           = f.fields_for :image do |icon|
-            = icon.label :file, "Icon"
+            = icon.label :file, t('training.category.action.form.add_video_on_demand.label.icon')
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
       .col-xs-12.col-md-3
         .form-group
-          = f.label :partner_led, "Partner Led"
+          = f.label :partner_led, t('training.category.action.form.add_video_on_demand.label.partner')
           br
           = f.check_box :partner_led
       .col-xs-12.col-md-3
         .form-group
-          = f.label :active, "Active"
+          = f.label :active, t('training.category.action.form.add_video_on_demand.label.active')
           br
           = f.check_box :active
 
     .form-group
-      = f.label :heading, 'Heading (H1)'
+      = f.label :heading, t('training.category.action.form.add_video_on_demand.label.heading')
       = f.text_field :heading, class: 'form-control input-sm'
 
     .form-group
-      = f.label :intro, 'Introduction'
+      = f.label :intro, t('training.category.action.form.add_video_on_demand.label.introduction')
       = f.text_area :intro, class: 'form-control input-sm froala'
 
     .form-group
-      = f.label :overview, 'Overview'
+      = f.label :overview, t('training.category.action.form.add_video_on_demand.label.overview')
       = f.text_area :overview, class: 'form-control input-sm froala'
 
     .form-group
-      = f.label :outline, 'Outline'
+      = f.label :outline, t('training.category.action.form.add_video_on_demand.label.outline')
       = f.text_area :outline, class: 'form-control input-sm froala'
 
     .form-group
-      = f.label :intended_audience, 'Who Should Attend'
+      = f.label :intended_audience, t('training.category.action.form.add_video_on_demand.label.attend')
       = f.text_area :intended_audience, class: 'form-control input-sm froala'
 
-    h4 Modules
+    h4
+      = t 'training.category.action.form.add_video_on_demand.label.modules.header'
     hr
     #modules
       = f.fields_for :video_modules do |ff|
         = render 'video_module_fields', f: ff
       .links
-        = link_to_add_association 'Add module', f, :video_modules
+        = link_to_add_association t('training.category.action.form.add_video_on_demand.label.modules.add'), f, :video_modules
 
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'
       - if video_on_demand.id
-        = link_to 'Delete', platform_video_on_demand_path(platform, video_on_demand), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to t('generic.action.delete'), platform_video_on_demand_path(platform, video_on_demand), method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'

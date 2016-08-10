@@ -10,19 +10,19 @@
             li = msg
             
     .form-group
-      = f.label :quotation, t('admin.admin_website.form.add_testimonial.quotation')
+      = f.label :quotation, t('admin.admin_website.form.add_testimonial.label.quotation')
       = f.text_area :quotation, class: 'form-control input-sm'
     
     .form-group
-      = f.label :author, t('admin.admin_website.form.add_testimonial.author')
+      = f.label :author, t('admin.admin_website.form.add_testimonial.label.author')
       = f.text_field :author, class: 'form-control input-sm'
       
     .form-group
-      = f.label :company, t('admin.admin_website.form.add_testimonial.company')
+      = f.label :company, t('admin.admin_website.form.add_testimonial.label.company')
       = f.text_field :company, class: 'form-control input-sm'
     
     .form-group
-      = f.label :id, t('admin.admin_website.form.add_testimonial.course_attended')
+      = f.label :id, t('admin.admin_website.form.add_testimonial.label.course_attended')
       = f.select :id,
                  @courses.collect {|course| [course.title, course.id] },
                  options = { prompt: true },

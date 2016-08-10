@@ -8,10 +8,11 @@
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t 'breadcrumbs.training'
   span.seperator
     | /
-  span.text-muted Search
+  span.text-muted
+    = t 'breadcrumbs.search'
 
 .row
   = render partial: "platforms/items", locals: {items: @items}

@@ -1,8 +1,8 @@
 = form_for :exam_and_course_dynamic, url: select_to_edit_platform_exam_and_course_dynamics_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, "Exam-Courses"
+    = f.label :id, t('training.category.action.form.edit_exam_course.label.exam_courses')
     br
-    = f.select :id, exam_and_course_dynamics.order('lower(label)').collect { |exam_and_course_dynamic| [exam_and_course_dynamic.label, exam_and_course_dynamic.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = { class: "form-control sub-select input-sm" }
+    = f.select :id, exam_and_course_dynamics.order('lower(label)').collect { |exam_and_course_dynamic| [exam_and_course_dynamic.label, exam_and_course_dynamic.id] }.unshift([t('generic.prompt.none_select'), "none"]), options = { selected: t('generic.prompt.none_select') }, html_options = { class: "form-control sub-select input-sm" }
 
 javascript:
   $('.sub-select').on('change', function() {
