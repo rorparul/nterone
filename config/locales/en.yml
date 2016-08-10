@@ -29,6 +29,7 @@ en:
     home: "Home"
     admin: "My Admin"
     about_us: "About Us"
+    sitemap: "Sitemap"
     training: "Training"
     search: "Search"
     new: "New"
@@ -514,6 +515,37 @@ en:
               instructor: "Instructor"
       filter:
         show_all: "Show All"
+  sitemap:
+    title: "Sitemap"
+    header:
+      general:
+        title: "General"
+        link:
+          home: "Home"
+          consulting: "Consulting"
+          partners: "Partners"
+          labs: "Labs"
+          forums: "Forums"
+      about_us:
+        title: "About Us"
+        link:
+          executive: "Executive Bios"
+          instructor: "Instructor Bios"
+          testimonials: "Testimonials"
+          privacy: "Privacy Policy"
+          terms: "Terms and Conditions"
+      articles:
+        title: "Articles"
+        link:
+          press: "Press"
+          blog: "Blog"
+          industry: "Industry"
+      other:
+        title: "Other"
+      training:
+        title: "Training"
+        link:
+          featured_classes: "Featured Classes"
   footer:
     privacy: "Privacy Policy"
     terms: "Terms and Conditions"

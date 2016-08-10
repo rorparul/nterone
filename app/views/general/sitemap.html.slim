@@ -10,46 +10,53 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-  span.text-muted Sitemap
+  span.text-muted
+  = t 'breadcrumbs.sitemap'
   
 .row
   .col-xs-12
     .page-header
-      h3 Sitemap
+      h3
+        = t 'sitemap.title'
       
 .row#sitemap
   .col-xs-12.col-sm-6
-    h4 General
+    h4
+      = t 'sitemap.header.general.title'
     ul
-      li = link_to t('breadcrumbs.home'), root_path
-      li = link_to "Consulting", consulting_path
-      li = link_to "Partners", partners_path
-      li = link_to "Labs", labs_path
-      li = link_to "Forums", forem.root_path
+      li = link_to t('sitemap.header.general.link.home'), root_path
+      li = link_to t('sitemap.header.general.link.consulting'), consulting_path
+      li = link_to t('sitemap.header.general.link.partners'), partners_path
+      li = link_to t('sitemap.header.general.link.labs'), labs_path
+      li = link_to t('sitemap.header.general.link.forums'), forem.root_path
       
-    h4 About Us
+    h4
+      = t('sitemap.header.about_us.title')
     ul
-      li = link_to "Executive Bios", executives_bios_path
-      li = link_to "Instructor Bios", instructors_bios_path
-      li = link_to "Testimonials", testimonials_path
-      li = link_to "Privacy Policy", page_path(Page.find_by(title: "NterOne Privacy Policy"))
-      li = link_to "Terms and Conditions", page_path(Page.find_by(title: "NterOne Terms and Conditions"))
+      li = link_to t('sitemap.header.about_us.link.executive'), executives_bios_path
+      li = link_to t('sitemap.header.about_us.link.instructor'), instructors_bios_path
+      li = link_to t('sitemap.header.about_us.link.testimonials'), testimonials_path
+      li = link_to t('sitemap.header.about_us.link.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
+      li = link_to t('sitemap.header.about_us.link.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
         
-    h4 Articles
+    h4
+      = t('sitemap.header.articles.title')
     ul
-      li = link_to "Press", press_path
-      / li = link_to "Blog", blog_path
-      li = link_to "Industry", industry_path
+      li = link_to t('sitemap.header.articles.link.press'), press_path
+      / li = link_to t('sitemap.header.articles.link.blog'), blog_path
+      li = link_to t('sitemap.header.articles.link.industry'), industry_path
         
-    h4 Other
+    h4
+      = t('sitemap.header.other.title')
     ul
       - Page.where(static: false).each do |page|
         li = link_to page.title, page_path(page)
   
   .col-xs-12.col-sm-6
-    h4 Training
+    h4
+      = t('sitemap.header.training.title')
     ul
-      li = link_to "Featured Classes", featured_classes_path
+      li = link_to t('sitemap.header.training.link.featured_classes'), featured_classes_path
     - Platform.order(:title).each do |platform|
       ul
         li
