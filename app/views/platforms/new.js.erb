@@ -1,3 +1,3 @@
-$('.modal-title').html('Add Platform');
+$('.modal-title').html("<%= t('training.platform.action.form.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform }) %>");
 $('#myModal').modal('show');

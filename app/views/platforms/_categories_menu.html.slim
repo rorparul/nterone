@@ -7,7 +7,7 @@
     .col-xs-12
       hr
     .row.sub-categories.text-center
-      = link_to 'Show All',
+      = link_to t('training.category.filter.show_all'),
                 platform_category_path(category.parent ? category.parent.platform : category.platform, category.parent ? category.parent : category),
                 class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
       - categories.each do |parent_category|

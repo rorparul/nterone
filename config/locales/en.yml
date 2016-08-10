@@ -26,6 +26,7 @@ en:
   breadcrumbs:
     home: "Home"
     admin: "My Admin"
+    training: "Training"
     search: "Search"
     actions: "Actions"
   side_menu: 
@@ -313,8 +314,42 @@ en:
       blog: "Blog"
       industry: "Industry"
   training:
-    label:
-      browse: "Browse By"
+    platform:
+      action: 
+        title: "Add Platform"
+        form:
+          title: "Add Platform"
+      form:
+        title: "Edit Platform"
+        page_title: "Page Title"
+        page_description: "Page Description"
+        platform_title: "Title"
+        test_center_url: "URL To Find Test Center"
+        image: "Image"
+      label:
+        browse: "Browse By"
+    category:
+      action:
+        add_category: "Add Category"
+        edit_category: "Edit Category"
+        add_certification: "Add Certification"
+        edit_certification: "Edit Certification"
+        add_course: "Add Course"
+        edit_course: "Edit Course"
+        add_video_on_demand: "Add Video On Demand"
+        edit_video_on_demand: "Edit Video On Demand"
+        add_exam: "Add Exam"
+        edit_exam: "Edit Exam"
+        add_exam_course: "Add Exam Course"
+        edit_exam_course: "Edit Exam Course"
+        add_driver: "Add Divider"
+        edit_driver: "Edit Divider"
+        add_custom_item: "Add Custom Item"
+        edit_custom_item: "Edit Custom Item"
+        add_instructor: "Add Instructor"
+        edit_instructor: "Edit Instructor"
+      filter:
+        show_all: "Show All"
   footer:
     privacy: "Privacy Policy"
     terms: "Terms and Conditions"

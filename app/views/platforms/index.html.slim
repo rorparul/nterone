@@ -10,14 +10,15 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-  span.text-muted Training
+  span.text-muted
+    = t 'breadcrumbs.training'
 
 - content_for :actions do
   - if current_user && current_user.admin?
     li
       = link_to new_platform_path, remote: true do
         i.fa.fa-plus
-        | Add Platform
+        = t 'training.platform.action.title'
 
 .row
   - if @platforms

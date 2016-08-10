@@ -9,21 +9,21 @@
           li = msg
   
   .form-group
-    = f.label :page_title, 'Page Title'
+    = f.label :page_title, t('training.platform.form.page_title')
     = f.text_field :page_title, class: 'form-control input-sm'
     
   .form-group
-    = f.label :page_description, 'Page Description'
+    = f.label :page_description, t('training.platform.form.page_description')
     = f.text_area :page_description, class: 'form-control input-sm'
   
   hr
   
   .form-group
-    = f.label :title
+    = f.label :title, t('training.platform.form.platform_title')
     = f.text_field :title, class: 'form-control input-sm'
     
   .form-group
-    = f.label :url, 'URL To Find Test Center'
+    = f.label :url, t('training.platform.form.test_center_url')
     = f.text_field :url, class: 'form-control input-sm'
     
   .form-group
@@ -31,12 +31,14 @@
       = image_tag @platform.image.file.platform_icon.url
       br
     = f.fields_for :image do |icon|
-      = icon.label :file, 'Image'
+      = icon.label :file, t('training.platform.form.image')
       = icon.file_field :file
       = icon.hidden_field :file_cache
       
   .form-buttons
-    button.btn.btn-success type="submit" Save
-    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    button.btn.btn-success type="submit"
+      = t 'generic.button.save'
+    button.btn.btn-default type="button" data-dismiss="modal" 
+      = t 'generic.button.cancel'
     - if @platform.id
-      = link_to 'Delete', platform_path(@platform), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+      = link_to t('generic.action.delete'), platform_path(@platform), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
