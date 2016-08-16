@@ -232,6 +232,12 @@ en:
           action:
             edit: "Edit"
             delete: "Delete"
+        company:
+          title: "Company"
+          column: "Company Title"
+          action:
+            edit: "Edit"
+            delete: "Delete"
         articles:
           title: "Articles"
           column:
@@ -272,6 +278,10 @@ en:
             title: "Title"
             content: "Content"
             published: "Published"
+        add_company:
+          title: "Add Company"
+          label:
+            company_title: "Company Title"
         add_testimonial:
           title: "Add Testimonial"
           label:

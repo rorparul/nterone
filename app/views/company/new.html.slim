@@ -1,0 +1,24 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t 'breadcrumbs.home'
+  span.seperator
+    | /
+  span.text-muted 
+  = t 'breadcrumbs.admin'
+    
+.row
+  .col-xs-12
+    = render 'admin/tabs'
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted
+      = t 'admin.admin_website.form.add_article.title'
+  .panel-body
+    = render partial: "form", locals: { company: @company }
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

@@ -1,0 +1,20 @@
+.form-container
+  = form_for @company, :url => company_index_path, method: :post do |f|
+    - if @company.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(@company.errors.count, 'error')}:"
+        ul
+          - @company.errors.full_messages.each do |msg|
+            li = msg
+      
+    .form-group
+      = f.label :company, t('admin.admin_website.form.add_compnay.label.company_title')
+      = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'

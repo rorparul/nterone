@@ -96,6 +96,7 @@ class AdminController < ApplicationController
   def website
     @static_pages      = Page.where(static: true).order(:title)
     @dynamic_pages     = Page.where(static: false).order(:title)
+    @companies         = Company.all
     @articles          = Article.order(created_at: :desc)
     @testimonials      = Testimonial.page(1).per(5)
     @image_store_units = ImageStoreUnit.order(created_at: :desc)

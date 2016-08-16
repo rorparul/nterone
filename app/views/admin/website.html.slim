@@ -50,6 +50,28 @@
                   = link_to t('generic.action.edit'), edit_page_path(page), remote: false
                   = " | "
                   = link_to t('generic.action.delete'), page_path(page), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t 'admin.admin_website.row.company.title'
+        = link_to t('generic.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th
+                = t 'admin.admin_website.row.company.column.title'
+          tbody#pages
+            - @companies.each do |company|
+              tr
+                td = company.title
+                td.actions-column.fit
+                  = link_to t('generic.action.edit'), edit_company_path(company), remote: false
+                  = " | "
+                  = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
           
 .row
   .col-xs-12

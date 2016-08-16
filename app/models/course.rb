@@ -29,8 +29,8 @@ class Course < ActiveRecord::Base
 
   accepts_nested_attributes_for :image
 
-  validates :categories, :title, :abbreviation, presence: true
-  validates_associated :categories
+  # validates :categories, :title, :abbreviation, presence: true
+  # validates_associated :categories
 
   def active_events
     events.where(active: true).order(:start_date)
