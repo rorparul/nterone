@@ -29,6 +29,13 @@
                  { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
 
+    .form-group
+      = f.label :source, t('admin.admin_orders.form.add_order.label.source')
+      = f.select :source,
+                 Order.sources,
+                 { prompt: t('generic.select.placeholder') },
+                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+
     hr
 
     - if order.id

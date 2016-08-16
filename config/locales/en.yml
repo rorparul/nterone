@@ -110,6 +110,7 @@ en:
             invoice: "Invoice #"
             seller: "Sales Rep"
             buyer: "Student"
+            source: "Source"
             courses:
               classes:
                 header: "Classes"

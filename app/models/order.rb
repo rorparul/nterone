@@ -37,6 +37,10 @@ class Order < ActiveRecord::Base
     attributes buyer: ['buyer.first_name', 'buyer.email']
   end
 
+  def self.sources
+    Order.source.values.map!{ |source| source.humanize }
+  end
+
   def set_total
     if no_charge?
       self.total = 0
