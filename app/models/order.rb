@@ -1,5 +1,20 @@
 class Order < ActiveRecord::Base
   include SearchCop
+  extend Enumerize
+
+  enumerize :source, in: { none: 1,
+                       cisco_locator: 2,
+                       cisco_road_show: 3,
+                       cisco_live: 4,
+                       cisco_gsx: 5,
+                       rain_king: 6,
+                       telemarketing: 7,
+                       google_ads: 8,
+                       vmware_world: 9,
+                       demand_generation: 10,
+                       other: 11
+                     }
+
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
@@ -8,15 +23,15 @@ class Order < ActiveRecord::Base
 
   attr_accessor :credit_card_number, :expiration_month, :expiration_year, :security_code
 
-  validates :buyer, presence: true
-  validates_associated :buyer
-  validates_presence_of :clc_number, unless: lambda { self.payment_type != "Cisco Learning Credits" }
+  # validates :buyer, presence: true
+  # validates_associated :buyer
+  # validates_presence_of :clc_number, unless: lambda { self.payment_type != "Cisco Learning Credits" }
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
 
   accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
-  before_save   :set_total, :set_paid, :set_balance, :set_status
-  before_create :define_clc_quantity
+  # before_save   :set_total, :set_paid, :set_balance, :set_status
+  # before_create :define_clc_quantity
 
   search_scope :custom_search do
     attributes buyer: ['buyer.first_name', 'buyer.email']
