@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include ModelSearch
 
   has_one :interest,          dependent:  :destroy
+  has_one :company
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
