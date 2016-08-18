@@ -2,17 +2,17 @@ class Order < ActiveRecord::Base
   include SearchCop
   extend Enumerize
 
-  enumerize :source, in: { none: 1,
-                       cisco_locator: 2,
-                       cisco_road_show: 3,
-                       cisco_live: 4,
-                       cisco_gsx: 5,
-                       rain_king: 6,
-                       telemarketing: 7,
-                       google_ads: 8,
-                       vmware_world: 9,
-                       demand_generation: 10,
-                       other: 11
+  enumerize :source, in: {
+                       cisco_locator: 1,
+                       cisco_road_show: 2,
+                       cisco_live: 3,
+                       cisco_gsx: 4,
+                       rain_king: 5,
+                       telemarketing: 6,
+                       google_ads: 7,
+                       vmware_world: 8,
+                       demand_generation: 9,
+                       other: 10
                      }
 
 

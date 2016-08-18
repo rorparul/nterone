@@ -569,7 +569,7 @@ ActiveRecord::Schema.define(version: 20160816005327) do
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
-    t.integer  "source"
+    t.integer  "source",                                          default: 0
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
