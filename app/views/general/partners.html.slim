@@ -15,7 +15,7 @@
 .row
   .col-xs-12.col-central
     = image_tag 'partners.png', class: "header-image"
-    = @page.content.html_safe
+    = @page.content.try(:html_safe)
   
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
