@@ -20,7 +20,7 @@
         
     .row.instructor-bios
       .col-xs-12
-        = @page.content.html_safe
+        = @page.content.try(:html_safe)
   
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

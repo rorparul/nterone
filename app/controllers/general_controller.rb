@@ -87,7 +87,7 @@ class GeneralController < ApplicationController
   end
 
   def editor_upload_photo
-    uploaded_photo = params[:file].tempfile 
+    uploaded_photo = params[:file].tempfile
     uploader = FroalaImageUploader.new(original_filename: params[:file].original_filename)
     uploader.store!(uploaded_photo)
 
