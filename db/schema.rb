@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816005327) do
+ActiveRecord::Schema.define(version: 20160819130502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 20160816005327) do
     t.integer  "remind_period",                                    default: 0
     t.boolean  "reminder_sent",                                    default: false
     t.text     "note"
-    t.boolean  "count_weekends",                                   default: false
+    t.boolean  "count_weekends"
     t.text     "in_house_note"
   end
 
@@ -564,12 +564,13 @@ ActiveRecord::Schema.define(version: 20160816005327) do
     t.integer  "status_position"
     t.boolean  "reviewed",                                        default: false
     t.decimal  "balance",                 precision: 8, scale: 2, default: 0.0
-    t.string   "referring_partner_email"
     t.string   "gilmore_order_number"
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
+    t.string   "referring_partner_email"
     t.integer  "source",                                          default: 0
+    t.string   "other_source"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -702,17 +703,6 @@ ActiveRecord::Schema.define(version: 20160816005327) do
     t.datetime "updated_at",         null: false
     t.integer  "video_on_demand_id"
   end
-
-  create_table "taken_exams", force: :cascade do |t|
-    t.integer  "lms_exam_id"
-    t.integer  "user_id"
-    t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
-  add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
@@ -864,6 +854,4 @@ ActiveRecord::Schema.define(version: 20160816005327) do
   add_foreign_key "lms_exams", "video_modules"
   add_foreign_key "lms_exams", "video_on_demands"
   add_foreign_key "lms_exams", "videos"
-  add_foreign_key "taken_exams", "lms_exams"
-  add_foreign_key "taken_exams", "users"
 end

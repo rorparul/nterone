@@ -90,7 +90,7 @@ en:
             seller: "Sales Rep"
             buyer: "Student"
             source: "Source"
-            source_other: "Other source value"
+            source_other: "Other Source"
             courses:
               classes:
                 header: "Classes"

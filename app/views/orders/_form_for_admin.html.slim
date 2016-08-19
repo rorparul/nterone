@@ -32,12 +32,13 @@
     .form-group
       = f.label :source, t('admin.admin_orders.form.add_order.label.source')
       = f.select :source,
-                 Order.sources,
+                 Order.sources.map{|k, v| [k.humanize, k]},
                  { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm source-selector", disabled: !order.new_record? }
 
     .form-group.hide.source-other
-      input.form-control.input-sm name="order[other_source]" placeholder=t('admin.admin_orders.form.add_order.label.source_other')
+      = f.label :other_source, t('admin.admin_orders.form.add_order.label.source_other')
+      = f.text_field :other_source, class: 'form-control input-sm'
 
     hr
 
@@ -310,7 +311,7 @@ javascript:
   })
 
   $('.source-selector').on('change', function () {
-    if (this.value === 'Other') {
+    if (this.value == 'other') {
       $('.source-other').removeClass('hide')
     } else {
       $('.source-other').addClass('hide')
