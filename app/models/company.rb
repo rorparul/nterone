@@ -1,5 +1,6 @@
 class Company < ActiveRecord::Base
-	validates :title, presence: true
+	has_many :user_companies,     dependent:  :destroy
+  has_many :users,              through:    :user_companies
 
-	belongs_to :user
+	validates :title, presence: true
 end

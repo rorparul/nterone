@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816233651) do
+ActiveRecord::Schema.define(version: 20160819000137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,12 +143,6 @@ ActiveRecord::Schema.define(version: 20160816233651) do
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
-
-  create_table "company", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "course_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
@@ -751,6 +745,14 @@ ActiveRecord::Schema.define(version: 20160816233651) do
   add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
+  create_table "user_companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "company_id"
+  end
+
+  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
+  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                   default: "",               null: false
     t.string   "encrypted_password",      default: "",               null: false
@@ -882,4 +884,6 @@ ActiveRecord::Schema.define(version: 20160816233651) do
   add_foreign_key "lms_exams", "videos"
   add_foreign_key "taken_exams", "lms_exams"
   add_foreign_key "taken_exams", "users"
+  add_foreign_key "user_companies", "companies"
+  add_foreign_key "user_companies", "users"
 end
