@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819000137) do
+ActiveRecord::Schema.define(version: 20160819130502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,10 +139,7 @@ ActiveRecord::Schema.define(version: 20160819000137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "title"
-    t.integer  "user_id"
   end
-
-  add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
 
   create_table "course_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
@@ -578,7 +575,8 @@ ActiveRecord::Schema.define(version: 20160819000137) do
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
-    t.integer  "source"
+    t.integer  "source",                                          default: 0
+    t.string   "other_source"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -870,7 +868,6 @@ ActiveRecord::Schema.define(version: 20160819000137) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "companies", "users"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_attempts"

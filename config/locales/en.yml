@@ -1,24 +1,3 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   header:
     partner: "A Veteran-Owned Business"
@@ -34,7 +13,7 @@ en:
     search: "Search"
     new: "New"
     edit: "Edit"
-  side_menu: 
+  side_menu:
     welcome: "Welcome"
     login: "Login"
     about_us: "About Us"
@@ -112,6 +91,7 @@ en:
             seller: "Sales Rep"
             buyer: "Student"
             source: "Source"
+            source_other: "Other Source"
             courses:
               classes:
                 header: "Classes"
@@ -130,7 +110,7 @@ en:
               cc_exp_year: "Exp. Y."
               cc_code: "Code"
               cc_paid: "Paid"
-            learning_credits: 
+            learning_credits:
               header: "Cisco Learning Credits"
               lc_num: "Number"
               lc_applied: "Credits Applied"
@@ -143,7 +123,7 @@ en:
             no_charge:
               header: "No Charge"
             referrer: "Referring Partner Email"
-            billing_address: 
+            billing_address:
               header: "Billing Address"
               company: "Company"
               f_name: "First Name"
@@ -163,7 +143,7 @@ en:
               state: "State"
               zip: "Zipcode"
     admin_classes:
-      row: 
+      row:
         classes:
           title: "Classes"
           filter:
@@ -182,7 +162,7 @@ en:
             course_events: "Upcoming Events"
     admin_announcements:
       row:
-        new_announcement: 
+        new_announcement:
           title: "New Announcement"
           button:
             all: "All"
@@ -196,7 +176,7 @@ en:
             announcements_content: "Content"
             announcements_target: "Target"
             announcements_poster: "Poster"
-            announcements_status: 
+            announcements_status:
               title: "Status"
               value:
                 active: "Active"
@@ -220,7 +200,7 @@ en:
             delete: "Delete"
     admin_website:
       row:
-        static_pages: 
+        static_pages:
           title: "Static Pages"
           column:
             title: "Title"
@@ -264,12 +244,12 @@ en:
             page_description: "Page Description"
             title: "Title"
             content: "Content"
-        add_article: 
+        add_article:
           title: "Add Article"
           label:
             page_title: "Page Title"
             page_description: "Page Description"
-            type: 
+            type:
               title: "Type"
               option:
                 press_release: "Press Release"
@@ -304,14 +284,14 @@ en:
             message: "Message"
     admin_settings:
       row:
-        contact_info: 
+        contact_info:
           title: "Contact Info"
           form:
             company: "Company Name"
             f_name: "First Name"
             l_name: "Last Name"
             phone: "Phone"
-            billing_address: 
+            billing_address:
               header: "Billing Address"
               company: "Company"
               f_name: "First Name"
@@ -332,7 +312,7 @@ en:
               zip: "Zipcode"
         security_info:
           title: "Security Info"
-          form: 
+          form:
             email: "Email"
             new_password: "New Password"
             new_password_confirm: "New Password Confirmation"
@@ -347,7 +327,7 @@ en:
       industry: "Industry"
   training:
     platform:
-      action: 
+      action:
         title: "Add Platform"
         form:
           add_platform:
@@ -431,7 +411,7 @@ en:
               partner: "Partner Led"
           edit_course:
             title: "Edit Courses"
-            label: 
+            label:
               courses: "Courses"
           add_video_on_demand:
             title: "Add Video On Demand"
@@ -443,7 +423,7 @@ en:
               abbr: "Abbreviation"
               level:
                 title: "Level"
-                value: 
+                value:
                   beginner: "Beginner"
                   intermediate: "Intermediate"
                   advanced: "Advanced"
@@ -457,9 +437,9 @@ en:
               overview: "Overview"
               outline: "Outline"
               attend: "Who Should Attend"
-              modules: 
+              modules:
                 header: "Modules"
-                label: 
+                label:
                   position: "Position"
                   title: "Title"
                 add: "Add module"
@@ -564,7 +544,7 @@ en:
     sitemap: "Sitemap"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. All rights reserved."
-  generic: 
+  generic:
     search:
       placeholder: "Search"
     select:
