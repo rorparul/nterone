@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include RailsSettings::Extend
   include ModelSearch
- 
+
   belongs_to :company
 
   has_one :interest,          dependent:  :destroy
