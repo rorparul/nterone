@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   include RailsSettings::Extend
   include ModelSearch
+ 
+  belongs_to :company
 
   has_one :interest,          dependent:  :destroy
 
-  has_many :user_companies,   dependent:  :destroy
-  has_many :companies,        through:    :user_companies
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
