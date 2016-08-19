@@ -6,7 +6,7 @@
         .form-group
           = f.hidden_field :id
           = f.hidden_field :orderable_type, value: 'Event'
-          = f.label :orderable_id, t('admin.admin_orders.form.add_order.courses.classes.header')
+          = f.label :orderable_id, t('admin.admin_orders.form.add_order.label.courses.classes.header')
           br
           = f.select :orderable_id,
                      Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)}", event.id] },
@@ -15,7 +15,7 @@
       .col-xs-12.col-sm-3
         .form-group
           = f.label :price
-          = f.text_field :price, placeholder: t('admin.admin_orders.form.add_order.courses.classes.price'), class: 'form-control input-sm order-item-price'
+          = f.text_field :price, class: 'form-control input-sm order-item-price'
     - if order.new_record?
       = link_to_remove_association t('admin.admin_orders.form.add_order.courses.classes.remove'), f
 - when 'VideoOnDemand'
@@ -25,7 +25,7 @@
         .form-group
           = f.hidden_field :id
           = f.hidden_field :orderable_type, value: 'VideoOnDemand'
-          = f.label :orderable_id, t('admin.admin_orders.form.add_order.courses.video_on_demand.header')
+          = f.label :orderable_id, t('admin.admin_orders.form.add_order.label.courses.video_on_demand.header')
           br
           = f.select :orderable_id,
                      VideoOnDemand.all.collect { |vod| ["#{vod.full_title} - #{dollar_value(vod.price)}", vod.id] },
@@ -34,6 +34,6 @@
       .col-xs-12.col-sm-3
         .form-group
           = f.label :price
-          = f.text_field :price, placeholder: t('admin.admin_orders.form.add_order.courses.video_on_demand.price'), class: 'form-control input-sm order-item-price'
+          = f.text_field :price, class: 'form-control input-sm order-item-price'
     - if order.new_record?
       = link_to_remove_association t('admin.admin_orders.form.add_order.courses.video_on_demand.remove'), f

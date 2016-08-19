@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
 
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
+
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
@@ -209,6 +210,8 @@ class OrdersController < ApplicationController
                                   :shipping_city,
                                   :shipping_state,
                                   :shipping_zip_code,
+                                  :source,
+                                  :other_source,
                                   order_items_attributes: [:id,
                                                            :user_id,
                                                            :orderable_id,
