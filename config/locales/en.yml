@@ -213,7 +213,7 @@ en:
             edit: "Edit"
             delete: "Delete"
         company:
-          title: "Company"
+          title: "Companies"
           column: "Company Title"
           action:
             edit: "Edit"
@@ -261,7 +261,9 @@ en:
         add_company:
           title: "Add Company"
           label:
-            company_title: "Company Title"
+            company_title: "Title"
+        edit_company:
+          title: "Edit Company"
         add_testimonial:
           title: "Add Testimonial"
           label:

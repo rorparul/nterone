@@ -1,4 +1,4 @@
-class CompanyController < ApplicationController
+class CompaniesController < ApplicationController
 	def new
 		@company = Company.new
 	end
@@ -10,10 +10,20 @@ class CompanyController < ApplicationController
 	def create
 		@company = Company.new(company_params)
 		if @company.save
-			flash[:success] = "Article successfully created!"
+			flash[:success] = "Company successfully created!"
       redirect_to admin_website_path
 		else
 			render 'new'
+		end
+	end
+
+	def update
+		@company = Company.find(params[:id])
+		if @company.update(company_params)
+			flash[:success] = "Company successfully created!"
+			redirect_to admin_website_path
+		else
+			render 'edit'
 		end
 	end
 

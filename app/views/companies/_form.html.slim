@@ -1,5 +1,5 @@
 .form-container
-  = form_for @company, :url => company_index_path, method: :post do |f|
+  = form_for @company do |f|
     - if @company.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
@@ -10,7 +10,7 @@
             li = msg
       
     .form-group
-      = f.label :company, t('admin.admin_website.form.add_compnay.label.company_title')
+      = f.label :company, t('admin.admin_website.form.add_company.label.company_title')
       = f.text_field :title, class: 'form-control input-sm'
       
     .form-buttons
