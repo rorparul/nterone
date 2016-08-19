@@ -1,0 +1,64 @@
+- content_for :breadcrumbs do
+  = render "breadcrumbs"
+    
+.row
+  .col-xs-12
+    = render 'tabs'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t 'admin.admin_lab_rentals.row.lab_rentals.title'
+        = link_to t('generic.action.add'), new_lab_rental_path, remote: true, class: "table-header-action"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.course'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.no_of_student'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.start_date'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.start_time'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.instructor'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.email'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.phone'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.location'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.canceled'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.confirmed'
+              th
+                = t 'admin.admin_lab_rentals.row.lab_rentals.column.n1_approved'
+              th
+          tbody#pages
+            - @lab_rentals.each do |rental|
+              tr
+                td = Course.find(rental.course_id).title
+                td = rental.num_of_students
+                td = rental.first_day
+                td = rental.start_time
+                td = rental.instructor
+                td = rental.instructor_email
+                td = rental.instructor_phone
+                td = rental.location
+                td = Course.find(rental.course_id).title
+                td = rental.confirmed
+                td = Course.find(rental.course_id).title
+                td.actions-column.fit
+                  = link_to t('generic.action.edit'), edit_lab_rental_path(rental), remote: false
+                  = " | "
+                  = link_to t('generic.action.delete'), lab_rental_path(rental), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .lab-rentals').addClass('active-category');

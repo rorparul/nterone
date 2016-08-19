@@ -79,6 +79,14 @@ class AdminController < ApplicationController
     get_alert_counts
   end
 
+  def lab_rentals
+    @lab_rentals = LabRental.all
+  end
+
+  def lab_rentals_portal
+    @user = current_user
+  end
+
   def announcements
     @announcements = Announcement.order('created_at DESC')
   end
