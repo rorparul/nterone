@@ -21,7 +21,7 @@
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                  { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm" }
-                 
+
     .form-group
       = f.label :buyer_id, t('admin.admin_orders.form.add_order.label.buyer')
       = f.select :buyer_id,
@@ -34,7 +34,10 @@
       = f.select :source,
                  Order.sources,
                  { prompt: t('generic.select.placeholder') },
-                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+                 { class: "form-control input-sm source-selector", disabled: !order.new_record? }
+
+    .form-group.hide.source-other
+      input.form-control.input-sm name="order[other_source]" placeholder=t('admin.admin_orders.form.add_order.label.source_other')
 
     hr
 
@@ -44,7 +47,7 @@
           = render 'order_item_fields', f: order_item,
                                         type: order_item.object.orderable_type,
                                         order: order
-                                        
+
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
@@ -153,14 +156,14 @@
           .radio.radio-container
             label
               = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.bundled.header'), class: 'payment-type-radio-button'
-              strong 
+              strong
                 = t('admin.admin_orders.form.add_order.label.bundled.header')
 
         .form-group
           .radio.radio-container
             label
               = f.radio_button :payment_type, t('admin.admin_orders.form.add_order.label.no_charge.header'), class: 'payment-type-radio-button'
-              strong 
+              strong
                 = t('admin.admin_orders.form.add_order.label.no_charge.header')
 
         hr
@@ -174,7 +177,7 @@
                 = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
               - else
                 = f.text_field :referring_partner_email, class: 'form-control input-sm'
-        label 
+        label
           = t('admin.admin_orders.form.add_order.label.billing_address.header')
         .row
           .col-xs-6.col-sm-6
@@ -268,10 +271,10 @@
             = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
     .form-buttons
-      button.btn.btn-success type="submit" 
+      button.btn.btn-success type="submit"
         = t('generic.button.save')
       = f.button t('generic.button.save_partner_confirm'), class: 'button btn btn-success', name: 'confirm_with_partner', value: true
-      button.btn.btn-default type="button" data-dismiss="modal" 
+      button.btn.btn-default type="button" data-dismiss="modal"
         = t('generic.button.cancel')
 
 javascript:
@@ -304,4 +307,12 @@ javascript:
     }
 
     $(this).closest('.row').find('.order-item-price').val(value);
+  })
+
+  $('.source-selector').on('change', function () {
+    if (this.value === 'Other') {
+      $('.source-other').removeClass('hide')
+    } else {
+      $('.source-other').addClass('hide')
+    }
   })
