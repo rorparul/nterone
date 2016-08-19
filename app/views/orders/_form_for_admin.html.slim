@@ -56,9 +56,9 @@
                                         type: "Event",
                                         order: order
         .links
-          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add_class'), f, :order_items,
             render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add_vod'), f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - else
       #order-items
@@ -67,9 +67,9 @@
                                         type: nil,
                                         order: order
         .links
-          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.classes.add_class'), f, :order_items,
             render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add'), f, :order_items,
+          = link_to_add_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.add_vod'), f, :order_items,
             render_options: {locals: {type: 'VideoOnDemand', order: order}}
 
     hr
