@@ -16,8 +16,8 @@
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :company_name, "Company Name"
-                = f.select :company_name,
+                = f.label :company_id, "Company Name"
+                = f.select :company_id,
                   Company.all.collect {|c| [ c.title, c.id ] },
                   { prompt: t('generic.select.placeholder') },
                   { class: "form-control input-sm" }
