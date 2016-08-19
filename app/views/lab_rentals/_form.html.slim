@@ -53,9 +53,9 @@
           = f.label :confirmed, t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
           .radio.radio-container
           label
-            = f.radio_button :confirmed, "Yes", class: 'confirmed-radio-button', checked: true
+            = f.radio_button :confirmed, true, class: 'confirmed-radio-button', checked: true
             strong Yes
-            = f.radio_button :confirmed, "No", class: 'confirmed-radio-button'
+            = f.radio_button :confirmed, false, class: 'confirmed-radio-button'
             strong No
 
     button.btn.btn-success

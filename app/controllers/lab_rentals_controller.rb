@@ -5,12 +5,20 @@ class LabRentalsController < ApplicationController
 	end
 
 	def create
+		puts "*" * 50
+		puts lab_rental_params
+		puts "*" * 50
 		lab_rental = LabRental.new(lab_rental_params)
 		if lab_rental.save
 			redirect_to admin_lab_rentals_path
 		else
 			render 'new'
 		end
+	end
+
+	def destroy
+		LabRental.find(params[:id]).destroy
+		redirect_to admin_lab_rentals_path
 	end
 
 	private

@@ -42,17 +42,17 @@
           tbody#pages
             - @lab_rentals.each do |rental|
               tr
-                td = Course.find(rental.course_id).title
+                td = !rental.course_id.nil? ? Course.find(rental.course_id).title : ""
                 td = rental.num_of_students
                 td = rental.first_day
-                td = rental.start_time
+                td = rental.start_time.strftime("%H:%M:%S %p")
                 td = rental.instructor
                 td = rental.instructor_email
                 td = rental.instructor_phone
                 td = rental.location
-                td = Course.find(rental.course_id).title
+                td = !rental.course_id.nil? ? Course.find(rental.course_id).title : ""
                 td = rental.confirmed
-                td = Course.find(rental.course_id).title
+                td = !rental.course_id.nil? ? Course.find(rental.course_id).title : ""
                 td.actions-column.fit
                   = link_to t('generic.action.edit'), edit_lab_rental_path(rental), remote: false
                   = " | "
