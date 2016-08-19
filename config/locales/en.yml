@@ -68,6 +68,7 @@ en:
           label:
             start: "Start"
             end: "End"
+            sources: "Sources"
         utilization_report:
           title: "Generate Instructor Utilization Report"
           label:
@@ -91,6 +92,7 @@ en:
             seller: "Sales Rep"
             buyer: "Student"
             source: "Source"
+            source_other: "Other Source"
             courses:
               classes:
                 header: "Classes"
@@ -241,6 +243,12 @@ en:
           action:
             edit: "Edit"
             delete: "Delete"
+        company:
+          title: "Companies"
+          column: "Company Title"
+          action:
+            edit: "Edit"
+            delete: "Delete"
         articles:
           title: "Articles"
           column:
@@ -281,6 +289,12 @@ en:
             title: "Title"
             content: "Content"
             published: "Published"
+        add_company:
+          title: "Add Company"
+          label:
+            company_title: "Title"
+        edit_company:
+          title: "Edit Company"
         add_testimonial:
           title: "Add Testimonial"
           label:

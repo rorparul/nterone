@@ -68,6 +68,7 @@ NterOne::Application.routes.draw do
   end
 
   resources :lab_rentals
+  resources :companies
 
   resources :platforms, path: 'training' do
     resources :categories, except: [:edit] do

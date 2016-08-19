@@ -2,19 +2,18 @@ class Order < ActiveRecord::Base
   include SearchCop
   extend Enumerize
 
-  enumerize :source, in: {
-                       cisco_locator: 1,
-                       cisco_road_show: 2,
-                       cisco_live: 3,
-                       cisco_gsx: 4,
-                       rain_king: 5,
-                       telemarketing: 6,
-                       google_ads: 7,
-                       vmware_world: 8,
-                       demand_generation: 9,
-                       other: 10
-                     }
-
+  enum source: {
+    cisco_locator: 1,
+    cisco_road_show: 2,
+    cisco_live: 3,
+    cisco_gsx: 4,
+    rain_king: 5,
+    telemarketing: 6,
+    google_ads: 7,
+    vmware_world: 8,
+    demand_generation: 9,
+    other: 10
+  }
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
@@ -37,9 +36,9 @@ class Order < ActiveRecord::Base
     attributes buyer: ['buyer.first_name', 'buyer.email']
   end
 
-  def self.sources
-    Order.source.values.map!{ |source| source.humanize }
-  end
+  # def self.sources
+  #   Order.source.values.map!{ |source| source.humanize }
+  # end
 
   def set_total
     if no_charge?
