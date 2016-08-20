@@ -10,8 +10,10 @@ class LabRentalsController < ApplicationController
 
 	def create
 		lab_rental = LabRental.new(lab_rental_params)
-		if lab_rental.save
+		if lab_rental.save && self.has_company?
 			redirect_to admin_lab_rentals_path
+		elsif lab_rental.save
+			render 'index'
 		else
 			render 'new'
 		end
