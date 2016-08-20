@@ -96,13 +96,17 @@ en:
               classes:
                 header: "Classes"
                 price: "Price"
-                add: "Add Class"
-                remove: "Remove Class"
+                add: "Add"
+                remove: "Remove"
+                add_class: "Add Class"
+                remove_class: "Remove Class"
               video_on_demand:
                 header: "VODs"
                 price: "Price"
-                add: "Add VOD"
-                remove: "Remove VOD"
+                add: "Add"
+                remove: "Remove"
+                add_vod: "Add VOD"
+                remove_vod: "Remove VOD"
             credit_card:
               header: "Credit Card"
               cc_num: "Number"
