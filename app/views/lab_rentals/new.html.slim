@@ -1,2 +1,14 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
+  
+.panel.panel-default
+  .panel-heading
+    strong.text-muted
+      = t("admin.admin_lab_rentals.form.add_lab_rental.title")
+  .panel-body
+    = render partial: "form"
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

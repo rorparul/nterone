@@ -180,7 +180,7 @@ en:
             number_of_students: "Number of Students"
             start_time: "Start Time (Eastern)"
             instructor: "Instructor Name"
-            instructor_email: "Instructor email address"
+            instructor_email: "Instructor Email Address"
             instructor_phone: "Instructor Phone"
             notes: "Special Request or Notes"
             location: "Location"
