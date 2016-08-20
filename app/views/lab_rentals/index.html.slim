@@ -1,0 +1,65 @@
+- content_for :breadcrumbs do
+  = render "breadcrumbs"
+
+#lab_rentals_form.form-container
+  =form_for :lab_rental, url: lab_rentals_path do |f|
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :course, t('admin.admin_lab_rentals.form.add_lab_rental.label.course')
+          br
+          = f.select :course_id,
+                 Course.all.collect {|c| [ c.title, c.id ] },
+                 { prompt: t('generic.select.placeholder') },
+                 { class: "form-control input-sm" }
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :first_day, t('admin.admin_lab_rentals.form.add_lab_rental.label.first_day')
+          br
+          = f.date_select :first_day, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :num_of_students, t('admin.admin_lab_rentals.form.add_lab_rental.label.number_of_students')
+          = f.number_field :num_of_students, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :start_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.start_time')
+          br
+          = f.time_select :start_time, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :instructor, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor')
+          br
+          = f.text_field :instructor, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :instructor_email, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_email')
+          br
+          = f.email_field :instructor_email, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
+          br
+          = f.phone_field :instructor_phone, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :notes, t('admin.admin_lab_rentals.form.add_lab_rental.label.notes')
+          br
+          = f.text_area :notes, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :location, t('admin.admin_lab_rentals.form.add_lab_rental.label.location')
+          br
+          = f.text_field :location, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :confirmed, t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
+          .radio.radio-container
+          label
+            = f.radio_button :confirmed, true, class: 'confirmed-radio-button', checked: true
+            strong Yes
+            = f.radio_button :confirmed, false, class: 'confirmed-radio-button'
+            strong No
+
+    button.btn.btn-success
+      = t 'generic.button.save'

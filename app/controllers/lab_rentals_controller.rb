@@ -1,4 +1,8 @@
 class LabRentalsController < ApplicationController
+	include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
+  # before_action :authenticate_user!
 
 	def new
 
@@ -13,9 +17,27 @@ class LabRentalsController < ApplicationController
 		end
 	end
 
+	def index
+		if !current_user
+			redirect_to new_user_session_path
+		elsif current_user && !self.has_company?
+			redirect_to root_path
+		else
+			render 'index'
+		end
+	end
+
 	def destroy
 		LabRental.find(params[:id]).destroy
 		redirect_to admin_lab_rentals_path
+	end
+
+	protected
+
+	def has_company?
+		if current_user
+			current_user.company ? true : false
+		end
 	end
 
 	private

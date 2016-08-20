@@ -7,6 +7,8 @@ en:
   breadcrumbs:
     home: "Home"
     admin: "My Admin"
+    my_sales: "My Sales"
+    lab_rentals: "Lab Rentals"
     about_us: "About Us"
     sitemap: "Sitemap"
     training: "Training"

@@ -1,0 +1,48 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit = smart_listing.sortable "ID", :id
+            th.fit = 'Note'
+            th.fit = smart_listing.sortable "Course", :course
+            th.fit = smart_listing.sortable "Start Date", :start_date
+            th.fit title="Length" Len
+            th.fit = smart_listing.sortable "Start Time", :start_time
+            th.fit = smart_listing.sortable "Format", :format
+            th.fit Instructor
+            th.fit title="Students" Ss
+            th.fit Revenue
+            th.fit = smart_listing.sortable "Lab Source", :lab_source
+            th.fit Public
+            th.fit title="Guaranteed" = smart_listing.sortable "Guar", :guaranteed
+            th.fit = smart_listing.sortable "Conf", :status
+            th.fit Actions
+        tbody
+          - if @grouped_events.present?
+            - @grouped_events.each do |date_str, events|
+              tr
+                td(style="background-color: #D5DDF2;" colspan=9)
+                  strong
+                    = date_str
+                td(style="background-color: #D5DDF2;" colspan=3)
+                  strong $#{number_with_delimiter(number_with_precision(events_revenue_total(events), precision: 2))}
+                td(style="background-color: #D5DDF2;" colspan=3)
+
+              - events.each do |event|
+                = render partial: 'events/listing_event', locals: {event: event}
+          - else
+            - smart_listing.collection.each do |event|
+              = render partial: 'events/listing_event', locals: {event: event}
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        tbody
+          tr
+            td.text-center
+              = t 'generic.no_records'
