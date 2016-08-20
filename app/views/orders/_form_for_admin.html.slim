@@ -308,7 +308,9 @@ javascript:
     }
 
     $(this).closest('.row').find('.order-item-price').val(value);
-  })
+  });
+  
+  $('.order-item-selector').trigger('change');
 
   $('.source-selector').on('change', function () {
     if (this.value == 'other') {
