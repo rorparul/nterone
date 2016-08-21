@@ -40,9 +40,11 @@
       = f.label :other_source, t('admin.admin_orders.form.add_order.label.source_other')
       = f.text_field :other_source, class: 'form-control input-sm'
 
+    - if order.id.present? && order.source == 'other'
+      p= order.other_source
     hr
 
-    - if order.id
+    - if order.id.present?
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
           = render 'order_item_fields', f: order_item,
