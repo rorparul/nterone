@@ -23,6 +23,8 @@ class Event < ActiveRecord::Base
   validates_associated :course
 
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
+  scope :from_source, ->(source) { joins(:orders).where(orders: { source: source }).distinct }
+
 
   search_scope :custom_search do
     attributes :format, :start_date, :public, :guaranteed

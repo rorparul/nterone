@@ -16,7 +16,7 @@
           = f.label :source, t('admin.action.form.profits_report.label.sources')
           br
           = f.select :source,
-                 Order.sources,
+                 Order.sources.map{|k, v| [k.humanize, v]},
                  { prompt: t('generic.select.placeholder') },
                  { class: "form-control input-sm" }
 
