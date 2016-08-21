@@ -2,6 +2,9 @@
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.plan href="#{my_account_plan_path}" My NterOne
+      - if current_user.company
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t 'admin.filter.lab_rentals'
       a.btn.category.btn-category.messages href="#{my_account_messages_path}"
         | Messages
         - if @new_message_count > 0
@@ -12,6 +15,9 @@
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.plan href="#{my_account_plan_path}" My NterOne
+      - if current_user.company
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t 'admin.filter.lab_rentals'
       a.btn.category.btn-category.messages href="#{my_account_messages_path}"
         | Messages
         - if @new_message_count > 0

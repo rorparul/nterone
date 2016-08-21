@@ -13,6 +13,7 @@ class Course < ActiveRecord::Base
   end
 
   belongs_to :platform
+  belongs_to :lab_rental
 
   has_many :category_courses,         dependent: :destroy
   has_many :categories,               through: :category_courses

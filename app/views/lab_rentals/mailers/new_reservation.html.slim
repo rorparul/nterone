@@ -1,0 +1,76 @@
+css:
+  td {
+    border: 1px solid black;
+  }
+
+p Thank you!
+
+p Your request has been received. Here are your details:
+
+table
+  tbody
+    tr
+      td
+        | Requester's Email
+      td
+        = @user.email
+    tr
+      td
+        | Requester's Company
+      td
+        = @reservation.company.try(:title)
+    tr
+      td
+        | Course
+      td
+        = @reservation.course
+    tr
+      td
+        | Students
+      td
+        = @reservation.num_of_students
+    tr
+      td
+       | 1st Day of Class
+      td
+        = @reservation.first_day
+    tr
+      td
+        | Start Time
+      td
+        = @reservation.start_time.strftime("%I:%M %p")
+    tr
+      td
+        | Instructor
+      td
+        = @reservation.instructor
+    tr
+      td
+        | Instructor Email
+      td
+        = @reservation.instructor_email
+    tr
+      td
+        | Instructor Phone
+      td
+        = @reservation.instructor_phone
+    tr
+      td
+        | Location
+      td
+        = @reservation.location
+    tr
+      td
+        | Confirmed
+      td
+        = @reservation.confirmed
+    tr
+      td
+        | Notes
+      td
+        = @reservation.notes
+      
+p Please allow 48 hours for us to get back to you.
+
+p The NterOne Team
+  

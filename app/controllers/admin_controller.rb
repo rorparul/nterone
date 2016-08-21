@@ -88,9 +88,9 @@ class AdminController < ApplicationController
     users_scope = users_scope.search(params[:filter]) if params[:filter]
     @users = smart_listing_create(:users, users_scope, partial: "users/listing", default_sort: { last_name: "asc"} )
     respond_to do |format|
-     format.html
-     format.js
-   end
+      format.html
+      format.js
+    end
   end
 
   def website
@@ -112,7 +112,7 @@ class AdminController < ApplicationController
 
   def should_group_classes?
     params.dig(:events_smart_listing, :sort, :start_date).present? ||
-      params.dig(:events_smart_listing, :sort, 'events.start_date').present? ||
-      params.dig(:events_smart_listing, :sort).blank?
+    params.dig(:events_smart_listing, :sort, 'events.start_date').present? ||
+    params.dig(:events_smart_listing, :sort).blank?
   end
 end

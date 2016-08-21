@@ -59,6 +59,11 @@ body {
   margin: 0;
 }
 
+span.required {
+  color: red;
+  margin-left: 5px;
+}
+
 .article {
   small {
     display: block;
@@ -1888,6 +1893,10 @@ hr {
     border-bottom-right-radius: 3px;
     border-bottom-width: 0;
   }
+}
+
+#lab_rentals_form .confirmed-radio-button {
+  margin: 4px 10px 0 10px;
 }
 
 .action-group {

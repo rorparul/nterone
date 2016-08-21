@@ -10,6 +10,8 @@
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
         = t 'admin.filter.courses'
       - if current_user.admin?
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t 'admin.filter.lab_rentals'
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
           = t 'admin.filter.announcements'
         a.btn.category.btn-category.people href="#{admin_people_path}"
@@ -35,6 +37,8 @@
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
         = t 'admin.filter.courses'
       - if current_user.admin?
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t 'admin.filter.lab_rentals'
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
           = t 'admin.filter.announcements'
         a.btn.category.btn-category.people href="#{admin_people_path}"
