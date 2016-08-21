@@ -1,3 +1,13 @@
 class LabRental < ActiveRecord::Base
-	has_one :course
+	include SearchCop
+
+	belongs_to :user
+	belongs_to :company
+
+	validates :company_id, presence: true
+
+	search_scope :custom_search do
+    attributes :course, :instructor, :instructor_email, :location
+    attributes :company => ["company.title"]
+  end
 end

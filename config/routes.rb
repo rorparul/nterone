@@ -67,7 +67,7 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :lab_rentals
+  resources :lab_rentals, path: 'lab-reservations'
   resources :companies
 
   resources :platforms, path: 'training' do
@@ -159,7 +159,7 @@ NterOne::Application.routes.draw do
     get 'admin/classes',                             as: :admin_classes
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
     get 'admin/courses',                             as: :admin_courses
-    get 'admin/lab-rentals',                         as: :admin_lab_rentals
+    get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
     get 'admin/people',                              as: :admin_people
     get 'admin/website',                             as: :admin_website

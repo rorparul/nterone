@@ -59,6 +59,11 @@ body {
   margin: 0;
 }
 
+span.required {
+  color: red;
+  margin-left: 5px;
+}
+
 .article {
   small {
     display: block;

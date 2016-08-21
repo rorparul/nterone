@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   # has_many :selling,        through: :seller_leads, source: :leads
   # has_many :buying,         through: :buyer_leads,  source: :leads
 
+  has_many :lab_rentals # TODO: Consider the dependencies
+
   has_many :messages,             dependent:   :destroy
   has_many :posts
   has_many :roles,                dependent:   :destroy
