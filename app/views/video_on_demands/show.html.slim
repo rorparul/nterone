@@ -129,7 +129,8 @@
         p The NterOne team will be happy to answer your questions.
         p
           | Email:
-          a href="mailto:sales@nterone.com" sales@nterone.com
+          a href="mailto:sales#{t('email')}"
+            = "sales#{t('email')}"
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
 
