@@ -178,6 +178,7 @@ class User < ActiveRecord::Base
       sales_manager: "Sales Manager",
       sales_rep:     "Sales Rep",
       member:        "Member",
+      instructor:    "Instructor",
       lms_manager:   "LMS Manager",
       lms_student:   "LMS Student"
     }
@@ -209,6 +210,10 @@ class User < ActiveRecord::Base
 
   def member?
     has_role? :member
+  end
+
+  def instructor?
+    has_role? :instructor
   end
 
   def has_role?(role_param)
