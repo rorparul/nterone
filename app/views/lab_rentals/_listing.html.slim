@@ -1,0 +1,65 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.course'), :course
+            - if current_user.admin?
+              th.fit
+                = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.company'), :company
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.no_of_students'), :num_of_students
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.start_date'), :first_day
+            th.fit
+              = t('admin.admin_lab_rentals.row.lab_rentals.column.start_time')
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.instructor'), :instructor
+            th.fit
+              = t('admin.admin_lab_rentals.row.lab_rentals.column.email')
+            th.fit
+              = t('admin.admin_lab_rentals.row.lab_rentals.column.phone')
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.location'), :location
+            th.fit
+              = t('admin.admin_lab_rentals.row.lab_rentals.column.notes')
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.confirmed'), :confirmed
+            th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.canceled'), :canceled
+        tbody
+          - smart_listing.collection.each do |rental|
+            tr
+              td = rental.course
+              - if current_user.admin?
+                td = rental.company.try(:title)
+              td = rental.num_of_students
+              td = rental.first_day
+              td = rental.start_time.strftime("%I:%M %p")
+              td = rental.instructor
+              td = rental.instructor_email
+              td = rental.instructor_phone
+              td = rental.location
+              td
+                - if rental.notes.present?
+                  = link_to lab_rental_path(rental, only_note: true), remote: true do
+                    span.fa.fa-sticky-note
+              td
+                - if rental.confirmed
+                  i.fa.fa-check.text-success aria-hidden="true"
+              td
+                - if rental.canceled
+                  i.fa.fa-check.text-success aria-hidden="true"
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        tbody
+          tr
+            td.text-center
+              = t 'generic.no_records'

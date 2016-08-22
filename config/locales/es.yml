@@ -1,0 +1,557 @@
+es:
+  email: "@nterone.la"
+  header:
+    partner: "Una Empresa Fundada por Veteranos"
+    contact_us: "Contáctanos 703.972.2288"
+    search: "Buscar"
+    actions: "Acciones"
+  breadcrumbs:
+    home: "Inicio"
+    admin: "Mi cuenta"
+    about_us: "Acerca de Nosotros"
+    sitemap: "Mapa"
+    training: "Entrenamientos"
+    search: "Buscar"
+    new: "Nuevo"
+    edit: "Editar"
+  side_menu:
+    welcome: "Bienvenidos"
+    login: "Usuarios"
+    about_us: "Acerca de Nosotros"
+    training: "Entrenamiento"
+    testimonials: "Testimonios"
+    forums: "Foros"
+    consulting: "Consultorías"
+    partners: "Aliados de Negocios"
+    Laboratorios: "Laboratorios"
+    contact_us: "Contáctanos"
+    logout: "Salir"
+  home:
+    search_form:
+      placeholder: "Buscar por Certificaciones, cursos o exámenes"
+    featured_courses:
+      vendor: "Cursos por Fabricantes"
+      vendor_paragraph: "Buscar tu curso por tecnología, certificación"
+      classes: "Clases Destacadas"
+      classes_paragraph: "Ver lista de cursos más populares por fabricante"
+      labs: "Laboratorios"
+      labs_paragraph: "Acceso Global 24x7 al Laboratorio"
+    redeem_credits_panel:
+      title: "Intercambia tus créditos"
+      paragraph: "NterOne puede intercambiar tus créditos de educación por vouchers y entrenamientos!"
+      contact_us_link: "Contactos"
+      contact_us_body: " a nosotros por mas detalles."
+  admin:
+    filter:
+      queue: "Cola"
+      orders: "Ordenes"
+      classes: "Clases"
+      courses: "Cursos"
+      announcements: "Anuncios"
+      people: "Personas"
+      website: "Pagina Web"
+      messages: "Mensajes"
+      settings: "Ajustes"
+    action:
+      commissions_report: "Generar Reportes de Comisiones"
+      profits_report: "Generar reportes de Ganancias"
+      utilization_report: "Generar Reportes de Utilización de Instructor"
+      form:
+        commissions_report:
+          title: " Generar Reportes de Comisiones "
+          label:
+            start: "Inicio"
+            end: "Fin"
+            sales_rep: "Representantes de Ventas"
+        profits_report:
+          title: "Generar reportes de Ganancias"
+          label:
+            start: "Inicio"
+            end: "Fin"
+        utilization_report:
+          title: "Generar Reportes de Utilización de Instructor"
+          label:
+            start: "Inicio"
+            end: "Fin"
+    admin_queue:
+      row:
+        assigned_lead: "Contacto Asignado"
+        unassigned_lead: "Contacto No Asignado"
+        archived_lead: "Contactos Guardados"
+    admin_orders:
+      row:
+        orders:
+          title: "Ordenes"
+      form:
+        add_order:
+          title: "Agregar Ordenes"
+          label:
+            verified: "SO Verificada#"
+            invoice: "Factura #"
+            seller: "Representantes de Ventas"
+            buyer: "Estudiante"
+            courses:
+              classes:
+                header: "Clases"
+                price: "Precio"
+                add: "Agregar una Clase"
+                remove: "Retirar una Clase"
+              video_on_demand:
+                header: "VODs"
+                price: "Precio"
+                add: "Agregar un VOD"
+                remove: "Remover un VOD"
+            credit_card:
+              header: "Tarjeta de Credito"
+              cc_num: "Numero"
+              cc_exp_month: "Fecha de Expiración"
+              cc_exp_year: "Fecha de Expiración"
+
+              cc_code: "Codigo"
+              cc_paid: "Pagado"
+            learning_credits:
+              header: "Cisco Learning Credits"
+              lc_num: "Numero"
+              lc_applied: "Creditos aplicados"
+            purchase_order:
+              header: "Orden de Compra"
+              p_num: "Numero"
+              p_paid: "Pagado"
+            bundled:
+              header: "Paquete"
+            no_charge:
+              header: "No Cargo"
+            referrer: "Correo del Aliado que refiere"
+            billing_address:
+              header: "Dirección de Facturación"
+              company: "Compañia "
+              f_name: "Primer Nombre"
+              l_name: "Apellido"
+              street: "Calle"
+              city: "Ciudad"
+              state: "Estado"
+              zip: "Codigo Postal"
+            shipping_address:
+              header: "Dirección de Envío"
+              same_as: "Misma de facturación"
+              company: "Compañia"
+              f_name: "Primer Nombre"
+              l_name: "Apellido"
+              street: "Calle"
+              city: "Ciudad"
+              state: "Estado"
+              zip: "Codigo Postal"
+    admin_classes:
+      row:
+        classes:
+          title: "Clases"
+          filter:
+            registered: "Solo Registrados"
+            past: "Incluyendo Pasado"
+      form:
+        upload_classes:
+          title: "Clases Cargadas"
+    admin_courses:
+      row:
+        courses:
+          title: "Cursos"
+          column:
+            course_id: "Curso ID"
+            course_title: "Titulo"
+            course_events: "Proximos Eventos"
+    admin_announcements:
+      row:
+        new_announcement:
+          title: "Nuevos Anuncios"
+          button:
+            all: "Todo"
+            members: "Miembros"
+            sales_rep: "Representantes de Ventas"
+            sales_member: "Gerente de Ventas"
+            members_sales_reps: "Miembros & Representantes de Ventas"
+        announcements:
+          title: "Anuncios"
+          column:
+            announcements_content: "Contenidos"
+            announcements_target: "Objetivo"
+            announcements_poster: "Póster"
+            announcements_status:
+              title: "Estado"
+              value:
+                active: "Activo"
+                inactive: "Inactivo"
+    admin_people:
+      row:
+        people:
+          title: "Usuarios"
+          filter:
+            non_students: "Incluyendo No-Estudiantes"
+          column:
+            f_name: "Primer Nombre"
+            l_name: "Apellido"
+            email: "Email"
+            roles: "Roles"
+            last_active: "Ultimo Activo"
+          action:
+            add_order: "Agregar Orden"
+            reinvite: "Re-invitado"
+            edit: "Editar"
+            delete: "Borrar"
+    admin_website:
+      row:
+        static_pages:
+          title: "Paginas Estadísticas"
+          column:
+            title: "Titulo"
+        dynamic_pages:
+          title: "Paginas Dinamicas"
+          column:
+            title: "Titulo"
+            url: "URL"
+          action:
+            edit: "Editar"
+            delete: "Borrar"
+        articles:
+          title: "Articulos"
+          column:
+            title: "Titulo"
+            kind: "Tipo"
+            published: "Publicado"
+        testimonials:
+            title: "Testimonios"
+            column:
+            quotation: "Cotización"
+            author: "Autor"
+            company: "Compañia"
+            course: "Curso"
+        images:
+          title: "Imagenes"
+          column:
+            title: "Titulo"
+            url: "URL"
+      form:
+        add_page:
+          title: "Agregar Pagina"
+          label:
+            page_title: "Pagina Titulo"
+            page_description: "Pagina Descripción"
+            title: "Titulo"
+            content: "Contenido"
+        add_article:
+          title: "Agregar Articulo"
+          label:
+            page_title: "Pagina Titulo"
+            page_description: "Pagina Descripción"
+            type:
+              title: "Tipo"
+              option:
+                press_release: "Anuncio de Prensa"
+                blog_post: "Posteo del Blog"
+                industry_article: "Articulo de la industria"
+            title: "Titulo"
+            content: "Contenido"
+            published: "Publicado"
+        add_testimonial:
+          title: "Agregar Testimonio"
+          label:
+            quotation: "Cotización"
+            author: "Autor"
+            company: "Compañia"
+            course_attended: "Curso Asistido"
+        add_image:
+          title: "Agregar Imagenes"
+          label:
+            image: "Imagen"
+            image_title: "Titulo"
+    admin_messages:
+      row:
+        messages:
+          title: "Mensaje"
+          column:
+            date: "Fecha"
+            from: "De"
+            message: "Mensaje"
+    admin_settings:
+      row:
+        contact_info:
+          title: "Información Contacto"
+          form:
+            company: "Nombre de la Compañia"
+            f_name: "Primer Nombre"
+            l_name: "Apellido"
+            phone: "Telefono"
+            billing_address:
+              header: "Dirección de Facturación"
+              company: "Compañia"
+              f_name: "Primer Nombre"
+              l_name: "Apellido"
+              street: "Calle"
+              city: "Ciudad"
+              state: "Estado"
+              zip: "Codigo Postal"
+            shipping_address:
+              header: "Dirección de Envío"
+              same_as: "Misma que Facturación"
+              company: "Compañia"
+              f_name: "Primer Nombre"
+              l_name: "Apellido"
+              street: "Calle"
+              city: "Ciudad"
+              state: "Estado"
+              zip: "Codigo Postal"
+        security_info:
+          title: "Información de Seguridad"
+          form:
+            email: "Email"
+            new_password: "Nueva Clave"
+            new_password_confirm: "Confirmación Nueva Clave"
+            current_password: "Clave Actual"
+  about_us:
+    categories:
+      about: "Acerca NterOne"
+      exective: "BIOS Ejecutivos"
+      instructor: "BIOS Instructores"
+      press: "Prensa"
+      blog: "Blog"
+      industry: "Industria"
+  training:
+    platform:
+      action:
+        title: "Agregar Plataforma"
+        form:
+          add_platform:
+            title: "Agregar Plataforma"
+      form:
+        edit_platform:
+          title: "Editar Plataforma"
+          page_title: "Pagina Titulo"
+          page_description: "Pagina Descripción"
+          platform_title: "Titulo"
+          test_center_url: "URL Encontrar Centro de Examenes"
+          image: "Imagen"
+      label:
+        browse: "Buscar Por"
+    category:
+      action:
+        add_category: "Agregar Categoria"
+        edit_category: "Editar Categoria"
+        add_certification: "Agregar Certificación"
+        edit_certification: "Editar Certificación"
+        add_course: "Agregar Curso"
+        edit_course: "Editar Curso"
+        add_video_on_demand: "Agregar Video On Demand"
+        edit_video_on_demand: "Editar Video On Demand"
+        add_exam: "Agregar Examen"
+        edit_exam: "Editar Examen"
+        add_exam_course: "Agregar Curso de Examen"
+        edit_exam_course: "Editar Curso de Examen"
+        add_divider: "Agregar Divisor"
+        edit_divider: "Editar Divisor"
+        add_custom_item: "Agregar Elemento Personalizado"
+        edit_custom_item: "Editar Elemento Personalizado"
+        add_instructor: "Agregar Instructor"
+        edit_instructor: "Editar Instructor"
+        form:
+          add_category:
+            title: "Agregar Categoria"
+            label:
+              parent: "Pariente"
+              title: "Titulo"
+              page_title: "Pagina Titulo"
+              heading: "Encabezado (H1)"
+              description: "Descripción"
+              position: "Posición"
+          edit_category:
+            title: "Editar Categoria"
+          add_certification:
+            title: "Agregar Certificación"
+            label:
+              page_title: "Pagina Titulo"
+              page_description: "Pagina Descripción"
+              catgories: "Categorias"
+              title: "Titulo"
+              label: "Etiqueta"
+              icon: "Icono"
+              partner: "Aliado"
+              active: "Activo"
+              description: "Descripción"
+          edit_certification:
+            title: "Editar Certificación"
+            label:
+              certifications: "Certificaciones"
+          add_course:
+            title: "Agregar Curso"
+            label:
+              page_title: "Pagina Titulo"
+              page_description: "Pagina Descripción"
+              catgories: "Categorias"
+              title: "Titulo"
+              slug: "Slug"
+              abbr: "Abreviatura"
+              pdf: "PDF"
+              icon: "Icon"
+              video_preview: "Video Previo"
+              heading: "Encabezado (H1)"
+              introduction: "Introducción"
+              overview: "Visión General"
+              outline: "Esquema"
+              attend: "Quienes Deberían Asistir"
+              active: "Activo"
+              partner: "Aliado"
+          edit_course:
+            title: "Editar Curso"
+            label:
+              courses: "Cursos"
+          add_video_on_demand:
+            title: "Agregar Video On Demand"
+            label:
+              page_title: "Pagina Titulo"
+              page_description: "Pagina Descripción"
+              categories: "Categorias"
+              title: "Titulo"
+              abbr: "Abreviación"
+              level:
+                title: "Etiqueta"
+                value:
+                  beginner: "Principiante"
+                  intermediate: "Intermedio"
+                  advanced: "Avanzado"
+              price: "Precio"
+              instructor: "Instructor"
+              icon: "Icon"
+              partner: "Aliado"
+              active: "Activo"
+              heading: "Encabezado (H1)"
+              introduction: "Introducción"
+              overview: "Visión General"
+              outline: "Esquema"
+              attend: "Quienes Deberían Asistir"
+              modules:
+                header: "Modulos"
+                label:
+                  position: "Posición"
+                  title: "Titulo"
+                add: "Agregar Modulo"
+                remove: "Remover Modulo"
+              module_videos:
+                header: "Modulo Videos"
+                label:
+                  position: "Posición"
+                  title: "Titulo"
+                  code: "Codigo de Inserción"
+                  free: "Libre?"
+                add: "Agregar Video"
+                remove: "Remover Video"
+          edit_video_on_demand:
+            title: "Editar Video On Demand"
+            label:
+              video_on_demand: "Video On Demand"
+          add_exam:
+            title: "Agregar Examen"
+            label:
+              title: "Titulo"
+          edit_exam:
+            title: "Editar Examen"
+            label:
+              exam: "Examen"
+          add_exam_course:
+            title: "Agregar Curso-Examen"
+            label:
+              label: "Etiqueta"
+              courses: "Cursos"
+              exams: "Examenes"
+          edit_exam_course:
+            title: "Editar Cursos-Examen"
+            label:
+              exam_courses: "Cursos-Examen"
+          add_divider:
+            title: "Agregar Divisor"
+            label:
+              content: "Contenido"
+          edit_divider:
+            title: "Editar Divisor"
+            label:
+              divider: "Divisor"
+          add_custom_item:
+            title: "Agregar Elemento Personalizado"
+            label:
+              label: "Etiqueta"
+              content: "Contenido"
+          edit_custom_item:
+            title: "Editar Elemento Personalizado"
+            label:
+              custom_item: "Elemento Personalizado"
+          add_instructor:
+            title: "Agregar Instructor"
+            label:
+              f_name: "Primer Nombre"
+              l_name: "Apellido"
+              email: "Email"
+              phone: "Teléfono"
+              bio: "Biografía"
+              role: "Rol"
+          edit_instructor:
+            title: "Editar Instructor"
+            label:
+              instructor: "Instructor"
+      filter:
+        show_all: "Mostrar Todo"
+  sitemap:
+    title: "Mapa del Sitio"
+    header:
+      general:
+        title: "General"
+        link:
+          home: "Inicio"
+          consulting: "Consultoría"
+          partners: "Aliados"
+          Laboratorios: "Laboratorios"
+          forums: "Foros"
+      about_us:
+        title: "Acerca de Nosotros"
+        link:
+          executive: "Bios Ejecutivos"
+          instructor: "Bios Instructores"
+          testimonials: "Testimonios"
+          privacy: "Politicas de Privacidad"
+          terms: "Terminos y Condiciones"
+      articles:
+        title: "Articulos"
+        link:
+          press: "Prensa"
+          blog: "Blog"
+          industry: "Industria"
+      other:
+        title: "Otros"
+      training:
+        title: "Entrenamientos"
+        link:
+          featured_classes: "Clases Destacadas"
+  footer:
+    privacy: "Politicas de Privacidad"
+    terms: "Terminos y Condiciones"
+    sitemap: "Mapa del Sitio"
+    copyright: "Copyright"
+    copyright_company: "NterOne Corporation. Todos los Derechos Reservados."
+  generic:
+    search:
+      placeholder: "Buscar"
+    select:
+      placeholder: "Por Favor Seleccionar"
+    button:
+      generate: "Generar"
+      save: "Guardar"
+      save_partner_confirm: "Guardar & Confirmar con el Aliado"
+      upload: "Cargar"
+      cancel: "Cancelar"
+    action:
+      add: "Agregar"
+      edit: "Editar"
+      delete: "Borrar"
+      upload: "Cargar"
+    prompt:
+      none_select: "Ninguno"
+      confirm_delete: "Estas Seguro?"
+    caption:
+      form_instructions: "Sujete el boton de control (Windows) o el boton de comando (Mac) para seleccionar multiples opciones."
+    no_records: "No registros encontrados."

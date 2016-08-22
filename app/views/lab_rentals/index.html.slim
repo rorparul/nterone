@@ -1,0 +1,37 @@
+- content_for :breadcrumbs do
+  = render "breadcrumbs"
+  
+.row
+  .col-xs-12
+    - if current_user.admin?
+      = render 'admin/tabs'
+    - elsif current_user.member?
+      = render 'my_account/tabs'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading.panel-heading-with-search
+        .row
+          .col-xs-6
+            strong.text-muted
+              = t 'admin.admin_lab_rentals.row.lab_rentals.title'
+          .col-xs-6
+            - if !current_user.admin?
+              = link_to t('generic.action.add'), new_lab_rental_path, class: "table-header-action"
+            
+            = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
+
+              .input-group.input-group-sm.filter.input-append
+                = text_field_tag :filter, '', class: "search form-control input-sm",
+                                              placeholder: t('generic.search.placeholder'),
+                                              autocomplete: :off
+                span class="input-group-btn"
+                  button class="btn btn-default btn-sm disabled" type="submit"
+                    span.glyphicon.glyphicon-search
+
+      = smart_listing_render(:lab_rentals)
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .lab-rentals').addClass('active-category');

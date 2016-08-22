@@ -4,7 +4,7 @@ class PartnerMailer < ApplicationMailer
     @event = event
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
     mail(to: partner_email,
-         bcc: ['ashlie@nterone.com', 'leslie@nterone.com'],
+         bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
          subject:       'NterOne Web Student Added Confirmation',
          template_path: 'mailers',
          template_name: 'student_added')

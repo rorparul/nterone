@@ -17,7 +17,7 @@
   .col-xs-12.col-central
     = image_tag "featured-classes.png", class: "course-banner"
     .panel.panel-default
-      .panel-body = @page.content.html_safe
+      .panel-body = @page.content.try(:html_safe)
     - @platforms.each do |platform|
       - if platform.upcoming_public_featured_events.any?
         #featured-classes
