@@ -87,6 +87,15 @@ class EventsController < ApplicationController
     redirect_to :back
   end
 
+  def student_registered_classes
+    @platforms = Platform.order(:title)
+    
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
+  end
+
   def upload_form
 
   end

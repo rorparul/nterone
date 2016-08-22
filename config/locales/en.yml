@@ -1,5 +1,4 @@
 en:
-  email: "@nterone.com"
   header:
     partner: "A Veteran-Owned Business"
     contact_us: "Contact Us at 703.972.2288"
@@ -157,6 +156,7 @@ en:
           filter:
             registered: "Only registered"
             past: "Including past"
+      xlsx: "Download Student-registered Classes"
       form:
         upload_classes:
           title: "Upload Classes"
