@@ -1,0 +1,31 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit = smart_listing.sortable "Start Date", :start_date
+            th.fit = smart_listing.sortable "Start Time", :start_time
+            th.fit Students
+            th.fit = smart_listing.sortable "Lab Source", :lab_source
+            th.fit Actions
+        tbody
+          - smart_listing.collection.each do |event|
+            tr
+              td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
+              td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
+              td.fit = event.student_count
+              td.fit = event.lab_source
+              td.fit
+                = link_to "View", admin_classes_show_path(event), title: "View Details"
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        tbody
+          tr
+            td.text-center
+              = t 'generic.no_records'

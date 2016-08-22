@@ -1,0 +1,21 @@
+- content_for :breadcrumbs do
+  = render "breadcrumbs"
+
+.row
+  .col-xs-12
+    = render 'tabs'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading.panel-heading-with-search
+        .row
+          .col-xs-6
+            strong.text-muted
+              = t 'admin.admin_classes.row.classes.title'
+
+      = smart_listing_render(:events)
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .classes').addClass('active-category');

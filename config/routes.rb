@@ -157,6 +157,7 @@ NterOne::Application.routes.draw do
     get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
     get 'admin/classes',                             as: :admin_classes
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
+    get 'admin/instructor_classes',                  as: :admin_instructor_classes
     get 'admin/courses',                             as: :admin_courses
     get 'admin/announcements',                       as: :admin_announcements
     get 'admin/people',                              as: :admin_people

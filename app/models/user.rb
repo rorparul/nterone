@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
+  has_many :taught_events, class_name: 'Event', foreign_key: 'instructor_id'
+
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
