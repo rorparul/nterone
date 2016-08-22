@@ -76,6 +76,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
+    p "REQUEST HOST: #{request.host}"
     case request.host
     when "nterone.la"
       I18n.locale = :es
