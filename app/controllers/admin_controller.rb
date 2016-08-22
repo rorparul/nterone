@@ -86,7 +86,12 @@ class AdminController < ApplicationController
   def people
     users_scope = params[:including_team] == "1" ? User.all : User.only_students
     users_scope = users_scope.search(params[:filter]) if params[:filter]
-    @users = smart_listing_create(:users, users_scope, partial: "users/listing", default_sort: { last_name: "asc"} )
+
+    @users = smart_listing_create(:users, users_scope,
+      partial: "users/listing",
+      default_sort: {last_name: "asc"}
+    )
+
     respond_to do |format|
       format.html
       format.js
