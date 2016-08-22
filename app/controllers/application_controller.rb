@@ -87,7 +87,6 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    # store last url as long as it isn't a /users path
     session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
   end
 
