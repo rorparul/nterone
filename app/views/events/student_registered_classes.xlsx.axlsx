@@ -5,9 +5,9 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'Featured Classes') do |sheet|
     headers = [
-      'Class Date',
-      'Class Name',
-      'No. of Registrations'
+      t('xlsx.student_registered_classes.class_date'),
+      t('xlsx.student_registered_classes.class_name'),
+      t('xlsx.student_registered_classes.num_of_registrations')
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)

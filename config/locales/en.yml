@@ -1,4 +1,5 @@
 en:
+  email: "@nterone.com"
   header:
     partner: "A Veteran-Owned Business"
     contact_us: "Contact Us at 703.972.2288"
@@ -42,6 +43,19 @@ en:
       paragraph: "NterOne can redeem all of your vouchers and credits for free training!"
       contact_us_link: "Contact"
       contact_us_body: " us for more details."
+  featured_classes:
+    column:
+      course_title: "Course Title"
+      date: "Date"
+      length: "Length"
+      format: "Format"
+      location: "Location"
+      price: "Price"
+      preview: "Preview"
+    label:
+      video_preview: "Video Datasheet"
+      pdf_preview: "PDF Datasheet"
+    xlsx: "Download Featured Classes"
   admin:
     filter:
       queue: "Queue"
@@ -156,10 +170,10 @@ en:
           filter:
             registered: "Only registered"
             past: "Including past"
-      xlsx: "Download Student-registered Classes"
       form:
         upload_classes:
           title: "Upload Classes"
+      xlsx: "Download Student-registered Classes"
     admin_lab_rentals:
       row:
         lab_rentals:
@@ -585,6 +599,11 @@ en:
     sitemap: "Sitemap"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. All rights reserved."
+  xlsx:
+    student_registered_classes:
+      class_date: "+Class Date"
+      class_name: "+Class Name"
+      num_of_registrations: "+No. of Registrations"
   generic:
     search:
       placeholder: "Search"
