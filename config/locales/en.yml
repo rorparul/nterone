@@ -601,9 +601,9 @@ en:
     copyright_company: "NterOne Corporation. All rights reserved."
   xlsx:
     student_registered_classes:
-      class_date: "+Class Date"
-      class_name: "+Class Name"
-      num_of_registrations: "+No. of Registrations"
+      class_date: "Class Date"
+      class_name: "Class Name"
+      num_of_registrations: "No. of Registrations"
   generic:
     search:
       placeholder: "Search"
