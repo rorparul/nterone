@@ -40,7 +40,7 @@ es:
       title: "Intercambia tus créditos"
       paragraph: "NterOne puede intercambiar tus créditos de educación por vouchers y entrenamientos!"
       contact_us_link: "Contactos"
-      contact_us_body: "a nosotros por mas detalles."
+      contact_us_body: " a nosotros por mas detalles."
   admin:
     filter:
       queue: "Cola"
@@ -217,7 +217,7 @@ es:
             title: "Titulo"
             kind: "Tipo"
             published: "Publicado"
-        testimonials: 
+        testimonials:
             title: "Testimonios"
             column:
             quotation: "Cotización"
