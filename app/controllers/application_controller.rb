@@ -76,11 +76,10 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    logger.debug "REQUEST HOST: #{request.host}"
     case request.host
-    when "nterone.la"
+    when "www.nterone.la"
       I18n.locale = :es
-    when "nterone.com"
+    when "www.nterone.com"
       I18n.locale = :en
     else
       I18n.locale = :en
