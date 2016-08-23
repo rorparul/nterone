@@ -65,29 +65,7 @@ class AdminController < ApplicationController
     end
   end
 
-  def instructor_classes
-    @events = current_user.taught_events
-    @events = smart_listing_create(:events,
-      @events,
-      partial: 'events/listing_for_instructor',
-      sort_attributes: [
-        [:start_date, 'start_date'],
-        [:start_time, 'start_time'],
-        [:lab_source, 'lab_source']],
-      default_sort: { start_date: 'asc'}
-    )
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
   def classes_show
-    @event = Event.find(params[:id])
-  end
-
-  def classes_show_for_instructor
     @event = Event.find(params[:id])
   end
 
