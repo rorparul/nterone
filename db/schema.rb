@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.integer  "remind_period",                                    default: 0
     t.boolean  "reminder_sent",                                    default: false
     t.text     "note"
-    t.boolean  "count_weekends",                                   default: false
+    t.boolean  "count_weekends"
     t.text     "in_house_note"
   end
 
@@ -588,11 +588,11 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.integer  "status_position"
     t.boolean  "reviewed",                                        default: false
     t.decimal  "balance",                 precision: 8, scale: 2, default: 0.0
-    t.string   "referring_partner_email"
     t.string   "gilmore_order_number"
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
+    t.string   "referring_partner_email"
     t.integer  "source",                                          default: 0
     t.string   "other_source"
   end
@@ -728,17 +728,6 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.integer  "video_on_demand_id"
   end
 
-  create_table "taken_exams", force: :cascade do |t|
-    t.integer  "lms_exam_id"
-    t.integer  "user_id"
-    t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
-  add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
-
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -760,14 +749,6 @@ ActiveRecord::Schema.define(version: 20160821033531) do
 
   add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
-
-  create_table "user_companies", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "company_id"
-  end
-
-  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
-  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                   default: "",               null: false
@@ -899,9 +880,5 @@ ActiveRecord::Schema.define(version: 20160821033531) do
   add_foreign_key "lms_exams", "video_modules"
   add_foreign_key "lms_exams", "video_on_demands"
   add_foreign_key "lms_exams", "videos"
-  add_foreign_key "taken_exams", "lms_exams"
-  add_foreign_key "taken_exams", "users"
-  add_foreign_key "user_companies", "companies"
-  add_foreign_key "user_companies", "users"
   add_foreign_key "users", "companies"
 end

@@ -151,56 +151,11 @@
           table.table.table-condensed
             thead
               tr
-                th title="Sent Webex invite"
-                  span.fa.fa-globe
-                th title="Sent course material"
-                  span.fa.fa-book
-                th title="Sent lab credentials"
-                  span.fa.fa-flask
-                th Invoice #
                 th Student
-                th Contacts
-                th Company
-                th Ship to address
-                th Partner email
-                th Amount Quoted
-                th Amount Paid
-                th Amount Due
-                th Closed Date
-                th Sales Rep
-                th Note
-                th Gilmore order number
-                th Gilmore invoice
-                th Royalty id
-                th Po number
             tbody
               - @event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
-                  td= order_item.sent_webex_invite
-                  td= order_item.sent_course_material
-                  td= order_item.sent_course_material
-                  td= order_item.order.invoice_number
                   td= order_item.user.full_name if order_item.user
-                  td= contact_info(order_item.user) if order_item.user
-                  td= order_item.user.company_name if order_item.user
-                  td= order_item.try(:order).shipping_address
-                  td= order_item.user.referring_partner_email if order_item.user
-                  td= "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-
-                  - if order_item.order
-                    td= "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
-                    td= "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
-                  - else
-                    td
-                    td
-
-                  td.closed-date = order_item.order.closed_date
-                  td= order_item.order.buyer.full_name if order_item.order.buyer
-                  td= order_item.note
-                  td= order_item.order.gilmore_order_number
-                  td= order_item.order.gilmore_invoice
-                  td= order_item.order.royalty_id
-                  td= order_item.order.po_number
 
 javascript:
   $('.role-tab').addClass('active');
