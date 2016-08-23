@@ -25,11 +25,11 @@ p = "Total Credits Applied: #{@order.clc_quantity}"
 
 p
   | If you have any questions please reach out to your sales representative, or contact the sales team at 
-  = mail_to "sales@nterone.com", "sales@nterone.com"
+  = mail_to "sales#{t('email')}", "sales#{t('email')}"
   | . If your question is billing related, you can email 
-  = mail_to "billing@nterone.com", "billing@nterone.com"
+  = mail_to "billing#{t('email')}", "billing#{t('email')}"
   | . If you have issues accessing your NterOne account, or services purchased, you can reach out to 
-  = mail_to "helpdesk@nterone.com", "helpdesk@nterone.com"
+  = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
   | . You can also call us at 
   strong 703-972-2288 
   | to speak with a live person.

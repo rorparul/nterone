@@ -14,7 +14,7 @@
         - if current_user.sales?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-coffee
-            span.text= t 'breadcrumbs.sales'
+            span.text= t 'breadcrumbs.my_sales'
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.instructor?

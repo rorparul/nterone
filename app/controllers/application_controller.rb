@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include CurrentCart
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
   before_action :record_user_activity
   before_action :set_cart
   before_action :get_alert_counts
@@ -74,8 +75,18 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_locale
+    case request.host
+    when "www.nterone.la"
+      I18n.locale = :es
+    when "www.nterone.com"
+      I18n.locale = :en
+    else
+      I18n.locale = :en
+    end
+  end
+
   def store_location
-    # store last url as long as it isn't a /users path
     session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
   end
 
