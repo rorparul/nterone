@@ -3,8 +3,7 @@ class LabRental < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :company
-
-  has_one :lab_course
+  belongs_to :lab_course
 
 	validates :company_id, presence: true
 

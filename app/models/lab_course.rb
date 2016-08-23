@@ -1,3 +1,3 @@
 class LabCourse < ActiveRecord::Base
-  belongs_to :lab_rental
+  has_many :lab_rentals
 end
