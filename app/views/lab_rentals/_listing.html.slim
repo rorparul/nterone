@@ -5,7 +5,7 @@
         thead
           tr
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.course'), :course
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.course'), :lab_course
             - if current_user.admin?
               th.fit
                 = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.company'), :company
@@ -32,7 +32,7 @@
         tbody
           - smart_listing.collection.each do |rental|
             tr
-              td = rental.course
+              td = rental.lab_course.title
               - if current_user.admin?
                 td = rental.company.try(:title)
               td = rental.num_of_students
