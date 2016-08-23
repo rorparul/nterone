@@ -178,6 +178,8 @@ en:
             confirmed: "Confirmed"
             company: "Partner"
       form:
+        edit_lab_rental:
+          title: "Edit Lab Reservation"
         add_lab_rental:
           title: "Request Lab Reservation"
           label:

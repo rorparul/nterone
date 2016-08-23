@@ -29,6 +29,7 @@
               = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.confirmed'), :confirmed
             th.fit
               = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.canceled'), :canceled
+            th.fit Actions
         tbody
           - smart_listing.collection.each do |rental|
             tr
@@ -52,6 +53,8 @@
               td
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
+              td.fit
+                = link_to "Edit", edit_lab_rental_path(rental)
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

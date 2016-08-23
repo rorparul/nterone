@@ -3,22 +3,9 @@ class LabRentalsController < ApplicationController
   helper  SmartListing::Helper
 
   before_action :authenticate_user!, :verify_company
+  before_action :set_lab_rental, only: [:show, :edit, :update]
 
-	def new
-		@lab_rental = LabRental.new
-	end
-
-	def create
-		@lab_rental = LabRental.new(lab_rental_params)
-		if @lab_rental.save
-			LabReservationMailer.new_reservation(current_user, @lab_rental).deliver_now
-			redirect_to lab_rentals_path
-		else
-			render 'new'
-		end
-	end
-
-	def index
+  def index
 		lab_rentals_scope  = current_user.admin? ? LabRental.joins(:company).all : current_user.company.lab_rentals
 		lab_rentals_scope  = LabRental.custom_search(params[:filter]) if params[:filter]
 		@lab_rentals       = smart_listing_create(
@@ -41,13 +28,45 @@ class LabRentalsController < ApplicationController
 
 	def show
 		if params[:only_note] == 'true'
-			@note = LabRental.find(params[:id]).notes
+			@note = @lab_rental.notes
 		else
 			render nothing: true
 		end
 	end
 
+	def new
+		@lab_rental = LabRental.new
+	end
+
+	def create
+		@lab_rental = LabRental.new(lab_rental_params)
+		if @lab_rental.save
+			LabReservationMailer.new_reservation(current_user, @lab_rental).deliver_now
+			redirect_to lab_rentals_path
+		else
+			render 'new'
+		end
+	end
+
+  def edit
+  end
+
+  def update
+    @lab_rental.assign_attributes(lab_rental_params)
+
+    if @lab_rental.save
+      flash[:success] = 'Course successfully updated!'
+      redirect_to edit_lab_rental_path(@lab_rental)
+    else
+      render "edit"
+    end
+  end
+
 	private
+
+  def set_lab_rental
+    @lab_rental = LabRental.find(params[:id])
+  end
 
 	def verify_company
 		redirect_to root_path if (!current_user.admin? && !current_user.company)

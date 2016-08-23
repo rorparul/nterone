@@ -1,15 +1,15 @@
 #lab_rentals_form.form-container
-  = form_for @lab_rental do |f|
-    - if @lab_rental.errors.any?
+  = form_for lab_rental do |f|
+    - if lab_rental.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
           span aria-hidden="true" &times;
-        - @lab_rental.errors.full_messages.each do |msg|
+        - lab_rental.errors.full_messages.each do |msg|
           p = msg
-            
+
     = f.hidden_field :user_id, value: current_user.id
     = f.hidden_field :company_id, value: current_user.company.try(:id)
-    
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -35,7 +35,7 @@
           span.required *
           br
           = f.time_select :start_time, { ampm: true }, { required: true }
-          
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -67,7 +67,7 @@
         .form-group
           = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
-          
+
     .row
       .col-xs-12
         .form-group
