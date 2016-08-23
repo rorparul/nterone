@@ -6,10 +6,10 @@
           span aria-hidden="true" &times;
         - @lab_rental.errors.full_messages.each do |msg|
           p = msg
-            
+
     = f.hidden_field :user_id, value: current_user.id
     = f.hidden_field :company_id, value: current_user.company.try(:id)
-    
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -34,8 +34,8 @@
           = f.label :start_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.start_time')
           span.required *
           br
-          = f.time_select :start_time, { ampm: true }, { required: true }
-          
+          = f.time_select :start_time, { ampm: true, default: {hour: '8', minute: '00'}}, { required: true}
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -67,7 +67,7 @@
         .form-group
           = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
-          
+
     .row
       .col-xs-12
         .form-group
