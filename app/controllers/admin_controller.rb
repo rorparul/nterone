@@ -87,6 +87,10 @@ class AdminController < ApplicationController
     @event = Event.find(params[:id])
   end
 
+  def classes_show_for_instructor
+    @event = Event.find(params[:id])
+  end
+
   def courses
     @courses = Course.order(:title).page(params[:page])
   end

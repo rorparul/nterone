@@ -17,7 +17,7 @@
               td.fit = event.student_count
               td.fit = event.lab_source
               td.fit
-                = link_to "View", admin_classes_show_path(event), title: "View Details"
+                = link_to "View", instructor_classes_show_path(event), title: "View Details"
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

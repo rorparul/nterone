@@ -157,7 +157,6 @@ NterOne::Application.routes.draw do
     get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
     get 'admin/classes',                             as: :admin_classes
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
-    get 'admin/instructor_classes',                  as: :admin_instructor_classes
     get 'admin/courses',                             as: :admin_courses
     get 'admin/announcements',                       as: :admin_announcements
     get 'admin/people',                              as: :admin_people
@@ -180,6 +179,9 @@ NterOne::Application.routes.draw do
     get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
+
+  get 'instructor/classes' => 'instructors#classes', as: :instructor_classes
+  get 'instructor/classes/:id' => 'instructors#classes_show', as: :instructor_classes_show
 
   get  'feed'                                        => 'events#feed'
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap

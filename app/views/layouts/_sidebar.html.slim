@@ -18,7 +18,7 @@
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.instructor?
-          li = link_to main_app.admin_classes_path, class: "role-tab" do
+          li = link_to main_app.instructor_classes_path, class: "role-tab" do
             span.fa.fa-child
             span.text= t 'breadcrumbs.instructor'
             - if @total_alert_count > 0
