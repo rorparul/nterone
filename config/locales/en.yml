@@ -257,6 +257,10 @@ en:
           action:
             edit: "Edit"
             delete: "Delete"
+        lab_course:
+          title: "Lab Courses"
+          column:
+            title: 'Title'
         articles:
           title: "Articles"
           column:
