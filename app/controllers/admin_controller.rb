@@ -102,7 +102,7 @@ class AdminController < ApplicationController
     @static_pages      = Page.where(static: true).order(:title)
     @dynamic_pages     = Page.where(static: false).order(:title)
     @companies         = Company.order(:title)
-    @lab_courses         = LabCourse.order(:title)
+    @lab_courses       = LabCourse.order(:title)
     @articles          = Article.order(created_at: :desc)
     @testimonials      = Testimonial.page(1).per(5)
     @image_store_units = ImageStoreUnit.order(created_at: :desc)
