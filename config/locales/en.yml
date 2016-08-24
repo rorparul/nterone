@@ -305,8 +305,14 @@ en:
           title: "Add Company"
           label:
             company_title: "Title"
+        add_lab_course:
+          title: "Add Lab Course"
+          label:
+            lab_course_title: "Title"
         edit_company:
           title: "Edit Company"
+        edit_lab_course:
+          title: "Edit Lab Course"
         add_testimonial:
           title: "Add Testimonial"
           label:
