@@ -16,6 +16,9 @@
             th.fit
               = t('admin.admin_lab_rentals.row.lab_rentals.column.start_time')
             th.fit
+              = t('admin.admin_lab_rentals.row.lab_rentals.column.end_time')
+
+            th.fit
               = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.instructor'), :instructor
             th.fit
               = t('admin.admin_lab_rentals.row.lab_rentals.column.email')
@@ -38,6 +41,7 @@
               td = rental.num_of_students
               td = rental.first_day
               td = rental.start_time.strftime("%I:%M %p")
+              td = rental.end_time.strftime("%I:%M %p")
               td = rental.instructor
               td = rental.instructor_email
               td = rental.instructor_phone
