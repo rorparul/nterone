@@ -8,6 +8,7 @@ es:
   breadcrumbs:
     home: "Inicio"
     admin: "Mi cuenta"
+    instructor:
     about_us: "Acerca de Nosotros"
     sitemap: "Mapa"
     training: "Entrenamientos"
