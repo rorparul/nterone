@@ -69,6 +69,7 @@ NterOne::Application.routes.draw do
 
   resources :lab_rentals, path: 'lab-reservations'
   resources :companies
+  resources :lab_courses
 
   resources :platforms, path: 'training' do
     resources :categories, except: [:edit] do
@@ -186,6 +187,7 @@ NterOne::Application.routes.draw do
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
+  get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
   get  'about-us/general'                            => 'general#about_us',               as: :about_us
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios

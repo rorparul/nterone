@@ -31,11 +31,11 @@
           fieldset
             label
               = t 'admin.admin_settings.row.contact_info.form.billing_address.header'
-            .row
-              .col-xs-12.col-sm-6
-                .form-group
-                  = f.label :billing_company, t('admin.admin_settings.row.contact_info.form.billing_address.company')
-                  = f.text_field :billing_company, class: 'form-control input-sm'
+            / .row
+            /   .col-xs-12.col-sm-6
+            /     .form-group
+            /       = f.label :billing_company, t('admin.admin_settings.row.contact_info.form.billing_address.company')
+            /       = f.text_field :billing_company, class: 'form-control input-sm'
             .row
               .col-xs-12.col-md-6
                 .form-group
@@ -74,11 +74,11 @@
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
                   = t 'admin.admin_settings.row.contact_info.form.shipping_address.same_as'
-            .row
-              .col-xs-12.col-sm-6
-                .form-group
-                  = f.label :shipping_company, t('admin.admin_settings.row.contact_info.form.shipping_address.company')
-                  = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
+            / .row
+            /   .col-xs-12.col-sm-6
+            /     .form-group
+            /       = f.label :shipping_company, t('admin.admin_settings.row.contact_info.form.shipping_address.company')
+            /       = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group

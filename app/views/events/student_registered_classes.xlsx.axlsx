@@ -1,0 +1,26 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Featured Classes') do |sheet|
+    headers = [
+      t('xlsx.student_registered_classes.class_date'),
+      t('xlsx.student_registered_classes.class_name'),
+      t('xlsx.student_registered_classes.num_of_registrations')
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @platforms.each do |platform|
+      platform.upcoming_events.with_students.each do |event|
+
+        sheet.add_row [
+          event.start_date,
+          event.course.title,
+          event.student_count
+        ]
+      end
+    end
+  end
+end

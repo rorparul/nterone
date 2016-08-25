@@ -1,0 +1,58 @@
+es:
+  devise:
+    confirmations:
+      confirmed: "Su correo electronico ha sido confirmado exitosamente."
+      send_instructions: "En breve, recibirá un correo electronico con instrucciones sobre como confirmar su dirección de correo."
+      send_paranoid_instructions: "Si su correo electronico existe en nuestra base de datos, recibirá un correo electronico con instrucciones sobre como confirmar su dirección de correo."
+    failure:
+      already_authenticated: "Usted esta registrado."
+      inactive: "Su cuenta no ha sido activada aun."
+      invalid: "Invalido %{Llave de autenticacion} o clave."
+      locked: "Su cuenta esta bloqueada."
+      last_attempt: "Usted tiene un intento adicional antes de que su cuenta se bloquee."
+      not_found_in_database: "Invalido %{Llave de autenticacion} o clave."
+      timeout: "Tu session ha expirado. Por favor ingrese de Nuevo para continuar."
+      unauthenticated: "Debes registrarte para continuar."
+      unconfirmed: "Debes confirmer tu direccion de correo para continuar."
+    mailer:
+      confirmation_instructions:
+        subject: "Bienvenido a NterOne.la!"
+      reset_password_instructions:
+        subject: "NterOne.la Reinicio de Clave"
+      unlock_instructions:
+        subject: "Instrucciones de desbloqueo"
+    omniauth_callbacks:
+      failure: "No pudo ser autenticado %{Tipo} porque \"%{razon}\"."
+      success: "Autenticado exitosamente por %{tipo} cuenta."
+    passwords:
+      no_token: "No puede acceder a esta pagina sino proviene del correo de reinicio de clave. Si viene del correo de reinicio de clave, por favor asegure que utilizo el URL completo."
+      send_instructions: " En breve,recibirá un correo electronico con instrucciones sobre como confirmar su dirección de correo."
+      send_paranoid_instructions: " Si su correo electronico existe en nuestra base de datos, recibirá un correo electronico con instrucciones sobre como confirmar su dirección de correo."
+      updated: "Su clave ha sido modificada exitosamente. Usted esta registrado."
+      updated_not_active: " Su clave ha sido modificada exitosamente."
+    registrations:
+      destroyed: "Adios! Su cuenta ha sido cancelada. Esperamos verlo pronto."
+      signed_up: "Bienvenido! Usted se ha registrado exitosamente."
+      signed_up_but_inactive: "Usted se ha registrado exitosamente. Sin embargo, no se ha podido iniciar sesión debido a que su cuenta no esta activada."
+      signed_up_but_locked: " Usted se ha registrado exitosamente. Sin embargo, no se ha podido iniciar sesión debido a que su cuenta esta bloqueada."
+      signed_up_but_unconfirmed: "Un mensaje con un enlace de confirmación ha sido enviado a su dirección de correo electrónico. Por favor, siga el enlace para activar su cuenta. Por favor revise su carpeta de correo no deseado si no recibe el enlace en pocos minutos."
+      update_needs_confirmation: " Ha actualizado su cuenta con éxito, debemos verificar su nueva dirección de correo electrónico. Por favor, consultar su correo electrónico y siga el enlace de confirmación para confirmar su nueva dirección de correo electrónico."
+      updated: "Su cuenta ha sido actualizada exitosamente."
+    sessions:
+      signed_in: "Registro exitoso."
+      signed_out: "Signed out exitoso."
+      already_signed_out: "Signed out exitoso."
+    unlocks:
+      send_instructions: " En breve, recibirá un correo electronico con instrucciones sobre como desbloquear su cuenta."
+      send_paranoid_instructions: "Si su cuenta existe, en breve, recibirá un correo electronico con instrucciones sobre como desbloquear su cuenta."
+      unlocked: "Su cuenta ha sido desbloqueada exitosamente. Por favor registrese para continuar."
+  errors:
+    messages:
+      already_confirmed: "Fue confirmada, por favor intente registrarse"
+      confirmation_period_expired: "necesita ser confirmado entre %{periodo}, por favor solicite uno nuevo"
+      expired: "Ha vencido, por favor solicite uno nuevo"
+      not_found: "no encontrado"
+      not_locked: "No fue bloqueado"
+      not_saved:
+        one: "1 error prohibe esto %{recurso} de ser guardado:"
+        other: "%{cuenta} errores prohibe esto %{recurso} de ser guardado:"

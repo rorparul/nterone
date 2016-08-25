@@ -1,0 +1,24 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t 'breadcrumbs.home'
+  span.seperator
+    | /
+  a href="#{platforms_path}"
+    = t 'breadcrumbs.admin'
+  span.seperator
+    | /
+  span.text-muted
+    = t 'breadcrumbs.edit'
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted
+      = t 'admin.admin_website.form.edit_lab_course.title'
+  .panel-body
+    = render partial: "form", locals: { lab_course: @lab_course }
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });
