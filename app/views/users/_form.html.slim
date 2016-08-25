@@ -5,22 +5,18 @@
         strong.text-muted User Info
       .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
-          #roles
-            = f.fields_for :roles do |ff|
-              = render 'users/role_fields', f: ff
-            / .links
-            /   = link_to_add_association 'Add role', f, :roles
-                  
-          hr
-                
-          .row
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :company_id, "Company Name"
-                = f.select :company_id,
-                  Company.all.collect {|c| [ c.title, c.id ] },
-                  { prompt: t('generic.select.placeholder') },
-                  { class: "form-control input-sm" }
+          - if current_user.admin?
+            .row
+              .col-xs-12
+                .form-group
+                  label Privileges
+                  #roles
+                    = f.fields_for :roles do |ff|
+                      = render 'users/role_fields', f: ff
+                    / .links
+                    /   = link_to_add_association 'Add role', f, :roles
+                    
+            hr
                 
           .row
             .col-xs-12.col-md-6
@@ -37,14 +33,21 @@
               .form-group
                 = f.label :contact_number, "Phone"
                 = f.text_field :contact_number, class: "form-control input-sm"
+            .col-xs-12.col-md-6
+              .form-group
+                = f.label :company_id, "Company Name"
+                = f.select :company_id,
+                  Company.all.collect {|c| [ c.title, c.id ] },
+                  { prompt: t('generic.select.placeholder') },
+                  { class: "form-control input-sm" }
           hr
           fieldset
             label Billing Address
-            .row
-              .col-xs-12.col-sm-6
-                .form-group
-                  = f.label :billing_company, 'Company'
-                  = f.text_field :billing_company, class: 'form-control input-sm'
+            / .row
+            /   .col-xs-12.col-sm-6
+            /     .form-group
+            /       = f.label :billing_company, 'Company'
+            /       = f.text_field :billing_company, class: 'form-control input-sm'
             .row
               .col-xs-12.col-md-6
                 .form-group
@@ -82,11 +85,11 @@
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
                   |  Same as Billing
-            .row
-              .col-xs-12.col-sm-6
-                .form-group
-                  = f.label :shipping_company, 'Company'
-                  = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
+            / .row
+            /   .col-xs-12.col-sm-6
+            /     .form-group
+            /       = f.label :shipping_company, 'Company'
+            /       = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group
