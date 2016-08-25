@@ -5,7 +5,7 @@ class LabRental < ActiveRecord::Base
 	belongs_to :company
   belongs_to :lab_course
 
-	validates :company_id, presence: true
+	validates :company_id, :lab_course_id, presence: true
 
 	search_scope :custom_search do
     attributes :course, :instructor, :instructor_email, :location
