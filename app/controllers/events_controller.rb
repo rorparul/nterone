@@ -147,6 +147,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
+                                  :street,
                                   :file,
                                   :public,
                                   :status,
