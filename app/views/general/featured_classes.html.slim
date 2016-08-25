@@ -32,6 +32,7 @@
                     th Date
                     th Length
                     th Format
+                    th Language
                     th Location
                     th Price
                     - if !user_signed_in? || (user_signed_in? && current_user.member?)
@@ -50,6 +51,7 @@
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
                       td.fit = event.format
+                      td.fit = event.language.upcase
                       - if event.city.present? || event.state.present?
                         td.fit = "#{event.city}, #{event.state}"
                       - else

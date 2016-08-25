@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160821033531) do
+ActiveRecord::Schema.define(version: 20160825133223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,6 +224,8 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.text     "note"
     t.boolean  "count_weekends",                                   default: false
     t.text     "in_house_note"
+    t.string   "street"
+    t.integer  "language",                                         default: 0
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -415,6 +417,12 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "lab_courses", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lab_rentals", force: :cascade do |t|
     t.date     "first_day"
     t.integer  "num_of_students",  default: 0
@@ -431,7 +439,11 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
+    t.time     "end_time"
+    t.integer  "lab_course_id"
   end
+
+  add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
 
   create_table "leads", force: :cascade do |t|
     t.integer  "seller_id"
@@ -888,6 +900,7 @@ ActiveRecord::Schema.define(version: 20160821033531) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_attempts"

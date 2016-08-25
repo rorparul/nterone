@@ -57,10 +57,11 @@ class LabRentalsController < ApplicationController
     params.require(:lab_rental).permit(
 			:user_id,
 			:company_id,
-			:course,
+			:lab_course_id,
      	:first_day,
      	:num_of_students,
-     	:start_time,
+      :start_time,
+     	:end_time,
      	:instructor,
      	:instructor_email,
      	:instructor_phone,

@@ -1,0 +1,24 @@
+en:
+  devise:
+    failure:
+      invited: "Tienes una invitación pendiente, acepte para finalizar la creación de su cuenta."
+    invitations:
+      send_instructions: "Un correo electronico ha sido enviado a %{email}."
+      invitation_token_invalid: "El Token proporcionado no es valido"
+      updated: "Su Clave se ha creado exitosamente. Usted esta registrado."
+      updated_not_active: "Su clave se ha creado exitosamente."
+      no_invitations_remaining: "No invitaciones pendientes"
+      invitation_removed: "Tu invitación ha sido removida."
+      new:
+        header: "Enviar invitación"
+        submit_button: "Enviar invitación"
+      edit:
+        header: "Crea tu clave"
+        submit_button: "Crear mi clave"
+    mailer:
+      invitation_instructions:
+        subject: "Invitación para registrarse en NterOne.la"
+        hello: "Hola %{Primer Nombre},"
+        someone_invited_you: "Esto es un correo automatico iniciado por nuestro equipo de operaciones y ventas que permitira la creación de una cuenta en %{url}. Por favor continua en el enlace siguiente para completar el proceso de registro."
+        accept: "Acepta tu invitación"
+        ignore: "Si no desea aceptar la invitación por favor ignore este correo.<br/>Su cuenta no será creada hasta que accede al enlace anterior y cree su clave."
