@@ -98,12 +98,20 @@
                      us_states,
                      { prompt: true },
                      { class: 'form-control input-sm' }
+
     .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :street, 'Street'
+          br
+          = f.text_field :street, class: 'form-control input-sm'
+
       .col-xs-12.col-sm-6
         .form-group
           = f.label :lab_source, 'Lab Source'
           br
           = f.text_field :lab_source, class: 'form-control input-sm'
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :price
