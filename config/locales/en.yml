@@ -185,6 +185,7 @@ en:
             first_day: "1st Day of Class"
             number_of_students: "Number of Students"
             start_time: "Start Time (EST)"
+            end_time: "End Time (EST)"
             instructor: "Instructor Name"
             instructor_email: "Instructor Email"
             instructor_phone: "Instructor Phone"
