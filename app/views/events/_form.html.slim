@@ -65,7 +65,17 @@
           = f.label :should_remind, 'Remind Students?'
           br
           = f.check_box :should_remind
+    hr
 
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :language
+          = f.select :language,
+                     [['English', 'en'],
+                      ['Spain', 'es']],
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
     .row
       .col-xs-12.col-sm-6
         .form-group
