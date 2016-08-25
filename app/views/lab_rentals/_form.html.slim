@@ -6,21 +6,16 @@
           span aria-hidden="true" &times;
         - @lab_rental.errors.full_messages.each do |msg|
           p = msg
-            
+
     = f.hidden_field :user_id, value: current_user.id
     = f.hidden_field :company_id, value: current_user.company.try(:id)
-    
+
     .row
       .col-xs-12.col-md-4
         .form-group
-          = f.label :course, t('admin.admin_lab_rentals.form.add_lab_rental.label.course')
+          = f.label :lab_course_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.course')
           span.required *
-          = f.select :course,
-                 ["vSphere: ICM",
-                  "vSphere: Optimize and Scale",
-                  "Horizon View: ICM",
-                  "vRealize Automation: ICM",
-                  "NSX: ICM"],
+          = f.select :lab_course_id, LabCourse.all.collect{|course| [course.title, course.id]},
                  { prompt: t('generic.select.placeholder')},
                  { required: true, class: "form-control input-sm" }
       .col-xs-12.col-md-4
@@ -29,13 +24,19 @@
           span.required *
           br
           = f.date_select :first_day, {}, { required: true }
-      .col-xs-12.col-md-4
+      .col-xs-12.col-md-2
         .form-group
           = f.label :start_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.start_time')
           span.required *
           br
-          = f.time_select :start_time, { ampm: true }, { required: true }
-          
+          = f.time_select :start_time, { ampm: true, default: { hour: '8', minute: '00' } }, { required: true }
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :end_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.end_time')
+          span.required *
+          br
+          = f.time_select :end_time, { ampm: true, default: { hour: '12', minute: '00' } }, { required: true }
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -67,7 +68,7 @@
         .form-group
           = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
-          
+
     .row
       .col-xs-12
         .form-group

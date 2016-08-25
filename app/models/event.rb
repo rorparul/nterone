@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   include SearchCop
 
+  enum language: { en: 0, es: 1 }
+
   enum remind_period: {
     one_week: 0,
     two_week: 1,

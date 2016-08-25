@@ -147,6 +147,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
+                                  :street,
                                   :file,
                                   :public,
                                   :status,
@@ -166,7 +167,8 @@ class EventsController < ApplicationController
                                   :sent_all_lab_credentials,
                                   :note,
                                   :in_house_note,
-                                  :count_weekends)
+                                  :count_weekends,
+                                  :language)
   end
 
   def in_house_note_params

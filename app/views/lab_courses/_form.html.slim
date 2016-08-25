@@ -1,0 +1,20 @@
+.form-container
+  = form_for @lab_course do |f|
+    - if @lab_course.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(@lab_course.errors.count, 'error')}:"
+        ul
+          - @lab_course.errors.full_messages.each do |msg|
+            li = msg
+
+    .form-group
+      = f.label :lab_course, t('admin.admin_website.form.add_lab_course.label.lab_course_title')
+      = f.text_field :title, class: 'form-control input-sm'
+
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'

@@ -186,6 +186,7 @@ en:
             first_day: "1st Day of Class"
             number_of_students: "Number of Students"
             start_time: "Start Time (EST)"
+            end_time: "End Time (EST)"
             instructor: "Instructor Name"
             instructor_email: "Instructor Email"
             instructor_phone: "Instructor Phone"
@@ -258,6 +259,10 @@ en:
           action:
             edit: "Edit"
             delete: "Delete"
+        lab_course:
+          title: "Lab Courses"
+          column:
+            title: 'Title'
         articles:
           title: "Articles"
           column:
@@ -302,8 +307,14 @@ en:
           title: "Add Company"
           label:
             company_title: "Title"
+        add_lab_course:
+          title: "Add Lab Course"
+          label:
+            lab_course_title: "Title"
         edit_company:
           title: "Edit Company"
+        edit_lab_course:
+          title: "Edit Lab Course"
         add_testimonial:
           title: "Add Testimonial"
           label:
