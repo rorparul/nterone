@@ -41,7 +41,8 @@ class LabRentalsController < ApplicationController
 	def create
 		@lab_rental = LabRental.new(lab_rental_params)
 		if @lab_rental.save
-			LabReservationMailer.new_reservation(current_user, @lab_rental).deliver_now
+			flash[:success] = 'Lab Reservation successfully submitted!'
+			LabReservationMailer.create_reservation(current_user, @lab_rental).deliver_now
 			redirect_to lab_rentals_path
 		else
 			render 'new'
@@ -55,8 +56,9 @@ class LabRentalsController < ApplicationController
     @lab_rental.assign_attributes(lab_rental_params)
 
     if @lab_rental.save
-      flash[:success] = 'Course successfully updated!'
-      redirect_to edit_lab_rental_path(@lab_rental)
+			LabReservationMailer.update_reservation(current_user, @lab_rental).deliver_now
+      flash[:success] = 'Lab Reservation successfully updated!'
+      redirect_to lab_rentals_path
     else
       render "edit"
     end
