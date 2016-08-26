@@ -8,6 +8,6 @@ class CustomMailer < Devise::Mailer
     @user = user
     mail(to: @user.email,
          bcc: ["sales#{I18n.t('email')}", "helpdesk#{I18n.t('email')}", "billing#{I18n.t('email')}"],
-         subject: 'Welcome to NterOne.com!')
+         subject: "Welcome to #{t'website'}!")
   end
 end
