@@ -48,6 +48,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
+  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
+
   devise :database_authenticatable,
          :invitable,
          :registerable,
