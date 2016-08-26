@@ -10,8 +10,8 @@ class LeadsController < ApplicationController
                                           quote: lead.discounted_price,
                                           course_titles: lead.planned_unattended_courses_titles })
       flash[:success] = "Thank you for your inquiry. Someone will be in contact with
-                       you soon! Feel free to #{view_context.link_to('contact us',
-                       'http://www.nterone.com/contact-us/', html_options = {target: 'none'})}
+                       you soon! Feel free to #{view_context.link_to("contact us",
+                       contact_us_path, html_options = { remote: true })}
                        if you have any questions in the meantime.".html_safe
     else
       falsh[:alert] = "Request failed to send!"

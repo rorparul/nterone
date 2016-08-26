@@ -1,6 +1,6 @@
 <p>Hello <%= @user.first_name %>,</p>
 
-<p>You have successfully registered in our system. With your new <a href="www.nterone.com">nterone.com</a> account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums.</p>
+<p>You have successfully registered in our system. With your new <a href="www.<%= t'website' %>">nterone.com</a> account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums.</p>
 
 <p>We appreciate your time and look for to providing high impact training solutions. Please reach out to <a href='<%= "mailto:helpdesk#{t('email')}" %>'>helpdesk<%= "#{t('email')}" %></a> if you have any issues with login, or contact <a href='<%= "mailto:sales#{t('email')}" %>'>sales<%= "#{t('email')}" %></a> if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable.</p>
 

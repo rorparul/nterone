@@ -203,7 +203,7 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new'
+  get  'contact_us'                                  => 'general#contact_us_new',         as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
