@@ -76,8 +76,8 @@
                                     = "#{event.end_date.strftime("%-m/%-d/%y")}"
                                 td = "#{pluralize(event.length, 'Day')}"
                                 td = event.format
-                                - if event.city.present? || event.state.present?
-                                  td = "#{event.city}, #{event.state}"
+                                - if event.city.present? || event.state.present? || event.street.present?
+                                  td= [event.city, event.state, event.street].reject(&:blank?).join(', ')
                                 - else
                                   - if event.format == "Live Online"
                                     td Webex
@@ -108,7 +108,7 @@
                         - else
                           tr
                             td.text-center
-                              | Contact 
+                              | Contact
                               = link_to "sales#{t('email')}", "mailto:sales#{t('email')}"
                               |  for training schedule.
 
@@ -156,7 +156,7 @@
         p The NterOne team will be happy to answer your questions.
         p
           | Email:
-          a href="mailto:sales#{t('email')}" 
+          a href="mailto:sales#{t('email')}"
             = "sales#{t('email')}"
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'

@@ -52,8 +52,8 @@
                       td.fit = "#{pluralize(event.length, 'Day')}"
                       td.fit = event.format
                       td.fit = event.language.upcase
-                      - if event.city.present? || event.state.present?
-                        td.fit = "#{event.city}, #{event.state}"
+                      - if event.city.present? || event.state.present? || event.street.present?
+                        td.fit= [event.city, event.state, event.street].reject(&:blank?).join(', ')
                       - else
                         - if event.format == "Live Online"
                           td Webex
