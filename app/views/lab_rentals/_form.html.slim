@@ -1,10 +1,10 @@
 #lab_rentals_form.form-container
-  = form_for @lab_rental do |f|
-    - if @lab_rental.errors.any?
+  = form_for lab_rental do |f|
+    - if lab_rental.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
           span aria-hidden="true" &times;
-        - @lab_rental.errors.full_messages.each do |msg|
+        - lab_rental.errors.full_messages.each do |msg|
           p = msg
 
     = f.hidden_field :user_id, value: current_user.id

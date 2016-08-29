@@ -190,6 +190,7 @@ NterOne::Application.routes.draw do
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
+  get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
   get  'about-us/general'                            => 'general#about_us',               as: :about_us
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
@@ -205,7 +206,7 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new'
+  get  'contact_us'                                  => 'general#contact_us_new',         as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
