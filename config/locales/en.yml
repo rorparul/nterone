@@ -370,6 +370,11 @@ en:
             new_password: "New Password"
             new_password_confirm: "New Password Confirmation"
             current_password: "Current Password"
+    admin_events:
+      form:
+        labels:
+          instructor: "Instructor"
+          input_blank: "Please select"
   about_us:
     categories:
       about: "About NterOne"
@@ -597,6 +602,20 @@ en:
     sitemap: "Sitemap"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. All rights reserved."
+  instructor:
+    class_listing:
+      headers:
+        start_date: "Start Date"
+        start_time: "Start Time"
+        students: "Students"
+        lab_source: "Lab Source"
+        actions: "Actions"
+    classes:
+      breadcrumbs:
+        my_classes: "My Classes"
+    classes_show:
+      registrations: "Class Registrations"
+      students: "Students"
   generic:
     search:
       placeholder: "Search"
@@ -613,6 +632,8 @@ en:
       edit: "Edit"
       delete: "Delete"
       upload: "Upload"
+      view: "View"
+      view_details: "View Details"
     prompt:
       none_select: "None"
       confirm_delete: "Are you sure?"

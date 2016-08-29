@@ -307,6 +307,11 @@ es:
             new_password: "Nueva Clave"
             new_password_confirm: "Confirmación Nueva Clave"
             current_password: "Clave Actual"
+    admin_events:
+      form:
+        labels:
+          instructor: "Placeholder"
+          input_blank: "Placeholder"
   about_us:
     categories:
       about: "Acerca NterOne"
@@ -534,6 +539,20 @@ es:
     sitemap: "Mapa del Sitio"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. Todos los Derechos Reservados."
+  instructor:
+    class_listing:
+      headers:
+        start_date: "Placeholder"
+        start_time: "Placeholder"
+        students: "Placeholder"
+        lab_source: "Placeholder"
+        actions: "Placeholder"
+    classes:
+      breadcrumbs:
+        my_classes: "Placeholder"
+    classes_show:
+      registrations: "Class Registrations"
+      students: "Students"
   generic:
     search:
       placeholder: "Buscar"
@@ -550,6 +569,8 @@ es:
       edit: "Editar"
       delete: "Borrar"
       upload: "Cargar"
+      view: "Placeholder"
+      view_details: "Placeholder"
     prompt:
       none_select: "Ninguno"
       confirm_delete: "Estas Seguro?"

@@ -4,7 +4,7 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-    span.text-muted My Classes
+    span.text-muted= t('instructor.classes.breadcrumbs.my_classes')
 
 
 .row
@@ -28,13 +28,13 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Class Registrations
+        strong.text-muted= t('instructor.classes_show.registrations')
       .panel-table
         .responsive-table.table-scrollable
           table.table.table-condensed
             thead
               tr
-                th Student
+                th= t('instructor.classes_show.students')
             tbody
               - @event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"

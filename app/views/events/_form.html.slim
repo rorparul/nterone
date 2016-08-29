@@ -78,10 +78,10 @@
                      { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :instructor_id, "Instructor"
+          = f.label :instructor_id, t('admin.admin_events.form.labels.instructor')
           = f.select :instructor_id,
                     User.only_instructors.collect { |user| [user.full_name, user.id] },
-                    { prompt: true, include_blank: "Please select" },
+                    { prompt: true, include_blank: t('admin.admin_events.form.labels.input_blank') },
                     { class: 'form-control input-sm' }
 
     .row

@@ -4,11 +4,11 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "Start Date", :start_date
-            th.fit = smart_listing.sortable "Start Time", :start_time
-            th.fit Students
-            th.fit = smart_listing.sortable "Lab Source", :lab_source
-            th.fit Actions
+            th.fit = smart_listing.sortable t('instructor.class_listing.headers.start_date'), :start_date
+            th.fit = smart_listing.sortable t('instructor.class_listing.headers.start_time'), :start_time
+            th.fit= t('instructor.class_listing.headers.students')
+            th.fit = smart_listing.sortable t('instructor.class_listing.headers.lab_source'), :lab_source
+            th.fit= t('instructor.class_listing.headers.actions')
         tbody
           - smart_listing.collection.each do |event|
             tr
@@ -17,7 +17,7 @@
               td.fit = event.student_count
               td.fit = event.lab_source
               td.fit
-                = link_to "View", instructor_classes_show_path(event), title: "View Details"
+                = link_to t('generic.action.view'), instructor_classes_show_path(event), title: t('generic.action.view_details')
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
