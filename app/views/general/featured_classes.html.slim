@@ -64,7 +64,7 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             | $
                             span itemprop="price"
-                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 0))}"
                       - else
                         td.fit
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
