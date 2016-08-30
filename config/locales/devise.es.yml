@@ -7,10 +7,10 @@ es:
     failure:
       already_authenticated: "Usted esta registrado."
       inactive: "Su cuenta no ha sido activada aun."
-      invalid: "Invalido %{Llave de autenticacion} o clave."
+      invalid: "Invalido %{authentication_keys} o clave."
       locked: "Su cuenta esta bloqueada."
       last_attempt: "Usted tiene un intento adicional antes de que su cuenta se bloquee."
-      not_found_in_database: "Invalido %{Llave de autenticacion} o clave."
+      not_found_in_database: "Invalido %{authentication_keys} o clave."
       timeout: "Tu session ha expirado. Por favor ingrese de Nuevo para continuar."
       unauthenticated: "Debes registrarte para continuar."
       unconfirmed: "Debes confirmer tu direccion de correo para continuar."
@@ -22,8 +22,8 @@ es:
       unlock_instructions:
         subject: "Instrucciones de desbloqueo"
     omniauth_callbacks:
-      failure: "No pudo ser autenticado %{Tipo} porque \"%{razon}\"."
-      success: "Autenticado exitosamente por %{tipo} cuenta."
+      failure: "No pudo ser autenticado %{kind} porque \"%{reason}\"."
+      success: "Autenticado exitosamente por %{kind} cuenta."
     passwords:
       no_token: "No puede acceder a esta pagina sino proviene del correo de reinicio de clave. Si viene del correo de reinicio de clave, por favor asegure que utilizo el URL completo."
       send_instructions: " En breve,recibirá un correo electronico con instrucciones sobre como confirmar su dirección de correo."
@@ -49,10 +49,10 @@ es:
   errors:
     messages:
       already_confirmed: "Fue confirmada, por favor intente registrarse"
-      confirmation_period_expired: "necesita ser confirmado entre %{periodo}, por favor solicite uno nuevo"
+      confirmation_period_expired: "necesita ser confirmado entre %{period}, por favor solicite uno nuevo"
       expired: "Ha vencido, por favor solicite uno nuevo"
       not_found: "no encontrado"
       not_locked: "No fue bloqueado"
       not_saved:
-        one: "1 error prohibe esto %{recurso} de ser guardado:"
-        other: "%{cuenta} errores prohibe esto %{recurso} de ser guardado:"
+        one: "1 error prohibe esto %{resource} de ser guardado:"
+        other: "%{count} errores prohibe esto %{resource} de ser guardado:"
