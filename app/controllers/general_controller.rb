@@ -66,10 +66,18 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_new
-    if user_signed_in?
-      @user = current_user
-    else
-      @user = User.new
+    respond_to do |format|
+      format.js do
+        if user_signed_in?
+          @user = current_user
+        else
+          @user = User.new
+        end
+      end
+
+      format.html do
+        redirect_to root_path
+      end
     end
   end
 
