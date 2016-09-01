@@ -8,8 +8,17 @@
           p = msg
 
     = f.hidden_field :user_id, value: current_user.id
+    
     - unless current_user.admin?
       = f.hidden_field :company_id, value: current_user.company.try(:id)
+    - else
+      .row
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :company_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.company')
+            = f.select :company_id, Company.all.collect{ |company| [company.title, company.id] },
+                   { prompt: 'Please select' },
+                   { class: "form-control input-sm" }
 
     .row
       .col-xs-12.col-md-4
@@ -69,16 +78,6 @@
         .form-group
           = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
-
-    - if current_user.admin?
-      .row
-        .col-xs-12.col-md-4
-          .form-group
-            = f.label :company_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.company')
-            = f.select :company_id, Company.all.collect{|company| [company.title, company.id]},
-                   { prompt: true, include_blank: "Please select" },
-                   { class: "form-control input-sm" }
-
 
     .row
       .col-xs-12
