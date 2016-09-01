@@ -41,7 +41,7 @@ html
             - if !user_signed_in? || (user_signed_in? && current_user.member?)
               = link_to main_app.new_order_path do
                 i.fa.fa-shopping-cart
-                | My Cart
+                = t 'header.my_cart'
                 span.badge = @cart.order_items.count
       hr
       .content-admin

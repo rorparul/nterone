@@ -9,10 +9,11 @@
   .col-xs-12.col-md-6
     .panel.panel-default
       .panel-heading
-        strong.text-muted Order Details
+        strong.text-muted
+          = t 'admin.admin_orders.show.order_details.title'
         / .panel-actions-overlay
         /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-        /     | Edit
+        /     = t 'generic.action.edit'
       .table-row
         .table-col
           .panel-table
@@ -28,10 +29,10 @@
   .col-xs-12.col-md-6
     .panel.panel-default
       .panel-heading
-        strong.text-muted = pluralize(@order.order_items.count, 'Order Item')
+        strong.text-muted = pluralize(@order.order_items.count, t('admin.admin_orders.show.order_items.title'))
         / .panel-actions-overlay
         /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-        /     | Edit
+        /     = t 'generic.action.edit'
       .panel-table
         .responsive-table
           table.table.table-condensed
@@ -40,9 +41,9 @@
                 - if order_item.orderable_type == "Event"
                   tr
                     td 
-                      | Class for 
+                      = "#{t('admin.admin_orders.show.order_items.label.class_for')} "
                       = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
-                      |  from 
+                      = " #{t('admin.admin_orders.show.order_items.label.from')} "
                       = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} to #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", admin_classes_show_path(order_item.orderable)
                       
                 - if order_item.orderable_type == "VideoOnDemand"

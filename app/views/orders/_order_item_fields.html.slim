@@ -33,7 +33,7 @@
                      { class: "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
       .col-xs-12.col-sm-3
         .form-group
-          = f.label :price
+          = f.label :price, t('admin_orders.form.add_order.label.price')
           = f.text_field :price, class: 'form-control input-sm order-item-price'
     - if order.new_record?
       = link_to_remove_association t('admin.admin_orders.form.add_order.label.courses.video_on_demand.remove'), f

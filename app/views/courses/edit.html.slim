@@ -21,7 +21,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Course
+    strong.text-muted
+      = t 'admin.admin_courses.form.edit_course.title'
   .panel-body
     = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
 

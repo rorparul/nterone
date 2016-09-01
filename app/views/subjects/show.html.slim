@@ -24,7 +24,7 @@
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
       i.fa.fa-plus
-      | Add Table
+      = t 'subjects.show.action.add_table'
 
 .row#subject-description
   .col-xs-12
@@ -43,12 +43,14 @@
         a href="#{@platform.url}" target="_blank"
           button#find-testing-center
             span.fa.fa-location-arrow
-            span Find Testing Center
+            span
+            = t 'subjects.show.label.find_testing_center'
     - if !user_signed_in?
       a href="#{main_app.new_user_session_path}"
         button#find-testing-center
           span.fa.fa-sign-in
-          span Login to add to My Plan
+          span
+          = t 'subjects.show.label.login_to_add_to_plan'
     - if user_signed_in? && current_user.member?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :user_id, value: current_user.id
@@ -56,16 +58,19 @@
         - if user_signed_in? && current_user.planned.include?(@subject)
           button.active id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-minus
-            span Remove from My Plan
+            span 
+            = t 'subjects.show.label.remove_from_plan'
         - else
           button.inactive id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-plus
-            span Add to My Plan
+            span
+            = t 'subjects.show.label.add_to_plan'
     - if user_signed_in? && current_user.sales?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :subject_id, value: @subject.id
         button.inactive id="subject-toggle-#{@subject.id}" type="submit"
-          span Toggle
+          span
+          = t 'subjects.show.label.toggle'
         = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
 
 javascript:

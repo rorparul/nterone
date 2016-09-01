@@ -4,21 +4,26 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-  span.text-muted Confirmation
+  span.text-muted
+  = t 'breadcrumbs.confirmation'
     
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted = "Order ##{@order.id} Confirmation"
+        strong.text-muted = "#{t('orders.confirmation.header1')} ##{@order.id} #{t('orders.confirmation.header2')}"
       .table-responsive
         table.table
           thead
             tr
-              th Item
-              th Date
-              th Format
-              th Price
+              th 
+                = t 'orders.confirmation.label.item'
+              th
+                = t 'orders.confirmation.label.date'
+              th
+                = t 'orders.confirmation.label.format'
+              th 
+                = t 'orders.confirmation.label.price'
           tbody
             - @order.order_items.each do |order_item|
               tr
@@ -28,32 +33,36 @@
                   td = order_item.orderable.format
                 - if order_item.orderable_type == 'VideoOnDemand'
                   td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
-                  td One Year of Access
-                  td Video On Demand
+                  td 
+                    = t 'orders.confirmation.value.one_year_of_access'
+                  td
+                    = t 'orders.confirmation.value.video_on_demand'
                 - if order_item.price > 0.00
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                 - else
-                  td Free
+                  td
+                    = t 'orders.confirmation.value.free'
                 
 .row
   .col-xs-12
-    p = "Total Charged to Card: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-    p = "Total Credits Applied: #{@order.clc_quantity}"
+    p = "#{t('orders.confirmation.total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+    p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
         
 .row
   .col-xs-12
     p
-      | If you have any questions please reach out to your sales representative, or contact the sales team at 
+      = t 'orders.confirmation.copy1'
       = mail_to "sales#{t('email')}", "sales#{t('email')}"
-      | . If your question is billing related, you can email 
+      = t 'orders.confirmation.copy2'
       = mail_to "billing#{t('email')}", "billing#{t('email')}"
-      | . If you have issues accessing your NterOne account, or services purchased, you can reach out to 
+      = t 'orders.confirmation.copy3'
       = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
-      | . You can also call us at 
+      = t 'orders.confirmation.copy4'
       strong 703-972-2288 
-      | to speak with a live person.
+      = t 'orders.confirmation.copy5'
     
-    p You will receive a separate e-mail confirmation with specific details for your upcoming training session, seminar or product test drive event.
+    p 
+      = t 'orders.confirmation.copy6'
     
 .row
   .col-xs-12

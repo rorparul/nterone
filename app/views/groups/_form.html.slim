@@ -12,10 +12,11 @@
     = f.hidden_field :subject_ids, value: subject.id
 
     .form-group
-      = f.label :header, "Header"
+      = f.label :header, t('partial.groups.form.header')
       = f.text_field :header, class: 'form-control input-sm'
 
-    label.group-items-header Table Items
+    label.group-items-header
+      = t 'partial.groups.form.table_items'
     hr.group-items-divider
     - if group.id
       ul#group-items
@@ -28,15 +29,15 @@
                                         dividers: dividers,
                                         custom_items: custom_items
         .links
-          = link_to_add_association 'Insert Certification',         f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_certification'),         f, :group_items,
             render_options: {locals: {type: 'Subject',              subjects: subjects}}
-          = link_to_add_association 'Insert Course',                f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_course'),                f, :group_items,
             render_options: {locals: {type: 'Course',               courses: courses}}
-          = link_to_add_association 'Insert Exam-Course',           f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_exam_course'),           f, :group_items,
             render_options: {locals: {type: 'ExamAndCourseDynamic', exam_and_course_dynamics: exam_and_course_dynamics}}
-          = link_to_add_association 'Insert Divider',               f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_divider'),               f, :group_items,
             render_options: {locals: {type: 'Divider',              dividers: dividers}}
-          = link_to_add_association 'Insert Custom Item',           f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_custom_item'),           f, :group_items,
             render_options: {locals: {type: 'CustomItem',           custom_items: custom_items}}
     - else
       ul#group-items
@@ -44,22 +45,24 @@
           = render 'group_item_fields', f: group_item,
                                         type: nil
         .links
-          = link_to_add_association 'Insert Certification',         f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_certification'),         f, :group_items,
             render_options: {locals: {type: 'Subject',              subjects: subjects}}
-          = link_to_add_association 'Insert Course',                f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_course'),                f, :group_items,
             render_options: {locals: {type: 'Course',               courses: courses}}
-          = link_to_add_association 'Insert Exam-Course',           f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_exam_course'),           f, :group_items,
             render_options: {locals: {type: 'ExamAndCourseDynamic', exam_and_course_dynamics: exam_and_course_dynamics}}
-          = link_to_add_association 'Insert Divider',               f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_divider'),               f, :group_items,
             render_options: {locals: {type: 'Divider',              dividers: dividers}}
-          = link_to_add_association 'Insert Custom Item',           f, :group_items,
+          = link_to_add_association t('partial.groups.form.insert_custom_item'),           f, :group_items,
             render_options: {locals: {type: 'CustomItem',           custom_items: custom_items}}
 
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'
       - if group.id
-        = link_to 'Delete', platform_subject_group_path(platform, subject, group), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to t('generic.action.delete'), platform_subject_group_path(platform, subject, group), method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'
 
 javascript:
   $("#group-items").sortable({

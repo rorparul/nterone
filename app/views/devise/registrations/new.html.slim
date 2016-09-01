@@ -1,59 +1,62 @@
 = form_for resource, as: resource_name, url: registration_path(resource), html: { "data-parsley-validate" => true } do |f|
   = devise_error_messages!
-  = f.text_field  :first_name, autofocus: true,  placeholder: 'First Name',    class: 'form-control sign-in-field session-input',          required: true
-  = f.text_field  :last_name,  autofocus: false, placeholder: 'Last Name',     class: 'form-control sign-in-field session-input',          required: true
-  = f.email_field :email,      autofocus: false, placeholder: 'Email Address', class: 'form-control regEmail sign-in-field session-input', required: true
+  = f.text_field  :first_name, autofocus: true,  placeholder: t('devise.registrations.placeholder.first_name'),    class: 'form-control sign-in-field session-input',          required: true
+  = f.text_field  :last_name,  autofocus: false, placeholder: t('devise.registrations.placeholder.last_name'),     class: 'form-control sign-in-field session-input',          required: true
+  = f.email_field :email,      autofocus: false, placeholder: t('devise.registrations.placeholder.email'), class: 'form-control regEmail sign-in-field session-input', required: true
 
   - if @validatable
-    em = "(#{@minimum_password_length} characters minimum)"
+    em = "(#{@minimum_password_length} #{t('devise.registrations.copy1')})"
     br
-  = f.password_field :password,              autocomplete: "off", placeholder: 'Password',         class: 'form-control sign-in-field session-input', id: 'password',         required: true
-  = f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Confirm Password', class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
-  #instructions Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number.
+  = f.password_field :password,              autocomplete: "off", placeholder: t('devise.registrations.placeholder.password'),         class: 'form-control sign-in-field session-input', id: 'password',         required: true
+  = f.password_field :password_confirmation, autocomplete: "off", placeholder: t('devise.registrations.placeholder.password_confirmation'), class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
+  #instructions
+    = t 'devise.registrations.instructions'
   
   - if @special_event || resource.interest
     div style="margin-top: 12px;"
-      = text_field_tag 'poker_chip_number', nil, placeholder: 'Poker Chip Number', class: 'form-control sign-in-field session-input'
+      = text_field_tag 'poker_chip_number', nil, placeholder: t('devise.registrations.placeholder.poker_chip_number'), class: 'form-control sign-in-field session-input'
     
-    p style="margin-top: 12px;" Interested In (Please Select All That Apply):
+    p style="margin-top: 12px;"
+      = t 'devise.registrations.copy2'
     - resource.build_interest
     = f.fields_for :interest do |ff|
       .checkbox
         label
           = ff.check_box :data_center
-          | Data Center
+          = t 'devise.registrations.label.data_center'
       .checkbox
         label
           = ff.check_box :collaboration
-          | Collaboration
+          = t 'devise.registrations.label.collaboration'
       .checkbox
         label
           = ff.check_box :network
-          | Network
+          = t 'devise.registrations.label.network'
       .checkbox
         label
           = ff.check_box :security
-          | Security
+          = t 'devise.registrations.label.security'
       .checkbox
         label
           = ff.check_box :associate_level_certification
-          | Associate Level Certification
+          = t 'devise.registrations.label.associate_level'
       .checkbox
         label
           = ff.check_box :professional_level_certification
-          | Professional Level Certification
+          = t 'devise.registrations.label.professional_level'
       .checkbox
         label
           = ff.check_box :expert_level_certification
-          | Expert Level Certification
-      p Other:
+          = t 'devise.registrations.label.expert_level'
+      p
+        = t 'devise.registrations.label.other'
       div style="margin-bottom: 14px;"
         = ff.text_field :other, class: 'form-control sign-in-field session-input'
         
   #recapcha
     = recaptcha_tags
-  = f.submit "Register", class: 'btn btn-lg btn-primary btn-block', id: 'newUser'
+  = f.submit t('generic.button.register'), class: 'btn btn-lg btn-primary btn-block', id: 'newUser'
   br
   .or
     = image_tag asset_path('or.png')
-  = link_to "Login", new_session_path(resource_name), class: 'btn btn-lg btn-primary btn-block', id: 'LogIn-bt'
+  = link_to t('generic.button.login'), new_session_path(resource_name), class: 'btn btn-lg btn-primary btn-block', id: 'LogIn-bt'

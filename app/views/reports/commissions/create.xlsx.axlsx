@@ -5,12 +5,12 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'Commission Reports') do |sheet|
     headers = [
-      'Date of Class',
-      'Class Name',
-      'Student Name',
-      'Revenue',
-      'Commission Rate',
-      'Commission Earned'
+      "#{t('xlsx.commissions.date_of_class')}",
+      "#{t('xlsx.commissions.class_name')}",
+      "#{t('xlsx.commissions.student_name')}",
+      "#{t('xlsx.commissions.revenue')}",
+      "#{t('xlsx.commissions.commission_rate')}",
+      "#{t('xlsx.commissions.commisssion_earned')}"
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)

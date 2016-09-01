@@ -2,18 +2,20 @@
   = form_for lead do |f|
     - if lead.errors.any?
       .error_explanation
-        h4 = "#{pluralize(topic.errors.count, 'error')} prohibited this forum from being saved:"
+        h4 = "#{pluralize(topic.errors.count, 'error')} #{t('partial.leads.form.prohibit')}"
         ul
           - topic.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
-      = f.label :discount, "Discount Percent"
+      = f.label :discount, t('partial.leads.form.discount')
       br
       .input-group
         = f.text_field :discount, data: { autonumeric: { mDec: 0, vMin: 0, vMax: 100 } }, class: "form-control"
         span.input-group-addon %
       
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Close
+      button.btn.btn-success type="submit"
+        = t 'generic.button.save'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'

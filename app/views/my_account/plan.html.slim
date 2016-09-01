@@ -4,35 +4,47 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-  span.text-muted My Account
+  span.text-muted
+    = t 'breadcrumbs.my_account'
 
 .row
   .col-xs-12
     = render 'tabs'
 
 .page-header
-  h3 Purchased Classes and Subscriptions
+  h3 
+    = t 'my_account.header.purchased_classes_subscriptions'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted My Upcoming Classes
+        strong.text-muted 
+          = t 'my_account.tab.header.upcoming_classes'
       .table-responsive
         .panel-table
           table.table.table-condensed.fixed-table
             - if current_user.upcoming_events.any?
               thead
                 tr.text-muted
-                  th Course
-                  th Start Date
-                  th End Date
-                  th Start Time
-                  th End Time
-                  th Duration
-                  th Format
-                  th Countdown
-                  th Details
+                  th
+                    = t 'my_account.tab.label.course'
+                  th
+                    = t 'my_account.tab.label.start_date'
+                  th
+                    = t 'my_account.tab.label.end_date'
+                  th
+                    = t 'my_account.tab.label.start_time'
+                  th
+                    = t 'my_account.tab.label.end_time'
+                  th 
+                    = t 'my_account.tab.label.duration'
+                  th
+                    = t 'my_account.tab.label.format'
+                  th
+                    = t 'my_account.tab.label.countdown'
+                  th 
+                    = t 'my_account.tab.label.details'
             tbody
               - if current_user.upcoming_events.any?
                 - current_user.upcoming_events.each do |event|
@@ -52,21 +64,25 @@
 
               - else
                 tr
-                  td.text-center You have no upcoming classes.
+                  td.text-center 
+                    = t 'my_account.tab.no_upcoming'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted My Active Self-paced Subscriptions
+        strong.text-muted 
+          = t 'my_account.tab.header.active_self_paced_subscriptions'
       .table-responsive
         .panel-table
           table.table.table-condensed.fixed-table
             - if current_user.active_video_on_demands.any?
               thead
                 tr
-                  th Course
-                  th Days of Access Left
+                  th
+                    = t 'my_account.tab.label.course'
+                  th 
+                    = t 'my_account.tab.label.days_access_left'
             tbody
               - if current_user.active_video_on_demands.any?
                 - current_user.active_video_on_demands.each do |video_on_demand|
@@ -77,20 +93,23 @@
                     td = distance_of_time_in_words(Date.today, video_on_demand.order_items.find_by(user_id: current_user.id).order.created_at + 365.day)
               - else
                 tr
-                  td.text-center You have no self-paced subscriptions.
+                  td.text-center 
+                    = t 'my_account.tab.no_self_paced'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted My Completed Classes and Subscriptions
+        strong.text-muted
+          = t 'my_account.tab.header.completed_classes_subscriptions'
       .table-responsive
         .panel-table
           table.table.table-condensed.fixed-table
             - if current_user.completed_events_and_video_on_demands.any?
               thead
                 tr
-                  th Course
+                  th
+                    = t 'my_account.tab.label.course'
             tbody
               - if current_user.completed_events_and_video_on_demands.any?
                 - current_user.completed_events_and_video_on_demands.each do |orderable|
@@ -102,10 +121,11 @@
                       td.fit.fixed-cell = orderable.full_title
               - else
                 tr
-                  td.text-center You have no completed classes or subscriptions.
-
+                  td.text-center 
+                    = t 'my_account.tab.no_completed'
 .page-header
-  h3 Certification Planning and Tracking
+  h3 
+    = t 'my_account.header.certification_planning_tracking'
 
 - unless @planned_subjects.any?
   .row
@@ -114,7 +134,8 @@
         a href="#{platforms_path}"
           button type="submit"
             span.fa.fa-check-square-o
-            span Build My Training Plan
+            span 
+            = t 'generic.button.build_my_training_plan'
 - else
   - @planned_subjects.each do |planned_subject|
     .planned-subject
@@ -131,13 +152,15 @@
             a href="#{planned_subject.subject.platform.url}" target="_blank"
               button#find-testing-center
                 span.fa.fa-location-arrow
-                span Find Testing Center
+                span
+                = t 'my_account.tab.label.find_testing_center'
             = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
               = f.hidden_field :user_id, value: current_user.id
               = f.hidden_field :subject_id, value: planned_subject.subject.id
               button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
                 span.fa.fa-minus
-                span Remove from My Plan
+                span
+                = t 'my_account.tab.label.remove_from_plan'
 
   .panel.panel-default
     .panel-body
@@ -145,17 +168,19 @@
         = f.hidden_field :buyer_id, value: current_user.id
         button type="submit"
           span.fa.fa-envelope-o
-          span Request Formal Quote
+          span
+          = t 'my_account.tab.label.request_quote'
 
       #grand-total
         span
-          = "Estimated Total for Planned Classes: #{formatted_price_or_range_of_my_plan_for(current_user)}"
+          = "#{t('my_account.tab.label.estimated_total')} #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
 .row
   .col-xs-12
     #activity-history
       .page-header
-        h3 Activity History
+        h3 
+          = t 'my_account.header.activity_history'
       ul
         = render_activities(@activities, fallback: 'default')
 

@@ -6,15 +6,24 @@
       table.table.table-condensed
         thead
           tr
-            th title="Requested" Requested
-            th title="Name" Name
-            th title="Email" Email
-            th title="Interests" Interests
-            th title="Phone" Phone
-            th title="Price" Price
-            th title="Discount" DC
-            th title="Total" Total
-            th title="Actions" colspan="2" Actions
+            th title="#{t('partial.leads.group.tooltip.requested')}"
+              = t 'partial.leads.group.requested'
+            th title="#{t('partial.leads.group.tooltip.name')}"
+              = t 'partial.leads.group.name'
+            th title="#{t('partial.leads.group.tooltip.email')}"
+              = t 'partial.leads.group.email'
+            th title="#{t('partial.leads.group.tooltip.interests')}"
+              = t 'partial.leads.group.interests'
+            th title="#{t('partial.leads.group.tooltip.phone')}"
+              = t 'partial.leads.group.phone'
+            th title="#{t('partial.leads.group.tooltip.price')}"
+              = t 'partial.leads.group.price'
+            th title="#{t('partial.leads.group.tooltip.discount')}"
+              = t 'partial.leads.group.discount'
+            th title="#{t('partial.leads.group.tooltip.total')}"
+              = t 'partial.leads.group.total'
+            th title="#{t('partial.leads.group.tooltip.actions')}" colspan="2"
+              = t 'partial.leads.group.actions'
         tbody
           - leads.each do |lead|
             - if lead.buyer
@@ -24,7 +33,7 @@
                 td.fit = lead.buyer.email
                 td.fit
                   - if lead.buyer.settings.poker_chip_number
-                    | PCN: 
+                    = t 'partial.leads.group.poker_chip_number'
                     = lead.buyer.settings.poker_chip_number
                     br
                   - if lead.buyer.interest
@@ -43,13 +52,13 @@
                     = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
                       = f.select :seller_id, sales_force.collect { |sales| [sales.user.full_name ? sales.user.full_name : sales.user.email, sales.user.id] }.unshift(["Unassigned", 0]), {}, class: "form-control seller_selector"
                 td.fit.actions-column
-                  = link_to 'My Plan', lead_path(lead.buyer)
+                  = link_to t('generic.action.my_plan'), lead_path(lead.buyer)
                   = " | "
-                  = link_to 'Discount', edit_lead_path(lead.id), remote: true
+                  = link_to t('generic.action.discount'), edit_lead_path(lead.id), remote: true
                   = " | "
-                  = link_to 'Download', download_quote_leads_path(lead)
+                  = link_to t('generic.action.download'), download_quote_leads_path(lead)
                   = " | "
-                  = link_to 'Email', email_quote_leads_path(lead)
+                  = link_to t('generic.action.email'), email_quote_leads_path(lead)
                   = " | "
                   - if current_user.sales?
                     - if type == "Assigned Lead"

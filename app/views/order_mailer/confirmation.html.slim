@@ -1,8 +1,10 @@
-p Thank you for placing an order with NterOne! We truly appreciate your business and look forward to providing you with the best experience possible.
+p 
+  = t 'mailer.confirmation.copy1'
 
-p Please find a summary of your order below:
+p 
+  = t 'mailer.confirmation.copy2'
 
-p = "Order ##{@order.id} Confirmation"
+p = "#{t('mailer.confirmation.copy3')} ##{@order.id} #{t('mailer.confirmation.copy4')}"
 
 table
   - @order.order_items.each do |order_item|
@@ -13,29 +15,35 @@ table
         td = order_item.orderable.format
       - if order_item.orderable_type == 'VideoOnDemand'
         td = link_to order_item.orderable.full_title, platform_video_on_demand_url(order_item.orderable.platform, order_item.orderable), target: "_blank"
-        td One Year of Access
-        td Video On Demand
+        td
+          = t 'mailer.confirmation.copy5'
+        td 
+          = t 'mailer.confirmation.copy6'
       - if order_item.price > 0.00
         td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
       - else
-        td Free
+        td 
+          = t 'mailer.confirmation.copy7'
 
-p = "Total Charged to Card: $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-p = "Total Credits Applied: #{@order.clc_quantity}"
+p = "#{t('mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+p = "#{t('mailer.confirmation.copy9')} #{@order.clc_quantity}"
 
 p
-  | If you have any questions please reach out to your sales representative, or contact the sales team at 
+  = t 'mailer.confirmation.copy10'
   = mail_to "sales#{t('email')}", "sales#{t('email')}"
-  | . If your question is billing related, you can email 
+  = t 'mailer.confirmation.copy11'
   = mail_to "billing#{t('email')}", "billing#{t('email')}"
-  | . If you have issues accessing your NterOne account, or services purchased, you can reach out to 
+  = t 'mailer.confirmation.copy12' 
   = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
-  | . You can also call us at 
+  = t 'mailer.confirmation.copy13'
   strong 703-972-2288 
-  | to speak with a live person.
+  = t 'mailer.confirmation.copy14'
   
-p You will receive a separate e-mail confirmation with specific details for your upcoming training session, seminar or product test drive event.
+p 
+  = t 'mailer.confirmation.copy15'
 
-p Thanks again,
+p 
+  = t 'mailer.confirmation.copy16'
 
-p NterOne Sales Team
+p 
+  = t 'mailer.confirmation.copy17'

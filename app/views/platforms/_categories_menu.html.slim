@@ -27,7 +27,7 @@
                     class: "btn btn-category #{'active-category' if parent_category == category || parent_category.children.include?(category)}"
         - if parent_category == category || parent_category == category.parent
           .panel-collapse
-            = link_to 'Show All',
+            = link_to t('generic.action.show_all'),
                       platform_category_path(category.parent ? category.parent.platform : category.platform, category.parent ? category.parent : category),
                       class: "btn btn-child-category sub-category #{'active-category' if category.parent == nil}"
             - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|

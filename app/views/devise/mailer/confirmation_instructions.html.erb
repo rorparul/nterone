@@ -1,12 +1,12 @@
-<p>Hello <%= @user.first_name %>,</p>
+<p><%= t('devise.mailer.confirmation_instructions.greeting') %> <%= @user.first_name %>,</p>
 
-<p>You have successfully registered in our system. With your new <a href="www.<%= t'website' %>"><%= t'website' %></a> account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums.</p>
+<p><%= t('devise.mailer.confirmation_instructions.copy1') %> <a href="www.nterone.com"><%= t('devise.mailer.confirmation_instructions.copy2') %></a><%= t('devise.mailer.confirmation_instructions.copy3') %></p>
 
-<p>We appreciate your time and look for to providing high impact training solutions. Please reach out to <a href='<%= "mailto:helpdesk#{t('email')}" %>'>helpdesk<%= "#{t('email')}" %></a> if you have any issues with login, or contact <a href='<%= "mailto:sales#{t('email')}" %>'>sales<%= "#{t('email')}" %></a> if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable.</p>
+<p><%= t('devise.mailer.confirmation_instructions.copy4') %><a href='<%= "mailto:helpdesk#{t('email')}" %>'>helpdesk<%= "#{t('email')}" %></a><%= t('devise.mailer.confirmation_instructions.copy5') %><a href='<%= "mailto:sales#{t('email')}" %>'>sales<%= "#{t('email')}" %></a><%= t('devise.mailer.confirmation_instructions.copy6') %></p>
 
 <p><%= link_to 'Confirm your account', confirmation_url(@resource, confirmation_token: @token) %></p>
 
-<p>Sincerely,</p>
+<p><%= t('devise.mailer.confirmation_instructions.salutation') %></p>
 
 <p>Anthony Hamilton</p>
-<p>Founder of NterOne</p>
+<p><%= t('devise.mailer.confirmation_instructions.sender') %></p>

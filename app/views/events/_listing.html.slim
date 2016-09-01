@@ -4,21 +4,27 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "ID", :id
-            th.fit = 'Note'
-            th.fit = smart_listing.sortable "Course", :course
-            th.fit = smart_listing.sortable "Start Date", :start_date
-            th.fit title="Length" Len
-            th.fit = smart_listing.sortable "Start Time", :start_time
-            th.fit = smart_listing.sortable "Format", :format
-            th.fit Instructor
-            th.fit title="Students" Ss
-            th.fit Revenue
-            th.fit = smart_listing.sortable "Lab Source", :lab_source
-            th.fit Public
-            th.fit title="Guaranteed" = smart_listing.sortable "Guar", :guaranteed
-            th.fit = smart_listing.sortable "Conf", :status
-            th.fit Actions
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.id')}", :id
+            th.fit = "#{t('admin.admin_classes.partial.listing.label.note')}"
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.course')}", :course
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.start_date')}", :start_date
+            th.fit title="#{t('admin.admin_classes.partial.listing.tooltip.length')}" 
+              = t 'admin.admin_classes.partial.listing.label.len'
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.start_time')}", :start_time
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.format')}", :format
+            th.fit
+              = t 'admin.admin_classes.partial.listing.label.instructor'
+            th.fit title="#{t('admin.admin_classes.partial.listing.tooltip.students')}" 
+              = t 'admin.admin_classes.partial.listing.label.ss'
+            th.fit
+              = t 'admin.admin_classes.partial.listing.label.revenue'
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.lab_source')}", :lab_source
+            th.fit 
+              = t 'admin.admin_classes.partial.listing.label.public'
+            th.fit title="#{t('admin.admin_classes.partial.listing.tooltip.guaranteed')}" = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.guar')}", :guaranteed
+            th.fit = smart_listing.sortable "#{t('admin.admin_classes.partial.listing.label.conf')}", :status
+            th.fit
+              = t 'admin.admin_classes.partial.listing.label.actions'
         tbody
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|

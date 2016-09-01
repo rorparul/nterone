@@ -1,11 +1,18 @@
-p = "Hello #{@lead.buyer.first_name},"
+p = "#{t('mailer.quote_mailer.pdf_attachment_html.copy1')} #{@lead.buyer.first_name},"
 
-p Thank you for your interest in NterOne – where customer service is our top priority!
+p 
+	= t 'mailer.quote_mailer.pdf_attachment_html.copy2'
 
-p "We are pleased to offer you a customized training quote. Please see the attached PDF that outlines the details of the products and/or services requested. If you have any questions please reach out to your sales representative, or contact the sales team at sales#{t('email')}. You can also call us at 703-972-2288."
+p 
+	= t 'mailer.quote_mailer.pdf_attachment_html.copy3' 
+	| sales#{t('email')}
+	= t 'mailer.quote_mailer.pdf_attachment_html.copy4'
 
-p We look forward to hearing from you soon!
+p
+  = t 'mailer.quote_mailer.pdf_attachment_html.copy5'
 
-p Best Regards,
+p 
+  = t 'mailer.quote_mailer.pdf_attachment_html.copy6'
 
-p NterOne Sales Team
+p
+  = t 'mailer.quote_mailer.pdf_attachment_html.copy7'

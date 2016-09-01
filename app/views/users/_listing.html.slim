@@ -28,7 +28,7 @@
                   = " | "
                 = link_to t('admin.admin_people.row.people.action.edit'), edit_user_path(user)
                 = " | "
-                = link_to t('admin.admin_people.row.people.action.delete'), user_path(user), method: :delete, data: { confirm: "Are you sure?" }
+                = link_to t('admin.admin_people.row.people.action.delete'), user_path(user), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

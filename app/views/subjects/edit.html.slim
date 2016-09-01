@@ -21,7 +21,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Certification
+    strong.text-muted
+      = t 'subjects.edit.panel.edit_certification.header'
   .panel-body
     = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
 

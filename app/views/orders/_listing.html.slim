@@ -4,17 +4,19 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "ID", :id
-            th.fit = smart_listing.sortable "Status", :status_position
-            th.fit = smart_listing.sortable "Total", :total
-            th.fit = smart_listing.sortable "Paid", :paid
-            th.fit = smart_listing.sortable "Balance", :balance
-            th.fit = smart_listing.sortable "Source", :source
-            th.fit = smart_listing.sortable "Auth Code", :auth_code
-            th.fit = smart_listing.sortable "Credits", :clc_quantity
-            th.fit SO#
-            th.fit = smart_listing.sortable "Created", :created_at
-            th.fit Member Email
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.id'), :id
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.status'), :status_position
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.total'), :total
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.paid'), :paid
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.balance'), :balance
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.source'), :source
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.auth_code'), :auth_code
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.credits'), :clc_quantity
+            th.fit
+              = t 'orders.partial.listing.label.so_num'
+            th.fit = smart_listing.sortable t('orders.partial.listing.label.created'), :created_at
+            th.fit 
+              = t 'orders.partial.listing.label.member_email'
             th.fit
         tbody
           - smart_listing.collection.each do |order|
@@ -37,11 +39,11 @@
               td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
               td = order.buyer.email if order.buyer
               td.fit.actions-column.text-right
-                = link_to "Actions", edit_order_path(order), remote: true
+                = link_to t('generic.action.actions'), edit_order_path(order), remote: true
                 |  | 
-                = link_to "Details", admin_orders_show_path(order), remote: false
+                = link_to t('generic.action.details'), admin_orders_show_path(order), remote: false
                 |  | 
-                = link_to 'Delete', order_path(order), method: :delete, data: { confirm: "Are you sure?" }
+                = link_to t('generic.action.delete'), order_path(order), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

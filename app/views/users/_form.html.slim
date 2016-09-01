@@ -2,125 +2,129 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted User Info
+        strong.text-muted 
+          = t 'users.partial.form.header'
       .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
           - if current_user.admin?
             .row
               .col-xs-12
                 .form-group
-                  label Privileges
+                  label
+                    = t 'users.partial.form.label.privileges'
                   #roles
                     = f.fields_for :roles do |ff|
                       = render 'users/role_fields', f: ff
                     / .links
-                    /   = link_to_add_association 'Add role', f, :roles
+                    /   = link_to_add_association t('generic.action.add_role'), f, :roles
                     
             hr
                 
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :first_name, "First Name"
+                = f.label :first_name, t('users.partial.form.label.first_name')
                 = f.text_field :first_name, class: "form-control input-sm"
             .col-xs-12.col-md-6
               .form-group
-                = f.label :last_name, "Last Name"
+                = f.label :last_name, t('users.partial.form.label.last_name')
                 = f.text_field :last_name, class: "form-control input-sm"
           
           .row
             .col-xs-12.col-md-6
               .form-group
-                = f.label :contact_number, "Phone"
+                = f.label :contact_number, t('users.partial.form.label.phone')
                 = f.text_field :contact_number, class: "form-control input-sm"
             .col-xs-12.col-md-6
               .form-group
-                = f.label :company_id, "Company Name"
+                = f.label :company_id, t('users.partial.form.label.company_name')
                 = f.select :company_id,
                   Company.all.collect {|c| [ c.title, c.id ] },
                   { prompt: t('generic.select.placeholder') },
                   { class: "form-control input-sm" }
           hr
           fieldset
-            label Billing Address
+            label 
+              = t 'users.partial.form.label.billing_address'
             / .row
             /   .col-xs-12.col-sm-6
             /     .form-group
-            /       = f.label :billing_company, 'Company'
+            /       = f.label :billing_company, t('users.partial.form.label.billing_company')
             /       = f.text_field :billing_company, class: 'form-control input-sm'
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_first_name, 'First Name'
+                  = f.label :billing_first_name, t('users.partial.form.label.billing_first_name')
                   = f.text_field :billing_first_name, class: 'form-control input-sm'
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_last_name, 'Last Name'
+                  = f.label :billing_last_name, t('users.partial.form.label.billing_last_name')
                   = f.text_field :billing_last_name, class: 'form-control input-sm'
             .form-group
-              = f.label :billing_street, "Street"
+              = f.label :billing_street, t('users.partial.form.label.billing_street')
               = f.text_field :billing_street, class: "form-control input-sm"
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_city, "City"
+                  = f.label :billing_city, t('users.partial.form.label.billing_city')
                   = f.text_field :billing_city, class: "form-control input-sm"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :billing_state, "State"
+                  = f.label :billing_state, t('users.partial.form.label.billing_state')
                   = f.select :billing_state,
                              us_states,
                              { prompt: true },
                              { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :billing_zip_code, "Zip Code"
+                  = f.label :billing_zip_code, t('users.partial.form.label.billing_zip_code')
                   = f.text_field :billing_zip_code, class: "form-control input-sm"
 
           hr
           fieldset.hideable
-            label Shipping Address
+            label 
+              = t 'users.partial.form.label.shipping_address'
             .form-group
               .checkbox
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
-                  |  Same as Billing
+                  = t 'users.partial.form.label.same_as_billing'
             / .row
             /   .col-xs-12.col-sm-6
             /     .form-group
-            /       = f.label :shipping_company, 'Company'
+            /       = f.label :shipping_company, t('users.partial.form.label.shipping_company')
             /       = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_first_name, 'First Name'
+                  = f.label :shipping_first_name, t('users.partial.form.label.shipping_first_name')
                   = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_last_name, 'Last Name'
+                  = f.label :shipping_last_name, t('users.partial.form.label.shipping_last_name')
                   = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
             .form-group
-              = f.label :shipping_street, 'Street'
+              = f.label :shipping_street, t('users.partial.form.label.shipping_street')
               = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_city, "City"
+                  = f.label :shipping_city, t('users.partial.form.label.shipping_last_name')
                   = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :shipping_state, "State"
+                  = f.label :shipping_state, t('users.partial.form.label.shipping_state')
                   = f.select :shipping_state,
                              us_states,
                              { prompt: true },
                              { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :shipping_zip_code, "Zip Code"
+                  = f.label :shipping_zip_code, t('users.partial.form.label.shipping_zip_code')
                   = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
 
           .form-buttons
-            = f.submit "Save", class: 'btn btn-success'
+            = f.submit t('generic.button.save'), class: 'btn btn-success'
             
 javascript:
   function toggleShippingAddress(checkBox) {

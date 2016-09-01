@@ -15,6 +15,7 @@
       
     .form-buttons
       button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'
       - if divider.id
-        = link_to 'Delete', platform_divider_path(platform, divider), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to t('generic.action.delete'), platform_divider_path(platform, divider), method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'

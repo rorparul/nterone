@@ -6,17 +6,35 @@ en:
     contact_us: "Contact Us at 703.972.2288"
     search: "Search"
     actions: "Actions"
+    my_cart: "My Cart"
   breadcrumbs:
     home: "Home"
     admin: "My Admin"
     my_sales: "My Sales"
+    my_account: "My Account"
+    my_plan: "My Plan"
+    my_queue: "My Queue"
+    cart: "Cart"
+    people: "People"
+    new_person: "New Person"
+    forums: "Forums"
+    featured_classes: "Featured Classes"
+    labs: "Labs"
     lab_rentals: "Lab Reservations"
+    press: "Press"
+    blog: "Blog"
+    consulting: "Consulting"
+    partners: "Partners"
+    industry: "Industry"
+    testimonials: "Testimonials"
     about_us: "About Us"
+    nterone_gives_back: "NterOne Gives Back"
     sitemap: "Sitemap"
     training: "Training"
     search: "Search"
     new: "New"
     edit: "Edit"
+    confirmation: "Confirmation"
   side_menu:
     welcome: "Welcome"
     login: "Login"
@@ -29,6 +47,144 @@ en:
     labs: "Labs"
     contact_us: "Contact Us"
     logout: "Logout"
+  devise:
+    confirmations:
+      label:
+        email: "Email"
+      button:
+        resend: "Resend confirmation instructions"
+    invitations:
+      label:
+        referring_partner: "Referring Partner Email"
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+      placeholder:
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+    mailer:
+      confirmation_instructions:
+        greeting: "Hello"
+        copy1: "You have successfully registered in our system. With your new "
+        copy2: "nterone.com" 
+        copy3: " account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "We appreciate your time and look for to providing high impact training solutions. Please reach out to "
+        copy5: " if you have any issues with login, or contact "
+        copy6: " if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        salutation: "Sincerely,"
+        sender: "Founder of NterOne"
+      invitation_instructions:
+        copy1: "With your new"
+        copy2: "nterone.com"
+        copy3: " account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "We appreciate your time and look for to providing high impact training solutions. Please reach out to "
+        copy5: " if you have any issues with login, or contact "
+        copy6: " if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        salutation: "Regards,"
+        sender: "NterOne.com"
+      reset_password_instructions:
+        greeting: "Hello"
+        copy1: "Please follow the link below to reset your "
+        copy2: "nterone.com"
+        copy3: " password. If you have any issues, please reach out to "
+        salutation: "Regards"
+        sender: "NterOne.com"
+      unlock_instructions:
+        greeting: "Hello"
+        copy1: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+        copy2: "Click the link below to unlock your account:"
+      welcome:
+        greeting: "Hello"
+        copy1: "You have successfully registered in our system. With your new"
+        copy2: "nterone.com"
+        copy3: " account, you can purchase products and services, view upcoming and past training events, "
+        copy4: "review purchase history, and participate in our forums."
+        copy5: "We appreciate your time and look forward to providing high impact training solutions."
+        copy6: "Please reach out to "
+        copy7: "if you have any issues with login, or contact "
+        copy8: " if you wish to connect with a member of our sales team."
+        copy9: "Customer service is our top priority,"
+        copy10: "so please do let us know if there is anything we can do to make your experience more enjoyable."
+        salutation: "Sincerely,"
+        sender: "Founder of NterOne"
+    passwords:
+      placeholder: 
+        email: "Email Address"
+        new_password: "New Password"
+        password_confirmation: "Confirm Password"
+      instructions: "Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+    registrations:
+      label:
+        data_center: "Data Center"
+        collaboration: "Collaboration"
+        network: "Network"
+        security: "Security"
+        associate_level: "Associate Level Certification"
+        professional_level: "Professional Level Certification"
+        expert_level: "Expert Level Certification"
+        other: "Other:"
+      placeholder:
+        first_name: "First Name"
+        last_name: "Last Name"
+        email: "Email Address"
+        password: "Password"
+        password_confirmation: "Confirm Password"
+        poker_chip_number: "Poker Chip Number"
+      instructions: "Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+      copy1: "characters minimum"
+      copy2: "Interested In (Please Select All That Apply):"
+    sessions:
+      placeholder:
+        email: "Email Address"
+        password: "Password"
+      label: 
+        keep_logged_in: "Keep me logged in"
+        forgot_password: "Forgot password?"
+      copy1: "Cisco Live, Attendees"
+      copy2: "Register Here"
+    shared:
+      links:
+        login: "Log in"
+        sign_up: "Sign up"
+        forgot_password: "Forgot your password?"
+        confirmation_instructions: "Didn't receive confirmation instructions?"
+        unlock_instructions: "Didn't receive unlock instructions?"
+        omniauth: "Sign in with "
+    unlocks:
+      title: "Resend unlock instructions"
+      button: 
+        resend: "Resend unlock instructions"
+  forem:
+    text:
+      copy1: "You can view it here:"
+      copy2: "To unsubscribe from this topic, use the following link:"
+    partial: 
+      topic:
+        new: "new"
+    form:
+      label:
+        title: "Title"
+        position: "Position"
+        description: "Description"
+        subject: "Subject"
+        forum: "Forum"
+        locked: "Locked"
+        pinned: "Pinned"
+        hidden: "Hidden"
+  general: 
+    partial:
+      contact_us:
+        label:
+          help_desk: "Help Desk"
+          sales: "Sales"
+          billing: "Billing"
+          name: "Name"
+          phone: "Phone Number"
+          email: "Email"
+          inquiry: "Inquiries - How can we help you?"
+          feedback: "Feedback – How can we make your experience better?"
+        contact:
+          corporate_address: "NterOne Corporate Address"
+          billing_address: "NterOne Billing Address"
   home:
     search_form:
       placeholder: "Search by certification, course, or exam"
@@ -57,6 +213,345 @@ en:
       video_preview: "Video Datasheet"
       pdf_preview: "PDF Datasheet"
     xlsx: "Download Featured Classes"
+  leads:
+    label: 
+      find_testing_center: "Find Testing Center"
+      remove_from_plan: "Remove from My Plan"
+      grand_total: "Grand Total"
+      lead_history: "Lead History"
+  my_account:
+    header:
+      purchased_classes_subscriptions: "Purchased Classes and Subscriptions"
+      certification_planning_tracking: "Certification Planning and Tracking"
+      activity_history: "Activity History"
+    tab:
+      header:
+        upcoming_classes: "My Upcoming Classes"
+        active_self_paced_subscriptions: "My Active Self-paced Subscriptions"
+        completed_classes_subscriptions: "My Completed Classes and Subscriptions"
+      label:
+        course: "Course"
+        days_access_left: "Days of Access Left"
+        start_date: "Start Date"
+        end_date: "End Date"
+        start_time: "Start Time"
+        end_time: "End Time"
+        duration: "Duration"
+        format: "Format"
+        countdown: "Countdown"
+        details: "Details"
+        find_testing_center: "Find Testing Center"
+        remove_from_plan: "Remove from My Plan"
+        request_quote: "Request Formal Quote"
+        estimated_total: "Estimated Total for Planned Classes:"
+      no_upcoming: "You have no upcoming classes."
+      no_self_paced: "You have no self-paced subscriptions."
+      no_completed: "You have no completed classes or subscriptions."
+    filter: 
+      my_nterone: "My NterOne"
+      messages: "Messages"
+      settings: "Settings"
+    modal:
+      title: "Details"
+  my_sales:
+    header: "Classes"
+    action:
+      upload_classes: "Upload Classes"
+    label:
+      status: "Status"
+      course: "Course"
+      start_date: "Start Date"
+      start_time: "Start Time"
+      end_time: "End Time"
+      format: "Format"
+      instructor: "Instructor"
+      revenue: "Revenue"
+      lab_source: "Lab Source"
+      new_announcement: "New Announcement"
+    tooltip: 
+      event_id: "Event ID"
+      duration: "Duration"
+      student_count: "Student Count"
+      public: "Public"
+      guaranteed: "Guaranteed"
+  orders:
+    confirmation: 
+      header1: "Order"
+      header2: "Confirmation"
+      label:
+        item: "Item"
+        date: "Date"
+        format: "Format"
+        price: "Price"
+      value:
+        one_year_of_access: "One Year of Access"
+        video_on_demand: "Video On Demand"
+        free: "Free"
+      total_charged_card: "Total Charged to Card:"
+      total_credits_applied: "Total Credits Applied:"
+      copy1: "If you have any questions please reach out to your sales representative, or contact the sales team at "
+      copy2: ". If your question is billing related, you can email "
+      copy3: ". If you have issues accessing your NterOne account, or services purchased, you can reach out to "
+      copy4: ". You can also call us at "
+      copy5: "to speak with a live person."
+      copy6: "You will receive a separate e-mail confirmation with specific details for your upcoming training session, seminar or product test drive event."
+    new:
+      panel:
+        my_cart:
+          header: "My Cart"
+          label:
+            item: "Item"
+            date: "Date"
+            format: "Format"
+            price: "Price"
+          value: 
+            one_year_of_access: "One Year of Access"
+            video_on_demand: "Video On Demand"
+          empty_cart: "Your cart is empty"
+        my_payment_info:
+          header: "My Payment Info"
+          label: 
+            credit_card: "Credit Card"
+            cc_number: "Number"
+            cc_exp_m: "Exp. M."
+            cc_exp_y: "Exp. Y."
+            cc_code: "Code"
+            cc_paid: "Total Charged"
+            cisco_learning_credits: "Cisco Learning Credits"
+            clc_caption1: " of this order is not applicable to be purchased with credits."
+            clc_caption2: "If you wish to split payment between a credit card and credits,"
+            clc_caption3: "please contact NterOne by email at "
+            clc_caption4: ", or by phone at "
+            clc_caption5: "for assistance."
+            clc_number: "Cisco Sales Order#"
+            clc_quantity: "Total Credits"
+            student_name: "Student Name"
+            student_email: "Student Email"
+            billing_address: "Billing Address"
+            billing_company: "Company"
+            billing_first_name: "First Name"
+            billing_last_name: "Last Name"
+            billing_street: "Street"
+            billing_city: "City"
+            billing_state: "State"
+            billing_zip_code: "Zip Code"
+            shipping_address: "Shipping Address"
+            same_as_billing: "Same as Billing"
+            shipping_company: "Company"
+            shipping_first_name: "First Name"
+            shipping_last_name: "Last Name"
+            shipping_street: "Street"
+            shipping_city: "City"
+            shipping_state: "State"
+            shipping_zip_code: "Zip Code"
+    partial:
+      form:
+        label:
+          sales_rep: "Sales Rep"
+          student: "Student"
+          video_on_demand: "Video On Demands"
+          credit_card: "Credit Card"
+          cc_number: "Number"
+          cc_exp_m: "Exp. M."
+          cc_exp_y: "Exp. Y."
+          cc_code: "Code"
+          cc_paid: "Paid"
+          cisco_learning_credits: "Cisco Learning Credits"
+          clc_caption1: " of this order is not applicable to be purchased with credits."
+          clc_caption2: "If you wish to split payment between a credit card and credits,"
+          clc_caption3: "please contact NterOne by email at "
+          clc_caption4: ", or by phone at "
+          clc_caption5: "for assistance."
+          clc_number: "Number"
+          clc_quantity: "Credits Applied"
+          purchase_order: "Purchase Order"
+          po_number: "Number"
+          po_paid: "Paid"
+          bundled: "Bundled"
+          no_charge: "No Charge"
+          billing_address: "Billing Address"
+          billing_company: "Company"
+          billing_first_name: "First Name"
+          billing_last_name: "Last Name"
+          billing_street: "Street"
+          billing_city: "City"
+          billing_state: "State"
+          billing_zip_code: "Zip Code"
+          shipping_address: "Shipping Address"
+          same_as_billing: "Same as Billing"
+          shipping_company: "Company"
+          shipping_first_name: "First Name"
+          shipping_last_name: "Last Name"
+          shipping_street: "Street"
+          shipping_city: "City"
+          shipping_state: "State"
+          shipping_zip_code: "Zip Code"
+      index:
+        title: "Orders"
+        label:
+          status: "Status"
+          total: "Total"
+          charged: "Charged"
+          auth_code: "Auth Code"
+          credits: "Credits"
+          so_num: "SO#"
+          balance: "Balance"
+          created: "Created"
+          member_email: "Member Email"
+        select:
+          value:
+            uninvoiced: "Uninvoiced"
+            unverified: "Unverified"
+            paid_in_full: "Paid in Full"
+            verified: "Verified"
+      listing:
+        label: 
+          id: "ID"
+          status: "Status"
+          total: "Total"
+          paid: "Paid"
+          balance: "Balance"
+          source: "Source"
+          auth_code: "Auth Code"
+          credits: "Credits"
+          so_num: "SO#"
+          created: "Created"
+          member_email: "Member Email"
+    modal:
+      edit_admin:
+        title: "Edit Order"
+      new:
+        title: "Add Order"
+  pages:
+    edit:
+      panel:
+        edit_page:
+          header: "Edit Page"
+    modal: 
+      edit: 
+        title: "Edit Page"
+  planned_subjects:
+    index:
+      label:
+        find_testing_center: "Find Testing Center"
+        remove_from_plan: "Remove from My Plan"
+        request_quote: "Request Formal Quote"
+        grand_total: "Grand Total:"
+        my_plan_history: "My Plan History"
+    toggle:
+      label:
+        estimated_total: "Estimated Total for Planned Classes:"
+  subjects:
+    edit:
+      panel:
+        edit_certification:
+          header: "Edit Certification"
+    show:
+      label:
+        find_testing_center: "Find Testing Center"
+        login_to_add_to_plan: "Login to add to My Plan"
+        remove_from_plan: "Remove from My Plan"
+        add_to_plan: "Add to My Plan"
+        toggle: "Toggle"
+      action:
+        add_table: "Add Table"
+    modal:
+      edit:
+        title: "Edit Certification"
+      new:
+        title: "Add Certification"
+  testimonials:
+    modal:
+      edit:
+        title: "Edit Testimonial"
+  users:
+    partial:
+      form: 
+        header: "User Info"
+        label:
+          privileges: "Privileges"
+          first_name: "First Name"
+          last_name: "Last Name"
+          phone: "Phone"
+          company_name: "Company Name"
+          billing_address: "Billing Address"
+          billing_company: "Company"
+          billing_first_name: "First Name"
+          billing_last_name: "Last Name"
+          billing_street: "Street"
+          billing_city: "City"
+          billing_state: "State"
+          billing_zip_code: "Zip Code"
+          shipping_address: "Shipping Address"
+          same_as_billing: "Same as Billing"
+          shipping_company: "Company"
+          shipping_first_name: "First Name"
+          shipping_last_name: "Last Name"
+          shipping_street: "Street"
+          shipping_city: "City"
+          shipping_state: "State"
+          shipping_zip_code: "Zip Code"
+      index:
+        label:
+          first_name: "First Name"
+          last_name: "Last Name"
+          email: "Email"
+          purchases: "Purchases"
+          last_active: "Last Active"
+        tooltip:
+          first_name: "First Name"
+          last_name: "Last Name"
+          email: "Email"
+          purchases: "Purchases"
+          last_active: "Last Active"
+      role_fields:
+        select:
+          value:
+            admin: "Admin"
+            sales_rep: "Sales Rep"
+            sales_manager: "Sales Manager"
+            student: "Student"
+            lms_student: "LMS Student"
+            lms_manager: "LMS Manager"
+    edit_from_my_queue:
+      header: "User Info"
+    new:
+      header: "User Info"
+    show:
+      label: 
+        find_testing_center: "Find Testing Center"
+        remove_from_plan: "Remove from My Plan"
+        request_quote: "Request Formal Quote"
+        grand_total: "Grand Total"
+        activity_history: "Activity History"
+  video_on_demands:
+    edit:
+      panel:
+        edit_video_on_demand:
+          header: "Edit Video On Demand"
+    show:
+      panel:
+        video_on_demand:
+          label:
+            video: "Video"
+            viewed: "Viewed"
+            free_sample: " (Free Sample)"
+            instructor: "Instructor"
+            level: "Level"
+            price: "Price"
+            prerequisites_course_objectives: "Prerequisites & Course Objectives"
+            course_outline: "Course Outline"
+            who_should_attend: "Who Should Attend"
+        contact:
+          questions: "Questions?"
+          nterone_message: "The NterOne team will be happy to answer your questions."
+          email: "Email: "
+          phone: "Phone: "
+    modal:
+      edit:
+        title: "Edit Video On Demand"
+      new:
+        title: "Add Video On Demand"
   admin:
     filter:
       queue: "Queue"
@@ -69,28 +564,6 @@ en:
       website: "Website"
       messages: "Messages"
       settings: "Settings"
-    action:
-      commissions_report: "Generate Commissions Report"
-      profits_report: "Generate Profit Sheets Report"
-      utilization_report: "Generate Instructor Utilization Report"
-      form:
-        commissions_report:
-          title: "Generate Commissions Report"
-          label:
-            start: "Start"
-            end: "End"
-            sales_rep: "Sales Rep"
-        profits_report:
-          title: "Generate Profit Sheets Report"
-          label:
-            start: "Start"
-            end: "End"
-            sources: "Sources"
-        utilization_report:
-          title: "Generate Instructor Utilization Report"
-          label:
-            start: "Start"
-            end: "End"
     admin_queue:
       row:
         assigned_lead: "Assigned Lead"
@@ -100,6 +573,16 @@ en:
       row:
         orders:
           title: "Orders"
+      action:
+        add_user: "Add User"
+      show:
+        order_details:
+          title: "Order Details"
+        order_items:
+          title: "Order Item"
+          label:
+            class_for: "Class for"
+            from: "from"
       form:
         add_order:
           title: "Add Order"
@@ -110,6 +593,7 @@ en:
             buyer: "Student"
             source: "Source"
             source_other: "Other Source"
+            price: "Price"
             courses:
               classes:
                 header: "Classes"
@@ -134,8 +618,13 @@ en:
               cc_paid: "Paid"
             learning_credits:
               header: "Cisco Learning Credits"
-              lc_num: "Number"
-              lc_applied: "Credits Applied"
+              clc_caption1: "  of this order is not applicable to be purchased with credits."
+              clc_caption2: "If you wish to split payment between a credit card and credits,"
+              clc_caption3: "please contact NterOne by email at "
+              clc_caption4: ", or by phone at "
+              clc_caption5: "for assistance."
+              clc_num: "Number"
+              clc_applied: "Credits Applied"
             purchase_order:
               header: "Purchase Order"
               p_num: "Number"
@@ -171,9 +660,152 @@ en:
           filter:
             registered: "Only registered"
             past: "Including past"
+      show:
+        panel:
+          class_details:
+            header: "Class Details"
+            label:
+              vendor: "Vendor:"
+              course: "Course:"
+              start_date: "Start Date:"
+              end_date: "End Date:"
+              duration: "Duration:"
+              start_time: "Start Time:"
+              end_time: "End Time:"
+              format: "Format:"
+              location: "Location:"
+              instructor: "Instructor:"
+              enrollment_count: "Enrollment Count:"
+              public: "Public:"
+              guaranteed: "Guaranteed:"
+              active: "Active:"
+              instructor_cost: "Instructor Cost:"
+              lab_cost: "Lab Cost:"
+              te_cost: "T & E Cost:"
+              facility_cost: "Facility Cost:"
+              books_material_cost: "Books & Material Cost:"
+              shipping_cost: "Shipping Cost:"
+              commission: "Commission:"
+              revenue: "Revenue:"
+              total_cost: "Total Cost + Commission:"
+              net_revenue: "Net Revenue:"
+            value:
+              affirmative: "Yes"
+              negatory: "No"
+          class_registrations:
+            header: "Class Registrations"
+            label: 
+              invoice: "Invoice #"
+              student: "Student"
+              contacts: "Contacts"
+              company: "Company"
+              ship_to: "Ship to address"
+              partner_email: "Partner email"
+              amount_quoted: "Amount Quoted"
+              amount_paid: "Amount Paid"
+              amount_due: "Amount Due"
+              closed_date: "Closed Date"
+              sales_rep: "Sales Rep"
+              note: "Note"
+              gilmore_order_number: "Gilmore order number"
+              gilmore_invoice: "Gilmore invoice"
+              royalty_id: "Royalty id"
+              po_number: "Po number"
+            tooltip:
+              add_student: "Add Student"
+              sent_webex: "Sent Webex invite"
+              sent_course_material: "Sent course material"
+              sent_lab_credentials: "Sent lab credentials"
+      partial:
+        listing:
+          label:
+            id: "IDs"
+            note: "Note"
+            course: "Course"
+            start_date: "Start Date"
+            len: "Len"
+            start_time: "Start Time"
+            format: "Format"
+            instructor: "Instructor"
+            ss: "Ss"
+            revenue: "Revenue"
+            lab_source: "Lab Source"
+            public: "Public"
+            guar: "Guar"
+            conf: "Conf"
+            actions: "Actions"
+          tooltip:
+            length: "Length"
+            students: "Students"
+            guaranteed: "Guaranteed"
+        listing_event:
+          value:
+            affirmative: "Yes"
+            negatory: "No"
+          tooltip: 
+            register_student: "Register Student"
+            view_details: "View Details"
+      action:
+        commissions_report: "Generate Commissions Report"
+        profits_report: "Generate Profit Sheets Report"
+        utilization_report: "Generate Instructor Utilization Report"
+        upload_classes: "Upload Classes"
       form:
+        commissions_report:
+          title: "Generate Commissions Report"
+          label:
+            start: "Start"
+            end: "End"
+            sales_rep: "Sales Rep"
+        profits_report:
+          title: "Generate Profit Sheets Report"
+          label:
+            start: "Start"
+            end: "End"
+            sources: "Sources"
+        utilization_report:
+          title: "Generate Instructor Utilization Report"
+          label:
+            start: "Start"
+            end: "End"
         upload_classes:
           title: "Upload Classes"
+        edit_event:
+          title: "Edit Event"
+          label:
+            start_date: "Start Date"
+            start_time: "Start Time"
+            end_date: "End Date"
+            end_time: "End Time"
+            time_zone: "Time Zone"
+            count_weekends: "Count Weekends"
+            remind_period: "Remind Period"
+            should_remind: "Remind Students"
+            language: "Language"
+            instructor: "Instructor"
+            format: "Format"
+            street: "Street"
+            city: "City"
+            state: "State"
+            lab_source: "Lab Source"
+            price: "Price"
+            note: "Public Note"
+            in_house_note: "In-house Note"
+            cost_instructor: "Instructor Cost"
+            cost_lab: "Lab Cost"
+            cost_te: "T & E Cost"
+            cost_facility: "Facility Cost"
+            cost_books: "Books Cost"
+            cost_shipping: "Shipping Cost"
+            public: "Public"
+            guaranteed: "Guaranteed"
+            partner_led: "Partner Led"
+            active: "Active"
+      xml:
+        feed: 
+          description: "Upcoming Classes"
+          link: "https://www.nterone.com"
+          guaranteed: "GTR"
       xlsx: "Download Student-registered Classes"
     admin_lab_rentals:
       row:
@@ -217,6 +849,49 @@ en:
             course_id: "Course ID"
             course_title: "Title"
             course_events: "Upcoming Events"
+      show: 
+        tabs:
+          upcoming_classes: 
+            title: "Upcoming Classes"
+            label:
+              date: "Date"
+              length: "Length"
+              format: "Format"
+              location: "Location"
+              status: "Status"
+              price: "Price"
+              availability: "Available"
+              free: "Free"
+            context:
+              contact: "Contact "
+              for_training: " for training schedule."
+          prerequisites_course_objectives: 
+            title: "Prerequisites & Course Objectives"
+            label: 
+              course_outline: "Course Outline"
+              who_should_attend: "Who Should Attend"
+          course_outline: 
+            title: "Course Outline"
+          who_should_attend: 
+            title: "Who Should Attend"
+        contact:
+          questions: "Questions?"
+          nterone_message: "The NterOne team will be happy to answer your questions."
+          email: "Email: "
+          phone: "Phone: "
+        xlsx: "Download Datasheet"
+      action:
+        add_event: "Add Event"
+        edit_event: "Edit Event"
+      form:
+        add_course:
+          title: "Add Course"
+        edit_course:
+          title: "Edit Course"
+        clone_course:
+          title: "Clone Course"
+          label: 
+            slug: "Slug"
     admin_announcements:
       row:
         new_announcement:
@@ -238,6 +913,11 @@ en:
               value:
                 active: "Active"
                 inactive: "Inactive"
+      form:
+        edit_announcement:
+          title: "Edit Announcement"
+          label:
+            content: "Content"
     admin_people:
       row:
         people:
@@ -327,6 +1007,8 @@ en:
           title: "Add Lab Course"
           label:
             lab_course_title: "Title"
+        edit_article:
+          title: "Edit Article"
         edit_company:
           title: "Edit Company"
         edit_lab_course:
@@ -394,6 +1076,8 @@ en:
       press: "Press"
       blog: "Blog"
       industry: "Industry"
+    label:
+      published: "Published"
   training:
     platform:
       action:
@@ -576,6 +1260,9 @@ en:
               instructor: "Instructor"
       filter:
         show_all: "Show All"
+      form:
+        label:
+          category: "Category"
   sitemap:
     title: "Sitemap"
     header:
@@ -613,30 +1300,311 @@ en:
     sitemap: "Sitemap"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. All rights reserved."
+  partial:
+    events:
+      events:
+        select:
+          options:
+            test1: "Test 1"
+            test2: "Test 2"
+            test3: "Test 3"
+            one_week: "One week"
+            two_weeks: "Two weeks"
+            one_month: "One month"
+            english: "English"
+            spanish: "Spanish"
+        instructions: "Viewable by all registrants of the class."
+    exam_and_course_dyamics:
+      course_fields:
+        title: "Title"
+        url: "URL"
+        price: "Price"
+      exam_fields:
+        title: "Title"
+    groups:
+      form:
+        header: "Header"
+        table_items: "Table Items"
+        insert_certification: "Insert Certification"
+        insert_course: "Insert Course"
+        insert_exam_course: "Insert Exam-Course"
+        insert_divider: "Insert Divider"
+        insert_custom_item: "Insert Custom Item"
+      groups:
+        see_link: "See Link"
+        planned: "Planned"
+        attended: "Attended"
+        passed: "Passed"
+      group_item_fields:
+        certifications: "Certifications"
+        courses: "Courses"
+        exam_course: "Exam-Course"
+        dividers: "Dividers"
+        custom_items: "Custom Items"
+        remove_item: "Remove Item"
+    instructors:
+      show:
+        biography: "Biography"
+        contact_info: "Contact Info"
+        all_courses_led_by: "All Courses Led By"
+    leads:
+      form:
+        prohibit: "prohibited this forum from being saved:"
+        discount: "Discount Percent"
+      group:
+        requested: "Requested"
+        name: "Name"
+        email: "Email"
+        interests: "Interests"
+        phone: "Phone"
+        price: "Price"
+        discount: "DC"
+        total: "Total"
+        actions: "Actions"
+        poker_chip_number: "PCN:"
+        tooltip:
+          requested: "Requested"
+          name: "Name"
+          email: "Email"
+          interests: "Interests"
+          phone: "Phone"
+          price: "Price"
+          discount: "Discount"
+          total: "Total"
+          actions: "Actions"
+    subjects:
+      sub_training_group_fields:
+        label:
+          header: "Header"
+  modal:
+    chosen_courses:
+      toggle_active:
+        estimated_total: "Estimated Total for Planned Classes"
+      toggle_attended:
+        estimated_total: "Estimated Total for Planned Classes"
+    devise:
+      invitations:
+        new:
+          add_student:
+            title: "Add Student"
+      registrations:
+        new:
+          title: "Add Person"
+        edit:
+          title: "Edit Person"
+    events:
+      edit_in_house_note:
+        title: "In-house Note"
+      new:
+        title: "Add Event"
+      select:
+        title: "Edit Event"
+    general:
+      new_search:
+        title: "Search"
+      contact_us:
+        title: "Contact Us"
+    groups:
+      new:
+        title: "Add Table"
+      edit:
+        title: "Edit Table"
+    image_store_units:
+      edit:
+        title: "Edit Image"
+    instructors:
+      show:
+        title: "Instructor Summary"
+    leads:
+      edit:
+        title: "Add Discount"
+    order_items:
+      edit:
+        title: "Note"
+  mailer:
+    confirmation:
+      copy1: "Thank you for placing an order with NterOne! We truly appreciate your business and look forward to providing you with the best experience possible."
+      copy2: "Please find a summary of your order below:"
+      copy3: "Order"
+      copy4: "Confirmation"
+      copy5: "One Year of Access"
+      copy6: "Video On Demand"
+      copy7: "Free"
+      copy8: "Total Charged to Card:"
+      copy9: "Total Credits Applied:"
+      copy10: "If you have any questions please reach out to your sales representative, or contact the sales team at "
+      copy11: ". If your question is billing related, you can email"
+      copy12: ". If you have issues accessing your NterOne account, or services purchased, you can reach out to "
+      copy13: ". You can also call us at "
+      copy14: "to speak with a live person."
+      copy15: "You will receive a separate e-mail confirmation with specific details for your upcoming training session, seminar or product test drive event."
+      copy16: "Thanks again,"
+      copy17: "NterOne Sales Team"
+    quote:
+      copy1: "Corporate Headquarters:"
+      copy2: "NterOne Corporation"
+      copy3: "Hello"
+      copy4: "Here is a list of each of your chosen course(s):"
+      copy5: "Price:"
+      copy6: "Regular Price:"
+      copy7: "Discount:"
+      copy8: "Discounted Price:"
+      copy9: "Regards,"
+      copy10: "Sales Team"
+    new_lead:
+      copy1: "Name"
+      copy2: "Email"
+      copy3: "Phone"
+      copy4: "Estimated Total"
+    reminder:
+      copy1: "This is friendly reminder that class"
+      copy2: "Starts on "
+      copy3: "Thanks the NterOne Team"
+    reservation:
+      copy1: "Thank you!"
+      copy2: "Your request has been received. Here are your details:"
+      copy3: "Requester's Email"
+      copy4: "Requester's Company"
+      copy5: "Course"
+      copy6: "Students"
+      copy7: "1st Day of Class"
+      copy8: "Start Time"
+      copy9: "Instructor"
+      copy10: "Instructor Email"
+      copy11: "Instructor Phone"
+      copy12: "Location"
+      copy13: "Confirmed"
+      copy14: "Notes"
+      copy15: "Please allow 48 hours for us to get back to you."
+      copy16: "The NterOne Team"
+    student_added:
+      copy1: "Hello"
+      copy2: "This notice is a confirmation of the enrollment for class below."
+      copy3: "You will receive detailed class login information and courseware 3-5 business days prior to the scheduled start date."
+      copy4: "Special information regarding this course may be listed below – please read completely."
+      copy5: "NterOne Corporation invites you to participate as an attendee in the following training session:"
+      copy6: "Course"
+      copy7: "Name"
+      copy8: "Location"
+      copy9: "Date"
+      copy10: "Start Time"
+      copy11: "End Time"
+      copy12: "WebEx sessions are available 30 minutes before class begins."
+      copy13: "For optimal class experience, we strongly recommend that you use two screens in order to view course material and participate in lab simultaneously."
+      copy14: "You can check WebEx connectivity by going to this link:"
+      copy15: "Although WebEx supports Internet Explorer, we have found more success with recommending Firefox, Safari and Google Chrome in our daily use of WebEx."
+      copy16: "WebEx login information will be emailed to each student the week before class begins. Course materials will be delivered via email 3-5 days before class begins."
+      copy17: "Windows 10 Support:"
+      copy18: "Windows 10 is not officially supported, but most functionality in Internet Explorer should work. The Edge browser in Windows 10 is not supported."
+      copy19: "LINUX is also not well supported in WebEx. You will be unable to successfully join audio: the only workaround discovered is to use a Windows VM."
+      copy20: "Need Help? Call Customer Service:"
+      copy21: "E-Mail:"
+      copy22: "Phone: "
+      copy23: "Hours:"
+      copy24: "Thank you very much for your business,"
+      copy25: "Customer Service,"
+      copy26: "www.nterone.com"
+      copy27: "www.NterOne.com"
+    quote_mailer:
+      pdf_attachment_html:
+        copy1: "Hello"
+        copy2: "Thank you for your interest in NterOne – where customer service is our top priority!"
+        copy3: "We are pleased to offer you a customized training quote. Please see the attached PDF that outlines the details of the products and/or services requested. If you have any questions please reach out to your sales representative, or contact the sales team at "
+        copy4: ". You can also call us at 703-972-2288."
+        copy5: "We look forward to hearing from you soon!"
+        copy6: "Best Regards,"
+        copy7: "NterOne Sales Team"
+      pdf_attachment_text:
+        copy1: "Hello"
+        copy2: "Please review the attached PDF for your formal quote regarding your chosen course(s)."
+        copy3: "Regards,"
+        copy4: "Sales Team"
   xlsx:
+    commissions:
+      date_of_class: "Date of Class"
+      class_name: "Class Name"
+      student_name: "Student Name"
+      revenue: "Revenue"
+      commission_rate: "Commission Rate"
+      commission_earned: "Commission Earned"
+    featured_classes:
+      course_abbr: "Course Abbreviation"
+      course_title: "Course Title"
+      platform: "Platform"
+      start_date: "Start Date"
+      end_date: "End Date"
+      length: "Length"
+      format: "Format"
+      location: "Location"
+      price: "Price"
+    instructor_utilizations:
+      instructor_name: "Instructor Name"
+      days_taught: "Days Taught"
+      revenue: "Revenue"
+      role: "Role"
+    profit_sheets:
+      class: "Class"
+      class_date_range: "Class Date Range"
+      revenue: "Revenue"
+      expenses: "Expenses"
+      profit: "Profit"
     student_registered_classes:
       class_date: "Class Date"
       class_name: "Class Name"
       num_of_registrations: "No. of Registrations"
+  tooltip:
+    upcoming_classes: "Upcoming Classes"
   generic:
     search:
       placeholder: "Search"
     select:
       placeholder: "Please select"
     button:
+      build_my_training_plan: "Build My Training Plan"
       generate: "Generate"
       save: "Save"
+      save_invite: "Save & Invite"
       save_partner_confirm: "Save & Confirm with Partner"
+      place_order: "Place Order"
+      send: "Send"
       upload: "Upload"
       cancel: "Cancel"
+      submit: "Submit"
+      login: "Login"
+      register: "Register"
+      back: "Back"
     action:
+      actions: "Actions"
       add: "Add"
+      clone: "Clone"
       edit: "Edit"
+      show: "Show"
+      show_all: "Show All"
+      view: "View"
+      details: "Details"
       delete: "Delete"
       upload: "Upload"
+      add_class: "Add Class"
+      add_vod: "Add VOD"
+      add_student: "Add Student"
+      add_role: "Add role"
+      add_purchase: "Add Purchase"
+      remove_course: "remove course"
+      remove_exam: "remove exam"
+      remove_role: "Remove role"
+      remove_from_cart: "Remove from cart"
+      remove_grouping: "Remove Grouping"
+      go_to_queue: "Go to My Queue"
+      my_plan: "My Plan"
+      discount: "Discount"
+      download: "Download"
+      email: "Email"
     prompt:
       none_select: "None"
+      please_select: "Please select"
       confirm_delete: "Are you sure?"
+      eastern_timezone: "Eastern Time (US & Canada)"
     caption:
       form_instructions: "Hold down the control button (Windows) or the command button (Mac) to select multiple options."
     no_records: "No records found."
+    no_matches: "No Matches Found"

@@ -1,3 +1,3 @@
-$('.modal-title').html('Add Table');
+$('.modal-title').html("<%= t('modal.groups.new.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, subject: @subject, subjects: @subjects, group: @group, exam_and_course_dynamics: @exam_and_course_dynamics, courses: @courses, dividers: @dividers, custom_items: @custom_items }) %>");
 $('#myModal').modal('show');

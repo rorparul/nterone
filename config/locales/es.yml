@@ -53,27 +53,6 @@ es:
       website: "Pagina Web"
       messages: "Mensajes"
       settings: "Ajustes"
-    action:
-      commissions_report: "Generar Reportes de Comisiones"
-      profits_report: "Generar reportes de Ganancias"
-      utilization_report: "Generar Reportes de Utilización de Instructor"
-      form:
-        commissions_report:
-          title: " Generar Reportes de Comisiones "
-          label:
-            start: "Inicio"
-            end: "Fin"
-            sales_rep: "Representantes de Ventas"
-        profits_report:
-          title: "Generar reportes de Ganancias"
-          label:
-            start: "Inicio"
-            end: "Fin"
-        utilization_report:
-          title: "Generar Reportes de Utilización de Instructor"
-          label:
-            start: "Inicio"
-            end: "Fin"
     admin_queue:
       row:
         assigned_lead: "Contacto Asignado"
@@ -149,6 +128,27 @@ es:
           filter:
             registered: "Solo Registrados"
             past: "Incluyendo Pasado"
+      action:
+        commissions_report: "Generar Reportes de Comisiones"
+        profits_report: "Generar reportes de Ganancias"
+        utilization_report: "Generar Reportes de Utilización de Instructor"
+        form:
+          commissions_report:
+            title: " Generar Reportes de Comisiones "
+            label:
+              start: "Inicio"
+              end: "Fin"
+              sales_rep: "Representantes de Ventas"
+          profits_report:
+            title: "Generar reportes de Ganancias"
+            label:
+              start: "Inicio"
+              end: "Fin"
+          utilization_report:
+            title: "Generar Reportes de Utilización de Instructor"
+            label:
+              start: "Inicio"
+              end: "Fin"
       form:
         upload_classes:
           title: "Clases Cargadas"

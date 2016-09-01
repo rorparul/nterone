@@ -5,7 +5,7 @@
   li
     = link_to new_user_invitation_path(origin: "orders"), remote: true do
       i.fa.fa-plus
-      | Add User
+      = t 'admin.admin_orders.action.add_user'
 
 .row
   .col-xs-12

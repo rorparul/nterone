@@ -5,6 +5,7 @@ span.seperator
   | /
 - if current_user.admin?
   span.text-muted
-    = t 'breadcrumbs.admin'
+  = t 'breadcrumbs.admin'
 - if current_user.sales?
-  span.text-muted My Sales
+  span.text-muted
+  = t 'breadcrumbs.my_sales'

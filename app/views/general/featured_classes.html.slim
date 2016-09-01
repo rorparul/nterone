@@ -79,7 +79,7 @@
                         td.fit
                           = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                         td.fit
-                          = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                          = link_to t('generic.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
 
     .row
       .col-xs-12.text-center

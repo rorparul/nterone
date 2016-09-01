@@ -4,14 +4,14 @@
 - content_for :actions do
   li
     = link_to new_reports_commission_path, remote: true do
-      = t 'admin.action.commissions_report'
+      = t 'admin.admin_classes.action.commissions_report'
   - if current_user.admin?
     li
       = link_to new_reports_profit_sheet_path, remote: true do
-        = t 'admin.action.profits_report'
+        = t 'admin.admin_classes.action.profits_report'
     li
       = link_to new_reports_instructor_utilization_path, remote: true do
-        = t 'admin.action.utilization_report'
+        = t 'admin.admin_classes.action.utilization_report'
 
 .row
   .col-xs-12

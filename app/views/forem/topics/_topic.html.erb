@@ -11,7 +11,7 @@
     <% end %>
     <% if forem_user && view = topic.view_for(forem_user) %>
       <% if topic.posts.exists?(["created_at > ?", view.updated_at]) %>
-        <span class='new_posts icon'>new</span>
+        <span class='new_posts icon'><%= t('forem.partial.topic.new') %></span>
       <% end %>
     <% end %>
   </td>

@@ -27,7 +27,7 @@
                 = press_release.title
             = truncate_html(press_release.content, length: 250, omission: '...(continued)')
             small.text-muted
-              | Published 
+              = t 'about_us.label.published'
               = press_release.created_at.strftime("%B %d, %Y")
             hr
   

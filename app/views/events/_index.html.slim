@@ -1,29 +1,39 @@
 .panel.panel-default
   .panel-heading
-    strong.text-muted Classes
-    = link_to "Upload", events_upload_path, remote: true, class: "panel-heading-controls"
+    strong.text-muted
+    = t 'my_sales.header'
+    = link_to t('generic.action.upload'), events_upload_path, remote: true, class: "panel-heading-controls"
   .panel-table
     .table-responsive
       table.table.table-condensed.table-hover
         thead
           tr
-            th.fit title='Event ID' #
-            th.fit Status
-            th.fit Course
-            th.fit Start Date
-            th.fit title='Duration'
+            th.fit title="#{t('my_sales.tooltip.event_id')}" #
+            th.fit
+              = t 'my_sales.label.status'
+            th.fit
+              = t 'my_sales.label.course'
+            th.fit
+              = t 'my_sales.label.start_date'
+            th.fit title="#{t('my_sales.tooltip.duration')}"
               span.fa.fa-calendar
-            th.fit Start Time
-            th.fit End Time
-            th.fit Format
-            th.fit Instructor
-            th.fit title='Student Count'
+            th.fit
+              = t 'my_sales.label.start_time'
+            th.fit
+              = t 'my_sales.label.end_time'
+            th.fit
+              = t 'my_sales.label.format'
+            th.fit
+              = t 'my_sales.label.instructor'
+            th.fit title="#{t('my_sales.tooltip.student_count')}"
               span.fa.fa-plus-square-o
-            th.fit Revenue
-            th.fit Lab Source
-            th.fit title='Public'
+            th.fit
+              = t 'my_sales.label.revenue'
+            th.fit
+              = t 'my_sales.label.lab_source'
+            th.fit title="#{t('my_sales.tooltip.public')}"
               span.fa.fa-globe
-            th.fit title='Guaranteed'
+            th.fit title="#{t('my_sales.tooltip.guaranteed')}"
               span.fa.fa-thumbs-o-up
             th.fit
         tbody#events

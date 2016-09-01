@@ -1,3 +1,3 @@
-$('.modal-title').html('Edit Image');
+$('.modal-title').html("<%= t('modal.image_store_units.edit.title') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { image_store_unit: @image_store_unit }) %>");
 $('#myModal').modal('show');

@@ -4,10 +4,10 @@
     td.fit = course.full_title
     td.fit = course.upcoming_events.count
     td.fit.text-right.course-actions
-      = link_to "Show", platform_course_path(course.platform, course)
+      = link_to t('generic.action.show'), platform_course_path(course.platform, course)
       | |
-      = link_to "Edit", edit_platform_course_path(course.platform, course)
+      = link_to t('generic.action.edit'), edit_platform_course_path(course.platform, course)
       | |
-      = link_to "Clone", clone_form_platform_course_path(course.platform, course), remote: true
+      = link_to t('generic.action.clone'), clone_form_platform_course_path(course.platform, course), remote: true
       | |
-      = link_to 'Delete', platform_course_path(course.platform, course), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+      = link_to t('generic.action.delete'), platform_course_path(course.platform, course), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'

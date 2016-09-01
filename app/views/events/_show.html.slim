@@ -2,10 +2,11 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Class Details
+        strong.text-muted
+          = t 'admin.admin_classes.show.panel.class_details.header'
         .panel-actions-overlay
           = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-            | Edit
+            = t 'generic.action.edit'
       .row.table-row
         .col-xs-12.col-md-6.table-col
           .panel-table
@@ -14,63 +15,76 @@
                 tbody
                   tr
                     td.text-right
-                      strong Vendor:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.vendor'
                     td = event.course.platform.title
                   tr
                     td.text-right
-                      strong Course:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.course'
                     td = "#{event.course.abbreviation} #{event.course.title}"
                   tr
                     td.text-right
-                      strong Start Date:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.start_date'
                     td = event.start_date.to_formatted_s(:rfc822) if event.start_date
                   tr
                     td.text-right
-                      strong End Date:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.end_date'
                     td = event.end_date.to_formatted_s(:rfc822) if event.end_date
                   tr
                     td.text-right
-                      strong Duration:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.duration'
                     td = pluralize(event.length, 'Day')
                   tr
                     td.text-right
-                      strong Start Time:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.start_time'
                     td = event.start_time.strftime("%I:%M %p") if event.start_time
                   tr
                     td.text-right
-                      strong End Time:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.end_time'
                     td = event.end_time.strftime("%I:%M %p") if event.end_time
                   tr
                     td.text-right
-                      strong Format:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.format'
                     td = event.format
                   tr
                     td.text-right
-                      strong Location:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.location'
                     - if event.city.present? || event.state.present?
                       td = "#{event.city}, #{event.state}"
                     - else
                       td
                   tr
                     td.text-right
-                      strong Instructor:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.instructor'
                     td = event.instructor.full_name if event.instructor
                   tr
                     td.text-right
-                      strong Enrollment Count:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.enrollment_count'
                     td = event.student_count
                   tr
                     td.text-right
-                      strong Public:
-                    td = event.public ? 'Yes' : 'No'
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.public'
+                    td = event.public ? t('admin.admin_classes.show.panel.class_details.value.affirmative') : t('admin.admin_classes.show.panel.class_details.value.negatory') 
                   tr
                     td.text-right
-                      strong Guaranteed:
-                    td = event.guaranteed ? 'Yes' : 'No'
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.guaranteed'
+                    td = event.guaranteed ? t('admin.admin_classes.show.panel.class_details.value.affirmative') : t('admin.admin_classes.show.panel.class_details.value.negatory') 
                   tr
                     td.text-right
                       strong Active:
-                    td = event.active ? 'Yes' : 'No'
+                    td = event.active ? t('admin.admin_classes.show.panel.class_details.value.affirmative') : t('admin.admin_classes.show.panel.class_details.value.negatory') 
 
         .col-xs-12.col-md-6.table-col
           .panel-table
@@ -79,80 +93,108 @@
                 tbody
                   tr
                     td.text-right
-                      strong Instructor Cost:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.instructor_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_instructor, precision: 2))}"
                   tr
                     td.text-right
-                      strong Lab Cost:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.lab_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_lab, precision: 2))}"
                   tr
                     td.text-right
-                      strong T & E Cost:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.te_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_te, precision: 2))}"
                   tr
                     td.text-right
-                      strong Facility Cost:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.facility_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_facility, precision: 2))}"
                   tr
                     td.text-right
-                      strong Books & Material Cost:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.books_material_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_books, precision: 2))}"
                   tr
                     td.text-right
-                      strong Shipping Cost:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.shipping_cost'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_shipping, precision: 2))}"
                   tr
                     td.text-right
-                      strong Commission:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.commission'
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.commission, precision: 2))}"
                   tr
                     td.text-right
-                      strong Revenue:
+                      strong
+                        = t 'admin.admin_classes.show.panel.class_details.label.revenue'
                     td = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
                   tr
                     td.text-right
-                      strong Total Cost + Commission:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.total_cost'
                     td.text-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
                   tr
                     td.text-right
-                      strong Net Revenue:
+                      strong 
+                        = t 'admin.admin_classes.show.panel.class_details.label.net_revenue'
                     td.text-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Class Registrations
+        strong.text-muted 
+          = t 'admin.admin_classes.show.panel.class_registrations.header'
         .panel-actions-overlay
           = link_to new_order_path(event: event.id), remote: true do
-            span title="Add Student" Add Student
+            span title="#{t('admin.admin_classes.show.panel.class_registrations.tooltip.add_student')}" 
+             = t 'generic.action.add_student'
       .panel-table
         .responsive-table.table-scrollable
           table.table.table-condensed
             thead
               tr
-                th title="Sent Webex invite"
+                th title="#{t('admin.admin_classes.show.panel.class_registrations.tooltip.sent_webex')}"
                   span.fa.fa-globe
-                th title="Sent course material"
+                th title="#{t('admin.admin_classes.show.panel.class_registrations.tooltip.sent_course_material')}"
                   span.fa.fa-book
-                th title="Sent lab credentials"
+                th title="#{t('admin.admin_classes.show.panel.class_registrations.tooltip.sent_lab_credentials')}"
                   span.fa.fa-flask
-                th Invoice #
-                th Student
-                th Contacts
-                th Company
-                th Ship to address
-                th Partner email
-                th Amount Quoted
-                th Amount Paid
-                th Amount Due
-                th Closed Date
-                th Sales Rep
-                th Note
-                th Gilmore order number
-                th Gilmore invoice
-                th Royalty id
-                th Po number
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.invoice'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.student'
+                th 
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.contacts'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.company'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.ship_to'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.partner_email'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.amount_quoted'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.amount_paid'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.amount_due'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.closed_date'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.sales_rep'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.note'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.gilmore_order_number'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.gilmore_invoice'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.royalty_id'
+                th
+                  = t 'admin.admin_classes.show.panel.class_registrations.label.po_number'
             tbody
               - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
@@ -215,8 +257,8 @@
                   td = form_for order_item.order, remote: true do |f|
                       = f.text_field :po_number, class: "form-control form-async"
 
-                  / td = link_to 'Edit', edit_order_item_path(order_item), remote: true
-                  / td = link_to 'Delete', order_path(order_item.order), method: :delete, data: { confirm: "Are you sure?" }
+                  / td = link_to t('generic.action.edit'), edit_order_item_path(order_item), remote: true
+                  / td = link_to t('generic.action.delete'), order_path(order_item.order), method: :delete, data: { confirm: t('generic.prompt.delete_confirm') }
 
 javascript:
   $('.table-select, .check-select').on('change', function() {

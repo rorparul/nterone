@@ -4,13 +4,14 @@
     = t 'breadcrumbs.home'
   span.seperator
     | /
-  span.text-muted My Sales
+  span.text-muted
+  = t 'breadcrumbs.my_sales'
     
 - content_for :actions do
   li
     = link_to events_upload_path, remote: true do
       i.fa.fa-upload
-      | Upload Classes
+      = 'my_sales.action.upload_classes'
     
 .row
   .col-xs-12

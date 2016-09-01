@@ -13,7 +13,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Page
+    strong.text-muted
+      = t 'pages.edit.panel.edit_page.header'
   .panel-body
     = render partial: "form", locals: { page: @page }
 

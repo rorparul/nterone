@@ -21,7 +21,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Video On Demand
+    strong.text-muted 
+      = t 'video_on_demands.edit.panel.edit_video_on_demand.header'
   .panel-body
     = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
 

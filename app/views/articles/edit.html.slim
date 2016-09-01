@@ -13,7 +13,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Article
+    strong.text-muted
+      = t 'admin.admin_website.form.edit_article.title'
   .panel-body
     = render partial: "form", locals: { article: @article }
 

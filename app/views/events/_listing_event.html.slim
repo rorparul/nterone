@@ -15,20 +15,22 @@ tr
   td.fit = event.student_count
   td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
   td.fit = event.lab_source
-  td.fit = event.public ? 'Yes' : 'No'
+  td.fit = event.public ? t('admin.admin_classes.partial.listing_event.value.affirmative') : t('admin.admin_classes.partial.listing_event.value.negatory')
   td.fit
     - if event.guaranteed
-      span.label.label-success Yes
+      span.label.label-success
+        = t 'admin.admin_classes.partial.listing_event.value.affirmative'
     - if !event.guaranteed
-      span.label.label-default No
+      span.label.label-default
+        = t 'admin.admin_classes.partial.listing_event.value.negatory'
   td.fit
     - if event.status == "Confirmed"
       i.fa.fa-check.text-success aria-hidden="true"
   td.fit
-    = link_to "Add Student", new_order_path(event: event.id), remote: true, title: "Register Student"
+    = link_to t('generic.action.add_student'), new_order_path(event: event.id), remote: true, title: t('admin.admin_classes.partial.listing_event.tooltip.register_student')
     .link-diver |
-    = link_to "View", admin_classes_show_path(event), title: "View Details"
+    = link_to t('generic.action.view'), admin_classes_show_path(event), title: t('admin.admin_classes.partial.listing_event.tooltip.view_details')
     .link-diver |
-    = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+    = link_to t('generic.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
     .link-diver |
-    = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, title: "Delete"
+    = link_to t('generic.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, title: t('generic.action.delete')

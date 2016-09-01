@@ -6,13 +6,13 @@
       = f.hidden_field :id
       = f.hidden_field :position, class: 'position'
       = f.hidden_field :groupable_type, value: 'Subject'
-      = f.label :groupable_id, 'Certifications'
+      = f.label :groupable_id, t('partial.groups.group_item_fields.certifications')
       br
       = f.select :groupable_id,
                  subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] },
                  { prompt: true },
                  html_options = { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Item', f
+    = link_to_remove_association t('partial.groups.group_item_fields.remove_item'), f
 - when 'Course'
   li.nested-fields
     span.fa.fa-bars
@@ -20,13 +20,13 @@
       = f.hidden_field :id
       = f.hidden_field :position, class: 'position'
       = f.hidden_field :groupable_type, value: 'Course'
-      = f.label :groupable_id, 'Courses'
+      = f.label :groupable_id, t('partial.groups.group_item_fields.courses')
       br
       = f.select :groupable_id,
                  courses.order('lower(title)').collect { |course| [course.title, course.id] },
                  { prompt: true },
                  html_options = { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Item', f
+    = link_to_remove_association t('partial.groups.group_item_fields.remove_item'), f
 - when 'ExamAndCourseDynamic'
   li.nested-fields
     span.fa.fa-bars
@@ -34,13 +34,13 @@
       = f.hidden_field :id
       = f.hidden_field :position, class: 'position'
       = f.hidden_field :groupable_type, value: 'ExamAndCourseDynamic'
-      = f.label :groupable_id, 'Exam-Course'
+      = f.label :groupable_id, t('partial.groups.group_item_fields.exam_course')
       br
       = f.select :groupable_id,
                  exam_and_course_dynamics.order('lower(label)').collect { |exam_and_course_dynamic| [exam_and_course_dynamic.label, exam_and_course_dynamic.id] },
                  { prompt: true },
                  html_options = { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Item', f
+    = link_to_remove_association t('partial.groups.group_item_fields.remove_item'), f
 - when 'Divider'
   li.nested-fields
     span.fa.fa-bars
@@ -48,13 +48,13 @@
       = f.hidden_field :id
       = f.hidden_field :position, class: 'position'
       = f.hidden_field :groupable_type, value: 'Divider'
-      = f.label :groupable_id, 'Dividers'
+      = f.label :groupable_id, t('partial.groups.group_item_fields.dividers')
       br
       = f.select :groupable_id,
                  dividers.order('lower(content)').collect { |divider| [divider.content, divider.id] },
                  { prompt: true },
                  html_options = { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Item', f
+    = link_to_remove_association t('partial.groups.group_item_fields.remove_item'), f
 - when 'CustomItem'
   li.nested-fields
     span.fa.fa-bars
@@ -62,10 +62,10 @@
       = f.hidden_field :id
       = f.hidden_field :position, class: 'position'
       = f.hidden_field :groupable_type, value: 'CustomItem'
-      = f.label :groupable_id, 'Custom Items'
+      = f.label :groupable_id, t('partial.groups.group_item_fields.custom_items')
       br
       = f.select :groupable_id,
                  custom_items.order('lower(shortname)').collect { |custom_item| [custom_item.shortname.blank? ? custom_item.content[0..49] : custom_item.shortname, custom_item.id] },
                  { prompt: true },
                  html_options = {class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Item', f
+    = link_to_remove_association t('partial.groups.group_item_fields.remove_item'), f

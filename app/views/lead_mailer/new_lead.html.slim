@@ -4,13 +4,17 @@ html
     meta content='text/html; charset=UTF-8' http-equiv='Content-Type'
   body
     - if @lead.buyer.full_name
-      h6 Name
+      h6
+        = t 'mailer.new_lead.copy1'
       p = @lead.buyer.full_name
-    h6 Email
+    h6 
+      = t 'mailer.new_lead.copy2'
     p = @lead.buyer.email
-    h6 Phone
+    h6
+      = t 'mailer.new_lead.copy3'
     p = @lead.buyer.contact_number
-    h6 Estimated Total
+    h6 
+      = t 'mailer.new_lead.copy4'
     p = formatted_price_or_range_of_my_plan_for(@lead.buyer)
     br
-    = link_to "Go to My Queue", @url
+    = link_to t('generic.action.go_to_queue'), @url

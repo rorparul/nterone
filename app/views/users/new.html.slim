@@ -5,17 +5,18 @@
   span.seperator
     | /
   a href="#{users_path}"
-    | People
+    = t 'breadcrumbs.people'
   span.seperator
     | /
   a href="#"
-    | New Person
+    = t 'breadcrumbs.new_person'
 
 .row#settings
   .col-xs-12
     .group
       .group-heading
-        h6 User Info
+        h6 
+          = t 'users.new.header'
       .group-body
         = render 'form', user: @user
 

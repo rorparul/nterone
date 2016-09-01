@@ -27,7 +27,7 @@
                 = industry_article.title
             = truncate_html(industry_article.content, length: 250, omission: '...(continued)')
             small.text-muted
-              | Published 
+              = t 'about_us.label.published' 
               = industry_article.created_at.strftime("%B %d, %Y")
             hr
   

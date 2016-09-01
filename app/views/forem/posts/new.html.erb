@@ -13,7 +13,7 @@
   <%= render :partial => "form", :locals => { :f => f } %>
   <div class="form-buttons">
     <%= f.submit t("forem.post.buttons.reply"), :class => "btn btn-success" %>
-    <button id="forum-back" class="btn btn-primary" type="button" name="button">Cancel</button>
+    <button id="forum-back" class="btn btn-primary" type="button" name="button"><%= t('generic.button.cancel') %></button>
   </div>
 <% end %>
 
