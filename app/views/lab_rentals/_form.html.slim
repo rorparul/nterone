@@ -7,9 +7,10 @@
         - lab_rental.errors.full_messages.each do |msg|
           p = msg
 
-    = f.hidden_field :user_id, value: current_user.id
+    - if @lab_rental.new_record?
+      = f.hidden_field :user_id, value: current_user.id
     
-    - unless current_user.admin?
+    - if @lab_rental.new_record? && !current_user.admin?
       = f.hidden_field :company_id, value: current_user.company.try(:id)
     - else
       .row
