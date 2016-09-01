@@ -47,14 +47,23 @@
       .col-xs-12.col-md-4
         .form-group
           = f.label :num_of_students, t('admin.admin_lab_rentals.form.add_lab_rental.label.number_of_students')
-          = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control input-sm'
+          - if @lab_rental.new_record?
+            = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control input-sm'
+          - else
+            = f.number_field :num_of_students, in: 4..16, class: 'form-control input-sm'
       .col-xs-12.col-md-4
         label = t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
         .form-group
-          = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
-          | Yes
-          = f.radio_button :confirmed, false, class: 'confirmed-radio-button false', checked: true
-          | No
+          - if @lab_rental.new_record?
+            = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
+            | Yes
+            = f.radio_button :confirmed, false, class: 'confirmed-radio-button false', checked: true
+            | No
+          - else
+            = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
+            | Yes
+            = f.radio_button :confirmed, false, class: 'confirmed-radio-button false'
+            | No
 
     .row
       .col-xs-12.col-md-4
