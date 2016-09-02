@@ -218,6 +218,9 @@ NterOne::Application.routes.draw do
   get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
   put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
 
+  get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
+  get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
+
   # Redirects:
   get '/training/cisco'  => redirect('/training')
   get '/training/vmware' => redirect('/training')

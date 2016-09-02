@@ -248,6 +248,11 @@ es:
           action:
             edit: "Editar"
             delete: "Borrar"
+        company:
+          title: "T: Companies"
+          column:
+            title: "T: Title"
+            form_type: "T: Form Type"
         articles:
           title: "Articulos"
           column:

@@ -272,7 +272,9 @@ en:
             delete: "Delete"
         company:
           title: "Companies"
-          column: "Company Title"
+          column:
+            title: "Title"
+            form_type: "Form Type"
           action:
             edit: "Edit"
             delete: "Delete"

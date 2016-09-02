@@ -17,7 +17,9 @@
             strong.text-muted
               = t 'admin.admin_lab_rentals.row.lab_rentals.title'
           .col-xs-6
-            - if !current_user.admin?
+            - if current_user.admin?
+              = link_to t('generic.action.add'), new_lab_rental_path, class: "table-header-action"
+            - else
               = link_to t('generic.action.add'), new_lab_rental_path, class: "table-header-action"
             
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
