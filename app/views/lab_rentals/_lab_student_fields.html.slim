@@ -1,0 +1,15 @@
+.nested-fields
+  .row
+    .col-xs-12.col-md-4
+      .form-group
+        = f.label :name, t('student name')
+        span.required *
+        = f.text_field :name, required: true, class: 'form-control input-sm'
+    .col-xs-12.col-md-4
+      .form-group
+        = f.label :email, t('student email')
+        span.required *
+        = f.text_field :email, required: true, class: 'form-control input-sm'
+    .col-xs-12.col-md-4
+      .form-group style="margin-top: 28px;"
+        = link_to_remove_association "Remove student", f

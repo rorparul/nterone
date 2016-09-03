@@ -1,0 +1,26 @@
+en:
+  models:
+    general:
+    company:
+      singular: 'Company'
+      plural: 'Companies'
+      title: 'Title'
+      form_type: 'Lab Reservation Form-type'
+      portal: 'Lab Reservation Portal'
+    lab_student:
+      singular: 'Lab Student'
+      plural: 'Lab Students'
+  views:
+    general:
+      buttons:
+        save: 'Save'
+        cancel: 'Cancel'
+      prompts:
+        dropdown: 'Please select'
+    companies:
+      form:
+        inputs:
+          form_type:
+            options:
+              option_1: 'Student Details Not Required'
+              option_2: 'Student Details Required'

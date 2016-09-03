@@ -1,5 +1,19 @@
 - content_for :breadcrumbs do
-  = render "breadcrumbs"
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t 'breadcrumbs.home'
+  span.seperator
+   | /
+  a href="#{lab_rentals_path}"
+    | Lab Reservations
+  span.seperator
+   | /
+  span Edit
+  
+= link_to lab_rentals_path do
+  span style='margin-bottom: 10px; display: inline-block;'
+    i.fa.fa-chevron-left style='margin-right: 5px;'
+    | Back to Lab Reservations
 
 .panel.panel-default
   .panel-heading
