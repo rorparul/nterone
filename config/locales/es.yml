@@ -597,3 +597,8 @@ es:
     caption:
       form_instructions: "Sujete el boton de control (Windows) o el boton de comando (Mac) para seleccionar multiples opciones."
     no_records: "No registros encontrados."
+  images:
+    consulting: "/assets/locales/es/consulting.png"
+    labs: "/assets/locales/es/labs.png"
+    partners: "/assets/locales/es/partners.png"
+    testimonials: "/assets/locales/es/testimonials.png"

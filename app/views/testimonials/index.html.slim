@@ -15,7 +15,7 @@
     
 .row
   .col-xs-12.col-central
-    = image_tag 'testimonials.png', class: "header-image"
+    = image_tag t('images.testimonials'), class: "header-image"
     #testimonials
       - @testimonials.each do |testimonial|
         = render partial: 'testimonial', locals: { testimonial: testimonial }
