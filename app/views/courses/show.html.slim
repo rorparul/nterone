@@ -77,7 +77,8 @@
                                 td = "#{pluralize(event.length, 'Day')}"
                                 td = event.format
                                 - if event.city.present? || event.state.present? || event.street.present?
-                                  td= [event.city, event.state, event.street].reject(&:blank?).join(', ')
+                                  td.fit.location-td
+                                    .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.city, event.street].reject(&:blank?).join(', ') = event.state
                                 - else
                                   - if event.format == "Live Online"
                                     td Webex
@@ -180,6 +181,9 @@ javascript:
       }, 500);
     }
   });
+
+javascript:
+  $('[data-toggle="tooltip"]').tooltip()
 
 script type="application/ld+json"
   - @course.upcoming_public_events.each do |event|
