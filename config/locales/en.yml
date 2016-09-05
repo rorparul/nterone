@@ -830,7 +830,8 @@ en:
         add_lab_rental:
           title: "Request Lab Reservation"
           label:
-            course: "Choose Course"
+            course: "Course"
+            company: "Company"
             first_day: "1st Day of Class"
             number_of_students: "Number of Students"
             start_time: "Start Time (EST)"
@@ -951,7 +952,9 @@ en:
             delete: "Delete"
         company:
           title: "Companies"
-          column: "Company Title"
+          column:
+            title: "Title"
+            form_type: "Form Type"
           action:
             edit: "Edit"
             delete: "Delete"

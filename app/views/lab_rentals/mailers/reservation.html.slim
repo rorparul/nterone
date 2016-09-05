@@ -43,6 +43,12 @@ table
     tr
       td
         = t 'mailer.reservation.copy9'
+        | Time Zone
+      td
+        = @reservation.time_zone
+    tr
+      td
+        | Instructor
       td
         = @reservation.instructor
     tr

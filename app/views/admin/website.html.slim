@@ -62,17 +62,18 @@
         table.table.table-condensed
           thead
             tr
-              th
-                = t 'admin.admin_website.row.company.column.title'
-              th
+              th = t 'models.company.title'
+              th = t 'models.company.form_type'
+              th = t 'models.company.portal'
+              th colspan="2" Actions
           tbody#pages
             - @companies.each do |company|
               tr
                 td = company.title
-                td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_company_path(company), remote: false
-                  = " | "
-                  = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                td = company.form_type
+                td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
+                td.fit = link_to t('generic.action.edit'), edit_company_path(company), remote: false
+                td.fit = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
