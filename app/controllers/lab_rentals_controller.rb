@@ -2,7 +2,7 @@ class LabRentalsController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :authenticate_user!, :verify_company
+  # before_action :authenticate_user!, :verify_company
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
