@@ -9,7 +9,8 @@ class LabRental < ActiveRecord::Base
 
 	accepts_nested_attributes_for :lab_students, reject_if: :all_blank, allow_destroy: true
 
-	validates :company_id, :lab_course_id, presence: true
+	validates :company_id, :lab_course_id, :kind, presence: true
+	validates_format_of :instructor_email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
 	after_save :count_students, if: Proc.new { |model| model.kind == 2 }
 
