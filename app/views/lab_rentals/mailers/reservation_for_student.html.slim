@@ -9,16 +9,6 @@ table
   tbody
     tr
       td
-        | Student's Name
-      td
-        = @lab_student.name
-    tr
-      td
-        | Student's Email
-      td
-        = @lab_student.email
-    tr
-      td
         | Organization
       td
         = @reservation.company.try(:title)
@@ -26,7 +16,7 @@ table
       td
         | Course
       td
-        = @reservation.course
+        = @reservation.lab_course.title
     tr
       td
        | 1st Day of Class
