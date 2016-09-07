@@ -22,16 +22,12 @@ class LabReservationMailer < ApplicationMailer
     end
 
     if @reservation.lab_students.any?
-      @reservation.lab_students.each do |lab_student|
-        @lab_student = lab_student
-
-        mail(
-          to: lab_student.email,
-          subject: "Lab Reservation Requested (##{@reservation.id})",
-          template_path: 'lab_rentals/mailers',
-          template_name: 'reservation_for_student'
-        )
-      end
+      mail(
+        bcc: @reservation.lab_students.collect(&:email),
+        subject: "Lab Reservation Requested (##{@reservation.id})",
+        template_path: 'lab_rentals/mailers',
+        template_name: 'reservation_for_student'
+      )
     end
   end
 
@@ -58,16 +54,12 @@ class LabReservationMailer < ApplicationMailer
     end
 
     if @reservation.lab_students.any?
-      @reservation.lab_students.each do |lab_student|
-        @lab_student = lab_student
-
-        mail(
-          to: lab_student.email,
-          subject: "Lab Reservation Modified (##{@reservation.id})",
-          template_path: 'lab_rentals/mailers',
-          template_name: 'reservation_for_student'
-        )
-      end
+      mail(
+        bcc: @reservation.lab_students.collect(&:email),
+        subject: "Lab Reservation Modified (##{@reservation.id})",
+        template_path: 'lab_rentals/mailers',
+        template_name: 'reservation_for_student'
+      )
     end
   end
 
@@ -95,16 +87,12 @@ class LabReservationMailer < ApplicationMailer
     end
 
     if @reservation.lab_students.any?
-      @reservation.lab_students.each do |lab_student|
-        @lab_student = lab_student
-        
-        mail(
-          to: lab_student.email,
-          subject: "Lab Reservation Canceled (##{@reservation.id})",
-          template_path: 'lab_rentals/mailers',
-          template_name: 'reservation_for_student'
-        )
-      end
+      mail(
+        bcc: @reservation.lab_students.collect(&:email),
+        subject: "Lab Reservation Canceled (##{@reservation.id})",
+        template_path: 'lab_rentals/mailers',
+        template_name: 'reservation_for_student'
+      )
     end
   end
 end
