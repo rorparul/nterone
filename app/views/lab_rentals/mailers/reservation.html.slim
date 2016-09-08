@@ -3,8 +3,14 @@ css:
     border: 1px solid black;
   }
 
+<<<<<<< HEAD
 p 
   = t 'mailer.reservation.copy1'
+=======
+p Thank you!
+
+p Your request has been received. Here are the details:
+>>>>>>> master
 
 p 
   = t 'mailer.reservation.copy2'
@@ -14,7 +20,7 @@ table
       td
         = t 'mailer.reservation.copy3'
       td
-        = @user.email
+        = @user.try(:email)
     tr
       td
         = t 'mailer.reservation.copy4'
@@ -24,7 +30,7 @@ table
       td
         = t 'mailer.reservation.copy5'
       td
-        = @reservation.course
+        = @reservation.lab_course.title
     tr
       td
         = t 'mailer.reservation.copy6'

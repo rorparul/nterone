@@ -52,8 +52,11 @@
                       td.fit = "#{pluralize(event.length, 'Day')}"
                       td.fit = event.format
                       td.fit = event.language.upcase
-                      - if event.city.present? || event.state.present?
-                        td.fit = "#{event.city}, #{event.state}"
+                      - if event.city.present? || event.state.present? || event.street.present?
+                        td.fit.location-td
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                            = event.state
                       - else
                         - if event.format == "Live Online"
                           td Webex
@@ -90,3 +93,4 @@
 
 javascript:
   $('.home-tab').addClass('active');
+  $('[data-toggle="tooltip"]').tooltip()

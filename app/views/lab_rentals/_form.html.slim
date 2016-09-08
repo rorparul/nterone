@@ -13,7 +13,7 @@
     - if @lab_rental.new_record?
       = f.hidden_field :user_id
     
-    - if @lab_rental.new_record? && current_user.try(:admin?) == false
+    - if @lab_rental.new_record? && (current_user.try(:admin?) == false || !user_signed_in?)
       = f.hidden_field :company_id
     - if @lab_rental.new_record? && current_user.try(:admin?)
       .row
@@ -50,7 +50,7 @@
           span.required *
           = f.time_zone_select :time_zone,
                                ActiveSupport::TimeZone.us_zones,
-                               { prompt: 'Eastern Time (US & Canada)' },
+                               { include_blank: 'Please select', default: 'Eastern Time (US & Canada)' },
                                { required: true, class: 'form-control input-sm' }
 
     .row
