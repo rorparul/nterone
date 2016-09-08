@@ -89,7 +89,7 @@ class EventsController < ApplicationController
 
   def student_registered_classes
     @platforms = Platform.order(:title)
-    
+
     respond_to do |format|
       format.xlsx
       format.html

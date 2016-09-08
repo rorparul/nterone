@@ -24,4 +24,17 @@ class LabReservationMailer < ApplicationMailer
       template_name: 'reservation'
     )
   end
+
+  def destroy_reservation(user, reservation)
+    @user        = user
+    @reservation = reservation
+
+    mail(
+      to: @user.email,
+      bcc: 'techsupport@nterone.com',
+      subject: "Lab Reservation Canceled (##{@reservation.id})",
+      template_path: 'lab_rentals/mailers',
+      template_name: 'reservation'
+    )
+  end
 end

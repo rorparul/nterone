@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825133223) do
+ActiveRecord::Schema.define(version: 20160902160924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 20160825133223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "title"
+    t.integer  "form_type"
+    t.string   "slug"
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -222,7 +224,7 @@ ActiveRecord::Schema.define(version: 20160825133223) do
     t.integer  "remind_period",                                    default: 0
     t.boolean  "reminder_sent",                                    default: false
     t.text     "note"
-    t.boolean  "count_weekends"
+    t.boolean  "count_weekends",                                   default: false
     t.text     "in_house_note"
     t.string   "street"
     t.integer  "language",                                         default: 0
@@ -425,7 +427,7 @@ ActiveRecord::Schema.define(version: 20160825133223) do
 
   create_table "lab_rentals", force: :cascade do |t|
     t.date     "first_day"
-    t.integer  "num_of_students",  default: 0
+    t.integer  "num_of_students",   default: 0
     t.time     "start_time"
     t.string   "instructor"
     t.string   "instructor_email"
@@ -433,17 +435,28 @@ ActiveRecord::Schema.define(version: 20160825133223) do
     t.text     "notes"
     t.string   "location"
     t.boolean  "confirmed"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "course"
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
     t.time     "end_time"
     t.integer  "lab_course_id"
+    t.integer  "kind"
+    t.string   "time_zone"
+    t.boolean  "twenty_four_hours"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
+
+  create_table "lab_students", force: :cascade do |t|
+    t.integer  "lab_rental_id"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "leads", force: :cascade do |t|
     t.integer  "seller_id"
@@ -600,11 +613,11 @@ ActiveRecord::Schema.define(version: 20160825133223) do
     t.integer  "status_position"
     t.boolean  "reviewed",                                        default: false
     t.decimal  "balance",                 precision: 8, scale: 2, default: 0.0
+    t.string   "referring_partner_email"
     t.string   "gilmore_order_number"
     t.string   "gilmore_invoice"
     t.string   "royalty_id"
     t.date     "closed_date"
-    t.string   "referring_partner_email"
     t.integer  "source",                                          default: 0
     t.string   "other_source"
   end
@@ -740,6 +753,17 @@ ActiveRecord::Schema.define(version: 20160825133223) do
     t.integer  "video_on_demand_id"
   end
 
+  create_table "taken_exams", force: :cascade do |t|
+    t.integer  "lms_exam_id"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
+  add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
+
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -761,6 +785,14 @@ ActiveRecord::Schema.define(version: 20160825133223) do
 
   add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
+
+  create_table "user_companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "company_id"
+  end
+
+  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
+  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                   default: "",               null: false
@@ -893,5 +925,9 @@ ActiveRecord::Schema.define(version: 20160825133223) do
   add_foreign_key "lms_exams", "video_modules"
   add_foreign_key "lms_exams", "video_on_demands"
   add_foreign_key "lms_exams", "videos"
+  add_foreign_key "taken_exams", "lms_exams"
+  add_foreign_key "taken_exams", "users"
+  add_foreign_key "user_companies", "companies"
+  add_foreign_key "user_companies", "users"
   add_foreign_key "users", "companies"
 end

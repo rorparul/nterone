@@ -12,52 +12,63 @@
             th.fit
               = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.no_of_students'), :num_of_students
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.start_date'), :first_day
-            th.fit
-              = t('admin.admin_lab_rentals.row.lab_rentals.column.start_time')
-            th.fit
-              = t('admin.admin_lab_rentals.row.lab_rentals.column.end_time')
-            th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.instructor'), :instructor
-            th.fit
-              = t('admin.admin_lab_rentals.row.lab_rentals.column.email')
-            th.fit
-              = t('admin.admin_lab_rentals.row.lab_rentals.column.phone')
+              = smart_listing.sortable 'Date', :first_day
+            th.fit Time
             th.fit
               = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.location'), :location
             th.fit
+              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.instructor'), :instructor
+            th.fit
               = t('admin.admin_lab_rentals.row.lab_rentals.column.notes')
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.confirmed'), :confirmed
+              = smart_listing.sortable t('24_hr'), :twenty_four_hours
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.canceled'), :canceled
-            th.fit Actions
+              = smart_listing.sortable t('conf.'), :confirmed
+            th.fit
+              = smart_listing.sortable t('canc'), :canceled
+            th colspan="2" Actions
         tbody
           - smart_listing.collection.each do |rental|
             tr
               td = rental.lab_course.title
               - if current_user.admin?
                 td = rental.company.try(:title)
-              td = rental.num_of_students
-              td = rental.first_day
-              td = rental.start_time.strftime("%I:%M %p")
-              td = rental.end_time.strftime("%I:%M %p")
-              td = rental.instructor
-              td = rental.instructor_email
-              td = rental.instructor_phone
-              td = rental.location
-              td
+              - if rental.kind == 2
+                td.fit
+                  = link_to lab_rental_path(rental, show: 'students'), remote: true do
+                    div style="display: inline-block;"
+                      = rental.num_of_students
+                      span.fa.fa-eye style="margin-left: 5px;"
+              - else
+                td.fit = rental.num_of_students
+              td.fit = rental.first_day
+              td.fit
+                div = rental.start_time.strftime("%I:%M %p")
+                div = rental.end_time.strftime("%I:%M %p")
+              td.fit = rental.location
+              td.fit
+                div = rental.instructor
+                div = rental.instructor_email
+                div = rental.instructor_phone
+              td.fit
                 - if rental.notes.present?
-                  = link_to lab_rental_path(rental, only_note: true), remote: true do
+                  = link_to lab_rental_path(rental, show: 'notes'), remote: true do
                     span.fa.fa-sticky-note
-              td
+              td.fit style="text-align: center;"
+                - if rental.twenty_four_hours
+                  i.fa.fa-check.text-success aria-hidden="true"
+              td.fit style="border-right: 1px solid lightgray; border-left: 1px solid lightgray; text-align: center;"
                 - if rental.confirmed
                   i.fa.fa-check.text-success aria-hidden="true"
-              td
+              td.fit style="text-align: center;"
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
+              td.fit = link_to t('generic.action.edit'), edit_lab_rental_path(rental)
               td.fit
-                = link_to "Edit", edit_lab_rental_path(rental)
+                = link_to t('generic.action.cancel'), lab_rental_path(rental),
+                  method: :delete,
+                  data: { confirm: t('generic.prompt.confirm_delete') },
+                  class: 'text-danger'
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

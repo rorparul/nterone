@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.upcoming_events
-    where("start_date >= :start_date", {start_date: Date.today})
+    where("start_date >= :start_date", { start_date: Date.today })
   end
 
   def self.guaranteed_events

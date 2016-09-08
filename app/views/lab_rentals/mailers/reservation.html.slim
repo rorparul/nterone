@@ -41,6 +41,11 @@ table
         = @reservation.start_time.strftime("%I:%M %p")
     tr
       td
+        | Time Zone
+      td
+        = @reservation.time_zone
+    tr
+      td
         | Instructor
       td
         = @reservation.instructor

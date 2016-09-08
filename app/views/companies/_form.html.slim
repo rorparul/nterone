@@ -10,11 +10,17 @@
             li = msg
       
     .form-group
-      = f.label :company, t('admin.admin_website.form.add_company.label.company_title')
+      = f.label :title, t('models.company.title')
       = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :form_type, t('models.company.form_type')
+      = f.select :form_type, [[t('views.companies.form.inputs.form_type.options.option_1'), 1], [t('views.companies.form.inputs.form_type.options.option_2'), 2]],
+        { include_blank: t('views.general.prompts.dropdown') },
+        { class: 'form-control input-sm' }
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('views.general.buttons.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('views.general.buttons.cancel')
