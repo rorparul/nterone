@@ -78,7 +78,9 @@
                                 td = event.format
                                 - if event.city.present? || event.state.present? || event.street.present?
                                   td.fit.location-td
-                                    .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.city, event.street].reject(&:blank?).join(', ') = event.state
+                                    .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                                      i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                                      = event.state
                                 - else
                                   - if event.format == "Live Online"
                                     td Webex
