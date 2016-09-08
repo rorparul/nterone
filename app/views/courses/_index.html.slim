@@ -2,15 +2,13 @@
   .panel-heading
     strong.text-muted 
       = t 'admin.admin_courses.row.courses.title'
-    / = link_to "Upload", events_upload_path, remote: true, class: "panel-heading-controls"
   .panel-table
     .responsive-table
       table.table.table-condensed.table-hover
         thead
           tr
             th.fit
-              = t'admin.admin_courses.row.courses.column.course_id' 
-              | #
+              = t'admin.admin_courses.row.courses.column.course_id'
             th.fit
               = t 'admin.admin_courses.row.courses.column.course_title'
             th.fit 
@@ -21,7 +19,7 @@
   div class="#{'panel-footer' if courses.total_count > 25}"
     #courses-page-control
       = render partial: 'courses/page_controls', locals: { courses: @courses }
-                  
+      
 javascript:
   $(document).on('change', '.table-select', function() {
     $(this).closest('form').submit();

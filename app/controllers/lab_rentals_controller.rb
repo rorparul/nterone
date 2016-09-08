@@ -2,7 +2,6 @@ class LabRentalsController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :authenticate_user!, :verify_company
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -54,7 +53,11 @@ class LabRentalsController < ApplicationController
 		if @lab_rental.save
 			flash[:success] = 'Lab Reservation successfully submitted!'
 			LabReservationMailer.create_reservation(current_user, @lab_rental).deliver_now
-			redirect_to lab_rentals_path
+			if user_signed_in? && (current_user.admin? || current_user.company)
+				redirect_to lab_rentals_path
+			else
+				redirect_to :back
+			end
 		else
 			render 'new'
 		end

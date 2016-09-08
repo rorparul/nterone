@@ -214,6 +214,7 @@ NterOne::Application.routes.draw do
   post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
+  get  '/courses/export'                             => 'courses#export',                 as: :courses_export
 
   get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
   put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
