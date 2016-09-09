@@ -1,6 +1,7 @@
 class Company < ActiveRecord::Base
   has_many :users
   has_many :lab_rentals
+  has_many :lab_courses
 
 	validates :title, presence: true
 

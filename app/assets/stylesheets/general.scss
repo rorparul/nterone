@@ -1159,27 +1159,6 @@ table {
   text-align: center;
 }
 
-// .sq-btn {
-//   border-radius: 3px;
-//   color: rgb(99, 99, 99);
-//   font-size: 15px;
-//   height: 30px;
-//   width: 30px;
-//   padding: 0;
-//   outline: none;
-//   margin-right: 10px;
-//   @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
-//   border: 1px solid rgb(205, 205, 205);
-//   &:hover {
-//     color: rgb(99, 99, 99);
-//     @include value-prefix(background-image, linear-gradient(top, rgb(255, 255, 255) 0%, rgb(242, 242, 242) 100%));
-//     border: 1px solid rgb(215, 215, 215);
-//   }
-//   &.r {
-//     color: red;
-//   }
-// }
-
 .sign-in-field {
   text-align: center;
 }
@@ -1676,6 +1655,28 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
 
 .add_fields {
   color: rgb(60, 118, 61);
+}
+
+#lab_rentals_form {
+  .add_fields {
+    border-radius: 3px;
+    border: 1px solid rgb(76, 174, 76);
+    background-color: rgb(92, 184, 92);
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    height: 30px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 li.break {

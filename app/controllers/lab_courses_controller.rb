@@ -44,6 +44,6 @@ class LabCoursesController < ApplicationController
 	private
 
   def lab_course_params
-    params.require(:lab_course).permit(:title)
+    params.require(:lab_course).permit(:title, :company_id)
   end
 end

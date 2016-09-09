@@ -37,7 +37,10 @@
           = f.label :start_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.start_time')
           span.required *
           br
-          = f.time_select :start_time, { ampm: true, default: { hour: '8', minute: '00' } }, { required: true }
+          - if @lab_rental.kind == 1
+            = f.time_select :start_time, { ampm: true, default: { hour: '8', minute: '00' } }, { required: true }
+          - else
+            = f.time_select :start_time, { ampm: true, default: { hour: '00', minute: '00' } }, { required: true }
       .col-xs-12.col-md-2
         .form-group
           = f.label :end_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.end_time')
@@ -48,24 +51,35 @@
         .form-group
           = f.label :time_zone, 'Time Zone'
           span.required *
-          = f.time_zone_select :time_zone,
-                               ActiveSupport::TimeZone.us_zones,
-                               { include_blank: 'Please select', default: 'Eastern Time (US & Canada)' },
-                               { required: true, class: 'form-control input-sm' }
-
+          - if @lab_rental.kind == 1
+            = f.time_zone_select :time_zone,
+                                 ActiveSupport::TimeZone.us_zones,
+                                 { include_blank: 'Please select', default: 'Eastern Time (US & Canada)' },
+                                 { required: true, class: 'form-control input-sm' }
+          - else
+            = f.time_zone_select :time_zone,
+                                 ActiveSupport::TimeZone.us_zones,
+                                 { include_blank: 'Please select', default: 'Mountain Time (US & Canada)' },
+                                 { required: true, class: 'form-control input-sm' }
     .row
       .col-xs-12.col-md-4
         .form-group
           = f.label :lab_course_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.course')
           span.required *
-          = f.select :lab_course_id, LabCourse.all.collect{ |course| [course.title, course.id] },
-                 { include_blank: t('generic.select.placeholder')},
-                 { required: true, class: "form-control input-sm" }
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :location, t('admin.admin_lab_rentals.form.add_lab_rental.label.location')
-          span.required *
-          = f.text_field :location, required: true, class: 'form-control input-sm'
+          - if @lab_rental.company
+            = f.select :lab_course_id, @lab_rental.company.lab_courses.collect{ |course| [course.title, course.id] },
+                   { include_blank: t('generic.select.placeholder')},
+                   { required: true, class: "form-control input-sm" }
+          - else
+            = f.select :lab_course_id, LabCourse.all.collect{ |course| [course.title, course.id] },
+                   { include_blank: t('generic.select.placeholder')},
+                   { required: true, class: "form-control input-sm" }
+      - if @lab_rental.kind == 1 || current_user.try(:admin?)
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :location, t('admin.admin_lab_rentals.form.add_lab_rental.label.location')
+            span.required *
+            = f.text_field :location, required: true, class: 'form-control input-sm'
       - if @lab_rental.kind == 1
         .col-xs-12.col-md-4
           .form-group
@@ -105,19 +119,20 @@
           = f.text_area :notes, class: 'form-control'
           
     .row
-      .col-xs-12.col-md-4
-        label = t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
-        .form-group
-          - if @lab_rental.new_record?
-            = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :confirmed, false, class: 'confirmed-radio-button false', checked: true
-            span style='margin-right: 12px;' No
-          - else
-            = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :confirmed, false, class: 'confirmed-radio-button false'
-            span style='margin-right: 12px;' No
+      - if @lab_rental.kind == 1 || current_user.try(:admin?)
+        .col-xs-12.col-md-4
+          label = t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
+          .form-group
+            - if @lab_rental.new_record?
+              = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
+              span style='margin-right: 12px;' Yes
+              = f.radio_button :confirmed, false, class: 'confirmed-radio-button false', checked: true
+              span style='margin-right: 12px;' No
+            - else
+              = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
+              span style='margin-right: 12px;' Yes
+              = f.radio_button :confirmed, false, class: 'confirmed-radio-button false'
+              span style='margin-right: 12px;' No
       - if current_user.try(:admin?)
         .col-xs-12.col-md-4
           .form-group
