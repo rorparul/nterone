@@ -140,10 +140,17 @@ class Order < ActiveRecord::Base
   end
 
   def self.items_in_range_for(seller_id, start_date, end_date)
-    order_ids  = Order.where(seller_id: seller_id).distinct
-
-    OrderItem.where(order_id: order_ids, orderable_type: 'Event').distinct.select do |order_item|
+    order_ids   = Order.where(seller_id: seller_id).distinct
+    order_items = OrderItem.where(order_id: order_ids, orderable_type: 'Event').distinct.select do |order_item|
       (start_date..end_date).include?(order_item.orderable.start_date)
     end
+
+    order_items.sort_by do |order_item|
+      [order_item.orderable.start_date, order_item.orderable.course.abbreviation]
+    end
+    # sorted_by_date
+    # sorted_by_date.sort do |a_order_item, b_order_item|
+    #   a_order_item.orderable.course.abbreviation <=> b_order_item.orderable.course.abbreviation
+    # end
   end
 end

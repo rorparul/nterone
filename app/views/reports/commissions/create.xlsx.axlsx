@@ -5,12 +5,12 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'Commission Reports') do |sheet|
     headers = [
-      'Date of Class',
+      'Class Date',
       'Class Name',
       'Student Name',
       'Revenue',
-      'Commission Rate',
-      'Commission Earned'
+      'Comm. %',
+      'Comm. Amt.'
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)
@@ -20,7 +20,7 @@ wb.styles do |style|
 
       sheet.add_row [
         item.orderable.start_date.strftime("%-m/%-d/%y"),
-        item.orderable.course.title,
+        item.orderable.course.abbreviation,
         item.order.buyer.full_name,
         "$#{item.revenue}",
         "#{commission_percent}%",
