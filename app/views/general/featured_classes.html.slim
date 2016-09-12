@@ -75,10 +75,10 @@
                             span itemprop="price"
                               | Free
                       td.fit
-                        - if event.course.video_preview
+                        - if event.course.video_preview.present?
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
-                        - elsif event.course.pdf.url
+                        - elsif event.course.pdf.url.present?
                           = link_to course_download_platform_courses_path(event.course.platform, event.course) do
                             | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
