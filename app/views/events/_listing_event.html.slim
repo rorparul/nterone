@@ -10,7 +10,11 @@ tr
   td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
   td.fit = event.length
   td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
-  td.fit = event.format
+  td.fit 
+    - if event.format == 'On-site'
+      = [event.city, event.state].reject(&:blank?).join(', ')
+    - else
+      = event.format
   td.fit = event.instructor.full_name if event.instructor
   td.fit = event.student_count
   td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"

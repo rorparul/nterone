@@ -109,7 +109,7 @@
           = f.label :state, 'State'
           = f.select :state,
                      us_states,
-                     { prompt: true },
+                     { include_blank: 'Please select' },
                      { class: 'form-control input-sm' }
                      
     .row
