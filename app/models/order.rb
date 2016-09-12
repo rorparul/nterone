@@ -1,3 +1,57 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                      :integer          not null, primary key
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  auth_code               :string
+#  first_name              :string
+#  last_name               :string
+#  shipping_street         :string
+#  shipping_city           :string
+#  shipping_state          :string
+#  shipping_zip_code       :string
+#  shipping_country        :string
+#  email                   :string
+#  clc_number              :string
+#  billing_name            :string
+#  billing_zip_code        :string
+#  paid                    :decimal(8, 2)    default(0.0)
+#  billing_street          :string
+#  billing_city            :string
+#  billing_state           :string
+#  seller_id               :integer
+#  buyer_id                :integer
+#  status                  :string           default("Uninvoiced")
+#  total                   :decimal(8, 2)    default(0.0)
+#  billing_country         :string
+#  payment_type            :string
+#  clc_quantity            :integer          default(0)
+#  billing_first_name      :string
+#  billing_last_name       :string
+#  shipping_company        :string
+#  billing_company         :string
+#  same_addresses          :boolean          default(FALSE)
+#  shipping_first_name     :string
+#  shipping_last_name      :string
+#  po_number               :string
+#  po_paid                 :decimal(8, 2)    default(0.0)
+#  verified                :boolean          default(FALSE)
+#  invoiced                :boolean          default(FALSE)
+#  invoice_number          :string
+#  status_position         :integer
+#  reviewed                :boolean          default(FALSE)
+#  balance                 :decimal(8, 2)    default(0.0)
+#  referring_partner_email :string
+#  gilmore_order_number    :string
+#  gilmore_invoice         :string
+#  royalty_id              :string
+#  closed_date             :date
+#  source                  :integer          default(0)
+#  other_source            :string
+#
+
 class Order < ActiveRecord::Base
   include SearchCop
   extend Enumerize
@@ -148,9 +202,5 @@ class Order < ActiveRecord::Base
     order_items.sort_by do |order_item|
       [order_item.orderable.start_date, order_item.orderable.course.abbreviation]
     end
-    # sorted_by_date
-    # sorted_by_date.sort do |a_order_item, b_order_item|
-    #   a_order_item.orderable.course.abbreviation <=> b_order_item.orderable.course.abbreviation
-    # end
   end
 end

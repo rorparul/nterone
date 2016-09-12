@@ -51,6 +51,34 @@ class PlatformsController < ApplicationController
     redirect_to :back
   end
 
+  def new_import
+  end
+
+  def import
+    Platform.import(brand, platform_params[:file])
+    redirect_to :back
+  end
+
+  def export
+    @platform = Platform.find(params[:platform_id])
+    
+    begin
+      temp_csv = Tempfile.new("temp_csv")
+      temp_zip = Tempfile.new("temp_zip.zip")
+      temp_csv.write(@platform.export)
+      Zip::File.open(temp_zip.path, Zip::File::CREATE) do |zipfile|
+        zipfile.add("data.csv", temp_csv)
+        @platform.contained_images.each do |image|
+          zipfile.add(image.file.url.split('/').last, image.file.path)
+        end
+      end
+      send_data(File.read(temp_zip.path), type: "application/zip", filename: "platform_export_#{@platform.title.downcase}.zip")
+    ensure
+      temp_csv.close
+      temp_zip.close
+    end
+  end
+
   private
 
   def set_platform
@@ -58,6 +86,6 @@ class PlatformsController < ApplicationController
   end
 
   def platform_params
-    params.require(:platform).permit(:title, :url, :page_title, :page_description)
+    params.require(:platform).permit(:title, :url, :page_title, :page_description, :file)
   end
 end

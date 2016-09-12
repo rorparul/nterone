@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: leads
+#
+#  id         :integer          not null, primary key
+#  seller_id  :integer
+#  buyer_id   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :string           default("unassigned")
+#  discount   :string           default("0")
+#
+
 class Lead < ActiveRecord::Base
   belongs_to :buyer,  class_name: "User"
   belongs_to :seller, class_name: "User"

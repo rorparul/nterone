@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: custom_items
+#
+#  id          :integer          not null, primary key
+#  content     :text
+#  shortname   :string
+#  url         :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  platform_id :integer
+#  is_header   :boolean          default(FALSE)
+#
+
 class CustomItem < ActiveRecord::Base
   belongs_to :platform
 

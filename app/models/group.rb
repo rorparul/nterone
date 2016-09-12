@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id          :integer          not null, primary key
+#  header      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  platform_id :integer
+#
+
 class Group < ActiveRecord::Base
   # belongs_to :platform
 

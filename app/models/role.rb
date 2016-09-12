@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  role       :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Role < ActiveRecord::Base
   extend Enumerize
   enumerize :role, in: { admin: 1,

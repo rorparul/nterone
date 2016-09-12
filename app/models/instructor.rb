@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: instructors
+#
+#  id          :integer          not null, primary key
+#  first_name  :string
+#  last_name   :string
+#  biography   :string
+#  email       :string
+#  phone       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  platform_id :integer
+#  status      :integer          default(0)
+#
+
 class Instructor < ActiveRecord::Base
   enum status: { employee: 0, contractor: 1 }
 
