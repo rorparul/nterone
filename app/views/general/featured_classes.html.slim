@@ -35,6 +35,7 @@
                     th Language
                     th Location
                     th Price
+                    th Preview
                     - if !user_signed_in? || (user_signed_in? && current_user.member?)
                       th
                     - elsif user_signed_in? && current_user.admin?
@@ -73,6 +74,13 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
                               | Free
+                      td.fit
+                        - if event.course.video_preview
+                          div class="video-link-container" = event.course.video_preview.html_safe
+                          = link_to 'Video', '#', class: 'video-trigger'
+                        - elsif event.course.pdf.url
+                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
+                            | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
@@ -94,3 +102,7 @@
 javascript:
   $('.home-tab').addClass('active');
   $('[data-toggle="tooltip"]').tooltip()
+  $(document).on('click', '.video-trigger', function(e) {
+    e.preventDefault();
+    $(this).prev('.video-link-container').find('div').click();
+  });

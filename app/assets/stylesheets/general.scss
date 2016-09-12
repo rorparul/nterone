@@ -442,6 +442,12 @@ span.required {
   }
 }
 
+.video-link-container {
+  height: 0px !important;
+  width: 0px !important;
+  line-height: 0px;
+}
+
 .video-thumbnail-container {
   overflow: hidden;
   border-top-left-radius: 4px;
@@ -454,6 +460,12 @@ span.required {
 .wistia_embed {
   width: 100% !important;
 }
+
+// .wistia_popover_overlay {
+//   right: 0px !important;
+//   left: 0px !important;
+//   width: 100% !important;
+// }
 
 .video-module-status {
   float: right;
