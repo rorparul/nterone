@@ -55,23 +55,30 @@ class PlatformsController < ApplicationController
   end
 
   def import
-    Platform.import(brand, platform_params[:file])
+    Platform.import(platform_params[:file])
     redirect_to :back
   end
 
   def export
     @platform = Platform.find(params[:platform_id])
-    
+
     begin
       temp_csv = Tempfile.new("temp_csv")
       temp_zip = Tempfile.new("temp_zip.zip")
+      Zip::OutputStream.open(temp_zip) { |zos| }
+
       temp_csv.write(@platform.export)
       Zip::File.open(temp_zip.path, Zip::File::CREATE) do |zipfile|
         zipfile.add("data.csv", temp_csv)
         @platform.contained_images.each do |image|
-          zipfile.add(image.file.url.split('/').last, image.file.path)
+          image_path = image.file.path
+
+          if File.directory?(image_path)
+            zipfile.add(image.file.url.split('/').last, image_path)
+          end
         end
       end
+
       send_data(File.read(temp_zip.path), type: "application/zip", filename: "platform_export_#{@platform.title.downcase}.zip")
     ensure
       temp_csv.close

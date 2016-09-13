@@ -119,6 +119,15 @@ class Platform < ActiveRecord::Base
       end
       csv << []
 
+      #VideoOnDemand
+      csv << ["Class", "VideoOnDemand"]
+      column_names = VideoOnDemand.column_names
+      csv << column_names
+      video_on_demands.each do |item|
+        csv << item.attributes.values_at(*column_names)
+      end
+      csv << []
+
       #Group
       csv << ["Class", "Group"]
       column_names = Group.column_names
@@ -126,6 +135,30 @@ class Platform < ActiveRecord::Base
       subjects.each do |item|
         item.groups.each do |item2|
           csv << item2.attributes.values_at(*column_names)
+        end
+      end
+      csv << []
+
+      #VideoModule
+      csv << ["Class", "VideoModule"]
+      column_names = VideoModule.column_names
+      csv << column_names
+      video_on_demands.each do |item|
+        item.video_modules.each do |item2|
+          csv << item2.attributes.values_at(*column_names)
+        end
+      end
+      csv << []
+
+      #Video
+      csv << ["Class", "Video"]
+      column_names = Video.column_names
+      csv << column_names
+      video_on_demands.each do |item|
+        item.video_modules.each do |item2|
+          item2.videos.each do |item3|
+            csv << item3.attributes.values_at(*column_names)
+          end
         end
       end
       csv << []
@@ -254,7 +287,7 @@ class Platform < ActiveRecord::Base
     row
   end
 
-  def self.import(brand, import_file)
+  def self.import(import_file)
     begin
       temp_dir = "#{Rails.public_path}/unzipped"
       Zip::File.open(import_file.path) do |zip|
@@ -291,9 +324,6 @@ class Platform < ActiveRecord::Base
         next if k == "Image"
         current_class = k.constantize
         if k == "Platform" || k == "Subject"
-          if k == "Platform"
-            v.first["brand_id"] = brand.id
-          end
           v.each do |current_attributes|
             image_path = nil
             collection["Image"].each do |c|
@@ -328,7 +358,7 @@ class Platform < ActiveRecord::Base
     images = [image]
     subjects.each do |item|
       if item.image && item.image.file.file
-        images << item.image unless images.any? {|img| img.file.url.split('/').last == item.image.file.url.split('/').last }
+        images << item.image unless images.any? { |img| img.file.url.split('/').last == item.image.file.url.split('/').last }
       end
     end
     images

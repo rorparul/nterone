@@ -60,7 +60,6 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'zip-zip'
 
-
 group :development do
   gem 'annotate'
   gem 'better_errors', '~> 2.1.1'
@@ -69,18 +68,6 @@ group :development do
   gem 'meta_request', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
-end
-
-group :doc do
-  gem 'sdoc', require: false
-end
-
-group :test do
-  gem 'rspec-rails', '3.5.0.beta1'
-  gem 'factory_girl_rails'
-  gem 'ffaker', '~> 2.1'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers', require: false
 end
 
 group :development, :test do
@@ -93,4 +80,16 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
+group :test do
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails'
+  gem 'ffaker', '~> 2.1'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', require: false
 end
