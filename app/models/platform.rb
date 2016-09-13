@@ -333,15 +333,18 @@ class Platform < ActiveRecord::Base
               end
             end
             if image_path
-              new_record = current_class.create(current_attributes)
+              new_record = current_class.new(current_attributes)
+              new_record.save(validate: false)
               new_record.set_image(url_param: image_path, for: :image, bulk: true)
             else
-              current_class.create(current_attributes)
+              new_record = current_class.create(current_attributes)
+              new_record.save(validate: false)
             end
           end
         else
           v.each do |current_attributes|
-            current_class.create(current_attributes)
+            new_record = current_class.create(current_attributes)
+            new_record.save(validate: false)
           end
         end
       end
