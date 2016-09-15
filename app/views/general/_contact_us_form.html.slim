@@ -2,47 +2,47 @@
   .radio
     label
       = f.radio_button :recipient, "helpdesk#{t('email')}", checked: true
-      = t 'general.partial.contact_us.label.help_desk'
+      = t('general.partial_contact_us_form.help_desk')
   .radio
     label
       = f.radio_button :recipient, "sales#{t('email')}"
-      = t 'general.partial.contact_us.label.sales'
+      = t('general.partial_contact_us_form.sales')
   .radio
     label
       = f.radio_button :recipient, "billing#{t('email')}"
-      = t 'general.partial.contact_us.label.billing'
+      = t('general.partial_contact_us_form.billing')
   
   .form-group
-    = f.label :name, t('general.partial.contact_us.label.name')
+    = f.label :name, t('general.partial_contact_us_form.name')
     = f.text_field :name, class: 'form-control input-sm', value: user.full_name
     
   .form-group
-    = f.label :phone, t('general.partial.contact_us.label.phone')
+    = f.label :phone, t('general.partial_contact_us_form.phone')
     = f.text_field :phone, class: 'form-control input-sm', value: user.contact_number
     
   .form-group
-    = f.label :email, t('general.partial.contact_us.label.email')
+    = f.label :email, t('general.partial_contact_us_form.email')
     = f.text_field :email, class: 'form-control input-sm', value: user.email
     
   .form-group
-    = f.label :inquiry, t('general.partial.contact_us.label.inquiry')
+    = f.label :inquiry, t('general.partial_contact_us_form.inquiry')
     = f.text_area :inquiry, class: 'form-control'
     
   .form-group
-    = f.label :feedback, t('general.partial.contact_us.label.feedback')
+    = f.label :feedback, t('general.partial_contact_us_form.feedback')
     = f.text_area :feedback, class: 'form-control'
     
   .form-buttons
     button.btn.btn-success type="submit"
-      = t 'generic.button.send'
+      = t('default.action.send')
     button.btn.btn-default type="button" data-dismiss="modal"
-      = t 'generic.button.cancel'
+      = t('default.action.cancel')
   hr
   .row
     .col-xs-12.col-md-6
       address style="margin: 0;"
         strong 
-          = t 'general.partial.contact.corporate_address'
+          = t('general.partial_contact_us_form.corporate_address')
         br
         | 1900 Campus Commons Drive, Suite 100
         br
@@ -52,7 +52,7 @@
     .col-xs-12.col-md-6
       address style="margin: 0;"
         strong 
-          = t 'general.partial.contact.billing_address'
+          = t('general.partial_contact_us_form.billing_address')
         br
         | 747 Sandy Ridge Rd
         br

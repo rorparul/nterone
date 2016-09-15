@@ -9,33 +9,33 @@ html
       div style="float: right; display: inline-block;"
         = wicked_pdf_image_tag 'logo.png'
         h4
-          = t 'mailer.quote.copy1'
+          = t('leads.quote.copy1')
         address
-          = t 'mailer.quote.copy2'
+          = t('leads.quote.copy2')
           br
           | 1900 Campus Commons Dr
           br
           | Reston, VA  20191
           
     #content style="clear: both;"
-      p = "#{t('mailer.quote.copy3')} #{lead.buyer.first_name},"
+      p = "#{t('leads.quote.copy3')} #{lead.buyer.first_name},"
       
       p
-        = t 'mailer.quote.copy4'
+        = t('leads.quote.copy4')
       ul
         - lead.buyer.planned_unattended_courses.each do |course|
           li = course.title
           
       - if lead.discount.to_f.zero?
-        p = "#{t('mailer.quote.copy5')} #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+        p = "#{t('leads.quote.copy5')} #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
       - else
-        p = "#{t('mailer.quote.copy6')}    #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
-        p = "#{t('mailer.quote.copy7')}         #{lead.discount}%"
-        p = "#{t('mailer.quote.copy8')} #{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
+        p = "#{t('leads.quote.copy6')}    #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+        p = "#{t('leads.quote.copy7')}         #{lead.discount}%"
+        p = "#{t('leads.quote.copy8')} #{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
       
       p
-        = t 'mailer.quote.copy9'
+        = t('leads.quote.copy9')
 
       p
-        = t 'mailer.quote.copy10'
+        = t('leads.quote.copy10')
       p NterOne

@@ -1,0 +1,39 @@
+es:
+  layouts:
+    edit_js:
+      add_discount: "[t]Add Discount"
+    partial_form:
+      discout_percent: "[t]Discount Percent"
+    partial_group:
+      action: "[t]Actions"
+      dc: "[t]DC"
+      discount: "[t]Discount"
+      email: "[t]Email"
+      interests: "[t]Interests"
+      my_plan: "[t]My Plan"
+      name: "[t]Name"
+      phone: "[t]Phone"
+      poker_chip_number: "[t]PCN:"
+      price: "[t]Price"
+      requested: "[t]Requested"
+      total: "[t]Total"
+    partial_index:
+      archived_lead: "Contactos Guardados"
+      assigned_lead: "Contacto Asignado"
+      unassigned_lead: "Contacto No Asignado"
+    show:
+      find_testing_center: "[t]Find Testing Center"
+      grand_total: "[t]Grand Total:"
+      lead_history: "[t]Lead History"
+      remove_from_plan: "[t]Remove from My Plan"
+    quote:
+      copy1: "[t]Corporate Headquarters:"
+      copy2: "[t]NterOne Corporation"
+      copy3: "[t]Hello"
+      copy4: "[t]Here is a list of each of your chosen course(s):"
+      copy5: "[t]Price:"
+      copy6: "[t]Regular Price:"
+      copy7: "[t]Discount:"
+      copy8: "[t]Discounted Price:"
+      copy9: "[t]Regards,"
+      copy10: "[t]Sales Team"

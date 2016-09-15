@@ -1,0 +1,33 @@
+es:
+  subjects:
+    edit:
+      edit_certification: "Editar Certificación"
+    edit_js:
+      edit_certificate: "[t]Edit Certificate"
+    new:
+      add_certification: "Agregar Certificación"
+    new_js:
+      add_certification: "Add Certification"
+    partial_form:
+      active: "Activo"
+      catgories: "Categorias"
+      description: "Descripción"
+      icon: "Icono"
+      label: "Etiqueta"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      partner: "Aliado"
+      title: "Titulo"
+    partial_select:
+      certifications: "Certificaciones"
+    partial_sub_training_group_fields:
+      remove_grouping: "[t]Remove Grouping"
+      training_group: "[t]Training Group"
+    select_js:
+      edit_certification: "Editar Certificación"
+    show:
+      add_table: "[t]Add Table"
+      add_to_plan: "[t]Add to My Plan"
+      find_testing_center: "[t]Find Testing Center"
+      login_to_add_to_plan: "[t]Login to add to My Plan"
+      remove_from_plan: "[t]Remove from My Plan"

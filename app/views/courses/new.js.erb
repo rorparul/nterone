@@ -1,3 +1,3 @@
-$('.modal-title').html("<%= t('admin.admin_courses.form.edit_course.title') %>");
+$('.modal-title').html("<%= t('course.new_js.add_course') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, course: @course, categories: @categories }) %>");
 $('#myModal').modal('show');

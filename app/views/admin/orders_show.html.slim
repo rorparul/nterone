@@ -10,10 +10,10 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_orders.show.order_details.title'
+          = t('admins.orders_show.order_details')
         / .panel-actions-overlay
         /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-        /     = t 'generic.action.edit'
+        /     = t('admins.orders_show.edit')
       .table-row
         .table-col
           .panel-table
@@ -29,10 +29,10 @@
   .col-xs-12.col-md-6
     .panel.panel-default
       .panel-heading
-        strong.text-muted = pluralize(@order.order_items.count, t('admin.admin_orders.show.order_items.title'))
+        strong.text-muted = pluralize(@order.order_items.count, t('admins.orders_show.order_items'))
         / .panel-actions-overlay
         /   = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-        /     = t 'generic.action.edit'
+        /     = t('admins.orders_show.edit')
       .panel-table
         .responsive-table
           table.table.table-condensed
@@ -41,10 +41,10 @@
                 - if order_item.orderable_type == "Event"
                   tr
                     td 
-                      = "#{t('admin.admin_orders.show.order_items.label.class_for')} "
+                      = "#{t('admins.orders_show.class_for')} "
                       = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
-                      = " #{t('admin.admin_orders.show.order_items.label.from')} "
-                      = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} to #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", admin_classes_show_path(order_item.orderable)
+                      = " #{t('admins.orders_show.from')} "
+                      = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} #{t('admins.orders_show.to')} #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", admin_classes_show_path(order_item.orderable)
                       
                 - if order_item.orderable_type == "VideoOnDemand"
                   tr

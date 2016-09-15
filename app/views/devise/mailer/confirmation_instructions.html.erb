@@ -2,7 +2,7 @@
 
 <p><%= t('devise.mailer.confirmation_instructions.copy1') %> <a href="www.nterone.com"><%= t('devise.mailer.confirmation_instructions.copy2') %></a><%= t('devise.mailer.confirmation_instructions.copy3') %></p>
 
-<p><%= t('devise.mailer.confirmation_instructions.copy4') %><a href='<%= "mailto:helpdesk#{t('email')}" %>'>helpdesk<%= "#{t('email')}" %></a><%= t('devise.mailer.confirmation_instructions.copy5') %><a href='<%= "mailto:sales#{t('email')}" %>'>sales<%= "#{t('email')}" %></a><%= t('devise.mailer.confirmation_instructions.copy6') %></p>
+<p><%= t('devise.mailer.confirmation_instructions.copy4') %><a href='<%= "mailto:helpdesk#{t('default.contact.email')}" %>'>helpdesk<%= "#{t('default.label.email')}" %></a><%= t('devise.mailer.confirmation_instructions.copy5') %><a href='<%= "mailto:sales#{t('default.contact.email')}" %>'>sales<%= "#{t('default.label.email')}" %></a> <%= t('devise.mailer.confirmation_instructions.copy6') %></p>
 
 <p><%= link_to 'Confirm your account', confirmation_url(@resource, confirmation_token: @token) %></p>
 

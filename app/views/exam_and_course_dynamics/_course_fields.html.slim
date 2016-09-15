@@ -2,7 +2,7 @@
   = f.hidden_field :id, class: 'course-id'
 
   .form-group.ui-front
-    = f.label :title, t('partial.exam_and_course_dynamics.course_fields.title')
+    = f.label :title, t('default.label.title')
     br
     = f.autocomplete_field :title,
                            autocomplete_course_title_platform_courses_path,
@@ -10,16 +10,16 @@
                            class: 'form-control title-input title-search'
     
   .form-group
-    = f.label :url, t('partial.exam_and_course_dynamics.course_fields.url')
+    = f.label :url, t('default.label.url')
     br
     = f.text_field :url, class: 'form-control course-url'
     
   .form-group
-    = f.label :price, t('partial.exam_and_course_dynamics.course_fields.price')
+    = f.label :price, t('exam_and_course_dynamics.partial_course_fields.price')
     br
     .input-group
       span.input-group-addon $
       = f.text_field :price, data: { autonumeric: { mDec: 0 } }, class: 'form-control course-price'
       span.input-group-addon .00
       
-  = link_to_remove_association t('generic.action.remove_course'), f
+  = link_to_remove_association t('exam_and_course_dynamics.partial_course_fields.remove_course'), f

@@ -1,4 +1,4 @@
-$('.modal-title').html("<%= t('modal.events.edit_in_house_note.title') %>")
+$('.modal-title').html("<%= t('events.edit_in_house_note_js.title') %>")
 $('.modal-body').html("<%= escape_javascript(render partial: 'in_house_note_form', locals: { event: @event }) %>")
 $('#myModal').data('id', "<%= @event.id %>").modal('show')
 

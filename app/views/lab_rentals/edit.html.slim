@@ -1,7 +1,7 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
    | /
   - if user_signed_in? && (current_user.company || current_user.admin?)
@@ -22,7 +22,7 @@
 .panel.panel-default
   .panel-heading
     strong.text-muted
-      = t("admin.admin_lab_rentals.form.edit_lab_rental.title")
+      = t("lab_rentals.edit.edit_lab_rental")
   .panel-body
     = render partial: "form", locals: { lab_rental: @lab_rental}
 

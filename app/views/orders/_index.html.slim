@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     strong.text-muted
-      = t 'orders.partial.index.title'
+      = t('orders.partial_index.orders')
     / = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
   .table-responsive
     table.table.table-condensed
@@ -9,23 +9,23 @@
         tr
           th #
           th 
-            = t 'orders.partial.index.label.status'
+            = t('orders.partial_index.status')
           th.fit 
-            = t 'orders.partial.index.label.total'
+            = t('orders.partial_index.total')
           th 
-            = t 'orders.partial.index.label.charged'
+            = t('orders.partial_index.charged')
           th.fit 
-            = t 'orders.partial.index.label.auth_code'
+            = t('orders.partial_index.auth_code')
           th
-            = t 'orders.partial.index.label.credits'
+            = t('orders.partial_index.credits')
           th
-            = t 'orders.partial.index.label.so_num'
+            = t('orders.partial_index.so_num')
           th 
-            = t 'orders.partial.index.label.balance'
+            = t('orders.partial_index.balance')
           th 
-            = t 'orders.partial.index.label.created'
+            = t('orders.partial_index.created')
           th.fit
-            = t 'orders.partial.index.label.member_email'
+            = t('orders.partial_index.member_email')
           th
       tbody#pages
         - @orders.each do |order|
@@ -34,10 +34,10 @@
             td.fit
               = form_for order, url: order_path(order), method: :patch, remote: true do |f|
                 = f.select :status,
-                           [[t('orders.partial.index.select.value.uninvoiced'), 'Uninvoiced'],
-                            [t('orders.partial.index.select.value.unverified'), 'Unverified'],
-                            [t('orders.partial.index.select.value.paid_in_full'), 'Paid in Full'],
-                            [t('orders.partial.index.select.value.verified'), 'Verified']],
+                           [[t('orders.partial_index.uninvoiced'), 'Uninvoiced'],
+                            [t('orders.partial_index.unverified'), 'Unverified'],
+                            [t('orders.partial_index.paid_in_full'), 'Paid in Full'],
+                            [t('orders.partial_index.verified'), 'Verified']],
                             { prompt: true },
                             { class: 'form-control input-sm table-select' }
             td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
@@ -49,11 +49,11 @@
             td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
             td = order.buyer.email if order.buyer
             td.fit.actions-column.text-right
-              = link_to t('generic.action.show'), admin_orders_show_path(order), remote: false
+              = link_to t('default.action.show'), admin_orders_show_path(order), remote: false
               |  | 
-              = link_to t('generic.action.edit'), edit_order_path(order), remote: true
+              = link_to t('default.action.edit'), edit_order_path(order), remote: true
               |  | 
-              = link_to t('generic.action.delete'), order_path(order), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+              = link_to t('default.action.delete'), order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:
   $(document).on('change', '.table-select', function() {

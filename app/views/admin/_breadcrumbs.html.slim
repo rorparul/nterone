@@ -1,11 +1,11 @@
 a href="#{root_path}"
   span.fa.fa-home
-  = t 'breadcrumbs.home'
+  = t('admins.partial_breadcrumbs.home')
 span.seperator
   | /
 - if current_user.admin?
   span.text-muted
-  = t 'breadcrumbs.admin'
+  = t('admins.partial_breadcrumbs.admin')
 - if current_user.sales?
   span.text-muted
-  = t 'breadcrumbs.my_sales'
+  = t('admins.partial_breadcrumbs.my_sales')

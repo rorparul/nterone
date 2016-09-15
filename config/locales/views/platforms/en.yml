@@ -1,0 +1,40 @@
+en:
+  platforms:
+    edit_js:
+      edit_platform: "Edit Platform"
+    index:
+      add_platform: "Add Platform"
+    new_js:
+      add_platform: "Add Platform"
+    partial_categories_menu:
+      show_all: "Show All"
+    partial_form:
+      image: "Image"
+      page_description: "Page Description"
+      page_title: "Page Title"
+      platform_title: "Title"
+      test_center_url: "URL To Find Test Center"
+      title: "Edit Platform"
+    partial_items:
+      no_matches: "No Matches Found"
+    partial_platform:
+      browse: "Browse By"
+    show:
+      add_category: "Add Category"
+      add_certification: "Add Certification"
+      add_course: "Add Course"
+      add_custom_item: "Add Custom Item"
+      add_divider: "Add Divider"
+      add_exam: "Add Exam"
+      add_exam_course: "Add Exam Course"
+      add_instructor: "Add Instructor"
+      add_video_on_demand: "Add Video On Demand"
+      edit_category: "Edit Category"
+      edit_certification: "Edit Certification"
+      edit_course: "Edit Course"
+      edit_custom_item: "Edit Custom Item"
+      edit_divider: "Edit Divider"
+      edit_exam: "Edit Exam"
+      edit_exam_course: "Edit Exam Course"
+      edit_instructor: "Edit Instructor"
+      edit_video_on_demand: "Edit Video On Demand"

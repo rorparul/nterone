@@ -1,8 +1,8 @@
 = form_for resource, as: resource_name, url: password_path(resource), html: { method: :put } do |f|
   = render 'layouts/notifications'
   = f.hidden_field :reset_password_token
-  = f.password_field :password, autofocus: true, autocomplete: 'off', placeholder: t('devise.passwords.placeholder.new_password'), class: 'form-control session-input'
-  = f.password_field :password_confirmation, autocomplete: "off", placeholder: t('devise.passwords.placeholder.password_confirmation'), class: 'form-control session-input'
+  = f.password_field :password, autofocus: true, autocomplete: 'off', placeholder: t('default.label.new_password'), class: 'form-control session-input'
+  = f.password_field :password_confirmation, autocomplete: "off", placeholder: t('default.label.password_confirmation'), class: 'form-control session-input'
   #instructions
-    = t('devise.passwords.instructions')
-  = f.submit t('generic.button.save'), id: 'LogIn-bt', class: 'btn btn-lg btn-block'
+    = t('devise.passwords.new.instructions')
+  = f.submit t('default.action.save'), id: 'LogIn-bt', class: 'btn btn-lg btn-block'

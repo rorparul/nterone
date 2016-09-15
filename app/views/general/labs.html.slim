@@ -7,15 +7,15 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted 
-  = t 'breadcrumbs.labs'
+  = t('admins.partial_breadcrumbs.labs')
     
 .row
   .col-xs-12.col-central
-    = image_tag 'labs.png', class: "header-image"
+    = image_tag t('general.labs.image1'), class: "header-image"
     = @page.content.try(:html_safe)
     
   .col-xs-12.side-column

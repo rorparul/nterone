@@ -1,12 +1,12 @@
 <%- content_for :breadcrumbs do %>
   <a href="<%= main_app.root_path %>">
     <span class="fa fa-home"></span>
-    <%= t('breadcrumbs.home') %>
+    <%= t('admins.partial_breadcrumbs.home') %>
   </a>
   <span class="seperator">/</span>
-  <span class="text-muted"><%= t('breadcrumbs.forums') %></span>
+  <span class="text-muted"><%= t('admins.partial_breadcrumbs.forums') %></span>
 <% end %>
 
-<h2><%= t("forem.admin.category.edit", :title => @category.name) %></h2>
+<h2><%= t("forem.admin.categories.edit.edit", :title => @category.name) %></h2>
 
 <%= render "form" %>

@@ -1,17 +1,17 @@
 .nested-fields
   .form-group
-    = f.label :position, t('training.category.action.form.add_video_on_demand.label.modules.label.position')
+    = f.label :position, t('video_on_demands.partial_video_module_fields.position')
     = f.text_field :position, class: 'form-control input-sm'
   .form-group
-    = f.label :title, t('training.category.action.form.add_video_on_demand.label.modules.label.title')
+    = f.label :title, t('video_on_demands.partial_video_module_fields.title')
     = f.text_field :title, class: 'form-control input-sm'
   h4
-    = t 'training.category.action.form.add_video_on_demand.label.module_videos.header'
+    = t('video_on_demands.partial_video_module_fields.module_videos')
   hr.hr-sub
   #videos
     = f.fields_for :videos do |ff|
       = render 'video_fields', f: ff
     .links
-      = link_to_add_association t('training.category.action.form.add_video_on_demand.label.module_videos.add'), f, :videos
-  = link_to_remove_association t('training.category.action.form.add_video_on_demand.label.modules.remove'), f
+      = link_to_add_association t('video_on_demands.partial_video_module_fields.add'), f, :videos
+  = link_to_remove_association t('video_on_demands.partial_video_module_fields.remove'), f
   hr

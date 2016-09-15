@@ -5,7 +5,7 @@
       - if user_signed_in? && current_user.admin? && controller_name == 'subjects'
         .panel-actions-overlay
           = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
-            = t 'generic.action.edit'
+            = t('default.action.edit')
     .table-responsive
       .panel-table
         table.table.table-condensed
@@ -48,7 +48,7 @@
                         = f.hidden_field :user_id, value: user.id
                         = f.hidden_field :course_id, value: group_item.groupable.id
                         span.mini-title
-                          = t 'partial.groups.groups.planned'
+                          = t('groups.partial_group.planned')
                         br
                         - if planned_course(user, group_item.groupable)
                           button class="course-toggle-active-#{group_item.groupable.id}" type="submit"
@@ -61,7 +61,7 @@
                         = f.hidden_field :user_id, value: user.id
                         = f.hidden_field :course_id, value: group_item.groupable.id
                         span.mini-title
-                          = t 'partial.groups.groups.attended'
+                          = t('groups.partial_group.attended')
                         br
                         - if attended_course(user, group_item.groupable)
                           button class="course-toggle-attended-#{group_item.groupable.id}" type="submit"
@@ -87,7 +87,7 @@
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
                           span.mini-title
-                            = t 'partial.groups.groups.planned'
+                            = t('groups.partial_group.planned')
                           br
                           - if planned_course(user, group_item.groupable.courses.first)
                             button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
@@ -100,7 +100,7 @@
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
                           span.mini-title
-                            = t 'partial.groups.groups.attended'
+                            = t('groups.partial_group.attended')
                           br
                           - if attended_course(user, group_item.groupable.courses.first)
                             button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
@@ -115,7 +115,7 @@
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :exam_id, value: group_item.groupable.exams.first.id
                           span.mini-title
-                            = t 'partial.groups.groups.passed'
+                            = t('groups.partial_group.passed')
                           br
                           - if passed_exam(user, group_item.groupable.exams.first)
                             button class="exam-toggle-passed-#{group_item.groupable.exams.first.id}" type="submit"
@@ -143,7 +143,7 @@
                                 = f.hidden_field :user_id, value: user.id
                                 = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
                                 span.mini-title
-                                  = t 'partial.groups.groups.planned'
+                                  = t('groups.partial_group.planned')
                                 br
                                 - if planned_course(user, group_item.groupable.courses.first)
                                   button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
@@ -156,7 +156,7 @@
                                 = f.hidden_field :user_id, value: user.id
                                 = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
                                 span.mini-title
-                                  = t 'partial.groups.groups.attended'
+                                  = t('groups.partial_group.attended')
                                 br
                                 - if attended_course(user, group_item.groupable.courses.first)
                                   button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
@@ -171,7 +171,7 @@
                               = f.hidden_field :user_id, value: user.id
                               = f.hidden_field :exam_id, value: exam.id
                               span.mini-title
-                                = t 'partial.groups.groups.passed'
+                                = t('groups.partial_group.passed')
                               br
                               - if passed_exam(user, exam)
                                 button class="exam-toggle-passed-#{exam.id}" type="submit"

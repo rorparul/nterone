@@ -1,29 +1,29 @@
 p
- = t 'devise.mailer.welcome.greeting'
+ = t('devise.mailer.welcome.greeting')
  = @user.first_name
  | ,
 
 p
- = t 'devise.mailer.welcome.copy1'
+ = t('devise.mailer.welcome.copy1')
  a href="http://www.nterone.com"
-   = t 'devise.mailer.welcome.copy2'
- = t 'devise.mailer.welcome.copy3' 
- = t 'devise.mailer.welcome.copy4'
+   = t('devise.mailer.welcome.copy2')
+ = t('devise.mailer.welcome.copy3')
+ = t('devise.mailer.welcome.copy4')
 
 p
-  = t 'devise.mailer.welcome.copy5'
-  = t 'devise.mailer.welcome.copy6'
-  a href="mailto:helpdesk#{t('email')}" "helpdesk#{t('email')}"
-  = t 'devise.mailer.welcome.copy7'
-  a href="mailto:sales#{t('email')}" 
-    = "sales#{t('email')}"
-  = t 'devise.mailer.welcome.copy8'
-  = t 'devise.mailer.welcome.copy9' 
-  = t 'devise.mailer.welcome.copy10'
+  = t('devise.mailer.welcome.copy5')
+  = t('devise.mailer.welcome.copy6')
+  a href="mailto:helpdesk#{t('default.contact.email')}" "helpdesk#{t('default.contact.email')}"
+  = t('devise.mailer.welcome.copy7')
+  a href="mailto:sales#{t('default.contact.email')}" 
+    = "sales#{t('default.contact.email')}"
+  = t('devise.mailer.welcome.copy8')
+  = t('devise.mailer.welcome.copy9')
+  = t('devise.mailer.welcome.copy10')
 
 p 
-	= t 'devise.mailer.welcome.salutation'
+	= t('devise.mailer.welcome.salutation')
 
 p Anthony Hamilton
 p
-  = t 'devise.mailer.welcome.sender'
+  = t('devise.mailer.welcome.sender')

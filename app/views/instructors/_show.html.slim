@@ -3,10 +3,10 @@
     label Name
     p = instructor.full_name
     label
-      = t 'partial.instructors.show.biography'
+      = t('instructors.partial_show.biography')
     p = instructor.biography
     label
-      = t 'partial.instructors.show.contact_info'
+      = t('instructors.partial_show.contact_info')
     p
       span.fa.fa-envelope-o
       |  
@@ -15,7 +15,7 @@
       span.fa.fa-phone
       |  
       = instructor.phone
-    label = "#{t('partial.instructors.show.all_courses_led_by')} #{instructor.full_name}"
+    label = "#{t('instructors.partial_show.all_courses_led_by')} #{instructor.full_name}"
     table.table-condensed
       tbody
         - instructor.video_on_demands.each do |video_on_demand|

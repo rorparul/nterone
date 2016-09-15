@@ -1,3 +1,3 @@
-$('.modal-title').html("<%= t('video_on_demands.modal.edit.title') %>");
+$('.modal-title').html("<%= t('video_on_demands.edit_js.edit_video_on_demand') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }) %>");
 $('#myModal').modal('show');

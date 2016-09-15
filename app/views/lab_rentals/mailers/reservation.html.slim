@@ -5,7 +5,7 @@ css:
 
 <<<<<<< HEAD
 p 
-  = t 'mailer.reservation.copy1'
+  = t('lab_rentals.mailer.reservation.copy1')
 =======
 p Thank you!
 
@@ -13,42 +13,42 @@ p Your request has been received. Here are the details:
 >>>>>>> master
 
 p 
-  = t 'mailer.reservation.copy2'
+  = t('lab_rentals.mailer.reservation.copy2')
 table
   tbody
     tr
       td
-        = t 'mailer.reservation.copy3'
+        = t('lab_rentals.mailer.reservation.copy3')
       td
         = @user.try(:email)
     tr
       td
-        = t 'mailer.reservation.copy4'
+        = t('lab_rentals.mailer.reservation.copy4')
       td
         = @reservation.company.try(:title)
     tr
       td
-        = t 'mailer.reservation.copy5'
+        = t('lab_rentals.mailer.reservation.copy5')
       td
         = @reservation.lab_course.title
     tr
       td
-        = t 'mailer.reservation.copy6'
+        = t('lab_rentals.mailer.reservation.copy6')
       td
         = @reservation.num_of_students
     tr
       td
-       = t 'mailer.reservation.copy7'
+       = t('lab_rentals.mailer.reservation.copy7')
       td
         = @reservation.first_day
     tr
       td
-        = t 'mailer.reservation.copy8'
+        = t('lab_rentals.mailer.reservation.copy8')
       td
         = @reservation.start_time.strftime("%I:%M %p")
     tr
       td
-        = t 'mailer.reservation.copy9'
+        = t('lab_rentals.mailer.reservation.copy9')
         | Time Zone
       td
         = @reservation.time_zone
@@ -59,33 +59,33 @@ table
         = @reservation.instructor
     tr
       td
-        = t 'mailer.reservation.copy10'
+        = t('lab_rentals.mailer.reservation.copy10')
       td
         = @reservation.instructor_email
     tr
       td
-        = t 'mailer.reservation.copy11'
+        = t('lab_rentals.mailer.reservation.copy11')
       td
         = @reservation.instructor_phone
     tr
       td
-        = t 'mailer.reservation.copy12'
+        = t('lab_rentals.mailer.reservation.copy12')
       td
         = @reservation.location
     tr
       td
-        = t 'mailer.reservation.copy13'
+        = t('lab_rentals.mailer.reservation.copy13')
       td
         = @reservation.confirmed
     tr
       td
-        = t 'mailer.reservation.copy14'
+        = t('lab_rentals.mailer.reservation.copy14')
       td
         = @reservation.notes
       
 p
-  = t 'mailer.reservation.copy15'
+  = t('lab_rentals.mailer.reservation.copy15')
 
 p
-  = t 'mailer.reservation.copy16'
+  = t('lab_rentals.mailer.reservation.copy16')
   

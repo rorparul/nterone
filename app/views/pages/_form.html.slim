@@ -10,26 +10,26 @@
             li = msg
             
     .form-group
-      = f.label :page_title, t('admin.admin_website.form.add_page.label.page_title')
+      = f.label :page_title, t('pages.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
       
     .form-group
-      = f.label :page_description, t('admin.admin_website.form.add_page.label.page_description')
+      = f.label :page_description, t('pages.partial_form.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
     
     hr
     
     - unless page.static
       .form-group
-        = f.label :title, t('admin.admin_website.form.add_page.label.title')
+        = f.label :title, t('pages.partial_form.title')
         = f.text_field :title, class: 'form-control input-sm'
           
     .form-group
-      = f.label :content, t('admin.admin_website.form.add_page.label.content')
+      = f.label :content, t('pages.partial_form.content')
       = f.text_area :content, class: 'form-control input-sm froala'
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('default.action.cancel')

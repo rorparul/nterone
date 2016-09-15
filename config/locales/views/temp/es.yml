@@ -79,14 +79,13 @@ es:
               video_on_demand:
                 header: "VODs"
                 price: "Precio"
-                add: "Agregar un VOD"
+                add_vod: "Agregar un VOD"
                 remove: "Remover un VOD"
             credit_card:
               header: "Tarjeta de Credito"
               cc_num: "Numero"
               cc_exp_month: "Fecha de Expiración"
               cc_exp_year: "Fecha de Expiración"
-
               cc_code: "Codigo"
               cc_paid: "Pagado"
             learning_credits:
@@ -162,7 +161,7 @@ es:
             start_date: "Placeholder"
             start_time: "Placeholder"
             instructor: "Placeholder"
-            email: "Placeholder"
+            email: "PlaceholderFtime_zone"
             phone: "Placeholder"
             location: "Placeholder"
             notes: "Placeholder"
@@ -487,7 +486,7 @@ es:
           edit_video_on_demand:
             title: "Editar Video On Demand"
             label:
-              video_on_demand: "Video On Demand"
+              video_on_demFand: "Video On Demand"
           add_exam:
             title: "Agregar Examen"
             label:
@@ -513,7 +512,7 @@ es:
           edit_divider:
             title: "Editar Divisor"
             label:
-              divider: "Divisor"
+
           add_custom_item:
             title: "Agregar Elemento Personalizado"
             label:

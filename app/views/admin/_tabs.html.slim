@@ -2,52 +2,52 @@
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{admin_queue_path}"
-        = t 'admin.filter.queue'
+        = t('admins.partial_tabs.queue')
       a.btn.category.btn-category.orders href="#{admin_orders_path}"
-        = t 'admin.filter.orders'
+        = t 'admins.partial_tabs.orders'
       a.btn.category.btn-category.classes href="#{admin_classes_path}"
-        = t 'admin.filter.classes'
+        = t 'admins.partial_tabs.classes'
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
-        = t 'admin.filter.courses'
+        = t('admins.partial_tabs.courses')
       - if current_user.admin?
         a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
-          = t 'admin.filter.lab_rentals'
+          = t('admins.partial_tabs.lab_rentals')
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
-          = t 'admin.filter.announcements'
+          = t('admins.partial_tabs.announcements')
         a.btn.category.btn-category.people href="#{admin_people_path}"
-          = t 'admin.filter.people'
+          = t('admins.partial_tabs.people')
         a.btn.category.btn-category.website href="#{admin_website_path}"
-          = t 'admin.filter.website'
+          = t('admins.partial_tabs.website')
       a.btn.category.btn-category.messages href="#{admin_messages_path}"
-        = t 'admin.filter.messages'
+        = t('admins.partial_tabs.messages')
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'admin.filter.settings'
+        = t('admins.partial_tabs.settings')
       
 .categories-mobile.visible-xs.role-tabs
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{admin_queue_path}"
-        = t 'admin.filter.queue'
+        = t('admins.partial_tabs.queue')
       a.btn.category.btn-category.orders href="#{admin_orders_path}"
-        = t 'admin.filter.orders'
+        = t('admins.partial_tabs.orders')
       a.btn.category.btn-category.classes href="#{admin_classes_path}"
-        = t 'admin.filter.classes'
+        = t('admins.partial_tabs.classes')
       a.btn.category.btn-category.courses href="#{admin_courses_path}"
-        = t 'admin.filter.courses'
+        = t('admins.partial_tabs.courses')
       - if current_user.admin?
         a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
-          = t 'admin.filter.lab_rentals'
+          = t('admins.partial_tabs.lab_rentals')
         a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
-          = t 'admin.filter.announcements'
+          = t('admins.partial_tabs.announcements')
         a.btn.category.btn-category.people href="#{admin_people_path}"
-          = t 'admin.filter.people'
+          = t('admins.partial_tabs.people')
         a.btn.category.btn-category.website href="#{admin_website_path}"
-          = t 'admin.filter.website'
+          = t('admins.partial_tabs.website')
       a.btn.category.btn-category.messages href="#{admin_messages_path}"
-        = t 'admin.filter.messages'
+        = t('admins.partial_tabs.messages')
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'admin.filter.settings'
+        = t('admins.partial_tabs.settings')

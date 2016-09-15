@@ -1,0 +1,17 @@
+es:
+  my_sales:
+    announcements:
+      new_announcement: "[t]New Announcement"
+    classes_show:
+      upload_classes: "Upload Classes"
+    partial_tabs:
+      announcements: "Anuncios"
+      classes: "Clases"
+      courses: "Cursos"
+      lab_rentals: "[t]Labs"
+      messages: "Mensajes"
+      orders: "Ordenes"
+      people: "Personas"
+      queue: "Cola"
+      settings: "Ajustes"
+      website: "Pagina Web"

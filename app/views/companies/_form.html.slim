@@ -1,4 +1,4 @@
-.form-container
+m.form-container
   = form_for @company do |f|
     - if @company.errors.any?
       .alert.alert-danger.alert-dismissible
@@ -10,17 +10,17 @@
             li = msg
       
     .form-group
-      = f.label :title, t('models.company.title')
+      = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
       
     .form-group
-      = f.label :form_type, t('models.company.form_type')
-      = f.select :form_type, [[t('views.companies.form.inputs.form_type.options.option_1'), 1], [t('views.companies.form.inputs.form_type.options.option_2'), 2]],
-        { include_blank: t('views.general.prompts.dropdown') },
+      = f.label :form_type, t('companies.partial_form.form_type')
+      = f.select :form_type, [[t('companies.partial_form.option_1'), 1], [t('companies.partial_form.option_2'), 2]],
+        { include_blank: t('companies.partial_form.dropdown') },
         { class: 'form-control input-sm' }
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t('views.general.buttons.save')
+        = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t('views.general.buttons.cancel')
+        = t('default.action.cancel')

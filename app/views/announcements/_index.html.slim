@@ -10,14 +10,14 @@
             thead
               tr
                 th 
-                  = t 'admin.admin_announcements.row.announcements.column.announcements_content'
+                  = t('announcements.partial_index.announcements_content')
                 th
-                  = t 'admin.admin_announcements.row.announcements.column.announcements_target'
+                  = t('announcements.partial_index.announcements_target')
                 - if user_signed_in? && current_user.admin?
                   th
-                    = t 'admin.admin_announcements.row.announcements.column.announcements_poster'
+                    = t('announcements.partial_index.announcements_poster')
                 th
-                  = t 'admin.admin_announcements.row.announcements.column.announcements_status.title'
+                  = t('announcements.partial_index.announcements_status')
                 th
             tbody#announcements
               - announcements.each do |announcement|

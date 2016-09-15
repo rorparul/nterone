@@ -1,0 +1,67 @@
+es:
+  courses:
+    clone_form:
+      clone_course: "[t]Clone Course"
+    edit:
+      edit_course: "Editar Curso"
+    edit_js:
+      edit_course: "Editar Curso"
+    export:
+      abbreviation: '[t]Abbreviation'
+      singular: '[t]Vendor'
+      slug: 'Slug'
+      title: '[t]Title'
+      url: 'URL'
+    new:
+      add_course: "Add Course"
+    new_js:
+      add_course: "Agregar Curso"
+    partial_clone_form:
+      slug: "[t]Slug"
+    partial_form:
+      abbr: "Abreviatura"
+      active: "Activo"
+      add_course: "Agregar Curso"
+      attend: "Quienes Deberían Asistir"
+      catgories: "Categorias"
+      heading: "Encabezado (H1)"
+      icon: "Icon"
+      introduction: "Introducción"
+      outline: "Esquema"
+      overview: "Visión General"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      partner: "Aliado"
+      pdf: "PDF"
+      slug: "Slug"
+      video_preview: "Video Previo"
+    partial_index:
+      courses: "Cursos"
+      course_id: "Curso ID"
+      course_title: "Titulo"
+      course_events: "Proximos Eventos"
+    partial_select:
+      courses: "Cursos"
+    select_js:
+      edit_course: "Editar Curso"
+    show:
+      add_event: "[t]Add Event"
+      availability: "[t]Available"
+      contact: "[t]Contact"
+      course_outline: "[t]Course Outline"
+      date: "[t]Date"
+      download_datasheet: "[t]Download Datasheet"
+      edit_event: "[t]Edit Event"
+      for_training: "[t]for training schedule."
+      format: "[t]Format"
+      free: "[t]Free"
+      length: "[t]Length"
+      location: "[t]Location"
+      nterone_message: "[t]The NterOne team will be happy to answer your questions."
+      prerequisites_course_objectives: "[t]Prerequisites; Course Objectives"
+      price: "[t]Price"
+      questions: "[t]Questions?"
+      status: "[t]Status"
+      upcoming_classes: "[t]Upcoming Classes"
+      who_should_attend: "Who Should Attend"
+    video_preview: "[t]Video Preview"

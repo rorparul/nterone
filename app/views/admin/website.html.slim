@@ -10,36 +10,36 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.static_pages.title'
+          = t('admins.website.static_pages')
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.static_pages.column.title'
+                = t('admins.website.title')
               th
           tbody#pages
             - @static_pages.each do |page|
               tr
                 td = page.title
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_page_path(page), remote: false
+                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.dynamic_pages.title'
+          = t('admins.website.dynamic_pages')
         = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.dynamic_pages.column.title'
+                = t('admins.website.title')
               th
-                = t 'admin.admin_website.row.dynamic_pages.column.url'
+                = t('admins.website.url')
               th
           tbody#pages
             - @dynamic_pages.each do |page|
@@ -47,24 +47,24 @@
                 td = page.title
                 td = "#{request.base_url}#{page_path(page)}"
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_page_path(page), remote: false
+                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
                   = " | "
-                  = link_to t('generic.action.delete'), page_path(page), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                  = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.company.title'
-        = link_to t('generic.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
+          = t('admins.website.companies')
+        = link_to t('default.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th = t 'models.company.title'
-              th = t 'models.company.form_type'
-              th = t 'models.company.portal'
+              th = t('default.label.title')
+              th = t('admins.website.form_type')
+              th = t('admins.website.portal')
               th colspan="2" Actions
           tbody#pages
             - @companies.each do |company|
@@ -72,31 +72,31 @@
                 td = company.title
                 td = company.form_type
                 td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
-                td.fit = link_to t('generic.action.edit'), edit_company_path(company), remote: false
-                td.fit = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
+                td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.lab_course.title'
-        = link_to t('generic.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
+          = t('admins.website.lab_courses')
+        = link_to t('default.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.lab_course.column.title'
+                = t('admins.website.lab_courses')
               th
           tbody#pages
             - @lab_courses.each do |lab_course|
               tr
                 td = lab_course.title
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_lab_course_path(lab_course), remote: false
+                  = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
                   = " | "
-                  = link_to t('generic.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                  = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 
 .row
@@ -104,18 +104,18 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.articles.title'
-        = link_to t('generic.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
+          = t('admins.website.articles')
+        = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.articles.column.title'
+                = t('default.label.title')
               th
-                = t 'admin.admin_website.row.articles.column.kind'
+                = t('admins.website.kind')
               th
-                = t 'admin.admin_website.row.articles.column.published'
+                = t('admins.website.published')
               th
           tbody#press-releases
             - @articles.each do |article|
@@ -124,29 +124,29 @@
                 td = article.kind
                 td = article.created_at.strftime("%b. %d, %Y")
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_article_path(article), remote: false
+                  = link_to t('default.action.edit'), edit_article_path(article), remote: false
                   = " | "
-                  = link_to t('generic.action.delete'), article_path(article), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                  = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.testimonials.title'
+          = t('admins.website.testimonials')
         = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.testimonials.column.quotation'
+                = t('admins.website.quotation')
               th
-                = t 'admin.admin_website.row.testimonials.column.author'
+                = t('admins.website.author')
               th
-                = t 'admin.admin_website.row.testimonials.column.company'
+                = t('admins.website.company')
               th
-                = t 'admin.admin_website.row.testimonials.column.course'
+                = t('admins.website.course')
               th
           tbody#testimonials
             = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
@@ -159,16 +159,16 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t 'admin.admin_website.row.images.title'
-        = link_to t('generic.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
+          = t('admins.website.images')
+        = link_to t('default.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
               th
-                = t 'admin.admin_website.row.images.column.title'
+                = t('default.label.title')
               th
-                = t 'admin.admin_website.row.images.column.url'
+                = t('default.label.url')
               th
           tbody#press-releases
             - @image_store_units.each do |image_store_unit|
@@ -178,9 +178,9 @@
                   = link_to image_store_unit.image.file.url do
                     = image_store_unit.image.file.url
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
+                  = link_to t('default.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
                   = " | "
-                  = link_to t('generic.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+                  = link_to t('default.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:
   $('.role-tab').addClass('active');

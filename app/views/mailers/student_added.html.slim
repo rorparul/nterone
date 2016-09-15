@@ -11,82 +11,81 @@ css:
 = image_tag attachments["logo.png"].url
  
 p 
-  = t 'mailer.student_addeds.copy1' 
-  Dave Clearman,
+  = t('mailer.student_addeds.copy1')
 
 p
-  = t 'mailer.student_addeds.copy2'  
-  = t 'mailer.student_addeds.copy3' 
+  = t('mailer.student_addeds.copy2')
+  = t('mailer.student_addeds.copy3')
 
 p 
-  = t 'mailer.student_addeds.copy4' 
+  = t('mailer.student_addeds.copy4')
 
 p 
-  = t 'mailer.student_addeds.copy5' 
+  = t('mailer.student_addeds.copy5')
   tr
     td 
-      = t 'mailer.student_addeds.copy6' 
+      = t('mailer.student_addeds.copy6')
     td.text-red = @event.course.full_title
   tr
     td
-      = t 'mailer.student_addeds.copy7' 
+      = t('mailer.student_addeds.copy7')
     td = @user.full_name
   tr
     td
-      = t 'mailer.student_addeds.copy8' 
+      = t('mailer.student_addeds.copy8') 
     td = @event.format
   tr
     td
-      = t 'mailer.student_addeds.copy9' 
+      = t('mailer.student_addeds.copy9')
     td.text-red = "#{@event.start_date} thru #{@event.end_date}"
   tr
     td
-      = t 'mailer.student_addeds.copy10' 
+      = t('mailer.student_addeds.copy10')
     td.text-red = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
     td
-      = t 'mailer.student_addeds.copy11' 
+      = t('mailer.student_addeds.copy11')
     td.text-red = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
     td colspan="2"
-      = t 'mailer.student_addeds.copy12' 
+      = t('mailer.student_addeds.copy12')
 
 p.text-red 
-  = t 'mailer.student_addeds.copy13' 
+  = t('mailer.student_addeds.copy13')
 
 p
   span.text-red Note: 
-  = t 'mailer.student_addeds.copy14' 
+  = t('mailer.student_addeds.copy14')
   a href="http://www.webex.com/test-meeting.html" http://www.webex.com/test-meeting.html
 
 p
-  = t 'mailer.student_addeds.copy15'  
-  = t 'mailer.student_addeds.copy16' 
+  = t('mailer.student_addeds.copy15')
+  = t('mailer.student_addeds.copy16')
 
 p
-  span.text-red = t 'mailer.student_addeds.copy17'  
-  = t 'mailer.student_addeds.copy18' 
-  = t 'mailer.student_addeds.copy19' 
+  span.text-red = t('mailer.student_addeds.copy17')
+  = t('mailer.student_addeds.copy18')
+  = t('mailer.student_addeds.copy19')
 
 p
-  = t 'mailer.student_addeds.copy20' 
+  = t('mailer.student_addeds.copy20')
 ul
   li
-    = t 'mailer.student_addeds.copy21' 
-    a href="mailto:helpdesk#{t('email')}" "HelpDesk#{t('email')}"
+    = t('mailer.student_addeds.copy21')
+    a href="mailto:helpdesk#{t('default.contact.email')}" "HelpDesk#{t('default.contact.email')}"
   li 
-    = t 'mailer.student_addeds.copy22' 
+    = t('mailer.student_addeds.copy22')
     703-972-2288 Ext. 1022
   li
-    = t 'mailer.student_addeds.copy23'  
+    = t('mailer.student_addeds.copy23') 
     8:00am EST – 8:00pm EST
 
 p
-  = t 'mailer.student_addeds.copy24' 
+  = t('mailer.student_addeds.copy24')
 
 p
-  = t 'mailer.student_addeds.copy25' 
+  = t('mailer.student_addeds.copy25')
 
 p
   a href="#{t('mailer.student_addeds.copy26')}" 
-    = t 'mailer.student_addeds.copy27' 
+    = t('mailer.student_addeds.copy27')

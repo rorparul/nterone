@@ -1,0 +1,6 @@
+en:
+  messages:
+    partial_index:
+      date: "Date"
+      from: "From"
+      message: "Message"

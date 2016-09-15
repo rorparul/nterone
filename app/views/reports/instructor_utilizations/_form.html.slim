@@ -3,14 +3,14 @@
     .row
       .col-xs-12.col-md-6
         .form-group
-          = f.label :start_date, t('admin.admin_classes.form.utilization_report.label.start')
+          = f.label :start_date, t('reports.instructor_utilizations.partial_form.start')
           br
           = f.date_select :start_date, class: 'form-control input-sm'
       .col-xs-12.col-md-6
         .form-group
-          = f.label :end_date, t('admin.admin_classes.form.utilization_report.label.end')
+          = f.label :end_date, t('reports.instructor_utilizations.partial_form.end')
           br
           = f.date_select :end_date, class: 'form-control input-sm'
 
     button.btn.btn-success
-      = t 'generic.button.generate'
+      = t('reports.instructor_utilizations.partial_form.generate')

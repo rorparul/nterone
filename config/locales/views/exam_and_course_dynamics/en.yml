@@ -1,0 +1,18 @@
+en:
+  exam_and_course_dynamics:
+    partial_course_fields:
+      price: "Price"
+      remove_course: "remove course"
+    partial_exam_fields:
+      remove_exam: "remove exam"
+    partial_form:
+      courses: "Courses"
+      exams: "Exams"
+      form_instructions: "Hold down the control button (Windows) or the command button (Mac) to select multiple options."
+      label: "Label"
+    partial_select:
+      exam_courses: "Exam-Courses"
+    new_js:
+      add_exam_course: "Add Exam-Course"
+    select_js:
+      edit_exam_course: "Edit Exam-Course"

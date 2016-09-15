@@ -15,18 +15,18 @@
         .row
           .col-xs-6
             strong.text-muted
-              = t 'admin.admin_lab_rentals.row.lab_rentals.title'
+              = t('lab_rentals.index.lab_rentals')
           .col-xs-6
             - if current_user.admin?
-              = link_to t('generic.action.add'), new_lab_rental_path, class: "table-header-action"
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
             - else
-              = link_to t('generic.action.add'), new_lab_rental_path, class: "table-header-action"
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
             
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
-                                              placeholder: t('generic.search.placeholder'),
+                                              placeholder: t('default.action.search'),
                                               autocomplete: :off
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"

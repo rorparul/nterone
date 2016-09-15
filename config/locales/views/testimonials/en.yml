@@ -1,0 +1,13 @@
+en:
+  testimonials:
+    edit_js:
+      edit_testimonial: "Edit Testimonial"
+    index:
+      image1: "/assets/locales/en/testimonials.png"
+    new_js:
+      add_testimonial: "Add Testimonial"
+    partial_form:
+      author: "Author"
+      company: "Company"
+      course_attended: "Course Attended"
+      quotation: "Quotation"

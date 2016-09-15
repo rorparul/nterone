@@ -1,0 +1,8 @@
+es:
+  lead_mailer:
+    new_lead:
+      email: "[t]Email"
+      estimated_total: "[t]Estimated Total"
+      go_to_queue: "[t]Go to My Queue"
+      phone: "[t]Phone"
+      name: "[t]Name"

@@ -5,21 +5,21 @@
         thead
           tr
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.course'), :lab_course
+              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
             - if current_user.admin?
               th.fit
-                = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.company'), :company
+                = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.no_of_students'), :num_of_students
+              = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
             th.fit
               = smart_listing.sortable 'Date', :first_day
             th.fit Time
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.location'), :location
+              = smart_listing.sortable t('lab_rentals.partial_listing.location'), :location
             th.fit
-              = smart_listing.sortable t('admin.admin_lab_rentals.row.lab_rentals.column.instructor'), :instructor
+              = smart_listing.sortable t('lab_rentals.partial_listing.instructor'), :instructor
             th.fit
-              = t('admin.admin_lab_rentals.row.lab_rentals.column.notes')
+              = t('lab_rentals.partial_listing.notes')
             th.fit
               = smart_listing.sortable t('24_hr'), :twenty_four_hours
             th.fit
@@ -63,12 +63,12 @@
               td.fit style="text-align: center;"
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
-              td.fit = link_to t('generic.action.edit'), edit_lab_rental_path(rental)
               td.fit
-                = link_to t('generic.action.edit'), edit_lab_rental_path(rental)
-                = link_to t('generic.action.cancel'), lab_rental_path(rental),
+                = link_to t('default.action.edit'), edit_lab_rental_path(rental)
+              td.fit
+                = link_to t('default.action.cancel'), lab_rental_path(rental),
                   method: :delete,
-                  data: { confirm: t('generic.prompt.confirm_delete') },
+                  data: { confirm: t('default.prompt.confirm_delete') },
                   class: 'text-danger'
   .panel-footer
     = smart_listing.paginate
@@ -80,4 +80,4 @@
         tbody
           tr
             td.text-center
-              = t 'generic.no_records'
+              = t('default.placeholder.no_records')

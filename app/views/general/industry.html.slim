@@ -7,11 +7,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
-    = t 'breadcrumbs.about_us'
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central
@@ -27,7 +27,7 @@
                 = industry_article.title
             = truncate_html(industry_article.content, length: 250, omission: '...(continued)')
             small.text-muted
-              = t 'about_us.label.published' 
+              = t('general.industry.published')
               = industry_article.created_at.strftime("%B %d, %Y")
             hr
   

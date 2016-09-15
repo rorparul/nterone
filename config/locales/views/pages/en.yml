@@ -1,0 +1,13 @@
+en:
+  pages:
+    edit:
+      edit_page: "Edit Page"
+    edit_js:
+      edit_page: "Edit Page"
+    new:
+      add_page: "Add Page"
+    partial_form:
+      content: "Content"
+      page_description: "Page Description"
+      page_title: "Page Title"
+      title: "Title"

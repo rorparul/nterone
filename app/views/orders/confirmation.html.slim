@@ -1,29 +1,29 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
-  = t 'breadcrumbs.confirmation'
+  = t('admins.partial_breadcrumbs.confirmation')
     
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted = "#{t('orders.confirmation.header1')} ##{@order.id} #{t('orders.confirmation.header2')}"
+        strong.text-muted = "#{t('orders.confirmation.confirmation')} ##{@order.id} #{t('orders.confirmation.order')}"
       .table-responsive
         table.table
           thead
             tr
               th 
-                = t 'orders.confirmation.label.item'
+                = t('orders.confirmation.item')
               th
-                = t 'orders.confirmation.label.date'
+                = t('orders.confirmation.date')
               th
-                = t 'orders.confirmation.label.format'
+                = t('orders.confirmation.format')
               th 
-                = t 'orders.confirmation.label.price'
+                = t('orders.confirmation.price')
           tbody
             - @order.order_items.each do |order_item|
               tr
@@ -34,14 +34,14 @@
                 - if order_item.orderable_type == 'VideoOnDemand'
                   td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
                   td 
-                    = t 'orders.confirmation.value.one_year_of_access'
+                    = t('orders.confirmation.one_year_of_access')
                   td
-                    = t 'orders.confirmation.value.video_on_demand'
+                    = t('orders.confirmation.video_on_demand')
                 - if order_item.price > 0.00
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                 - else
                   td
-                    = t 'orders.confirmation.value.free'
+                    = t('orders.confirmation.free')
                 
 .row
   .col-xs-12
@@ -51,18 +51,18 @@
 .row
   .col-xs-12
     p
-      = t 'orders.confirmation.copy1'
+      = t('orders.confirmation.copy1')
       = mail_to "sales#{t('email')}", "sales#{t('email')}"
-      = t 'orders.confirmation.copy2'
+      = t('orders.confirmation.copy2')
       = mail_to "billing#{t('email')}", "billing#{t('email')}"
-      = t 'orders.confirmation.copy3'
+      = t('orders.confirmation.copy3')
       = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
-      = t 'orders.confirmation.copy4'
+      = t('orders.confirmation.copy4')
       strong 703-972-2288 
-      = t 'orders.confirmation.copy5'
+      = t('orders.confirmation.copy5')
     
     p 
-      = t 'orders.confirmation.copy6'
+      = t('orders.confirmation.copy6')
     
 .row
   .col-xs-12

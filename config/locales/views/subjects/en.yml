@@ -1,0 +1,33 @@
+en:
+  subjects:
+    edit:
+      edit_certification: "Edit Certification"
+    edit_js:
+      edit_certificate: "Edit Certificate"
+    new:
+      add_certification: "Add Certification"
+    new_js:
+      add_certification: "Add Certification"
+    partial_form:
+      active: "Active"
+      catgories: "Categories"
+      description: "Description"
+      icon: "Icon"
+      label: "Label"
+      page_description: "Page Description"
+      page_title: "Page Title"
+      partner: "Partner Led"
+      title: "Title"
+    partial_select:
+      certifications: "Certifications"
+    partial_sub_training_group_fields:
+      remove_grouping: "Remove Grouping"
+      training_group: "Training Group"
+    select_js:
+      edit_certification: "Edit Certification"
+    show:
+      add_table: "Add Table"
+      add_to_plan: "Add to My Plan"
+      find_testing_center: "Find Testing Center"
+      login_to_add_to_plan: "Login to add to My Plan"
+      remove_from_plan: "Remove from My Plan"

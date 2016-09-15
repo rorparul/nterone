@@ -1,0 +1,20 @@
+es:
+  order_mailer:
+    confirmation:
+      copy1: "[t]Thank you for placing an order with NterOne! We truly appreciate your business and look forward to providing you with the best experience possible."
+      copy2: "[t]Please find a summary of your order below:"
+      copy3: "[t]Order"
+      copy4: "[t]Confirmation"
+      copy5: "[t]One Year of Access"
+      copy6: "[t]Video On Demand"
+      copy7: "[t]Free"
+      copy8: "[t]Total Charged to Card:"
+      copy9: "[t]Total Credits Applied:"
+      copy10: "[t]If you have any questions please reach out to your sales representative, or contact the sales team at"
+      copy11: "[t]. If your question is billing related, you can email "
+      copy12: "[t]. If you have issues accessing your NterOne account, or services purchased, you can reach out to"
+      copy13: "[t]. You can also call us at"
+      copy14: "[t]to speak with a live person."
+      copy15: "[t]You will receive a separate e-mail confirmation with specific details for your upcoming training session, seminar or product test drive event."
+      copy16: "[t]Thanks again,"
+      copy17: "[t]NterOne Sales Team"

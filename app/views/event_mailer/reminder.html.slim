@@ -1,7 +1,7 @@
 p
-  = t 'mailer.reminder.copy1'
+  = t('event_mailer.reminder.copy1')
   = link_to @event.course.full_title, platform_course_url(@event.course.platform, @event.course), target: "_blank"
-  = "#{t('mailer.reminder.copy2')} #{@event.start_date.strftime('%-m/%-d/%y')}"
+  = "#{t('event_mailer.reminder.copy2')} #{@event.start_date.strftime('%-m/%-d/%y')}"
 
 p 
-  = t 'mailer.reminder.copy3'
+  = t('event_mailer.reminder.copy3')

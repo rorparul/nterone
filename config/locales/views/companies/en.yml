@@ -1,0 +1,11 @@
+en:
+  companies:
+    edit:
+      edit_company: "Edit Company"
+    new:
+      add_company: "Add Company"
+    partial_form:
+      dropdown: 'Please select'
+      form_type: 'Lab Reservation Form-type'
+      option_1: 'Student Details Not Required'
+      option_2: 'Student Details Required'

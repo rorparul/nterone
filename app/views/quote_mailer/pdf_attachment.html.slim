@@ -1,18 +1,18 @@
-p = "#{t('mailer.quote_mailer.pdf_attachment_html.copy1')} #{@lead.buyer.first_name},"
+p = "#{t('quote_mailer.pdf_attachment_html.copy1')} #{@lead.buyer.first_name},"
 
 p 
-	= t 'mailer.quote_mailer.pdf_attachment_html.copy2'
+	= t('quote_mailer.pdf_attachment_html.copy2')
 
 p 
-	= t 'mailer.quote_mailer.pdf_attachment_html.copy3' 
-	| sales#{t('email')}
-	= t 'mailer.quote_mailer.pdf_attachment_html.copy4'
+	= t('quote_mailer.pdf_attachment_html.copy3')
+	| sales#{t('default.contact.email')}
+	= t('quote_mailer.pdf_attachment_html.copy4')
 
 p
-  = t 'mailer.quote_mailer.pdf_attachment_html.copy5'
+  = t('quote_mailer.pdf_attachment_html.copy5')
 
 p 
-  = t 'mailer.quote_mailer.pdf_attachment_html.copy6'
+  = t('quote_mailer.pdf_attachment_html.copy6')
 
 p
-  = t 'mailer.quote_mailer.pdf_attachment_html.copy7'
+  = t('quote_mailer.pdf_attachment_html.copy7')

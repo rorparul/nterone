@@ -7,11 +7,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.training'
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -24,7 +24,7 @@
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
       i.fa.fa-plus
-      = t 'subjects.show.action.add_table'
+      = t('subjects.show.add_table')
 
 .row#subject-description
   .col-xs-12
@@ -44,13 +44,13 @@
           button#find-testing-center
             span.fa.fa-location-arrow
             span
-            = t 'subjects.show.label.find_testing_center'
+            = t('subjects.show.find_testing_center')
     - if !user_signed_in?
       a href="#{main_app.new_user_session_path}"
         button#find-testing-center
           span.fa.fa-sign-in
           span
-          = t 'subjects.show.label.login_to_add_to_plan'
+          = t('subjects.show.login_to_add_to_plan')
     - if user_signed_in? && current_user.member?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :user_id, value: current_user.id
@@ -59,18 +59,18 @@
           button.active id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-minus
             span 
-            = t 'subjects.show.label.remove_from_plan'
+            = t('subjects.show.remove_from_plan')
         - else
           button.inactive id="subject-toggle-#{@subject.id}" type="submit"
             span.fa.fa-plus
             span
-            = t 'subjects.show.label.add_to_plan'
+            = t('subjects.show.add_to_plan')
     - if user_signed_in? && current_user.sales?
       = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
         = f.hidden_field :subject_id, value: @subject.id
         button.inactive id="subject-toggle-#{@subject.id}" type="submit"
           span
-          = t 'subjects.show.label.toggle'
+          = t('default.action.toggle')
         = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
 
 javascript:

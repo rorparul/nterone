@@ -1,0 +1,8 @@
+es:
+  exams:
+    partial_select:
+      exam: "Examen"
+    new:
+      add_exam: "Agregar Examen"
+    select_js:
+      edit_exam: "Editar Examen"

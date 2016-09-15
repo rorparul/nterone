@@ -1,39 +1,39 @@
 .panel.panel-default
   .panel-heading
     strong.text-muted
-    = t 'my_sales.header'
-    = link_to t('generic.action.upload'), events_upload_path, remote: true, class: "panel-heading-controls"
+    = t('events.partial_index.classes')
+    = link_to t('default.action.upload'), events_upload_path, remote: true, class: "panel-heading-controls"
   .panel-table
     .table-responsive
       table.table.table-condensed.table-hover
         thead
           tr
-            th.fit title="#{t('my_sales.tooltip.event_id')}" #
+            th.fit title="#{t('events.partial_index.event_id')}" #
             th.fit
-              = t 'my_sales.label.status'
+              = t('events.partial_index.status')
             th.fit
-              = t 'my_sales.label.course'
+              = t('events.partial_index.course')
             th.fit
-              = t 'my_sales.label.start_date'
-            th.fit title="#{t('my_sales.tooltip.duration')}"
+              = t('events.partial_index.start_date')
+            th.fit title="#{t('events.partial_index.duration')}"
               span.fa.fa-calendar
             th.fit
-              = t 'my_sales.label.start_time'
+              = t('events.partial_index.start_time')
             th.fit
-              = t 'my_sales.label.end_time'
+              = t('events.partial_index.end_time')
             th.fit
-              = t 'my_sales.label.format'
+              = t('events.partial_index.format')
             th.fit
-              = t 'my_sales.label.instructor'
-            th.fit title="#{t('my_sales.tooltip.student_count')}"
+              = t('events.partial_index.instructor')
+            th.fit title="#{t('events.partial_index.student_count')}"
               span.fa.fa-plus-square-o
             th.fit
-              = t 'my_sales.label.revenue'
+              = t('events.partial_index.revenue')
             th.fit
-              = t 'my_sales.label.lab_source'
-            th.fit title="#{t('my_sales.tooltip.public')}"
+              = t('events.partial_index.lab_source')
+            th.fit title="#{t('events.partial_index.public')}"
               span.fa.fa-globe
-            th.fit title="#{t('my_sales.tooltip.guaranteed')}"
+            th.fit title="#{t('events.partial_index.guaranteed')}"
               span.fa.fa-thumbs-o-up
             th.fit
         tbody#events

@@ -5,16 +5,16 @@ html
   body
     - if @lead.buyer.full_name
       h6
-        = t 'mailer.new_lead.copy1'
+        = t('lead_mailer.new_lead.name')
       p = @lead.buyer.full_name
     h6 
-      = t 'mailer.new_lead.copy2'
+      = t('lead_mailer.new_lead.email')
     p = @lead.buyer.email
     h6
-      = t 'mailer.new_lead.copy3'
+      = t('lead_mailer.new_lead.phone')
     p = @lead.buyer.contact_number
     h6 
-      = t 'mailer.new_lead.copy4'
+      = t('lead_mailer.new_lead.estimated_total')
     p = formatted_price_or_range_of_my_plan_for(@lead.buyer)
     br
-    = link_to t('generic.action.go_to_queue'), @url
+    = link_to t('lead_mailer.new_lead.go_to_queue'), @url

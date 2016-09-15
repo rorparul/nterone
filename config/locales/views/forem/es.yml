@@ -1,0 +1,18 @@
+es:
+  forem:
+    admin:
+      base:
+        index:
+          area: "[t]Admin Area"
+          categories: "[t]Categories"
+          forums: "Foros"
+          groups: "[t]Groups"
+          welcome: "[t]Welcome"
+      categories:
+        edit:
+          edit: "Editar"
+        index:
+          categories: "Categorias"
+      groups:
+        index:
+          groups: "[t]Groups"

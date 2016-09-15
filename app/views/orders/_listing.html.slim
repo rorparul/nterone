@@ -4,19 +4,19 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.id'), :id
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.status'), :status_position
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.total'), :total
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.paid'), :paid
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.balance'), :balance
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.source'), :source
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.auth_code'), :auth_code
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.credits'), :clc_quantity
+            th.fit = smart_listing.sortable t('orders.partial_listing.id'), :id
+            th.fit = smart_listing.sortable t('orders.partial_listing.status'), :status_position
+            th.fit = smart_listing.sortable t('orders.partial_listing.total'), :total
+            th.fit = smart_listing.sortable t('orders.partial_listing.paid'), :paid
+            th.fit = smart_listing.sortable t('orders.partial_listing.balance'), :balance
+            th.fit = smart_listing.sortable t('orders.partial_listing.source'), :source
+            th.fit = smart_listing.sortable t('orders.partial_listing.auth_code'), :auth_code
+            th.fit = smart_listing.sortable t('orders.partial_listing.credits'), :clc_quantity
             th.fit
-              = t 'orders.partial.listing.label.so_num'
-            th.fit = smart_listing.sortable t('orders.partial.listing.label.created'), :created_at
+              = t('orders.partial_listing.so_num')
+            th.fit = smart_listing.sortable t('orders.partial_listing.created'), :created_at
             th.fit 
-              = t 'orders.partial.listing.label.member_email'
+              = t('orders.partial_listing.member_email')
             th.fit
         tbody
           - smart_listing.collection.each do |order|
@@ -39,11 +39,11 @@
               td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
               td = order.buyer.email if order.buyer
               td.fit.actions-column.text-right
-                = link_to t('generic.action.actions'), edit_order_path(order), remote: true
+                = link_to t('default.action.actions'), edit_order_path(order), remote: true
                 |  | 
-                = link_to t('generic.action.details'), admin_orders_show_path(order), remote: false
+                = link_to t('default.action.details'), admin_orders_show_path(order), remote: false
                 |  | 
-                = link_to t('generic.action.delete'), order_path(order), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }
+                = link_to t('default.action.delete'), order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
@@ -54,4 +54,4 @@
         tbody
           tr
             td.text-center
-              = t 'generic.no_records'
+              = t('default.placeholder.no_records')

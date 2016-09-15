@@ -1,8 +1,8 @@
 = form_for :instructor, url: select_to_edit_platform_instructors_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, t('training.category.action.form.edit_instructor.label.instructor')
+    = f.label :id, t('instructors.partial_select.instructor')
     br
-    = f.select :id, instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift([t('generic.prompt.none_select'), "none"]), options = {selected: t('generic.prompt.none_select')}, html_options = {class: "form-control sub-select input-sm"}
+    = f.select :id, instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] }.unshift([t('default.prompt.none_select'), "none"]), options = {selected: t('default.prompt.none_select')}, html_options = {class: "form-control sub-select input-sm"}
 
 javascript:
   $('.sub-select').on('change', function() {

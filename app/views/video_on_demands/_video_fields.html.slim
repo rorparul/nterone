@@ -1,18 +1,18 @@
 .nested-fields
   .form-group
-    = f.label :position, t('training.category.action.form.add_video_on_demand.label.module_videos.label.position')
+    = f.label :position, t('video_on_demands.partial_video_fields.position')
     = f.text_field :position, class: 'form-control input-sm'
   .form-group
-    = f.label :title, t('training.category.action.form.add_video_on_demand.label.module_videos.label.title')
+    = f.label :title, t('video_on_demands.partial_video_fields.title')
     = f.text_field :title, class: 'form-control input-sm'
   .row
     .col-xs-12.col-sm-6
       .form-group
-        = f.label :embed_code, t('training.category.action.form.add_video_on_demand.label.module_videos.label.code')
+        = f.label :embed_code, t('video_on_demands.partial_video_fields.code')
         = f.text_area :embed_code, class: 'form-control input-sm'
     .col-xs-12.col-sm-6
       .form-group
-        = f.label :free, t('training.category.action.form.add_video_on_demand.label.module_videos.label.free')
+        = f.label :free, t('video_on_demands.partial_video_fields.free')
         br
         = f.check_box :free, class: 'form-control input-sm'
-  = link_to_remove_association t('training.category.action.form.add_video_on_demand.label.module_videos.remove'), f
+  = link_to_remove_association t('video_on_demands.partial_video_fields.remove'), f

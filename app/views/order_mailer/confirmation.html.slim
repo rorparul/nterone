@@ -1,10 +1,10 @@
 p 
-  = t 'mailer.confirmation.copy1'
+  = t('order_mailer.confirmation.copy1')
 
 p 
-  = t 'mailer.confirmation.copy2'
+  = t('order_mailer.confirmation.copy2')
 
-p = "#{t('mailer.confirmation.copy3')} ##{@order.id} #{t('mailer.confirmation.copy4')}"
+p = "#{t('order_mailer.confirmation.copy3')} ##{@order.id} #{t('order_mailer.confirmation.copy4')}"
 
 table
   - @order.order_items.each do |order_item|
@@ -16,34 +16,34 @@ table
       - if order_item.orderable_type == 'VideoOnDemand'
         td = link_to order_item.orderable.full_title, platform_video_on_demand_url(order_item.orderable.platform, order_item.orderable), target: "_blank"
         td
-          = t 'mailer.confirmation.copy5'
+          = t('order_mailer.confirmation.copy5')
         td 
-          = t 'mailer.confirmation.copy6'
+          = t('order_mailer.confirmation.copy6')
       - if order_item.price > 0.00
         td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
       - else
         td 
-          = t 'mailer.confirmation.copy7'
+          = t('order_mailer.confirmation.copy7')
 
-p = "#{t('mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-p = "#{t('mailer.confirmation.copy9')} #{@order.clc_quantity}"
+p = "#{t('order_mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+p = "#{t('order_mailer.confirmation.copy9')} #{@order.clc_quantity}"
 
 p
-  = t 'mailer.confirmation.copy10'
-  = mail_to "sales#{t('email')}", "sales#{t('email')}"
-  = t 'mailer.confirmation.copy11'
-  = mail_to "billing#{t('email')}", "billing#{t('email')}"
-  = t 'mailer.confirmation.copy12' 
-  = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
-  = t 'mailer.confirmation.copy13'
+  = t('order_mailer.confirmation.copy10')
+  = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
+  = t('order_mailer.confirmation.copy11')
+  = mail_to "billing#{t('default.contact.email')}", "billing#{t('default.contact.email')}"
+  = t('order_mailer.confirmation.copy12')
+  = mail_to "helpdesk#{t('default.contact.email')}", "helpdesk#{t('default.contact.email')}"
+  = t('order_mailer.confirmation.copy13')
   strong 703-972-2288 
-  = t 'mailer.confirmation.copy14'
+  = t('order_mailer.confirmation.copy14')
   
 p 
-  = t 'mailer.confirmation.copy15'
+  = t('order_mailer.confirmation.copy15')
 
 p 
-  = t 'mailer.confirmation.copy16'
+  = t('order_mailer.confirmation.copy16')
 
 p 
-  = t 'mailer.confirmation.copy17'
+  = t('order_mailer.confirmation.copy17')

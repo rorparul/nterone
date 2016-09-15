@@ -175,6 +175,10 @@ en:
         upload_classes:
           title: "Upload Classes"
       xlsx: "Download Student-registered Classes"
+      partial:
+        listing:
+          label:
+            id: "ID"
     admin_lab_rentals:
       row:
         lab_rentals:

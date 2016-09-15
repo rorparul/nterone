@@ -1,3 +1,3 @@
-$('.modal-title').html("<%= t('training.category.action.form.add_custom_item.title') %>");
+$('.modal-title').html("<%= t('custom_items.new_js.add_custom_item') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, custom_item: @custom_item }) %>");
 $('#myModal').modal('show');

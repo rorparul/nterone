@@ -19,28 +19,28 @@
       .row
         .col-xs-12.col-md-4
           .form-group
-            = f.label :company_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.company')
+            = f.label :company_id, t('lab_rentals.partial_form.company')
             span.required *
             = f.select :company_id, Company.all.collect{ |company| [company.title, company.id] },
-                   { include_blank: t('generic.select.placeholder') },
+                   { include_blank: t('default.placeholder.select') },
                    { required: true, class: "form-control input-sm select-company" }
 
     .row
       .col-xs-12.col-md-4
         .form-group
-          = f.label :first_day, t('admin.admin_lab_rentals.form.add_lab_rental.label.first_day')
+          = f.label :first_day, t('lab_rentals.partial_form.first_day')
           span.required *
           br
           = f.date_select :first_day, {}, { required: true }
       .col-xs-12.col-md-2
         .form-group
-          = f.label :start_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.start_time')
+          = f.label :start_time, t('lab_rentals.partial_form.start_time')
           span.required *
           br
           = f.time_select :start_time, { ampm: true, default: { hour: '8', minute: '00' } }, { required: true }
       .col-xs-12.col-md-2
         .form-group
-          = f.label :end_time, t('admin.admin_lab_rentals.form.add_lab_rental.label.end_time')
+          = f.label :end_time, t('lab_rentals.partial_form.end_time')
           span.required *
           br
           = f.time_select :end_time, { ampm: true, default: { hour: '17', minute: '00' } }, { required: true }
@@ -56,20 +56,20 @@
     .row
       .col-xs-12.col-md-4
         .form-group
-          = f.label :lab_course_id, t('admin.admin_lab_rentals.form.add_lab_rental.label.course')
+          = f.label :lab_course_id, t('lab_rentals.partial_form.course')
           span.required *
           = f.select :lab_course_id, LabCourse.all.collect{ |course| [course.title, course.id] },
                  { include_blank: t('generic.select.placeholder')},
                  { required: true, class: "form-control input-sm" }
       .col-xs-12.col-md-4
         .form-group
-          = f.label :location, t('admin.admin_lab_rentals.form.add_lab_rental.label.location')
+          = f.label :location, t('lab_rentals.partial_form.location')
           span.required *
           = f.text_field :location, required: true, class: 'form-control input-sm'
       - if @lab_rental.kind == 1
         .col-xs-12.col-md-4
           .form-group
-            = f.label :num_of_students, t('admin.admin_lab_rentals.form.add_lab_rental.label.number_of_students')
+            = f.label :num_of_students, t('lab_rentals.partial_form.number_of_students')
             - if @lab_rental.new_record?
               = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control input-sm'
             - else
@@ -78,15 +78,15 @@
     .row
       .col-xs-12.col-md-4
         .form-group
-          = f.label :instructor, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor')
+          = f.label :instructor, t('lab_rentals.partial_form.instructor')
           = f.text_field :instructor, class: 'form-control input-sm toggleable'
       .col-xs-12.col-md-4
         .form-group
-          = f.label :instructor_email, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_email')
+          = f.label :instructor_email, t('lab_rentals.partial_form.instructor_email')
           = f.email_field :instructor_email, class: 'form-control input-sm toggleable'
       .col-xs-12.col-md-4
         .form-group
-          = f.label :instructor_phone, t('admin.admin_lab_rentals.form.add_lab_rental.label.instructor_phone')
+          = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
           
     - if @lab_rental.kind == 2
@@ -101,12 +101,12 @@
     .row
       .col-xs-12
         .form-group
-          = f.label :notes, t('admin.admin_lab_rentals.form.add_lab_rental.label.notes')
+          = f.label :notes, t('lab_rentals.partial_form.notes')
           = f.text_area :notes, class: 'form-control'
           
     .row
       .col-xs-12.col-md-4
-        label = t('admin.admin_lab_rentals.form.add_lab_rental.label.confirmed')
+        label = t('lab_rentals.partial_form.confirmed')
         .form-group
           - if @lab_rental.new_record?
             = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'

@@ -7,11 +7,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.training'
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -48,9 +48,9 @@
                             thead
                               tr
                                 th 
-                                  = t 'video_on_demands.show.panel.video_on_demand.label.video'
+                                  = t('video_on_demands.show.video')
                                 th.fit
-                                  = t 'video_on_demands.show.panel.video_on_demand.label.viewed'
+                                  = t('video_on_demands.show.viewed')
                             tbody
                               - video_module.videos.order(:position).each do |video|
                                 tr.video
@@ -59,7 +59,7 @@
                                       a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                       span
-                                        = t 'video_on_demands.show.panel.video_on_demand.label.free_sample'
+                                        = t('video_on_demands.show.free_sample')
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
                                       a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
@@ -76,11 +76,11 @@
                     thead
                       tr
                         th 
-                          = t 'video_on_demands.show.panel.video_on_demand.label.instructor'
+                          = t('video_on_demands.show.instructor')
                         th 
-                          = t 'video_on_demands.show.panel.video_on_demand.label.level'
+                          = t('video_on_demands.show.level')
                         th 
-                          = t 'video_on_demands.show.panel.video_on_demand.label.price'
+                          = t('video_on_demands.show.price')
                         - if !user_signed_in? || (user_signed_in? && current_user.member?)
                           th
                     tbody
@@ -101,7 +101,7 @@
               .panel-heading role="tab" id="headingOne"
                 strong
                   a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                    = t 'video_on_demands.show.panel.video_on_demand.label.prerequisites_course_objectives'
+                    = t('video_on_demands.show.prerequisites_course_objectives')
               #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @video_on_demand.overview.html_safe if @video_on_demand.overview
@@ -109,7 +109,7 @@
               .panel-heading role="tab" id="headingTwo"
                 strong
                   a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                    = t 'video_on_demands.show.panel.video_on_demand.label.course_outline'
+                    = t('video_on_demands.show.course_outline')
               #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
                   = @video_on_demand.outline.html_safe if @video_on_demand.outline
@@ -117,7 +117,7 @@
               .panel-heading role="tab" id="headingThree"
                 strong
                   a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
-                    = t 'video_on_demands.show.panel.video_on_demand.label.who_should_attend'
+                    = t('video_on_demands.show.who_should_attend')
               #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
@@ -131,22 +131,22 @@
       .panel-body
         h5
           strong
-            = t 'video_on_demands.show.panel.contact.questions'
+            = t('video_on_demands.show.questions')
         p 
-          = t 'video_on_demands.show.panel.contact.nterone_message'
+          = t('video_on_demands.show..nterone_message')
         p
-          = t 'video_on_demands.show.panel.contact.email'
-          a href="mailto:sales#{t('email')}"
-            = "sales#{t('email')}"
+          = t('video_on_demands.show.email')
+          a href="mailto:sales#{t('default.contact.email')}"
+            = "sales#{t('default.contact.email')}"
         p 
-          = t 'video_on_demands.show.panel.contact.phone' 
+          = t('default.contact.phone')
           | 703.972.2288
     = render partial: 'layouts/side_column'
 
 .row
   .col-xs-12
     button#back 
-      = t 'generic.button.back'
+      = t('default.action.back')
 
 javascript:
   $('.training-tab').addClass('active');

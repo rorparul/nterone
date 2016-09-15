@@ -1,0 +1,12 @@
+es:
+  categories:
+    partial_form:
+      description: "Descripción"
+      heading: "Encabezado (H1)"
+      page_title: "Pagina Titulo"
+      parent: "Pariente"
+      position: "Posición"
+    partial_select:
+      category: "[t]Category"
+    select_js:
+      edit_category: "Editar Categoria"

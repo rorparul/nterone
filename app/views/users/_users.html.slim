@@ -9,12 +9,12 @@
     td = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
     td.actions-column.fit.text-right
       - if user.member?
-        = link_to t('generic.action.add_purchase'), new_order_path(user_id: user.id), remote: true
+        = link_to t('users.partial_users.add_purchase'), new_order_path(user_id: user.id), remote: true
         = " | "
       = form_for user.roles.first, url: change_role_path, method: :post, html: {class: "roles-form"} do |f|
         = f.hidden_field :user_id, value: user.id
         = f.select :role, Role.selectable_roles.each { |role| role }, {}, class: "form-control selector-role"
       = " | "
-      = link_to t('generic.action.edit'), edit_user_path(user)
+      = link_to t('default.action.edit'), edit_user_path(user)
       = " | "
-      = link_to t('generic.action.delete'), user_path(user), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+      = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

@@ -1,20 +1,20 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.admin'
+    = t('admins.partial_breadcrumbs.admin')
   span.seperator
     | /
   span.text-muted
-    = t 'breadcrumbs.edit'
+    = t('admins.partial_breadcrumbs.edit')
 
 .panel.panel-default
   .panel-heading
     strong.text-muted
-      = t 'admin.admin_website.form.edit_company.title'
+      = t('companies.edit.edit_company')
   .panel-body
     = render partial: "form", locals: { company: @company }
 

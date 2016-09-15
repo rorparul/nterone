@@ -7,7 +7,7 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
 
 .row
   .col-sm-12.text-align.col-central
@@ -22,7 +22,7 @@
         = form_tag search_path, method: :get, "data-parsley-validate" => true do
           .form-group style="margin-bottom: 20px;"
             .input-group.input-group-lg
-              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: t('home.search_form.placeholder')
+              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: t('default.placeholder.search_form')
               span class="input-group-btn"
                 button class="btn btn-default" type="submit" style="border: 1px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
 
@@ -33,30 +33,30 @@
             .panel-heading
               span.fa.fa-book
               h3 
-                = t 'home.featured_courses.vendor'
+                = t('general.welcome.vendor')
             .panel-body
               strong 
-                = t 'home.featured_courses.vendor_paragraph'
+                = t('general.welcome.vendor_paragraph')
       .col-xs-12.col-lg-4
         a.featured-container href="#{featured_classes_path}"
           .panel.panel-default.text-center
             .panel-heading
               span.fa.fa-calendar-check-o
               h3 
-                = t 'home.featured_courses.classes'
+                = t('general.welcome.classes')
             .panel-body
               strong
-                = t 'home.featured_courses.classes_paragraph'
+                = t('general.welcome.classes_paragraph')
       .col-xs-12.col-lg-4
         a.featured-container href="#{labs_path}"
           .panel.panel-default.text-center
             .panel-heading
               span.fa.fa-server
               h3
-                = t 'home.featured_courses.labs'
+                = t('general.welcome.labs')
             .panel-body
               strong 
-                = t 'home.featured_courses.labs_paragraph'
+                = t('general.welcome.labs_paragraph')
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
 

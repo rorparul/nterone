@@ -8,7 +8,7 @@
             li = msg
             
     .form-group
-      = f.label :discount, t('partial.leads.form.discount')
+      = f.label :discount, t('leads.partial_form.discount_percent')
       br
       .input-group
         = f.text_field :discount, data: { autonumeric: { mDec: 0, vMin: 0, vMax: 100 } }, class: "form-control"
@@ -16,6 +16,6 @@
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('default.action.cancel')

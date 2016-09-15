@@ -1,6 +1,6 @@
 = form_for :course, url: select_to_edit_platform_courses_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, t('training.category.action.form.edit_course.label.courses')
+    = f.label :id, t('courses.partial_select.courses')
     = f.select :id, courses.order('lower(title)').collect { |course| [course.title, course.id] },
       options = { prompt: 'Please select' },
       html_options = { class: "form-control sub-select input-sm" }

@@ -1,0 +1,68 @@
+en:
+  courses:
+    clone_form:
+      clone_course: "Clone Course"
+    edit:
+      edit_course: "Edit Course"
+    edit_js:
+      edit_course: "Edit Course"
+    export:
+      abbreviation: 'Abbreviation'
+      singular: 'Vendor'
+      slug: 'Slug'
+      title: 'Title'
+      url: 'URL'
+    new:
+      add_course: "Add Course"
+    new_js:
+      add_course: "Add Course"
+    partial_clone_form:
+      slug: "Slug"
+    partial_form:
+      abbr: "Abreviatura"
+      active: "Active"
+      add_course: 'Add Course'
+      attend: "Who Should Attend"
+      catgories: "Categories"
+      heading: "Heading (H1)"
+      icon: "Icon"
+      introduction: "Introduction"
+      outline: "Outline"
+      overview: "Overview"
+      page_description: "Page Description"
+      page_title: "Page Title"
+      partner: "Partner Led"
+      pdf: "PDF"
+      slug: "Slug"
+      video_preview: "Video Preview"
+    partial_index:
+      courses: "Courses"
+      course_id: "Course ID"
+      course_title: "Title"
+      course_events: "Upcoming Events"
+    partial_select:
+      courses: "Courses"
+    select_js:
+      edit_course: "Edit Courses"
+    show:
+      add_event: "Add Event"
+      availability: "Available"
+      contact: "Contact"
+      course_outline: "Course Outline"
+      date: "Date"
+      download_datasheet: "Download Datasheet"
+      edit_event: "Edit Event"
+      for_training: "for training schedule."
+      format: "Format"
+      free: "Free"
+      length: "Length"
+      location: "Location"
+      nterone_message: "The NterOne team will be happy to answer your questions."
+      prerequisites_course_objectives: "Prerequisites; Course Objectives"
+      price: "Price"
+      questions: "Questions?"
+      status: "Status"
+      upcoming_classes: "Upcoming Classes"
+      who_should_attend: "Who Should Attend"
+    video_preview:
+      video_preview: "Video Preview"

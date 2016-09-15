@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admin.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.training'
+    = t('admin.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -13,12 +13,12 @@
   span.seperator
     | /
   a href="#{new_platform_video_on_demand_path(@platform, @video_on_demand)}"
-    = t 'breadcrumbs.new'
+    = t('admin.partial_breadcrumbs.new')
 
 .panel.panel-default
   .panel-heading
     strong.text-muted 
-      = t 'training.category.action.form.add_video_on_demand.title'
+      = t('video_on_demands.new.add_video_on_demand')
   .panel-body
     = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
 

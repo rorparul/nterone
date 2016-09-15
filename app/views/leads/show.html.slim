@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{admin_queue_path}"
-    = t 'breadcrumbs.my_sales'
+    = t('admins.partial_breadcrumbs.my_sales')
   span.seperator
     | /
   a href="#{lead_path(@buyer)}"
@@ -27,25 +27,25 @@
           button#find-testing-center
             span.fa.fa-location-arrow
             span
-            = t 'leads.label.find_testing_center'
+            = t('leads.show.find_testing_center')
         = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
           = f.hidden_field :user_id, value: @buyer.id
           = f.hidden_field :subject_id, value: planned_subject.subject.id
           button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
             span.fa.fa-minus
             span
-            = t 'leads.label.remove_from_plan'
+            = t('leads.show.remove_from_plan')
   hr
 
 #grand-total
   span
-    = "#{t('leads.label.grand_total')}: #{formatted_price_or_range_of_my_plan_for(@buyer)}"
+    = "#{t('leads.show.grand_total')}: #{formatted_price_or_range_of_my_plan_for(@buyer)}"
     
 .row
   .col-xs-12
     #activity-history
       h1 
-        = t 'leads.label.lead_history'
+        = t('leads.show.lead_history')
       hr
       ul
         = render_activities(@activities, fallback: 'default')

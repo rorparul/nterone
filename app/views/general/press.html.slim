@@ -7,11 +7,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
-    = t 'breadcrumbs.about_us'
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central
@@ -27,7 +27,7 @@
                 = press_release.title
             = truncate_html(press_release.content, length: 250, omission: '...(continued)')
             small.text-muted
-              = t 'about_us.label.published'
+              = t('default.label.published')
               = press_release.created_at.strftime("%B %d, %Y")
             hr
   

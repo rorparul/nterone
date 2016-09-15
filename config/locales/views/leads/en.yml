@@ -1,0 +1,39 @@
+en:
+  leads:
+    edit_js:
+      add_discount: "Add Discount"
+    partial_form:
+      discout_percent: "Discount Percent"
+    partial_group:
+      action: "Actions"
+      dc: "DC"
+      discount: "Discount"
+      email: "Email"
+      interests: "Interests"
+      my_plan: "My Plan"
+      name: "Name"
+      phone: "Phone"
+      poker_chip_number: "PCN:"
+      price: "Price"
+      requested: "Requested"
+      total: "Total"
+    partial_index:
+      archived_lead: "Archived Lead"
+      assigned_lead: "Assigned Lead"
+      unassigned_lead: "Unassigned Lead"
+    show:
+      find_testing_center: "Find Testing Center"
+      grand_total: "Grand Total:"
+      lead_history: "Lead History"
+      remove_from_plan: "Remove from My Plan"
+    quote:
+      copy1: "Corporate Headquarters:"
+      copy2: "NterOne Corporation"
+      copy3: "Hello"
+      copy4: "Here is a list of each of your chosen course(s):"
+      copy5: "Price:"
+      copy6: "Regular Price:"
+      copy7: "Discount:"
+      copy8: "Discounted Price:"
+      copy9: "Regards,"
+      copy10: "Sales Team"
