@@ -4,6 +4,8 @@ ruby '2.3.0'
 
 gem 'authorizenet'
 gem 'autonumeric-rails'
+gem 'axlsx'
+gem 'axlsx_rails'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-select-rails'
 gem 'wysiwyg-rails'
@@ -38,6 +40,8 @@ gem 'rails-settings-cached'
 gem 'rack-rewrite', '~> 1.5.0'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'remotipart'
+gem 'roo'
+gem 'rubyzip'
 gem 'sass-rails', '~> 5.0.3'
 gem 'search_cop'
 gem 'sidekiq'
@@ -54,13 +58,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-
-# for xlsx file generation
-gem 'roo', '1.13.2'
 gem 'zip-zip'
-gem 'rubyzip', '>= 1.0.0'
-gem 'axlsx', '2.0.1'
-gem 'axlsx_rails'
 
 group :development do
   gem 'annotate'
@@ -70,18 +68,6 @@ group :development do
   gem 'meta_request', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
-end
-
-group :doc do
-  gem 'sdoc', require: false
-end
-
-group :test do
-  gem 'rspec-rails', '3.5.0.beta1'
-  gem 'factory_girl_rails'
-  gem 'ffaker', '~> 2.1'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers', require: false
 end
 
 group :development, :test do
@@ -94,4 +80,16 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
+end
+
+group :doc do
+  gem 'sdoc', require: false
+end
+
+group :test do
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails'
+  gem 'ffaker', '~> 2.1'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', require: false
 end

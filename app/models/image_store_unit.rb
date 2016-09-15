@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: image_store_units
+#
+#  id         :integer          not null, primary key
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class ImageStoreUnit < ActiveRecord::Base
   include Imageable
 

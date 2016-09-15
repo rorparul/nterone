@@ -32,8 +32,10 @@
                     th Date
                     th Length
                     th Format
+                    th Language
                     th Location
                     th Price
+                    th Preview
                     - if !user_signed_in? || (user_signed_in? && current_user.member?)
                       th
                     - elsif user_signed_in? && current_user.admin?
@@ -50,8 +52,12 @@
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
                       td.fit = event.format
-                      - if event.city.present? || event.state.present?
-                        td.fit = "#{event.city}, #{event.state}"
+                      td.fit = event.language.upcase
+                      - if event.city.present? || event.state.present? || event.street.present?
+                        td.fit.location-td
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                            = event.state
                       - else
                         - if event.format == "Live Online"
                           td Webex
@@ -62,12 +68,19 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             | $
                             span itemprop="price"
-                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 0))}"
                       - else
                         td.fit
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
                               | Free
+                      td.fit
+                        - if event.course.video_preview.present?
+                          div class="video-link-container" = event.course.video_preview.html_safe
+                          = link_to 'Video', '#', class: 'video-trigger'
+                        - elsif event.course.pdf.url.present?
+                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
+                            | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
@@ -88,3 +101,8 @@
 
 javascript:
   $('.home-tab').addClass('active');
+  $('[data-toggle="tooltip"]').tooltip()
+  $(document).on('click', '.video-trigger', function(e) {
+    e.preventDefault();
+    $(this).prev('.video-link-container').find('div').click();
+  });

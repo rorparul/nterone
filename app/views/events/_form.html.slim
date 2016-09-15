@@ -47,7 +47,7 @@
 
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :count_weekends, 'Count Weekends?'
+          = f.label :count_weekends, 'Count Weekends'
           br
           = f.check_box :count_weekends
 
@@ -62,10 +62,28 @@
 
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :should_remind, 'Remind Students?'
+          = f.label :should_remind, 'Remind Students'
           br
           = f.check_box :should_remind
+    hr
 
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :language
+          = f.select :language,
+                     [['English', 'en'],
+                      ['Spanish', 'es']],
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :instructor_id, "Instructor"
+          = f.select :instructor_id,
+                    instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
+                    { prompt: true, include_blank: "Please select" },
+                    { class: 'form-control input-sm' }
+                    
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -78,31 +96,26 @@
                      { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :instructor_id, "Instructor"
-          = f.select :instructor_id,
-                     instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                     { prompt: true, include_blank: "Please select" },
-                     { class: 'form-control input-sm' }
-
+          = f.label :street, 'Street'
+          = f.text_field :street, class: 'form-control input-sm'
+          
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :city, 'City'
-          br
           = f.text_field :city, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :state, 'State'
-          br
           = f.select :state,
                      us_states,
-                     { prompt: true },
+                     { include_blank: 'Please select' },
                      { class: 'form-control input-sm' }
+                     
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :lab_source, 'Lab Source'
-          br
           = f.text_field :lab_source, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
@@ -114,12 +127,12 @@
     hr
 
     .form-group
-      = f.label :note
+      = f.label :note, "Public Note"
       = f.text_area :note, class: 'form-control input-sm'
-      #instructions style="margin-top: 6px;" Viewable by all registrants of the class.
+      #instructions style="margin-top: 5px;" Viewable by all registrants of the class.
 
     .form-group
-      = f.label :in_house_note
+      = f.label :in_house_note, "In-house Note"
       = f.text_area :in_house_note, class: 'form-control input-sm'
 
     .row

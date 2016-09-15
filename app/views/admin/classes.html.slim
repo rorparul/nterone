@@ -52,6 +52,11 @@
 
       = smart_listing_render(:events)
 
+.row
+  .col-xs-12.text-center
+    #download-classes
+      = link_to t('admin.admin_classes.xlsx'), student_registered_classes_path(format: 'xlsx')
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .classes').addClass('active-category');

@@ -69,8 +69,16 @@ NterOne::Application.routes.draw do
 
   resources :lab_rentals, path: 'lab-reservations'
   resources :companies
+  resources :lab_courses
 
   resources :platforms, path: 'training' do
+    collection do
+      get  'new-vendor-import' => 'platforms#new_import'
+      post 'vendor-import'     => 'platforms#import'
+    end
+
+    get 'vendor-export' => 'platforms#export'
+
     resources :categories, except: [:edit] do
       collection do
         get  'select'
@@ -186,6 +194,7 @@ NterOne::Application.routes.draw do
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
+  get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
   get  'about-us/general'                            => 'general#about_us',               as: :about_us
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
@@ -201,7 +210,7 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new'
+  get  'contact_us'                                  => 'general#contact_us_new',         as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
@@ -212,9 +221,17 @@ NterOne::Application.routes.draw do
   post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
+  get  '/courses/export'                             => 'courses#export',                 as: :courses_export
 
   get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
   put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
+
+  get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
+  get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
+
+  # Redirects:
+  get '/training/cisco'  => redirect('/training')
+  get '/training/vmware' => redirect('/training')
 
   # Redirects from old site:
   get '/courses/:id',                          to: redirect('/training')

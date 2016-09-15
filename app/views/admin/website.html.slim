@@ -62,18 +62,45 @@
         table.table.table-condensed
           thead
             tr
-              th
-                = t 'admin.admin_website.row.company.column.title'
-              th
+              th = t 'models.company.title'
+              th = t 'models.company.form_type'
+              th = t 'models.company.portal'
+              th colspan="2" Actions
           tbody#pages
             - @companies.each do |company|
               tr
                 td = company.title
+                td = company.form_type
+                td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
+                td.fit = link_to t('generic.action.edit'), edit_company_path(company), remote: false
+                td.fit = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t 'admin.admin_website.row.lab_course.title'
+        = link_to t('generic.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th
+                = t 'admin.admin_website.row.lab_course.column.title'
+              th
+                | For Company
+          tbody#pages
+            - @lab_courses.each do |lab_course|
+              tr
+                td = lab_course.title
+                td = lab_course.company.try(:title)
                 td.actions-column.fit
-                  = link_to t('generic.action.edit'), edit_company_path(company), remote: false
+                  = link_to t('generic.action.edit'), edit_lab_course_path(lab_course), remote: false
                   = " | "
-                  = link_to t('generic.action.delete'), company_path(company), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
-          
+                  = link_to t('generic.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('generic.prompt.confirm_delete') }, class: 'text-danger'
+
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -128,7 +155,7 @@
       div class="#{'panel-footer' if @testimonials.total_count > 5}"
         #testimonials-page-control
           = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
-          
+
 .row
   .col-xs-12
     .panel.panel-default

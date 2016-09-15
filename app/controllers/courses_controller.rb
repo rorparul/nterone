@@ -129,6 +129,16 @@ class CoursesController < ApplicationController
     redirect_to session[:previous_request_url]
   end
 
+  def export
+    @courses = Course.order(:abbreviation)
+
+    respond_to do |format|
+      format.xlsx do
+        render xlsx: 'export', filename: 'nterone-courses.xlsx'
+      end
+    end
+  end
+
   private
 
   def course_params

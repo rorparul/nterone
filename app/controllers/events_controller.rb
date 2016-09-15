@@ -87,6 +87,15 @@ class EventsController < ApplicationController
     redirect_to :back
   end
 
+  def student_registered_classes
+    @platforms = Platform.order(:title)
+
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
+  end
+
   def upload_form
 
   end
@@ -147,6 +156,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
+                                  :street,
                                   :file,
                                   :public,
                                   :status,
@@ -166,7 +176,8 @@ class EventsController < ApplicationController
                                   :sent_all_lab_credentials,
                                   :note,
                                   :in_house_note,
-                                  :count_weekends)
+                                  :count_weekends,
+                                  :language)
   end
 
   def in_house_note_params

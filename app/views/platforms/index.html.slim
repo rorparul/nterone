@@ -19,6 +19,10 @@
       = link_to new_platform_path, remote: true do
         i.fa.fa-plus
         = t 'training.platform.action.title'
+    li
+      = link_to new_vendor_import_platforms_path, remote: true do
+        i.fa.fa-upload
+        | Import Platform
 
 .row
   - if @platforms

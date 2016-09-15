@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: exam_and_course_dynamics
+#
+#  id          :integer          not null, primary key
+#  label       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  platform_id :integer
+#
+
 class ExamAndCourseDynamic < ActiveRecord::Base
   belongs_to :platform
 

@@ -76,8 +76,11 @@
                                     = "#{event.end_date.strftime("%-m/%-d/%y")}"
                                 td = "#{pluralize(event.length, 'Day')}"
                                 td = event.format
-                                - if event.city.present? || event.state.present?
-                                  td = "#{event.city}, #{event.state}"
+                                - if event.city.present? || event.state.present? || event.street.present?
+                                  td.fit.location-td
+                                    .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                                      i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                                      = event.state
                                 - else
                                   - if event.format == "Live Online"
                                     td Webex
@@ -156,7 +159,7 @@
         p The NterOne team will be happy to answer your questions.
         p
           | Email:
-          a href="mailto:sales#{t('email')}" 
+          a href="mailto:sales#{t('email')}"
             = "sales#{t('email')}"
         p Phone: 703.972.2288
     = render partial: 'layouts/side_column'
@@ -180,6 +183,9 @@ javascript:
       }, 500);
     }
   });
+
+javascript:
+  $('[data-toggle="tooltip"]').tooltip()
 
 script type="application/ld+json"
   - @course.upcoming_public_events.each do |event|

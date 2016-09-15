@@ -1,4 +1,5 @@
 es:
+  website: "NterOne.la"
   email: "@nterone.la"
   header:
     partner: "Una Empresa Fundada por Veteranos"
@@ -151,6 +152,42 @@ es:
       form:
         upload_classes:
           title: "Clases Cargadas"
+    admin_lab_rentals:
+      row:
+        lab_rentals:
+          title: "Placeholder"
+          column:
+            course: "Placeholder"
+            no_of_students: "Placeholder"
+            start_date: "Placeholder"
+            start_time: "Placeholder"
+            instructor: "Placeholder"
+            email: "Placeholder"
+            phone: "Placeholder"
+            location: "Placeholder"
+            notes: "Placeholder"
+            canceled: "Placeholder"
+            confirmed: "Placeholder"
+            company: "Placeholder"
+      form:
+        edit_lab_rental:
+          title: "Placeholder"
+        add_lab_rental:
+          title: "Placeholder"
+          label:
+            course: "Placeholder"
+            company: "Placeholder"
+            first_day: "Placeholder"
+            number_of_students: "Placeholder"
+            start_time: "Placeholder"
+            end_time: "Placeholder"
+            instructor: "Placeholder"
+            instructor_email: "Placeholder"
+            instructor_phone: "Placeholder"
+            notes: "Placeholder"
+            location: "Placeholder"
+            confirmed: "Placeholder"
+
     admin_courses:
       row:
         courses:
@@ -211,6 +248,11 @@ es:
           action:
             edit: "Editar"
             delete: "Borrar"
+        company:
+          title: "T: Companies"
+          column:
+            title: "T: Title"
+            form_type: "T: Form Type"
         articles:
           title: "Articulos"
           column:

@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
 	def new
 		@company = Company.new
+		@company.company_lab_courses.build
 	end
 
 	def edit
@@ -40,6 +41,6 @@ class CompaniesController < ApplicationController
 	private
 
   def company_params
-    params.require(:company).permit(:title)
+    params.require(:company).permit(:title, :form_type)
   end
 end
