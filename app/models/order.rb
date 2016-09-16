@@ -51,6 +51,11 @@
 #  source                  :integer          default(0)
 #  other_source            :string
 #
+# Indexes
+#
+#  index_orders_on_buyer_id   (buyer_id)
+#  index_orders_on_seller_id  (seller_id)
+#
 
 class Order < ActiveRecord::Base
   include SearchCop

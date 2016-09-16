@@ -10,6 +10,10 @@
 #  group_id       :integer
 #  position       :integer
 #
+# Indexes
+#
+#  index_group_items_on_groupable_type_and_groupable_id  (groupable_type,groupable_id)
+#
 
 class GroupItem < ActiveRecord::Base
   belongs_to :group

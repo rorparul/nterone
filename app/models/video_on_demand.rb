@@ -24,6 +24,10 @@
 #  lms               :boolean          default(FALSE)
 #  heading           :string
 #
+# Indexes
+#
+#  index_video_on_demands_on_slug  (slug)
+#
 
 class VideoOnDemand < ActiveRecord::Base
   extend FriendlyId

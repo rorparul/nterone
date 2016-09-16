@@ -22,6 +22,10 @@
 #  partner_led       :boolean          default(FALSE)
 #  heading           :string
 #
+# Indexes
+#
+#  index_courses_on_slug  (slug)
+#
 
 class Course < ActiveRecord::Base
   extend FriendlyId
