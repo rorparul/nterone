@@ -31,16 +31,14 @@ table
         = @reservation.num_of_students
     tr
       td
-       | 1st Day of Class
+        | First Day of Class
       td
         = @reservation.first_day
-        
-      - if @reservation.last_day != nil
-        tr
-          td 
-           | Last Day of Class 
-          td 
-              = @reservation.last_day
+    tr
+      td 
+        | Last Day of Class 
+      td 
+        = @reservation.last_day
     tr
       td
         | Start Time
