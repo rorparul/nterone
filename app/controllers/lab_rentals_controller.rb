@@ -105,6 +105,7 @@ class LabRentalsController < ApplicationController
 			:company_id,
 			:lab_course_id,
      	:first_day,
+			:last_day,
      	:num_of_students,
       :start_time,
      	:end_time,

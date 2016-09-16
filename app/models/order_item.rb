@@ -17,6 +17,10 @@
 #  status               :string
 #  note                 :text
 #
+# Indexes
+#
+#  index_order_items_on_orderable_id  (orderable_id)
+#
 
 class OrderItem < ActiveRecord::Base
   belongs_to :user

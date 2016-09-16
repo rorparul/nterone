@@ -18,11 +18,20 @@
 #  user_id           :integer
 #  company_id        :integer
 #  canceled          :boolean
-#  end_time          :time
 #  lab_course_id     :integer
+#  end_time          :time
 #  kind              :integer
 #  time_zone         :string
 #  twenty_four_hours :boolean
+#  last_day          :date
+#
+# Indexes
+#
+#  index_lab_rentals_on_lab_course_id  (lab_course_id)
+#
+# Foreign Keys
+#
+#  fk_rails_d4d0b72fbf  (lab_course_id => lab_courses.id)
 #
 
 class LabRental < ActiveRecord::Base

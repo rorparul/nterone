@@ -60,6 +60,19 @@
 #  referring_partner_email :string
 #  company_id              :integer
 #
+# Indexes
+#
+#  index_users_on_company_id            (company_id)
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_invitation_token      (invitation_token) UNIQUE
+#  index_users_on_invitations_count     (invitations_count)
+#  index_users_on_invited_by_id         (invited_by_id)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#
 
 class User < ActiveRecord::Base
   include RailsSettings::Extend

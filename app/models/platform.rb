@@ -11,6 +11,10 @@
 #  page_title       :string
 #  page_description :text
 #
+# Indexes
+#
+#  index_platforms_on_slug  (slug)
+#
 
 class Platform < ActiveRecord::Base
   extend FriendlyId
