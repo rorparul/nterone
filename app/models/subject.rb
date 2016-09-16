@@ -17,6 +17,10 @@
 #  active           :boolean          default(TRUE)
 #  heading          :string
 #
+# Indexes
+#
+#  index_subjects_on_slug  (slug)
+#
 
 class Subject < ActiveRecord::Base
   extend FriendlyId
