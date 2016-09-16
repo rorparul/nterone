@@ -67,7 +67,11 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :lab_rentals, path: 'lab-reservations'
+  resources :lab_rentals, path: 'lab-reservations' do
+    collection { post :upload}
+  end
+  get 'new_file' => 'lab_rentals#new_file'
+
   resources :companies
   resources :lab_courses
 

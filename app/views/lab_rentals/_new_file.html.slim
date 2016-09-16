@@ -1,0 +1,11 @@
+.form-container
+  = form_tag upload_lab_rentals_path, multipart: true do 
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = file_field_tag :file
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          button.btn.btn-success
+            = "Upload"
