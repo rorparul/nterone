@@ -30,7 +30,7 @@ namespace :migrate_instructors do
         old_instructor = Instructor.find(event.instructor_id)
         new_instructor = User.find_by('lower(email) = ?', old_instructor.email.downcase)
 
-        event.update_attributes(instructor_id: new_instructor.id)
+        event.update_attributes(instructor_id: new_instructor.try(:id))
       end
     end
   end
