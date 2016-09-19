@@ -19,8 +19,7 @@
             th.fit
               = t 'events.partial_listing.revenue'
             th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
-            th.fit 
-              = t 'events.partial_listing.public'
+            th.fit = t('events.partial_listing.public')
             th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.guar')}", :guaranteed
             th.fit = smart_listing.sortable "#{t('events.partial_listing.conf')}", :status
             th.fit
