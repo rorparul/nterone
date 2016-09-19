@@ -53,6 +53,9 @@ class LabRentalsController < ApplicationController
 	end
 
 	def upload
+		if current_user && current_user.admin?
+			upload = LabsUploader.upload(lab_rental_params[:file])
+		end
 		redirect_to :back
 	end
 
@@ -126,8 +129,8 @@ class LabRentalsController < ApplicationController
 			:kind,
 			:time_zone,
 			:twenty_four_hours,
-			lab_students_attributes: [:id, :name, :email, :_destroy],
-			:file
+			:file,
+			lab_students_attributes: [:id, :name, :email, :_destroy]
 		)
   end
 end
