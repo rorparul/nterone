@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
 	def new
 		@company = Company.new
+		@company.company_lab_courses.build
 	end
 
 	def edit

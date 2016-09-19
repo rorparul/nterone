@@ -12,9 +12,13 @@
     .form-group
       = f.label :lab_course, t('default.label.lab_course_title')
       = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :company_id, 'For Company'
+      = f.select :company_id, Company.all.collect { |company| [company.title, company.id] },
+        { include_blank: 'Please select' },
+        { class: 'form-control' }
 
     .form-buttons
-      button.btn.btn-success type="submit"
-        = t('default.action.save')
-      button.btn.btn-default type="button" data-dismiss="modal"
-        = t('default.action.cancel')
+      button.btn.btn-success type="submit" = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')

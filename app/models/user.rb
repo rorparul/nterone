@@ -1,3 +1,79 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                      :integer          not null, primary key
+#  email                   :string           default(""), not null
+#  encrypted_password      :string           default(""), not null
+#  reset_password_token    :string
+#  reset_password_sent_at  :datetime
+#  remember_created_at     :datetime
+#  sign_in_count           :integer          default(0), not null
+#  current_sign_in_at      :datetime
+#  last_sign_in_at         :datetime
+#  current_sign_in_ip      :inet
+#  last_sign_in_ip         :inet
+#  created_at              :datetime
+#  updated_at              :datetime
+#  company_name            :string
+#  first_name              :string
+#  last_name               :string
+#  contact_number          :string
+#  country                 :string
+#  website                 :string
+#  street                  :string
+#  city                    :string
+#  state                   :string
+#  zipcode                 :string
+#  archived                :boolean          default(FALSE)
+#  confirmation_token      :string
+#  confirmed_at            :datetime
+#  confirmation_sent_at    :datetime
+#  unconfirmed_email       :string
+#  invitation_token        :string
+#  invitation_created_at   :datetime
+#  invitation_sent_at      :datetime
+#  invitation_accepted_at  :datetime
+#  invitation_limit        :integer
+#  invited_by_id           :integer
+#  invited_by_type         :string
+#  invitations_count       :integer          default(0)
+#  last_active_at          :datetime
+#  billing_street          :string
+#  billing_city            :string
+#  billing_state           :string
+#  billing_zip_code        :string
+#  same_addresses          :boolean          default(FALSE)
+#  forem_admin             :boolean          default(FALSE)
+#  forem_state             :string           default("pending_review")
+#  forem_auto_subscribe    :boolean          default(FALSE)
+#  billing_first_name      :string
+#  billing_last_name       :string
+#  shipping_first_name     :string
+#  shipping_last_name      :string
+#  shipping_street         :string
+#  shipping_city           :string
+#  shipping_state          :string
+#  shipping_zip_code       :string
+#  shipping_company        :string
+#  billing_company         :string
+#  referring_partner_email :string
+#  company_id              :integer
+#
+# Indexes
+#
+#  index_users_on_company_id            (company_id)
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_invitation_token      (invitation_token) UNIQUE
+#  index_users_on_invitations_count     (invitations_count)
+#  index_users_on_invited_by_id         (invited_by_id)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#
+
 class User < ActiveRecord::Base
   include RailsSettings::Extend
   include ModelSearch

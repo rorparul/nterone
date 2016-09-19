@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id                 :integer          not null, primary key
+#  platform_id        :integer
+#  title              :string
+#  parent_id          :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  slug               :string
+#  position_as_parent :integer          default(0)
+#  position_as_child  :integer          default(0)
+#  position           :integer          default(0)
+#  description        :text
+#  page_title         :string
+#  heading            :string
+#
+# Indexes
+#
+#  index_categories_on_parent_id    (parent_id)
+#  index_categories_on_platform_id  (platform_id)
+#  index_categories_on_slug         (slug)
+#
+
 class Category < ActiveRecord::Base
   extend FriendlyId
   scope :parent_categories, -> { where(parent_id: nil) }

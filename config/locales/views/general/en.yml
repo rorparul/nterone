@@ -13,6 +13,7 @@ en:
       location: "Location"
       price: "Price"
       webex: "Webex"
+      preview: "Preview"
     industry:
       published: "Published"
     labs:

@@ -72,6 +72,13 @@ NterOne::Application.routes.draw do
   resources :lab_courses
 
   resources :platforms, path: 'training' do
+    collection do
+      get  'new-vendor-import' => 'platforms#new_import'
+      post 'vendor-import'     => 'platforms#import'
+    end
+
+    get 'vendor-export' => 'platforms#export'
+
     resources :categories, except: [:edit] do
       collection do
         get  'select'

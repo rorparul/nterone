@@ -89,10 +89,12 @@
               th
                 = t('admins.website.lab_courses')
               th
+                | For Company
           tbody#pages
             - @lab_courses.each do |lab_course|
               tr
                 td = lab_course.title
+                td = lab_course.company.try(:title)
                 td.actions-column.fit
                   = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
                   = " | "

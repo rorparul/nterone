@@ -19,6 +19,10 @@
       = link_to new_platform_path, remote: true do
         i.fa.fa-plus
         = t('platforms.index.add_platform')
+    li
+      = link_to new_vendor_import_platforms_path, remote: true do
+        i.fa.fa-upload
+        = t('platforms.index.import_platform')
 
 .row
   - if @platforms

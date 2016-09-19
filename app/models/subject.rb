@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: subjects
+#
+#  id               :integer          not null, primary key
+#  title            :string
+#  description      :text
+#  type             :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#  abbreviation     :string
+#  platform_id      :integer
+#  slug             :string
+#  page_title       :string
+#  page_description :text
+#  partner_led      :boolean          default(FALSE)
+#  active           :boolean          default(TRUE)
+#  heading          :string
+#
+# Indexes
+#
+#  index_subjects_on_slug  (slug)
+#
+
 class Subject < ActiveRecord::Base
   extend FriendlyId
   include Imageable

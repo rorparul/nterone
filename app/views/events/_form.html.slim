@@ -109,7 +109,7 @@
           = f.label :state, t('events.partial_form.state')
           = f.select :state,
                      us_states,
-                     { prompt: t('default.prompt.please_select') },
+                     { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
                      
     .row

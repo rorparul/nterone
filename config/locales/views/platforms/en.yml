@@ -4,6 +4,7 @@ en:
       edit_platform: "Edit Platform"
     index:
       add_platform: "Add Platform"
+      import_platform: "Import Platform"
     new_js:
       add_platform: "Add Platform"
     partial_categories_menu:

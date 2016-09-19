@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: order_items
+#
+#  id                   :integer          not null, primary key
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  orderable_id         :integer
+#  orderable_type       :string
+#  cart_id              :integer
+#  price                :decimal(8, 2)    default(0.0)
+#  order_id             :integer
+#  user_id              :integer
+#  sent_webex_invite    :boolean          default(FALSE)
+#  sent_course_material :boolean          default(FALSE)
+#  sent_lab_credentials :boolean          default(FALSE)
+#  status               :string
+#  note                 :text
+#
+# Indexes
+#
+#  index_order_items_on_orderable_id  (orderable_id)
+#
+
 class OrderItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :cart
