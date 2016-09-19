@@ -15,7 +15,7 @@ en:
       login: "Login"
       register: "Register"
       save: "Save"
-      save_invite: "Save &amp; Invite"
+      save_invite: "Save & Invite"
       search: "Search"
       select: "Please select"
       show: "Show"

@@ -190,6 +190,9 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get 'instructor/classes' => 'instructors#classes', as: :instructor_classes
+  get 'instructor/classes/:id' => 'instructors#classes_show', as: :instructor_classes_show
+
   get  'feed'                                        => 'events#feed'
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'

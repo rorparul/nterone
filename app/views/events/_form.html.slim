@@ -80,10 +80,10 @@
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
+                    User.only_instructors.collect { |user| [user.full_name, user.id] },
                     { prompt: true, include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm' }
-                    
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -98,7 +98,7 @@
         .form-group
           = f.label :street, t('events.partial_form.street')
           = f.text_field :street, class: 'form-control input-sm'
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -111,7 +111,7 @@
                      us_states,
                      { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
-                     
+
     .row
       .col-xs-12.col-sm-6
         .form-group

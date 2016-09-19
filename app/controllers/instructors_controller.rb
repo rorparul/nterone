@@ -1,4 +1,7 @@
 class InstructorsController < ApplicationController
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
   before_action :authenticate_user!, except: :show
 
   def new
@@ -55,6 +58,29 @@ class InstructorsController < ApplicationController
       flash[:alert] = 'Instructor unsuccessfully destroyed!'
     end
     redirect_to :back
+  end
+
+  def classes
+    @events = current_user.taught_events
+    @events = smart_listing_create(:events,
+      @events,
+      partial: 'instructors/class_listing',
+      sort_attributes: [
+        [:start_date, 'start_date'],
+        [:start_time, 'start_time'],
+        [:lab_source, 'lab_source']],
+      default_sort: { start_date: 'asc'}
+    )
+
+    respond_to do |format|
+      format.html{ render 'instructors/classes', layout: 'admin' }
+      format.js
+    end
+  end
+
+  def classes_show
+    @event = Event.find(params[:id])
+    render 'instructors/classes_show', layout: 'admin' 
   end
 
   private

@@ -15,8 +15,8 @@
                   #roles
                     = f.fields_for :roles do |ff|
                       = render 'users/role_fields', f: ff
-                    / .links
-                    /   = link_to_add_association t('generic.action.add_role'), f, :roles
+                    .links
+                      = link_to_add_association t('users.partial_form.add_permission'), f, :roles
                     
             hr
                 

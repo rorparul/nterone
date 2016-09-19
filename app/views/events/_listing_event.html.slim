@@ -19,17 +19,27 @@ tr
   td.fit = event.student_count
   td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
   td.fit = event.lab_source
-  td.fit = event.public ? t('events.partial_listing.affirmative') : t('events.partial_listing.negatory')
+  td.fit
+    - if event.public
+      span.label.label-success
+        = t('events.partial_listing.yes')
+    - else
+      span.label.label-default
+        = t('events.partial_listing.no')
   td.fit
     - if event.guaranteed
       span.label.label-success
-        = t('events.partial_listing.affirmative')
-    - if !event.guaranteed
+        = t('events.partial_listing.yes')
+    - else
       span.label.label-default
-        = t('events.partial_listing.negatory')
+        = t('events.partial_listing.no')
   td.fit
     - if event.status == "Confirmed"
-      i.fa.fa-check.text-success aria-hidden="true"
+      span.label.label-success
+        = t('events.partial_listing.yes')
+    - else
+      span.label.label-default
+        = t('events.partial_listing.no')
   td.fit
     = link_to t('events.partial_listing.add_student'), new_order_path(event: event.id), remote: true, title: t('events.partial_listing.register_student')
     .link-diver |
