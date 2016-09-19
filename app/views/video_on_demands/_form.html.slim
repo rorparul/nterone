@@ -54,7 +54,7 @@
     .form-group
       = f.label :instructor_id, t('video_on_demands.partial_form.instructor')
       = f.select :instructor_id,
-                 instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
+                 User.only_instructors.collect { |instructor| [instructor.full_name, instructor.id] },
                  { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm" }
 
