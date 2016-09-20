@@ -31,6 +31,7 @@ class OrderItem < ActiveRecord::Base
   before_create :copy_current_orderable_price
   before_save   :update_status
   after_save    :update_event_status
+  after_save    :event_book_costs
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   # validates :order, presence: true
@@ -89,7 +90,25 @@ class OrderItem < ActiveRecord::Base
 
   def copy_current_orderable_price
     if self.cart_id
-      self.price = self.orderable.price
+       self.price = self.orderable.price
+    end
+  end
+
+  def event_book_costs
+    if orderable_type == "Event"
+      event = Event.find(self.orderable_id)
+      if event.autocalculate_book_costs
+        platform = event.course.platform.title
+        case platform
+        when "Cisco"
+          event.cost_books = 350.00*(event.student_count)
+
+        when "VMware"
+          event.cost_books = 725.00*(event.student_count)
+
+        end
+        event.save
+      end
     end
   end
 end

@@ -2241,3 +2241,27 @@ footer {
     margin-left: -20px;
   }
 }
+
+
+// Checkbox for cost-books on form from admin/classes
+.book-cost-checkbox {
+  margin: 0;
+  padding: 0;
+}
+
+.book-cost-checkbox-container {
+  right: 10px;
+  top: 4px;
+  padding: 0;
+  position: absolute;
+  z-index: 3;
+  span {
+    padding-right: 5px;
+    font-size: 10px;
+  }
+}
+
+.book-cost-container {
+  margin: 0;
+  padding: 0;
+}
