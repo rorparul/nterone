@@ -2,6 +2,10 @@ es:
   general:
     contact_us_new_js:
       contact_us: "Contact Us"
+    about_us:
+      image: "locales/es/about-nterone.png"
+    consulting:
+      image: "locales/es/consulting.png"
     featured_classes:
       course_title: "[t]Course Title"
       date: "[t]Date"
@@ -13,6 +17,7 @@ es:
       location: "[t]Location"
       price: "[t]Price"
       webex: "[t]Webex"
+      preview: "[t]Preview"
     industry:
       published: "Publicado"
     labs:

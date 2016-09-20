@@ -2,6 +2,10 @@ en:
   general:
     contact_us_new_js:
       contact_us: "Contact Us"
+    about_us:
+      image: "locales/en/about-nterone.png"
+    consulting:
+      image: "locales/en/consulting.png"
     featured_classes:
       course_title: "Course Title"
       date: "Date"
