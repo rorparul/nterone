@@ -21,7 +21,7 @@ class InstructorsController < ApplicationController
   end
 
   def show
-    @instructor = Instructor.find(params[:id])
+    @instructor = User.find(params[:id])
   end
 
   def select
@@ -80,7 +80,7 @@ class InstructorsController < ApplicationController
 
   def classes_show
     @event = Event.find(params[:id])
-    render 'instructors/classes_show', layout: 'admin' 
+    render 'instructors/classes_show', layout: 'admin'
   end
 
   private

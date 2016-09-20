@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919182625) do
+ActiveRecord::Schema.define(version: 20160920154923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -854,6 +854,7 @@ ActiveRecord::Schema.define(version: 20160919182625) do
     t.string   "referring_partner_email"
     t.integer  "company_id"
     t.text     "about"
+    t.integer  "status",                  default: 0
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

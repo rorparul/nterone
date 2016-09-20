@@ -14,7 +14,8 @@ class EventReminderWorker
     end
   end
 
-private
+  private
+
   def remind_time(event)
     case event.remind_period
     when 'one_week'

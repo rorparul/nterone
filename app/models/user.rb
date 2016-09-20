@@ -60,6 +60,7 @@
 #  referring_partner_email :string
 #  company_id              :integer
 #  about                   :text
+#  status                  :integer          default(0)
 #
 # Indexes
 #
@@ -78,6 +79,8 @@
 class User < ActiveRecord::Base
   include RailsSettings::Extend
   include ModelSearch
+
+  enum status: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
 
@@ -120,7 +123,8 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
-  has_many :taught_events, class_name: 'Event', foreign_key: 'instructor_id'
+  has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
+  has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
@@ -156,6 +160,10 @@ class User < ActiveRecord::Base
         sum + 0
       end
     end
+  end
+
+  def taught_events_in_range(start_date, end_date)
+    self.taught_events.where(start_date: start_date..end_date)
   end
 
   def self.only_students

@@ -58,7 +58,7 @@ es:
       length: "[t]Length"
       location: "[t]Location"
       nterone_message: "[t]The NterOne team will be happy to answer your questions."
-      prerequisites_course_objectives: "[t]Prerequisites; Course Objectives"
+      prerequisites_course_objectives: "[t]Prerequisites and Course Objectives"
       price: "[t]Price"
       questions: "[t]Questions?"
       status: "[t]Status"

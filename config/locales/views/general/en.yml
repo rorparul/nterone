@@ -6,6 +6,8 @@ en:
       image: "locales/en/about-nterone.png"
     consulting:
       image: "locales/en/consulting.png"
+    executives:
+      image: "locales/en/executives.png"
     featured_classes:
       course_title: "Course Title"
       date: "Date"
@@ -19,7 +21,10 @@ en:
       webex: "Webex"
       preview: "Preview"
     industry:
+      image: "locales/en/industry.png"
       published: "Published"
+    instructors:
+      image: "locales/en/instructors.png"
     labs:
       image1: "locales/en/labs.png"
     partial_contact_us_form:
@@ -37,6 +42,8 @@ en:
       placeholder: "Search by certification, course, or exam"
     partners:
       image1: "locales/en/partners.png"
+    press:
+      image: "locales/en/press.png"
     sitemap:
       about_us: "About Us"
       articles: "Articles"

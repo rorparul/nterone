@@ -54,7 +54,7 @@ es:
       instructor: "Instructor"
       level: "[t]Level"
       nterone_message: "[t]The NterOne team will be happy to answer your questions."
-      prerequisites_course_objectives: "[t]Prerequisites &amp; Course Objectives"
+      prerequisites_course_objectives: "[t]Prerequisites & Course Objectives"
       price: "[t]Price"
       questions: "[t]Questions?"
       video: "[t]Video"

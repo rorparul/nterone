@@ -119,8 +119,10 @@
                         - else
                           tr
                             td.text-center
-                              = t('courses.show.contact') 
+                              = t('courses.show.contact')
+                              = ' '
                               = link_to "sales#{t('email')}", "mailto:sales#{t('email')}"
+                              = ' '
                               = t('courses.show.for_training')
 
           #accordion.panel-group role="tablist" aria-multiselectable="true"
