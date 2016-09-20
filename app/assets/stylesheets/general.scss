@@ -2250,8 +2250,8 @@ footer {
 }
 
 .book-cost-checkbox-container {
-  right: 10px;
-  top: 4px;
+  right: 25px;
+  top: 29px;
   padding: 0;
   position: absolute;
   z-index: 3;
@@ -2264,4 +2264,9 @@ footer {
 .book-cost-container {
   margin: 0;
   padding: 0;
+  input {
+    &:focus {
+      z-index: 0 !important;
+    }
+  }
 }

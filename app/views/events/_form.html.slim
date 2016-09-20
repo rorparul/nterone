@@ -166,13 +166,13 @@
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_books, t('events.partial_form.cost_books')
-          .input-group
-            span.input-group-addon $
-            div.book-cost-container
-            div.book-cost-checkbox-container
+          .book-cost-container
+            .book-cost-checkbox-container
               span.glyphicon.glyphicon-refresh
               = f.check_box :autocalculate_book_costs, class: "book-cost-checkbox"
-            = f.text_field :cost_books, data: { autonumeric: true }, class: 'form-control input-sm'
+            .input-group
+              span.input-group-addon $
+              = f.text_field :cost_books, data: { autonumeric: true }, class: 'book-cost-textbox form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_shipping, t('events.partial_form.cost_shipping')
@@ -210,3 +210,22 @@
         = t('default.action.cancel')
       - if event.id
         = link_to t('default.action.delete'), platform_course_event_path(platform, course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+
+javascript:
+  if ( $(".book-cost-checkbox").is(':checked') == true ) {
+       $(".book-cost-textbox").attr("disabled", true);
+       
+  } else {
+       $(".book-cost-textbox").removeAttr("disabled");
+
+  };
+
+  $(".book-cost-checkbox").click(function() {
+    if ( $(".book-cost-checkbox").is(':checked') == true ) {
+         $(".book-cost-textbox").attr("disabled", true);
+         
+    } else {
+         $(".book-cost-textbox").removeAttr("disabled");
+
+    };
+  });
