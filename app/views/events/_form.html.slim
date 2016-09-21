@@ -169,7 +169,7 @@
           .book-cost-container
             .book-cost-checkbox-container
               span.glyphicon.glyphicon-refresh
-              = f.check_box :autocalculate_book_costs, class: "book-cost-checkbox"
+              = f.check_box :calculate_book_costs, class: "book-cost-checkbox"
             .input-group
               span.input-group-addon $
               = f.text_field :cost_books, data: { autonumeric: true }, class: 'book-cost-textbox form-control input-sm'

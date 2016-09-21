@@ -62,6 +62,7 @@ class Event < ActiveRecord::Base
   has_many :registrations
 
   # before_save    :update_status
+  before_save :calculate_book_cost
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
@@ -174,6 +175,19 @@ class Event < ActiveRecord::Base
     else
       errors.add(:base, 'Order Items present')
       return false
+    end
+  end
+
+  def calculate_book_cost
+    if calculate_book_costs?
+      platform_title = course.platform.title
+      case platform_title
+      when "Cisco"
+        cost = 350.00 * student_count
+      when "VMware"
+        cost = 725.00 * student_count
+      end
+      self.update_column(:cost_books, cost)
     end
   end
 end
