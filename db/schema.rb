@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921050604) do
+ActiveRecord::Schema.define(version: 20160921161041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,40 +195,41 @@ ActiveRecord::Schema.define(version: 20160921050604) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",                    precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                          precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
-    t.boolean  "guaranteed",                                       default: false
-    t.boolean  "active",                                           default: true
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
+    t.boolean  "guaranteed",                                             default: false
+    t.boolean  "active",                                                 default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
-    t.string   "status",                                           default: "Pending"
+    t.string   "status",                                                 default: "Pending"
     t.string   "lab_source"
-    t.boolean  "public",                                           default: true
-    t.decimal  "cost_instructor",          precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_lab",                 precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_te",                  precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_facility",            precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_books",               precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_shipping",            precision: 8, scale: 2, default: 0.0
-    t.boolean  "partner_led",                                      default: false
+    t.boolean  "public",                                                 default: true
+    t.decimal  "cost_instructor",                precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_lab",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_te",                        precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_facility",                  precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_books",                     precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_shipping",                  precision: 8, scale: 2, default: 0.0
+    t.boolean  "partner_led",                                            default: false
     t.string   "time_zone"
-    t.boolean  "sent_all_webex_invite",                            default: false
-    t.boolean  "sent_all_course_material",                         default: false
-    t.boolean  "sent_all_lab_credentials",                         default: false
-    t.boolean  "should_remind",                                    default: true
-    t.integer  "remind_period",                                    default: 0
-    t.boolean  "reminder_sent",                                    default: false
+    t.boolean  "sent_all_webex_invite",                                  default: false
+    t.boolean  "sent_all_course_material",                               default: false
+    t.boolean  "sent_all_lab_credentials",                               default: false
+    t.boolean  "should_remind",                                          default: true
+    t.integer  "remind_period",                                          default: 0
+    t.boolean  "reminder_sent",                                          default: false
     t.text     "note"
-    t.boolean  "count_weekends",                                   default: false
+    t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
+    t.integer  "language",                                               default: 0
     t.string   "street"
-    t.integer  "language",                                         default: 0
-    t.boolean  "calculate_book_costs",                             default: true
+    t.boolean  "calculate_book_costs",                                   default: true
+    t.boolean  "autocalculate_instructor_costs",                         default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -443,8 +444,8 @@ ActiveRecord::Schema.define(version: 20160921050604) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.time     "end_time"
     t.integer  "lab_course_id"
+    t.time     "end_time"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -798,12 +799,12 @@ ActiveRecord::Schema.define(version: 20160921050604) do
   add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                   default: "",               null: false
-    t.string   "encrypted_password",      default: "",               null: false
+    t.string   "email",                                           default: "",               null: false
+    t.string   "encrypted_password",                              default: "",               null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,                null: false
+    t.integer  "sign_in_count",                                   default: 0,                null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -820,7 +821,7 @@ ActiveRecord::Schema.define(version: 20160921050604) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
-    t.boolean  "archived",                default: false
+    t.boolean  "archived",                                        default: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -832,16 +833,16 @@ ActiveRecord::Schema.define(version: 20160921050604) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",       default: 0
+    t.integer  "invitations_count",                               default: 0
     t.datetime "last_active_at"
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_zip_code"
-    t.boolean  "same_addresses",          default: false
-    t.boolean  "forem_admin",             default: false
-    t.string   "forem_state",             default: "pending_review"
-    t.boolean  "forem_auto_subscribe",    default: false
+    t.boolean  "same_addresses",                                  default: false
+    t.boolean  "forem_admin",                                     default: false
+    t.string   "forem_state",                                     default: "pending_review"
+    t.boolean  "forem_auto_subscribe",                            default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_first_name"
@@ -855,7 +856,8 @@ ActiveRecord::Schema.define(version: 20160921050604) do
     t.string   "referring_partner_email"
     t.integer  "company_id"
     t.text     "about"
-    t.integer  "status",                  default: 0
+    t.integer  "status",                                          default: 0
+    t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
