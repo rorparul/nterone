@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920164526) do
+ActiveRecord::Schema.define(version: 20160921050604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(version: 20160920164526) do
     t.text     "in_house_note"
     t.string   "street"
     t.integer  "language",                                         default: 0
-    t.boolean  "autocalculate_book_costs",                         default: true
+    t.boolean  "calculate_book_costs",                             default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|

@@ -37,9 +37,9 @@
 #  note                     :text
 #  count_weekends           :boolean          default(FALSE)
 #  in_house_note            :text
-#  language                 :integer          default(0)
 #  street                   :string
-#  autocalculate_book_costs :boolean          default(TRUE)
+#  language                 :integer          default(0)
+#  calculate_book_costs     :boolean          default(TRUE)
 #
 
 class Event < ActiveRecord::Base
@@ -176,6 +176,4 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-
-
 end
