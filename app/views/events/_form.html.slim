@@ -139,10 +139,14 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_instructor, t('events.partial_form.cost_instructor')
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'form-control input-sm'
+            = f.label :cost_instructor, t('events.partial_form.cost_instructor')
+            .auto-cost-container
+              .auto-cost-checkbox-container
+                span.glyphicon.glyphicon-refresh
+                = f.check_box :autocalculate_instructor_costs, class: "auto-cost-checkbox"
+              .input-group
+                span.input-group-addon $
+                = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_lab, t('events.partial_form.cost_lab')
@@ -206,3 +210,22 @@
         = t('default.action.cancel')
       - if event.id
         = link_to t('default.action.delete'), platform_course_event_path(platform, course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+        
+javascript:
+  if ( $('.auto-cost-checkbox').is(':checked') == true ) {
+    $('.auto-cost-textbox').attr('disabled', true);
+  
+  } else {
+    $('.auto-cost-textbox').attr('disabled', false);
+  
+  };
+  
+  $('.auto-cost-checkbox').click(function() {
+    if ( $('.auto-cost-checkbox').is(':checked') == true ) {
+      $('.auto-cost-textbox').attr('disabled', true);
+    
+    } else {
+      $('.auto-cost-textbox').attr('disabled', false);
+    
+    };
+  });

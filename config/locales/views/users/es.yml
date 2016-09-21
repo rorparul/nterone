@@ -8,6 +8,7 @@ es:
       billing_address: "Dirección de Facturación"
       city: "Ciudad"
       company_name: "[t]Company Name"
+      daily_rate: "[t]Daily Rate"
       phone: "[t]Phone"
       privileges: "[t]Privileges"
       user_info: "[t]User Info"

@@ -177,6 +177,7 @@ class EventsController < ApplicationController
                                   :note,
                                   :in_house_note,
                                   :count_weekends,
+                                  :autocalculate_instructor_costs,
                                   :language)
   end
 
