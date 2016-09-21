@@ -227,8 +227,8 @@ ActiveRecord::Schema.define(version: 20160920164526) do
     t.boolean  "count_weekends",                                   default: false
     t.text     "in_house_note"
     t.string   "street"
-    t.boolean  "autocalculate_book_costs",                         default: true
     t.integer  "language",                                         default: 0
+    t.boolean  "autocalculate_book_costs",                         default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
