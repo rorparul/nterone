@@ -25,7 +25,7 @@ es:
       upload: "Cargar"
     contact:
       email: "@nterone.com"
-      phone: "[t]703.972.2288"
+      phone: "Phone:"
     label:
       content: "Contenido"
       current_password: "Clave Actual"

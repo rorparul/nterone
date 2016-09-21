@@ -80,6 +80,7 @@ class UsersController < ApplicationController
                                  :shipping_city,
                                  :shipping_state,
                                  :shipping_zip_code,
+                                 :status,
                                  roles_attributes: [:id,
                                                     :role,
                                                     :_destroy])

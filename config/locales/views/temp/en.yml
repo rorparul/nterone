@@ -9,6 +9,7 @@ en:
   breadcrumbs:
     home: "Home"
     admin: "My Admin"
+    instructor: "My Classes"
     my_sales: "My Sales"
     lab_rentals: "Lab Reservations"
     about_us: "About Us"
@@ -393,6 +394,11 @@ en:
             new_password: "New Password"
             new_password_confirm: "New Password Confirmation"
             current_password: "Current Password"
+    admin_events:
+      form:
+        labels:
+          instructor: "Instructor"
+          input_blank: "Please select"
   about_us:
     categories:
       about: "About NterOne"
@@ -620,6 +626,20 @@ en:
     sitemap: "Sitemap"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. All rights reserved."
+  instructor:
+    class_listing:
+      headers:
+        start_date: "Start Date"
+        start_time: "Start Time"
+        students: "Students"
+        lab_source: "Lab Source"
+        actions: "Actions"
+    classes:
+      breadcrumbs:
+        my_classes: "My Classes"
+    classes_show:
+      registrations: "Class Registrations"
+      students: "Students"
   xlsx:
     student_registered_classes:
       class_date: "Class Date"
@@ -641,6 +661,8 @@ en:
       edit: "Edit"
       delete: "Delete"
       upload: "Upload"
+      view: "View"
+      view_details: "View Details"
     prompt:
       none_select: "None"
       confirm_delete: "Are you sure?"

@@ -66,12 +66,12 @@
     li = link_to select_platform_custom_items_path(@platform), remote: true do
       i.fa.fa-pencil
       = t('platforms.show.edit_custom_item')
-    li = link_to new_platform_instructor_path(@platform), remote: true do
-      i.fa.fa-plus
-      = t('platforms.show.add_instructor')
-    li = link_to select_platform_instructors_path(@platform), remote: true do
-      i.fa.fa-pencil
-      = t('platforms.show.edit_instructor')
+    / li = link_to new_platform_instructor_path(@platform), remote: true do
+    /   i.fa.fa-plus
+    /   = t('platforms.show.add_instructor')
+    / li = link_to select_platform_instructors_path(@platform), remote: true do
+    /   i.fa.fa-pencil
+    /   = t('platforms.show.edit_instructor')
 
 = render partial: 'platforms/categories_menu', locals: { category: @category,
                                                          categories: @categories }

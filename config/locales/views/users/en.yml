@@ -9,13 +9,14 @@ en:
       city: "City"
       company_name: "Company Name"
       phone: "Phone"
-      privileges: "Privileges"
+      privileges: "Permissions"
       user_info: "User Info"
       same_as: "Same as Billing"
       shipping_address: "Shipping Address"
       state: "State"
       street: "Street"
       zip: "Zipcode"
+      add_permission: "Add Permission"
     partial_index:
       last_active: "Last Active"
       purchases: "Purchases"
@@ -23,7 +24,7 @@ en:
       add_order: "Add Order"
       last_active: "Last Active"
       reinvite: "Re-invite"
-      roles: "Roles"
+      permissions: "Permissions"
     partial_role_fields:
       admin: "Admin"
       lms_manager: "LMS Manager"
@@ -31,6 +32,7 @@ en:
       sales_manager: "Sales Manager"
       sales_rep: "Sales Rep"
       student: "Student"
+      remove_permission: "Remove Permission"
     partial_users:
       add_purchase: "Add Purchase"
     show:

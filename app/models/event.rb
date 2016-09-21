@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
   }
 
   belongs_to :course
-  belongs_to :instructor
+  belongs_to :instructor, class_name: 'User'
 
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
@@ -73,7 +73,7 @@ class Event < ActiveRecord::Base
 
 
   search_scope :custom_search do
-    attributes :format, :start_date, :public, :guaranteed
+    attributes :id, :format, :start_date, :public, :guaranteed
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]

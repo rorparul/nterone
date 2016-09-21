@@ -156,10 +156,6 @@ NterOne::Application.routes.draw do
     resources :instructor_utilizations, only: [:new, :create]
   end
 
-  namespace :api do
-    get '/users/:id' => 'users#show', as: :user
-  end
-
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders
@@ -175,20 +171,14 @@ NterOne::Application.routes.draw do
     get 'admin/settings',                            as: :admin_settings
   end
 
-  # controller :my_sales do
-  #   get 'my-sales/queue',                                  as: :my_sales_queue
-  #   get 'my-sales/classes',                                as: :my_sales_classes
-  #   get 'my-sales/classes/:id' => 'my_sales#classes_show', as: :my_sales_classes_show
-  #   get 'my-sales/announcements',                          as: :my_sales_announcements
-  #   get 'my-sales/messages',                               as: :my_sales_messages
-  #   get 'my-sales/settings',                               as: :my_sales_settings
-  # end
-
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
     get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
+
+  get 'instructor/classes'     => 'instructors#classes',      as: :instructor_classes
+  get 'instructor/classes/:id' => 'instructors#classes_show', as: :instructor_classes_show
 
   get  'feed'                                        => 'events#feed'
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
@@ -222,12 +212,14 @@ NterOne::Application.routes.draw do
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
   get  '/courses/export'                             => 'courses#export',                 as: :courses_export
-
   get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
   put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
-
   get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
   get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
+
+  namespace :api do
+    get '/users/:id' => 'users#show', as: :user
+  end
 
   # Redirects:
   get '/training/cisco'  => redirect('/training')

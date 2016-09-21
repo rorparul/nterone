@@ -2,6 +2,12 @@ es:
   general:
     contact_us_new_js:
       contact_us: "Contact Us"
+    about_us:
+      image: "locales/es/about-nterone.png"
+    consulting:
+      image: "locales/es/consulting.png"
+    executives:
+      image: "locales/es/executives.png"
     featured_classes:
       course_title: "[t]Course Title"
       date: "[t]Date"
@@ -13,8 +19,12 @@ es:
       location: "[t]Location"
       price: "[t]Price"
       webex: "[t]Webex"
+      preview: "[t]Preview"
     industry:
+      image: "locales/es/industry.png"
       published: "Publicado"
+    instructors:
+      image: "locales/es/instructors.png"
     labs:
       image1: "locales/es/labs.png"
     partial_contact_us_form:
@@ -32,6 +42,8 @@ es:
       placeholder: "Buscar por Certificaciones, cursos o exámenes"
     partners:
       image1: "locales/es/partners.png"
+    press:
+      image: "locales/es/press.png"
     sitemap:
       about_us: "Acerca de Nosotros"
       articles: "Articulos"

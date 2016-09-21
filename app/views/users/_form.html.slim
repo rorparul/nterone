@@ -15,10 +15,16 @@
                   #roles
                     = f.fields_for :roles do |ff|
                       = render 'users/role_fields', f: ff
-                    / .links
-                    /   = link_to_add_association t('generic.action.add_role'), f, :roles
+                    .links
+                      = link_to_add_association t('users.partial_form.add_permission'), f, :roles
                     
             hr
+            
+          .form-group
+            = f.label :status, t('users.partial_form.status')
+            = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
+                                options = {},
+                                html_options = { class: "form-control input-sm" }
                 
           .row
             .col-xs-12.col-md-6

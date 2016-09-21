@@ -226,9 +226,9 @@ ActiveRecord::Schema.define(version: 20160920164526) do
     t.text     "note"
     t.boolean  "count_weekends",                                   default: false
     t.text     "in_house_note"
-    t.integer  "language",                                         default: 0
     t.string   "street"
     t.boolean  "autocalculate_book_costs",                         default: true
+    t.integer  "language",                                         default: 0
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -443,8 +443,8 @@ ActiveRecord::Schema.define(version: 20160920164526) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -854,6 +854,8 @@ ActiveRecord::Schema.define(version: 20160920164526) do
     t.string   "billing_company"
     t.string   "referring_partner_email"
     t.integer  "company_id"
+    t.text     "about"
+    t.integer  "status",                  default: 0
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

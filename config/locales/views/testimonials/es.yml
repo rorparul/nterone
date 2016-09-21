@@ -3,7 +3,7 @@ es:
     edit_js:
       edit_testimonial: "Edit Testimonial"
     index:
-      image1: "/assets/locales/es/testimonials.png"
+      image: "locales/es/testimonials.png"
     new_js:
       add_testimonial: "Agregar Testimonio"
     partial_form:

@@ -132,14 +132,15 @@
         h5
           strong
             = t('video_on_demands.show.questions')
-        p 
-          = t('video_on_demands.show..nterone_message')
+        p = t('video_on_demands.show..nterone_message')
         p
           = t('video_on_demands.show.email')
+          = ' '
           a href="mailto:sales#{t('default.contact.email')}"
             = "sales#{t('default.contact.email')}"
         p 
           = t('default.contact.phone')
+          = ' '
           | 703.972.2288
     = render partial: 'layouts/side_column'
 
