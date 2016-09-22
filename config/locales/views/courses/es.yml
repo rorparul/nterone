@@ -55,6 +55,7 @@ es:
       for_training: "[t]for training schedule."
       format: "[t]Format"
       free: "[t]Free"
+      image: "locales/es/High-impact_IT_Training_header_Span"
       length: "[t]Length"
       location: "[t]Location"
       nterone_message: "[t]The NterOne team will be happy to answer your questions."
