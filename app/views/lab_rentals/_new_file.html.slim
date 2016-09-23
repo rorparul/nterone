@@ -1,0 +1,8 @@
+= form_for :lab_rental, url: upload_path_url, method: :post do |f|
+  .form-group
+    = f.file_field :file, class: 'form-control input-sm'
+  .form-buttons
+    button.btn.btn-success type="submit"
+      = t 'generic.button.upload'
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t 'generic.button.cancel'

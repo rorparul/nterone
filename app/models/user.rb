@@ -317,16 +317,17 @@ class User < ActiveRecord::Base
     admin? || sales_rep?
   end
 
-    private
-    def update_instructor_costs
-      if self.instructor?
-        events = Event.where(instructor_id: self.id).collect
-        events.each do |event|
-          if event.autocalculate_instructor_costs && event.end_date != nil
-            event.cost_instructor = (self.daily_rate)*(event.end_date - event.start_date) unless event.end_date < Date.today
-            event.save
-          end
+  private
+  
+  def update_instructor_costs
+    if self.instructor?
+      events = Event.where(instructor_id: self.id).collect
+      events.each do |event|
+        if event.autocalculate_instructor_costs && event.end_date != nil
+          event.cost_instructor = (self.daily_rate)*(event.end_date - event.start_date) unless event.end_date < Date.today
+          event.save
         end
       end
     end
+  end
 end

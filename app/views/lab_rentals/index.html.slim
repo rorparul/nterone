@@ -1,5 +1,12 @@
 - content_for :breadcrumbs do
   = render "admin/breadcrumbs"
+
+- if current_user.admin? == true
+  - content_for :actions do
+    li 
+      = link_to new_file_path, remote: true do
+        = "Upload Lab Reservation File"
+
   
 .row
   .col-xs-12

@@ -1,4 +1,4 @@
-lock '3.6.1'
+lock '3.5.0'
 
 set :repo_url, 'git@github.com:ryanstorberg/nterone.git'
 set :rails_env, "production"

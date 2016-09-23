@@ -3,7 +3,7 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t('events.partial_show.class_detailsr')
+          = t('events.partial_show.class_details')
         .panel-actions-overlay
           = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
             = t('default.action.edit')
@@ -260,7 +260,7 @@
 
                   / td = link_to t('generic.action.edit'), edit_order_item_path(order_item), remote: true
                   / td = link_to t('generic.action.delete'), order_path(order_item.order), method: :delete, data: { confirm: t('generic.prompt.delete_confirm') }
-
+  
 javascript:
   $('.table-select, .check-select').on('change', function() {
     $(this).closest('form').submit();
