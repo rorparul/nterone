@@ -73,11 +73,12 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.5.0'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
+  gem 'capistrano-ssh-doctor'
   gem 'dotenv-rails'
   gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'

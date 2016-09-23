@@ -62,6 +62,7 @@ class UsersController < ApplicationController
                                  :country,
                                  :street,
                                  :city,
+                                 :daily_rate,
                                  :state,
                                  :zipcode,
                                  :archived,

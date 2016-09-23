@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 20160921161041) do
     t.text     "in_house_note"
     t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
   end

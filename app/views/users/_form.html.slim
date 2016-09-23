@@ -20,11 +20,19 @@
                     
             hr
             
-          .form-group
-            = f.label :status, t('users.partial_form.status')
-            = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
-                                options = {},
-                                html_options = { class: "form-control input-sm" }
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :status, t('users.partial_form.daily')
+                  = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
+                                      options = {},
+                                    html_options = { class: "form-control input-sm" }
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :daily_rate, t('users.partial_form.daily_rate')
+                  .input-group
+                    span.input-group-addon $
+                    = f.text_field :daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
                 
           .row
             .col-xs-12.col-md-6

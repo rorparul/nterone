@@ -8,6 +8,7 @@ en:
       billing_address: "Billing Address"
       city: "City"
       company_name: "Company Name"
+      daily_rate: "Daily Rate"
       phone: "Phone"
       privileges: "Permissions"
       user_info: "User Info"

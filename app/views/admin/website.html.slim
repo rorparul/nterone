@@ -36,20 +36,40 @@
         table.table.table-condensed
           thead
             tr
-              th
-                = t('admins.website.title')
-              th
-                = t('admins.website.url')
-              th
+              th = t('admins.website.title')
+              th = t('admins.website.url')
+              th colspan="2"
           tbody#pages
             - @dynamic_pages.each do |page|
               tr
                 td = page.title
                 td = "#{request.base_url}#{page_path(page)}"
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
-                  = " | "
-                  = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                td.fit = link_to t('default.action.edit'), edit_page_path(page), remote: false
+                td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t('admins.website.articles')
+        = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th = t('default.label.title')
+              th = t('admins.website.kind')
+              th = t('admins.website.published')
+              th colspan="2"
+          tbody#press-releases
+            - @articles.each do |article|
+              tr
+                td = article.title
+                td = article.kind
+                td = article.created_at.strftime("%b. %d, %Y")
+                td.fit = link_to t('default.action.edit'), edit_article_path(article), remote: false
+                td.fit = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
@@ -86,49 +106,16 @@
         table.table.table-condensed
           thead
             tr
-              th
-                = t('admins.website.lab_courses')
-              th
-                | For Company
+              th = t('admins.website.lab_courses')
+              th For Company
+              th colspan="2"
           tbody#pages
             - @lab_courses.each do |lab_course|
               tr
                 td = lab_course.title
                 td = lab_course.company.try(:title)
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
-                  = " | "
-                  = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-
-
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('admins.website.articles')
-        = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th
-                = t('default.label.title')
-              th
-                = t('admins.website.kind')
-              th
-                = t('admins.website.published')
-              th
-          tbody#press-releases
-            - @articles.each do |article|
-              tr
-                td = article.title
-                td = article.kind
-                td = article.created_at.strftime("%b. %d, %Y")
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_article_path(article), remote: false
-                  = " | "
-                  = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                td.fit = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
+                td.fit = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .row
   .col-xs-12
@@ -141,48 +128,40 @@
         table.table.table-condensed
           thead
             tr
-              th
-                = t('admins.website.quotation')
-              th
-                = t('admins.website.author')
-              th
-                = t('admins.website.company')
-              th
-                = t('admins.website.course')
-              th
+              th = t('admins.website.quotation')
+              th = t('admins.website.author')
+              th = t('admins.website.company')
+              th = t('admins.website.course')
+              th colspan="2"
           tbody#testimonials
             = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
       div class="#{'panel-footer' if @testimonials.total_count > 5}"
         #testimonials-page-control
           = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('admins.website.images')
-        = link_to t('default.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th
-                = t('default.label.title')
-              th
-                = t('default.label.url')
-              th
-          tbody#press-releases
-            - @image_store_units.each do |image_store_unit|
-              tr
-                td = image_store_unit.title
-                td
-                  = link_to image_store_unit.image.file.url do
-                    = image_store_unit.image.file.url
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
-                  = " | "
-                  = link_to t('default.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+/ .row
+/   .col-xs-12
+/     .panel.panel-default
+/       .panel-heading
+/         strong.text-muted
+/           = t('admins.website.images')
+/         = link_to t('default.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
+/       .table-responsive
+/         table.table.table-condensed
+/           thead
+/             tr
+/               th = t('default.label.title')
+/               th = t('default.label.url')
+/               th colspan="2"
+/           tbody#press-releases
+/             - @image_store_units.each do |image_store_unit|
+/               tr
+/                 td = image_store_unit.title
+/                 td
+/                   = link_to image_store_unit.image.file.url do
+/                     = image_store_unit.image.file.url
+/                 td.fit = link_to t('default.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
+/                 td.fit = link_to t('default.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:
   $('.role-tab').addClass('active');

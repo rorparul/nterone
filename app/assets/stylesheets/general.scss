@@ -2242,18 +2242,17 @@ footer {
   }
 }
 
-
-// Checkbox for cost-books on form from admin/classes
-.book-cost-checkbox {
+// Checkbox and TextBox for autocalculated costs
+.auto-cost-checkbox {
   margin: 0;
   padding: 0;
 }
 
-.book-cost-checkbox-container {
-  right: 25px;
-  top: 29px;
+.auto-cost-checkbox-container {
   padding: 0;
   position: absolute;
+  right: 25px;
+  top: 29px;
   z-index: 3;
   span {
     padding-right: 5px;
@@ -2261,7 +2260,7 @@ footer {
   }
 }
 
-.book-cost-container {
+.auto-cost-container {
   margin: 0;
   padding: 0;
   input {

@@ -140,9 +140,13 @@
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_instructor, t('events.partial_form.cost_instructor')
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'form-control input-sm'
+          .auto-cost-container
+            .auto-cost-checkbox-container
+              span.glyphicon.glyphicon-refresh
+              = f.check_box :autocalculate_instructor_costs, class: "auto-cost-checkbox"
+            .input-group
+              span.input-group-addon $
+              = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.autocalculate_instructor_costs?
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_lab, t('events.partial_form.cost_lab')
@@ -166,13 +170,13 @@
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_books, t('events.partial_form.cost_books')
-          .book-cost-container
-            .book-cost-checkbox-container
+          .auto-cost-container
+            .auto-cost-checkbox-container
               span.glyphicon.glyphicon-refresh
-              = f.check_box :calculate_book_costs, class: "book-cost-checkbox"
+              = f.check_box :calculate_book_costs, class: 'auto-cost-checkbox'
             .input-group
               span.input-group-addon $
-              = f.text_field :cost_books, data: { autonumeric: true }, class: 'book-cost-textbox form-control input-sm'
+              = f.text_field :cost_books, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.calculate_book_costs?
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_shipping, t('events.partial_form.cost_shipping')
@@ -209,23 +213,16 @@
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')
       - if event.id
-        = link_to t('default.action.delete'), platform_course_event_path(platform, course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-
+        = link_to t('default.action.delete'), platform_course_event_path(platform, course, event),
+          method: :delete,
+          data: { confirm: t('default.prompt.confirm_delete') },
+          class: 'text-danger'
+  
 javascript:
-  if ( $(".book-cost-checkbox").is(':checked') == true ) {
-       $(".book-cost-textbox").attr("disabled", true);
-       
-  } else {
-       $(".book-cost-textbox").removeAttr("disabled");
-
-  };
-
-  $(".book-cost-checkbox").click(function() {
-    if ( $(".book-cost-checkbox").is(':checked') == true ) {
-         $(".book-cost-textbox").attr("disabled", true);
-         
+  $('.auto-cost-checkbox').click(function() {
+    if($(this).is(':checked') == true) {
+      $(this).closest('.auto-cost-container').find('.auto-cost-textbox').attr('disabled', true);
     } else {
-         $(".book-cost-textbox").removeAttr("disabled");
-
+      $(this).closest('.auto-cost-container').find('.auto-cost-textbox').attr('disabled', false);
     };
   });

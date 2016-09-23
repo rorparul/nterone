@@ -48,6 +48,17 @@ class LabRentalsController < ApplicationController
 		@lab_rental.lab_students.build if @lab_rental.kind == 2
 	end
 
+	def new_file
+
+	end
+
+	def upload
+		if current_user && current_user.admin?
+			upload = LabsUploader.upload(lab_rental_params[:file])
+		end
+		redirect_to :back
+	end
+
 	def create
 		@lab_rental = LabRental.new(lab_rental_params)
 		if @lab_rental.save
@@ -118,6 +129,7 @@ class LabRentalsController < ApplicationController
 			:kind,
 			:time_zone,
 			:twenty_four_hours,
+			:file,
 			lab_students_attributes: [:id, :name, :email, :_destroy]
 		)
   end

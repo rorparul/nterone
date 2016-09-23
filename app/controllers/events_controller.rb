@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     @platform    = Platform.find(params[:platform_id])
     @course      = Course.find(params[:course_id])
     @event       = @course.events.build
-    @instructors = @platform.instructors
+    # @instructors = @platform.instructors
   end
 
   def create
@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     @course      = Course.find(params[:course_id])
     @events      = @course.events
     @event       = @course.events.build
-    @instructors = @platform.instructors
+    # @instructors = User.only_instructors
   end
 
   def  select_to_edit
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
       @platform    = Platform.find(params[:platform_id])
       @course      = Course.find(params[:course_id])
       @event       = Event.find(event_params[:id])
-      @instructors = @platform.instructors
+      # @instructors = @platform.instructors
     end
   end
 
@@ -58,7 +58,7 @@ class EventsController < ApplicationController
     @platform    = Platform.find(params[:platform_id])
     @course      = Course.find(params[:course_id])
     @event       = Event.find(params[:id])
-    @instructors = @platform.instructors
+    # @instructors = @platform.instructors
   end
 
   def update
@@ -72,7 +72,7 @@ class EventsController < ApplicationController
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
     else
-      @instructors  = @platform.instructors
+      # @instructors  = @platform.instructors
       render 'select_to_edit'
     end
   end
@@ -177,6 +177,7 @@ class EventsController < ApplicationController
                                   :note,
                                   :in_house_note,
                                   :count_weekends,
+                                  :autocalculate_instructor_costs,
                                   :calculate_book_costs,
                                   :language)
   end

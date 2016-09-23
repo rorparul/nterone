@@ -141,6 +141,7 @@ class User < ActiveRecord::Base
          :validatable
 
   validate :password_complexity
+  after_save :update_instructor_costs, if: :daily_rate_changed?
 
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
@@ -314,5 +315,19 @@ class User < ActiveRecord::Base
 
   def can_resend_invitation?
     admin? || sales_rep?
+  end
+
+  private
+
+  def update_instructor_costs
+    if self.instructor?
+      events = Event.upcoming_events.where(instructor_id: self.id)
+      events.each do |event|
+        if event.autocalculate_instructor_costs && event.end_date != nil
+          event.cost_instructor = self.daily_rate * event.length
+          event.save
+        end
+      end
+    end
   end
 end
