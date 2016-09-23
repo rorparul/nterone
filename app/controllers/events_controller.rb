@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     @course      = Course.find(params[:course_id])
     @events      = @course.events
     @event       = @course.events.build
-    # @instructors = @platform.instructors
+    # @instructors = User.only_instructors
   end
 
   def  select_to_edit

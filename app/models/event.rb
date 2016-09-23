@@ -63,7 +63,8 @@ class Event < ActiveRecord::Base
   has_many :registrations
 
   # before_save    :update_status
-  before_save :calculate_book_cost
+  before_save :calculate_book_cost,       if: Proc.new { |model| model.calculate_book_costs? }
+  before_save :calculate_instructor_cost, if: Proc.new { |model| model.autocalculate_instructor_costs? }
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
@@ -106,7 +107,7 @@ class Event < ActiveRecord::Base
   def length
     if self.end_date && self.start_date
       range = self.start_date..self.end_date
-      count = self.count_weekends ? range.count :  range.select {|day| (1..5).include?(day.wday)}.count
+      count = self.count_weekends ? range.count : range.select { |day| (1..5).include?(day.wday) }.count
 
       count > 0 ? count : 1
     end
@@ -180,15 +181,21 @@ class Event < ActiveRecord::Base
   end
 
   def calculate_book_cost
-    if calculate_book_costs?
-      platform_title = course.platform.title
-      case platform_title
-      when "Cisco"
-        cost = 350.00 * student_count
-      when "VMware"
-        cost = 725.00 * student_count
-      end
-      self.update_column(:cost_books, cost)
+    platform_title = course.platform.title
+    case platform_title
+    when "Cisco"
+      cost = 350.00 * student_count
+    when "VMware"
+      cost = 725.00 * student_count
+    end
+    self.update_column(:cost_books, cost)
+  end
+
+  def calculate_instructor_cost
+    if instructor
+      self.cost_instructor = instructor.daily_rate * length
+    else
+      self.cost_instructor = 0.0
     end
   end
 end

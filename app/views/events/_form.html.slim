@@ -146,7 +146,7 @@
               = f.check_box :autocalculate_instructor_costs, class: "auto-cost-checkbox"
             .input-group
               span.input-group-addon $
-              = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.cost_instructor
+              = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.autocalculate_instructor_costs?
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_lab, t('events.partial_form.cost_lab')
@@ -176,7 +176,7 @@
               = f.check_box :calculate_book_costs, class: 'auto-cost-checkbox'
             .input-group
               span.input-group-addon $
-              = f.text_field :cost_books, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.cost_books
+              = f.text_field :cost_books, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.calculate_book_costs?
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_shipping, t('events.partial_form.cost_shipping')

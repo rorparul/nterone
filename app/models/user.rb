@@ -318,13 +318,13 @@ class User < ActiveRecord::Base
   end
 
   private
-  
+
   def update_instructor_costs
     if self.instructor?
-      events = Event.where(instructor_id: self.id).collect
+      events = Event.upcoming_events.where(instructor_id: self.id)
       events.each do |event|
         if event.autocalculate_instructor_costs && event.end_date != nil
-          event.cost_instructor = (self.daily_rate)*(event.end_date - event.start_date) unless event.end_date < Date.today
+          event.cost_instructor = self.daily_rate * event.length
           event.save
         end
       end
