@@ -78,6 +78,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
+  gem 'capistrano-ssh-doctor'
   gem 'dotenv-rails'
   gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
