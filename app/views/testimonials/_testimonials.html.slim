@@ -4,7 +4,5 @@
     td.fit = testimonial.author
     td.fit = testimonial.company
     td.fit = testimonial.course
-    td.actions-column.fit
-      = link_to t('default.action.edit'), edit_testimonial_path(testimonial), remote: true
-      = " | "
-      = link_to t('default.action.delete'), testimonial_path(testimonial), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+    td.fit = link_to t('default.action.edit'), edit_testimonial_path(testimonial), remote: true
+    td.fit = link_to t('default.action.delete'), testimonial_path(testimonial), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

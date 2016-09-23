@@ -43,8 +43,8 @@
                 td.fit = rental.num_of_students
               td.fit = rental.first_day
               td.fit
-                div = rental.start_time.strftime("%I:%M %p")
-                div = rental.end_time.strftime("%I:%M %p")
+                div = rental.start_time.strftime("%I:%M %p") if rental.start_time
+                div = rental.end_time.strftime("%I:%M %p") if rental.start_time
               td.fit = rental.location
               td.fit
                 div = rental.instructor

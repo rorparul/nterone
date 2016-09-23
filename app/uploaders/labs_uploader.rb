@@ -85,6 +85,16 @@ class LabsUploader
       unless row_original[:instructor_email] =~ /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
          row_original[:instructor_email] = nil
       end
+
+
+      if row_original[:first_day]
+        row_original[:first_day] = Date.strptime(row_original[:first_day], "%m/%d/%Y")
+      end
+
+      if row_original[:last_day]
+        row_original[:last_day] = Date.strptime(row_original[:last_day], "%m/%d/%Y")
+      end
+
       lab_rental = LabRental.new(
         company_id: company.id,
         start_time: "%8:%0:%0",
@@ -114,6 +124,7 @@ class LabsUploader
         lab_student = LabStudent.new(lab_rental_id: lab_rental.id, name: row_original[:name], email: row_original[:email])
         lab_student.save(validate: false)
       end
+      lab_rental.save
     end
   end
 
@@ -138,7 +149,17 @@ class LabsUploader
       else
          row_original[:canceled] = false
       end
-      row_new    = row_original.dup
+      modified_first_day_input = row_original[:first_day].gsub('="', '').gsub('"', '') if row_original[:first_day]
+      if modified_first_day_input =~ /\//
+        first_day = Date.strptime(modified_first_day_input, "%m/%d/%Y") if modified_first_day_input
+        row_original[:first_day] = first_day if first_day
+      end
+
+      modified_start_time_input = row_original[:start_time].gsub('="', '').gsub('"', '') if row_original[:start_time]
+      row_original[:start_time] = modified_start_time_input if modified_start_time_input
+
+      row_new = row_original.dup
+
       lab_rental = LabRental.new(row_new)
       lab_course = LabCourse.find_by(title: row_original[:course])
       if lab_course
