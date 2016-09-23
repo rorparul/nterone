@@ -1,0 +1,43 @@
+en:
+  reports:
+    commissions:
+      create_xlsx:
+        class_name: "Class Name"
+        commission_earned: "Comm. Amt."
+        commission_rate: "Comm. %"
+        date_of_class: "Class Date"
+        revenue: "Revenue"
+        student_name: "Student Name"
+      new_js:
+        generate_commissions_report: "Generate Commissions Report"
+      partial_form:
+        end: "End"
+        generate: "Generate"
+        sales_rep: "Sales Rep"
+        start: "Start"
+    instructor_utilizations:
+      create_xlsx:
+        days_taught: "Days Taught"
+        instructor_name: "Instructor Name"
+        revenue: "Revenue"
+        role: "Role"
+      new_js:
+        generate_instructor_report: "Generate Instructor Utilization Report"
+      partial_form:
+        end: "End"
+        generate: "Generate"
+        start: "Start"
+    profit_sheets:
+      create_xls:
+        class: "Class"
+        class_date_range: "Class Date Range"
+        expenses: "Expenses"
+        profit: "Profit"
+        revenue: "Revenue"
+      new-js:
+        generate_profit_report: "Generate Profit Sheets Report"
+      partial_form:
+        end: "End"
+        generate: "Generate"
+        sources: "Sources"
+        start: "Start"

@@ -1,3 +1,3 @@
-$('.modal-title').html('Add Event');
+$('.modal-title').html("<%= t('events.new.add_event') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, event: @event, course: @course, instructors: @instructors }) %>");
 $('#myModal').modal('show');

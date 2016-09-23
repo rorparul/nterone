@@ -1,0 +1,11 @@
+es:
+  custom_item:
+    new_js:
+      add_custom_item: "Agregar Elemento Personalizado"
+    partial_form:
+      content: "Contenido"
+      label: "Etiqueta"
+    partial_select:
+      custom_item: "Elemento Personalizado"
+    select_js:
+      edit_custom_item: "Editar Elemento Personalizado"

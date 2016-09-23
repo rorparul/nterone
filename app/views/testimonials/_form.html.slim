@@ -10,19 +10,19 @@
             li = msg
             
     .form-group
-      = f.label :quotation, t('admin.admin_website.form.add_testimonial.label.quotation')
+      = f.label :quotation, t('testimonials.partial_form.quotation')
       = f.text_area :quotation, class: 'form-control input-sm'
     
     .form-group
-      = f.label :author, t('admin.admin_website.form.add_testimonial.label.author')
+      = f.label :author, t('testimonials.partial_form.author')
       = f.text_field :author, class: 'form-control input-sm'
       
     .form-group
-      = f.label :company, t('admin.admin_website.form.add_testimonial.label.company')
+      = f.label :company, t('testimonials.partial_form.company')
       = f.text_field :company, class: 'form-control input-sm'
     
     .form-group
-      = f.label :id, t('admin.admin_website.form.add_testimonial.label.course_attended')
+      = f.label :id, t('testimonials.partial_form.course_attended')
       = f.select :id,
                  @courses.collect {|course| [course.title, course.id] },
                  options = { prompt: true },
@@ -30,6 +30,6 @@
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('default.action.cancel')

@@ -39,6 +39,7 @@
 #  in_house_note            :text
 #  street                   :string
 #  language                 :integer          default(0)
+#  calculate_book_costs     :boolean          default(TRUE)
 #
 
 class Event < ActiveRecord::Base
@@ -53,7 +54,7 @@ class Event < ActiveRecord::Base
   }
 
   belongs_to :course
-  belongs_to :instructor
+  belongs_to :instructor, class_name: 'User'
 
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
@@ -61,6 +62,7 @@ class Event < ActiveRecord::Base
   has_many :registrations
 
   # before_save    :update_status
+  before_save :calculate_book_cost
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
@@ -72,7 +74,7 @@ class Event < ActiveRecord::Base
 
 
   search_scope :custom_search do
-    attributes :format, :start_date, :public, :guaranteed
+    attributes :id, :format, :start_date, :public, :guaranteed
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
@@ -173,6 +175,19 @@ class Event < ActiveRecord::Base
     else
       errors.add(:base, 'Order Items present')
       return false
+    end
+  end
+
+  def calculate_book_cost
+    if calculate_book_costs?
+      platform_title = course.platform.title
+      case platform_title
+      when "Cisco"
+        cost = 350.00 * student_count
+      when "VMware"
+        cost = 725.00 * student_count
+      end
+      self.update_column(:cost_books, cost)
     end
   end
 end

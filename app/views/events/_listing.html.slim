@@ -4,21 +4,26 @@
       table.table.table-condensed
         thead
           tr
-            th.fit = smart_listing.sortable "ID", :id
-            th.fit = 'Note'
-            th.fit = smart_listing.sortable "Course", :course
-            th.fit = smart_listing.sortable "Start Date", :start_date
-            th.fit title="Length" Len
-            th.fit = smart_listing.sortable "Start Time", :start_time
-            th.fit = smart_listing.sortable "Format", :format
-            th.fit Instructor
-            th.fit title="Students" Ss
-            th.fit Revenue
-            th.fit = smart_listing.sortable "Lab Source", :lab_source
-            th.fit Public
-            th.fit title="Guaranteed" = smart_listing.sortable "Guar", :guaranteed
-            th.fit = smart_listing.sortable "Conf", :status
-            th.fit Actions
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
+            th.fit = "#{t('events.partial_listing.note')}"
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
+            th.fit title="#{t('events.partial_listing.length')}" 
+              = t 'events.partial_listing.length'
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.start_time')}", :start_time
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
+            th.fit
+              = t 'events.partial_listing.instructor'
+            th.fit title="#{t('events.partial_listing.students')}" 
+              = t 'events.partial_listing.ss'
+            th.fit
+              = t 'events.partial_listing.revenue'
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
+            th.fit = t('events.partial_listing.public')
+            th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.guar')}", :guaranteed
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.conf')}", :status
+            th.fit
+              = t 'events.partial_listing.actions'
         tbody
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
@@ -45,4 +50,4 @@
         tbody
           tr
             td.text-center
-              = t 'generic.no_records'
+              = t('default.placeholder.no_records')

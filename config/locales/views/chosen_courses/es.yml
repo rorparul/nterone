@@ -1,0 +1,6 @@
+es:
+  chosen_courses:
+    toggle_active:
+      estimated_total: "[t]Estimated Total for Planned Classes"
+    toggle_attended:
+      estimated_total: "[t]Estimated Total for Planned Classes"

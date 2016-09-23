@@ -10,11 +10,12 @@
             li = msg
             
     .form-group
-      = f.label :content, t('training.category.action.form.add_divider.label.content')
+      = f.label :content, t('default.label.content')
       = f.text_field :content, class: 'form-control'
       
     .form-buttons
       button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
       - if divider.id
-        = link_to 'Delete', platform_divider_path(platform, divider), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_divider_path(platform, divider), method: :delete, data: {confirm: t('default.prompt.confirm_delete')}, class: 'text-danger'

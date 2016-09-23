@@ -1,0 +1,9 @@
+es:
+  image_store_units:
+    edit_js:
+      edit_image: "[t]Edit Image"
+    new_js:
+      add_image: "[t]Add Image"
+    partial_form:
+      image: "Imagen"
+      image_title: "Titulo"

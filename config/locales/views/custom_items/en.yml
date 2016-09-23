@@ -1,0 +1,11 @@
+en:
+  custom_items:
+    new_js:
+      add_custom_item: "Add Custom Item"
+    partial_form:
+      content: "Content"
+      label: "Label"
+    partial_select:
+      custom_item: "Custom Item"
+    select_js:
+      edit_custom_item: "Edit Custom Item"

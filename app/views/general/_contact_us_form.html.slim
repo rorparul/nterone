@@ -2,44 +2,47 @@
   .radio
     label
       = f.radio_button :recipient, "helpdesk#{t('email')}", checked: true
-      |  Help Desk
+      = t('general.partial_contact_us_form.help_desk')
   .radio
     label
       = f.radio_button :recipient, "sales#{t('email')}"
-      | Sales
+      = t('general.partial_contact_us_form.sales')
   .radio
     label
       = f.radio_button :recipient, "billing#{t('email')}"
-      | Billing
+      = t('general.partial_contact_us_form.billing')
   
   .form-group
-    = f.label :name, "Name"
+    = f.label :name, t('general.partial_contact_us_form.name')
     = f.text_field :name, class: 'form-control input-sm', value: user.full_name
     
   .form-group
-    = f.label :phone, "Phone Number"
+    = f.label :phone, t('general.partial_contact_us_form.phone')
     = f.text_field :phone, class: 'form-control input-sm', value: user.contact_number
     
   .form-group
-    = f.label :email, "Email"
+    = f.label :email, t('general.partial_contact_us_form.email')
     = f.text_field :email, class: 'form-control input-sm', value: user.email
     
   .form-group
-    = f.label :inquiry, "Inquiries - How can we help you?"
+    = f.label :inquiry, t('general.partial_contact_us_form.inquiry')
     = f.text_area :inquiry, class: 'form-control'
     
   .form-group
-    = f.label :feedback, "Feedback – How can we make your experience better?"
+    = f.label :feedback, t('general.partial_contact_us_form.feedback')
     = f.text_area :feedback, class: 'form-control'
     
   .form-buttons
-    button.btn.btn-success type="submit" Send
-    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    button.btn.btn-success type="submit"
+      = t('default.action.send')
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t('default.action.cancel')
   hr
   .row
     .col-xs-12.col-md-6
       address style="margin: 0;"
-        strong NterOne Corporate Address
+        strong 
+          = t('general.partial_contact_us_form.corporate_address')
         br
         | 1900 Campus Commons Drive, Suite 100
         br
@@ -48,7 +51,8 @@
         | (703) 972-2288
     .col-xs-12.col-md-6
       address style="margin: 0;"
-        strong NterOne Billing Address
+        strong 
+          = t('general.partial_contact_us_form.billing_address')
         br
         | 747 Sandy Ridge Rd
         br

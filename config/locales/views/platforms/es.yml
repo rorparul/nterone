@@ -1,0 +1,40 @@
+es:
+  platforms:
+    edit_js:
+      edit_platform: "Editar Plataforma"
+    index:
+      add_platform: "Agregar Plataforma"
+    new_js:
+      add_platform: "Agregar Plataforma"
+    partial_categories_menu:
+      show_all: "Mostrar Todo"
+    partial_form:
+      image: "Imagen"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      platform_title: "Titulo"
+      test_center_url: "URL Encontrar Centro de Examenes"
+      title: "Editar Plataforma"
+    partial_items:
+      no_matches: "No Matches Found"
+    partial_platform:
+      browse: "Buscar Por"
+    show:
+      add_category: "Agregar Categoria"
+      add_certification: "Agregar Certificación"
+      add_course: "Agregar Curso"
+      add_custom_item: "Agregar Elemento Personalizado"
+      add_divider: "Agregar Divisor"
+      add_exam: "Agregar Examen"
+      add_exam_course: "Agregar Curso de Examen"
+      add_instructor: "Agregar Instructor"
+      add_video_on_demand: "Agregar Video On Demand"
+      edit_category: "Editar Categoria"
+      edit_certification: "Editar Certificación"
+      edit_course: "Editar Curso"
+      edit_custom_item: "Editar Elemento Personalizado"
+      edit_divider: "Editar Divisor"
+      edit_exam: "Editar Examen"
+      edit_exam_course: "Editar Curso de Examen"
+      edit_instructor: "Editar Instructor"
+      edit_video_on_demand: "Editar Video On Demand"

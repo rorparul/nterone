@@ -7,16 +7,16 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
     - if @article.kind == "Press Release"
-      | Press
+      = t('admins.partial_breadcrumbs.press')
     - if @article.kind == "Blog Post"
-      | Blog
+      = t('admins.partial_breadcrumbs.blog')
     - if @article.kind == "Industry Article"
-      | Industry
+      = t 'admins.partial_breadcrumbs.industry'
     
 .row
   .col-xs-12.col-md-9
@@ -26,7 +26,8 @@
     .row
       .col-xs-12
         br
-        button#back Back
+        button#back
+          = t('generic.button.back')
   
   .col-xs-12.col-md-3
     = render partial: 'layouts/side_column'

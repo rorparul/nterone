@@ -1,6 +1,7 @@
 p
-  | This is friendly reminder that class
+  = t('event_mailer.reminder.copy1')
   = link_to @event.course.full_title, platform_course_url(@event.course.platform, @event.course), target: "_blank"
-  | Starts on #{@event.start_date.strftime("%-m/%-d/%y")}
+  = "#{t('event_mailer.reminder.copy2')} #{@event.start_date.strftime('%-m/%-d/%y')}"
 
-p Thanks the NterOne Team
+p 
+  = t('event_mailer.reminder.copy3')

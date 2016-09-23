@@ -4,23 +4,23 @@
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
           span aria-hidden="true" &times;
-        h4 = "#{pluralize(custom_item.errors.count, 'error')}:"
+        h4 = "#{pluralize(custom_items.errors.count, 'error')}:"
         ul
           - custom_item.errors.full_messages.each do |msg|
             li = msg
             
     .form-group
-      = f.label :shortname, t('training.category.action.form.add_custom_item.label.label')
+      = f.label :shortname, t('custom_items.partial_form.label')
       = f.text_field :shortname, class: 'form-control input-sm'
             
     .form-group
-      = f.label :content, t('training.category.action.form.add_custom_item.label.content')
+      = f.label :content, t('custom_items.partial_form.content')
       = f.text_area :content, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('default.action.cancel')
       - if custom_item.id
-        = link_to t('generic.action.delete'), platform_custom_item_path(platform, custom_item), method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_custom_item_path(platform, custom_item), method: :delete, data: {confirm: t('default.prompt.confirm_delete')}, class: 'text-danger'

@@ -1,4 +1,4 @@
-$('.modal-title').html("<%= t('training.category.action.form.edit_video_on_demand.title') %>");
+$('.modal-title').html("<%= t('video_on_demands.select_js.edit_video_on_demand') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'select', locals: { platform: @platform, video_on_demands: @video_on_demands }) %>");
 $('.modal-body').append("<hr>");
 $('.modal-body').append("<%= escape_javascript(render partial: 'form', locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }) %>");

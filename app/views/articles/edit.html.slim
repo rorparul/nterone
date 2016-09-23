@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
-  = t 'breadcrumbs.admin'
+  = t('admins.partial_breadcrumbs.admin')
     
 .row
   .col-xs-12
@@ -13,7 +13,8 @@
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Article
+    strong.text-muted
+      = t('.edit_article')
   .panel-body
     = render partial: "form", locals: { article: @article }
 

@@ -1,0 +1,44 @@
+en:
+  users:
+    edit_from_my_queue:
+      user_info: "User Info"
+    new:
+      new_person: "New Person"
+    partial_form:
+      billing_address: "Billing Address"
+      city: "City"
+      company_name: "Company Name"
+      phone: "Phone"
+      privileges: "Permissions"
+      user_info: "User Info"
+      same_as: "Same as Billing"
+      shipping_address: "Shipping Address"
+      state: "State"
+      street: "Street"
+      zip: "Zipcode"
+      add_permission: "Add Permission"
+    partial_index:
+      last_active: "Last Active"
+      purchases: "Purchases"
+    partial_listing:
+      add_order: "Add Order"
+      last_active: "Last Active"
+      reinvite: "Re-invite"
+      permissions: "Permissions"
+    partial_role_fields:
+      admin: "Admin"
+      lms_manager: "LMS Manager"
+      lms_student: "LMS Student"
+      sales_manager: "Sales Manager"
+      sales_rep: "Sales Rep"
+      student: "Student"
+      remove_permission: "Remove Permission"
+    partial_users:
+      add_purchase: "Add Purchase"
+    show:
+      activity_history: "Activity History"
+      build_my_training_plan: "Build My Training Plan"
+      find_testing_center: "Find Testing Center"
+      grand_total: "Grand Total:"
+      remove_from_plan:  "Remove from My Plan"
+      request_quote: "Request Formal Quote"

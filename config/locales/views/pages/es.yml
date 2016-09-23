@@ -1,0 +1,13 @@
+es:
+  pages:
+    edit:
+      edit_page: "[t]Edit Page"
+    edit_js:
+      edit_page: "[t]Edit Page"
+    new:
+      add_page: "Agregar Pagina"
+    partial_form:
+      content: "Contenido"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      title: "Titulo"

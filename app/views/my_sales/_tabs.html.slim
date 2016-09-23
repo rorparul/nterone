@@ -2,32 +2,32 @@
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{my_sales_queue_path}"
-        = t 'admin.filter.queue'
+        = t('my_sales.partial_tabs.queue')
       a.btn.category.btn-category.classes href="#{my_sales_classes_path}"
-        = t 'admin.filter.classes'
+        = t('my_sales.partial_tabs.classes')
       - if user_signed_in? && current_user.sales_manager?
         a.btn.category.btn-category.announcements href="#{my_sales_announcements_path}"
-          = t 'admin.filter.annoucements'
+          = t('my_sales.partial_tabs.annoucements')
       a.btn.category.btn-category.messages href="#{my_sales_messages_path}"
-        = t 'admin.filter.messages'
+        = t('my_sales.partial_tabs.messages')
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'admin.filter.settings'
+        = t('my_sales.partial_tabs.settings')
       
 .categories-mobile.visible-xs.role-tabs
   .row.text-center
     .col-sm-12
       a.btn.category.btn-category.queue href="#{my_sales_queue_path}"
-        = t 'admin.filter.queue'
+        = t('my_sales.partial_tabs.queue')
       a.btn.category.btn-category.classes href="#{my_sales_classes_path}"
-        = t 'admin.filter.classes'
+        = t('my_sales.partial_tabs.classes')
       - if user_signed_in? && current_user.sales_manager?
         a.btn.category.btn-category.announcements href="#{my_sales_announcements_path}"
-          = t 'admin.filter.annoucements'
+          = t('my_sales.partial_tabs.annoucements')
       a.btn.category.btn-category.messages href="#{my_sales_messages_path}"
-        = t 'admin.filter.messages'
+        = t('my_sales.partial_tabs.messages')
         - if @new_message_count > 0
           span.badge.badge-alert.badge-alert-settings = @new_message_count
       a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-        = t 'admin.filter.settings'
+        = t('my_sales.partial_tabs.settings')

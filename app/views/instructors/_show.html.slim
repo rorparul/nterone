@@ -2,9 +2,11 @@
   .col-xs-12
     label Name
     p = instructor.full_name
-    label Biography
-    p = instructor.biography
-    label Contact Info
+    label
+      = t('instructors.partial_show.biography')
+    p = instructor.about
+    label
+      = t('instructors.partial_show.contact_info')
     p
       span.fa.fa-envelope-o
       |  
@@ -12,11 +14,11 @@
     p
       span.fa.fa-phone
       |  
-      = instructor.phone
-    label = "All Courses Led By #{instructor.full_name}"
+      = instructor.contact_number
+    label = "#{t('instructors.partial_show.all_courses_led_by')} #{instructor.full_name}"
     table.table-condensed
       tbody
-        - instructor.video_on_demands.each do |video_on_demand|
+        - instructor.taught_video_on_demands.each do |video_on_demand|
           tr
             td
               a href="#{platform_video_on_demand_path(video_on_demand.platform, video_on_demand)}"

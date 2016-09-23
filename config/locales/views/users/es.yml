@@ -1,0 +1,42 @@
+es:
+  users:
+    edit_from_my_queue:
+      user_info: "[t]User Info"
+    new:
+      new_person: "[t]New Person"
+    partial_form:
+      billing_address: "Dirección de Facturación"
+      city: "Ciudad"
+      company_name: "[t]Company Name"
+      phone: "[t]Phone"
+      privileges: "[t]Privileges"
+      user_info: "[t]User Info"
+      same_as: "Misma que Facturación"
+      shipping_address: "Dirección de Envío"
+      state: "Estado"
+      street: "Calle"
+      zip: "Codigo Postal"
+    partial_index:
+      last_active: "[t]Last Active"
+      purchases: "[t]Purchases"
+    partial_listing:
+      add_order: "Agregar Orden"
+      last_active: "[t]Last Active"
+      reinvite: "Re-invitado"
+      roles: "[t]Roles"
+    partial_role_fields:
+      admin: "[t]Admin"
+      lms_manager: "[t]LMS Manager"
+      lms_student: "[t]LMS Student"
+      sales_manager: "[t]Sales Manager"
+      sales_rep: "[t]Sales Rep"
+      student: "[t]Student"
+    partial_users:
+      add_purchase: "[t]Add Purchase"
+    show:
+      activity_history: "[t]Activity History"
+      build_my_training_plan: "[t]Build My Training Plan"
+      find_testing_center: "[t]Find Testing Center"
+      grand_total: "[t]Grand Total:"
+      remove_from_plan: "[t]Remove from My Plan"
+      request_quote: "[t]Request Formal Quote"

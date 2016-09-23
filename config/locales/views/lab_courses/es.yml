@@ -1,0 +1,6 @@
+es:
+  lab_courses:
+    edit:
+      edit_lab_course: "[t]Edit Lab Course"
+    new:
+      add_lab_course: "[t]Add Lab Course"

@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.training'
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -13,12 +13,12 @@
   span.seperator
     | /
   a href="#{new_platform_subject_path(@platform, @subject)}"
-    = t 'breadcrumbs.new'
+    = t('admins.partial_breadcrumbs.new')
 
 .panel.panel-default
   .panel-heading
     strong.text-muted
-      = t 'training.category.action.form.add_certification.title'
+      = t('subjects.new.add_certification')
   .panel-body
     = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
 

@@ -1,0 +1,74 @@
+en:
+  general:
+    contact_us_new_js:
+      contact_us: "Contact Us"
+    about_us:
+      image: "locales/en/about-nterone.png"
+    consulting:
+      image: "locales/en/consulting.png"
+    executives:
+      image: "locales/en/executives.png"
+    featured_classes:
+      course_title: "Course Title"
+      date: "Date"
+      download_featured_classes: "Download Featured Classes"
+      length: "Length"
+      format: "Format"
+      free: "Free"
+      language: "Language"
+      location: "Location"
+      price: "Price"
+      webex: "Webex"
+      preview: "Preview"
+    industry:
+      image: "locales/en/industry.png"
+      published: "Published"
+    instructors:
+      image: "locales/en/instructors.png"
+    labs:
+      image1: "locales/en/labs.png"
+    partial_contact_us_form:
+      billing: "Billing"
+      billing_address: "NterOne Billing Address"
+      corporate_address: "NterOne Corporate Address"
+      email: "Email"
+      feedback: "Feedback – How can we make your experience better?"
+      help_desk: "Help Desk"
+      inquiry: "Inquiries - How can we help you?"
+      name: "Name"
+      phone: "Phone Number"
+      sales: "Sales"
+    partial_search_form:
+      placeholder: "Search by certification, course, or exam"
+    partners:
+      image1: "locales/en/partners.png"
+    press:
+      image: "locales/en/press.png"
+    sitemap:
+      about_us: "About Us"
+      articles: "Articles"
+      blog: "Blog"
+      consulting: "Consulting"
+      executive: "Executive Bios"
+      featured_classes: "Featured Classes"
+      forums: "Forums"
+      general: "General"
+      home: "Home"
+      industry: "Industry"
+      instructor: "Instructor Bios"
+      labs: "Labs"
+      other: "Other"
+      partners: "Partners"
+      press: "Press"
+      privacy: "Privacy Policy"
+      sitemap: "Sitemap"
+      terms: "Terms and Conditions"
+      testimonials: "Testimonials"
+      training: "Training"
+    welcome:
+      classes: "Featured Classes"
+      classes_paragraph: "View a list of our most popular courses broken down by vendor."
+      labs: "Labs"
+      labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
+      vendor: "Courses by Vendor"
+      vendor_paragraph: "Find your course by technology, product, or certification."

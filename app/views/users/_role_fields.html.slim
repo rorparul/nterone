@@ -1,9 +1,10 @@
 .nested-fields
   .form-group
-    = f.select :role, [["Admin", :admin],
-                       ["Sales Rep", :sales_rep],
-                       ["Sales Manager", :sales_manager],
-                       ["Student", :member],
-                       ["LMS Student", :lms_student],
-                       ["LMS Manager", :lms_manager]], {}, class: 'form-control input-sm'
-  / = link_to_remove_association "Remove role", f
+    = f.select :role, [[t('users.partial_role_fields.admin'), :admin],
+                       [t('users.partial_role_fields.sales_rep'), :sales_rep],
+                       [t('users.partial_role_fields.sales_manager'), :sales_manager],
+                       [t('users.partial_role_fields.student'), :member],
+                       [t('users.partial_role_fields.lms_student'), :lms_student],
+                       [t('users.partial_role_fields.lms_manager'), :lms_manager],
+                       [t('users.partial_role_fields.instructor'), :instructor]], {}, { class: 'form-control input-sm' }
+  = link_to_remove_association t('users.partial_role_fields.remove_permission'), f

@@ -1,16 +1,18 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   - if current_user.admin?
     span.text-muted
-    = t 'breadcrumbs.admin'
+    = t('admins.partial_breadcrumbs.admin')
   - if current_user.sales?
-    span.text-muted My Sales
+    span.text-muted
+    = t('admins.partial_breadcrumbs.my_sales')
   - if current_user.member?
-    span.text-muted My Account
+    span.text-muted
+    = t('admins.partial_breadcrumbs.my_account')
 
 .row
   .col-xs-12

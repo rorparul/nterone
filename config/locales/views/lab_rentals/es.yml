@@ -1,0 +1,59 @@
+es:
+  lab_rentals:
+    edit:
+      edit_lab_rental: "[t]Edit Lab Reservation"
+    index:
+      lab_rentals: "[t]Lab Reservations"
+    mailers:
+      reservation:
+        copy1: "[t]Thank you!"
+        copy2: "[t]Your request has been received. Here are the details:"
+        copy3: "[t]Requester's Email"
+        copy4: "[t]Requester's Company"
+        copy5: "[t]Course"
+        copy6: "[t]Students"
+        copy7: "[t]1st Day of Class"
+        copy8: "[t]Start Time"
+        copy9: "[t]Time Zone"
+        copy10: "[t]Instructor"
+        copy11: "[t]Instructor Email"
+        copy12: "[t]Instructor Phone"
+        copy13: "[t]Location"
+        copy14: "[t]Confirmed"
+        copy15: "[t]Notes"
+        copy16: "[t]Please allow 48 hours for us to get back to you."
+        copy17: "[t]The NterOne Team"
+    new:
+      add_lab_rental: "[t]Request Lab Reservation"
+    new_js:
+      add_lab_rental: "[t]Request Lab Reservation"
+    partial_listing:
+      canceled: "[t]Canceled"
+      company: "[t]Partner"
+      confirmed: "[t]Confirmed"
+      course: "[t]Course"
+      email: "[t]Email"
+      instructor: "[t]Instructor"
+      location: "[t]Location"
+      no_of_students: "[t]Students"
+      notes: "[t]Note"
+      phone: "[t]Phone"
+      start_date: "[t]Start Date"
+      start_time: "[t]Start Time"
+    partial_form:
+      company: "[t]Company"
+      confirmed: "[t]Confirmed"
+      course: "[t]Course"
+      end_time: "[t]End Time (EST)"
+      first_day: "[t]1st Day of Class"
+      instructor: "[t]Instructor Name"
+      instructor_email: "[t]Instructor Email"
+      instructor_phone: "[t]Instructor Phone"
+      location: "[t]Location"
+      notes: "[t]Notes"
+      number_of_students: "[t]Number of Students"
+      start_time: "[t]Start Time (EST)"
+    show_lab_students_js:
+      lab_students: "[t]Lab Students"
+    show_note:
+      notes: "Note"

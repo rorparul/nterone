@@ -5,7 +5,7 @@
       - if user_signed_in? && current_user.admin? && controller_name == 'subjects'
         .panel-actions-overlay
           = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
-            | Edit
+            = t('default.action.edit')
     .table-responsive
       .panel-table
         table.table.table-condensed
@@ -47,7 +47,8 @@
                       = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
                         = f.hidden_field :user_id, value: user.id
                         = f.hidden_field :course_id, value: group_item.groupable.id
-                        span.mini-title Planned
+                        span.mini-title
+                          = t('groups.partial_group.planned')
                         br
                         - if planned_course(user, group_item.groupable)
                           button class="course-toggle-active-#{group_item.groupable.id}" type="submit"
@@ -59,7 +60,8 @@
                       = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
                         = f.hidden_field :user_id, value: user.id
                         = f.hidden_field :course_id, value: group_item.groupable.id
-                        span.mini-title Attended
+                        span.mini-title
+                          = t('groups.partial_group.attended')
                         br
                         - if attended_course(user, group_item.groupable)
                           button class="course-toggle-attended-#{group_item.groupable.id}" type="submit"
@@ -75,7 +77,7 @@
                         = group_item.groupable.courses.first.full_title
                     td.fit
                       / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
-                      /   | See Link
+                      /   = t 'partial.groups.groups.see_link'
                       / - else
                       /   = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
                       = formatted_price_or_range_of_upcoming_events_for(group_item.groupable.courses.first)
@@ -84,7 +86,8 @@
                         = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
-                          span.mini-title Planned
+                          span.mini-title
+                            = t('groups.partial_group.planned')
                           br
                           - if planned_course(user, group_item.groupable.courses.first)
                             button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
@@ -96,7 +99,8 @@
                         = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
-                          span.mini-title Attended
+                          span.mini-title
+                            = t('groups.partial_group.attended')
                           br
                           - if attended_course(user, group_item.groupable.courses.first)
                             button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
@@ -110,7 +114,8 @@
                         = form_for :passed_exam, url: toggle_passed_exam_path, html: {}, remote: true do |f|
                           = f.hidden_field :user_id, value: user.id
                           = f.hidden_field :exam_id, value: group_item.groupable.exams.first.id
-                          span.mini-title Passed
+                          span.mini-title
+                            = t('groups.partial_group.passed')
                           br
                           - if passed_exam(user, group_item.groupable.exams.first)
                             button class="exam-toggle-passed-#{group_item.groupable.exams.first.id}" type="submit"
@@ -127,7 +132,7 @@
                               = group_item.groupable.courses.first.full_title
                           td.fit rowspan=group_item.groupable.exams.count
                             / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
-                            /   | See Link
+                            /   = t 'partial.groups.groups.see_link'
                             / - else
                             
                               / = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
@@ -137,7 +142,8 @@
                               = form_for :chosen_course, url: toggle_chosen_course_active_path, html: {}, remote: true do |f|
                                 = f.hidden_field :user_id, value: user.id
                                 = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
-                                span.mini-title Planned
+                                span.mini-title
+                                  = t('groups.partial_group.planned')
                                 br
                                 - if planned_course(user, group_item.groupable.courses.first)
                                   button class="course-toggle-active-#{group_item.groupable.courses.first.id}" type="submit"
@@ -149,7 +155,8 @@
                               = form_for :chosen_course, url: toggle_chosen_course_attended_path, html: {}, remote: true do |f|
                                 = f.hidden_field :user_id, value: user.id
                                 = f.hidden_field :course_id, value: group_item.groupable.courses.first.id
-                                span.mini-title Attended
+                                span.mini-title
+                                  = t('groups.partial_group.attended')
                                 br
                                 - if attended_course(user, group_item.groupable.courses.first)
                                   button class="course-toggle-attended-#{group_item.groupable.courses.first.id}" type="submit"
@@ -163,7 +170,8 @@
                             = form_for :passed_exam, url: toggle_passed_exam_path, html: {}, remote: true do |f|
                               = f.hidden_field :user_id, value: user.id
                               = f.hidden_field :exam_id, value: exam.id
-                              span.mini-title Passed
+                              span.mini-title
+                                = t('groups.partial_group.passed')
                               br
                               - if passed_exam(user, exam)
                                 button class="exam-toggle-passed-#{exam.id}" type="submit"

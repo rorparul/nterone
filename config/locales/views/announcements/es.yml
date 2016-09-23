@@ -1,0 +1,20 @@
+es:
+  announcements:
+    edit_js:
+      edit_announcement: "[t]Edit Announcement"
+    partial_announcements:
+      active: "Activo"
+      inactive: "Inactivo"
+    partial_edit:
+      content: "Contenidos"
+    partial_form:
+      all: "Todo"
+      members: "Miembros"
+      members_sales_reps: "Miembros & Representantes de Ventas"
+      sales_rep: "Representantes de Ventas"
+      sales_member: "Gerente de Ventas"
+    partial_index:
+      announcements_content: "Contenidos"
+      announcements_poster: "Póster"
+      announcements_status: "Estado"
+      announcements_target: "Objetivo"

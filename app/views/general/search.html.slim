@@ -4,22 +4,23 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    = t 'breadcrumbs.training'
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   span.text-muted
-    = t 'breadcrumbs.search'
+    = t('admins.partial_breadcrumbs.search')
 
 .row
   = render partial: "platforms/items", locals: {items: @items}
   
 .row
   .col-xs-12
-    button#back Back
+    button#back
+      = t('default.action.back')
 
 javascript:
   $('.training-tab').addClass('active');

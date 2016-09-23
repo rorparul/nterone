@@ -9,6 +9,7 @@ es:
   breadcrumbs:
     home: "Inicio"
     admin: "Mi cuenta"
+    instructor:
     about_us: "Acerca de Nosotros"
     sitemap: "Mapa"
     training: "Entrenamientos"
@@ -53,27 +54,6 @@ es:
       website: "Pagina Web"
       messages: "Mensajes"
       settings: "Ajustes"
-    action:
-      commissions_report: "Generar Reportes de Comisiones"
-      profits_report: "Generar reportes de Ganancias"
-      utilization_report: "Generar Reportes de Utilización de Instructor"
-      form:
-        commissions_report:
-          title: " Generar Reportes de Comisiones "
-          label:
-            start: "Inicio"
-            end: "Fin"
-            sales_rep: "Representantes de Ventas"
-        profits_report:
-          title: "Generar reportes de Ganancias"
-          label:
-            start: "Inicio"
-            end: "Fin"
-        utilization_report:
-          title: "Generar Reportes de Utilización de Instructor"
-          label:
-            start: "Inicio"
-            end: "Fin"
     admin_queue:
       row:
         assigned_lead: "Contacto Asignado"
@@ -100,14 +80,13 @@ es:
               video_on_demand:
                 header: "VODs"
                 price: "Precio"
-                add: "Agregar un VOD"
+                add_vod: "Agregar un VOD"
                 remove: "Remover un VOD"
             credit_card:
               header: "Tarjeta de Credito"
               cc_num: "Numero"
               cc_exp_month: "Fecha de Expiración"
               cc_exp_year: "Fecha de Expiración"
-
               cc_code: "Codigo"
               cc_paid: "Pagado"
             learning_credits:
@@ -149,6 +128,27 @@ es:
           filter:
             registered: "Solo Registrados"
             past: "Incluyendo Pasado"
+      action:
+        commissions_report: "Generar Reportes de Comisiones"
+        profits_report: "Generar reportes de Ganancias"
+        utilization_report: "Generar Reportes de Utilización de Instructor"
+        form:
+          commissions_report:
+            title: " Generar Reportes de Comisiones "
+            label:
+              start: "Inicio"
+              end: "Fin"
+              sales_rep: "Representantes de Ventas"
+          profits_report:
+            title: "Generar reportes de Ganancias"
+            label:
+              start: "Inicio"
+              end: "Fin"
+          utilization_report:
+            title: "Generar Reportes de Utilización de Instructor"
+            label:
+              start: "Inicio"
+              end: "Fin"
       form:
         upload_classes:
           title: "Clases Cargadas"
@@ -162,7 +162,7 @@ es:
             start_date: "Placeholder"
             start_time: "Placeholder"
             instructor: "Placeholder"
-            email: "Placeholder"
+            email: "PlaceholderFtime_zone"
             phone: "Placeholder"
             location: "Placeholder"
             notes: "Placeholder"
@@ -348,6 +348,11 @@ es:
             new_password: "Nueva Clave"
             new_password_confirm: "Confirmación Nueva Clave"
             current_password: "Clave Actual"
+    admin_events:
+      form:
+        labels:
+          instructor: "Placeholder"
+          input_blank: "Placeholder"
   about_us:
     categories:
       about: "Acerca NterOne"
@@ -487,7 +492,7 @@ es:
           edit_video_on_demand:
             title: "Editar Video On Demand"
             label:
-              video_on_demand: "Video On Demand"
+              video_on_demFand: "Video On Demand"
           add_exam:
             title: "Agregar Examen"
             label:
@@ -513,7 +518,7 @@ es:
           edit_divider:
             title: "Editar Divisor"
             label:
-              divider: "Divisor"
+
           add_custom_item:
             title: "Agregar Elemento Personalizado"
             label:
@@ -575,6 +580,20 @@ es:
     sitemap: "Mapa del Sitio"
     copyright: "Copyright"
     copyright_company: "NterOne Corporation. Todos los Derechos Reservados."
+  instructor:
+    class_listing:
+      headers:
+        start_date: "Placeholder"
+        start_time: "Placeholder"
+        students: "Placeholder"
+        lab_source: "Placeholder"
+        actions: "Placeholder"
+    classes:
+      breadcrumbs:
+        my_classes: "Placeholder"
+    classes_show:
+      registrations: "Class Registrations"
+      students: "Students"
   generic:
     search:
       placeholder: "Buscar"
@@ -591,9 +610,16 @@ es:
       edit: "Editar"
       delete: "Borrar"
       upload: "Cargar"
+      view: "Placeholder"
+      view_details: "Placeholder"
     prompt:
       none_select: "Ninguno"
       confirm_delete: "Estas Seguro?"
     caption:
       form_instructions: "Sujete el boton de control (Windows) o el boton de comando (Mac) para seleccionar multiples opciones."
     no_records: "No registros encontrados."
+  images:
+    consulting: "/assets/locales/es/consulting.png"
+    labs: "/assets/locales/es/labs.png"
+    partners: "/assets/locales/es/partners.png"
+    testimonials: "/assets/locales/es/testimonials.png"

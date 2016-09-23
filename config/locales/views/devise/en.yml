@@ -1,0 +1,108 @@
+en:
+  devise:
+    confirmations:
+      new:
+        resend: "Resend confirmation instructions"
+    invitations:
+      new_js:
+        add_student: "Add Student"
+      partial_form:
+        referring_partner: "Referring Partner Email"
+    mailer:
+      confirmation_instructions:
+        copy1: "You have successfully registered in our system. With your new"
+        copy2: "www.nterone.com"
+        copy3: "account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "We appreciate your time and look for to providing high impact training solutions. Please reach out to"
+        copy5: "if you have any issues with login, or contact"
+        copy6: "if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        greeting: "Hello"
+        salutation: "Sincerely,"
+        sender: "Founder of NterOne"
+      invitation_instructions:
+        accept: "Accept your invitation"
+        copy1: "With your new"
+        copy2: "www.nterone.com"
+        copy3: "account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "We appreciate your time and look for to providing high impact training solutions. Please reach out to"
+        copy5: "if you have any issues with login, or contact"
+        copy6: "if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        hello: "Hello %{first_name},"
+        ignore: "If you don't want to accept the invitation, please ignore this email.<br/>Your account won't be created until you access the link above and set your password."
+        salutations: "Regards,"
+        sender: "NterOne.com"
+        someone_invited_you: "This is an automated email initiated by our sales or operations team to allow you to quickly create an account at %{url}. Please follow the link below to complete the registration process."
+      reset_password_instructions:
+        copy1: "Please follow the link below to reset your"
+        copy2: "nterone.com"
+        copy3: "password. If you have any issues, please reach out to"
+        greeting: "Hello"
+        salutations: "Regards,"
+        subject: "NterOne.com Password Reset"
+      unlock_instructions:
+        copy1: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+        copy2: "Click the link below to unlock your account:"
+        copy3: "Unlock my account"
+        greeting: "Hello"
+      welcome:
+        copy1: "You have successfully registered in our system. With your new"
+        copy2: "www.NterOne.com"
+        copy3: "account, you can purchase products and services, view upcoming and past training events,"
+        copy4: "review purchase history, and participate in our forums."
+        copy5: "We appreciate your time and look forward to providing high impact training solutions."
+        copy6: "Please reach out to "
+        copy7: "if you have any issues with login, or contact "
+        copy8: "if you wish to connect with a member of our sales team. "
+        copy9: "Customer service is our top priority,"
+        copy10: "so please do let us know if there is anything we can do to make your experience more enjoyable."
+        greeting: "Hello"
+        salutation: "Sincerely,"
+        sender: "Founder of NterOne"
+    passwords:
+      new:
+        instructions: "Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+    registrations:
+      edit_js:
+        edit_person: "Edit Person"
+      new:
+        associate_level: "Associate Level Certification"
+        collaboration: "Collaboration"
+        copy1: "Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+        copy2: "Interested In (Please Select All That Apply):"
+        data_center: "Data Center"
+        expert_level: "Expert Level Certification"
+        instructions: "Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+        network: "Network"
+        other: "Other:"
+        poker_chip_number: "Poker Chip Number"
+        professional_level: "Professional Level Certification"
+        security: "Security"
+      new_js:
+        add_person: "Add Person"
+      partial_form:
+        billing_address: "Billing Address"
+        city: "City"
+        company_name: "Company Name"
+        contact_info: "Contact Info"
+        first_name: "First Name"
+        last_name: "Last Name"
+        phone: "Phone"
+        same_as: "Same as Billing"
+        security_info: "Security Info"
+        shipping_address: "Shipping Address"
+        state: "State"
+        street: "Street"
+        zip: "Zipcode"
+    sessions:
+      new:
+        forgot_password: "Forgot password?"
+        keep_logged_in: "Keep me logged in"
+    shared:
+      partial_links:
+        confirmation_instructions: "Didn't receive confirmation instructions?"
+        forgot_password: "Forgot your password?"
+        omniauth: "Sign in with"
+        unlock_instructions: "Didn't receive unlock instructions?"
+    unlocks:
+      new:
+        resend: "Resend unlock instructions"

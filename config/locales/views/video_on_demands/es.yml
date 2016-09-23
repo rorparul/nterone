@@ -1,0 +1,62 @@
+es:
+  video_on_demands:
+    edit:
+      edit_video_on_demand: "Editar Video On Demand"
+    edit_js:
+      edit_video_on_demand: "Editar Video On Demand"
+    new:
+      add_video_on_demand: "Agregar Video On Demand"
+    new_js:
+      add_video_on_demand: "Agregar Video On Demand"
+    partial_form:
+      abbr: "Abreviación"
+      add: "Agregar Modulo"
+      advanced: "Avanzado"
+      active: "Activo"
+      attend: "Quienes Deberían Asistir"
+      beginner: "Principiante"
+      categories: "Categorias"
+      heading: "Encabezado (H1)"
+      icon: "Icon"
+      intermediate: "Intermedio"
+      instructor: "Instructor"
+      introduction: "Introducción"
+      level: "Etiqueta"
+      modules: "Modulos"
+      outline: "Esquema"
+      overview: "Visión General"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      partner: "Aliado"
+      price: "Precio"
+      remove: "Remover Modulo"
+      title: "Titulo"
+    partial_select:
+      video_on_demand: "[t]Video On Demand"
+    partial_video_fields:
+      code: "Codigo de Inserción"
+      free: "Libre?"
+      position: "Posición"
+      remove: "Remover Video"
+      title: "Titulo"
+    partial_video_module_fields:
+      add: "Agregar Video"
+      module_videos: "Modulo Videos"
+      position: "Posición"
+      remove: "Remover Video"
+      title: "Titulo"
+    select_js:
+      edit_video_on_demand: "Editar Video On Demand"
+    show:
+      course_outline: "[t]Course Outline"
+      email: "Email:"
+      free_sample: "[t](Free Sample)"
+      instructor: "Instructor"
+      level: "[t]Level"
+      nterone_message: "[t]The NterOne team will be happy to answer your questions."
+      prerequisites_course_objectives: "[t]Prerequisites & Course Objectives"
+      price: "[t]Price"
+      questions: "[t]Questions?"
+      video: "[t]Video"
+      viewed: "[t]Viewed"
+      who_should_attend: "[t]Who Should Attend"

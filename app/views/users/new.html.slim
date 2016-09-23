@@ -1,21 +1,22 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{users_path}"
-    | People
+    = t('admins.partial_breadcrumbs.people')
   span.seperator
     | /
   a href="#"
-    | New Person
+    = t('admins.partial_breadcrumbs.new_person')
 
 .row#settings
   .col-xs-12
     .group
       .group-heading
-        h6 User Info
+        h6 
+          = t('users.new.new_person')
       .group-body
         = render 'form', user: @user
 

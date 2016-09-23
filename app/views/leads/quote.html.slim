@@ -8,30 +8,34 @@ html
     #header style="float: right;"
       div style="float: right; display: inline-block;"
         = wicked_pdf_image_tag 'logo.png'
-        h4 Corporate Headquarters:
+        h4
+          = t('leads.quote.copy1')
         address
-          | NterOne Corporation
+          = t('leads.quote.copy2')
           br
           | 1900 Campus Commons Dr
           br
           | Reston, VA  20191
           
     #content style="clear: both;"
-      p = "Hello #{lead.buyer.first_name},"
+      p = "#{t('leads.quote.copy3')} #{lead.buyer.first_name},"
       
-      p Here is a list of each of your chosen course(s):
+      p
+        = t('leads.quote.copy4')
       ul
         - lead.buyer.planned_unattended_courses.each do |course|
           li = course.title
           
       - if lead.discount.to_f.zero?
-        p = "Price: $#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+        p = "#{t('leads.quote.copy5')} #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
       - else
-        p = "Regular Price:    $#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
-        p = "Discount:         #{lead.discount}%"
-        p = "Discounted Price: $#{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
+        p = "#{t('leads.quote.copy6')}    #{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
+        p = "#{t('leads.quote.copy7')}         #{lead.discount}%"
+        p = "#{t('leads.quote.copy8')} #{number_with_delimiter(number_with_precision(lead.discounted_price, precision: 2))}"
       
-      p Regards,
+      p
+        = t('leads.quote.copy9')
 
-      p Sales Team
+      p
+        = t('leads.quote.copy10')
       p NterOne

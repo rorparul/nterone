@@ -1,0 +1,16 @@
+es:
+  articles:
+    edit:
+      edit_article: "Edit Article"
+    new:
+      add_article: "Agregar Articulo"
+    partial_form:
+      blog_post: "Posteo del Blog"
+      industry_article: "Articulo de la industria"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      press_release: "Anuncio de Prensa"
+      published: "Publicado"
+      type: "Tipo"
+    show:
+      back: "[t]Back"

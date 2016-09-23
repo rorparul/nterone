@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{planned_subjects_path}"
-    | My Account
+    = t('admins.partial_breadcrumbs.my_account')
 
 - unless @planned_subjects.any?
   .row
@@ -14,7 +14,8 @@
         a href="#{platforms_path}"
           button type="submit"
             span.fa.fa-check-square-o
-            span Build My Training Plan
+            span 
+            = t('users.show.build_my_training_plan')
 - else
   - @planned_subjects.each do |planned_subject|
     .row#subject-description.my-plan
@@ -30,29 +31,33 @@
           a href="#{planned_subject.subject.platform.url}" target="_blank"
             button#find-testing-center
               span.fa.fa-location-arrow
-              span Find Testing Center
+              span
+              = t('users.show.find_testing_center')
           = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
             = f.hidden_field :user_id, value: current_user.id
             = f.hidden_field :subject_id, value: planned_subject.subject.id
             button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
               span.fa.fa-minus
-              span Remove from My Plan
+              span
+              = t('users.show.remove_from_plan')
     hr
 
   = form_for :lead, url: request_quote_path, html: {} do |f|
     = f.hidden_field :buyer_id, value: current_user.id
     button#request-quote type="submit"
       span.fa.fa-envelope-o
-      span Request Formal Quote
+      span
+      = t('users.show.request_quote')
 
   #grand-total
     span
-      = "Grand Total: #{formatted_price_or_range_of_my_plan_for(current_user)}"
+      = "#{t('users.show.grand_total')}: #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
 .row
   .col-xs-12
     #activity-history
-      h1 Activity History
+      h1 
+        = t('users.show.activity_history')
       hr.hr-sub
       ul
         = render_activities(@activities, fallback: 'default')

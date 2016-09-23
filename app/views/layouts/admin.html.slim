@@ -31,17 +31,17 @@ html
           - if content_for(:actions)
             span.header-nav-actions type="button" data-toggle="dropdown"
               i.fa.fa-cog
-              = t 'header.actions'
+              = t('layouts.admin.actions')
             ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
               = yield :actions
           span.header-nav-actions
             = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
               i.fa.fa-search
-              = t 'header.search'
+              = t('layouts.admin.search')
             - if !user_signed_in? || (user_signed_in? && current_user.member?)
               = link_to main_app.new_order_path do
                 i.fa.fa-shopping-cart
-                | My Cart
+                = t('layouts.admin.my_cart')
                 span.badge = @cart.order_items.count
       hr
       .content-admin

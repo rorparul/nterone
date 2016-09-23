@@ -1,13 +1,13 @@
 <%- content_for :breadcrumbs do %>
   <a href="<%= main_app.root_path %>">
     <span class="fa fa-home"></span>
-    <%= t('breadcrumbs.home') %>
+    <%= t('admins.partial_breadcrumbs.home') %>
   </a>
   <span class="seperator">/</span>
-  <span class="text-muted">Forums</span>
+  <span class="text-muted"><%= t('admins.partial_breadcrumbs.forums') %></span>
 <% end %>
 
-<h2><%= t("forem.admin.category.index") %></h2>
+<h2><%= t("forem.admin.categories.index.index") %></h2>
 <%= link_to t('back_to_admin', :scope => "forem.admin"), forem.admin_root_path %><br><br>
 <%= link_to t("forem.admin.category.new_link"), forem.new_admin_category_path, :class => "btn btn-primary" %><br><br>
 

@@ -1,0 +1,47 @@
+en:
+  layouts:
+    admin:
+      actions: "Actions"
+      my_cart: "My Cart"
+      search: "Search"
+    application:
+      upcoming_classes: "Upcoming Classes"
+    partial_about_us_nav_bar:
+      about: "About NterOne"
+      blog: "Blog"
+      exective: "Executive Bios"
+      industry: "Industry"
+      instructor: "Instructor Bios"
+      press: "Press"
+    partial_header:
+      contact_us: "Contact Us at 703.972.2288"
+      partner: "A Veteran-Owned Business"
+    partial_sidebar:
+      about_us: "About Us"
+      consulting: "Consulting"
+      contact_us: "Contact Us"
+      forums: "Forums"
+      labs: "Labs"
+      login: "Login"
+      logout: "Logout"
+      partners: "Partners"
+      testimonials: "Testimonials"
+      training: "Training"
+      welcome: "Welcome"
+    partial_side_column:
+      contact_us_body: " us for more details."
+      contact_us_link: "Contact"
+      paragraph: "NterOne can redeem all of your vouchers and credits for free training!"
+      title: "Redeem Your Credits"
+    partial_side_items:
+      about_us: "About Us"
+      consulting: "Consulting"
+      contact_us: "Contact Us"
+      forums: "Forums"
+      labs: "Labs"
+      login: "Login"
+      logout: "Logout"
+      partners: "Partners"
+      testimonials: "Testimonials"
+      training: "Training"
+      welcome: "Welcome"

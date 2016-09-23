@@ -5,16 +5,16 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'Commission Reports') do |sheet|
     headers = [
-      'Instructor Name',
-      'Days Taught',
-      'Revenue',
-      'Role'
+      "#{t('reports.instructor_utilizations.create_xlsx.instructor_name')}",
+      "#{t('reports.instructor_utilizations.create_xlsx.days_taught')}",
+      "#{t('reports.instructor_utilizations.create_xlsx.revenue')}",
+      "#{t('reports.instructor_utilizations.create_xlsx.role')}"
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @instructors.each do |instructor|
-      events = instructor.events_in_range(@start_date, @end_date)
+      events = instructor.taught_events_in_range(@start_date, @end_date)
 
       sheet.add_row [
         instructor.full_name,

@@ -1,0 +1,6 @@
+es:
+  event_mailer:
+    reminder:
+      copy1: "[t]This is friendly reminder that class"
+      copy2: "[t]Starts on"
+      copy3: "[t]Thanks the NterOne Team"

@@ -1,8 +1,8 @@
 = form_for :video_on_demand, url: select_to_edit_platform_video_on_demands_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, t('training.category.action.form.edit_video_on_demand.label.video_on_demand')
+    = f.label :id, t('video_on_demands.partial_select.video_on_demand')
     br
-    = f.select :id, video_on_demands.collect { |video_on_demand| [video_on_demand.title, video_on_demand.id] }.unshift(["None", "none"]), options = {selected: t('generic.prompt.none_select')}, html_options = {class: "form-control sub-select input-sm"}
+    = f.select :id, video_on_demands.collect { |video_on_demand| [video_on_demand.title, video_on_demand.id] }.unshift(["None", "none"]), options = {selected: t('default.prompt.none_select')}, html_options = {class: "form-control sub-select input-sm"}
 
 javascript:
   $('.sub-select').on('change', function() {

@@ -5,11 +5,11 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'All') do |sheet|
     headers = [
-      t('models.platform.singular'),
-      t('models.course.abbreviation'),
-      t('models.course.title'),
-      t('models.course.slug'),
-      t('views.general.url')
+      t('courses.export.singular'),
+      t('courses.export.abbreviation'),
+      t('courses.export.title'),
+      t('courses.export.slug'),
+      t('courses.export.url')
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)

@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t 'breadcrumbs.home'
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{leads_path}"
-    | My Queue
+    = t('admins.partial_breadcrumbs.my_queue')
   - if @user.full_name
     span.seperator
       | /
@@ -16,13 +16,15 @@
   .col-xs-12
     .group
       .group-heading
-        h6 User Info
+        h6 
+          = t('users.edit_from_my_queue.user_info')
       .group-body
         = render 'form'
 
 .row#settings
   .col-xs-12
-    button#back Back
+    button#back
+      = t('default.action.back')
 
 javascript:
   $('.my-queue-tab').addClass('active');

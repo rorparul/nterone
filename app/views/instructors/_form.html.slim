@@ -10,35 +10,35 @@
             li = msg
 
     .form-group
-      = f.label :first_name, t('training.category.action.form.add_instructor.label.f_name')
+      = f.label :first_name, t('default.label.first_name')
       = f.text_field :first_name, class: 'form-control input-sm'
 
     .form-group
-      = f.label :last_name, t('training.category.action.form.add_instructor.label.l_name')
+      = f.label :last_name, t('default.label.last_name')
       = f.text_field :last_name, class: 'form-control input-sm'
 
     .form-group
-      = f.label :email, t('training.category.action.form.add_instructor.label.email')
+      = f.label :email, t('default.label.email')
       = f.text_field :email, class: 'form-control input-sm'
 
     .form-group
-      = f.label :phone, t('training.category.action.form.add_instructor.label.phone')
+      = f.label :phone, t('default.label.phone')
       = f.text_field :phone, class: 'form-control input-sm'
 
     .form-group
-      = f.label :biography, t('training.category.action.form.add_instructor.label.bio')
+      = f.label :biography, t('default.label.bio')
       = f.text_area :biography, class: 'form-control input-sm'
 
     .form-group
-      = f.label :status, t('training.category.action.form.add_instructor.label.role')
+      = f.label :status, t('default.label.role')
       = f.select :status, Instructor.statuses.keys.to_a.map { |w| [w.humanize, w] },
-                          options = { selected: t('generic.prompt.none_select') },
+                          options = { selected: t('default.prompt.none_select') },
                           html_options = { class: "form-control input-sm" }
 
     .form-buttons
       button.btn.btn-success type="submit"
-        = t 'generic.button.save'
+        = t('default.button.save')
       button.btn.btn-default type="button" data-dismiss="modal"
-        = t 'generic.button.cancel'
+        = t('default.button.cancel')
       - if instructor.id
-        = link_to t('generic.action.delete'), platform_instructor_path(platform, instructor), method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_instructor_path(platform, instructor), method: :delete, data: {confirm: t('default.prompt.confirm_delete')}, class: 'text-danger'

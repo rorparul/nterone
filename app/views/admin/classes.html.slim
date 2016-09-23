@@ -4,14 +4,14 @@
 - content_for :actions do
   li
     = link_to new_reports_commission_path, remote: true do
-      = t 'admin.action.commissions_report'
+      = t('admins.classes.commissions_report')
   - if current_user.admin?
     li
       = link_to new_reports_profit_sheet_path, remote: true do
-        = t 'admin.action.profits_report'
+        = t('admins.classes.profits_report')
     li
       = link_to new_reports_instructor_utilization_path, remote: true do
-        = t 'admin.action.utilization_report'
+        = t('admins.classes.utilization_report')
 
 .row
   .col-xs-12
@@ -24,9 +24,9 @@
         .row
           .col-xs-6
             strong.text-muted
-              = t 'admin.admin_classes.row.classes.title'
+              = t('admins.classes.title')
           .col-xs-6
-            = link_to t('generic.action.upload'), events_upload_path, remote: true, class: "table-header-action"
+            = link_to t('default.action.upload'), events_upload_path, remote: true, class: "table-header-action"
 
             = smart_listing_controls_for(:events, {class: "form-inline"}) do
 
@@ -34,17 +34,17 @@
                 label.checkbox.inline
                   = hidden_field_tag :only_registered, "0"
                   = check_box_tag :only_registered, 1, true
-                  = t 'admin.admin_classes.row.classes.filter.registered'
+                  = t('admins.classes.registered')
 
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :including_past, "0"
                   = check_box_tag :including_past
-                  = t 'admin.admin_classes.row.classes.filter.past'
+                  = t('admins.classes.past')
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
-                                              placeholder: t('generic.search.placeholder'),
+                                              placeholder: t('admins.classes.search'),
                                               autocomplete: :off
                 span class="input-group-btn"
                   button class="btn btn-default btn-sm disabled" type="submit"
@@ -55,7 +55,7 @@
 .row
   .col-xs-12.text-center
     #download-classes
-      = link_to t('admin.admin_classes.xlsx'), student_registered_classes_path(format: 'xlsx')
+      = link_to t('admins.classes.xlsx'), student_registered_classes_path(format: 'xlsx')
 
 javascript:
   $('.role-tab').addClass('active');

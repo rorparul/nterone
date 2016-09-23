@@ -6,11 +6,11 @@ tr.announcement class=["announcement-#{announcement.id}"]
   td.actions-column.fit
     = form_for announcement, html: {class: 'status', method: :put} do |f|
       = f.hidden_field :id, value: announcement.id
-      = f.select :status, [[t('admin.admin_announcements.row.announcements.column.announcements_status.value.active'), "open"], [t('admin.admin_announcements.row.announcements.column.announcements_status.value.inactive'), "closed"]], {}, class: "form-control status-selector"
+      = f.select :status, [[t('announcements.partial_announcements.active'), "open"], [t('announcements.partial_announcements.inactive'), "closed"]], {}, class: "form-control status-selector"
   td.fit.text-right
-    = link_to t('generic.action.edit'), edit_announcement_path(announcement), remote: true
+    = link_to t('default.action.edit'), edit_announcement_path(announcement), remote: true
     = " | "
-    = link_to t('generic.action.delete'), announcement, method: :delete, data: {confirm: t('generic.prompt.confirm_delete')}, class: 'text-danger'
+    = link_to t('default.action.delete'), announcement, method: :delete, data: {confirm: t('default.prompt.confirm_delete')}, class: 'text-danger'
 
 javascript:
   $(".status").on("change", function() {

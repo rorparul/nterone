@@ -9,65 +9,83 @@ css:
   }
 
 = image_tag attachments["logo.png"].url
- 
-p Hello,
+
+p 
+  = t('mailer.student_addeds.copy1')
 
 p
-  | This notice is a confirmation of the enrollment for class below. 
-  | You will receive detailed class login information and courseware 3-5 business days prior to the scheduled start date.
+  = t('mailer.student_addeds.copy2')
+  = t('mailer.student_addeds.copy3')
 
-p Special information regarding this course may be listed below – please read completely.
+p 
+  = t('mailer.student_addeds.copy4')
 
-p NterOne Corporation invites you to participate as an attendee in the following training session:
-table
+p 
+  = t('mailer.student_addeds.copy5')
   tr
-    td Course
+    td 
+      = t('mailer.student_addeds.copy6')
     td.text-red = @event.course.full_title
   tr
-    td Name
+    td
+      = t('mailer.student_addeds.copy7')
     td = @user.full_name
   tr
-    td Location
+    td
+      = t('mailer.student_addeds.copy8') 
     td = @event.format
   tr
-    td Date
+    td
+      = t('mailer.student_addeds.copy9')
     td.text-red = "#{@event.start_date} thru #{@event.end_date}"
   tr
-    td Start Time
+    td
+      = t('mailer.student_addeds.copy10')
     td.text-red = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
-    td End Time
+    td
+      = t('mailer.student_addeds.copy11')
     td.text-red = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
-    td colspan="2" WebEx sessions are available 30 minutes before class begins.
+    td colspan="2"
+      = t('mailer.student_addeds.copy12')
 
-p.text-red For optimal class experience, we strongly recommend that you use two screens in order to view course material and participate in lab simultaneously.
+p.text-red 
+  = t('mailer.student_addeds.copy13')
 
 p
   span.text-red Note: 
-  | You can check WebEx connectivity by going to this link: 
+  = t('mailer.student_addeds.copy14')
   a href="http://www.webex.com/test-meeting.html" http://www.webex.com/test-meeting.html
 
 p
-  | Although WebEx supports Internet Explorer, we have found more success with recommending Firefox, Safari and Google Chrome in our daily use of WebEx. 
-  | WebEx login information will be emailed to each student the week before class begins. Course materials will be delivered via email 3-5 days before class begins.
+  = t('mailer.student_addeds.copy15')
+  = t('mailer.student_addeds.copy16')
 
 p
-  span.text-red Windows 10 Support: 
-  | Windows 10 is not officially supported, but most functionality in Internet Explorer should work. The Edge browser in Windows 10 is not supported. 
-  | LINUX is also not well supported in WebEx. You will be unable to successfully join audio: the only workaround discovered is to use a Windows VM.
+  span.text-red = t('mailer.student_addeds.copy17')
+  = t('mailer.student_addeds.copy18')
+  = t('mailer.student_addeds.copy19')
 
-p Need Help? Call Customer Service:
+p
+  = t('mailer.student_addeds.copy20')
 ul
   li
-    | E-Mail: 
-    a href="mailto:helpdesk#{t('email')}" "HelpDesk#{t('email')}"
-  li Phone: 703-972-2288 Ext. 1022
-  li Hours: 8:00am EST – 8:00pm EST
-
-p Thank you very much for your business,
-
-p Customer Service,
+    = t('mailer.student_addeds.copy21')
+    a href="mailto:helpdesk#{t('default.contact.email')}" "HelpDesk#{t('default.contact.email')}"
+  li 
+    = t('mailer.student_addeds.copy22')
+    703-972-2288 Ext. 1022
+  li
+    = t('mailer.student_addeds.copy23') 
+    8:00am EST – 8:00pm EST
 
 p
-  a href="www.nterone.com" www.NterOne.com
+  = t('mailer.student_addeds.copy24')
+
+p
+  = t('mailer.student_addeds.copy25')
+
+p
+  a href="#{t('mailer.student_addeds.copy26')}" 
+    = t('mailer.student_addeds.copy27')

@@ -1,0 +1,13 @@
+es:
+  testimonials:
+    edit_js:
+      edit_testimonial: "Edit Testimonial"
+    index:
+      image: "locales/es/testimonials.png"
+    new_js:
+      add_testimonial: "Agregar Testimonio"
+    partial_form:
+      author: "Autor"
+      company: "Compañia"
+      course_attended: "Curso Asistido"
+      quotation: "Cotización"

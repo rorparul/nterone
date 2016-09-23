@@ -3,22 +3,22 @@
     .row
       .col-xs-12.col-md-6
         .form-group
-          = f.label :start_date, t('admin.action.form.profits_report.label.start')
+          = f.label :start_date, t('reports.profit_sheets.partial_form.start')
           br
           = f.date_select :start_date, class: 'form-control input-sm'
       .col-xs-12.col-md-6
         .form-group
-          = f.label :end_date, t('admin.action.form.profits_report.label.end')
+          = f.label :end_date, t('reports.profit_sheets.partial_form.end')
           br
           = f.date_select :end_date, class: 'form-control input-sm'
       .col-xs-12.col-md-6
         .form-group
-          = f.label :source, t('admin.action.form.profits_report.label.sources')
+          = f.label :source, t('reports.profit_sheets.partial_form.sources')
           br
           = f.select :source,
                  Order.sources.map{|k, v| [k.humanize, v]},
-                 { prompt: t('generic.select.placeholder') },
+                 { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm" }
 
     button.btn.btn-success
-      = t 'generic.button.generate'
+      = t('reports.profit_sheets.partial_form.generate')

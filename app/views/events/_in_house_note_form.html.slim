@@ -4,5 +4,7 @@
       = f.text_area :in_house_note, class: "form-control"
 
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')

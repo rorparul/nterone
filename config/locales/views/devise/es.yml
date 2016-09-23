@@ -1,0 +1,108 @@
+es:
+  devise:
+    confirmations:
+      new:
+        resend: "[t]Resend confirmation instructions"
+    invitations:
+      new_js:
+        add_student: "[t]Add Student"
+      partial_form:
+        referring_partner: "[t]Referring Partner Email"
+    mailer:
+      confirmation_instructions:
+        copy1: "[t]You have successfully registered in our system. With your new"
+        copy2: "www.nterone.la"
+        copy3: "[t]account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "[t]We appreciate your time and look for to providing high impact training solutions. Please reach out to"
+        copy5: "if you have any issues with login, or contact"
+        copy6: "[t]if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        greeting: "Hola"
+        salutation: "[t]Sincerely,"
+        sender: "[t]Founder of NterOne"
+      invitation_instructions:
+        accept: "Acepta tu invitación"
+        copy1: "[t]With your new"
+        copy2: "www.nterone.la"
+        copy3: "[t]account, you can purchase products and services, view upcoming and past training events, review purchase history, and participate in our forums."
+        copy4: "[t]We appreciate your time and look for to providing high impact training solutions. Please reach out to"
+        copy5: "if you have any issues with login, or contact"
+        copy6: "[t]if you wish to connect with a member of our sales team. Customer service is our top priority, so please do let us know if there is anything we can do to make your experience more enjoyable."
+        hello: "Hola %{first_name},"
+        ignore: "Si no desea aceptar la invitación por favor ignore este correo.<br/>Su cuenta no será creada hasta que accede al enlace anterior y cree su clave."
+        salutations: "[t]Regards,"
+        sender: "NterOne.la"
+        someone_invited_you: "Esto es un correo automatico iniciado por nuestro equipo de operaciones y ventas que permitira la creación de una cuenta en %{url}. Por favor continua en el enlace siguiente para completar el proceso de registro."
+      reset_password_instructions:
+        copy1: "[t]Please follow the link below to reset your"
+        copy2: "nterone.la"
+        copy3: "[t]password. If you have any issues, please reach out to"
+        hello: "Hola"
+        salutations: "[t]Regards,"
+        subject: "NterOne.la Reinicio de Clave"
+      unlock_instructions:
+        copy1: "[t]Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+        copy2: "[t]Click the link below to unlock your account:"
+        copy3: "[t]Unlock my account"
+        greeting: "Hola"
+      welcome:
+        copy1:  "[t]You have successfully registered in our system. With your new"
+        copy2: "www.NterOne.la"
+        copy3: "[t]account, you can purchase products and services, view upcoming and past training events,"
+        copy4: "[t]review purchase history, and participate in our forums."
+        copy5: "[t]We appreciate your time and look forward to providing high impact training solutions."
+        copy6: "[t]Please reach out to "
+        copy7: "[t]if you have any issues with login, or contact "
+        copy8: "[t]if you wish to connect with a member of our sales team. "
+        copy9: "[t]Customer service is our top priority,"
+        copy10: "[t]so please do let us know if there is anything we can do to make your experience more enjoyable."
+        greeting: "Hola"
+        salutation: "[t]Sincerely,"
+        sender: "[t]Founder of NterOne"
+    passwords:
+      new:
+        instructions: "[t]Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+    registrations:
+      edit_js:
+        edit_person: "[t]Edit Person"
+      new:
+        associate_level: "[t]Associate Level Certification"
+        collaboration: "Collaboration"
+        copy1: "[t]Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+        copy2: "[t]Interested In (Please Select All That Apply):"
+        data_center: "[t]Data Center"
+        expert_level: "[t]Expert Level Certification"
+        instructions: "[t]Passwords require a minimum of 6 characters, and must include at least one of each: capital letter, lowercase letter, number."
+        network: "[t]Network"
+        other: "Other:"
+        poker_chip_number: "Poker Chip Number"
+        professional_level: "[t]Professional Level Certification"
+        security: "[t]Security"
+      new_js:
+        add_person: "Add Person"
+      partial_form:
+        billing_address: "Dirección de Facturación"
+        city: "Ciudad"
+        company_name: "Nombre de la Compañia"
+        contact_info: "Información Contacto"
+        first_name: "Primer Nombre"
+        last_name: "Apellido"
+        phone: "Telefono"
+        same_as: "Misma de facturación"
+        security_info: "Información de Seguridad"
+        shipping_address: "Dirección de Envío"
+        state: "Estado"
+        street: "Calle"
+        zip: "Codigo Postal"
+    sessions:
+      new:
+        forgot_password: "[t]Forgot password?"
+        keep_logged_in: "[t]Keep me logged in"
+    shared:
+      partial_links:
+        confirmation_instructions: "[t]Didn't receive confirmation instructions?"
+        forgot_password: "[t]Forgot your password?"
+        omniauth: "[t]Sign in with"
+        unlock_instructions: "[t]Didn't receive unlock instructions?"
+    unlocks:
+      new:
+        resend: "[t]Resend unlock instructions"
