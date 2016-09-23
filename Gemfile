@@ -73,7 +73,7 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.5.0'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
