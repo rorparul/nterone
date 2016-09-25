@@ -34,7 +34,7 @@ en:
         expenses: "Expenses"
         profit: "Profit"
         revenue: "Revenue"
-      new-js:
+      new_js:
         generate_profit_report: "Generate Profit Sheets Report"
       partial_form:
         end: "End"
