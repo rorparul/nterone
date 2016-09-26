@@ -21,30 +21,28 @@ tr
   td.fit = event.lab_source
   td.fit
     - if event.public
-      span.label.label-success
-        = t('events.partial_listing.yes')
+      span.label.label-success = t('events.partial_listing.y')
     - else
-      span.label.label-default
-        = t('events.partial_listing.no')
+      span.label.label-default = t('events.partial_listing.n')
   td.fit
     - if event.guaranteed
-      span.label.label-success
-        = t('events.partial_listing.yes')
+      span.label.label-success = t('events.partial_listing.y')
     - else
-      span.label.label-default
-        = t('events.partial_listing.no')
+      span.label.label-default = t('events.partial_listing.n')
   td.fit
     - if event.status == "Confirmed"
-      span.label.label-success
-        = t('events.partial_listing.yes')
+      span.label.label-success = t('events.partial_listing.y')
     - else
-      span.label.label-default
-        = t('events.partial_listing.no')
+      span.label.label-default = t('events.partial_listing.n')
   td.fit
-    = link_to t('events.partial_listing.add_student'), new_order_path(event: event.id), remote: true, title: t('events.partial_listing.register_student')
-    .link-diver |
-    = link_to t('events.partial_listing.view'), admin_classes_show_path(event), title: t('events.partial_listing.view')
-    .link-diver |
-    = link_to t('events.partial_listing.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-    .link-diver |
-    = link_to t('events.partial_listing.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('events.partial_listing.delete') }, title: t('events.partial_listing.delete')
+    = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
+      i class="fa fa-plus" aria-hidden="true"
+  td.fit
+    = link_to admin_classes_show_path(event), title: t('events.partial_listing.view') do
+      i class="fa fa-eye" aria-hidden="true"
+  td.fit
+    = link_to edit_platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.edit'), remote: true do
+      i class="fa fa-pencil-square-o" aria-hidden="true"
+  td.fit
+    = link_to platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.delete'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
+      i.text-danger class="fa fa-trash-o" aria-hidden="true"
