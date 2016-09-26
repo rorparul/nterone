@@ -219,6 +219,7 @@ NterOne::Application.routes.draw do
   put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
   get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
   get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
+  get  'sims/versastack'                             => 'general#sims',                   as: :sims
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user

@@ -90,6 +90,9 @@ class GeneralController < ApplicationController
     redirect_to :back
   end
 
+  def sims
+  end
+
   def sitemap
     @page = Page.find_by(title: "Sitemap")
   end
