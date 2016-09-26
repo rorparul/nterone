@@ -44,6 +44,8 @@ en:
       image1: "locales/en/partners.png"
     press:
       image: "locales/en/press.png"
+    sims:
+      
     sitemap:
       about_us: "About Us"
       articles: "Articles"

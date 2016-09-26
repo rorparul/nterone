@@ -44,6 +44,10 @@ es:
       image1: "locales/es/partners.png"
     press:
       image: "locales/es/press.png"
+    sims:
+      homs: "Home"
+      sims: "Sims"
+      versastack: "VersaStack"
     sitemap:
       about_us: "Acerca de Nosotros"
       articles: "Articulos"
