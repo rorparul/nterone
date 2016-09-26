@@ -100,9 +100,9 @@
             .form-group
               .radio.radio-container
                 label
-                  = f.radio_button :payment_type, t('orders.new.panel.my_payment_info.label.cisco_learning_credits'), class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
+                  = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
                   strong
-                    = t('orders.new.panel.my_payment_info.label.cisco_learning_credits')
+                    = t('orders.new.cisco_learning_credits')
             .row
               - if @cart.any_not_applicable_for_credits?
                 .col-xs-12
