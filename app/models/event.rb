@@ -114,7 +114,9 @@ class Event < ActiveRecord::Base
   end
 
   def self.with_students
-    joins(:order_items).where(order_items: { cart_id: nil }).distinct
+    # TODO: Figure out a way to remove the double-query
+    ids_with_students = joins(:order_items).where(order_items: { cart_id: nil }).distinct.pluck(:id)
+    Event.where(id: ids_with_students)
   end
 
   def student_count
