@@ -1,3 +1,8 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+
 ul
   li = link_to '#1', "#{root_url}sims/versastack/1/index.html"
   li = link_to '#2', "#{root_url}sims/versastack/2/index.html"
