@@ -1,14 +1,14 @@
 es:
   instructors:
     show_js:
-      instructor_summary: "Instructor Summary"
+      instructor_summary: "Resumen de Instructores"
     new_js:
       add_instructor: "Agregar Instructor"
     partial_select:
-      instructor: "[t]Instructor"
+      instructor: "Instructor"
     partial_show:
-      all_courses_led_by: "[t]All Courses Led By"
-      biography: "[t]Biography"
-      contact_info: "[t]Contact Info"
+      all_courses_led_by: "Todos los Cursos Dirigidos por"
+      biography: "Biografía"
+      contact_info: "Información Contacto"
     select_js:
       edit_instructor: "Editar Instructor"

@@ -1,6 +1,6 @@
 es:
   lab_courses:
     edit:
-      edit_lab_course: "[t]Edit Lab Course"
+      edit_lab_course: "Editar Laboratorio del Curso"
     new:
-      add_lab_course: "[t]Add Lab Course"
+      add_lab_course: "Agregar Laboratorio del Curso"

@@ -3,11 +3,11 @@ es:
     admin:
       base:
         index:
-          area: "[t]Admin Area"
-          categories: "[t]Categories"
+          area: "Area Administrativa"
+          categories: "Categorias"
           forums: "Foros"
-          groups: "[t]Groups"
-          welcome: "[t]Welcome"
+          groups: "Grupos"
+          welcome: "Bienvenidos"
       categories:
         edit:
           edit: "Editar"
@@ -15,4 +15,4 @@ es:
           categories: "Categorias"
       groups:
         index:
-          groups: "[t]Groups"
+          groups: "Grupos"

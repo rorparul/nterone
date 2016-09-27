@@ -1,25 +1,25 @@
 es:
   groups:
     edit_js:
-      edit_table: "Edit Table"
+      edit_table: "Editar Tabla"
     new_js:
-      add_table: "Add Table"
+      add_table: "Agregar Tabla"
     partial_form:
-      header: "[t]Header"
-      insert_certification: "[t]Insert Certification"
-      insert_course: "[t]Insert Course"
-      insert_custom_item: "[t]Insert Custom Item"
-      insert_divider: "[t]Insert Divider"
-      insert_exam_course: "[t]Insert Exam-Course"
-      table_items: "[t]Table Items"
+      header: "Encabezado"
+      insert_certification: "Insertar Certificaciones"
+      insert_course: "Insertar Cursos"
+      insert_custom_item: "Insertar Articulo"
+      insert_divider: "Insertar Divisor"
+      insert_exam_course: "Insertar Examen-Curso"
+      table_items: "Articulos en la Tabla"
     partial_group:
-      attended: "[t]Attended"
-      passed: "[t]Passed"
-      planned: "[t]Planned"
+      attended: "Asistido"
+      passed: "Pasado"
+      planned: "Planificado"
     partial_group_item_fields:
       certifications: "Certificaciones"
       courses: "Cursos"
       custom_items: "Elemento Personalizado"
       dividers: "Divisors"
-      exam_course: "[t]Exam-Course"
-      remove_item: "[t]Remove Item"
+      exam_course: "Curso-Examen"
+      remove_item: "Articulo Removido"

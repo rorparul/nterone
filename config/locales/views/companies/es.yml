@@ -1,11 +1,11 @@
 es:
   companies:
     edit:
-      edit_company: "[t]Edit Company"
+      edit_company: "Editar Compañia"
     new:
-      add_company: "[t]Add Company"
+      add_company: "Agregar Compañia"
     partial_form:
-      dropdown: '[t]Please select'
-      form_type: '[t]Lab Reservation Form-type'
-      option_1: '[t]Student Details Not Required'
-      option_2: '[t]Student Details Required'
+      dropdown: 'Por Favor Seleccionar'
+      form_type: 'Formato de Reservación de Laboratorios'
+      option_1: 'Detalle de Estudiante No Requerido'
+      option_2: 'Detalle de Estudiante Requerido'

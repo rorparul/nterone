@@ -1,7 +1,7 @@
 es:
   testimonials:
     edit_js:
-      edit_testimonial: "Edit Testimonial"
+      edit_testimonial: "Editar Testimonial"
     index:
       image: "locales/es/testimonials.png"
     new_js:

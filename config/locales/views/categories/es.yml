@@ -7,6 +7,6 @@ es:
       parent: "Pariente"
       position: "Posición"
     partial_select:
-      category: "[t]Category"
+      category: "Categoria"
     select_js:
       edit_category: "Editar Categoria"

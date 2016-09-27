@@ -11,23 +11,23 @@ es:
       title: "Clases"
       upload: "Cargar"
       utilization_report: "Generar Reportes de Utilización de Instructor"
-      xlsx: "[t]Download Student-registered Classes"
+      xlsx: "Descarga Clases Estudiantes-Registrados"
     classes_show:
       upload_classes: "Clases Cargadas"
     courses:
-      download_courses: "[t]Download Courses"
+      download_courses: "Descarga Cursos"
     orders:
       add: "Agregar"
-      add_user: "[t]Add User"
+      add_user: "Agregar Usuario"
       search: "Buscar"
       title: "Ordenes"
     orders_show:
-      class_for: "[t]Class for"
+      class_for: "Clases para"
       edit: "Editar"
       from: "De"
-      order_details: "[t]Order Details"
-      order_items: "[t]Order Item"
-      to: "[t]to"
+      order_details: "Detalles de la Orden"
+      order_items: "Articulo de Orden"
+      to: "Para"
     people:
       users: "Usuarios"
     partial_breadcrumbs:
@@ -36,14 +36,14 @@ es:
       edit: "Editar"
       home: "Inicio"
       industry: "Industria"
-      my_sales: "[t]My Sales"
+      my_sales: "Mis Ventas"
       press: "Prensa"
       training: "Entrenamientos"
     partial_tabs:
       announcements: "Anuncios"
       classes: "Clases"
       courses: "Cursos"
-      lab_rentals: "[t]Labs"
+      lab_rentals: "Laboratorios"
       messages: "Mensajes"
       orders: "Ordenes"
       people: "Personas"
@@ -53,15 +53,15 @@ es:
     website:
       articles: "Articulos"
       author: "Autor"
-      companies: "[t]Companies"
+      companies: "Compañias"
       company: "Compañia"
       course: "Curso"
       dynamic_pages: "Paginas Dinamicas"
-      form_type: '[t]Lab Reservation Form-type'
+      form_type: 'Planilla de Reservación'
       images: "Imagenes"
       kind: "Tipo"
-      lab_courses: "[t]Lab Courses"
-      portal: '[t]Lab Reservation Portal'
+      lab_courses: "Laboratorio de Cursos"
+      portal: 'Portal de Reservación de Laboratorios'
       published: "Publicado"
       quotation: "Cotización"
       static_pages: "Paginas Estadísticas"

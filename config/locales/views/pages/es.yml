@@ -1,9 +1,9 @@
 es:
   pages:
     edit:
-      edit_page: "[t]Edit Page"
+      edit_page: "Editar Pagina"
     edit_js:
-      edit_page: "[t]Edit Page"
+      edit_page: "Editar Pagina"
     new:
       add_page: "Agregar Pagina"
     partial_form:

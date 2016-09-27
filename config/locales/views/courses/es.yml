@@ -1,23 +1,23 @@
 es:
   courses:
     clone_form:
-      clone_course: "[t]Clone Course"
+      clone_course: "Curso Clone"
     edit:
       edit_course: "Editar Curso"
     edit_js:
       edit_course: "Editar Curso"
     export:
-      abbreviation: '[t]Abbreviation'
-      singular: '[t]Vendor'
+      abbreviation: 'Abreviación'
+      singular: 'Fabricante'
       slug: 'Slug'
-      title: '[t]Title'
+      title: 'Titulo'
       url: 'URL'
     new:
-      add_course: "Add Course"
+      add_course: "Agregar Curso"
     new_js:
       add_course: "Agregar Curso"
     partial_clone_form:
-      slug: "[t]Slug"
+      slug: "Slug"
     partial_form:
       abbr: "Abreviatura"
       active: "Activo"
@@ -45,24 +45,24 @@ es:
     select_js:
       edit_course: "Editar Curso"
     show:
-      add_event: "[t]Add Event"
-      availability: "[t]Available"
-      contact: "[t]Contact"
-      course_outline: "[t]Course Outline"
-      date: "[t]Date"
-      download_datasheet: "[t]Download Datasheet"
-      edit_event: "[t]Edit Event"
-      for_training: "[t]for training schedule."
-      format: "[t]Format"
-      free: "[t]Free"
+      add_event: "Agregar Evento"
+      availability: "Disponible"
+      contact: "Contacto"
+      course_outline: "Esquema del Curso"
+      date: "Fecha"
+      download_datasheet: "Descargar PDF"
+      edit_event: "Editar Evento"
+      for_training: "Calendario de Entrenamientos."
+      format: "Formato"
+      free: "Gratis"
       image: "locales/es/High-impact_IT_Training_header_Span"
-      length: "[t]Length"
-      location: "[t]Location"
-      nterone_message: "[t]The NterOne team will be happy to answer your questions."
-      prerequisites_course_objectives: "[t]Prerequisites and Course Objectives"
-      price: "[t]Price"
-      questions: "[t]Questions?"
-      status: "[t]Status"
-      upcoming_classes: "[t]Upcoming Classes"
-      who_should_attend: "Who Should Attend"
-    video_preview: "[t]Video Preview"
+      length: "Duración"
+      location: "Localidad"
+      nterone_message: "El equipo NterOne con Mucho gusto responderá sus preguntas."
+      prerequisites_course_objectives: "Pre-Requisitos y Objetivos del Curso"
+      price: "Precio"
+      questions: "Preguntas?"
+      status: "Estado"
+      upcoming_classes: "Proximas Clases"
+      who_should_attend: "Quienes Deberían Asistir"
+    video_preview: "Video Previo"

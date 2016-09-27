@@ -1,7 +1,7 @@
 es:
   general:
     contact_us_new_js:
-      contact_us: "Contact Us"
+      contact_us: "Contáctanos"
     about_us:
       image: "locales/es/about-nterone.png"
     consulting:
@@ -9,17 +9,17 @@ es:
     executives:
       image: "locales/es/executives.png"
     featured_classes:
-      course_title: "[t]Course Title"
-      date: "[t]Date"
-      download_featured_classes: "[t]Download Featured Classes"
-      length: "[t]Length"
-      format: "[t]Format"
-      free: "[t]Free"
-      language: "[t]Language"
-      location: "[t]Location"
-      price: "[t]Price"
-      webex: "[t]Webex"
-      preview: "[t]Preview"
+      course_title: "Titulo del Curso"
+      date: "Fecha"
+      download_featured_classes: "Descarga Clases Destacadas"
+      length: "Duración"
+      format: "Formato"
+      free: "Gratis"
+      language: "Lenguaje"
+      location: "Localidad"
+      price: "Precio"
+      webex: "Webex"
+      preview: "Previo"
     industry:
       image: "locales/es/industry.png"
       published: "Publicado"
@@ -28,16 +28,16 @@ es:
     labs:
       image1: "locales/es/labs.png"
     partial_contact_us_form:
-      billing: "[t]Billing"
-      billing_address: "[t]NterOne Billing Address"
-      corporate_address: "[t]NterOne Corporate Address"
+      billing: "Facturación"
+      billing_address: "NterOne Dirección de Facturación"
+      corporate_address: "NterOne Dirección Corporativa"
       email: "Email"
-      feedback: "[t]Feedback – How can we make your experience better?"
-      help_desk: "[t]Help Desk"
-      inquiry: "[t]Inquiries - How can we help you?"
-      name: "[t]Name"
-      phone: "[t]Phone Number"
-      sales: "[t]Sales"
+      feedback: "Retroalimentación-Como podemos mejorar su experiencia?"
+      help_desk: "Centro de Ayuda"
+      inquiry: "Consultas-Como podemos ayudarlos?"
+      name: "Nombre"
+      phone: "Número de Teléfono"
+      sales: "Ventas"
     partial_search_form:
       placeholder: "Buscar por Certificaciones, cursos o exámenes"
     partners:
@@ -72,6 +72,7 @@ es:
     welcome:
       classes: "Clases Destacadas"
       classes_paragraph: "Ver lista de cursos más populares por fabricante"
+      image1: "locales/es/welcome-banner-3.png"
       labs: "Laboratorios"
       labs_paragraph: "Acceso Global 24x7 al Laboratorio"
       vendor: "Cursos por Fabricantes"

@@ -1,7 +1,7 @@
 .row.top
   .hidden-xs
     = link_to root_path, class: 'logo-with-tagline-large' do
-      = image_tag 'logo-with-tagline.png'
+      = image_tag t('layouts.partial_header.image1')
     = link_to root_path, class: 'partner cisco' do
       = image_tag 'cisco-business-partner.png'
     = link_to root_path, class: 'partner cisco' do
@@ -15,6 +15,6 @@
       p = t('layouts.partial_header.contact_us')
   .visible-xs
     = link_to root_path, class: 'logo-with-tagline-small' do
-      = image_tag 'logo-with-tagline.png'
+      = image_tag t('layouts.partial_header.image1')
   a.iTop title=''
   .clear

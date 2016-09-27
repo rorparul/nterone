@@ -1,9 +1,9 @@
 es:
   planned_subjects:
     index:
-      build_my_training_plan: "[t]Build My Training Plan"
-      find_testing_center: "[t]Find Testing Center"
-      grand_total: "[t]Grand Total:"
-      my_plan_history: "[t]My Plan History"
-      remove_from_plan: "[t]Remove from My Plan"
-      request_quote: "[t]Request Formal Quote"
+      build_my_training_plan: "Construir Mi Plan de Carrera"
+      find_testing_center: "Encontrar Centro de Exámenes"
+      grand_total: "Gran Total:"
+      my_plan_history: "Mi Plan Historia"
+      remove_from_plan: "Remover de Mi Plan"
+      request_quote: "Solicitar una Cotizaciún Formal"

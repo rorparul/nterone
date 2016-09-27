@@ -3,11 +3,11 @@ es:
     edit:
       edit_certification: "Editar Certificación"
     edit_js:
-      edit_certificate: "[t]Edit Certificate"
+      edit_certificate: "Editar Certificación"
     new:
       add_certification: "Agregar Certificación"
     new_js:
-      add_certification: "Add Certification"
+      add_certification: "Agregar Certificación"
     partial_form:
       active: "Activo"
       catgories: "Categorias"
@@ -21,13 +21,13 @@ es:
     partial_select:
       certifications: "Certificaciones"
     partial_sub_training_group_fields:
-      remove_grouping: "[t]Remove Grouping"
-      training_group: "[t]Training Group"
+      remove_grouping: "Remover Agrupaciones"
+      training_group: "Entrenar Grupos"
     select_js:
       edit_certification: "Editar Certificación"
     show:
-      add_table: "[t]Add Table"
-      add_to_plan: "[t]Add to My Plan"
-      find_testing_center: "[t]Find Testing Center"
-      login_to_add_to_plan: "[t]Login to add to My Plan"
-      remove_from_plan: "[t]Remove from My Plan"
+      add_table: "Agregar Tabla"
+      add_to_plan: "Agregar a Mi Plan"
+      find_testing_center: "Encontrar Centro de Exámenes"
+      login_to_add_to_plan: "Inicia para Agregar a Mi Plan"
+      remove_from_plan: "Remover de Mi Plan"

@@ -1,10 +1,10 @@
 es:
   exam_and_course_dynamics:
     partial_course_fields:
-      price: "[t]Price"
-      remove_course: "[t]remove course"
+      price: "Precio"
+      remove_course: "Remover Curso"
     partial_exam_fields:
-      remove_exam: "[t]remove exam"
+      remove_exam: "Remover Examen"
     partial_form:
       courses: "Cursos"
       exams: "Examenes"

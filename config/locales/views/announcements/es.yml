@@ -1,7 +1,7 @@
 es:
   announcements:
     edit_js:
-      edit_announcement: "[t]Edit Announcement"
+      edit_announcement: "Editar Anuncios"
     partial_announcements:
       active: "Activo"
       inactive: "Inactivo"

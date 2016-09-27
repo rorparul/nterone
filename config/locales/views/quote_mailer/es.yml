@@ -1,15 +1,15 @@
 es:
   quote_mailer:
     pdf_attachment_html:
-      copy1: "[t]Hello"
-      copy2: "[t]Thank you for your interest in NterOne – where customer service is our top priority!"
-      copy3: "[t]We are pleased to offer you a customized training quote. Please see the attached PDF that outlines the details of the products and/or services requested. If you have any questions please reach out to your sales representative, or contact the sales team at"
-      copy4: "[t]You can also call us at 703-972-2288."
-      copy5: "[t]We look forward to hearing from you soon!"
-      copy6: "[t]Best Regards,"
-      copy7: "[t]NterOne Sales Team"
+      copy1: "Hola"
+      copy2: "Gracias por su interés en NterOne, donde la satisfacción del cliente es nuestra prioridad!"
+      copy3: "Estamos complacidos en ofrecerle una propuesta a su medida. Por favor encuentre el detalle del esquema del producto y servicios solicitados en los PDFs anexos. Si tiene alguna pregunta no dude en contractar a su representante de ventas o contacte al equipo de ventas a"
+      copy4: "También puede contactarnos al 703-972-2288."
+      copy5: "Esperamos escuchar de usted pronto!"
+      copy6: "Saludos,"
+      copy7: "Equipo de Ventas NterOne"
     pdf_attachment_text:
-      copy1: "[t]Hello"
-      copy2: "[t]Please review the attached PDF for your formal quote regarding your chosen course(s)."
-      copy3: "[t]Regards,"
-      copy4: "[t]Sales Team"
+      copy1: "Hola"
+      copy2: "Por favor revise el PDF anexo con la conización formal de sus cursos seleccionado."
+      copy3: "Saludos,"
+      copy4: "Equipo de Ventas"
