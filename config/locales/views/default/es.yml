@@ -25,7 +25,7 @@ es:
       upload: "Cargar"
     contact:
       email: "@nterone.com"
-      phone: "Phone:"
+      phone: "703.972.2288"
     label:
       content: "Contenido"
       current_password: "Clave Actual"
@@ -39,6 +39,7 @@ es:
       published: "Publicado"
       title: "Titulo"
       url: "URL"
+      phone: "Teléfono"
     placeholder:
       no_records: "No registros encontrados."
       search_form: "Buscar por Certificaciones, cursos o exámenes"

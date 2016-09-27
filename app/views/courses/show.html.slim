@@ -173,8 +173,7 @@
           = "#{t('default.label.email') + ": "}"
           a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
 
-        p 
-          = t('default.label.phone') + ': ' + t('default.contact.phone')
+        p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
     = render partial: 'layouts/side_column'
 
 .row
