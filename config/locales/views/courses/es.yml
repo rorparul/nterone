@@ -55,7 +55,7 @@ es:
       for_training: "Calendario de Entrenamientos."
       format: "Formato"
       free: "Gratis"
-      image: "locales/es/High-impact_IT_Training_header_Span"
+      image: "locales/es/courses_show.png"
       length: "Duración"
       location: "Localidad"
       nterone_message: "El equipo NterOne con Mucho gusto responderá sus preguntas."
