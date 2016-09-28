@@ -42,9 +42,10 @@
       li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
         span.fa.fa-thumbs-o-up
         span.text = t('layouts.partial_sidebar.testimonials')
-      li = link_to forem.root_path, class: "forums-tab" do
-        span.fa.fa-comments-o
-        span.text = t('layouts.partial_sidebar.forums')
+      - unless I18n.locale == :es
+        li = link_to forem.root_path, class: "forums-tab" do
+          span.fa.fa-comments-o
+          span.text = t('layouts.partial_sidebar.forums')
       li = link_to main_app.consulting_path, class: "consulting-tab" do
         span.fa.fa-puzzle-piece
         span.text = t('layouts.partial_sidebar.consulting')

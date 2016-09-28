@@ -52,7 +52,9 @@ class AdminController < ApplicationController
                                                      [:end_time, "end_time"],
                                                      [:format, "format"],
                                                      [:lab_source, "lab_source"],
-                                                     [:guaranteed, "guaranteed"]],
+                                                     [:public, "public"],
+                                                     [:guaranteed, "guaranteed"],
+                                                     [:status, "Status"]],
                                    default_sort: { start_date: "asc"} )
 
     if should_group_classes?

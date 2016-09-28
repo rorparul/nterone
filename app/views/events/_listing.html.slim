@@ -8,22 +8,17 @@
             th.fit = "#{t('events.partial_listing.note')}"
             th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
             th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
-            th.fit title="#{t('events.partial_listing.length')}" 
-              = t 'events.partial_listing.length'
+            th.fit title="#{t('events.partial_listing.length')}" = t('events.partial_listing.abbr_length')
             th.fit = smart_listing.sortable "#{t('events.partial_listing.start_time')}", :start_time
             th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
-            th.fit
-              = t 'events.partial_listing.instructor'
-            th.fit title="#{t('events.partial_listing.students')}" 
-              = t 'events.partial_listing.ss'
-            th.fit
-              = t 'events.partial_listing.revenue'
+            th.fit = t 'events.partial_listing.instructor'
+            th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.abbr_registered')
+            th.fit = t 'events.partial_listing.revenue'
             th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
-            th.fit = t('events.partial_listing.public')
-            th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.guar')}", :guaranteed
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.conf')}", :status
-            th.fit
-              = t 'events.partial_listing.actions'
+            th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
+            th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
+            th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
+            th.fit colspan="4" = t 'events.partial_listing.actions'
         tbody
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
@@ -31,9 +26,9 @@
                 td(style="background-color: #D5DDF2;" colspan=9)
                   strong
                     = date_str
-                td(style="background-color: #D5DDF2;" colspan=3)
+                td(style="background-color: #D5DDF2;" colspan=5)
                   strong $#{number_with_delimiter(number_with_precision(events_revenue_total(events), precision: 2))}
-                td(style="background-color: #D5DDF2;" colspan=3)
+                td(style="background-color: #D5DDF2;" colspan=5)
 
               - events.each do |event|
                 = render partial: 'events/listing_event', locals: {event: event}

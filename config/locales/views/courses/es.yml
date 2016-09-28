@@ -65,4 +65,5 @@ es:
       status: "Estado"
       upcoming_classes: "Proximas Clases"
       who_should_attend: "Quienes Deberían Asistir"
-    video_preview: "Video Previo"
+    video_preview:
+      video_preview: "Video Previo"

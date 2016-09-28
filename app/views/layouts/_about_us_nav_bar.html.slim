@@ -7,7 +7,6 @@
     = t('layouts.partial_about_us_nav_bar.instructor')
   a.btn.category.btn-category.press href="#{press_path}"
     = t('layouts.partial_about_us_nav_bar.press')
-  / a.btn.category.btn-category.blog href="#{blog_path}"
-    / = t 'about_us.categories.blog'
-  a.btn.category.btn-category.industry href="#{industry_path}"
-    = t('layouts.partial_about_us_nav_bar.industry')
+  - unless I18n.locale == :es
+    a.btn.category.btn-category.industry href="#{industry_path}"
+      = t('layouts.partial_about_us_nav_bar.industry')

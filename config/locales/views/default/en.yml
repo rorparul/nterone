@@ -25,7 +25,7 @@ en:
       upload: "Upload"
     contact:
       email: "@nterone.com"
-      phone: "Phone:"
+      phone: "703.972.2288"
     label:
       content: 'Content'
       current_password: "Current Password"
@@ -39,6 +39,7 @@ en:
       published: "Published"
       title: "Title"
       url: "URL"
+      phone: "Phone"
     placeholder:
       no_records: "No records found."
       search_form: "Search by certification, course, or exam"
