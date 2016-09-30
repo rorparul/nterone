@@ -186,11 +186,10 @@ class Event < ActiveRecord::Base
     platform_title = course.platform.title
     case platform_title
     when "Cisco"
-      cost = 350.00 * student_count
+      self.cost_books = 350.00 * student_count
     when "VMware"
-      cost = 725.00 * student_count
+      self.cost_books = 725.00 * student_count
     end
-    self.update_column(:cost_books, cost)
   end
 
   def calculate_instructor_cost
