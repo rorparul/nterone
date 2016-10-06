@@ -8,7 +8,7 @@ css:
     color: red;
   }
 
-= image_tag attachments["logo.png"].url
+= image_tag attachments["#{t('mailers.student_added.image1')}"]
 
 p 
   = t('mailers.student_added.copy1')
@@ -22,6 +22,7 @@ p
 
 p 
   = t('mailers.student_added.copy5')
+table
   tr
     td 
       = t('mailers.student_added.copy6')
@@ -29,23 +30,28 @@ p
   tr
     td
       = t('mailers.student_added.copy7')
-    td = @user.full_name
+    td 
+      = @user.full_name
   tr
     td
       = t('mailers.student_added.copy8') 
-    td = @event.format
+    td 
+      = @event.format
   tr
     td
       = t('mailers.student_added.copy9')
-    td.text-red = "#{@event.start_date} thru #{@event.end_date}"
+    td.text-red 
+      = "#{@event.start_date} thru #{@event.end_date}"
   tr
     td
       = t('mailers.student_added.copy10')
-    td.text-red = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+    td.text-red 
+      = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
     td
       = t('mailers.student_added.copy11')
-    td.text-red = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+    td.text-red 
+      = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
   tr
     td colspan="2"
       = t('mailers.student_added.copy12')
@@ -63,7 +69,7 @@ p
   = t('mailers.student_added.copy16')
 
 p
-  span.text-red = t('mailer.student_added.copy17')
+  span.text-red = t('mailers.student_added.copy17')
   = t('mailers.student_added.copy18')
   = t('mailers.student_added.copy19')
 
@@ -72,13 +78,13 @@ p
 ul
   li
     = t('mailers.student_added.copy21')
-    a href="mailto:helpdesk#{t('default.contact.email')}" "HelpDesk#{t('default.contact.email')}"
+    a href="mailto:helpdesk#{t('default.contact.email')}" helpdesk#{t('default.contact.email')}
   li 
     = t('mailers.student_added.copy22')
-    703-972-2288 Ext. 1022
+    = "703-972-2288 Ext. 1022"
   li
     = t('mailers.student_added.copy23') 
-    8:00am EST – 8:00pm EST
+    = "8:00am EST – 8:00pm EST"
 
 p
   = t('mailers.student_added.copy24')
