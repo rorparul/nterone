@@ -1,6 +1,7 @@
 en:
   categories:
     partial_form:
+      add_category: "Add Category"
       description: "Description"
       heading: "Heading (H1)"
       page_title: "Page Title"
