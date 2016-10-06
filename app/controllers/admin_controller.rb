@@ -46,6 +46,7 @@ class AdminController < ApplicationController
                                    partial: "events/listing",
                                    sort_attributes: [[:id, "id"],
                                                      [:status, "status"],
+                                                     [:resell, "Resell"],
                                                      [:course, "courses.abbreviation"],
                                                      [:start_date, "start_date"],
                                                      [:start_time, "start_time"],

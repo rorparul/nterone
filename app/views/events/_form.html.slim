@@ -186,22 +186,28 @@
     hr
 
     .row
-      .col-xs-12.col-sm-3
+      .col-xs-12.col-sm-4
         .form-group
           = f.label :public, t('events.partial_form.public')
           br
           = f.check_box :public
-      .col-xs-12.col-sm-3
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :resell, t('events.partial_form.resell')
+          br
+          = f.check_box :resell
+      .col-xs-12.col-sm-4
         .form-group
           = f.label :guaranteed, t('events.partial_form.guaranteed')
           br
           = f.check_box :guaranteed
-      .col-xs-12.col-sm-3
+    .row
+      .col-xs-12.col-sm-4
         .form-group
           = f.label :partner_led, t('events.partial_form.partner_led')
           br
           = f.check_box :partner_led
-      .col-xs-12.col-sm-3
+      .col-xs-12.col-sm-4
         .form-group
           = f.label :active, t('events.partial_form.active')
           br

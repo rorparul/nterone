@@ -6,6 +6,7 @@
           tr
             th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
             th.fit = "#{t('events.partial_listing.note')}"
+            th.fit = smart_listing.sortable "#{t('events.partial_listing.resell')}", :resell
             th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
             th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
             th.fit title="#{t('events.partial_listing.length')}" = t('events.partial_listing.abbr_length')
