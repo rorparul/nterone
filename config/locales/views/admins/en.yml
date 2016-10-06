@@ -37,7 +37,9 @@ en:
       home: "Home"
       industry: "Industry"
       my_sales: "My Sales"
+      nci: "NCI"
       press: "Press"
+      support: "Support"
       training: "Training"
     partial_tabs:
       announcements: "Announcements"

@@ -3,33 +3,34 @@ css:
     border: 1px solid black;
   }
 
-p = t('lab_rentals.mailer.reservation.copy1')
-p = t('lab_rentals.mailer.reservation.copy2')
+p = t('lab_rentals.mailers.reservation.copy1')
+p = t('lab_rentals.mailers.reservation.copy2')
+
 table
   tbody
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy3')
+        = t('lab_rentals.mailers.reservation.copy3')
       td
         = @user.try(:email)
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy4')
+        = t('lab_rentals.mailers.reservation.copy4')
       td
         = @reservation.company.try(:title)
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy5')
+        = t('lab_rentals.mailers.reservation.copy5')
       td
         = @reservation.lab_course.title
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy6')
+        = t('lab_rentals.mailers.reservation.copy6')
       td
         = @reservation.num_of_students
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy7')
+        = t('lab_rentals.mailers.reservation.copy7')
       td
         = @reservation.first_day
     tr
@@ -39,49 +40,45 @@ table
         = @reservation.last_day
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy8')
+        = t('lab_rentals.mailers.reservation.copy8')
       td
         = @reservation.start_time.strftime("%I:%M %p")
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy9')
-        | Time Zone
+        = t('lab_rentals.mailers.reservation.copy9')
       td
         = @reservation.time_zone
     tr
       td
-        | Instructor
+        = t('lab_rentals.mailers.reservation.copy10')
       td
         = @reservation.instructor
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy10')
+        = t('lab_rentals.mailers.reservation.copy11')
       td
         = @reservation.instructor_email
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy11')
+        = t('lab_rentals.mailers.reservation.copy12')
       td
         = @reservation.instructor_phone
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy12')
+        = t('lab_rentals.mailers.reservation.copy13')
       td
         = @reservation.location
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy13')
+        = t('lab_rentals.mailers.reservation.copy14')
       td
         = @reservation.confirmed
     tr
       td
-        = t('lab_rentals.mailer.reservation.copy14')
+        = t('lab_rentals.mailers.reservation.copy15')
       td
         = @reservation.notes
-      
-p
-  = t('lab_rentals.mailer.reservation.copy15')
 
 p
-  = t('lab_rentals.mailer.reservation.copy16')
+  = t('lab_rentals.mailers.reservation.copy16')
   
