@@ -147,6 +147,10 @@ class VideoOnDemand < ActiveRecord::Base
     self.quizes_completed_count_by(user) + self.watched_count(user)
   end
 
+  def assigned_to?(user)
+    AssignedItem.exists?(student: user, item: self)
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart

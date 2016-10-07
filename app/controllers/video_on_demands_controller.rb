@@ -29,6 +29,7 @@ class VideoOnDemandsController < ApplicationController
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
+
       @instructors = @platform.instructors
       render 'new'
     end
@@ -37,10 +38,10 @@ class VideoOnDemandsController < ApplicationController
   def show
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
-    @purchased = current_user && @video_on_demand.purchased_by?(current_user)
-    @hide_sidebar = current_user && @video_on_demand.purchased_by?(current_user)
+    @purchased = vod_purchased?
+    @hide_sidebar = vod_purchased?
 
-    if current_user.lms?
+    if current_user.present? && current_user.lms?
       render 'video_on_demands/show_lms', layout: 'lms'
     else
       render 'video_on_demands/show'
@@ -51,9 +52,11 @@ class VideoOnDemandsController < ApplicationController
     @platform         = Platform.find(params[:platform_id])
     @video_on_demand  = @platform.video_on_demands.build
     @video_on_demands = @platform.video_on_demands.order('lower(title)')
+
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+
     @instructors      = @platform.instructors
     @video_on_demand.build_image
   end
@@ -64,9 +67,11 @@ class VideoOnDemandsController < ApplicationController
     else
       @platform        = Platform.find(params[:platform_id])
       @video_on_demand = VideoOnDemand.find(video_on_demand_params[:id])
+
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
+
       @instructors     = @platform.instructors
       @video_on_demand.build_image unless @video_on_demand.image.present?
     end
@@ -295,5 +300,10 @@ class VideoOnDemandsController < ApplicationController
     answer_text = params[:answers].values.map{|a| a[:answer] + ':' + a[:position]}.join(',')
 
     LmsExamAttemptAnswer.create(lms_exam_attempt: attempt, lms_exam_question: question, answer_text: answer_text)
+  end
+
+  def vod_purchased?
+    return false if !current_user
+    @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)
   end
 end
