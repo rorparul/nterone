@@ -1,0 +1,15 @@
+es:
+  quote_mailer:
+    pdf_attachment_html:
+      copy1: "Hola"
+      copy2: "Gracias por su interés en NterOne, donde la satisfacción del cliente es nuestra prioridad!"
+      copy3: "Estamos complacidos en ofrecerle una propuesta a su medida. Por favor encuentre el detalle del esquema del producto y servicios solicitados en los PDFs anexos. Si tiene alguna pregunta no dude en contractar a su representante de ventas o contacte al equipo de ventas a "
+      copy4: ". También puede contactarnos al 703-972-2288."
+      copy5: "Esperamos escuchar de usted pronto!"
+      copy6: "Saludos,"
+      copy7: "Equipo de Ventas NterOne"
+    pdf_attachment_text:
+      copy1: "Hola"
+      copy2: "Por favor revise el PDF anexo con la conización formal de sus cursos seleccionado."
+      copy3: "Saludos,"
+      copy4: "Equipo de Ventas"

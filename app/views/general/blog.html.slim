@@ -7,10 +7,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted About Us
+  span.text-muted
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central

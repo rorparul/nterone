@@ -1,0 +1,20 @@
+es:
+  order_mailer:
+    confirmation:
+      copy1: "Gracias por colocar su orden con NterOne! Apreciamos que haga negocios con nosotros, esperamos proveer la mejor experiencia posible. "
+      copy2: "A continuación un resumen de su orden:"
+      copy3: "Orden"
+      copy4: "Confirmación"
+      copy5: "Un Año de Acceso"
+      copy6: "Video Bajo Demanda"
+      copy7: "Gratis"
+      copy8: "Total Cargado a su TDC:"
+      copy9: "Total Créditos Aplicado:"
+      copy10: "Si usted tiene alguna pregunta, por favor contacte a su ejecutivo de cuentas o al equipo de ventas "
+      copy11: "Si su pregunta es relacionada a facturación, puede enviar un correo electrónico "
+      copy12: "Si tiene problemas de acceso a su cuenta NterOne, o servicios comprados, puede contactar "
+      copy13: "También puede contactarnos a "
+      copy14: "Para conversar con una persona en vivo"
+      copy15: "Usted recibirá un correo electrónico de confirmación con información especifica de sus próximas actividades, seminarios, o productos."
+      copy16: "Gracias Nuevamente,"
+      copy17: "Equipo de Ventas NterOne"

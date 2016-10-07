@@ -55,13 +55,14 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:company_name,
+    params.require(:user).permit(:company_id,
                                  :first_name,
                                  :last_name,
                                  :contact_number,
                                  :country,
                                  :street,
                                  :city,
+                                 :daily_rate,
                                  :state,
                                  :zipcode,
                                  :archived,
@@ -80,6 +81,7 @@ class UsersController < ApplicationController
                                  :shipping_city,
                                  :shipping_state,
                                  :shipping_zip_code,
+                                 :status,
                                  roles_attributes: [:id,
                                                     :role,
                                                     :_destroy])

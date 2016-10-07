@@ -4,7 +4,7 @@ html
     title
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
-    link rel="alternate" type="application/rss+xml" title="Upcoming Classes" href="https://www.nterone.com/feed?format=rss"
+    link rel="alternate" type="application/rss+xml" title="#{t('layouts.application.upcoming_classes')}" href="https://www.nterone.com/feed?format=rss"
     = canonical_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -12,13 +12,21 @@ html
     = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     - if !user_signed_in? || current_user.try(:member?)
-      javascript:
-        window.$zopim||(function(d,s){var z=$zopim=function(c){
-        z._.push(c)},$=z.s=
-        d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-        _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-        $.src='//v2.zopim.com/?3naKOCfXUCQpTL48Row9IGOxjjAxy1Ez';z.t=+new Date;$.
-        type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+      - if I18n.locale == :en
+        javascript:
+          window.$zopim||(function(d,s){var z=$zopim=function(c){
+          z._.push(c)},$=z.s=
+          d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+          _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+          $.src='//v2.zopim.com/?3naKOCfXUCQpTL48Row9IGOxjjAxy1Ez';z.t=+new Date;$.
+          type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+      - if I18n.locale == :es
+        javascript:
+          window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+          d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+          _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+          $.src="//v2.zopim.com/?4Efd83VP84hajOBizIjsd794PJRIvMeh";z.t=+new Date;$.
+          type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
   body
     = render 'layouts/modal'
     = render 'layouts/header'
@@ -33,24 +41,25 @@ html
           - if content_for(:actions)
             span.header-nav-actions type="button" data-toggle="dropdown"
               i.fa.fa-cog
-              | Actions
+              = t('layouts.admin.actions')
             ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
               = yield :actions
-            span.header-nav-actions
-              = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
-                i.fa.fa-search
-                | Search
-              - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                = link_to main_app.new_order_path do
-                  i.fa.fa-shopping-cart
-                  | My Cart
-                  span.badge = @cart.order_items.count
+          span.header-nav-actions
+            = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
+              i.fa.fa-search
+              = t('layouts.admin.search')
+            - if !user_signed_in? || (user_signed_in? && current_user.member?)
+              = link_to main_app.new_order_path do
+                i.fa.fa-shopping-cart
+                = t('layouts.admin.my_cart')
+                span.badge = @cart.order_items.count
       hr
       .content
         = render 'layouts/notifications'
         = yield
     = render 'layouts/footer'
     = render 'layouts/ad_words'
+    
 - if Rails.env.production?
 
   javascript:

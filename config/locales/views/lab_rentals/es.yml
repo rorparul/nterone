@@ -1,0 +1,59 @@
+es:
+  lab_rentals:
+    edit:
+      edit_lab_rental: "Editar Reservación de Laboratorio"
+    index:
+      lab_rentals: "Reservaciones de Laboratorio"
+    mailers:
+      reservation:
+        copy1: "Gracias!"
+        copy2: "Su solicitud ha sido recibida, a continuación los detalles:"
+        copy3: "Correo Electronico del Solicitante"
+        copy4: "Campañia del Solicitante"
+        copy5: "Curso"
+        copy6: "Estudiantes"
+        copy7: "1er Día de Clase"
+        copy8: "Hora de Inicio"
+        copy9: "Zona Horaria"
+        copy10: "Instructor"
+        copy11: "Correo Electronico del Instructor"
+        copy12: "Teléfono del Instructor"
+        copy13: "Localidad"
+        copy14: "Confirmado"
+        copy15: "Notas"
+        copy16: "Por Favor permítanos 48 horas para contactarlos de vuelta."
+        copy17: "El Equipo de NterOne"
+    new:
+      add_lab_rental: "Solicitar Reservación de Laboratorio"
+    new_js:
+      add_lab_rental: "Solicitar Reservación de Laboratorio"
+    partial_listing:
+      canceled: "Cancelado"
+      company: "Aliado"
+      confirmed: "Confirmado"
+      course: "Curso"
+      email: "Correo Electronico"
+      instructor: "Instructores"
+      location: "Localidad"
+      no_of_students: "Estudiantes"
+      notes: "Nota"
+      phone: "Teléfono"
+      start_date: "Fecha de Inicio"
+      start_time: "Hora de Inicio"
+    partial_form:
+      company: "Compañias"
+      confirmed: "Confirmado"
+      course: "Curso"
+      end_time: "Hora de Finalización"
+      first_day: "1er Día de Clase"
+      instructor: "Nombre Del Instructor"
+      instructor_email: "Correo Electronico del Instructor"
+      instructor_phone: "Teléfono del Instructor"
+      location: "Localidad"
+      notes: "Notas"
+      number_of_students: "Número de Estudiantes"
+      start_time: "Hora de Inicio(EST)"
+    show_lab_students_js:
+      lab_students: "Laboratorio de Estudiante"
+    show_note:
+      notes: "Nota"

@@ -8,167 +8,221 @@
         ul
           - event.errors.full_messages.each do |msg|
             li = msg
-            
-    / .row
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_webex_invite, "Sent Webex invite"
-    /       br
-    /       = f.check_box :sent_webex_invite
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_course_material, "Sent course material"
-    /       br
-    /       = f.check_box :sent_course_material
-    /   .col-xs-12.col-sm-4
-    /     .form-group
-    /       = f.label :sent_lab_credentials, 'Sent lab credentials'
-    /       br
-    /       = f.check_box :sent_lab_credentials
-    / 
-    / hr
-            
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :start_date, 'Start Date'
+          = f.label :start_date, t('events.partial_form.start_date')
           br
           = f.date_select :start_date, {}, {}
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :start_time, 'Start Time'
+          = f.label :start_time, t('events.partial_form.start_time')
           br
           = f.time_select :start_time, { ampm: true }, {}
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :end_date, 'End Date'
+          = f.label :end_date, t('events.partial_form.end_date')
           br
           = f.date_select :end_date, {}, {}
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :end_time, 'End Time'
+          = f.label :end_time, t('events.partial_form.end_time')
           br
           = f.time_select :end_time, { ampm: true }, {}
+
+    hr
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :time_zone, 'Time Zone'
+          = f.label :time_zone, t('events.partial_form.time_zone')
           br
           = f.time_zone_select :time_zone,
                                ActiveSupport::TimeZone.us_zones,
-                               { prompt: 'Eastern Time (US & Canada)' },
+                               { prompt: t('events.partial_form.eastern_timezone') },
                                { class: 'form-control input-sm' }
-      
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :count_weekends, t('events.partial_form.count_weekends')
+          br
+          = f.check_box :count_weekends
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :format
+          = f.label :remind_period, t('events.partial_form.remind_period')
+          br
+          = f.select :remind_period, [[t('events.partial_form.one_week'), 'one_week'], [t('events.partial_form.two_weeks'), 'two_week'], [t('events.partial_form.one_month'), 'one_month']],
+                     {},
+                     class: 'form-control input-sm'
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :should_remind, t('events.partial_form.should_remind')
+          br
+          = f.check_box :should_remind
+    hr
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :language, t('events.partial_form.language')
+          = f.select :language,
+                     [[t('events.partial_form.english'), 'en'],
+                      [t('events.partial_form.spanish'), 'es']],
+                     { prompt: t('default.prompt.please_select') },
+                     { class: 'form-control input-sm' }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :instructor_id, t('events.partial_form.instructor')
+          = f.select :instructor_id,
+                    User.only_instructors.collect { |user| [user.full_name, user.id] },
+                    { prompt: true, include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control input-sm' }
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :format, t('events.partial_form.format')
           = f.select :format,
                      [['ClearConnect', 'ClearConnect'],
                       ['Live Online', 'Live Online'],
                       ['On-site', 'On-site']],
-                     { prompt: true },
+                     { prompt: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :instructor_id, "Instructor"
-          = f.select :instructor_id,
-                     instructors.order('lower(last_name)').collect { |instructor| [instructor.full_name, instructor.id] },
-                     { prompt: true },
-                     { class: 'form-control input-sm' }
-                     
+          = f.label :street, t('events.partial_form.street')
+          = f.text_field :street, class: 'form-control input-sm'
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :city, 'City'
-          br
+          = f.label :city, t('events.partial_form.city')
           = f.text_field :city, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :state, 'State'
-          br
+          = f.label :state, t('events.partial_form.state')
           = f.select :state,
                      us_states,
-                     { prompt: true },
+                     { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :price
+          = f.label :lab_source, t('events.partial_form.lab_source')
+          = f.text_field :lab_source, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :price, t('events.partial_form.price')
           .input-group.input-group-sm
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
-            
+
     hr
-    
+
+    .form-group
+      = f.label :note, t('events.partial_form.public_note')
+      = f.text_area :note, class: 'form-control input-sm'
+      #instructions style="margin-top: 5px;"
+        = t('events.partial_form.instructions')
+
+    .form-group
+      = f.label :in_house_note, t('events.partial_form.in_house_note')
+      = f.text_area :in_house_note, class: 'form-control input-sm'
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_instructor, 'Instructor Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'form-control input-sm'
+          = f.label :cost_instructor, t('events.partial_form.cost_instructor')
+          .auto-cost-container
+            .auto-cost-checkbox-container
+              span.glyphicon.glyphicon-refresh
+              = f.check_box :autocalculate_instructor_costs, class: "auto-cost-checkbox"
+            .input-group
+              span.input-group-addon $
+              = f.text_field :cost_instructor, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.autocalculate_instructor_costs?
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_lab, 'Lab Cost'
+          = f.label :cost_lab, t('events.partial_form.cost_lab')
           .input-group
             span.input-group-addon $
             = f.text_field :cost_lab, data: { autonumeric: true }, class: 'form-control input-sm'
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_te, 'T & E Cost'
+          = f.label :cost_te, t('events.partial_form.cost_te')
           .input-group
             span.input-group-addon $
             = f.text_field :cost_te, data: { autonumeric: true }, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_facility, 'Facility Cost'
+          = f.label :cost_facility, t('events.partial_form.cost_facility')
           .input-group
             span.input-group-addon $
             = f.text_field :cost_facility, data: { autonumeric: true }, class: 'form-control input-sm'
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_books, 'Books Cost'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :cost_books, data: { autonumeric: true }, class: 'form-control input-sm'
+          = f.label :cost_books, t('events.partial_form.cost_books')
+          .auto-cost-container
+            .auto-cost-checkbox-container
+              span.glyphicon.glyphicon-refresh
+              = f.check_box :calculate_book_costs, class: 'auto-cost-checkbox'
+            .input-group
+              span.input-group-addon $
+              = f.text_field :cost_books, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.calculate_book_costs?
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :cost_shipping, 'Shipping Cost'
+          = f.label :cost_shipping, t('events.partial_form.cost_shipping')
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
-            
     hr
-                          
+
     .row
       .col-xs-12.col-sm-3
         .form-group
-          = f.label :public
+          = f.label :public, t('events.partial_form.public')
           br
           = f.check_box :public
       .col-xs-12.col-sm-3
         .form-group
-          = f.label :guaranteed
+          = f.label :guaranteed, t('events.partial_form.guaranteed')
           br
           = f.check_box :guaranteed
       .col-xs-12.col-sm-3
         .form-group
-          = f.label :partner_led, 'Partner Led'
+          = f.label :partner_led, t('events.partial_form.partner_led')
           br
           = f.check_box :partner_led
       .col-xs-12.col-sm-3
         .form-group
-          = f.label :active
+          = f.label :active, t('events.partial_form.active')
           br
           = f.check_box :active
-      
+
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.action.submit')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
       - if event.id
-        = link_to 'Delete', platform_course_event_path(platform, course, event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_course_event_path(platform, course, event),
+          method: :delete,
+          data: { confirm: t('default.prompt.confirm_delete') },
+          class: 'text-danger'
+  
+javascript:
+  $('.auto-cost-checkbox').click(function() {
+    if($(this).is(':checked') == true) {
+      $(this).closest('.auto-cost-container').find('.auto-cost-textbox').attr('disabled', true);
+    } else {
+      $(this).closest('.auto-cost-container').find('.auto-cost-textbox').attr('disabled', false);
+    };
+  });

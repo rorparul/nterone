@@ -4,10 +4,10 @@
     td.fit
       = form_for event, url: platform_course_event_path(event.course.platform, event.course, event), method: :patch, remote: true do |f|
         = f.select :status,
-                   [['Test 1', 'Test 1'],
-                    ['Test 2', 'Test 2'],
-                    ['Test 3', 'Test 3']],
-                    { prompt: true },
+                   [[t('events.partial_events.test1'), t('events.partial_events.test1')],
+                    [t('events.partial_events.test2'), t('events.partial_events.test2')],
+                    [t('events.partial_events.test3'), t('events.partial_events.test3')]],
+                    { prompt: t('default.prompt.please_select') },
                     { class: 'form-control input-sm table-select' }
     td.fit = event.course.abbreviation
     td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
@@ -21,16 +21,16 @@
     td.fit
       = form_for event, url: platform_course_event_path(event.course.platform, event.course, event), method: :patch, remote: true do |f|
         = f.select :lab_source,
-                   [['Test 1', 'Test 1'],
-                    ['Test 2', 'Test 2'],
-                    ['Test 3', 'Test 3']],
-                    { prompt: true },
+                   [[t('events.partial_events.test1'), t('events.partial_events.test1')],
+                    [t('events.partial_events.test2'), t('events.partial_events.test2')],
+                    [t('events.partial_events.test3'), t('events.partial_events.test3')]],
+                    { prompt: t('default.prompt.please_select') },
                     { class: 'form-control input-sm table-select' }
     td.fit = event.public ? 'Y' : 'N'
     td.fit = event.guaranteed ? 'Y' : 'N'
     td.fit.text-right
-      = link_to "Show", admin_classes_show_path(event)
+      = link_to t('default.action.show'), admin_classes_show_path(event)
       |  | 
-      = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+      = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
       |  | 
-      = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+      = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

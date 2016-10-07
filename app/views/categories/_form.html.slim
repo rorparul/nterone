@@ -8,45 +8,45 @@
         ul
           - category.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
-      = f.label :parent_id
+      = f.label :parent_id, t('categories.partial_form.parent')
       = f.collection_select(:parent_id, platform.categories.parent_categories.where.not(id: category.id), :id, :title,
-                            { prompt: 'None' }, { class: 'form-control input-sm' })
-                            
+                            { prompt: t('default.prompt.none_select') }, { class: 'form-control input-sm' })
+
     .form-group
-      = f.label :title
+      = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
       
     .form-group
-      = f.label :description
-      = f.text_area :description, class: 'form-control input-sm wysihtml5'
+      = f.label :page_title, t('categories.partial_form.page_title')
+      = f.text_field :page_title, class: 'form-control input-sm'
       
+    .form-group
+      = f.label :heading, t('categories.partial_form.heading')
+      = f.text_field :heading, class: 'form-control input-sm'
+
+    .form-group
+      = f.label :description, t('categories.partial_form.description')
+      = f.text_area :description, class: 'form-control input-sm froala'
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :position
+          = f.label :position, t('categories.partial_form.position')
           = f.text_field :position, class: 'form-control input-sm'
-      
+
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.button.save')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.button.cancel')
       - if category.id
-        = link_to 'Delete', platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
-        
+        = link_to t('default.action.delete'), platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
+
 javascript:
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': true,
-      'link': false,
-      'image': false,
-      'smallmodals': true
-    }
+  $('.froala').froalaEditor({
+    height: 240,
+    imageUploadURL: '/public/uploads/froala',
+    imageUploadMethod: 'POST'
   });

@@ -1,5 +1,5 @@
 = form_for :subject, url: select_to_edit_platform_subjects_path(platform.id), remote: true do |f|
   div.form-group
-    = f.label :id, "Certifications"
+    = f.label :id, t('subjects.partial_select.certifications')
     br
-    = f.select :id, subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] }.unshift(["None", "none"]), options = { selected: "None" }, html_options = { class: "form-control sub-select input-sm" }
+    = f.select :id, subjects.order('lower(title)').collect { |subject| ["#{subject.title} (#{subject.abbreviation})", subject.id] }.unshift([t('default.prompt.none_select'), "none"]), options = { selected: t('default.prompt.none_select') }, html_options = { class: "form-control sub-select input-sm" }

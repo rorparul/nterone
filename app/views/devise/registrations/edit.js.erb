@@ -1,3 +1,3 @@
-$('.modal-title').html('Edit Person');
+$('.modal-title').html("<%= t('devise.registrations.edit_js.edit_person') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form') %>");
 $('#myModal').modal('show');

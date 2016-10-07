@@ -1,3 +1,3 @@
-$('.modal-title').html("Add Order");
+$('.modal-title').html("<%= t('orders.new_admin_js.add_order') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form_for_admin', locals: { order: @order, event: @event, user: @user }) %>");
 $('#myModal').modal('show');

@@ -1,13 +1,16 @@
-= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f|
+= simple_form_for resource, as: resource_name, url: invitation_path(resource_name, origin: @origin), html: { method: :post} do |f|
   = devise_error_messages!
 
   - resource.class.invite_key_fields.each do |field|
     = f.input field, label: "#{field.to_s.titleize}", wrapper_html: { class: "form-group" }, input_html: { class: 'form-control input-sm' }
-  / .form-group
-  /   = label_tag :partner_email, "Partner Email"
-  /   = text_field_tag :partner_email, nil, class: "form-control input-sm"
+  .form-group
+    = f.label :referring_partner_email, t('devise.invitations.referring_partner')
+    = f.text_field :referring_partner_email, class: "form-control input-sm"
 
   .form-buttons
-    button.btn.btn-success type="submit" name="skip_invitation" value="true" Save
-    button.btn.btn-success type="submit" name="skip_invitation" value="false" Save &amp; Invite
-    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    button.btn.btn-success type="submit" name="skip_invitation" value="true"
+      = t('default.action.save')
+    button.btn.btn-success type="submit" name="skip_invitation" value="false" 
+      = t('default.action.save_invite')
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t('default.action.cancel')

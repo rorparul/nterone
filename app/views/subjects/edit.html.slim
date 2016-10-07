@@ -1,11 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -16,11 +16,13 @@
     = "#{@subject.abbreviation}"
   span.seperator
     | /
-  span.text-muted Edit
+  span.text-muted
+    = t('admins.partial_breadcrumbs.edit')
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Edit Certification
+    strong.text-muted
+      = t('subjects.edit.edit_certification')
   .panel-body
     = render partial: "form", locals: { platform: @platform, subject: @subject, categories: @categories }
 

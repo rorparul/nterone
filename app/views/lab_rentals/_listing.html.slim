@@ -1,0 +1,83 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit
+              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
+            - if current_user.admin?
+              th.fit
+                = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
+            th.fit
+              = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
+            th.fit
+              = smart_listing.sortable 'Date', :first_day
+            th.fit Time
+            th.fit
+              = smart_listing.sortable t('lab_rentals.partial_listing.location'), :location
+            th.fit
+              = smart_listing.sortable t('lab_rentals.partial_listing.instructor'), :instructor
+            th.fit
+              = t('lab_rentals.partial_listing.notes')
+            th.fit
+              = smart_listing.sortable t('24_hr'), :twenty_four_hours
+            th.fit
+              = smart_listing.sortable t('conf.'), :confirmed
+            th.fit
+              = smart_listing.sortable t('canc'), :canceled
+            th colspan="2" Actions
+        tbody
+          - smart_listing.collection.each do |rental|
+            tr
+              td = rental.lab_course.title
+              - if current_user.admin?
+                td = rental.company.try(:title)
+              - if rental.kind == 2
+                td.fit
+                  = link_to lab_rental_path(rental, show: 'students'), remote: true do
+                    div style="display: inline-block;"
+                      = rental.num_of_students
+                      span.fa.fa-eye style="margin-left: 5px;"
+              - else
+                td.fit = rental.num_of_students
+              td.fit = rental.first_day
+              td.fit
+                div = rental.start_time.strftime("%I:%M %p") if rental.start_time
+                div = rental.end_time.strftime("%I:%M %p") if rental.start_time
+              td.fit = rental.location
+              td.fit
+                div = rental.instructor
+                div = rental.instructor_email
+                div = rental.instructor_phone
+              td.fit
+                - if rental.notes.present?
+                  = link_to lab_rental_path(rental, show: 'notes'), remote: true do
+                    span.fa.fa-sticky-note
+              td.fit style="text-align: center;"
+                - if rental.twenty_four_hours
+                  i.fa.fa-check.text-success aria-hidden="true"
+              td.fit style="border-right: 1px solid lightgray; border-left: 1px solid lightgray; text-align: center;"
+                - if rental.confirmed
+                  i.fa.fa-check.text-success aria-hidden="true"
+              td.fit style="text-align: center;"
+                - if rental.canceled
+                  i.fa.fa-check.text-success aria-hidden="true"
+              td.fit
+                = link_to t('default.action.edit'), edit_lab_rental_path(rental)
+              td.fit
+                = link_to t('default.action.cancel'), lab_rental_path(rental),
+                  method: :delete,
+                  data: { confirm: t('default.prompt.confirm_delete') },
+                  class: 'text-danger'
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        tbody
+          tr
+            td.text-center
+              = t('default.placeholder.no_records')

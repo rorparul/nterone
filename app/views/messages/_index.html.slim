@@ -1,13 +1,16 @@
 .panel.panel-default
   .panel-heading
-    strong.text-muted = "#{pluralize(messages.count, 'Message')}"
+    strong.text-muted = "#{pluralize(messages.count, t('messages.partial_index.message'))}"
   .table-responsive
     table.table.table-condensed
       thead
         tr
-          th Date
-          th From
-          th Message
+          th
+            = t('messages.partial_index.date')
+          th 
+            = t('messages.partial_index.from')
+          th
+            = t('messages.partial_index.message')
       tbody
         - messages.each do |message|
           tr

@@ -1,0 +1,46 @@
+- content_for :breadcrumbs do
+  = render "admin/breadcrumbs"
+
+- if current_user.admin? == true
+  - content_for :actions do
+    li 
+      = link_to new_file_path, remote: true do
+        = "Upload Lab Reservation File"
+
+  
+.row
+  .col-xs-12
+    - if current_user.admin?
+      = render 'admin/tabs'
+    - elsif current_user.member?
+      = render 'my_account/tabs'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading.panel-heading-with-search
+        .row
+          .col-xs-6
+            strong.text-muted
+              = t('lab_rentals.index.lab_rentals')
+          .col-xs-6
+            - if current_user.admin?
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
+            - else
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
+            
+            = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
+
+              .input-group.input-group-sm.filter.input-append
+                = text_field_tag :filter, '', class: "search form-control input-sm",
+                                              placeholder: t('default.action.search'),
+                                              autocomplete: :off
+                span class="input-group-btn"
+                  button class="btn btn-default btn-sm disabled" type="submit"
+                    span.glyphicon.glyphicon-search
+
+      = smart_listing_render(:lab_rentals)
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .lab-rentals').addClass('active-category');

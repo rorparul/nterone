@@ -1,16 +1,17 @@
 .panel.panel-default.panel-red
   .panel-heading.text-center
-    strong Redeem Your Credits
+    strong = t('layouts.partial_side_column.title')
   .panel-body
     span
-      | NterOne can redeem all of your vouchers and credits for free training!
+      = t('layouts.partial_side_column.paragraph')
       .text-center
         = image_tag 'credits-cisco.png',  class: 'credits-image'
         = image_tag 'credits-vmware.png', class: 'credits-image'
     span
-      a href='mailto:sales@nterone.com'
-        | Contact
-      |  us for more details.
-  .side-column-graphics
-    = link_to main_app.nterone_gives_back_path do
-      = image_tag "nterone-gives-back.png"
+      a href="mailto:sales#{t('email')}"
+        = t('layouts.partial_side_column.contact_us_link')
+      = t('layouts.partial_side_column.contact_us_body')
+      
+.side-column-graphics
+  = link_to main_app.nterone_gives_back_path do
+    = image_tag "nterone-gives-back.png"

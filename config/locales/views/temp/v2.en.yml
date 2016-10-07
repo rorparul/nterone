@@ -1,0 +1,37 @@
+en:
+  models:
+    company:
+      singular: 'Company'
+      plural: 'Companies'
+      title: 'Title'
+      form_type: 'Lab Reservation Form-type'
+      portal: 'Lab Reservation Portal'
+    course:
+      singular: 'Course'
+      plural: 'Courses'
+      title: 'Title'
+      abbreviation: 'Abbreviation'
+      slug: 'Slug'
+    lab_student:
+      singular: 'Lab Student'
+      plural: 'Lab Students'
+    platform:
+      singular: 'Vendor'
+      plural: 'Vendors'
+  views:
+    general:
+      buttons:
+        save: 'Save'
+        cancel: 'Cancel'
+      prompts:
+        dropdown: 'Please select'
+      url: 'URL'
+    companies:
+      form:
+        inputs:
+          form_type:
+            options:
+              option_1: 'Student Details Not Required'
+              option_2: 'Student Details Required'
+    courses:
+      download_courses: 'Download Courses'

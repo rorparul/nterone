@@ -1,0 +1,79 @@
+es:
+  general:
+    contact_us_new_js:
+      contact_us: "Contáctanos"
+    about_us:
+      image: "locales/es/about-nterone.png"
+    consulting:
+      image: "locales/es/consulting.png"
+    executives:
+      image: "locales/es/executives.png"
+    featured_classes:
+      course_title: "Titulo del Curso"
+      date: "Fecha"
+      download_featured_classes: "Descarga Clases Destacadas"
+      length: "Duración"
+      format: "Formato"
+      free: "Gratis"
+      language: "Lenguaje"
+      location: "Localidad"
+      price: "Precio"
+      webex: "Webex"
+      preview: "Previo"
+    industry:
+      image: "locales/es/industry.png"
+      published: "Publicado"
+    instructors:
+      image: "locales/es/instructors.png"
+    labs:
+      image1: "locales/es/labs.png"
+    partial_contact_us_form:
+      billing: "Facturación"
+      billing_address: "NterOne Dirección de Facturación"
+      corporate_address: "NterOne Dirección Corporativa"
+      email: "Email"
+      feedback: "Retroalimentación-Como podemos mejorar su experiencia?"
+      help_desk: "Centro de Ayuda"
+      inquiry: "Consultas-Como podemos ayudarlos?"
+      name: "Nombre"
+      phone: "Número de Teléfono"
+      sales: "Ventas"
+    partial_search_form:
+      placeholder: "Buscar por Certificaciones, cursos o exámenes"
+    partners:
+      image1: "locales/es/partners.png"
+    press:
+      image: "locales/es/press.png"
+    sims:
+      homs: "Home"
+      sims: "Sims"
+      versastack: "VersaStack"
+    sitemap:
+      about_us: "Acerca de Nosotros"
+      articles: "Articulos"
+      blog: "Blog"
+      consulting: "Consultoría"
+      executive: "Bios Ejecutivos"
+      featured_classes: "Clases Destacadas"
+      forums: "Foros"
+      general: "[t]General"
+      home: "Inicio"
+      industry: "Industria"
+      instructor: "Bios Instructores"
+      labs: "Laboratorios"
+      other: "Otros"
+      partners: "Aliados"
+      press: "Prensa"
+      privacy: "Politicas de Privacidad"
+      sitemap: "Mapa del Sitio"
+      terms: "Terminos y Condiciones"
+      testimonials: "Testimonios"
+      training: "Entrenamientos"
+    welcome:
+      classes: "Clases Destacadas"
+      classes_paragraph: "Ver lista de cursos más populares por fabricante"
+      image1: "locales/es/welcome-banner-3.png"
+      labs: "Laboratorios"
+      labs_paragraph: "Acceso Global 24x7 al Laboratorio"
+      vendor: "Cursos por Fabricantes"
+      vendor_paragraph: "Buscar tu curso por tecnología, certificación"

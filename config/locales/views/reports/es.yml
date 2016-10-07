@@ -1,0 +1,43 @@
+es:
+  reports:
+    commissions:
+      create_xlsx:
+        class_name: "Nombre de la Clase"
+        commission_earned: "Comm. Amt."
+        commission_rate: "Comm. %"
+        date_of_class: "Fecha de la Clase"
+        revenue: "Ingreso"
+        student_name: "Nombre del Estudiante"
+      new_js:
+        generate_commissions_report: "Generar Reportes de Comisiones"
+      partial_form:
+        end: "Fin"
+        generate: "Generar"
+        sales_rep: "Representantes de Ventas"
+        start: "Inicio"
+    instructor_utilizations:
+      create_xlsx:
+        days_taught: "Días Enseñados"
+        instructor_name: "Nombre del Instructor"
+        revenue: "Ingresio"
+        role: "Rol"
+      new_js:
+        generate_instructor_report: "Generar Reportes de Utilización de Instructor"
+      partial_form:
+        end: "Fin"
+        generate: "Generar"
+        start: "Inicio"
+    profit_sheets:
+      create_xls:
+        class: "Clases"
+        class_date_range: "Rangos de Fechas de la Clase"
+        expenses: "Gastos"
+        profit: "Ganancia"
+        revenue: "Ingresio"
+      new_js:
+        generate_profit_report: "Generar reportes de Ganancias"
+      partial_form:
+        end: "Fin"
+        generate: "Generar"
+        sources: "Fuentes"
+        start: "Inicio"

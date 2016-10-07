@@ -1,0 +1,18 @@
+$('.modal-title').html('<%= t("lab_rentals.show_lab_students_js.lab_students") %>');
+$('.modal-body').html(
+  "<div class='row'>" +
+    "<div class='col-xs-12'>" +
+      "<table class='table'>" +
+        "<tbody>" +
+          <% @lab_students.each do |lab_student| %>
+            "<tr>" +
+              "<td style='border: none;'><%= lab_student.name %></td>" +
+              "<td style='border: none;'><%= lab_student.email %></td>" +
+            "</tr>" +
+          <% end %>
+        "</tbody>" +
+      "</table>" +
+    "</div>" +
+  "</div>"
+);
+$('#myModal').modal('show');

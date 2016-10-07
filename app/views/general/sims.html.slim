@@ -1,0 +1,22 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('general.sims.home')
+  span.seperator
+    | /
+  span.text-muted
+  = t('general.sims.sims')
+  span.seperator
+    | /
+  span.text-muted
+  = t('general.sims.versastack')
+
+ul
+  li = link_to 'Guided Lab 3: Initial Cisco Nexus 9000 Series Switch Configuration', "#{root_url}sims/versastack/1/index.html", target: "_blank"
+  li = link_to 'Guided Lab 4: Initial Cisco MDS Switch Configuration', "#{root_url}sims/versastack/2/index.html", target: "_blank"
+  li = link_to 'Guided Lab 5: Initial Configuration of the IBM Storwize V7000', "#{root_url}sims/versastack/3/index.html", target: "_blank"
+  li = link_to 'Guided Lab 6: Initial Configuration of the IBM Storwize V7000 File Modules', "#{root_url}sims/versastack/4/index.html", target: "_blank"
+  li = link_to 'Guided Lab 7: Initial Configuration of the UCS Domain', "#{root_url}sims/versastack/5/index.html", target: "_blank"
+  li = link_to 'Guided Lab 8: Configuring UCS Pools, Policies, and Service Profiles', "#{root_url}sims/versastack/6/index.html", target: "_blank"
+  li = link_to 'Guided Lab 9: Configuring Zoning', "#{root_url}sims/versastack/7/index.html", target: "_blank"
+  li = link_to 'Guided Lab 10: Configuring Storage Volumes', "#{root_url}sims/versastack/8/08 V7000 Create and Map Volumes.htm", target: "_blank"

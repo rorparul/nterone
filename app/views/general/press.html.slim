@@ -7,14 +7,15 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted About Us
+  span.text-muted
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central
-    = image_tag 'press.png', class: "header-image"
+    = image_tag t('general.press.image'), class: "header-image"
     = render partial: 'layouts/about_us_nav_bar'
     
     .row.executive-bios
@@ -26,7 +27,7 @@
                 = press_release.title
             = truncate_html(press_release.content, length: 250, omission: '...(continued)')
             small.text-muted
-              | Published 
+              = t('default.label.published')
               = press_release.created_at.strftime("%B %d, %Y")
             hr
   

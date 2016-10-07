@@ -1,0 +1,676 @@
+en:
+  website: "NterOne.com"
+  email: "@nterone.com"
+  header:
+    partner: "A Veteran-Owned Business"
+    contact_us: "Contact Us at 703.972.2288"
+    search: "Search"
+    actions: "Actions"
+  breadcrumbs:
+    home: "Home"
+    admin: "My Admin"
+    instructor: "My Classes"
+    my_sales: "My Sales"
+    lab_rentals: "Lab Reservations"
+    about_us: "About Us"
+    sitemap: "Sitemap"
+    training: "Training"
+    search: "Search"
+    new: "New"
+    edit: "Edit"
+  side_menu:
+    welcome: "Welcome"
+    login: "Login"
+    about_us: "About Us"
+    training: "Training"
+    testimonials: "Testimonials"
+    forums: "Forums"
+    consulting: "Consulting"
+    partners: "Partners"
+    labs: "Labs"
+    contact_us: "Contact Us"
+    logout: "Logout"
+  home:
+    search_form:
+      placeholder: "Search by certification, course, or exam"
+    featured_courses:
+      vendor: "Courses by Vendor"
+      vendor_paragraph: "Find your course by technology, product, or certification."
+      classes: "Featured Classes"
+      classes_paragraph: "View a list of our most popular courses broken down by vendor."
+      labs: "Labs"
+      labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
+    redeem_credits_panel:
+      title: "Redeem Your Credits"
+      paragraph: "NterOne can redeem all of your vouchers and credits for free training!"
+      contact_us_link: "Contact"
+      contact_us_body: " us for more details."
+  featured_classes:
+    column:
+      course_title: "Course Title"
+      date: "Date"
+      length: "Length"
+      format: "Format"
+      location: "Location"
+      price: "Price"
+      preview: "Preview"
+    label:
+      video_preview: "Video Datasheet"
+      pdf_preview: "PDF Datasheet"
+    xlsx: "Download Featured Classes"
+  admin:
+    filter:
+      queue: "Queue"
+      orders: "Orders"
+      classes: "Classes"
+      courses: "Courses"
+      lab_rentals: "Labs"
+      announcements: "Announcements"
+      people: "People"
+      website: "Website"
+      messages: "Messages"
+      settings: "Settings"
+    action:
+      commissions_report: "Generate Commissions Report"
+      profits_report: "Generate Profit Sheets Report"
+      utilization_report: "Generate Instructor Utilization Report"
+      form:
+        commissions_report:
+          title: "Generate Commissions Report"
+          label:
+            start: "Start"
+            end: "End"
+            sales_rep: "Sales Rep"
+        profits_report:
+          title: "Generate Profit Sheets Report"
+          label:
+            start: "Start"
+            end: "End"
+            sources: "Sources"
+        utilization_report:
+          title: "Generate Instructor Utilization Report"
+          label:
+            start: "Start"
+            end: "End"
+    admin_queue:
+      row:
+        assigned_lead: "Assigned Lead"
+        unassigned_lead: "Unassigned Lead"
+        archived_lead: "Archived Lead"
+    admin_orders:
+      row:
+        orders:
+          title: "Orders"
+      form:
+        add_order:
+          title: "Add Order"
+          label:
+            verified: "Verfied SO #"
+            invoice: "Invoice #"
+            seller: "Sales Rep"
+            buyer: "Student"
+            source: "Source"
+            source_other: "Other Source"
+            courses:
+              classes:
+                header: "Classes"
+                price: "Price"
+                add: "Add"
+                remove: "Remove"
+                add_class: "Add Class"
+                remove_class: "Remove Class"
+              video_on_demand:
+                header: "VODs"
+                price: "Price"
+                add: "Add"
+                remove: "Remove"
+                add_vod: "Add VOD"
+                remove_vod: "Remove VOD"
+            credit_card:
+              header: "Credit Card"
+              cc_num: "Number"
+              cc_exp_month: "Exp. M."
+              cc_exp_year: "Exp. Y."
+              cc_code: "Code"
+              cc_paid: "Paid"
+            learning_credits:
+              header: "Cisco Learning Credits"
+              lc_num: "Number"
+              lc_applied: "Credits Applied"
+            purchase_order:
+              header: "Purchase Order"
+              p_num: "Number"
+              p_paid: "Paid"
+            bundled:
+              header: "Bundled"
+            no_charge:
+              header: "No Charge"
+            referrer: "Referring Partner Email"
+            billing_address:
+              header: "Billing Address"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
+            shipping_address:
+              header: "Shipping Address"
+              same_as: "Same as Billing"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
+    admin_classes:
+      row:
+        classes:
+          title: "Classes"
+          filter:
+            registered: "Only registered"
+            past: "Including past"
+      form:
+        upload_classes:
+          title: "Upload Classes"
+      xlsx: "Download Student-registered Classes"
+      partial:
+        listing:
+          label:
+            id: "ID"
+    admin_lab_rentals:
+      row:
+        lab_rentals:
+          title: "Lab Reservations"
+          column:
+            course: "Course"
+            no_of_students: "Students"
+            start_date: "Start Date"
+            start_time: "Start Time"
+            instructor: "Instructor"
+            email: "Email"
+            phone: "Phone"
+            location: "Location"
+            notes: "Note"
+            canceled: "Canceled"
+            confirmed: "Confirmed"
+            company: "Partner"
+      form:
+        edit_lab_rental:
+          title: "Edit Lab Reservation"
+        add_lab_rental:
+          title: "Request Lab Reservation"
+          label:
+            course: "Course"
+            company: "Company"
+            first_day: "1st Day of Class"
+            number_of_students: "Number of Students"
+            start_time: "Start Time (EST)"
+            end_time: "End Time (EST)"
+            instructor: "Instructor Name"
+            instructor_email: "Instructor Email"
+            instructor_phone: "Instructor Phone"
+            notes: "Notes"
+            location: "Location"
+            confirmed: "Confirmed"
+    admin_courses:
+      row:
+        courses:
+          title: "Courses"
+          column:
+            course_id: "Course ID"
+            course_title: "Title"
+            course_events: "Upcoming Events"
+    admin_announcements:
+      row:
+        new_announcement:
+          title: "New Announcement"
+          button:
+            all: "All"
+            members: "Members"
+            sales_rep: "Sales Reps"
+            sales_member: "Sales Managers"
+            members_sales_reps: "Members & Sales Reps"
+        announcements:
+          title: "Announcements"
+          column:
+            announcements_content: "Content"
+            announcements_target: "Target"
+            announcements_poster: "Poster"
+            announcements_status:
+              title: "Status"
+              value:
+                active: "Active"
+                inactive: "Inactive"
+    admin_people:
+      row:
+        people:
+          title: "Users"
+          filter:
+            non_students: "Including non-students"
+          column:
+            f_name: "First Name"
+            l_name: "Last Name"
+            email: "Email"
+            roles: "Roles"
+            last_active: "Last Active"
+          action:
+            add_order: "Add Order"
+            reinvite: "Re-invite"
+            edit: "Edit"
+            delete: "Delete"
+    admin_website:
+      row:
+        static_pages:
+          title: "Static Pages"
+          column:
+            title: "Title"
+        dynamic_pages:
+          title: "Dynamic Pages"
+          column:
+            title: "Title"
+            url: "URL"
+          action:
+            edit: "Edit"
+            delete: "Delete"
+        company:
+          title: "Companies"
+          column:
+            title: "Title"
+            form_type: "Form Type"
+          action:
+            edit: "Edit"
+            delete: "Delete"
+        lab_course:
+          title: "Lab Courses"
+          column:
+            title: 'Title'
+        articles:
+          title: "Articles"
+          column:
+            title: "Title"
+            kind: "Kind"
+            published: "Published"
+        testimonials:
+          title: "Testimonials"
+          column:
+            quotation: "Quotation"
+            author: "Author"
+            company: "Company"
+            course: "Course"
+        images:
+          title: "Images"
+          column:
+            title: "Title"
+            url: "URL"
+      form:
+        add_page:
+          title: "Add Page"
+          label:
+            page_title: "Page Title"
+            page_description: "Page Description"
+            title: "Title"
+            content: "Content"
+        add_article:
+          title: "Add Article"
+          label:
+            page_title: "Page Title"
+            page_description: "Page Description"
+            type:
+              title: "Type"
+              option:
+                press_release: "Press Release"
+                blog_post: "Blog Post"
+                industry_article: "Industry Article"
+            title: "Title"
+            content: "Content"
+            published: "Published"
+        add_company:
+          title: "Add Company"
+          label:
+            company_title: "Title"
+        add_lab_course:
+          title: "Add Lab Course"
+          label:
+            lab_course_title: "Title"
+        edit_company:
+          title: "Edit Company"
+        edit_lab_course:
+          title: "Edit Lab Course"
+        add_testimonial:
+          title: "Add Testimonial"
+          label:
+            quotation: "Quotation"
+            author: "Author"
+            company: "Company"
+            course_attended: "Course Attended"
+        add_image:
+          title: "Add Image"
+          label:
+            image: "Image"
+            image_title: "Title"
+    admin_messages:
+      row:
+        messages:
+          title: "Message"
+          column:
+            date: "Date"
+            from: "From"
+            message: "Message"
+    admin_settings:
+      row:
+        contact_info:
+          title: "Contact Info"
+          form:
+            company: "Company Name"
+            f_name: "First Name"
+            l_name: "Last Name"
+            phone: "Phone"
+            billing_address:
+              header: "Billing Address"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
+            shipping_address:
+              header: "Shipping Address"
+              same_as: "Same as Billing"
+              company: "Company"
+              f_name: "First Name"
+              l_name: "Last Name"
+              street: "Street"
+              city: "City"
+              state: "State"
+              zip: "Zipcode"
+        security_info:
+          title: "Security Info"
+          form:
+            email: "Email"
+            new_password: "New Password"
+            new_password_confirm: "New Password Confirmation"
+            current_password: "Current Password"
+    admin_events:
+      form:
+        labels:
+          instructor: "Instructor"
+          input_blank: "Please select"
+  about_us:
+    categories:
+      about: "About NterOne"
+      exective: "Executive Bios"
+      instructor: "Instructor Bios"
+      press: "Press"
+      blog: "Blog"
+      industry: "Industry"
+  training:
+    platform:
+      action:
+        title: "Add Platform"
+        form:
+          add_platform:
+            title: "Add Platform"
+      form:
+        edit_platform:
+          title: "Edit Platform"
+          page_title: "Page Title"
+          page_description: "Page Description"
+          platform_title: "Title"
+          test_center_url: "URL To Find Test Center"
+          image: "Image"
+      label:
+        browse: "Browse By"
+    category:
+      action:
+        add_category: "Add Category"
+        edit_category: "Edit Category"
+        add_certification: "Add Certification"
+        edit_certification: "Edit Certification"
+        add_course: "Add Course"
+        edit_course: "Edit Course"
+        add_video_on_demand: "Add Video On Demand"
+        edit_video_on_demand: "Edit Video On Demand"
+        add_exam: "Add Exam"
+        edit_exam: "Edit Exam"
+        add_exam_course: "Add Exam Course"
+        edit_exam_course: "Edit Exam Course"
+        add_divider: "Add Divider"
+        edit_divider: "Edit Divider"
+        add_custom_item: "Add Custom Item"
+        edit_custom_item: "Edit Custom Item"
+        add_instructor: "Add Instructor"
+        edit_instructor: "Edit Instructor"
+        form:
+          add_category:
+            title: "Add Category"
+            label:
+              parent: "Parent"
+              title: "Title"
+              page_title: "Page Title"
+              heading: "Heading (H1)"
+              description: "Description"
+              position: "Position"
+          edit_category:
+            title: "Edit Category"
+          add_certification:
+            title: "Add Certification"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              catgories: "Categories"
+              title: "Title"
+              label: "Label"
+              icon: "Icon"
+              partner: "Partner Led"
+              active: "Active"
+              description: "Description"
+          edit_certification:
+            title: "Edit Certification"
+            label:
+              certifications: "Certifications"
+          add_course:
+            title: "Add Course"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              catgories: "Categories"
+              title: "Title"
+              slug: "Slug"
+              abbr: "Abbreviation"
+              pdf: "PDF"
+              icon: "Icon"
+              video_preview: "Video Preview"
+              heading: "Heading (H1)"
+              introduction: "Introduction"
+              overview: "Overview"
+              outline: "Outline"
+              attend: "Who Should Attend"
+              active: "Active"
+              partner: "Partner Led"
+          edit_course:
+            title: "Edit Courses"
+            label:
+              courses: "Courses"
+          add_video_on_demand:
+            title: "Add Video On Demand"
+            label:
+              page_title: "Page Title"
+              page_description: "Page Description"
+              categories: "Categories"
+              title: "Title"
+              abbr: "Abbreviation"
+              level:
+                title: "Level"
+                value:
+                  beginner: "Beginner"
+                  intermediate: "Intermediate"
+                  advanced: "Advanced"
+              price: "Price"
+              instructor: "Instructor"
+              icon: "Icon"
+              partner: "Partner Led"
+              active: "Active"
+              heading: "Heading (H1)"
+              introduction: "Introduction"
+              overview: "Overview"
+              outline: "Outline"
+              attend: "Who Should Attend"
+              modules:
+                header: "Modules"
+                label:
+                  position: "Position"
+                  title: "Title"
+                add: "Add module"
+                remove: "Remove module"
+              module_videos:
+                header: "Module Videos"
+                label:
+                  position: "Position"
+                  title: "Title"
+                  code: "Embed code"
+                  free: "Free?"
+                add: "Add video"
+                remove: "Remove video"
+          edit_video_on_demand:
+            title: "Edit Video On Demand"
+            label:
+              video_on_demand: "Video On Demand"
+          add_exam:
+            title: "Add Exam"
+            label:
+              title: "Title"
+          edit_exam:
+            title: "Edit Exam"
+            label:
+              exam: "Exam"
+          add_exam_course:
+            title: "Add Exam-Course"
+            label:
+              label: "Label"
+              courses: "Courses"
+              exams: "Exams"
+          edit_exam_course:
+            title: "Edit Exam-Course"
+            label:
+              exam_courses: "Exam-Courses"
+          add_divider:
+            title: "Add Divider"
+            label:
+              content: "Content"
+          edit_divider:
+            title: "Edit Divider"
+            label:
+              divider: "Divider"
+          add_custom_item:
+            title: "Add Custom Item"
+            label:
+              label: "Label"
+              content: "Content"
+          edit_custom_item:
+            title: "Edit Custom Item"
+            label:
+              custom_item: "Custom Item"
+          add_instructor:
+            title: "Add Instructor"
+            label:
+              f_name: "First Name"
+              l_name: "Last Name"
+              email: "Email"
+              phone: "Phone"
+              bio: "Biography"
+              role: "Role"
+          edit_instructor:
+            title: "Edit Instructor"
+            label:
+              instructor: "Instructor"
+      filter:
+        show_all: "Show All"
+  sitemap:
+    title: "Sitemap"
+    header:
+      general:
+        title: "General"
+        link:
+          home: "Home"
+          consulting: "Consulting"
+          partners: "Partners"
+          labs: "Labs"
+          forums: "Forums"
+      about_us:
+        title: "About Us"
+        link:
+          executive: "Executive Bios"
+          instructor: "Instructor Bios"
+          testimonials: "Testimonials"
+          privacy: "Privacy Policy"
+          terms: "Terms and Conditions"
+      articles:
+        title: "Articles"
+        link:
+          press: "Press"
+          blog: "Blog"
+          industry: "Industry"
+      other:
+        title: "Other"
+      training:
+        title: "Training"
+        link:
+          featured_classes: "Featured Classes"
+  footer:
+    privacy: "Privacy Policy"
+    terms: "Terms and Conditions"
+    sitemap: "Sitemap"
+    copyright: "Copyright"
+    copyright_company: "NterOne Corporation. All rights reserved."
+  instructor:
+    class_listing:
+      headers:
+        start_date: "Start Date"
+        start_time: "Start Time"
+        students: "Students"
+        lab_source: "Lab Source"
+        actions: "Actions"
+    classes:
+      breadcrumbs:
+        my_classes: "My Classes"
+    classes_show:
+      registrations: "Class Registrations"
+      students: "Students"
+  xlsx:
+    student_registered_classes:
+      class_date: "Class Date"
+      class_name: "Class Name"
+      num_of_registrations: "No. of Registrations"
+  generic:
+    search:
+      placeholder: "Search"
+    select:
+      placeholder: "Please select"
+    button:
+      generate: "Generate"
+      save: "Save"
+      save_partner_confirm: "Save & Confirm with Partner"
+      upload: "Upload"
+      cancel: "Cancel"
+    action:
+      add: "Add"
+      edit: "Edit"
+      delete: "Delete"
+      upload: "Upload"
+      view: "View"
+      view_details: "View Details"
+    prompt:
+      none_select: "None"
+      confirm_delete: "Are you sure?"
+    caption:
+      form_instructions: "Hold down the control button (Windows) or the command button (Mac) to select multiple options."
+    no_records: "No records found."
+  images:
+    consulting: "/assets/locales/en/consulting.png"
+    labs: "/assets/locales/en/labs.png"
+    partners: "/assets/locales/en/partners.png"
+    testimonials: "/assets/locales/en/testimonials.png"

@@ -1,0 +1,32 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+   | /
+  - if user_signed_in? && (current_user.company || current_user.admin?)
+    a href="#{lab_rentals_path}"
+      | Lab Reservations
+  - else
+    span Lab Reservations
+  span.seperator
+   | /
+  span Edit
+  
+- if user_signed_in? && (current_user.company || current_user.admin?)
+  = link_to lab_rentals_path do
+    span style='margin-bottom: 10px; display: inline-block;'
+      i.fa.fa-chevron-left style='margin-right: 5px;'
+      | Back to Lab Reservations
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted
+      = t("lab_rentals.edit.edit_lab_rental")
+  .panel-body
+    = render partial: "form", locals: { lab_rental: @lab_rental}
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

@@ -1,3 +1,4 @@
-$('.modal-title').html("Edit Order");
+$('.modal-title').html("<%= t('orders.edit_admin_js.edit_order') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form_for_admin', locals: { order: @order, event: @event, user: @user }) %>");
 $('#myModal').modal('show');
+console.log('test test test butt');

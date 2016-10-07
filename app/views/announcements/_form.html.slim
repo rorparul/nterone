@@ -6,17 +6,24 @@
       .form-buttons
         - if user_signed_in? && current_user.admin?
           button.btn.btn-success type="submit" name='announcement[audience]' value='All'
-            span All
+            span 
+              = t('announcements.partial_form.all')
           button.btn.btn-success type="submit" name='announcement[audience]' value='Members'
-            span Members
+            span
+              = t('announcements.partial_form.members')
           button.btn.btn-success type="submit" name='announcement[audience]' value='Sales'
-            span Sales Reps
+            span
+              = t('announcements.partial_form.sales_rep')
           button.btn.btn-success type="submit" name='announcement[audience]' value='Sales Managers'
-            span Sales Managers
+            span
+              = t('announcements.partial_form.sales_member')
         - if user_signed_in? && current_user.sales_manager?
           button.btn.btn-success type="submit" name='announcement[audience]' value='Members'
-            span Members
+            span
+              = t('announcements.partial_form.members')
           button.btn.btn-success type="submit" name='announcement[audience]' value='Sales'
-            span Sales Reps
+            span
+              = t('announcements.partial_form.sales_rep')
           button.btn.btn-success type="submit" name='announcement[audience]' value='Members & Sales'
-            span Members & Sales Reps
+            span
+              = t('announcements.partial_form.members_sales_reps')

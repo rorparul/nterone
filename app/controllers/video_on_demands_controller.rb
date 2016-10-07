@@ -240,14 +240,40 @@ class VideoOnDemandsController < ApplicationController
   private
 
   def video_on_demand_params
-    params.require(:video_on_demand).permit(
-      :id, :page_title, :page_description, :title, :abbreviation, :course_id,
-      :instructor_id, :level, :price, :intro, :overview, :outline, :intended_audience,
-      :partner_led, :active, :lms, :answer, :lms_exam_attempt, :lms_exam_question,
-      :platform_id, :video_id, category_ids: [], video_modules_attributes: [
-        :id, :position, :title, :_destroy, videos_attributes: [
-          :id,:position, :title, :embed_code, :free, :_destroy, lms_exams_attributes: [:id]
-    ]])
+    params.require(:video_on_demand).permit(:id,
+                                            :page_title,
+                                            :page_description,
+                                            :title,
+                                            :abbreviation,
+                                            :course_id,
+                                            :instructor_id,
+                                            :level,
+                                            :price,
+                                            :heading,
+                                            :intro,
+                                            :overview,
+                                            :outline,
+                                            :intended_audience,
+                                            :partner_led,
+                                            :active,
+                                            :lms,
+                                            :answer,
+                                            :lms_exam_attempt,
+                                            :lms_exam_question,
+                                            :platform_id,
+                                            :video_id,
+                                            category_ids: [],
+                                            video_modules_attributes: [:id,
+                                                                       :position,
+                                                                       :title,
+                                                                       :_destroy,
+                                                                       videos_attributes: [:id,
+                                                                                           :position,
+                                                                                           :title,
+                                                                                           :embed_code,
+                                                                                           :free,
+                                                                                           :_destroy,
+                                                                                           lms_exams_attributes: [:id]]])
   end
 
   def save_answer

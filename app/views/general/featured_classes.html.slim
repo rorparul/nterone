@@ -1,25 +1,25 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   span.text-muted
     | Featured Classes
-    
+
 .row
   .col-xs-12.col-central
     = image_tag "featured-classes.png", class: "course-banner"
     .panel.panel-default
-      .panel-body = @page.content.html_safe
+      .panel-body = @page.content.try(:html_safe)
     - @platforms.each do |platform|
-      - if platform.featured_upcoming_events.any?
+      - if platform.upcoming_public_featured_events.any?
         #featured-classes
           .panel.panel-default
             .panel-heading
@@ -28,18 +28,21 @@
               table.table.table-condensed
                 thead
                   tr
-                    th Course Title
-                    th Date
-                    th Length
-                    th Format
-                    th Location
-                    th Price
+                    th = t('general.featured_classes.course_title')
+                    th = t('general.featured_classes.date')
+                    th = t('general.featured_classes.length')
+                    th = t('general.featured_classes.format')
+                    th = t('general.featured_classes.language')
+                    th = t('general.featured_classes.location')
+                    th = t('general.featured_classes.price')
+                    th = t('general.featured_classes.preview')
                     - if !user_signed_in? || (user_signed_in? && current_user.member?)
                       th
                     - elsif user_signed_in? && current_user.admin?
                       th
+                      th
                 tbody
-                  - platform.featured_upcoming_events.each do |event|
+                  - platform.upcoming_public_featured_events.each do |event|
                     tr
                       td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
                       td
@@ -49,11 +52,16 @@
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
                       td.fit = event.format
-                      - if event.city.present? || event.state.present?
-                        td.fit = "#{event.city}, #{event.state}"
+                      td.fit = event.language.upcase
+                      - if event.city.present? || event.state.present? || event.street.present?
+                        td.fit.location-td
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                            = event.state
                       - else
                         - if event.format == "Live Online"
-                          td Webex
+                          td 
+                            = t('general.featured_classes.webex')
                         - else
                           td
                       - if event.price > 0.00
@@ -61,26 +69,41 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             | $
                             span itemprop="price"
-                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                              = "#{number_with_delimiter(number_with_precision(event.price, precision: 0))}"
                       - else
                         td.fit
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
-                              | Free
+                              = t('general.featured_classes.free')
+                      td.fit
+                        - if event.course.video_preview.present?
+                          div class="video-link-container" = event.course.video_preview.html_safe
+                          = link_to 'Video', '#', class: 'video-trigger'
+                        - elsif event.course.pdf.url.present?
+                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
+                            | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
                             = f.hidden_field :event_id, value: event.id
                             = link_to_cart(event)
                       - elsif user_signed_in? && current_user.admin?
-                        td.fit.text-right
-                          = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                          |  | 
-                          = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                        td.fit
+                          = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                        td.fit
+                          = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
-    
+    .row
+      .col-xs-12.text-center
+        = link_to t('general.featured_classes.download_featured_classes'), featured_classes_path(format: 'xlsx')
+
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
-    
+
 javascript:
   $('.home-tab').addClass('active');
+  $('[data-toggle="tooltip"]').tooltip()
+  $(document).on('click', '.video-trigger', function(e) {
+    e.preventDefault();
+    $(this).prev('.video-link-container').find('div').click();
+  });

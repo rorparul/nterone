@@ -1,0 +1,9 @@
+es:
+  planned_subjects:
+    index:
+      build_my_training_plan: "Construir Mi Plan de Carrera"
+      find_testing_center: "Encontrar Centro de Exámenes"
+      grand_total: "Gran Total:"
+      my_plan_history: "Mi Plan Historia"
+      remove_from_plan: "Remover de Mi Plan"
+      request_quote: "Solicitar una Cotizaciún Formal"

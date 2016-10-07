@@ -1,0 +1,39 @@
+es:
+  layouts:
+    edit_js:
+      add_discount: "Agregar Descuentos"
+    partial_form:
+      discout_percent: "Porcentaje de Descuento"
+    partial_group:
+      action: "Acciones"
+      dc: "DC"
+      discount: "Descuento"
+      email: "Correo Electronico"
+      interests: "Intereses"
+      my_plan: "Mi Plan"
+      name: "Nombre"
+      phone: "Teléfono"
+      poker_chip_number: "PCN:"
+      price: "Precio"
+      requested: "Solicitado"
+      total: "Total"
+    partial_index:
+      archived_lead: "Contactos Guardados"
+      assigned_lead: "Contacto Asignado"
+      unassigned_lead: "Contacto No Asignado"
+    show:
+      find_testing_center: "Encontrar Centro de Examenes"
+      grand_total: "Gran Total:"
+      lead_history: "Historia de la Oportunidad"
+      remove_from_plan: "Remover de mi Plan"
+    quote:
+      copy1: "Oficina Principal de la Compañia:"
+      copy2: "NterOne Corporation"
+      copy3: "Hola"
+      copy4: "A continuación la lista de sus cursos seleccionados:"
+      copy5: "Precio:"
+      copy6: "Precios Regulares:"
+      copy7: "Descuento:"
+      copy8: "Precios Descuento:"
+      copy9: "Saludos,"
+      copy10: "Equipo de Venta"

@@ -1,4 +1,6 @@
 class GeneralController < ApplicationController
+  protect_from_forgery :except => [:upload_photo]
+
   def new_search
   end
 
@@ -68,13 +70,26 @@ class GeneralController < ApplicationController
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
     @platforms = Platform.order(:title)
+
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   def contact_us_new
-    if user_signed_in?
-      @user = current_user
-    else
-      @user = User.new
+    respond_to do |format|
+      format.js do
+        if user_signed_in?
+          @user = current_user
+        else
+          @user = User.new
+        end
+      end
+
+      format.html do
+        redirect_to root_path
+      end
     end
   end
 
@@ -87,8 +102,29 @@ class GeneralController < ApplicationController
     redirect_to :back
   end
 
+  def sims
+  end
+
+  def nci
+    @page = Page.find_by(title: 'NCI')
+  end
+
+  def support
+    @page = Page.find_by(title: 'Support')
+  end
+
   def sitemap
     @page = Page.find_by(title: "Sitemap")
+  end
+
+  def editor_upload_photo
+    uploaded_photo = params[:file].tempfile
+    uploader = FroalaImageUploader.new(original_filename: params[:file].original_filename)
+    uploader.store!(uploaded_photo)
+
+    img_url_res = { link: uploader.url }
+
+    render json: img_url_res
   end
 
   private

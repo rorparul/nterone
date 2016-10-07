@@ -1,0 +1,9 @@
+en:
+  planned_subjects:
+    index:
+      build_my_training_plan: "Build My Training Plan"
+      find_testing_center: "Find Testing Center"
+      grand_total: "Grand Total:"
+      my_plan_history: "My Plan History"
+      remove_from_plan: "Remove from My Plan"
+      request_quote: "Request Formal Quote"

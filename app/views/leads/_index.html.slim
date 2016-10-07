@@ -6,19 +6,19 @@
 
 - if current_user.sales_manager? || current_user.admin?
   = render partial: 'leads/group', locals: { leads:       assigned_leads,
-                                             type:        'Assigned Lead',
+                                             type:        t('leads.partial_index.assigned_lead'),
                                              sales_force: sales_force }
   = render partial: 'leads/group', locals: { leads:       unassigned_leads,
-                                             type:        'Unassigned Lead',
+                                             type:        t('leads.partial_index.unassigned_lead'),
                                              sales_force: sales_force }
   = render partial: 'leads/group', locals: { leads:       archived_leads,
-                                             type:        'Archived Lead',
+                                             type:        t('leads.partial_index.archived_lead'),
                                              sales_force: sales_force }
 
 - if current_user.sales_rep?
   = render partial: 'leads/group', locals: { leads: assigned_leads,
-                                             type:  'Assigned Lead' }
+                                             type:  t('leads.partial_index.assigned_lead') }
   = render partial: 'leads/group', locals: { leads: unassigned_leads,
-                                             type:  'Unassigned Lead' }
+                                             type:  t('leads.partial_index.unassigned_lead') }
   = render partial: 'leads/group', locals: { leads: archived_leads,
-                                             type:  'Archived Lead' }
+                                             type:  t('leads.partial_index.assigned_lead') }

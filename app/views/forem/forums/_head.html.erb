@@ -1,7 +1,7 @@
 <%- content_for :breadcrumbs do %>
   <a href="<%= main_app.root_path %>">
     <span class="fa fa-home"></span>
-    Home
+    <%= t('breadcrumbs.home') %>
   </a>
   <span class="seperator">/</span>
   <%= link_to t('forem.forum.forums'), forem.root_path %>

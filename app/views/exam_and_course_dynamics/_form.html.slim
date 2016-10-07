@@ -10,21 +10,25 @@
             li = msg
             
     .form-group
-      = f.label :label
+      = f.label :label, t('exam_and_course_dynamics.partial_form.label')
       = f.text_field :label, class: 'form-control input-sm'
       
     .form-group
-      = f.label :course_ids, 'Courses'
+      = f.label :course_ids, t('exam_and_course_dynamics.partial_form.courses')
       = f.select :course_ids, platform.courses.order(:title).collect { |course| [course.title, course.id] }, {}, html_options = { class: 'form-control input-sm', multiple: 'true' }
-      p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
+      p.form-instructions
+        = t('exam_and_course_dynamics.partial_form.form_instructions')
     
     .form-group
-      = f.label :exam_ids, 'Exams'
+      = f.label :exam_ids, t('exam_and_course_dynamics.partial_form.exams')
       = f.select :exam_ids, platform.exams.order(:title).collect { |exam| [exam.title, exam.id] }, {}, html_options = { class: 'form-control input-sm', multiple: 'true' }
-      p.form-instructions Hold down the control button (Windows) or the command button (Mac) to select multiple options.
+      p.form-instructions
+        = t('exam_and_course_dynamics.partial_form.form_instructions')
       
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
       - if exam_and_course_dynamic.id
-        = link_to 'Delete', platform_exam_and_course_dynamic_path(platform, exam_and_course_dynamic), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_exam_and_course_dynamic_path(platform, exam_and_course_dynamic), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

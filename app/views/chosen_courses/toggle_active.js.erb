@@ -10,4 +10,4 @@
   );
 <% end %>
 
-$('#grand-total').html("<span>Estimated Total for Planned Classes: <%= @grand_total %></span>");
+$('#grand-total').html("<span><%= t('chosen_courses.toggle_active.estimated_total') %>: <%= @grand_total %></span>");

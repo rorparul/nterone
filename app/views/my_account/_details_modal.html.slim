@@ -1,0 +1,10 @@
+.modal.fade id="details" tabindex="-1" role="dialog" aria-labelledby="details"
+  .modal-dialog role="document"
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted.modal-title
+          = t('my_account.partial_details.details')
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true" &times;
+      .modal-body.panel-body
+        p = event.note

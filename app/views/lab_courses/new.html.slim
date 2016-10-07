@@ -1,0 +1,24 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+  = t('admins.partial_breadcrumbs.admin')
+
+.row
+  .col-xs-12
+    = render 'admin/tabs'
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted
+      = t('lab_courses.new.add_lab_course')
+  .panel-body
+    = render partial: "form", locals: { lab_course: @lab_course }
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

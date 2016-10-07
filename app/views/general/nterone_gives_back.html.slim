@@ -7,15 +7,16 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted NterOne Gives Back
+  span.text-muted
+  = t('admins.partial_breadcrumbs.nterone_gives_back')
     
 .row
   .col-xs-12.col-central
     = image_tag 'nterone-gives-back-banner.png', class: "header-image"
-    = @page.content.html_safe
+    = @page.content.try(:html_safe)
     
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

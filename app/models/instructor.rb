@@ -1,4 +1,22 @@
+# == Schema Information
+#
+# Table name: instructors
+#
+#  id          :integer          not null, primary key
+#  first_name  :string
+#  last_name   :string
+#  biography   :string
+#  email       :string
+#  phone       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  platform_id :integer
+#  status      :integer          default(0)
+#
+
 class Instructor < ActiveRecord::Base
+  enum status: { employee: 0, contractor: 1 }
+
   belongs_to :platform
   has_many   :events
   has_many   :video_on_demands
@@ -8,5 +26,9 @@ class Instructor < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def events_in_range(start_date, end_date)
+    self.events.where(start_date: start_date..end_date)
   end
 end

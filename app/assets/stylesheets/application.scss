@@ -4,10 +4,13 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-@import "bootstrap-wysihtml5/bootstrap3-wysihtml5";
-@import "font-awesome";
+@import 'font-awesome';
 @import 'parsley';
 @import 'devise';
 @import 'forem/base';
 @import 'general';
 @import 'general-v2';
+@import 'froala_editor.min';
+@import 'froala_style.min';
+@import 'plugins/image_manager.min';
+@import 'plugins/image.min';

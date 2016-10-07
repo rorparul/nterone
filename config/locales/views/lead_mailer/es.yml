@@ -1,0 +1,8 @@
+es:
+  lead_mailer:
+    new_lead:
+      email: "Correo Electronico"
+      estimated_total: "Total Estimado"
+      go_to_queue: "Ir a la Cola"
+      phone: "Teléfono"
+      name: "Nombre"

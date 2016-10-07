@@ -1,19 +1,20 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{admin_website_path}"
-    | My Admin
-
+    = t('admins.partial_breadcrumbs.admin')
+    
 .row
   .col-xs-12
     = render 'admin/tabs'
 
 .panel.panel-default
   .panel-heading
-    strong.text-muted Add Page
+    strong.text-muted
+      = t('pages.new.add_page')
   .panel-body
     = render partial: "form", locals: { page: @page }
 

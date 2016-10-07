@@ -1,0 +1,39 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t 'breadcrumbs.home'
+  span.seperator
+    | /
+  span.text-muted= t('instructor.classes.breadcrumbs.my_classes')
+
+.row
+  .col-xs-12
+    .admin.categories.hidden-xs.role-tabs
+      .row.text-center
+        .col-sm-12
+          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
+            = t 'admin.filter.classes'
+          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+            = t 'admin.filter.settings'
+    .categories-mobile.visible-xs.role-tabs
+      .row.text-center
+        .col-sm-12
+          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
+            = t 'admin.filter.classes'
+          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+            = t 'admin.filter.settings'
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading.panel-heading-with-search
+        .row
+          .col-xs-6
+            strong.text-muted
+              = t 'admin.admin_classes.row.classes.title'
+
+      = smart_listing_render(:events)
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.categories .classes').addClass('active-category');

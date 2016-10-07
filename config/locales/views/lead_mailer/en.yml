@@ -1,0 +1,8 @@
+en:
+  lead_mailer:
+    new_lead:
+      email: "Email"
+      estimated_total: "Estimated Total"
+      go_to_queue: "Go to My Queue"
+      phone: "Phone"
+      name: "Name"

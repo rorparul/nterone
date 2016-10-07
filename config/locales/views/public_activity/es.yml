@@ -1,0 +1,6 @@
+es:
+  public_activity:
+    lead:
+      partial_default:
+        ago: "Hace"
+        updated: "Actualizado"

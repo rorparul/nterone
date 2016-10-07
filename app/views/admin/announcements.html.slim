@@ -9,7 +9,8 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted New Announcement
+        strong.text-muted
+          = t('admin.admin_announcements.row.new_announcement.title')
       = render partial: 'announcements/form'
     
 = render partial: 'announcements/index', locals: { announcements: @announcements }

@@ -25,6 +25,8 @@ $(function() {
   });
 
   $(document).on('scroll', function() {
+    if (!$('.content').offset()) return
+
 		var windowScroll = $(window).scrollTop();
 		var offerOffSet = $('.content').offset().top;
 		var difference = windowScroll - offerOffSet;
@@ -35,19 +37,9 @@ $(function() {
 		}
 	});
 
-  $('.wysihtml5').wysihtml5({
-    toolbar: {
-      'font-styles': true,
-      'color': false,
-      'emphasis': {
-        'small': true
-      },
-      'blockquote': false,
-      'lists': true,
-      'html': true,
-      'link': true,
-      'image': false,
-      'smallmodals': true
-    }
+  $('.froala').froalaEditor({
+    height: 240,
+    imageUploadURL: '/public/uploads/editor',
+    imageUploadMethod: 'POST'
   });
 });

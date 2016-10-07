@@ -10,11 +10,6 @@ NterOne::Application.routes.draw do
     get '/logout' => 'devise/sessions#destroy'
   end
 
-
-
-
-  # ActiveAdmin.routes(self)
-
   mount Forem::Engine, :at => '/forums'
 
   resources :users  do
@@ -74,7 +69,21 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :lab_rentals, path: 'lab-reservations'
+  get 'new_file' => 'lab_rentals#new_file'
+  post 'upload_path' => 'lab_rentals#upload'
+
+  resources :companies
+  resources :lab_courses
+
   resources :platforms, path: 'training' do
+    collection do
+      get  'new-vendor-import' => 'platforms#new_import'
+      post 'vendor-import'     => 'platforms#import'
+    end
+
+    get 'vendor-export' => 'platforms#export'
+
     resources :categories, except: [:edit] do
       collection do
         get  'select'
@@ -119,6 +128,9 @@ NterOne::Application.routes.draw do
         get  'courses/:id/download'      => 'courses#download',      as: :course_download
         get  'courses/:id/video_preview' => 'courses#video_preview', as: :course_video_preview
       end
+
+      get 'clone_form', on: :member
+      post 'clone', on: :member
 
       resources :events do
         collection do
@@ -180,6 +192,12 @@ NterOne::Application.routes.draw do
     resources :assign_manager, only: [:index, :create]
   end
 
+  namespace :reports do
+    resources :commissions, only: [:new, :create]
+    resources :profit_sheets, only: [:new, :create]
+    resources :instructor_utilizations, only: [:new, :create]
+  end
+
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders
@@ -187,6 +205,7 @@ NterOne::Application.routes.draw do
     get 'admin/classes',                             as: :admin_classes
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
     get 'admin/courses',                             as: :admin_courses
+    get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
     get 'admin/people',                              as: :admin_people
     get 'admin/website',                             as: :admin_website
@@ -194,25 +213,20 @@ NterOne::Application.routes.draw do
     get 'admin/settings',                            as: :admin_settings
   end
 
-  # controller :my_sales do
-  #   get 'my-sales/queue',                                  as: :my_sales_queue
-  #   get 'my-sales/classes',                                as: :my_sales_classes
-  #   get 'my-sales/classes/:id' => 'my_sales#classes_show', as: :my_sales_classes_show
-  #   get 'my-sales/announcements',                          as: :my_sales_announcements
-  #   get 'my-sales/messages',                               as: :my_sales_messages
-  #   get 'my-sales/settings',                               as: :my_sales_settings
-  # end
-
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
     get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get 'instructor/classes'     => 'instructors#classes',      as: :instructor_classes
+  get 'instructor/classes/:id' => 'instructors#classes_show', as: :instructor_classes_show
+
   get  'feed'                                        => 'events#feed'
   get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
+  get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
   get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
   get  'about-us/general'                            => 'general#about_us',               as: :about_us
   get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
@@ -228,7 +242,7 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new'
+  get  'contact_us'                                  => 'general#contact_us_new',         as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
@@ -239,6 +253,22 @@ NterOne::Application.routes.draw do
   post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
+  get  '/courses/export'                             => 'courses#export',                 as: :courses_export
+  get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
+  put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
+  get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
+  get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
+  get 'sims/versastack'                              => 'general#sims',                   as: :sims
+  get '/nci'                                         => 'general#nci',                    as: :nci
+  get '/support'                                     => 'general#support',                as: :support
+
+  namespace :api do
+    get '/users/:id' => 'users#show', as: :user
+  end
+
+  # Redirects:
+  get '/training/cisco'  => redirect('/training')
+  get '/training/vmware' => redirect('/training')
 
   # Redirects from old site:
   get '/courses/:id',                          to: redirect('/training')
@@ -257,4 +287,6 @@ NterOne::Application.routes.draw do
   get "/register/"                             => redirect("/users/sign_in")
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
+
+  post "public/uploads/editor"                 => 'general#editor_upload_photo'
 end

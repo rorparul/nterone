@@ -1,4 +1,6 @@
-# Preview all emails at http://localhost:3000/rails/mailers/quote_mailer
 class QuoteMailerPreview < ActionMailer::Preview
-
+  def pdf_attachment
+    lead = Lead.first
+    QuoteMailer.pdf_attachment(lead)
+  end
 end

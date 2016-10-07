@@ -1,25 +1,39 @@
 - case type
 - when 'Event'
   .nested-fields
-    .form-group
-      = f.hidden_field :id
-      = f.hidden_field :orderable_type, value: 'Event'
-      = f.label :orderable_id, 'Classes'
-      br
-      = f.select :orderable_id,
-                 Event.all.collect { |event| [event.course.full_title, event.id] },
-                 { prompt: true },
-                 { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove Class', f
+    .row
+      .col-xs-12.col-sm-9
+        .form-group
+          = f.hidden_field :id
+          = f.hidden_field :orderable_type, value: 'Event'
+          = f.label :orderable_id, t('orders.partial_order_item_fields.classes')
+          br
+          = f.select :orderable_id,
+                     Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)}", event.id] },
+                     { prompt: t('default.placeholder.select') },
+                     { class: "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :price, t('orders.partial_order_item_fields.price')
+          = f.text_field :price, class: 'form-control input-sm order-item-price'
+    - if order.new_record?
+      = link_to_remove_association t('orders.partial_order_item_fields.remove'), f
 - when 'VideoOnDemand'
   .nested-fields
-    .form-group
-      = f.hidden_field :id
-      = f.hidden_field :orderable_type, value: 'VideoOnDemand'
-      = f.label :orderable_id, 'VODs'
-      br
-      = f.select :orderable_id,
-                 VideoOnDemand.all.collect { |vod| [vod.full_title, vod.id] },
-                 { prompt: true },
-                 { class: "form-control sub-select input-sm" }
-    = link_to_remove_association 'Remove VOD', f
+    .row
+      .col-xs-12.col-sm-9
+        .form-group
+          = f.hidden_field :id
+          = f.hidden_field :orderable_type, value: 'VideoOnDemand'
+          = f.label :orderable_id, t('orders.partial_order_item_fields.video_on_demand')
+          br
+          = f.select :orderable_id,
+                     VideoOnDemand.all.collect { |vod| ["#{vod.full_title} - #{dollar_value(vod.price)}", vod.id] },
+                     { prompt: t('default.placeholder.select') },
+                     { class: "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :price, t('orders.partial_order_item_fields.price')
+          = f.text_field :price, class: 'form-control input-sm order-item-price'
+    - if order.new_record?
+      = link_to_remove_association t('orders.partial_order_item_fields.remove'), f

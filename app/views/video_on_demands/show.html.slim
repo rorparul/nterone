@@ -6,11 +6,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t('admins.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -27,32 +27,8 @@
           = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
           .panel.panel-default
             .panel-body
+              h1 style="margin: 0 0 10px 0; font-size: 28px;" = @video_on_demand.heading
               = @video_on_demand.intro.html_safe if @video_on_demand.intro
-          #accordion.panel-group role="tablist" aria-multiselectable="true"
-            .panel.panel-default
-              .panel-heading role="tab" id="headingOne"
-                h4
-                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Prequisites &amp; Course Objectives
-              #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
-                .panel-body
-                  = @video_on_demand.overview.html_safe if @video_on_demand.overview
-            .panel.panel-default
-              .panel-heading role="tab" id="headingTwo"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                    | Course Outline
-              #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
-                .panel-body
-                  = @video_on_demand.outline.html_safe if @video_on_demand.outline
-            .panel.panel-default
-              .panel-heading role="tab" id="headingThree"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                    | Who Should Attend
-              #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
-                .panel-body
-                  = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -70,8 +46,10 @@
                           table.table.table-compact
                             thead
                               tr
-                                th Video
-                                th.fit Viewed
+                                th 
+                                  = t('video_on_demands.show.video')
+                                th.fit
+                                  = t('video_on_demands.show.viewed')
                             tbody
                               - video_module.videos.order(:position).each do |video|
                                 tr.video
@@ -80,7 +58,7 @@
                                       a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
                                         = video.title
                                       span
-                                        |  (Free Sample)
+                                        = t('video_on_demands.show.free_sample')
                                   - elsif user_signed_in? && video.permit_user?(current_user)
                                     td
                                       a href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
@@ -96,9 +74,12 @@
                   table.table.table-compact
                     thead
                       tr
-                        th Instructor
-                        th Level
-                        th Price
+                        th 
+                          = t('video_on_demands.show.instructor')
+                        th 
+                          = t('video_on_demands.show.level')
+                        th 
+                          = t('video_on_demands.show.price')
                         - if !user_signed_in? || (user_signed_in? && current_user.member?)
                           th
                     tbody
@@ -114,6 +95,31 @@
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
                               = link_to_cart(@video_on_demand)
+          #accordion.panel-group role="tablist" aria-multiselectable="true"
+            .panel.panel-default
+              .panel-heading role="tab" id="headingOne"
+                strong
+                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                    = t('video_on_demands.show.prerequisites_course_objectives')
+              #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
+                .panel-body
+                  = @video_on_demand.overview.html_safe if @video_on_demand.overview
+            .panel.panel-default
+              .panel-heading role="tab" id="headingTwo"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                    = t('video_on_demands.show.course_outline')
+              #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
+                .panel-body
+                  = @video_on_demand.outline.html_safe if @video_on_demand.outline
+            .panel.panel-default
+              .panel-heading role="tab" id="headingThree"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
+                    = t('video_on_demands.show.who_should_attend')
+              #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
+                .panel-body
+                  = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
           .row
             .col-xs-12
               #degrees
@@ -123,17 +129,19 @@
     .panel.panel-default
       .panel-body
         h5
-          strong Questions?
-        p The NterOne team will be happy to answer your questions.
+          strong
+            = t('video_on_demands.show.questions')
+        p = t('video_on_demands.show.nterone_message')
         p
-          | Email:
-          a href="mailto:sales@nterone.com" sales@nterone.com
-        p Phone: 703.972.2288
+          = "#{t('default.label.email') + ": "}"
+          a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
+        p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
     = render partial: 'layouts/side_column'
 
 .row
   .col-xs-12
-    button#back Back
+    button#back 
+      = t('default.action.back')
 
 javascript:
   $('.training-tab').addClass('active');

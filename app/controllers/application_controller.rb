@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   include CurrentCart
 
+  before_action :prepare_exception_notifier
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
   before_action :record_user_activity
   before_action :set_cart
   before_action :get_alert_counts
@@ -39,7 +41,71 @@ class ApplicationController < ActionController::Base
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def authenticate_admin!
+    if current_user.blank? || !current_user.admin?
+      redirect_to root_path, alert: 'you are not authorized'
+    end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |user|
+      user.permit(:first_name,
+                  :last_name,
+                  :email,
+                  :password,
+                  :password_confirmation,
+                  interest_attributes: [:id,
+                                        :data_center,
+                                        :collaboration,
+                                        :network,
+                                        :security,
+                                        :associate_level_certification,
+                                        :professional_level_certification,
+                                        :expert_level_certification,
+                                        :other])
+    end
+
+    devise_parameter_sanitizer.for(:account_update) do |user|
+      user.permit(:email,
+                  :current_password,
+                  :password,
+                  :password_confirmation)
+    end
+  end
+
+  def parse_date_select(params, name)
+    parts = (1..6).map do |e|
+      params["#{name}(#{e}i)"].to_i
+    end
+
+    # remove trailing zeros
+    parts = parts.slice(0, parts.rindex{|e| e != 0}.to_i + 1)
+    return nil if parts[0] == 0  # empty date fields set
+
+    Date.new(*parts)
+  end
+
   private
+
+  def prepare_exception_notifier
+    request.env["exception_notifier.exception_data"] = {
+      host:         request.host,
+      current_user: current_user.inspect
+    }
+  end
+
+  def set_locale
+    case request.host
+    when "www.nterone.la"
+      I18n.locale = :es
+    when "www.nterone.com"
+      I18n.locale = :en
+    else
+      I18n.locale = :en
+    end
+  end
 
   def store_location
     session[:previous_url] = request.fullpath unless skip_path_store?
@@ -64,23 +130,6 @@ class ApplicationController < ActionController::Base
 
   def record_user_activity
     current_user.touch(:last_active_at) if user_signed_in?
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |user|
-      user.permit(:first_name,
-                  :last_name,
-                  :email,
-                  :password,
-                  :password_confirmation)
-    end
-
-    devise_parameter_sanitizer.for(:account_update) do |user|
-      user.permit(:email,
-                  :current_password,
-                  :password,
-                  :password_confirmation)
-    end
   end
 
   def user_not_authorized

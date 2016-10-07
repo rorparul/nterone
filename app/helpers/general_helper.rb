@@ -16,7 +16,7 @@ module GeneralHelper
       end
     end
 
-    "<span class='text'>Welcome #{personal_greeting}<span/>".html_safe
+    "<span class='text'>".html_safe + t("side_menu.welcome").html_safe + " #{personal_greeting}<span/>".html_safe
   end
 
   def planned_course(user, course)
@@ -32,7 +32,7 @@ module GeneralHelper
   end
 
   def formatted_price_or_range_of_upcoming_events_for(course)
-    events = course.upcoming_events.order(:price)
+    events = course.upcoming_public_events.order(:price)
 
     if events.any?
       if events.first.price == events.last.price
@@ -94,5 +94,20 @@ module GeneralHelper
     seconds = seconds_diff
 
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
+  end
+
+  def events_revenue_total(events)
+    events.inject(0) {|sum, event| sum + event.revenue}
+  end
+
+  def contact_info(user)
+    phone = user.contact_number || ''
+    email = user.email || ''
+
+    [phone, email].join(' ')
+  end
+
+  def dollar_value(price)
+    "$#{price}"
   end
 end

@@ -8,11 +8,16 @@
           table.table.table-condensed
             thead
               tr
-                th title="First Name" First Name
-                th title="Last Name" Last Name
-                th title="Email" Email
-                th title="Purchases" Purchases
-                th title="Last Active" Last Active
+                th title="#{t('default.label.first_name')}"
+                  = t('default.label.first_name')
+                th title="#{t('default.label.last_name')}"
+                  = t('default.label.last_name')
+                th title="#{t('default.label.email')}"
+                  = t('default.label.email')
+                th title="#{t('users.partial_index.purchases')}"
+                  = t('users.partial_index.purchases')
+                th title="#{t('users.partial_index.last_active')}"
+                  = t('users.partial_index.last_active')
                 th
             tbody#users
               = render partial: 'users/users', locals: { users: users }

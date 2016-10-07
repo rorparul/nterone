@@ -6,14 +6,24 @@
       table.table.table-condensed
         thead
           tr
-            th title="Requested" Requested
-            th title="Name" Name
-            th title="Email" Email
-            th title="Phone" Phone
-            th title="Price" Price
-            th title="Discount" DC
-            th title="Total" Total
-            th title="Actions" colspan="2" Actions
+            th title="#{t('leads.partial_group.requested')}"
+              = t('partial.leads.group.requested')
+            th title="#{t('leads.partial_group.name')}"
+              = t('partial.leads.group.name')
+            th title="#{t('leads.partial_group.email')}"
+              = t('leads.partial_group.email')
+            th title="#{t('leads.partial_group.interests')}"
+              = t('partial.leads.group.interests')
+            th title="#{t('leads.partial_group.phone')}"
+              = t('leads.partial_group.phone')
+            th title="#{t('leads.partial_group.price')}"
+              = t('leads.partial_group.price')
+            th title="#{t('leads.partial_group.discount')}"
+              = t('leads.partial_group.dc')
+            th title="#{t('leads.partial_group.total')}"
+              = t('leads.partial_group.total')
+            th title="#{t('leads.partial_group.actions')}" colspan="2"
+              = t('leads.partial_group.actions')
         tbody
           - leads.each do |lead|
             - if lead.buyer
@@ -21,6 +31,18 @@
                 td.fit = "#{time_ago_in_words(lead.created_at)} ago"
                 td.fit = lead.buyer.full_name.present? ? lead.buyer.full_name : "N/A"
                 td.fit = lead.buyer.email
+                td.fit
+                  - if lead.buyer.settings.poker_chip_number
+                    = t('leads.partial_group.poker_chip_number')
+                    = lead.buyer.settings.poker_chip_number
+                    br
+                  - if lead.buyer.interest
+                    - lead.buyer.interest.attributes.each do |key, value|
+                      - if value == true
+                        span = key.to_s.titleize
+                        br
+                    - if lead.buyer.interest.other
+                      span = lead.buyer.interest.other
                 td.fit = lead.buyer.contact_number ? lead.buyer.contact_number : "N/A"
                 td.fit = "#{number_with_delimiter(number_with_precision(lead.regular_price, precision: 2))}"
                 td.fit = "#{lead.discount}%"
@@ -30,13 +52,13 @@
                     = form_for lead, html: { class: 'lead-form', url: lead_path(lead), method: :patch } do |f|
                       = f.select :seller_id, sales_force.collect { |sales| [sales.user.full_name ? sales.user.full_name : sales.user.email, sales.user.id] }.unshift(["Unassigned", 0]), {}, class: "form-control seller_selector"
                 td.fit.actions-column
-                  = link_to 'Member Plan', lead_path(lead.buyer)
+                  = link_to t('leads.partial_group.my_plan'), lead_path(lead.buyer)
                   = " | "
-                  = link_to 'Discount', edit_lead_path(lead.id), remote: true
+                  = link_to t('leads.partial_group.discount'), edit_lead_path(lead.id), remote: true
                   = " | "
-                  = link_to 'Download', download_quote_leads_path(lead)
+                  = link_to t('default.action.download'), download_quote_leads_path(lead)
                   = " | "
-                  = link_to 'Email', email_quote_leads_path(lead)
+                  = link_to t('default.label.email'), email_quote_leads_path(lead)
                   = " | "
                   - if current_user.sales?
                     - if type == "Assigned Lead"

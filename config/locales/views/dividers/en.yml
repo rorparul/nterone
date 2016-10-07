@@ -1,0 +1,8 @@
+en:
+  dividers:
+    new:
+      add_divider: "Add Divider"
+    partial_select:
+      divider: "Divider"
+    select_js:
+      edit_divider: "Edit Divider"

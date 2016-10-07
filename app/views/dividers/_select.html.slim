@@ -1,10 +1,10 @@
 = form_for :divider, url: select_to_edit_platform_dividers_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, "Divider"
+    = f.label :id, t('dividers.partial_select.divider')
     br
     = f.select :id,
-               dividers.order('lower(content)').collect {|divider| [divider.content, divider.id] }.unshift(["None", "none"]),
-               options = { selected: "None" },
+               dividers.order('lower(content)').collect {|divider| [divider.content, divider.id] }.unshift([t('default.prompt.none_select'), "none"]),
+               options = { selected: t('default.prompt.none_select') },
                html_options = { class: "form-control sub-select input-sm" }
 
 javascript:

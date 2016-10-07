@@ -1,0 +1,108 @@
+es:
+  devise:
+    confirmations:
+      new:
+        resend: "Vuelva a enviar instrucciones de confirmación "
+    invitations:
+      new_js:
+        add_student: "Agregar Estudiante"
+      partial_form:
+        referring_partner: "Correo Electrónico del Aliado Referente"
+    mailer:
+      confirmation_instructions:
+        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva "
+        copy2: "www.nterone.la"
+        copy3: " cuenta, usted puede comprar productos y servicios, ver los próximos eventos y pasados eventos, revisar el histórico de compras, y participar en nuestros forums."
+        copy4: "Agradecemos su tiempo, esperemos brindarles soluciones de entrenamiento de alto impacto. Por favor contáctenos"
+        copy5: " Si tiene alguna dificultad para el inicio de sesión, o contacto"
+        copy6: " Si usted desea contactar a algún miembro de nuestro equipo de ventas. Servicio al cliente es nuestra prioridad, por favor indíquenos experiencia mas agradable."
+        greeting: "Hola "
+        salutation: "Sinceramente,"
+        sender: "Fundadores de NterOne"
+      invitation_instructions:
+        accept: "Acepta tu invitación"
+        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva "
+        copy2: "www.nterone.la"
+        copy3: " cuenta, usted puede comprar productos y servicios, ver los próximos eventos y pasados eventos, revisar el histórico de compras, y participar en nuestros forums."
+        copy4: "Agradecemos su tiempo, esperemos brindarles soluciones de entrenamiento de alto impacto. Por favor contáctenos "
+        copy5: " Si tiene alguun dificultad para el inicio de sesión, o contacto "
+        copy6: " Si usted desea contactar a algún miembro de nuestra prioridad, por favor indíquenos si existe algo que podamos hacer para hacer su experiencia mas agradable."
+        hello: "Hola %{first_name},"
+        ignore: "Si no desea aceptar la invitación por favor ignore este correo.<br/>Su cuenta no será creada hasta que accede al enlace anterior y cree su clave."
+        salutations: "Saludos,"
+        sender: "NterOne.la"
+        someone_invited_you: "Esto es un correo automatico iniciado por nuestro equipo de operaciones y ventas que permitira la creación de una cuenta en %{url}. Por favor continua en el enlace siguiente para completar el proceso de registro."
+      reset_password_instructions:
+        copy1: "Por favor continua en el enlace siguiente para reestablecar tu"
+        copy2: " nterone.la "
+        copy3: "clave, si tienes algún inconveniente por favor contactanos "
+        greeting: "Hola"
+        salutations: "Saludos,"
+        subject: "NterOne.la Reinicio de Clave"
+      unlock_instructions:
+        copy1: "Su cuenta ha sido bloqueada por exceeder el número de intentos fallidos."
+        copy2: " Presione el enlace siguiente para desbloquear su cuenta:"
+        copy3: "Desbloquear mi cuenta"
+        greeting: "Hola"
+      welcome:
+        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva "
+        copy2: "www.NterOne.la"
+        copy3: " cuenta, usted puede comprar productos y servicios, ver los próximos eventos y pasados eventos"
+        copy4: " revisar el histórico de compras, y participar en nuestros forums."
+        copy5: "Agradecemos su tiempo, esperemos brindarles soluciones de entrenamiento de alto impacto."
+        copy6: " Por favor contactanos "
+        copy7: " Si tiene alguna dificultad para el inicio de sesión, o contacto "
+        copy8: " Si usted desea contactar a algún miembro de nuestro equipo de ventas "
+        copy9: "Servicio al cliente es nuestra prioridad,"
+        copy10: " por favor indíquenos si existe algo que podamos hacer para hacer su experiencia mas agradable."
+        greeting: "Hola "
+        salutation: "Saludos,"
+        sender: "Fundadores de NterOne"
+    passwords:
+      new:
+        instructions: "Las claves requieren un mínimo de 6 caracteres, deben incluir al menos uno de cada uno: mayuscula, minuscula, número."
+    registrations:
+      edit_js:
+        edit_person: "Editar Personas"
+      new:
+        associate_level: "Certificación Nivel Asociado"
+        collaboration: "Colaboración"
+        copy1: "Las claves requieren un mínimo de 6 caracteres, deben incluir al menos uno de cada uno: mayuscula, minuscula, número."
+        copy2: "Interesados en(Por favor seleccione todas las que aplican):"
+        data_center: "Centro de Datos"
+        expert_level: "Certificación Nivel Experto"
+        instructions: "Las claves requieren un mínimo de 6 caracteres, deben incluir al menos uno de cada uno: mayuscula, minuscula, número."
+        network: "Redes"
+        other: "Otros:"
+        poker_chip_number: "Número de Ficha de Poker"
+        professional_level: "Certificación Nivel Profesional"
+        security: "Seguridad"
+      new_js:
+        add_person: "Agregar Persona"
+      partial_form:
+        billing_address: "Dirección de Facturación"
+        city: "Ciudad"
+        company_name: "Nombre de la Compañia"
+        contact_info: "Información Contacto"
+        first_name: "Primer Nombre"
+        last_name: "Apellido"
+        phone: "Telefono"
+        same_as: "Misma de facturación"
+        security_info: "Información de Seguridad"
+        shipping_address: "Dirección de Envío"
+        state: "Estado"
+        street: "Calle"
+        zip: "Codigo Postal"
+    sessions:
+      new:
+        forgot_password: "Olvido su Clave"
+        keep_logged_in: "Mantener Sesión Iniciada"
+    shared:
+      partial_links:
+        confirmation_instructions: "No recibió las instrucciones de confirmación?"
+        forgot_password: "Olvido su Clave?"
+        omniauth: "Inicie Sesión con"
+        unlock_instructions: "No recibió instrucciones de desbloqueo"
+    unlocks:
+      new:
+        resend: "Vuelva a enviar instrucciones de desbloqueo"

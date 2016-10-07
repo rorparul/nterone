@@ -7,17 +7,22 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted Training
+  span.text-muted
+    = t('admins.partial_breadcrumbs.training')
 
 - content_for :actions do
   - if current_user && current_user.admin?
     li
       = link_to new_platform_path, remote: true do
         i.fa.fa-plus
-        | Add Platform
+        = t('platforms.index.add_platform')
+    li
+      = link_to new_vendor_import_platforms_path, remote: true do
+        i.fa.fa-upload
+        = t('platforms.index.import_platform')
 
 .row
   - if @platforms

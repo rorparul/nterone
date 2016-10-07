@@ -1,18 +1,20 @@
 .row.top
   .hidden-xs
     = link_to root_path, class: 'logo-with-tagline-large' do
-      = image_tag 'logo-with-tagline.png'
+      = image_tag t('layouts.partial_header.image1')
+    = link_to root_path, class: 'partner cisco' do
+      = image_tag 'cisco-business-partner.png'
     = link_to root_path, class: 'partner cisco' do
       = image_tag 'cisco-partner.jpg'
     = link_to root_path, class: 'partner vmware' do
-      = image_tag 'vmware-partner.png'
+      = image_tag 'vmware-partner-new.png'
     = link_to root_path, class: 'partner gsa' do
       = image_tag 'gsa-partner.jpg'
     .partner.veteran
-      p A Veteran-Owned Business
-      p Contact Us at 703.972.2288
+      p = t('layouts.partial_header.partner')
+      p = t('layouts.partial_header.contact_us')
   .visible-xs
     = link_to root_path, class: 'logo-with-tagline-small' do
-      = image_tag 'logo-with-tagline.png'
+      = image_tag t('layouts.partial_header.image1')
   a.iTop title=''
   .clear

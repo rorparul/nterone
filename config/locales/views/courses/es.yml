@@ -1,0 +1,69 @@
+es:
+  courses:
+    clone_form:
+      clone_course: "Curso Clone"
+    edit:
+      edit_course: "Editar Curso"
+    edit_js:
+      edit_course: "Editar Curso"
+    export:
+      abbreviation: 'Abreviación'
+      singular: 'Fabricante'
+      slug: 'Slug'
+      title: 'Titulo'
+      url: 'URL'
+    new:
+      add_course: "Agregar Curso"
+    new_js:
+      add_course: "Agregar Curso"
+    partial_clone_form:
+      slug: "Slug"
+    partial_form:
+      abbr: "Abreviatura"
+      active: "Activo"
+      add_course: "Agregar Curso"
+      attend: "Quienes Deberían Asistir"
+      catgories: "Categorias"
+      heading: "Encabezado (H1)"
+      icon: "Icon"
+      introduction: "Introducción"
+      outline: "Esquema"
+      overview: "Visión General"
+      page_description: "Pagina Descripción"
+      page_title: "Pagina Titulo"
+      partner: "Aliado"
+      pdf: "PDF"
+      slug: "Slug"
+      video_preview: "Video Previo"
+    partial_index:
+      courses: "Cursos"
+      course_id: "Curso ID"
+      course_title: "Titulo"
+      course_events: "Proximos Eventos"
+    partial_select:
+      courses: "Cursos"
+    select_js:
+      edit_course: "Editar Curso"
+    show:
+      add_event: "Agregar Evento"
+      availability: "Disponible"
+      contact: "Contacto"
+      course_outline: "Esquema del Curso"
+      date: "Fecha"
+      download_datasheet: "Descargar PDF"
+      edit_event: "Editar Evento"
+      for_training: "Calendario de Entrenamientos."
+      format: "Formato"
+      free: "Gratis"
+      image: "locales/es/courses_show.png"
+      length: "Duración"
+      location: "Localidad"
+      nterone_message: "El equipo NterOne con Mucho gusto responderá sus preguntas."
+      prerequisites_course_objectives: "Pre-Requisitos y Objetivos del Curso"
+      price: "Precio"
+      questions: "Preguntas?"
+      status: "Estado"
+      upcoming_classes: "Proximas Clases"
+      who_should_attend: "Quienes Deberían Asistir"
+    video_preview:
+      video_preview: "Video Previo"

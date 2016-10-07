@@ -1,0 +1,15 @@
+en:
+  quote_mailer:
+    pdf_attachment_html:
+      copy1: "Hello"
+      copy2: "Thank you for your interest in NterOne – where customer service is our top priority!"
+      copy3: "We are pleased to offer you a customized training quote. Please see the attached PDF that outlines the details of the products and/or services requested. If you have any questions please reach out to your sales representative, or contact the sales team at "
+      copy4: ". You can also call us at 703-972-2288."
+      copy5: "We look forward to hearing from you soon!"
+      copy6: "Best Regards,"
+      copy7: "NterOne Sales Team"
+    pdf_attachment_text:
+      copy1: "Hello"
+      copy2: "Please review the attached PDF for your formal quote regarding your chosen course(s)."
+      copy3: "Regards,"
+      copy4: "Sales Team"

@@ -1,10 +1,11 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted Cart
+  span.text-muted
+  = t('admins.partial_breadcrumbs.cart')
   
 - if @order.errors.any?
   .alert.alert-danger.alert-dismissible
@@ -19,20 +20,26 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted My Cart
+        strong.text-muted 
+          = t('orders.new.my_cart')
       .table-responsive
         table.table
             - if @cart.order_items.empty?
               tbody
                 tr
-                  td.text-center Your cart is empty.
+                  td.text-center
+                    = t('orders.new.empty_cart')
             - else
               thead
                 tr
-                  th Item
-                  th Date
-                  th Format
-                  th Price
+                  th 
+                    = t('orders.new.item')
+                  th 
+                    = t('orders.new.date')
+                  th 
+                    = t('orders.new.format')
+                  th 
+                    = t('orders.new.price')
                   th
               tbody
                 - @cart.order_items.each do |order_item|
@@ -43,54 +50,59 @@
                       td = order_item.orderable.format
                     - if order_item.orderable_type == 'VideoOnDemand'
                       td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable)
-                      td One Year of Access
-                      td Video On Demand
+                      td 
+                        = t('orders.new.one_year_of_access')
+                      td
+                        = t('orders.new.video_on_demand')
                     td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                     td.text-right
-                      = link_to "Remove from cart", order_item, method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                      = link_to t('orders.new.remove_from_cart'), order_item, method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 = form_for @order do |f|    
   .row
     .col-xs-12
       .panel.panel-default
         .panel-heading
-          strong.text-muted My Payment Info
+          strong.text-muted
+            = t('orders.new.my_payment_info')
         .panel-body
           fieldset
             .form-group
               .radio.radio-container
                 label
-                  = f.radio_button :payment_type, "Credit Card", class: 'payment-type-radio-button', checked: true
-                  strong Credit Card
+                  = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button', checked: true
+                  strong 
+                    = t('orders.new.credit_card')
             .row
               .col-xs-12.col-md-5
                 .form-group
-                  = f.label :credit_card_number, 'Number'
+                  = f.label :credit_card_number, t('orders.new.cc_number')
                   = f.text_field :credit_card_number, class: 'form-control input-sm input-cc', autocomplete: false
                   = image_tag 'credit-card-icons.png', class: "credit-card-logos"
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :expiration_month, 'Exp. M.'
+                  = f.label :expiration_month, t('orders.new.cc_exp_month')
                   = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :expiration_year, 'Exp. Y.'
+                  = f.label :expiration_year, t('orders.new.cc_exp_year')
                   = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-1
                 .form-group
-                  = f.label :security_code, 'Code'
+                  = f.label :security_code, t('orders.new.cc_code')
                   = f.text_field :security_code, class: 'form-control input-sm input-cc', autocomplete: false
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :paid, 'Total Charged'
+                  = f.label :paid, t('orders.new.cc_paid')
                   = f.hidden_field :paid, value: @cart.total_price
                   div = "$#{number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))}"
                   
             .form-group
               .radio.radio-container
                 label
-                  = f.radio_button :payment_type, "Cisco Learning Credits", class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
-                  strong Cisco Learning Credits 
+                  = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', disabled: @cart.any_not_applicable_for_credits?
+                  strong
+                    = t('orders.new.cisco_learning_credits')
             .row
               - if @cart.any_not_applicable_for_credits?
                 .col-xs-12
@@ -98,62 +110,65 @@
                     .text-warning
                       strong  
                         = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
-                      |  of this order is not applicable to be purchased with credits. 
-                      | If you wish to split payment between a credit card and credits, 
-                      | please contact NterOne by email at 
-                      = mail_to "sales@nterone.com", "sales@nterone.com"
-                      | , or by phone at 
+                      = t('orders.new.caption1')
+                      = t('orders.new.caption2')
+                      = t('orders.new.caption3')
+                      = mail_to "sales#{t('defaul.contact.email')}", "sales#{t('default.contact.email')}"
+                      = t('orders.new.clc_caption4')
                       strong 703-972-2288, 
-                      | for assistance.
+                      = t('orders.new.clc_caption5')
               - else
                 .col-xs-12.col-sm-6.col-md-3
                   .form-group
-                    = f.label :clc_number, 'Cisco Sales Order#'
+                    = f.label :clc_number, t('orders.new.clc_number')
                     = f.text_field :clc_number, class: 'form-control input-sm input-clc'
                 .col-xs-12.col-sm-6.col-md-3
                   .form-group
-                    = f.label :clc_quantity, 'Total Credits'
+                    = f.label :clc_quantity, t('orders.new.clc_quantity')
                     = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
                     div = @cart.credits_required_for_total_applicable_for_credits
             hr
           .row
             .col-xs-12.col-md-6
               .form-group
-                label Student Name
+                label
+                  = t('orders.new.student_name')
                 br
                 = current_user.full_name
             .col-xs-12.col-md-6
               .form-group
-                label Student Email
+                label 
+                  = t('orders.new.student_email')
                 br
                 = current_user.email
           fieldset
-            label Billing Address
+            label
+              = t('orders.new.billing_address')
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :billing_company, 'Company'
+                  = f.label :billing_company, t('orders.new.company')
                   = f.text_field :billing_company, class: 'form-control input-sm', value: current_user.billing_company
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :billing_first_name, 'First Name'
+                  = f.label :billing_first_name, t('default.label.first_name')
                   = f.text_field :billing_first_name, class: 'form-control input-sm', value: current_user.billing_first_name.present? ? current_user.billing_first_name : current_user.first_name
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :billing_last_name, 'Last Name'
+                  = f.label :billing_last_name, t('default.label.last_name')
                   = f.text_field :billing_last_name, class: 'form-control input-sm', value: current_user.billing_last_name.present? ? current_user.billing_last_name : current_user.last_name
             .form-group
-              = f.label :billing_street, 'Street'
+              = f.label :billing_street, t('orders.new.street')
               = f.text_field :billing_street, class: 'form-control input-sm', value: current_user.billing_street
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :billing_city, 'City'
+                  = f.label :billing_city, t('orders.new.city')
                   = f.text_field :billing_city, class: 'form-control input-sm', value: current_user.billing_city
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :billing_state, 'State'
+                  = f.label :billing_state, t('orders.new.state')
                   - if user_signed_in?
                     = f.select :billing_state,
                                us_states,
@@ -167,43 +182,44 @@
                                { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :billing_zip_code, 'Zip Code'
+                  = f.label :billing_zip_code, t('orders.new.zip')
                   = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code
             hr
           fieldset
-            label Shipping Address
+            label 
+              = t('orders.new.shipping_address')
             .form-group
               .checkbox.checkbox-container
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box', checked: current_user.same_addresses
-                  |  Same as Billing
+                  = t('orders.new.same_as')
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :shipping_company, 'Company'
+                  = f.label :shipping_company, t('orders.new.company')
                   = f.text_field :shipping_company, class: 'form-control input-sm disableable', value: current_user.shipping_company
             .row
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :shipping_first_name, 'First Name'
+                  = f.label :shipping_first_name, t('default.label.first_name')
                   = f.text_field :shipping_first_name, class: 'form-control input-sm disableable', value: current_user.shipping_first_name.present? ? current_user.shipping_first_name : current_user.first_name
                   
               .col-xs-12.col-sm-6
                 .form-group
-                  = f.label :shipping_last_name, 'Last Name'
+                  = f.label :shipping_last_name, t('default.label.last_name')
                   = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? current_user.shipping_last_name : current_user.last_name
               
             .form-group
-              = f.label :shipping_street, 'Street'
+              = f.label :shipping_street, t('orders.new.street')
               = f.text_field :shipping_street, class: 'form-control input-sm disableable', value: current_user.shipping_street
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :shipping_city, 'City'
+                  = f.label :shipping_city, t('orders.new.city')
                   = f.text_field :shipping_city, class: 'form-control input-sm disableable', value: current_user.shipping_city
               .col-xs-12.col-md-4
                 .form-group
-                  = f.label :shipping_state, 'State'
+                  = f.label :shipping_state, t('orders.new.state')
                   - if user_signed_in?
                     = f.select :shipping_state,
                                us_states,
@@ -217,10 +233,11 @@
                                { class: 'form-control input-sm disableable' }
               .col-xs-12.col-md-2
                 .form-group
-                  = f.label :shipping_zip_code, 'Zip Code'
+                  = f.label :shipping_zip_code, t('orders.new.zip')
                   = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable', value: current_user.shipping_zip_code
   .form-buttons
-    button.btn.btn-success type="submit" Place Order
+    button.btn.btn-success type="submit"
+      = t('orders.new.place_order')
         
 javascript:
   $('.home-tab').addClass('active');

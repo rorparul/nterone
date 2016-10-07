@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523050844) do
+ActiveRecord::Schema.define(version: 20160921161041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.integer  "position_as_child",  default: 0
     t.integer  "position",           default: 0
     t.text     "description"
+    t.string   "page_title"
+    t.string   "heading"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -133,6 +135,14 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.integer  "user_id"
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "title"
+    t.integer  "form_type"
+    t.string   "slug"
+  end
+
   create_table "course_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
     t.integer  "course_id"
@@ -158,6 +168,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.string   "page_title"
     t.text     "page_description"
     t.boolean  "partner_led",                               default: false
+    t.string   "heading"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -184,31 +195,42 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "format"
-    t.decimal  "price",                    precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                          precision: 8, scale: 2, default: 0.0
     t.integer  "instructor_id"
     t.integer  "course_id"
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
-    t.boolean  "guaranteed",                                       default: false
-    t.boolean  "active",                                           default: true
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
+    t.boolean  "guaranteed",                                             default: false
+    t.boolean  "active",                                                 default: true
     t.time     "start_time"
     t.time     "end_time"
     t.string   "city"
     t.string   "state"
-    t.string   "status",                                           default: "Pending"
+    t.string   "status",                                                 default: "Pending"
     t.string   "lab_source"
-    t.boolean  "public",                                           default: true
-    t.decimal  "cost_instructor",          precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_lab",                 precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_te",                  precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_facility",            precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_books",               precision: 8, scale: 2, default: 0.0
-    t.decimal  "cost_shipping",            precision: 8, scale: 2, default: 0.0
-    t.boolean  "partner_led",                                      default: false
+    t.boolean  "public",                                                 default: true
+    t.decimal  "cost_instructor",                precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_lab",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_te",                        precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_facility",                  precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_books",                     precision: 8, scale: 2, default: 0.0
+    t.decimal  "cost_shipping",                  precision: 8, scale: 2, default: 0.0
+    t.boolean  "partner_led",                                            default: false
     t.string   "time_zone"
-    t.boolean  "sent_all_webex_invite",                            default: false
-    t.boolean  "sent_all_course_material",                         default: false
-    t.boolean  "sent_all_lab_credentials",                         default: false
+    t.boolean  "sent_all_webex_invite",                                  default: false
+    t.boolean  "sent_all_course_material",                               default: false
+    t.boolean  "sent_all_lab_credentials",                               default: false
+    t.boolean  "should_remind",                                          default: true
+    t.integer  "remind_period",                                          default: 0
+    t.boolean  "reminder_sent",                                          default: false
+    t.text     "note"
+    t.boolean  "count_weekends",                                         default: false
+    t.text     "in_house_note"
+    t.integer  "language",                                               default: 0
+    t.string   "street"
+    t.integer  "language",                                               default: 0
+    t.boolean  "calculate_book_costs",                                   default: true
+    t.boolean  "autocalculate_instructor_costs",                         default: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -380,9 +402,65 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.string   "biography"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "platform_id"
+    t.integer  "status",      default: 0
+  end
+
+  create_table "interests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "data_center"
+    t.boolean  "collaboration"
+    t.boolean  "network"
+    t.boolean  "security"
+    t.boolean  "associate_level_certification"
+    t.boolean  "professional_level_certification"
+    t.boolean  "expert_level_certification"
+    t.string   "other"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "lab_courses", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "company_id"
+  end
+
+  create_table "lab_rentals", force: :cascade do |t|
+    t.date     "first_day"
+    t.integer  "num_of_students",   default: 0
+    t.time     "start_time"
+    t.string   "instructor"
+    t.string   "instructor_email"
+    t.string   "instructor_phone"
+    t.text     "notes"
+    t.string   "location"
+    t.boolean  "confirmed"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "course"
+    t.integer  "user_id"
+    t.integer  "company_id"
+    t.boolean  "canceled"
+    t.integer  "lab_course_id"
+    t.time     "end_time"
+    t.integer  "kind"
+    t.string   "time_zone"
+    t.boolean  "twenty_four_hours"
+    t.date     "last_day"
+  end
+
+  add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
+
+  create_table "lab_students", force: :cascade do |t|
+    t.integer  "lab_rental_id"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "leads", force: :cascade do |t|
@@ -494,13 +572,14 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.boolean  "sent_course_material",                         default: false
     t.boolean  "sent_lab_credentials",                         default: false
     t.string   "status"
+    t.text     "note"
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.string   "auth_code"
     t.string   "first_name"
     t.string   "last_name"
@@ -513,30 +592,39 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.string   "clc_number"
     t.string   "billing_name"
     t.string   "billing_zip_code"
-    t.decimal  "paid",                precision: 8, scale: 2, default: 0.0
+    t.decimal  "paid",                    precision: 8, scale: 2, default: 0.0
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.integer  "seller_id"
     t.integer  "buyer_id"
-    t.string   "status",                                      default: "Uninvoiced"
-    t.decimal  "total",               precision: 8, scale: 2, default: 0.0
+    t.string   "status",                                          default: "Uninvoiced"
+    t.decimal  "total",                   precision: 8, scale: 2, default: 0.0
     t.string   "billing_country"
     t.string   "payment_type"
-    t.integer  "clc_quantity",                                default: 0
+    t.integer  "clc_quantity",                                    default: 0
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_company"
     t.string   "billing_company"
-    t.boolean  "same_addresses",                              default: false
+    t.boolean  "same_addresses",                                  default: false
     t.string   "shipping_first_name"
     t.string   "shipping_last_name"
     t.string   "po_number"
-    t.decimal  "po_paid",             precision: 8, scale: 2, default: 0.0
-    t.boolean  "verified",                                    default: false
-    t.boolean  "invoiced",                                    default: false
+    t.decimal  "po_paid",                 precision: 8, scale: 2, default: 0.0
+    t.boolean  "verified",                                        default: false
+    t.boolean  "invoiced",                                        default: false
     t.string   "invoice_number"
     t.integer  "status_position"
+    t.boolean  "reviewed",                                        default: false
+    t.decimal  "balance",                 precision: 8, scale: 2, default: 0.0
+    t.string   "referring_partner_email"
+    t.string   "gilmore_order_number"
+    t.string   "gilmore_invoice"
+    t.string   "royalty_id"
+    t.date     "closed_date"
+    t.integer  "source",                                          default: 0
+    t.string   "other_source"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -627,6 +715,17 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.datetime "updated_at"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
+
   create_table "subject_groups", force: :cascade do |t|
     t.integer  "subject_id"
     t.integer  "group_id"
@@ -647,6 +746,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.text     "page_description"
     t.boolean  "partner_led",      default: false
     t.boolean  "active",           default: true
+    t.string   "heading"
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
@@ -691,13 +791,21 @@ ActiveRecord::Schema.define(version: 20160523050844) do
   add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
+  create_table "user_companies", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "company_id"
+  end
+
+  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
+  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",               null: false
-    t.string   "encrypted_password",     default: "",               null: false
+    t.string   "email",                                           default: "",               null: false
+    t.string   "encrypted_password",                              default: "",               null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                null: false
+    t.integer  "sign_in_count",                                   default: 0,                null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -714,7 +822,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
-    t.boolean  "archived",               default: false
+    t.boolean  "archived",                                        default: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -726,16 +834,16 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",                               default: 0
     t.datetime "last_active_at"
     t.string   "billing_street"
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_zip_code"
-    t.boolean  "same_addresses",         default: false
-    t.boolean  "forem_admin",            default: false
-    t.string   "forem_state",            default: "pending_review"
-    t.boolean  "forem_auto_subscribe",   default: false
+    t.boolean  "same_addresses",                                  default: false
+    t.boolean  "forem_admin",                                     default: false
+    t.string   "forem_state",                                     default: "pending_review"
+    t.boolean  "forem_auto_subscribe",                            default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_first_name"
@@ -746,8 +854,14 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.string   "shipping_zip_code"
     t.string   "shipping_company"
     t.string   "billing_company"
+    t.string   "referring_partner_email"
+    t.integer  "company_id"
+    t.text     "about"
+    t.integer  "status",                                          default: 0
+    t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
   end
 
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -782,6 +896,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.boolean  "partner_led",                               default: false
     t.boolean  "active",                                    default: true
     t.boolean  "lms",                                       default: false
+    t.string   "heading"
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree
@@ -806,6 +921,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_attempts"
@@ -819,4 +935,7 @@ ActiveRecord::Schema.define(version: 20160523050844) do
   add_foreign_key "lms_exams", "videos"
   add_foreign_key "taken_exams", "lms_exams"
   add_foreign_key "taken_exams", "users"
+  add_foreign_key "user_companies", "companies"
+  add_foreign_key "user_companies", "users"
+  add_foreign_key "users", "companies"
 end

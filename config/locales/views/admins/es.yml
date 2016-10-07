@@ -1,0 +1,72 @@
+es:
+  admins:
+    announcements:
+      new_announcement: "Nuevos Anuncios"
+    classes:
+      commissions_report: "Generar Reportes de Comisiones"
+      past: "Incluyendo Pasado"
+      profits_report: "Generar reportes de Ganancias"
+      registered: "Solo Registrados"
+      search: "Buscar"
+      title: "Clases"
+      upload: "Cargar"
+      utilization_report: "Generar Reportes de Utilización de Instructor"
+      xlsx: "Descarga Clases Estudiantes-Registrados"
+    classes_show:
+      upload_classes: "Clases Cargadas"
+    courses:
+      download_courses: "Descarga Cursos"
+    orders:
+      add: "Agregar"
+      add_user: "Agregar Usuario"
+      search: "Buscar"
+      title: "Ordenes"
+    orders_show:
+      class_for: "Clases para"
+      edit: "Editar"
+      from: "De"
+      order_details: "Detalles de la Orden"
+      order_items: "Articulo de Orden"
+      to: "Para"
+    people:
+      users: "Usuarios"
+    partial_breadcrumbs:
+      admin: "Mi cuenta"
+      blog: "Blog"
+      edit: "Editar"
+      home: "Inicio"
+      industry: "Industria"
+      my_sales: "Mis Ventas"
+      nci: "NCI"
+      press: "Prensa"
+      support: "Apoyo"
+      training: "Entrenamientos"
+    partial_tabs:
+      announcements: "Anuncios"
+      classes: "Clases"
+      courses: "Cursos"
+      lab_rentals: "Laboratorios"
+      messages: "Mensajes"
+      orders: "Ordenes"
+      people: "Personas"
+      queue: "Cola"
+      settings: "Ajustes"
+      website: "Pagina Web"
+    website:
+      articles: "Articulos"
+      author: "Autor"
+      companies: "Compañias"
+      company: "Compañia"
+      course: "Curso"
+      dynamic_pages: "Paginas Dinamicas"
+      form_type: 'Planilla de Reservación'
+      images: "Imagenes"
+      kind: "Tipo"
+      lab_courses: "Laboratorio de Cursos"
+      portal: 'Portal de Reservación de Laboratorios'
+      published: "Publicado"
+      quotation: "Cotización"
+      static_pages: "Paginas Estadísticas"
+      testimonials: "Testimonios"
+      title: "Titulo"
+      url: "URL"

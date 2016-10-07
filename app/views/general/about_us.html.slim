@@ -7,14 +7,15 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted About Us
+  span.text-muted
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central
-    = image_tag 'about-nterone.png', class: "header-image"
+    = image_tag t('general.about_us.image'), class: "header-image"
     = render partial: 'layouts/about_us_nav_bar'
     
     .row.executive-bios

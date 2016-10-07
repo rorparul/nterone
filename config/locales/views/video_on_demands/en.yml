@@ -1,0 +1,62 @@
+en:
+  video_on_demands:
+    edit:
+      edit_video_on_demand: "Edit Video On Demand"
+    edit_js:
+      edit_video_on_demand: "Edit Video On Demand"
+    new:
+      add_video_on_demand: "Add Video On Demand"
+    new_js:
+      add_video_on_demand: "Add Video On Demand"
+    partial_form:
+      abbr: "Abbreviation"
+      add: "Add module"
+      advanced: "Advanced"
+      active: "Active"
+      attend: "Who Should Attend"
+      beginner: "Beginner"
+      categories: "Categories"
+      heading: "Heading (H1)"
+      icon: "Icon"
+      instructor: "Instructor"
+      intermediate: "Intermediate"
+      introduction: "Introduction"
+      level: "Level"
+      modules: "Modules"
+      outline: "Outline"
+      overview: "Overview"
+      page_description: "Page Description"
+      page_title: "Page Title"
+      partner: "Partner Led"
+      price: "Price"
+      remove: "Remove module"
+      title: "Title"
+    partial_select:
+      video_on_demand: "Video On Demand"
+    partial_video_fields:
+      code: "Embed code"
+      free: "Free?"
+      position: "Position"
+      remove: "Remove video"
+      title: "Title"
+    partial_video_module_fields:
+      add: "Add video"
+      module_videos: "Module Videos"
+      position: "Position"
+      remove: "Remove video"
+      title: "Title"
+    select_js:
+      edit_video_on_demand: "Edit Video On Demand"
+    show:
+      course_outline: "Course Outline"
+      email: "Email:"
+      free_sample: "(Free Sample)"
+      instructor: "Instructor"
+      level: "Level"
+      nterone_message: "The NterOne team will be happy to answer your questions."
+      prerequisites_course_objectives: "Prerequisites & Course Objectives"
+      price: "Price"
+      questions: "Questions?"
+      video: "Video"
+      viewed: "Viewed"
+      who_should_attend: "Who Should Attend"

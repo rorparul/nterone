@@ -4,11 +4,11 @@ ruby '2.3.0'
 
 gem 'authorizenet'
 gem 'autonumeric-rails'
+gem 'axlsx'
 gem 'axlsx_rails'
-gem 'axlsx', '2.0.1'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'bootstrap-select-rails'
-gem 'bootstrap-wysihtml5-rails'
+gem 'wysiwyg-rails'
 gem 'canonical-rails'
 gem 'carrierwave', '~> 0.10.0'
 gem 'cocoon'
@@ -37,15 +37,18 @@ gem 'public_activity'
 gem 'pundit', '~> 1.0.1'
 gem 'rack-rewrite', '~> 1.5.0'
 gem 'rails', '4.2.6'
+gem 'rails-i18n'
+gem 'rails-settings-cached'
 gem 'react-rails'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'remotipart'
-gem 'roo', '1.13.2'
-gem 'rubyzip', '>= 1.0.0'
+gem 'roo'
+gem 'rubyzip'
 gem 'sass-rails', '~> 5.0.3'
 gem 'search_cop'
 gem 'seedbank'
 gem 'sidekiq'
+gem 'sidetiq'
 gem 'simple_form'
 gem 'sitemap_generator'
 gem 'slack-notifier'
@@ -66,10 +69,22 @@ group :development do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'letter_opener'
   gem 'meta_request', '~> 0.3.4'
-  gem 'pry-byebug', '~> 3.1.0'
-  gem 'pry-rails', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
+end
+
+group :development, :test do
+  gem 'bullet'
+  gem 'capistrano', '~> 3.5.0'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-ssh-doctor'
+  gem 'dotenv-rails'
+  gem 'pry-byebug', '~> 3.1.0'
+  gem 'pry-rails', '~> 0.3.4'
+  gem 'quiet_assets'
 end
 
 group :doc do
@@ -77,19 +92,9 @@ group :doc do
 end
 
 group :test do
-  gem 'database_cleaner', '~> 1.4.1'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.4.3'
-  gem 'rspec-rails', '~> 3.3.1'
-end
-
-group :development, :test do
-  gem 'bullet'
-  gem 'capistrano'
-  gem 'capistrano-rvm'
-  gem 'capistrano-rails'
-  gem 'capistrano-passenger'
-  gem 'capistrano-sidekiq'
-  gem 'dotenv-rails'
-  gem 'quiet_assets'
+  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'factory_girl_rails'
+  gem 'ffaker', '~> 2.1'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', require: false
 end

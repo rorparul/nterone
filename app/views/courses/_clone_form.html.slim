@@ -1,0 +1,19 @@
+.form-container
+  = form_for :course, url: clone_platform_course_path(course.platform, course), method: 'POST' do |f|
+    - if course.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(course.errors.count, 'error')}:"
+        ul
+          - course.errors.full_messages.each do |msg|
+            li = msg
+
+    .form-group
+      = f.label :slug, t('courses.partial_clone_form.slug')
+      br
+      = f.text_field :slug, class: 'form-control input-sm'
+
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

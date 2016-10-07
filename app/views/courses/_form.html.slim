@@ -8,38 +8,42 @@
         ul
           - course.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
-      = f.label :page_title, 'Page Title'
+      = f.label :page_title, t('courses.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
-      = f.label :page_description, 'Page Description'
+      = f.label :page_description, t('courses.partial_form.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
-    
+
     hr
-            
+
     .form-group
-      = f.label :category_ids, 'Categories'
+      = f.label :category_ids, t('courses.partial_form.categories')
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
                  {},
                  html_options = { class: "form-control input-sm", multiple: 'true' }
-            
+
     .form-group
-      = f.label :title
+      = f.label :title, t('courses.partial_form.add_course')
       = f.text_field :title, class: 'form-control input-sm'
-      
+
+    .form-group
+      = f.label :slug, t('courses.partial_form.slug')
+      = f.text_field :slug, class: 'form-control input-sm'
+
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :abbreviation
+          = f.label :abbreviation, t('courses.partial_form.abbr')
           = f.text_field :abbreviation, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :pdf, 'PDF'
+          = f.label :pdf, t('courses.partial_form.pdf')
           = f.file_field :pdf, class: 'form-control input-sm'
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -47,44 +51,50 @@
             = image_tag course.image.file_url(:subject_icon)
             br
           = f.fields_for :image do |icon|
-            = icon.label :file, "Icon"
+            = icon.label :file, t('courses.partial_form.icon')
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :video_preview, "Video Preview"
+          = f.label :video_preview, t('courses.partial_form.video_preview')
           = f.text_area :video_preview, class: 'form-control input-sm'
-          
+
     .form-group
-      = f.label :intro, 'Introduction'
-      = f.text_area :intro, class: 'form-control input-sm wysihtml5'
-      
+      = f.label :heading, t('courses.partial_form.heading')
+      = f.text_field :heading, class: 'form-control input-sm'
+
     .form-group
-      = f.label :overview, 'Overview'
-      = f.text_area :overview, class: 'form-control input-sm wysihtml5'
-    
+      = f.label :intro, t('courses.partial_form.introduction')
+      = f.text_area :intro, class: 'form-control input-sm froala'
+
     .form-group
-      = f.label :outline, 'Outline'
-      = f.text_area :outline, class: 'form-control input-sm wysihtml5'
-      
+      = f.label :overview, t('courses.partial_form.overview')
+      = f.text_area :overview, class: 'form-control input-sm froala'
+
     .form-group
-      = f.label :intended_audience, 'Who Should Attend'
-      = f.text_area :intended_audience, class: 'form-control input-sm wysihtml5'
-      
+      = f.label :outline, t('courses.partial_form.outline')
+      = f.text_area :outline, class: 'form-control input-sm froala'
+
+    .form-group
+      = f.label :intended_audience, t('courses.partial_form.attend')
+      = f.text_area :intended_audience, class: 'form-control input-sm froala'
+
     .row
       .col-xs-6.col-md-3
         .form-group
-          = f.label :active, "Active"
+          = f.label :active, t('courses.partial_form.active')
           br
           = f.check_box :active
       .col-xs-6.col-md-3
         .form-group
-          = f.label :partner_led, "Partner Led"
+          = f.label :partner_led, t('courses.partial_form.partner')
           br
           = f.check_box :partner_led
-      
+
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
       - if course.id
-        = link_to 'Delete', platform_course_path(platform, course), method: :delete, data: { confirm: "Are you sure" }, class: 'text-danger'
+        = link_to t('default.action.delete'), platform_course_path(platform, course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

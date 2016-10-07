@@ -7,49 +7,56 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted Sitemap
+  span.text-muted
+  = t('admins.partial_breadcrumbs.sitemap')
   
 .row
   .col-xs-12
     .page-header
-      h3 Sitemap
+      h3
+        = t('general.sitemap.sitemap')
       
 .row#sitemap
   .col-xs-12.col-sm-6
-    h4 General
+    h4
+      = t('general.sitemap.general')
     ul
-      li = link_to "Home", root_path
-      li = link_to "Consulting", consulting_path
-      li = link_to "Partners", partners_path
-      li = link_to "Labs", labs_path
-      li = link_to "Forums", forem.root_path
+      li = link_to t('general.sitemap.home'), root_path
+      li = link_to t('general.sitemap.consulting'), consulting_path
+      li = link_to t('general.sitemap.partners'), partners_path
+      li = link_to t('sgeneral.sitemap.labs'), labs_path
+      li = link_to t('general.sitemap.forums'), forem.root_path
       
-    h4 About Us
+    h4
+      = t('general.sitemap.about_us')
     ul
-      li = link_to "Executive Bios", executives_bios_path
-      li = link_to "Instructor Bios", instructors_bios_path
-      li = link_to "Testimonials", testimonials_path
-      li = link_to "Privacy Policy", page_path(Page.find_by(title: "NterOne Privacy Policy"))
-      li = link_to "Terms and Conditions", page_path(Page.find_by(title: "NterOne Terms and Conditions"))
+      li = link_to t('general.sitemap.executive'), executives_bios_path
+      li = link_to t('general.sitemap.instructor'), instructors_bios_path
+      li = link_to t('general.sitemap.testimonials'), testimonials_path
+      li = link_to t('general.sitemap.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
+      li = link_to t('general.sitemap.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
         
-    h4 Articles
+    h4
+      = t('general.sitemap.articles')
     ul
-      li = link_to "Press", press_path
-      / li = link_to "Blog", blog_path
-      li = link_to "Industry", industry_path
+      li = link_to t('general.sitemap.press'), press_path
+      / li = link_to t('sitemap.header.articles.link.blog'), blog_path
+      li = link_to t('general.sitemap.industry'), industry_path
         
-    h4 Other
+    h4
+      = t('general.sitemap.other')
     ul
       - Page.where(static: false).each do |page|
         li = link_to page.title, page_path(page)
   
   .col-xs-12.col-sm-6
-    h4 Training
+    h4
+      = t('general.sitemap.training')
     ul
-      li = link_to "Featured Classes", featured_classes_path
+      li = link_to t('general.sitemap.featured_classes'), featured_classes_path
     - Platform.order(:title).each do |platform|
       ul
         li

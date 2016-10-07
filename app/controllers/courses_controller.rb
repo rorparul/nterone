@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :download]
+  before_action :set_course, only: [:clone_form, :clone]
 
   def page
     @courses = Course.order(:title).page(params[:page])
@@ -11,6 +12,7 @@ class CoursesController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+
     @course.build_image
   end
 
@@ -25,10 +27,12 @@ class CoursesController < ApplicationController
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+
     @course.set_image(url_param: params['course'], for: :image)
+
     if @course.save
       flash[:success] = 'Course successfully created!'
-      redirect_to session[:previous_request_url]
+      redirect_to session[:previous_request_url] || platform_course_path(@platform, @course)
     else
       render 'new'
     end
@@ -37,10 +41,12 @@ class CoursesController < ApplicationController
   def select
     @platform = Platform.find(params[:platform_id])
     @course   = @platform.courses.build
+
     @courses  = Course.where(platform_id: @platform.id)
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
+
     @course.build_image
   end
 
@@ -49,12 +55,14 @@ class CoursesController < ApplicationController
     @categories = @platform.categories.order(:title).select do |category|
       category if category.parent
     end
+
     if course_params[:id] == 'none'
       @course   = @platform.courses.build
       @courses  = Course.where(platform_id: @platform.id)
     else
       @course     = Course.find(course_params[:id])
     end
+
     @course.build_image unless @course.image.present?
   end
 
@@ -63,6 +71,7 @@ class CoursesController < ApplicationController
     @categories = @platform.categories.order(:title).select do |category|
       category if category.parent
     end
+
     @course     = Course.find(params[:id])
     @course.build_image unless @course.image.present?
   end
@@ -71,14 +80,16 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @course.assign_attributes(course_params)
     @course.set_image(url_param: params['course'], for: :image)
+
     if @course.save
       flash[:success] = 'Course successfully updated!'
-      redirect_to session[:previous_request_url]
+      redirect_to edit_platform_course_path(@course.platform, @course)
     else
       @platform   = Platform.find(params[:platform_id])
       @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
         category if category.parent
       end
+
       render "edit"
     end
   end
@@ -101,6 +112,33 @@ class CoursesController < ApplicationController
               type: "application/pdf")
   end
 
+  def clone_form
+  end
+
+  def clone
+    new_course = @course.dup
+    new_course.slug = params[:course][:slug]
+    new_course.categories << @course.categories.first
+
+    if new_course.save
+      flash[:success] = 'Course successfully cloned!'
+    else
+      flash[:alert] = 'Course unsuccessfully cloned!'
+    end
+
+    redirect_to session[:previous_request_url]
+  end
+
+  def export
+    @courses = Course.order(:abbreviation)
+
+    respond_to do |format|
+      format.xlsx do
+        render xlsx: 'export', filename: 'nterone-courses.xlsx'
+      end
+    end
+  end
+
   private
 
   def course_params
@@ -108,10 +146,12 @@ class CoursesController < ApplicationController
                                    :page_title,
                                    :page_description,
                                    :title,
+                                   :slug,
                                    :price,
                                    :active,
                                    :abbreviation,
                                    :sku,
+                                   :heading,
                                    :intro,
                                    :overview,
                                    :outline,
@@ -120,5 +160,9 @@ class CoursesController < ApplicationController
                                    :video_preview,
                                    :partner_led,
                                    category_ids: [])
+  end
+
+  def set_course
+    @course = Course.friendly.find(params[:id])
   end
 end

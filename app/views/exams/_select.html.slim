@@ -1,6 +1,6 @@
 = form_for :exam, url: select_to_edit_platform_exams_path(platform.id), remote: true do |f|
   .form-group
-    = f.label :id, "Exam"
+    = f.label :id, t('exams.partial_select.exam')
     br
     = f.select :id, exams.order('lower(title)').collect { |exam| [exam.title, exam.id] }.unshift(["None", "none"]), options = {selected: "None"}, html_options = { class: "form-control sub-select input-sm" }
 

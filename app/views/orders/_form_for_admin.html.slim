@@ -1,256 +1,323 @@
 .form-container
   = form_for order do |f|
     .row
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :invoice_number, "Invoice #"
-          br
-          = f.text_field :invoice_number, class: 'form-control input-sm'
-          
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :verified, "Verfied SO #"
-          br
-          = f.check_box :verified
-      
+      - if !current_user.sales_rep?
+        .col-xs-12.col-sm-3
+          .form-group
+            = f.label :verified, t('orders.partial_form_for_admin.verified')
+            br
+            = f.check_box :verified
+        .col-xs-12.col-sm-3
+          .form-group
+            = f.label :invoice_number, t('orders.partial_form_for_admin.invoice')
+            br
+            = f.text_field :invoice_number, class: 'form-control input-sm'
+
     hr
-            
+
     .form-group
-      = f.label :seller_id, 'Sales Rep'
+      = f.label :seller_id, t('orders.partial_form_for_admin.seller')
       = f.select :seller_id,
                  User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                 { prompt: true },
+                 { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm" }
-                 
-    - if order.id
-      .form-group
-        = f.label :buyer_id, 'Student'
-        = f.select :buyer_id,
-                   User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                   { prompt: true },
-                   { class: "form-control input-sm" }
-    - else
-      .form-group
-        = f.label :buyer_id, 'Student'
-        = f.select :buyer_id,
-                   User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
-                   { prompt: true, selected: user.try(:id) },
-                   { class: "form-control input-sm" }
-                 
+
+    .form-group
+      = f.label :buyer_id, t('orders.partial_form_for_admin.buyer')
+      = f.select :buyer_id,
+                 User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 { prompt: t('default.placeholder.select') },
+                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+
+    .form-group
+      = f.label :source, t('orders.partial_form_for_admin.source')
+      = f.select :source,
+                 Order.sources.map{|k, v| [k.humanize, k]},
+                 { prompt: t('default.placeholder.select') },
+                 { class: "form-control input-sm source-selector", disabled: !order.new_record? }
+
+    .form-group.hide.source-other
+      = f.label :other_source, t('orders.partial_form_for_admin.source_other')
+      = f.text_field :other_source, class: 'form-control input-sm'
+
+    - if order.id.present? && order.source == 'other'
+      p= order.other_source
     hr
-    
-    - if order.id
+
+    - if order.id.present?
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
           = render 'order_item_fields', f: order_item,
-                                        type: order_item.object.orderable_type
-        .links
-          = link_to_add_association 'Add Class', f, :order_items,
-            render_options: {locals: {type: 'Event'}}
-          = link_to_add_association 'Add VOD', f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand'}}
+                                        type: order_item.object.orderable_type,
+                                        order: order
+
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
           = render 'order_item_fields', f: order_item,
-                                        type: "Event"
+                                        type: "Event",
+                                        order: order
         .links
-          = link_to_add_association 'Add Class', f, :order_items,
-            render_options: {locals: {type: 'Event'}}
-          = link_to_add_association 'Add VOD', f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand'}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - else
       #order-items
         = f.fields_for :order_items, include_id: false do |order_item|
           = render 'order_item_fields', f: order_item,
-                                        type: nil
+                                        type: nil,
+                                        order: order
         .links
-          = link_to_add_association 'Add Class', f, :order_items,
-            render_options: {locals: {type: 'Event'}}
-          = link_to_add_association 'Add VOD', f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand'}}
-            
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}
+
     hr
-    
-    fieldset
-      .form-group
-        .radio.radio-container
-          label
-            = f.radio_button :payment_type, "Credit Card", class: 'payment-type-radio-button', checked: true
-            strong Credit Card
-      .row
-        .col-xs-12
-          .form-group
-            = f.label :credit_card_number, 'Number'
-            = f.text_field :credit_card_number, class: 'form-control input-sm input-cc'
-            = image_tag 'credit-card-icons.png', class: "credit-card-logos"
-        .col-xs-12.col-md-3
-          .form-group
-            = f.label :expiration_month, 'Exp. M.'
-            = f.select :expiration_month, options_for_select(cc_months), { prompt: true }, class: 'form-control input-sm input-cc'
-        .col-xs-12.col-md-3
-          .form-group
-            = f.label :expiration_year, 'Exp. Y.'
-            = f.select :expiration_year, options_for_select(cc_years), { prompt: true }, class: 'form-control input-sm input-cc'
-        .col-xs-12.col-md-3
-          .form-group
-            = f.label :security_code, 'Code'
-            = f.text_field :security_code, class: 'form-control input-sm input-cc'
-        .col-xs-12.col-md-3
-          .form-group
-            = f.label :paid, 'Paid'
-            = f.text_field :paid, data: { autonumeric: true }, class: 'form-control input-sm'
-            
-      .form-group
-        .radio.radio-container
-          label
-            = f.radio_button :payment_type, "Cisco Learning Credits", class: 'payment-type-radio-button'
-            strong Cisco Learning Credits 
-      .row
-        - if @cart.any_not_applicable_for_credits?
+    - if current_user.sales_rep?
+      = f.hidden_field :payment_type, value: 'None'
+    - else
+      fieldset
+        .form-group
+          .radio.radio-container
+            label
+              = f.radio_button :payment_type, t('orders.partial_form_for_admin.credit_card'), class: 'payment-type-radio-button', checked: true
+              strong
+                = t('orders.partial_form_for_admin.credit_card')
+        .row
           .col-xs-12
             .form-group
-              .text-warning
-                strong  
-                  = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
-                |  of this order is not applicable to be purchased with credits. 
-                | If you wish to split payment between a credit card and credits, 
-                | please contact NterOne by email at 
-                = mail_to "sales@nterone.com", "sales@nterone.com"
-                | , or by phone at 
-                strong 703-972-2288, 
-                | for assistance.
-        - else
+              = f.label :credit_card_number, t('orders.partial_form_for_admin.cc_num')
+              = f.text_field :credit_card_number, class: 'form-control input-sm input-cc'
+              = image_tag 'credit-card-icons.png', class: "credit-card-logos"
+          .col-xs-12.col-md-3
+            .form-group
+              = f.label :expiration_month, t('orders.partial_form_for_admin.cc_exp_month')
+              = f.select :expiration_month, options_for_select(cc_months), { prompt: t('default.placeholder.select') }, class: 'form-control input-sm input-cc'
+          .col-xs-12.col-md-3
+            .form-group
+              = f.label :expiration_year, t('orders.partial_form_for_admin.cc_exp_year')
+              = f.select :expiration_year, options_for_select(cc_years), { prompt: t('default.placeholder.select') }, class: 'form-control input-sm input-cc'
+          .col-xs-12.col-md-3
+            .form-group
+              = f.label :security_code, t('orders.partial_form_for_admin.cc_code')
+              = f.text_field :security_code, class: 'form-control input-sm input-cc'
+          .col-xs-12.col-md-3
+            .form-group
+              = f.label :paid, t('orders.partial_form_for_admin.cc_paid')
+              = f.text_field :paid, data: { autonumeric: true }, class: 'form-control input-sm'
+
+        .form-group
+          .radio.radio-container
+            label
+              = f.radio_button :payment_type, t('orders.partial_form_for_admin.learning_credits'), class: 'payment-type-radio-button'
+              strong
+                = t('orders.partial_form_for_admin.learning_credits')
+        .row
+          - if @cart.any_not_applicable_for_credits?
+            .col-xs-12
+              .form-group
+                .text-warning
+                  strong
+                    = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
+                  = t('orders.partial_form_for_admin.caption1')
+                  = t('orders.partial_form_for_admin.caption2')
+                  = t('orders.partial_form_for_admin.caption3')
+                  = mail_to "sales#{t('email')}", "sales#{t('email')}"
+                  = t('orders.partial_form_for_admin.caption4')
+                  strong 703-972-2288,
+                  = t('orders.partial_form_for_admin.caption5')
+          - else
+            .col-xs-12.col-sm-9
+              .form-group
+                = f.label :clc_number, t('orders.partial_form_for_admin.lc_num')
+                = f.text_field :clc_number, class: 'form-control input-sm input-clc'
+            .col-xs-12.col-sm-3
+              .form-group
+                = f.label :clc_quantity, t('orders.partial_form_for_admin.lc_applied')
+                = f.number_field :clc_quantity, class: 'form-control input-sm'
+
+        .form-group
+          .radio.radio-container
+            label
+              = f.radio_button :payment_type, t('orders.partial_form_for_admin.purchase_order'), class: 'payment-type-radio-button'
+              strong
+                = t('orders.partial_form_for_admin.purchase_order')
+        .row
           .col-xs-12.col-sm-9
             .form-group
-              = f.label :clc_number, 'Number'
-              = f.text_field :clc_number, class: 'form-control input-sm input-clc'
+              = f.label :po_number, t('orders.partial_form_for_admin.p_num')
+              = f.text_field :po_number, class: 'form-control input-sm input-cc'
+
           .col-xs-12.col-sm-3
             .form-group
-              = f.label :clc_quantity, 'Credits Applied'
-              = f.number_field :clc_quantity, class: 'form-control input-sm'
-              
-      .form-group
-        .radio.radio-container
-          label
-            = f.radio_button :payment_type, "Purchase Order", class: 'payment-type-radio-button'
-            strong Purchase Order
-      .row
-        .col-xs-12.col-sm-9
-          .form-group
-            = f.label :po_number, 'Number'
-            = f.text_field :po_number, class: 'form-control input-sm input-cc'
-            
-        .col-xs-12.col-sm-3
-          .form-group
-            = f.label :po_paid, 'Paid'
-            = f.text_field :po_paid, data: { autonumeric: true }, class: 'form-control input-sm'
-              
-      .form-group
-        .radio.radio-container
-          label
-            = f.radio_button :payment_type, "Bundled", class: 'payment-type-radio-button'
-            strong Bundled
-            
-      .form-group
-        .radio.radio-container
-          label
-            = f.radio_button :payment_type, "No Charge", class: 'payment-type-radio-button'
-            strong No Charge
-            
-      hr
-      
+              = f.label :po_paid, t('orders.partial_form_for_admin.p_paid')
+              = f.text_field :po_paid, data: { autonumeric: true }, class: 'form-control input-sm'
+
+        .form-group
+          .radio.radio-container
+            label
+              = f.radio_button :payment_type, t('orders.partial_form_for_admin.bundled'), class: 'payment-type-radio-button'
+              strong
+                = t('orders.partial_form_for_admin.bundled')
+
+        .form-group
+          .radio.radio-container
+            label
+              = f.radio_button :payment_type, t('orders.partial_form_for_admin.no_charge'), class: 'payment-type-radio-button'
+              strong
+                = t('orders.partial_form_for_admin.no_charge')
+
+        hr
+
+      fieldset
+        .row
+          .col-xs-6.col-sm-6
+            .form-group
+              = f.label :referring_partner_email, t('orders.partial_form_for_admin.referrer')
+              - if order.id
+                = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
+              - else
+                = f.text_field :referring_partner_email, class: 'form-control input-sm'
+        label
+          = t('orders.partial_form_for_admin.billing_address')
+        .row
+          .col-xs-6.col-sm-6
+            .form-group
+              = f.label :billing_company, t('orders.partial_form_for_admin.company')
+              = f.text_field :billing_company, class: 'form-control input-sm'
+        .row
+          .col-xs-12.col-sm-6
+            .form-group
+              = f.label :billing_first_name, t('default.label.first_name')
+              = f.text_field :billing_first_name, class: 'form-control input-sm'
+          .col-xs-12.col-sm-6
+            .form-group
+              = f.label :billing_last_name, t('default.label.last_name')
+              = f.text_field :billing_last_name, class: 'form-control input-sm'
+        .form-group
+          = f.label :billing_street, t('orders.partial_form_for_admin.street')
+          = f.text_field :billing_street, class: 'form-control input-sm'
+        .row
+          .col-xs-12.col-md-6
+            .form-group
+              = f.label :billing_city, t('orders.partial_form_for_admin.city')
+              = f.text_field :billing_city, class: 'form-control input-sm'
+          .col-xs-12.col-md-4
+            .form-group
+              = f.label :billing_state, t('orders.partial_form_for_admin.state')
+              - if user_signed_in?
+                = f.select :billing_state,
+                           us_states,
+                           { prompt: t('default.placeholder.select') },
+                           { class: 'form-control input-sm' }
+              - else
+                = f.select :billing_state,
+                           us_states,
+                           { prompt: t('default.placeholder.select') },
+                           { class: 'form-control input-sm' }
+          .col-xs-12.col-md-2
+            .form-group
+              = f.label :billing_zip_code, t('orders.partial_form_for_admin.zip')
+              = f.text_field :billing_zip_code, class: 'form-control input-sm'
+        hr
     fieldset
-      label Billing Address
+      label
+        = t('orders.partial_form_for_admin.shipping_address')
+      - unless current_user.sales_rep?
+        .form-group
+          .checkbox.checkbox-container
+            label
+              = f.check_box :same_addresses, class: 'shipping-address-box'
+              = t('orders.partial_form_for_admin.same_as')
       .row
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :billing_company, 'Company'
-            = f.text_field :billing_company, class: 'form-control input-sm'
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-            = f.label :billing_first_name, 'First Name'
-            = f.text_field :billing_first_name, class: 'form-control input-sm'
-        .col-xs-12.col-sm-6
-          .form-group
-            = f.label :billing_last_name, 'Last Name'
-            = f.text_field :billing_last_name, class: 'form-control input-sm'
-      .form-group
-        = f.label :billing_street, 'Street'
-        = f.text_field :billing_street, class: 'form-control input-sm'
-      .row
-        .col-xs-12.col-md-6
-          .form-group
-            = f.label :billing_city, 'City'
-            = f.text_field :billing_city, class: 'form-control input-sm'
-        .col-xs-12.col-md-4
-          .form-group
-            = f.label :billing_state, 'State'
-            - if user_signed_in?
-              = f.select :billing_state,
-                         us_states,
-                         { prompt: true },
-                         { class: 'form-control input-sm' }
-            - else
-              = f.select :billing_state,
-                         us_states,
-                         { prompt: true },
-                         { class: 'form-control input-sm' }
-        .col-xs-12.col-md-2
-          .form-group
-            = f.label :billing_zip_code, 'Zip Code'
-            = f.text_field :billing_zip_code, class: 'form-control input-sm'
-      hr
-    fieldset
-      label Shipping Address
-      .form-group
-        .checkbox.checkbox-container
-          label
-            = f.check_box :same_addresses, class: 'shipping-address-box'
-            |  Same as Billing
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-            = f.label :shipping_company, 'Company'
+            = f.label :shipping_company, t('orders.partial_form_for_admin.company')
             = f.text_field :shipping_company, class: 'form-control input-sm disableable'
       .row
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :shipping_first_name, 'First Name'
+            = f.label :shipping_first_name, t('default.label.first_name')
             = f.text_field :shipping_first_name, class: 'form-control input-sm disableable'
-            
+
         .col-xs-12.col-sm-6
           .form-group
-            = f.label :shipping_last_name, 'Last Name'
+            = f.label :shipping_last_name, t('default.label.last_name')
             = f.text_field :shipping_last_name, class: 'form-control input-sm disableable'
-        
+
       .form-group
-        = f.label :shipping_street, 'Street'
+        = f.label :shipping_street, t('orders.partial_form_for_admin.street')
         = f.text_field :shipping_street, class: 'form-control input-sm disableable'
       .row
         .col-xs-12.col-md-6
           .form-group
-            = f.label :shipping_city, 'City'
+            = f.label :shipping_city, t('aorders.partial_form_for_admin.city')
             = f.text_field :shipping_city, class: 'form-control input-sm disableable'
         .col-xs-12.col-md-4
           .form-group
-            = f.label :shipping_state, 'State'
+            = f.label :shipping_state, t('orders.partial_form_for_admin.state')
             - if user_signed_in?
               = f.select :shipping_state,
                          us_states,
-                         { prompt: true },
+                         { prompt: t('default.placeholder.select') },
                          { class: 'form-control input-sm disableable' }
             - else
               = f.select :shipping_state,
                          us_states,
-                         { prompt: true },
+                         { prompt: t('default.placeholder.select') },
                          { class: 'form-control input-sm disableable' }
         .col-xs-12.col-md-2
           .form-group
-            = f.label :shipping_zip_code, 'Zip Code'
+            = f.label :shipping_zip_code, t('orders.partial_form_for_admin.zip')
             = f.text_field :shipping_zip_code, class: 'form-control input-sm disableable'
 
     .form-buttons
-      button.btn.btn-success type="submit" Save
-      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      = f.button t('orders.partial_form_for_admin.save_partner_confirm'), class: 'button btn btn-success', name: 'confirm_with_partner', value: true
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
+
+javascript:
+  $('.buyer-selector').on('change', function () {
+    var userId = this.value
+    var url = '/api/users/' + userId
+
+    $.get(url, function (data) {
+      var fields = [
+        'shipping_first_name', 'shipping_last_name', 'shipping_street',
+        'shipping_city', 'shipping_state', 'shipping_zip_code', 'shipping_company',
+        'billing_street', 'billing_city', 'billing_state', 'billing_zip_code',
+        'billing_first_name', 'billing_last_name', 'billing_company',
+        'referring_partner_email'
+      ]
+
+      fields.forEach(function (field) {
+        if (data[field]) $('#order_' + field).val(data[field])
+      })
+
+    })
+  })
+
+  $('#order-items').on('change', '.order-item-selector', function (e) {
+    var value = $(this).find('option:selected').text();
+    var match = value.match(/-\s\$(.+)$/);
+
+    if (match) {
+      value = match[1];
+    }
+
+    $(this).closest('.row').find('.order-item-price').val(value);
+  });
+  
+  $('.order-item-selector').trigger('change');
+
+  $('.source-selector').on('change', function () {
+    if (this.value == 'other') {
+      $('.source-other').removeClass('hide')
+    } else {
+      $('.source-other').addClass('hide')
+    }
+  })

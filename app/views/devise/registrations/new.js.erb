@@ -1,3 +1,3 @@
-$('.modal-title').html('Add Person');
+$('.modal-title').html("<%= t('devise.registrations.new.add_person') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form') %>");
 $('#myModal').modal('show');

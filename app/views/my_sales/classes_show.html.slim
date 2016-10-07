@@ -1,16 +1,17 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted My Sales
+  span.text-muted
+  = t('admins.partial_breadcrumbs.my_sales')
     
 - content_for :actions do
   li
     = link_to events_upload_path, remote: true do
       i.fa.fa-upload
-      | Upload Classes
+      = t('my_sales.classes_show.upload_classes')
     
 .row
   .col-xs-12

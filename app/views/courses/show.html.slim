@@ -1,17 +1,17 @@
 - content_for :page_title do
   = @course.page_title.present? ? @course.page_title : @course.full_title
-  
+
 - content_for :page_description do
   = @course.page_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
   a href="#{platforms_path}"
-    | Training
+    = t ('admin.partial_breadcrumbs.training')
   span.seperator
     | /
   a href="#{platform_path(@platform)}"
@@ -19,120 +19,137 @@
   span.seperator
     | /
   span.text-muted = "#{@course.abbreviation}"
-    
+
 - content_for :actions do
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_course_event_path(@platform, @course), remote: true do
       i.fa.fa-plus
-      | Add Event
+      = t('courses.show.add_event')
     li = link_to select_platform_course_events_path(@platform, @course), remote: true do
       i.fa.fa-pencil
-      | Edit Event
-      
+      = t('courses.show.edit_event')
+
 .row
   .col-xs-12.col-central
     #course
       .row
         .col-xs-12
-          = image_tag "course-banners/#{@platform.title.downcase}.png", class: "course-banner"
+          = image_tag t("courses.show.image"), class: "course-banner"
+
           .panel.panel-default
-            .panel-body = @course.intro.html_safe if @course.intro
+            .panel-body
+              h1 style="margin: 0 0 10px 0; font-size: 28px;" = @course.heading
+              = @course.intro.html_safe if @course.intro
+
+          .row
+            .col-xs-12
+              #upcoming-classes
+                .panel.panel-default
+                  .panel-heading
+                    strong 
+                      = t('courses.show.upcoming_classes')
+                    - if user_signed_in? && current_user.admin?
+                      = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
+                  .table-responsive
+                    table.table.table-compact
+                      - if @course.upcoming_public_events.any?
+                        thead
+                          tr
+                            th
+                              = t('courses.show.date')
+                            th 
+                              = t('courses.show.length')
+                            th 
+                              = t('courses.show.format')
+                            th 
+                              = t('courses.show.location')
+                            th
+                              = t('courses.show.status')
+                            th 
+                              = t('courses.show.price')
+                            - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                              th
+                            - elsif user_signed_in? && current_user.admin?
+                              th
+                      tbody
+                        - if @course.upcoming_public_events.any?
+                          - @course.upcoming_public_events.each do |event|
+                            tr
+                              div itemscope="true" itemtype="http://schema.org/EducationEvent"
+                                td
+                                  meta itemprop="startDate" content="#{event.start_date}"
+                                    = "#{event.start_date.strftime("%-m/%-d/%y")} to "
+                                  meta itemprop="endDate" content="#{event.end_date}"
+                                    = "#{event.end_date.strftime("%-m/%-d/%y")}"
+                                td = "#{pluralize(event.length, 'Day')}"
+                                td = event.format
+                                - if event.city.present? || event.state.present? || event.street.present?
+                                  td.fit.location-td
+                                    .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
+                                      i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
+                                      = event.state
+                                - else
+                                  - if event.format == "Live Online"
+                                    td Webex
+                                  - else
+                                    td
+                                td
+                                  = t('courses.show.availability')
+                                - if event.price > 0.00
+                                  td
+                                    div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
+                                      | $
+                                      span itemprop="price"
+                                        = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+                                - else
+                                  td
+                                    div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
+                                      span itemprop="price"
+                                        = t('courses.show.free')
+                                - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                                  td.fit.text-right
+                                    = form_for :order_item, url: order_items_path do |f|
+                                      = f.hidden_field :event_id, value: event.id
+                                      = link_to_cart(event)
+                                - elsif user_signed_in? && current_user.admin?
+                                  td.fit.text-right
+                                    = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                                    |  | 
+                                    = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+                        - else
+                          tr
+                            td.text-center
+                              = t('courses.show.contact')
+                              = ' '
+                              = link_to "sales#{t('email')}", "mailto:sales#{t('email')}"
+                              = ' '
+                              = t('courses.show.for_training')
+
           #accordion.panel-group role="tablist" aria-multiselectable="true"
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
-                h4
-                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Prequisites &amp; Course Objectives
-              #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
+                strong
+                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                    = t('courses.show.prerequisites_course_objectives')
+              #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
                 .panel-body
                   = @course.overview.html_safe if @course.overview
             .panel.panel-default
               .panel-heading role="tab" id="headingTwo"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                    | Course Outline
-              #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                    = t('courses.show.course_outline')
+              #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
                 .panel-body
                   = @course.outline.html_safe if @course.outline
             .panel.panel-default
               .panel-heading role="tab" id="headingThree"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                    | Who Should Attend
-              #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
+                    = t('courses.show.who_should_attend')
+              #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @course.intended_audience.html_safe if @course.intended_audience
-      .row
-        .col-xs-12
-          #upcoming-classes
-            .panel.panel-default
-              .panel-heading
-                strong Upcoming Classes
-                - if user_signed_in? && current_user.admin?
-                  = link_to "Add", new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
-              .table-responsive
-                table.table.table-compact
-                  - if @course.upcoming_events.any?
-                    thead
-                      tr
-                        th Date
-                        th Length
-                        th Format
-                        th Location
-                        th Status
-                        th Price
-                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                          th
-                        - elsif user_signed_in? && current_user.admin?
-                          th
-                  tbody
-                    - if @course.upcoming_events.any?
-                      - @course.upcoming_events.each do |event|
-                        tr
-                          div itemscope="true" itemtype="http://schema.org/EducationEvent"
-                            td
-                              meta itemprop="startDate" content="#{event.start_date}"
-                                = "#{event.start_date.strftime("%-m/%-d/%y")} to "
-                              meta itemprop="endDate" content="#{event.end_date}"
-                                = "#{event.end_date.strftime("%-m/%-d/%y")}"
-                            td = "#{pluralize(event.length, 'Day')}"
-                            td = event.format
-                            - if event.city.present? || event.state.present?
-                              td = "#{event.city}, #{event.state}"
-                            - else
-                              - if event.format == "Live Online"
-                                td Webex
-                              - else
-                                td
-                            td Available
-                            - if event.price > 0.00
-                              td
-                                div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
-                                  | $
-                                  span itemprop="price"
-                                    = "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
-                            - else
-                              td
-                                div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
-                                  span itemprop="price"
-                                    | Free
-                            - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                              td.fit.text-right
-                                = form_for :order_item, url: order_items_path do |f|
-                                  = f.hidden_field :event_id, value: event.id
-                                  = link_to_cart(event)
-                            - elsif user_signed_in? && current_user.admin?
-                              td.fit.text-right
-                                = link_to "Edit", edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                |  | 
-                                = link_to 'Delete', platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
-                    - else
-                      tr
-                        td.text-center
-                          | Contact 
-                          = link_to "sales@nterone.com", "mailto:sales@nterone.com"
-                          |  for training schedule.
-                  
           .row
             .col-xs-12
               #degrees
@@ -146,32 +163,61 @@
         - if @course.pdf.url
           = link_to course_download_platform_courses_path(@platform, @course) do
             span.fa.fa-file-pdf-o.text-danger
-            | Download Datasheet
+            = t('courses.show.download_datasheet')
         h5
-          strong Questions?
-        p The NterOne team will be happy to answer your questions.
+          strong
+            = t('courses.show.questions')
+        p = t('courses.show.nterone_message')
         p
-          | Email: 
-          a href="mailto:sales@nterone.com" sales@nterone.com
-        p Phone: 703.972.2288
+          = "#{t('default.label.email') + ": "}"
+          a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
+
+        p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
     = render partial: 'layouts/side_column'
-    
+
 .row
   .col-xs-12
     button#back Back
-    
+
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
-  
+
   $('#accordion').on('shown.bs.collapse', function (e) {
     var offset = $('.panel.panel-default > .panel-collapse.in').offset();
     if(offset) {
       $('html,body').animate({
         scrollTop: $('.panel-heading h4').offset().top -20
-      }, 500); 
+      }, 500);
     }
   });
+
+javascript:
+  $('[data-toggle="tooltip"]').tooltip()
+
+script type="application/ld+json"
+  - @course.upcoming_public_events.each do |event|
+    | {
+    | "@context": "http://schema.org",
+    | "@type": "EducationEvent",
+    | "name": "#{@course.full_title}",
+    | "location": {
+    | "@type": "Place",
+    | "name": "#{@course.full_title}",
+    | "address": {
+    | "@type": "PostalAddress",
+    | "addressCountry": "USA"
+    | },
+    | "url": "#{platform_course_path(@course.platform, @course)}"
+    | },
+    | "offers":{
+    | "@type": "Offer",
+    | "Price": "#{number_with_delimiter(number_with_precision(event.price, precision: 2))}"
+    | },
+    | "startDate": "#{event.start_date.strftime("%-m/%-d/%y")} to ",
+    | "endDate": "#{event.end_date.strftime("%-m/%-d/%y")} to ",
+    | "url": "#{platform_course_path(@course.platform, @course)}"
+    | }

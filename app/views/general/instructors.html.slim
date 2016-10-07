@@ -7,19 +7,20 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    | Home
+    = t('admins.partial_breadcrumbs.home')
   span.seperator
     | /
-  span.text-muted About Us
+  span.text-muted
+    = t('admins.partial_breadcrumbs.about_us')
     
 .row
   .col-xs-12.col-central
-    = image_tag 'instructors.png', class: "header-image"
+    = image_tag t('general.instructors.image'), class: "header-image"
     = render partial: 'layouts/about_us_nav_bar'
         
     .row.instructor-bios
       .col-xs-12
-        = @page.content.html_safe
+        = @page.content.try(:html_safe)
   
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

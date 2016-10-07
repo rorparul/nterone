@@ -1,0 +1,11 @@
+es:
+  companies:
+    edit:
+      edit_company: "Editar Compañia"
+    new:
+      add_company: "Agregar Compañia"
+    partial_form:
+      dropdown: 'Por Favor Seleccionar'
+      form_type: 'Formato de Reservación de Laboratorios'
+      option_1: 'Detalle de Estudiante No Requerido'
+      option_2: 'Detalle de Estudiante Requerido'

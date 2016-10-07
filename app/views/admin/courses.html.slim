@@ -9,6 +9,11 @@
   .col-xs-12
     = render partial: 'courses/index', locals: { courses: @courses }
     
+.row
+  .col-xs-12.text-center
+    #download-classes
+      = link_to t('admins.courses.download_courses'), courses_export_path(format: 'xlsx')
+    
     
 javascript:
   $('.role-tab').addClass('active');

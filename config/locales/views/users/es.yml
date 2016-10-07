@@ -1,0 +1,43 @@
+es:
+  users:
+    edit_from_my_queue:
+      user_info: "Información del Usuario"
+    new:
+      new_person: "Nueva Persona"
+    partial_form:
+      billing_address: "Dirección de Facturación"
+      city: "Ciudad"
+      company_name: "Nombre de la Compañia"
+      daily_rate: "[t]Daily Rate"
+      phone: "Teléfono"
+      privileges: "Privilegios"
+      user_info: "Información Usuario"
+      same_as: "Misma que Facturación"
+      shipping_address: "Dirección de Envío"
+      state: "Estado"
+      street: "Calle"
+      zip: "Codigo Postal"
+    partial_index:
+      last_active: "Ultimo Activo"
+      purchases: "Compras"
+    partial_listing:
+      add_order: "Agregar Orden"
+      last_active: "Ultimo Activo"
+      reinvite: "Re-invitado"
+      roles: "[t]Roles"
+    partial_role_fields:
+      admin: "[t]Admin"
+      lms_manager: "LMS Gerente"
+      lms_student: "LMS Estudianter"
+      sales_manager: "Gerente Ventas"
+      sales_rep: "Representante de Ventas"
+      student: "Estudiante"
+    partial_users:
+      add_purchase: "Agregar Compras"
+    show:
+      activity_history: "Historia Actividad"
+      build_my_training_plan: "Construir Mi Plan de Entrenamiento"
+      find_testing_center: "Encontrar Centro de Exámenes"
+      grand_total: "Gran Total:"
+      remove_from_plan: "Remover de Mi Plan"
+      request_quote: "Solicitar Cotización Formal"

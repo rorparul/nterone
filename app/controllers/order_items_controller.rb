@@ -20,6 +20,11 @@ class OrderItemsController < ApplicationController
     else
       flash[:alert] = "Registration failed to update."
     end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   def destroy
@@ -41,7 +46,8 @@ class OrderItemsController < ApplicationController
                                          :video_on_demand_id,
                                          :sent_webex_invite,
                                          :sent_course_material,
-                                         :sent_lab_credentials)
+                                         :sent_lab_credentials,
+                                         :note)
     end
 
     def find_orderable

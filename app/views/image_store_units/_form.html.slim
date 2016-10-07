@@ -14,14 +14,16 @@
       br
       br
     = f.fields_for :image do |ff|
-      = ff.label :file, 'Image'
+      = ff.label :file, t('image_store_units.partial_form.image')
       = ff.file_field :file
       = ff.hidden_field :file_cache
 
   .form-group
-    = f.label :title
+    = f.label :title, t('image_store_units.partial_form.image_title')
     = f.text_field :title, class: 'form-control input-sm'
       
   .form-buttons
-    button.btn.btn-success type="submit" Save
-    button.btn.btn-default type="button" data-dismiss="modal" Cancel
+    button.btn.btn-success type="submit"
+      = t('default.action.save')
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t('default.action.cancel')

@@ -8,7 +8,8 @@
           h1 = platform.title
       .col-xs-12
         hr
-        h4.text-muted Browse By
+        h4.text-muted
+          = t('platforms.partial_platform.browse')
         hr
         .categories.hidden-xs
           - platform.parent_categories.order(:position).each do |category|
@@ -24,4 +25,11 @@
                             platform_category_path(category.platform, category),
                             class: "btn btn-category category"
   - if user_signed_in? && current_user.admin?
-    = link_to "Edit", edit_platform_path(platform), remote: true, class: "platform-item-actions"
+    .platform-item-edit
+      .dropdown.pull-left
+        a#dLabel href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          | Actions
+          span.caret
+        ul.dropdown-menu aria-labelledby="dLabel"
+          li = link_to t('default.action.edit'), edit_platform_path(platform), remote: true
+          li = link_to "Export", platform_vendor_export_path(platform)

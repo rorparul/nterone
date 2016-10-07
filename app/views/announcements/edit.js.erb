@@ -1,3 +1,3 @@
-$('.modal-title').html('Edit Announcement');
+$('.modal-title').html("<%= t('announcements.edit_js.edit_announcement') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'edit_form', locals: { announcement: @announcement }) %>");
 $('#myModal').modal('show');

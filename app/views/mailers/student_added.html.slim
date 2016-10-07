@@ -1,3 +1,97 @@
-h1 User
-p = @user.full_name
-p = @user.email
+css:
+  td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  
+  .text-red {
+    color: red;
+  }
+
+= image_tag attachments["#{t('mailers.student_added.image1')}"]
+
+p 
+  = t('mailers.student_added.copy1')
+
+p
+  = t('mailers.student_added.copy2')
+  = t('mailers.student_added.copy3')
+
+p 
+  = t('mailers.student_added.copy4')
+
+p 
+  = t('mailers.student_added.copy5')
+table
+  tr
+    td 
+      = t('mailers.student_added.copy6')
+    td.text-red = @event.course.full_title
+  tr
+    td
+      = t('mailers.student_added.copy7')
+    td 
+      = @user.full_name
+  tr
+    td
+      = t('mailers.student_added.copy8') 
+    td 
+      = @event.format
+  tr
+    td
+      = t('mailers.student_added.copy9')
+    td.text-red 
+      = "#{@event.start_date} thru #{@event.end_date}"
+  tr
+    td
+      = t('mailers.student_added.copy10')
+    td.text-red 
+      = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+  tr
+    td
+      = t('mailers.student_added.copy11')
+    td.text-red 
+      = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+  tr
+    td colspan="2"
+      = t('mailers.student_added.copy12')
+
+p.text-red 
+  = t('mailers.student_added.copy13')
+
+p
+  span.text-red Note: 
+  = t('mailers.student_added.copy14')
+  a href="http://www.webex.com/test-meeting.html" http://www.webex.com/test-meeting.html
+
+p
+  = t('mailers.student_added.copy15')
+  = t('mailers.student_added.copy16')
+
+p
+  span.text-red = t('mailers.student_added.copy17')
+  = t('mailers.student_added.copy18')
+  = t('mailers.student_added.copy19')
+
+p
+  = t('mailers.student_added.copy20')
+ul
+  li
+    = t('mailers.student_added.copy21')
+    a href="mailto:helpdesk#{t('default.contact.email')}" helpdesk#{t('default.contact.email')}
+  li 
+    = t('mailers.student_added.copy22')
+    = "703-972-2288 Ext. 1022"
+  li
+    = t('mailers.student_added.copy23') 
+    = "8:00am EST – 8:00pm EST"
+
+p
+  = t('mailers.student_added.copy24')
+
+p
+  = t('mailers.student_added.copy25')
+
+p
+  a href="#{t('mailers.student_added.copy26')}" 
+    = t('mailers.student_added.copy27')

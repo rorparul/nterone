@@ -1,12 +1,13 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: :feed
+  before_action :set_event, only: [:edit_in_house_note, :update_in_house_note]
 
   def page
     @events = Event.order(guaranteed: :desc, start_date: :asc).page(params[:page])
   end
 
   def feed
-    @events = Event.upcoming_events
+    @events = Event.upcoming_public_events
     respond_to do |format|
       format.rss { render :layout => false }
     end
@@ -16,7 +17,7 @@ class EventsController < ApplicationController
     @platform    = Platform.find(params[:platform_id])
     @course      = Course.find(params[:course_id])
     @event       = @course.events.build
-    @instructors = @platform.instructors
+    # @instructors = @platform.instructors
   end
 
   def create
@@ -37,7 +38,7 @@ class EventsController < ApplicationController
     @course      = Course.find(params[:course_id])
     @events      = @course.events
     @event       = @course.events.build
-    @instructors = @platform.instructors
+    # @instructors = User.only_instructors
   end
 
   def  select_to_edit
@@ -49,7 +50,7 @@ class EventsController < ApplicationController
       @platform    = Platform.find(params[:platform_id])
       @course      = Course.find(params[:course_id])
       @event       = Event.find(event_params[:id])
-      @instructors = @platform.instructors
+      # @instructors = @platform.instructors
     end
   end
 
@@ -57,18 +58,21 @@ class EventsController < ApplicationController
     @platform    = Platform.find(params[:platform_id])
     @course      = Course.find(params[:course_id])
     @event       = Event.find(params[:id])
-    @instructors = @platform.instructors
+    # @instructors = @platform.instructors
   end
 
   def update
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
+
+    EventReminderWorker.new.perform
+
     if @event.update_attributes(event_params)
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
     else
-      @instructors  = @platform.instructors
+      # @instructors  = @platform.instructors
       render 'select_to_edit'
     end
   end
@@ -81,6 +85,15 @@ class EventsController < ApplicationController
       flash[:alert] = 'Event failed to destroy.'
     end
     redirect_to :back
+  end
+
+  def student_registered_classes
+    @platforms = Platform.order(:title)
+
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   def upload_form
@@ -115,6 +128,19 @@ class EventsController < ApplicationController
     redirect_to :back
   end
 
+  def edit_in_house_note
+  end
+
+  def update_in_house_note
+    @event.update_attributes(in_house_note_params)
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js { render json: {
+        success: true, in_house_note: @event.in_house_note
+      }}
+    end
+  end
+
   private
 
   def event_params
@@ -130,6 +156,7 @@ class EventsController < ApplicationController
                                   :price,
                                   :city,
                                   :state,
+                                  :street,
                                   :file,
                                   :public,
                                   :status,
@@ -142,9 +169,21 @@ class EventsController < ApplicationController
                                   :cost_shipping,
                                   :partner_led,
                                   :time_zone,
+                                  :should_remind,
+                                  :remind_period,
                                   :sent_all_webex_invite,
                                   :sent_all_course_material,
-                                  :sent_all_lab_credentials)
+                                  :sent_all_lab_credentials,
+                                  :note,
+                                  :in_house_note,
+                                  :count_weekends,
+                                  :autocalculate_instructor_costs,
+                                  :calculate_book_costs,
+                                  :language)
+  end
+
+  def in_house_note_params
+    params.require(:event).permit(:in_house_note)
   end
 
   def error_rows(events)
@@ -162,5 +201,9 @@ class EventsController < ApplicationController
               "</tr>"
     end
     rows
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
   end
 end

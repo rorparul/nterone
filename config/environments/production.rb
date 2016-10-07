@@ -87,7 +87,7 @@ NterOne::Application.configure do
     :address              => 'smtp.office365.com',
     :domain               => 'nterone.com',
     :port                 => 587,
-    :user_name            => 'nci@nterone.com',
+    :user_name            => "nci@nterone.com",
     :password             => 'Ni2015!!',
     :authentication       => :login,
     :enable_starttls_auto => true

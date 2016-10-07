@@ -1,0 +1,48 @@
+tr
+  td.fit = event.id
+  td.fit
+    = link_to edit_in_house_note_path(event), remote: true do
+      - if event.in_house_note.present?
+        span.fa.fa-sticky-note  class="in-house-note-icon-#{event.id}"
+      - else
+        span.fa.fa-sticky-note-o class="in-house-note-icon-#{event.id}"
+  td.fit = event.course.abbreviation
+  td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
+  td.fit = event.length
+  td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
+  td.fit 
+    - if event.format == 'On-site'
+      = [event.city, event.state].reject(&:blank?).join(', ')
+    - else
+      = event.format
+  td.fit = event.instructor.full_name if event.instructor
+  td.fit = event.student_count
+  td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
+  td.fit = event.lab_source
+  td.fit
+    - if event.public
+      span.label.label-success = t('events.partial_listing.y')
+    - else
+      span.label.label-default = t('events.partial_listing.n')
+  td.fit
+    - if event.guaranteed
+      span.label.label-success = t('events.partial_listing.y')
+    - else
+      span.label.label-default = t('events.partial_listing.n')
+  td.fit
+    - if event.status == "Confirmed"
+      span.label.label-success = t('events.partial_listing.y')
+    - else
+      span.label.label-default = t('events.partial_listing.n')
+  td.fit
+    = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
+      i class="fa fa-plus" aria-hidden="true"
+  td.fit
+    = link_to admin_classes_show_path(event), title: t('events.partial_listing.view') do
+      i class="fa fa-eye" aria-hidden="true"
+  td.fit
+    = link_to edit_platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.edit'), remote: true do
+      i class="fa fa-pencil-square-o" aria-hidden="true"
+  td.fit
+    = link_to platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.delete'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
+      i.text-danger class="fa fa-trash-o" aria-hidden="true"
