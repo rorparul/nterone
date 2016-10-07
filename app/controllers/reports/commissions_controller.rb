@@ -2,7 +2,6 @@ class Reports::CommissionsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-
   end
 
   def create
@@ -17,7 +16,7 @@ class Reports::CommissionsController < ApplicationController
     end
   end
 
-private
+  private
 
   def report_params
     params.require(:report).permit(:sales_rep, :start_date, :end_date)
