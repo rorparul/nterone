@@ -93,6 +93,14 @@ class GeneralController < ApplicationController
   def sims
   end
 
+  def nci
+    @page = Page.find_by(title: 'NCI')
+  end
+
+  def support
+    @page = Page.find_by(title: 'Support')
+  end
+
   def sitemap
     @page = Page.find_by(title: "Sitemap")
   end

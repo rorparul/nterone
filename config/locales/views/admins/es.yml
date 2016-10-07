@@ -37,7 +37,9 @@ es:
       home: "Inicio"
       industry: "Industria"
       my_sales: "Mis Ventas"
+      nci: "NCI"
       press: "Prensa"
+      support: "Apoyo"
       training: "Entrenamientos"
     partial_tabs:
       announcements: "Anuncios"

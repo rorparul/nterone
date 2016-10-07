@@ -5,6 +5,7 @@ css:
 
 p = t('lab_rentals.mailers.reservation.copy1')
 p = t('lab_rentals.mailers.reservation.copy2')
+
 table
   tbody
     tr
@@ -45,42 +46,38 @@ table
     tr
       td
         = t('lab_rentals.mailers.reservation.copy9')
-        | Time Zone
       td
         = @reservation.time_zone
     tr
       td
-        | Instructor
+        = t('lab_rentals.mailers.reservation.copy10')
       td
         = @reservation.instructor
     tr
       td
-        = t('lab_rentals.mailers.reservation.copy10')
+        = t('lab_rentals.mailers.reservation.copy11')
       td
         = @reservation.instructor_email
     tr
       td
-        = t('lab_rentals.mailers.reservation.copy11')
+        = t('lab_rentals.mailers.reservation.copy12')
       td
         = @reservation.instructor_phone
     tr
       td
-        = t('lab_rentals.mailers.reservation.copy12')
+        = t('lab_rentals.mailers.reservation.copy13')
       td
         = @reservation.location
     tr
       td
-        = t('lab_rentals.mailers.reservation.copy13')
+        = t('lab_rentals.mailers.reservation.copy14')
       td
         = @reservation.confirmed
     tr
       td
-        = t('lab_rentals.mailers.reservation.copy14')
+        = t('lab_rentals.mailers.reservation.copy15')
       td
         = @reservation.notes
-      
-p
-  = t('lab_rentals.mailers.reservation.copy15')
 
 p
   = t('lab_rentals.mailers.reservation.copy16')
