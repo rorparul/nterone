@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
 
       if @order.save
         @order.confirm_with_partner if confirm_with_partner?
+        @order.confirm_with_student if confirm_with_student?
         flash[:success] = "Purchase successfully created."
       else
         flash[:alert] = "Purchase failed to create."
@@ -261,5 +262,9 @@ class OrdersController < ApplicationController
 
   def confirm_with_partner?
     params[:confirm_with_partner] == 'true'
+  end
+
+  def confirm_with_student?
+    params[:confirm_with_student] == 'true'
   end
 end

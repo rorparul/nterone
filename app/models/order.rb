@@ -198,6 +198,14 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def confirm_with_student
+    return if buyer.email.blank?
+
+    order_items.where(orderable_type: 'Event').each do |item|
+      PartnerMailer.registration_made(buyer.email, buyer, item.orderable).deliver_now
+    end
+  end
+
   def self.items_in_range_for(seller_id, start_date, end_date)
     order_ids   = Order.where(seller_id: seller_id).distinct
     order_items = OrderItem.where(order_id: order_ids, orderable_type: 'Event').distinct.select do |order_item|
