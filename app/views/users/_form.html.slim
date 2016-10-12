@@ -56,6 +56,11 @@
                   Company.all.collect {|c| [ c.title, c.id ] },
                   { prompt: t('default.placeholder.select') },
                   { class: "form-control input-sm" }
+          .row 
+            .col-xs-12.col-md-6
+              .form-group
+                = f.label :video_bio, t('users.partial_form.video_bio')
+                = f.text_field :video_bio, class: "form-control input-sm"
           hr
           fieldset
             label 

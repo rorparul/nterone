@@ -41,6 +41,7 @@
 #  street                         :string
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
+#  resell                         :boolean          default(FALSE)
 #
 
 class Event < ActiveRecord::Base

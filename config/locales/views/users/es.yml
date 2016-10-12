@@ -5,6 +5,7 @@ es:
     new:
       new_person: "Nueva Persona"
     partial_form:
+      add_permission: "[t]Add Permission"
       billing_address: "Dirección de Facturación"
       city: "Ciudad"
       company_name: "Nombre de la Compañia"
@@ -16,6 +17,7 @@ es:
       shipping_address: "Dirección de Envío"
       state: "Estado"
       street: "Calle"
+      video_bio: "[t]Video Bio"
       zip: "Codigo Postal"
     partial_index:
       last_active: "Ultimo Activo"

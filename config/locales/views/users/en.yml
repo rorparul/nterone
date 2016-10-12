@@ -5,6 +5,7 @@ en:
     new:
       new_person: "New Person"
     partial_form:
+      add_permission: "Add Permission"
       billing_address: "Billing Address"
       city: "City"
       company_name: "Company Name"
@@ -16,8 +17,8 @@ en:
       shipping_address: "Shipping Address"
       state: "State"
       street: "Street"
+      video_bio: "Video Bio"
       zip: "Zipcode"
-      add_permission: "Add Permission"
     partial_index:
       last_active: "Last Active"
       purchases: "Purchases"
