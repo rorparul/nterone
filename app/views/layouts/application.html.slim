@@ -5,21 +5,54 @@ html
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
     link rel="alternate" type="application/rss+xml" title="#{t('layouts.application.upcoming_classes')}" href="https://www.nterone.com/feed?format=rss"
+    meta name="msvalidate.01" content="581235DC300C850870F5BA01773F0285"
+    meta name="google-site-verification" content="GbDxJ38Z6K04pZnExu3LAXqLuQZArvTHdZPCvqFq9QM"
     = canonical_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag 'favicon.png'
     = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    - if !user_signed_in? || current_user.try(:member?)
       - if I18n.locale == :en
-        javascript:
-          window.$zopim||(function(d,s){var z=$zopim=function(c){
-          z._.push(c)},$=z.s=
-          d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-          _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-          $.src='//v2.zopim.com/?3naKOCfXUCQpTL48Row9IGOxjjAxy1Ez';z.t=+new Date;$.
-          type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+        - if !user_signed_in? || current_user.try(:member?)
+          javascript:
+            window.$zopim||(function(d,s){var z=$zopim=function(c){
+            z._.push(c)},$=z.s=
+            d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+            $.src='//v2.zopim.com/?3naKOCfXUCQpTL48Row9IGOxjjAxy1Ez';z.t=+new Date;$.
+            type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+            
+        - if Rails.env.production?
+          javascript:
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-85530831-1', 'auto');
+            ga('send', 'pageview');
+            
+          javascript:
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1697430287242506');
+            fbq('track', 'PageView');
+          noscript
+            img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1697430287242506&ev=PageView&noscript=1"
+            
+          javascript:
+            (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5440860"};
+            o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),
+            n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){
+            var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},
+            i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})
+            (window,document,"script","//bat.bing.com/bat.js","uetq");
+          noscript
+            img src="//bat.bing.com/action/0?ti=5440860&Ver=2" height="0" width="0" style="display:none; visibility: hidden;"
+            
       - if I18n.locale == :es
         javascript:
           window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -60,12 +93,12 @@ html
     = render 'layouts/footer'
     = render 'layouts/ad_words'
     
-- if Rails.env.production?
-
-  javascript:
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-40305433-1', 'auto');
-    ga('send', 'pageview');
+    - if Rails.env.production?
+      javascript:
+        var google_conversion_id = 871022053;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+      script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
+      noscript
+        div style="display:inline;"
+          img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/871022053/?guid=ON&amp;script=0"
