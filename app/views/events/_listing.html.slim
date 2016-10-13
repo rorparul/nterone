@@ -22,6 +22,7 @@
         tbody
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
+            - @grouped_events.each do |date_str, events|
               tr
                 td(style="background-color: #D5DDF2;" colspan=9)
                   strong

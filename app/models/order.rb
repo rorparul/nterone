@@ -191,18 +191,18 @@ class Order < ActiveRecord::Base
   end
 
   def confirm_with_partner
-    return if referring_partner_email.blank?
+    return if referring_partner_email.blank? || seller.email.blank?
 
     order_items.where(orderable_type: 'Event').each do |item|
-      PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
+      RegistrationMailer.registration_made(referring_partner_email, seller.email, buyer, item.orderable).deliver_now
     end
   end
 
   def confirm_with_student
-    return if buyer.email.blank?
+    return if buyer.email.blank? || seller.email.blank?
 
     order_items.where(orderable_type: 'Event').each do |item|
-      PartnerMailer.registration_made(buyer.email, buyer, item.orderable).deliver_now
+      RegistrationMailer.registration_made(buyer.email, seller.email, buyer, item.orderable).deliver_now
     end
   end
 
