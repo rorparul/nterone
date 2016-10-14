@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :check_captcha, only: [:create]
+  # prepend_before_action :check_captcha, only: [:create]
 
   def new
     @special_event = params[:special_event]
@@ -23,6 +23,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def after_sign_up_path_for(resource)
+    main_app.welcome_path
+  end
 
   def after_update_path_for(resource)
     main_app.edit_user_registration_path
