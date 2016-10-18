@@ -6,10 +6,13 @@ en:
       add_article: "Add Article"
     partial_form:
       blog_post: "Blog Post"
+      blog_post_value: "Blog Post"
       industry_article: "Industry Article"
+      industry_article_value: "Industry Article"
       page_description: "Page Description"
       page_title: "Page Title"
       press_release: "Press Release"
+      press_release_value: "Press Release"
       published: "Published"
       type: "Type"
     show:
