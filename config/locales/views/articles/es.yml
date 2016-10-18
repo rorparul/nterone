@@ -6,10 +6,13 @@ es:
       add_article: "Agregar Articulo"
     partial_form:
       blog_post: "Posteo del Blog"
+      blog_post_value: "Blog Post"
       industry_article: "Articulo de la industria"
+      industry_article_value: "Industry Article"
       page_description: "Pagina Descripción"
       page_title: "Pagina Titulo"
       press_release: "Anuncio de Prensa"
+      press_release_value: "Press Release"
       published: "Publicado"
       type: "Tipo"
     show:
