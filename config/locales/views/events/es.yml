@@ -51,6 +51,7 @@ es:
       street: "Calle"
       time_zone: "Zona Horaria"
       two_weeks: "Dos Semanas"
+      zipcode: "Código Postal"
     partial_index:
       classes: "Clases"
       course: "Curso"

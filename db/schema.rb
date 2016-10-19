@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012173423) do
+ActiveRecord::Schema.define(version: 20161019210051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,11 +226,12 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.string   "street"
     t.integer  "language",                                               default: 0
+    t.string   "street"
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
+    t.string   "zipcode"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -445,8 +446,8 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.time     "end_time"
     t.integer  "lab_course_id"
+    t.time     "end_time"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"

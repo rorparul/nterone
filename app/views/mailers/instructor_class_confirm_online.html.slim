@@ -1,0 +1,30 @@
+
+p 
+  = t('mailers.instructor_class_confirm_online.greeting') + " #{@name},"
+p 
+  = t('mailers.instructor_class_confirm_online.copy1') + " #{@event.course.title} " + t('mailers.instructor_class_confirm_online.copy2') + " #{@event.start_date.strftime("#{Date::DAYNAMES[@event.start_date.wday]}, %m/%d/%y")}." + t('mailers.instructor_class_confirm_online.copy3')
+
+ul
+  li 
+    = t('mailers.instructor_class_confirm_online.copy4') + " #{@event.start_time.strftime("%I:%M%p")}" +  "#{format_timezone(@event)}. " + t('mailers.instructor_class_confirm_online.copy5')
+  li 
+    = t('mailers.instructor_class_confirm_online.copy6')
+  li 
+    = t('mailers.instructor_class_confirm_online.copy7')
+  li 
+    = t('mailers.instructor_class_confirm_online.copy8')
+  li 
+    = t('mailers.instructor_class_confirm_online.copy9')
+
+p 
+  = t('mailers.instructor_class_confirm_online.copy10')
+p 
+  = t('mailers.instructor_class_confirm_online.thanks')
+
+table
+  tr
+    td style="border: none; padding-bottom: 0px; margin-bottom: 0px;" Ashlie Monds
+  tr 
+    td style="border: none; padding-bottom: 0px; margin-bottom: 0px;" Operations Manager
+  tr 
+    td style="border: none;" (252) 392-0933
