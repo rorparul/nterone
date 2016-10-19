@@ -6,6 +6,9 @@ en:
       image: "locales/en/about-nterone.png"
     consulting:
       image: "locales/en/consulting.png"
+    contact_us_confirmation:
+      home: "Home"
+      welcome: "Welcome"
     executives:
       image: "locales/en/executives.png"
     featured_classes:
@@ -44,6 +47,9 @@ en:
       image1: "locales/en/partners.png"
     press:
       image: "locales/en/press.png"
+    sign_up_confirmation:
+      home: "Home"
+      welcome: "Welcome"
     sims:
       homs: "Home"
       sims: "Sims"

@@ -1,4 +1,5 @@
 class LeadMailer < ApplicationMailer
+  helper GeneralHelper
   def new_lead(lead)
     @lead = lead
     @url  = leads_url

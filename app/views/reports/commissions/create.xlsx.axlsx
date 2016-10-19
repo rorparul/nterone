@@ -10,7 +10,7 @@ wb.styles do |style|
       "#{t('reports.commissions.create_xlsx.student_name')}",
       "#{t('reports.commissions.create_xlsx.revenue')}",
       "#{t('reports.commissions.create_xlsx.commission_rate')}",
-      "#{t('reports.commissions.create_xlsx.commisssion_earned')}"
+      "#{t('reports.commissions.create_xlsx.commission_earned')}"
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)

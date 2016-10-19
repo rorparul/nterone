@@ -7,7 +7,7 @@ en:
     partial_select:
       instructor: "Instructor"
     partial_show:
-      all_courses_led_by: "All Courses Led By"
+      all_courses_led_by: "Courses Taught by"
       biography: "Biography"
       contact_info: "Contact Info"
     select_js:
