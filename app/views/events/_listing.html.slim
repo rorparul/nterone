@@ -19,7 +19,7 @@
             th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
             th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
             th.fit colspan="4" = t 'events.partial_listing.actions'
-        tbody
+        tbodyw
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
               tr

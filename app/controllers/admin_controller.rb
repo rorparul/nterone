@@ -59,6 +59,16 @@ class AdminController < ApplicationController
 
     if should_group_classes?
       @grouped_events = @events.group_by(&:week_range)
+      @range = Event.all.group_by(&:week_range)
+      for i in 0..@grouped_events.length
+        for j in 0..@range.length
+          if @grouped_events[i][0] == @range[j][0]
+            puts
+            puts "True True True"
+            puts
+          end
+        end
+      end
     end
 
     respond_to do |format|
