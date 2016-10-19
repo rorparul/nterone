@@ -83,6 +83,7 @@ class UsersController < ApplicationController
                                  :shipping_zip_code,
                                  :status,
                                  :video_bio,
+                                 :about,
                                  roles_attributes: [:id,
                                                     :role,
                                                     :_destroy])
