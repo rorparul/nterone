@@ -120,6 +120,7 @@ es:
       referrer: "Correo del Aliado que refiere"
       same_as: "Misma de facturación"
       save_partner_confirm: "Guardar & Confirmar con el Aliado"
+      save_student_confirm: "[t]Save & Confirm with Student"
       seller: "Representantes de Ventas"
       shipping_address: "Dirección de Envío"
       source: "Fuente"

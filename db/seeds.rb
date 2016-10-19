@@ -294,45 +294,49 @@ when "development"
       course_id: crs4.id
     )
 
-    e1 = Event.create!(
-      start_date: "%12/%13/%2014",
-      end_date: "%12/%13/%2015",
+    e1 = Event.new(
+      start_date: "%12/%13/%2017",
+      end_date: "%12/%13/%2018",
       format: "Format",
       price: 1000.50,
       course_id: crs1.id,
       start_time: Time.now,
       end_time: Time.now
     )
+    e1.save!(validate: false)
 
-    e2 = Event.create!(
-      start_date: "%12/%14/%2014",
-      end_date: "%12/%14/%2015",
+    e2 = Event.new(
+      start_date: "%12/%14/%2017",
+      end_date: "%12/%14/%2018",
       format: "Format",
       price: 1000.50,
       course_id: crs2.id,
       start_time: Time.now,
       end_time: Time.now
     )
+    e2.save!(validate: false)
 
-    e3 = Event.create!(
-      start_date: "%12/%14/%2014",
-      end_date: "%12/%14/%2015",
+    e3 = Event.new(
+      start_date: "%12/%14/%2017",
+      end_date: "%12/%14/%2018",
       format: "Format",
       price: 1000.50,
       course_id: crs3.id,
       start_time: Time.now,
       end_time: Time.now
     )
+    e3.save!(validate: false)
 
-    e4 = Event.create!(
-      start_date: "%12/%13/%2014",
-      end_date: "%12/%13/%2015",
+    e4 = Event.new(
+      start_date: "%12/%13/%2017",
+      end_date: "%12/%13/%2018",
       format: "Format",
       price: 1000.50,
       course_id: crs4.id,
       start_time: Time.now,
       end_time: Time.now
     )
+    e4.save!(validate: false)
     #
     #
     # u1 = User.create!(
