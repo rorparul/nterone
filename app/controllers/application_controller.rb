@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
     when "www.nterone.com"
       I18n.locale = :en
     else
-      I18n.locale = :es
+      I18n.locale = :en
     end
   end
 
