@@ -3,7 +3,7 @@
 # Table name: discounts
 #
 #  id         :integer          not null, primary key
-#  active     :boolean
+#  active     :boolean          default(TRUE)
 #  date_end   :date
 #  date_start :date
 #  limit      :integer
