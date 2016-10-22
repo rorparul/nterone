@@ -103,13 +103,14 @@ class AdminController < ApplicationController
   end
 
   def website
-    @static_pages      = Page.where(static: true).order(:title)
-    @dynamic_pages     = Page.where(static: false).order(:title)
-    @companies         = Company.order(:title)
-    @lab_courses       = LabCourse.order(:title)
     @articles          = Article.order(created_at: :desc)
-    @testimonials      = Testimonial.page(1).per(5)
+    @companies         = Company.order(:title)
+    @discounts         = Discount.joins(:discount_filter)
+    @dynamic_pages     = Page.where(static: false).order(:title)
     @image_store_units = ImageStoreUnit.order(created_at: :desc)
+    @lab_courses       = LabCourse.order(:title)
+    @static_pages      = Page.where(static: true).order(:title)
+    @testimonials      = Testimonial.page(1).per(5)
   end
 
   private

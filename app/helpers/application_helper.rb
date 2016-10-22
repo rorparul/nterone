@@ -67,4 +67,19 @@ module ApplicationHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def format_discount(discount)
+    return if discount.blank?
+    discount.kind == "percent" ? discount.value.to_s + "%" : "$" + discount.value.to_s
+  end
+
+  def format_date_with_day(date)
+    return if date.blank?
+    Date::DAYNAMES[date.wday] + ", " + date.strftime("%m/%d/%Y").to_s
+  end
+
+  def setup_discount(discount)
+    discount.discount_filter ||= DiscountFilter.new
+    discount
+  end
 end

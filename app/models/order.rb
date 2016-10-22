@@ -50,6 +50,7 @@
 #  closed_date             :date
 #  source                  :integer          default(0)
 #  other_source            :string
+#  discount_id             :integer
 #
 # Indexes
 #
@@ -76,6 +77,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
+  belongs_to :discount
 
   has_many :order_items, dependent: :destroy
 

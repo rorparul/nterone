@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012173423) do
+ActiveRecord::Schema.define(version: 20161021005953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,32 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.boolean  "is_header",   default: false
   end
 
+  create_table "discount_filters", force: :cascade do |t|
+    t.integer "discount_id"
+    t.boolean "event"
+    t.boolean "vod"
+    t.string  "event_format"
+    t.boolean "event_guaranteed"
+    t.integer "event_course_id"
+    t.string  "event_city"
+    t.string  "event_state"
+    t.boolean "event_partner_led"
+    t.integer "event_language"
+    t.integer "vod_platform_id"
+    t.boolean "vod_partner_led"
+    t.boolean "vod_lms"
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.boolean "active"
+    t.date    "date_end"
+    t.date    "date_start"
+    t.integer "limit"
+    t.string  "code"
+    t.string  "kind"
+    t.decimal "value"
+  end
+
   create_table "dividers", force: :cascade do |t|
     t.integer  "platform_id"
     t.string   "content"
@@ -226,11 +252,12 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.string   "street"
     t.integer  "language",                                               default: 0
+    t.string   "street"
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
+    t.string   "zipcode"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -445,8 +472,8 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.time     "end_time"
     t.integer  "lab_course_id"
+    t.time     "end_time"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -625,6 +652,7 @@ ActiveRecord::Schema.define(version: 20161012173423) do
     t.date     "closed_date"
     t.integer  "source",                                          default: 0
     t.string   "other_source"
+    t.integer  "discount_id"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree

@@ -4,27 +4,96 @@
 .row
   .col-xs-12
     = render 'tabs'
-
+    
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t('admins.website.static_pages')
+          = t('admins.website.articles')
+        = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
       .table-responsive
         table.table.table-condensed
           thead
             tr
-              th
-                = t('admins.website.title')
-              th
-          tbody#pages
-            - @static_pages.each do |page|
+              th = t('default.label.title')
+              th = t('admins.website.kind')
+              th = t('admins.website.published')
+              th colspan="2"
+          tbody#press-releases
+            - @articles.each do |article|
               tr
-                td = page.title
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
-
+                td = article.title
+                td = article.kind
+                td = article.created_at.strftime("%b. %d, %Y")
+                td.fit = link_to t('default.action.edit'), edit_article_path(article), remote: false
+                td.fit = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t('admins.website.companies')
+        = link_to t('default.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th = t('default.label.title')
+              th = t('admins.website.form_type')
+              th = t('admins.website.portal')
+              th colspan="2" Actions
+          tbody#pages
+            - @companies.each do |company|
+              tr
+                td = company.title
+                td = company.form_type
+                td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
+                td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
+                td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t('admins.website.discounts')
+        = link_to t('generic.action.add'), new_discount_path, remote: true, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th Code
+              th Amount
+              th Start Date
+              th End Date
+              th Event
+              th VOD
+              th Limit
+              th Active
+              th
+          - @discounts.each do |discount|
+            tbody
+              tr
+                td
+                  = discount.code
+                td
+                  = format_discount(discount)
+                td 
+                  = format_date_with_day(discount.date_start)
+                td 
+                  = format_date_with_day(discount.date_end)
+                td 
+                  = discount.discount_filter.event ? "Yes" : "No"
+                td 
+                  = discount.discount_filter.vod ? "Yes" : "No"
+                td 
+                  = discount.limit
+                td 
+                  = discount.active ? "Yes" : "No"
+                td.fit = link_to t('default.action.edit'), edit_discount_path(discount), remote: true
+                
 .row
   .col-xs-12
     .panel.panel-default
@@ -52,54 +121,6 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
-          = t('admins.website.articles')
-        = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('default.label.title')
-              th = t('admins.website.kind')
-              th = t('admins.website.published')
-              th colspan="2"
-          tbody#press-releases
-            - @articles.each do |article|
-              tr
-                td = article.title
-                td = article.kind
-                td = article.created_at.strftime("%b. %d, %Y")
-                td.fit = link_to t('default.action.edit'), edit_article_path(article), remote: false
-                td.fit = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('admins.website.companies')
-        = link_to t('default.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('default.label.title')
-              th = t('admins.website.form_type')
-              th = t('admins.website.portal')
-              th colspan="2" Actions
-          tbody#pages
-            - @companies.each do |company|
-              tr
-                td = company.title
-                td = company.form_type
-                td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
-                td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
-                td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
           = t('admins.website.lab_courses')
         = link_to t('default.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
       .table-responsive
@@ -116,6 +137,28 @@
                 td = lab_course.company.try(:title)
                 td.fit = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
                 td.fit = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
+          = t('admins.website.static_pages')
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th
+                = t('admins.website.title')
+              th
+          tbody#pages
+            - @static_pages.each do |page|
+              tr
+                td = page.title
+                td.actions-column.fit
+                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
+                
 
 .row
   .col-xs-12
