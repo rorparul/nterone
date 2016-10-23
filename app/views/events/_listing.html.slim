@@ -23,19 +23,13 @@
             
         tbody
           - if @grouped_events.present?
-            - @grouped_events.each_with_index do |value, index|
+            - @grouped_events.each do |date_str, events|
               tr
                 td(style="background-color: #D5DDF2;" colspan=10)
-                  strong
-                    = value[0]
-                td(style="background-color: #D5DDF2;" colspan=5)
-                  - if [0, @grouped_events.count - 1].include?(index)
-                    strong $#{number_with_delimiter(number_with_precision(weekly_revenue(value[0], @queried_events), precision: 2))}
-                  - else
-                    strong $#{number_with_delimiter(number_with_precision(events_revenue_total(value[1]), precision: 2))}
-                td(style="background-color: #D5DDF2;" colspan=5)
-
-              - value[1].each do |event|
+                  strong = date_str
+                td(style="background-color: #D5DDF2;" colspan=10)
+                    strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
+              - events.each do |event|
                 = render partial: 'events/listing_event', locals: { event: event }
           - else
             - smart_listing.collection.each do |event|
