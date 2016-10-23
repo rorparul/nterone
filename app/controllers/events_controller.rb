@@ -180,7 +180,8 @@ class EventsController < ApplicationController
                                   :autocalculate_instructor_costs,
                                   :calculate_book_costs,
                                   :language,
-                                  :resell)
+                                  :resell,
+                                  :zipcode)
   end
 
   def in_house_note_params

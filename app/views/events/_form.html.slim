@@ -93,17 +93,20 @@
                       ['Live Online', 'Live Online'],
                       ['On-site', 'On-site']],
                      { prompt: t('default.prompt.please_select') },
-                     { class: 'form-control input-sm' }
+                     { class: 'form-control input-sm' }       
+
+            
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :street, t('events.partial_form.street')
           = f.text_field :street, class: 'form-control input-sm'
-
-    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :city, t('events.partial_form.city')
           = f.text_field :city, class: 'form-control input-sm'
+
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :state, t('events.partial_form.state')
@@ -111,6 +114,10 @@
                      us_states,
                      { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :zipcode, t('events.partial_form.zipcode')
+          = f.text_field :zipcode, class: "form-control input-sm"
 
     .row
       .col-xs-12.col-sm-6
