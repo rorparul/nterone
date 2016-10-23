@@ -29,7 +29,7 @@
                   strong
                     = value[0]
                 td(style="background-color: #D5DDF2;" colspan=5)
-                  - if [0, -1].include?(index)
+                  - if [0, @grouped_events.count - 1].include?(index)
                     strong $#{number_with_delimiter(number_with_precision(weekly_revenue(value[0], @queried_events), precision: 2))}
                   - else
                     strong $#{number_with_delimiter(number_with_precision(events_revenue_total(value[1]), precision: 2))}
