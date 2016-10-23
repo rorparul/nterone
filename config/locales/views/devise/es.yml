@@ -10,7 +10,7 @@ es:
         referring_partner: "Correo Electrónico del Aliado Referente"
     mailer:
       confirmation_instructions:
-        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva_cuenta "
+        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva cuenta "
         copy2: "www.nterone.la"
         copy3: " cuenta, usted puede comprar productos y servicios, ver los próximos eventos y pasados eventos, revisar el histórico de compras, y participar en nuestros forums."
         copy4: "Agradecemos su tiempo, esperemos brindarles soluciones de entrenamiento de alto impacto. Por favor contáctanos a"
@@ -45,7 +45,7 @@ es:
         copy3: "Desbloquear mi cuenta"
         greeting: "Hola"
       welcome:
-        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva_cuenta "
+        copy1: "Usted se ha registrado exitosamente en nuestro Sistema. Con su nueva cuenta "
         copy2: "www.nterone.la"
         copy3: " cuenta, usted puede comprar productos y servicios, ver los próximos eventos y pasados eventos"
         copy4: " revisar el histórico de compras, y participar en nuestros forums."
