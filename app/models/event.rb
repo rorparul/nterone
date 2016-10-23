@@ -65,10 +65,10 @@ class Event < ActiveRecord::Base
   has_many :registrations
 
   # before_save    :update_status
-  before_save :calculate_book_cost,       if: Proc.new { |model| model.calculate_book_costs? }
+  before_save :calculate_book_cost, if: Proc.new { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: Proc.new { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
-  after_save :confirm_with_instructor, if: Proc.new { |model| model.instructor_id_changed? }
+  after_save :confirm_with_instructor, if: Proc.new { |model| model.instructor_id_changed? && model.instructor.present? }
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
