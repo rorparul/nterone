@@ -70,7 +70,7 @@ module ApplicationHelper
 
   def format_discount(discount)
     return if discount.blank?
-    discount.kind == "percent" ? discount.value.to_s + "%" : "$" + discount.value.to_s
+    discount.kind == "percent" ? discount.value.to_s + "0%" : "$" + discount.value.to_s + "0"
   end
 
   def format_date_with_day(date)

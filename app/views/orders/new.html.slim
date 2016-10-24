@@ -76,6 +76,12 @@
             .row
               .col-xs-12.col-md-5
                 .form-group
+                  = f.label :discount_code, "Promotional Code:"
+                  = f.text_field :discount_code, class: "form-control input-sm input-cc"
+                  = f.submit "submit"
+            .row
+              .col-xs-12.col-md-5
+                .form-group
                   = f.label :credit_card_number, t('orders.new.cc_number')
                   = f.text_field :credit_card_number, class: 'form-control input-sm input-cc', autocomplete: false
                   = image_tag 'credit-card-icons.png', class: "credit-card-logos"
