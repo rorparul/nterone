@@ -14,7 +14,7 @@ en:
       instructor: "Instructor Bios"
       press: "Press"
     partial_header:
-      contact_us: "Contact Us at 703.972.2288"
+      contact_us: "Contact Us at 703-991-5185"
       image1: "locales/en/logo-with-tagline-small.png"
       partner: "A Veteran-Owned Business"
     partial_sidebar:
@@ -31,7 +31,7 @@ en:
       welcome: "Welcome"
     partial_side_column:
       contact_us_body: " us for more details."
-      contact_us_link: "Contact"
+      contact_us_link: "Email"
       paragraph: "NterOne can redeem all of your vouchers and credits for free training!"
       title: "Redeem Your Credits"
     partial_side_items:
