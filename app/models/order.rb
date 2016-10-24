@@ -50,6 +50,7 @@
 #  closed_date             :date
 #  source                  :integer          default(0)
 #  other_source            :string
+#  discount_id             :integer
 #
 # Indexes
 #
