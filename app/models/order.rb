@@ -184,6 +184,8 @@ class Order < ActiveRecord::Base
     end
   end
 
+
+
   def define_clc_quantity
     self.clc_quantity ||= 0
   end

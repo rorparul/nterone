@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    discount_code unless params[:discount_code].empty?
 
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
@@ -158,6 +159,7 @@ class OrdersController < ApplicationController
                                   :billing_city,
                                   :billing_state,
                                   :billing_zip_code,
+                                  :discount_code,
                                   :shipping_company,
                                   :shipping_first_name,
                                   :shipping_last_name,
@@ -266,5 +268,13 @@ class OrdersController < ApplicationController
 
   def confirm_with_student?
     params[:confirm_with_student] == 'true'
+  end
+
+  def discount_code
+    puts
+    puts
+    puts "#{params[:discount_code]} #{params[:discount_code]} #{params[:discount_code]}"
+    puts
+    puts
   end
 end
