@@ -277,8 +277,7 @@
       button.btn.btn-success type="submit"
         = t('default.action.save')
       - if controller.action_name  == 'new'
-        = f.button t('orders.partial_form_for_admin.save_partner_confirm'), class: 'button btn btn-success', name: 'confirm_with_partner', value: true
-        = f.button t('orders.partial_form_for_admin.save_student_confirm'), class: 'button btn btn-success', name: 'confirm_with_student', value: true
+        = f.button t('orders.partial_form_for_admin.save_and_confirm_with_rep'), class: 'button btn btn-success', name: 'confirm_with_rep', value: true
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')
 

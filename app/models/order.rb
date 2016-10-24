@@ -194,17 +194,11 @@ class Order < ActiveRecord::Base
     [shipping_street, shipping_city, shipping_state, shipping_zip_code, shipping_country].reject(&:blank?).join(' ')
   end
 
-  def confirm_with_partner
-    return if referring_partner_email.blank?
+  def confirm_with_rep
+    return unless seller
 
     order_items.where(orderable_type: 'Event').each do |item|
-      RegistrationMailer.registration_made(referring_partner_email, seller, buyer, item.orderable).deliver_now
-    end
-  end
-
-  def confirm_with_student
-    order_items.where(orderable_type: 'Event').each do |item|
-      RegistrationMailer.registration_made(buyer.email, seller, buyer, item.orderable).deliver_now
+      RegistrationMailer.registration_made(seller, buyer, item.orderable).deliver_now
     end
   end
 

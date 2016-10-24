@@ -51,6 +51,7 @@ en:
       street: "Street"
       time_zone: "Time Zone"
       two_weeks: "Two Weeks"
+      zipcode: "Zip Code"
     partial_index:
       classes: "Classes"
       course: "Course"
