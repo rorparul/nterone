@@ -1,0 +1,17 @@
+- unless smart_listing.empty?
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th = smart_listing.sortable t('admins.website.title'), :title
+            th = t('admins.website.url') 
+        tbody#pages
+          - smart_listing.collection.each do |page|
+            tr
+              td = page.title
+              td = "#{request.base_url}#{page_path(page)}"
+              td.fit = link_to t('default.action.edit'), edit_page_path(page), remote: false
+              td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+.panel-footer
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links

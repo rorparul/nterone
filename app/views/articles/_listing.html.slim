@@ -1,0 +1,20 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th = smart_listing.sortable t('default.label.title'), :title
+          th = t('admins.website.kind')
+          th = t('admins.website.published')
+          th colspan="2"
+      tbody#press-releases
+        - @articles.each do |article|
+          tr
+            td = article.title
+            td = article.kind
+            td = article.created_at.strftime("%b. %d, %Y")
+            td.fit = link_to t('default.action.edit'), edit_article_path(article), remote: false
+            td.fit = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+.panel-footer
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links
