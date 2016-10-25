@@ -11,7 +11,7 @@
               td = page.title
               td = "#{request.base_url}#{page_path(page)}"
               td.fit = link_to t('default.action.edit'), edit_page_path(page), remote: false
-              td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+              / td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 .panel-footer
   = smart_listing.paginate
   = smart_listing.pagination_per_page_links
