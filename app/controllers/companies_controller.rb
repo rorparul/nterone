@@ -1,11 +1,11 @@
 class CompaniesController < ApplicationController
 	def new
-		@company = Company.new
-		@company.lab_courses.build
+		authorize @company = Company.new
+							@company.lab_courses.build
 	end
 
 	def edit
-		@company = Company.find(params[:id])
+		authorize @company = Company.find(params[:id])
 	end
 
 	def create
