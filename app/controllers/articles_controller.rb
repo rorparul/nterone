@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, except: [:new, :create, :index]
 
   def new
-    @article = Article.new
+    authorize @article = Article.new
   end
 
   def create
@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    authorize @article
   end
 
   def update
@@ -57,4 +58,6 @@ class ArticlesController < ApplicationController
                                     :content,
                                     :created_at)
   end
+
+
 end
