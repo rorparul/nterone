@@ -16,6 +16,10 @@ es:
       upload_classes: "Clases Cargadas"
     courses:
       download_courses: "Descarga Cursos"
+    insights:
+      carts:
+        carts: "Carros"
+        empty_carts: "Incluir los carros vacíos: "
     orders:
       add: "Agregar"
       add_user: "Agregar Usuario"
@@ -45,6 +49,7 @@ es:
       announcements: "Anuncios"
       classes: "Clases"
       courses: "Cursos"
+      insights: "Ideas"
       lab_rentals: "Laboratorios"
       messages: "Mensajes"
       orders: "Ordenes"

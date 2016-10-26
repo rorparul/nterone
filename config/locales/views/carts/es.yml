@@ -1,0 +1,22 @@
+es:
+  carts:
+    partial_listing:
+      created: "Creado"
+      inspect: "Inspeccionar"
+      items: "Artículos"
+      value: "Valor"
+    partial_show:
+      added: "Adicional"
+      cart: "Carro"
+      created: "Creado"
+      item: "ít."
+      items: "Artículos"
+      price: "Precio"
+      type: "Tipo"
+      updated: "Actualizado"
+      value: "Valor"
+    show_js:
+      created: "Creado"
+      inspect_cart: "Inspeccionar la Cesta"
+      items: "Artículos"
+      value: "Valor"

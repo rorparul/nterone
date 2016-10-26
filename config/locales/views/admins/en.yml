@@ -16,6 +16,10 @@ en:
       upload_classes: "Upload Classes"
     courses:
       download_courses: "Download Courses"
+    insights:
+      carts:
+        carts: "Carts"
+        empty_carts: " Include Empty Carts: "
     orders:
       add: "Add"
       add_user: "Add User"
@@ -45,6 +49,7 @@ en:
       announcements: "Announcements"
       classes: "Classes"
       courses: "Courses"
+      insights: "Insights"
       lab_rentals: "Labs"
       messages: "Messages"
       orders: "Orders"

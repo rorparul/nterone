@@ -1,0 +1,25 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit ID
+            th.fit = smart_listing.sortable t('carts.partial_listing.created'), :created_at
+            / th.fit = smart_listing.sortable "Updated", :updated_at
+            th.fit = t('carts.partial_listing.items')
+            th.fit = t('carts.partial_listing.value') 
+            th.actions-column.fit
+        tbody
+          - smart_listing.collection.each do |cart|
+            tr
+              td.fit = cart.id
+              td.fit = cart.created_at.strftime('%A, %m/%d/%y')
+              / td.fit = cart.updated_at.strftime('%A, %m/%d/%y')
+              td.fit = cart.order_items.count
+              td.fit = "$#{number_with_delimiter(number_with_precision(cart.total_price, precision: 2))}"
+              td.actions-column.fit style="text-align: right;" 
+                = link_to t('carts.partial_listing.inspect'), cart_path(cart_id: cart.id), remote: true
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links

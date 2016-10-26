@@ -174,6 +174,9 @@ NterOne::Application.routes.draw do
     get 'admin/settings',                            as: :admin_settings
   end
 
+  resources :carts
+  get 'admin/insights/carts' => 'insights#carts',          as: :insights_carts
+
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
     get 'my-account/messages',                        as: :my_account_messages

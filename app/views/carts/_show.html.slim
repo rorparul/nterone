@@ -1,0 +1,34 @@
+.panel-table
+  .table-responsive
+    table.table.table-condensed
+      thead 
+        tr
+          th.fit = t('carts.partial_show.cart')
+          th.fit = t('carts.partial_show.created')
+          / th.fit = t('carts.partial_show.updated')
+          th.fit = t('carts.partial_show.items')
+          th.fit = t('carts.partial_show.value')
+      tbody
+          tr
+            td.fit = cart.id
+            td.fit = cart.created_at.strftime('%a, %m/%d/%y')
+            / td.fit = cart.updated_at.strftime('%a, %m/%d/%y')
+            td.fit = cart.order_items.count
+            td.fit = "$#{number_with_delimiter(number_with_precision(cart.total_price, precision: 2))}"
+            
+      - unless order_items.empty?
+        thead
+          tr
+            th.fit = t('carts.partial_show.item')
+            th.fit = t('carts.partial_show.added')
+            / th.fit = t('carts.partial_show.updated')
+            th.fit = t('carts.partial_show.type')
+            th.fit = t('carts.partial_show.price')
+        tbody
+          - order_items.each do |item|
+            tr
+              td.fit = item.id
+              td.fit = item.created_at.strftime('%a, %m/%d/%y')
+              / td.fit = item.updated_at.strftime('%a, %m/%d/%y')
+              td.fit = item.orderable_type
+              td.fit = "$#{number_with_delimiter(number_with_precision(item.price, precision: 2))}"
