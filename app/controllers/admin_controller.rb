@@ -120,7 +120,7 @@ class AdminController < ApplicationController
         name = params.keys.first.chomp("_smart_listing")
         symbol = "list_#{name}".to_sym
         self.send(symbol)
-        @list = name.to_sym 
+        @list = name.to_sym
       end
 
 
@@ -159,7 +159,9 @@ class AdminController < ApplicationController
                             Article.all,
                             partial: "articles/listing",
                             sort_attributes: [
-                              [created_at: "created_at"]
+                              [:created_at, "created_at"],
+                              [:kind, "kind"],
+                              [:title, "title"]
                               ],
                               default_sort: { created_at: "asc" })
   end
@@ -186,7 +188,7 @@ class AdminController < ApplicationController
                             Page.where(static: true),
                             partial: "pages/listing_static",
                             sort_attributes: [
-                              [:title, "title"],
+                              [:title, "title"]
                             ],
                               default_sort: { title: "asc" })
   end
@@ -208,8 +210,9 @@ class AdminController < ApplicationController
                             Testimonial.all,
                             partial: "testimonials/listing",
                             sort_attributes: [
-                              [created_at: "created_at"],
-                              [author: "author"],
+                              [:company, "company"],
+                              [:created_at, "created_at"],
+                              [:author, "author"]
                               ],
                               default_sort: { created_at: "asc" })
   end

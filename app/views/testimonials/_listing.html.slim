@@ -5,7 +5,7 @@
         tr
           th = t('admins.website.quotation')
           th = smart_listing.sortable t('admins.website.author'), :author
-          th = t('admins.website.company')
+          th = smart_listing.sortable t('admins.website.company'), :company
           th = t('admins.website.course')
           th colspan="2"
       tbody#testimonials
