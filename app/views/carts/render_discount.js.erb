@@ -1,0 +1,15 @@
+<% if @discount.present? %>
+  $('.discount-code-input').css({'border': '1px solid green', 'color': 'green'});
+  $('#order_discount_id').val("<%= @discount.id %>");
+  $('.cc-method #order_paid').val("<%= @price %>");
+  $('.cc-method .total').text("$<%= number_with_delimiter(number_with_precision(@price, precision: 2)) %> (after <%= formatted_discount(@discount) %> discount applied to applicable items)");
+  $('.clc-method #order_clc_quantity').val("<%= (@price / 100).ceil %>");
+  $('.clc-method .total').text("<%= (@price / 100).ceil %> (after <%= formatted_discount(@discount) %> discount applied to applicable items)");
+<% else %>
+  $('.discount-code-input').css({'border': '1px solid red', 'color': 'red'});
+  $('#order_discount_id').val("<%= nil %>");
+  $('.cc-method #order_paid').val("<%= @price %>");
+  $('.cc-method .total').text("$<%= number_with_delimiter(number_with_precision(@price, precision: 2)) %>");
+  $('.clc-method #order_clc_quantity').val("<%= (@price / 100).ceil %>");
+  $('.clc-method .total').text("<%= (@price / 100).ceil %>");
+<% end %>

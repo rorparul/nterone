@@ -1,3 +1,3 @@
-$('.modal-title').html("New Discount");
+$('.modal-title').html("<%= t('discounts.new_js.heading') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { discount: @discount }) %>");
 $('#myModal').modal('show');

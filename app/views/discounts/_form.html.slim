@@ -1,86 +1,77 @@
 .form-container
-  = form_for setup_discount(discount), remote: true do |f|
-    .row
-      .col-xs-12
-        .form-group
-          = f.label :code, "Discount Code"
-          br 
-          = f.text_field :code, class: 'form-control input-sm'
+  = form_for discount do |f|
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :value, "Discount Amount"
-          / .percentage-container
-          /   .auto-cost-checkbox-container
-          /     span.glyphicon.glyphicon-refresh
-          /     = f.check_box :kind, class: "percentage-checkbox", checked: "checked" unless discount.kind == "percent"
-          /   .input-group
-          /     span.input-group-addon
-          /       - if discount.kind == "percent"
-          /         = "%"
-          /       - else 
-          /         = "$"
+          = f.label :code, "Code"
+          = f.text_field :code, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :value, "Value"
           = f.text_field :value, data: { autonumeric: true }, class: 'form-control input-sm'
-      .col-xs-6.col-sm-3
-        .form-group
-          = f.label :kind, "Percent"
-          br 
-          = f.radio_button :kind, "percent"
-      .col-sx-6.col-sm-3
-        .form-group
-          = f.label :kind, "Dollars"
-          br 
-          = f.radio_button :kind, "nominal"
+
+    .form-group
+      label Kind
+      br
+      = f.radio_button :kind, "percent", checked: true
+      |  Percent
+      = f.radio_button :kind, "nominal", style: 'margin-left: 10px;'
+      |  Nominal
+          
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :date_start, "Start Date"
           br
-          = f.date_select :date_start, {}
+          = f.date_select :date_start, { include_blank: true }, { required: false }
       .col-xs-12.col-sm-6
         .form-group
           = f.label :date_end, "End Date"
           br
-          = f.date_select :date_end, {}
+          = f.date_select :date_end, { include_blank: true }, { required: false }
+          
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :limit, "Applicable Limit"
-          br
+          = f.label :limit, "Limit"
           = f.number_field :limit, class: 'form-control input-sm', step: 1
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :active, "Discount Active?"
+          = f.label :active, "Active"
           = f.check_box :active, class: 'form-control input-sm'
           
-          
-          
     hr
-    = f.fields_for :discount_filter, remote: true do |ff|
-      - ff.hidden_field :discount_id, value: @discount.id
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-            = ff.label :event, "Apply To Events: "
-            span style="margin-left: 5px;"
-            = ff.check_box :event
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-
-      .row
-        .col-xs-12.col-sm-6
-          .form-group
-            = ff.label :vod, "Apply To Videos: "
-            span style="margin-left: 5px;"
-            = ff.check_box :vod
-        
     
+    h4 Applicable Items and Attributes
+    
+    = f.fields_for :discount_filter, remote: true do |ff|
+      .panel.panel-default
+        .panel-heading
+          | Classes
+          span.pull-right = ff.check_box :event
+        .panel-body
+          .form-group
+            = ff.label :event_guaranteed, "Guaranteed"
+            = ff.check_box :event_guaranteed, class: 'form-control input-sm'
+          
+          / event_format      :string
+          / event_course_id   :integer
+          / event_city        :string
+          / event_state       :string
+          / event_partner_led :boolean
+          / event_language    :integer
+
+      .panel.panel-default
+        .panel-heading
+          | VODs
+          span.pull-right = ff.check_box :vod
+        .panel-body
+          .form-group
+          
+          / vod_platform_id   :integer
+          / vod_partner_led   :boolean
+          / vod_lms           :boolean
+
       .form-buttons
-        button.btn.btn-success type="submit"
-          = t('default.action.submit')
-        button.btn.btn-default type="button" data-dismiss="modal"
-          = t('default.action.cancel')
-          
-      
-          
+        button.btn.btn-success type="submit" = t('default.action.submit')
+        button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')

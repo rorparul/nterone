@@ -64,34 +64,28 @@
         table.table.table-condensed
           thead
             tr
-              th Code
-              th Amount
-              th Start Date
-              th End Date
-              th Event
-              th VOD
-              th Limit
-              th Active
-              th
-          - @discounts.each do |discount|
-            tbody
+              th = t('admins.website.code')
+              th = t('admins.website.value')
+              th = t('admins.website.kind')
+              th = t('admins.website.start_date')
+              th = t('admins.website.end_date')
+              th = t('admins.website.limit')
+              th = t('admins.website.active')
+              th colspan='2'
+          tbody
+            - @discounts.each do |discount|
               tr
-                td
-                  = discount.code
-                td
-                  = format_discount(discount)
+                td = discount.code
+                td = discount.value
+                td = discount.kind.capitalize
+                td = discount.date_start.present? ? discount.date_start : 'Open'
+                td = discount.date_end.present? ? discount.date_end : 'Open'
+                td = discount.limit.present? ? discount.limit : 'Limitless'
                 td 
-                  = format_date_with_day(discount.date_start)
-                td 
-                  = format_date_with_day(discount.date_end)
-                td 
-                  = discount.discount_filter.event ? "Yes" : "No"
-                td 
-                  = discount.discount_filter.vod ? "Yes" : "No"
-                td 
-                  = discount.limit
-                td 
-                  = discount.active ? "Yes" : "No"
+                  - if discount.active
+                    span.label.label-success Y
+                  - else
+                    span.label.label-danger N
                 td.fit = link_to t('default.action.edit'), edit_discount_path(discount), remote: true
                 
 .row

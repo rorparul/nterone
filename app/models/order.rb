@@ -81,7 +81,7 @@ class Order < ActiveRecord::Base
 
   has_many :order_items, dependent: :destroy
 
-  attr_accessor :credit_card_number, :expiration_month, :expiration_year, :discount_code, :security_code
+  attr_accessor :credit_card_number, :expiration_month, :expiration_year, :security_code
 
   validates :buyer, presence: true
   validates_associated :buyer
