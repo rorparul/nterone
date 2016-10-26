@@ -9,9 +9,6 @@ module DiscountApplicator
     eligible_order_items             = order_items.select { |order_item| eligible_order_item?(order_item, discount) }
     eligible_order_items_total_price = eligible_order_items.to_a.sum { |order_item| order_item.price }
 
-    p eligible_order_items
-    p eligible_order_items_total_price
-
     order_items_total_price - applicable_nominal_discount(eligible_order_items_total_price, discount)
   end
 
@@ -40,14 +37,14 @@ module DiscountApplicator
       orderable = order_item.orderable
       if orderable.class == Event
         if discount.discount_filter.event_guaranteed
-          discount.discount_filter.event_guaranteed == orderable.guaranteed
+          return discount.discount_filter.event_guaranteed == orderable.guaranteed
         else
-          true
+          return true
         end
       end
 
       if orderable.class == VideoOnDemand
-        true
+        return true
       end
     elsif discount.discount_filter.event.blank? && discount.discount_filter.vod.blank?
       true
