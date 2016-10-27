@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022190356) do
+ActiveRecord::Schema.define(version: 20161025205731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20161022190356) do
     t.integer "limit"
     t.string  "code"
     t.string  "kind"
-    t.decimal "value"
+    t.decimal "value",      precision: 8, scale: 2, default: 0.0
   end
 
   create_table "dividers", force: :cascade do |t|

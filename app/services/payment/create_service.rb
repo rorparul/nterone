@@ -28,7 +28,8 @@ class Payment::CreateService
     end
   end
 
-private
+  private
+
   def set_basic_data(request)
     request.transactionRequest = TransactionRequestType.new
     request.transactionRequest.amount = @cc_params[:paid]

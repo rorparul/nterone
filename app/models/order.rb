@@ -77,6 +77,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
+  belongs_to :discount
 
   has_many :order_items, dependent: :destroy
 
@@ -182,6 +183,8 @@ class Order < ActiveRecord::Base
       self.order_items << item
     end
   end
+
+
 
   def define_clc_quantity
     self.clc_quantity ||= 0

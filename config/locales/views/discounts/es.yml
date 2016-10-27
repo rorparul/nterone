@@ -1,0 +1,7 @@
+es:
+  discounts:
+    edit_js:
+      heading: "Editar Promoción"
+    partial_form:
+    new_js:
+      heading: "Nueva Promoción"

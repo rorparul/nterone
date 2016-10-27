@@ -26,8 +26,11 @@ NterOne::Application.routes.draw do
 
   resources :image_store_units
 
-  get 'cart'            => 'carts#show',       as: :cart
-  get 'cart/calculator' => 'carts#calculator', as: :cart_calculator
+  get 'cart'                 => 'carts#show',            as: :cart
+  get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
+  get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
+  
+  resources :discounts
   resources :order_items
   resources :orders do
     collection do

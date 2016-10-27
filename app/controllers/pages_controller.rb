@@ -16,7 +16,6 @@ class PagesController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
@@ -33,7 +32,6 @@ class PagesController < ApplicationController
   end
 
   def delete
-
   end
 
   private

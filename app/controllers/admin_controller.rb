@@ -89,7 +89,6 @@ class AdminController < ApplicationController
   end
 
   def people
-    # users_scope = params[:including_team] == "1" ? User.all : User.only_students
     users_scope = User.all
     users_scope = users_scope.search(params[:filter]) if params[:filter]
 
@@ -105,7 +104,6 @@ class AdminController < ApplicationController
   end
 
   def website
-
     respond_to do |format|
       format.html do
         list_articles
@@ -114,6 +112,7 @@ class AdminController < ApplicationController
         list_pages_dynamic
         list_pages_static
         list_testimonials
+        list_promotions
       end
 
       format.js do
@@ -122,18 +121,7 @@ class AdminController < ApplicationController
         self.send(symbol)
         @list = name.to_sym
       end
-
-
     end
-
-    # @image_store_units = ImageStoreUnit.order(created_at: :desc)
-    # @image_store_units  = smart_listing_create(:image_store_units,
-    #                         ImageStoreUnit.all,
-    #                         partial: "image_store_units/listing",
-    #                         sort_attributes: [
-    #                           [created_at: "created_at"]
-    #                           ],
-    #                           default_sort: { created_at: "desc" })
   end
 
   private
@@ -150,71 +138,57 @@ class AdminController < ApplicationController
     params.dig(:events_smart_listing, :sort).blank?
   end
 
+  def list_promotions
+    @discounts = Discount.joins(:discount_filter)
+  end
 
-
-# Methods for Smart_listing List Generation
   def list_articles
-    # @articles          = Article.order(created_at: :desc)
-    @articles          = smart_listing_create(:articles,
-                            Article.all,
-                            partial: "articles/listing",
-                            sort_attributes: [
-                              [:created_at, "created_at"],
-                              [:kind, "kind"],
-                              [:title, "title"]
-                              ],
-                              default_sort: { created_at: "asc" })
+    @articles = smart_listing_create(:articles,
+                                     Article.all,
+                                     partial: "articles/listing",
+                                     sort_attributes: [[:created_at, "created_at"],
+                                                       [:kind, "kind"],
+                                                       [:title, "title"]],
+                                     default_sort: { created_at: "asc" })
   end
 
   def list_companies
-    # @companies         = Company.order(:title)
-    @companies         = smart_listing_create(:companies,
-                            Company.all,
-                            partial: "companies/listing",
-                            default_sort: { title: "asc" })
+    @companies = smart_listing_create(:companies,
+                                      Company.all,
+                                      partial: "companies/listing",
+                                      default_sort: { title: "asc" })
   end
 
   def list_lab_courses
-    # @lab_courses       = LabCourse.order(:title)
-    @lab_courses       = smart_listing_create(:lab_courses,
-                            LabCourse.all,
-                            partial: "lab_courses/listing",
-                            default_sort: { title: "asc" })
+    @lab_courses = smart_listing_create(:lab_courses,
+                                        LabCourse.all,
+                                        partial: "lab_courses/listing",
+                                        default_sort: { title: "asc" })
   end
 
   def list_pages_static
-    # @static_pages      = Page.where(static: true).order(:title)
-    @static_pages      = smart_listing_create(:pages_static,
-                            Page.where(static: true),
-                            partial: "pages/listing_static",
-                            sort_attributes: [
-                              [:title, "title"]
-                            ],
-                              default_sort: { title: "asc" })
+    @static_pages = smart_listing_create(:pages_static,
+                                         Page.where(static: true),
+                                         partial: "pages/listing_static",
+                                         sort_attributes: [[:title, "title"]],
+                                         default_sort: { title: "asc" })
   end
 
   def list_pages_dynamic
-    # @dynamic_pages     = Page.where(static: false).order(:title)
-    @dynamic_pages     = smart_listing_create(:pages_dynamic,
-                            Page.where(static: false),
-                            partial: "pages/listing_dynamic",
-                            sort_attributes: [
-                              [:title, "title"]
-                            ],
-                            default_sort: { title: "asc" })
+    @dynamic_pages = smart_listing_create(:pages_dynamic,
+                                          Page.where(static: false),
+                                          partial: "pages/listing_dynamic",
+                                          sort_attributes: [[:title, "title"]],
+                                          default_sort: { title: "asc" })
   end
 
   def list_testimonials
-    # @testimonials      = Testimonial.page(1).per(5)
-    @testimonials       = smart_listing_create(:testimonials,
-                            Testimonial.all,
-                            partial: "testimonials/listing",
-                            sort_attributes: [
-                              [:company, "company"],
-                              [:created_at, "created_at"],
-                              [:author, "author"]
-                              ],
-                              default_sort: { created_at: "asc" })
+    @testimonials = smart_listing_create(:testimonials,
+                                         Testimonial.all,
+                                         partial: "testimonials/listing",
+                                         sort_attributes: [[:company, "company"],
+                                                           [:created_at, "created_at"],
+                                                           [:author, "author"]],
+                                         default_sort: { created_at: "asc" })
   end
-
 end

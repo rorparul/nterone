@@ -10,6 +10,41 @@
     .panel.panel-default
       .panel-heading
         strong.text-muted
+          = t('admins.website.discounts')
+        = link_to t('generic.action.add'), new_discount_path, remote: true, class: "panel-heading-controls"
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th = t('admins.website.code')
+              th = t('admins.website.value')
+              th = t('admins.website.kind')
+              th = t('admins.website.start_date')
+              th = t('admins.website.end_date')
+              th = t('admins.website.limit')
+              th = t('admins.website.active')
+              th colspan='2'
+          tbody
+            - @discounts.each do |discount|
+              tr
+                td = discount.code
+                td = discount.value
+                td = discount.kind.capitalize
+                td = discount.date_start.present? ? discount.date_start : 'Open'
+                td = discount.date_end.present? ? discount.date_end : 'Open'
+                td = discount.limit.present? ? discount.limit : 'Limitless'
+                td 
+                  - if discount.active
+                    span.label.label-success Y
+                  - else
+                    span.label.label-danger N
+                td.fit = link_to t('default.action.edit'), edit_discount_path(discount), remote: true
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted
           = t('admins.website.static_pages')
       = smart_listing_render(:pages_static)
 
@@ -30,7 +65,7 @@
           = t('admins.website.articles')
         = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
       = smart_listing_render(:articles)
-
+      
 .row
   .col-xs-12
     .panel.panel-default
@@ -39,7 +74,7 @@
           = t('admins.website.companies')
         = link_to t('default.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
       = smart_listing_render(:companies)
-
+      
 .row
   .col-xs-12
     .panel.panel-default
@@ -57,30 +92,6 @@
           = t('admins.website.testimonials')
         = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
       = smart_listing_render(:testimonials)
-
-/ .row
-/   .col-xs-12
-/     .panel.panel-default
-/       .panel-heading
-/         strong.text-muted
-/           = t('admins.website.images')
-/         = link_to t('default.action.add'), new_image_store_unit_path, remote: true, class: "panel-heading-controls"
-/       .table-responsive
-/         table.table.table-condensed
-/           thead
-/             tr
-/               th = t('default.label.title')
-/               th = t('default.label.url')
-/               th colspan="2"
-/           tbody#press-releases
-/             - @image_store_units.each do |image_store_unit|
-/               tr
-/                 td = image_store_unit.title
-/                 td
-/                   = link_to image_store_unit.image.file.url do
-/                     = image_store_unit.image.file.url
-/                 td.fit = link_to t('default.action.edit'), edit_image_store_unit_path(image_store_unit), remote: true
-/                 td.fit = link_to t('default.action.delete'), image_store_unit_path(image_store_unit), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:
   $('.role-tab').addClass('active');
