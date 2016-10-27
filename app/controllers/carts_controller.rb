@@ -7,7 +7,7 @@ class CartsController < ApplicationController
   end
 
   def render_discount
-    @discount = Discount.find_by(code: params[:discount_code])
+    @discount = Discount.find_by("lower(code) = ?", params[:discount_code].downcase)
     @discount = @discount.try(:active_and_within_bounds?) ? @discount : nil
 
     @price ||= discounted_total(@cart, @discount) if @discount

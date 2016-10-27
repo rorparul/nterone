@@ -51,26 +51,17 @@
           span.pull-right = ff.check_box :event
         .panel-body
           .form-group
-            = ff.label :event_guaranteed, "Guaranteed"
-            = ff.check_box :event_guaranteed, class: 'form-control input-sm'
-          
-          / event_format      :string
-          / event_course_id   :integer
-          / event_city        :string
-          / event_state       :string
-          / event_partner_led :boolean
-          / event_language    :integer
+            = ff.check_box :event_guaranteed
+            |  Guaranteed
+          hr
+          div.text-center More Criteria to Come
 
       .panel.panel-default
         .panel-heading
           | VODs
           span.pull-right = ff.check_box :vod
         .panel-body
-          .form-group
-          
-          / vod_platform_id   :integer
-          / vod_partner_led   :boolean
-          / vod_lms           :boolean
+          div.text-center More Criteria to Come
 
       .form-buttons
         button.btn.btn-success type="submit" = t('default.action.submit')

@@ -88,7 +88,6 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    # @event = Event.find(params[:event])
     @order = Order.find(params[:id])
     render "edit_admin"
   end
