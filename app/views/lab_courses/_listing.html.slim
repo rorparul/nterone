@@ -1,0 +1,18 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th = smart_listing.sortable t('admins.website.lab_courses'), :title
+          th For Company
+          th colspan="2"
+      tbody#pages
+        - @lab_courses.each do |lab_course|
+          tr
+            td = lab_course.title
+            td = lab_course.company.try(:title)
+            td.fit = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
+            td.fit = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+.panel-footer
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links

@@ -11,19 +11,7 @@
       .panel-heading
         strong.text-muted
           = t('admins.website.static_pages')
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th
-                = t('admins.website.title')
-              th
-          tbody#pages
-            - @static_pages.each do |page|
-              tr
-                td = page.title
-                td.actions-column.fit
-                  = link_to t('default.action.edit'), edit_page_path(page), remote: false
+      = smart_listing_render(:pages_static)
 
 .row
   .col-xs-12
@@ -32,20 +20,7 @@
         strong.text-muted
           = t('admins.website.dynamic_pages')
         = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('admins.website.title')
-              th = t('admins.website.url')
-              th colspan="2"
-          tbody#pages
-            - @dynamic_pages.each do |page|
-              tr
-                td = page.title
-                td = "#{request.base_url}#{page_path(page)}"
-                td.fit = link_to t('default.action.edit'), edit_page_path(page), remote: false
-                td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+      = smart_listing_render(:pages_dynamic)
                 
 .row
   .col-xs-12
@@ -54,22 +29,7 @@
         strong.text-muted
           = t('admins.website.articles')
         = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('default.label.title')
-              th = t('admins.website.kind')
-              th = t('admins.website.published')
-              th colspan="2"
-          tbody#press-releases
-            - @articles.each do |article|
-              tr
-                td = article.title
-                td = article.kind
-                td = article.created_at.strftime("%b. %d, %Y")
-                td.fit = link_to t('default.action.edit'), edit_article_path(article), remote: false
-                td.fit = link_to t('default.action.delete'), article_path(article), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+      = smart_listing_render(:articles)
 
 .row
   .col-xs-12
@@ -78,22 +38,7 @@
         strong.text-muted
           = t('admins.website.companies')
         = link_to t('default.action.add'), new_company_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('default.label.title')
-              th = t('admins.website.form_type')
-              th = t('admins.website.portal')
-              th colspan="2" Actions
-          tbody#pages
-            - @companies.each do |company|
-              tr
-                td = company.title
-                td = company.form_type
-                td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
-                td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
-                td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+      = smart_listing_render(:companies)
 
 .row
   .col-xs-12
@@ -102,20 +47,7 @@
         strong.text-muted
           = t('admins.website.lab_courses')
         = link_to t('default.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('admins.website.lab_courses')
-              th For Company
-              th colspan="2"
-          tbody#pages
-            - @lab_courses.each do |lab_course|
-              tr
-                td = lab_course.title
-                td = lab_course.company.try(:title)
-                td.fit = link_to t('default.action.edit'), edit_lab_course_path(lab_course), remote: false
-                td.fit = link_to t('default.action.delete'), lab_course_path(lab_course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+      = smart_listing_render(:lab_courses)
 
 .row
   .col-xs-12
@@ -124,20 +56,7 @@
         strong.text-muted
           = t('admins.website.testimonials')
         = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr
-              th = t('admins.website.quotation')
-              th = t('admins.website.author')
-              th = t('admins.website.company')
-              th = t('admins.website.course')
-              th colspan="2"
-          tbody#testimonials
-            = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
-      div class="#{'panel-footer' if @testimonials.total_count > 5}"
-        #testimonials-page-control
-          = render partial: 'testimonials/page_controls', locals: { testimonials: @testimonials }
+      = smart_listing_render(:testimonials)
 
 / .row
 /   .col-xs-12
