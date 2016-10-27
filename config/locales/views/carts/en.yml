@@ -7,13 +7,13 @@ en:
       value: "Value"
     partial_show:
       added: "Added"
-      cart: "Cart"
+      cart: "ID"
       item: "Item"
       price: "Price"
       type: "Type"
       updated: "Updated"
     show_js:
       created: "Created"
-      inspect_cart: "Inspect Cart"
+      inspect_cart: "Cart"
       items: "Items"
       value: "Value"

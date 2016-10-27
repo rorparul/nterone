@@ -19,7 +19,7 @@ en:
     insights:
       carts:
         carts: "Carts"
-        empty_carts: " Include Empty Carts: "
+        empty_carts: " Include Empty"
     orders:
       add: "Add"
       add_user: "Add User"
