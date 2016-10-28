@@ -1,0 +1,15 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th = t('admins.website.quotation')
+          th = smart_listing.sortable t('admins.website.author'), :author
+          th = smart_listing.sortable t('admins.website.company'), :company
+          th = t('admins.website.course')
+          th colspan="2"
+      tbody#testimonials
+        = render partial: 'testimonials/testimonials', locals: { testimonials: @testimonials }
+.panel-footer
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links

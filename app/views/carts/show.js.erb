@@ -1,0 +1,3 @@
+$('.modal-title').html("<%= t('carts.show_js.inspect_cart') %>");
+$('.modal-body').html("<%= escape_javascript(render partial: 'show', locals: { cart: @cart, order_items: @order_items }) %>");
+$('#myModal').modal('show');

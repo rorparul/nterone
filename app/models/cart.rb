@@ -8,7 +8,18 @@
 #
 
 class Cart < ActiveRecord::Base
+  include SearchCop
+
   has_many :order_items, dependent: :destroy
+
+  # search_scope :search_with_items do
+  #   attributes :id, :created_at, :updated_at
+  #   attributes :order_items => ["order_items.orderable_type", "order_items.price"]
+  # end
+  #
+  # search_scope :search_without_items do
+  #   attributes :id, :created_at, :updated_at
+  # end
 
   def reset
     self.order_items.update_all(cart_id: nil)

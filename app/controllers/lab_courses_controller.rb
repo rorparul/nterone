@@ -1,10 +1,10 @@
 class LabCoursesController < ApplicationController
 	def new
-		@lab_course = LabCourse.new
+		authorize @lab_course = LabCourse.new
 	end
 
 	def edit
-		@lab_course = LabCourse.find(params[:id])
+		authorize @lab_course = LabCourse.find(params[:id])
 	end
 
 	def create

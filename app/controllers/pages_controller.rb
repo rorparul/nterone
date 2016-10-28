@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   before_action :set_page, except: [:new, :create]
 
   def new
-    @page = Page.new
+    authorize @page = Page.new
   end
 
   def create
@@ -16,11 +16,10 @@ class PagesController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
-
+    authorize @page
   end
 
   def update
@@ -33,7 +32,6 @@ class PagesController < ApplicationController
   end
 
   def delete
-
   end
 
   private

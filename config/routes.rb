@@ -28,8 +28,11 @@ NterOne::Application.routes.draw do
 
   resources :image_store_units
 
-  get 'cart'            => 'carts#show',       as: :cart
-  get 'cart/calculator' => 'carts#calculator', as: :cart_calculator
+  get 'cart'                 => 'carts#show',            as: :cart
+  get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
+  get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
+  
+  resources :discounts
   resources :order_items
   resources :orders do
     collection do
@@ -213,28 +216,31 @@ NterOne::Application.routes.draw do
     get 'admin/settings',                            as: :admin_settings
   end
 
+  resources :carts
+  get 'admin/insights/carts' => 'insights#carts',          as: :insights_carts
+
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
     get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
 
-  get 'instructor/classes'     => 'instructors#classes',      as: :instructor_classes
-  get 'instructor/classes/:id' => 'instructors#classes_show', as: :instructor_classes_show
-
+  get  'instructor/classes'                          => 'instructors#classes',               as: :instructor_classes
+  get  'instructor/classes/:id'                      => 'instructors#classes_show',          as: :instructor_classes_show
+  get  'welcome'                                     => 'general#sign_up_confirmation',      as: :welcome
   get  'feed'                                        => 'events#feed'
-  get  'sitemap'                                     => 'general#sitemap',                as: :sitemap
+  get  'sitemap'                                     => 'general#sitemap',                   as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
   get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
-  get  'featured-classes'                            => 'general#featured_classes',       as: :featured_classes
-  get  'about-us/general'                            => 'general#about_us',               as: :about_us
-  get  'about-us/executives'                         => 'general#executives',             as: :executives_bios
-  get  'about-us/instructors'                        => 'general#instructors',            as: :instructors_bios
-  get  'about-us/press'                              => 'general#press',                  as: :press
-  get  'about-us/blog'                               => 'general#blog',                   as: :blog
-  get  'about-us/industry'                           => 'general#industry',               as: :industry
-  get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',     as: :nterone_gives_back
+  get  'featured-classes'                            => 'general#featured_classes',          as: :featured_classes
+  get  'about-us/general'                            => 'general#about_us',                  as: :about_us
+  get  'about-us/executives'                         => 'general#executives',                as: :executives_bios
+  get  'about-us/instructors'                        => 'general#instructors',               as: :instructors_bios
+  get  'about-us/press'                              => 'general#press',                     as: :press
+  get  'about-us/blog'                               => 'general#blog',                      as: :blog
+  get  'about-us/industry'                           => 'general#industry',                  as: :industry
+  get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',        as: :nterone_gives_back
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'
@@ -242,25 +248,26 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new',         as: :contact_us
+  get  'contact_us'                                  => 'general#contact_us_new',            as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
-  get  'exams/search/:query'                         => 'exams#search',                   as: :exam_search
-  get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',           as: :group_item_selector
-  post 'roles/change_role'                           => 'roles#change_role',              as: :change_role
-  post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',   as: :toggle_chosen_course_active
-  post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended', as: :toggle_chosen_course_attended
-  post 'passed_exams/toggle'                         => 'passed_exams#toggle',            as: :toggle_passed_exam
-  post 'request-quote'                               => 'leads#request_quote',            as: :request_quote
+  get  'contact_us_confirmation'                     => 'general#contact_us_confirmation',   as: :contact_us_confirmation
+  get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
+  get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
+  post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
+  post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',      as: :toggle_chosen_course_active
+  post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended',    as: :toggle_chosen_course_attended
+  post 'passed_exams/toggle'                         => 'passed_exams#toggle',               as: :toggle_passed_exam
+  post 'request-quote'                               => 'leads#request_quote',               as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
-  get  '/courses/export'                             => 'courses#export',                 as: :courses_export
-  get '/events/:id/edit_in_house_note'               => 'events#edit_in_house_note',      as: :edit_in_house_note
-  put '/events/:id/update_in_house_note'             => 'events#update_in_house_note',    as: :update_in_house_note
-  get '/:company_slug/lab-reservations/new'          => 'lab_rentals#new',                as: :new_company_lab_reservations
-  get '/:company_slug/lab-reservations/:id/edit'     => 'lab_rentals#edit',               as: :edit_company_lab_reservations
-  get 'sims/versastack'                              => 'general#sims',                   as: :sims
-  get '/nci'                                         => 'general#nci',                    as: :nci
-  get '/support'                                     => 'general#support',                as: :support
+  get  '/courses/export'                             => 'courses#export',                    as: :courses_export
+  get  '/events/:id/edit_in_house_note'              => 'events#edit_in_house_note',         as: :edit_in_house_note
+  put  '/events/:id/update_in_house_note'            => 'events#update_in_house_note',       as: :update_in_house_note
+  get  '/:company_slug/lab-reservations/new'         => 'lab_rentals#new',                   as: :new_company_lab_reservations
+  get  '/:company_slug/lab-reservations/:id/edit'    => 'lab_rentals#edit',                  as: :edit_company_lab_reservations
+  get  'sims/versastack'                             => 'general#sims',                      as: :sims
+  get  '/nci'                                        => 'general#nci',                       as: :nci
+  get  '/support'                                    => 'general#support',                   as: :support
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user

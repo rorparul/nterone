@@ -41,13 +41,16 @@ class AdminController < ApplicationController
     events_scope = events_scope.with_students                  if params[:only_registered] == "1" || params[:only_registered].blank?
     events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
 
+    @queried_events = events_scope
+
     @events = smart_listing_create(:events,
                                    events_scope,
                                    partial: "events/listing",
-                                   sort_attributes: [[:id, "id"],
-                                                     [:status, "status"],
+                                   sort_attributes: [[:start_date, "start_date"],
                                                      [:course, "courses.abbreviation"],
-                                                     [:start_date, "start_date"],
+                                                     [:id, "id"],
+                                                     [:status, "status"],
+                                                     [:resell, "Resell"],
                                                      [:start_time, "start_time"],
                                                      [:end_time, "end_time"],
                                                      [:format, "format"],
@@ -55,7 +58,7 @@ class AdminController < ApplicationController
                                                      [:public, "public"],
                                                      [:guaranteed, "guaranteed"],
                                                      [:status, "Status"]],
-                                   default_sort: { start_date: "asc"} )
+                                   default_sort: { start_date: "asc", course: "asc" })
 
     if should_group_classes?
       @grouped_events = @events.group_by(&:week_range)
@@ -86,7 +89,6 @@ class AdminController < ApplicationController
   end
 
   def people
-    # users_scope = params[:including_team] == "1" ? User.all : User.only_students
     users_scope = User.all
     users_scope = users_scope.search(params[:filter]) if params[:filter]
 
@@ -102,13 +104,24 @@ class AdminController < ApplicationController
   end
 
   def website
-    @static_pages      = Page.where(static: true).order(:title)
-    @dynamic_pages     = Page.where(static: false).order(:title)
-    @companies         = Company.order(:title)
-    @lab_courses       = LabCourse.order(:title)
-    @articles          = Article.order(created_at: :desc)
-    @testimonials      = Testimonial.page(1).per(5)
-    @image_store_units = ImageStoreUnit.order(created_at: :desc)
+    respond_to do |format|
+      format.html do
+        list_articles
+        list_companies
+        list_lab_courses
+        list_pages_dynamic
+        list_pages_static
+        list_testimonials
+        list_promotions
+      end
+
+      format.js do
+        name = params.keys.first.chomp("_smart_listing")
+        symbol = "list_#{name}".to_sym
+        self.send(symbol)
+        @list = name.to_sym
+      end
+    end
   end
 
   private
@@ -123,5 +136,59 @@ class AdminController < ApplicationController
     params.dig(:events_smart_listing, :sort, :start_date).present? ||
     params.dig(:events_smart_listing, :sort, 'events.start_date').present? ||
     params.dig(:events_smart_listing, :sort).blank?
+  end
+
+  def list_promotions
+    @discounts = Discount.joins(:discount_filter)
+  end
+
+  def list_articles
+    @articles = smart_listing_create(:articles,
+                                     Article.all,
+                                     partial: "articles/listing",
+                                     sort_attributes: [[:created_at, "created_at"],
+                                                       [:kind, "kind"],
+                                                       [:title, "title"]],
+                                     default_sort: { created_at: "asc" })
+  end
+
+  def list_companies
+    @companies = smart_listing_create(:companies,
+                                      Company.all,
+                                      partial: "companies/listing",
+                                      default_sort: { title: "asc" })
+  end
+
+  def list_lab_courses
+    @lab_courses = smart_listing_create(:lab_courses,
+                                        LabCourse.all,
+                                        partial: "lab_courses/listing",
+                                        default_sort: { title: "asc" })
+  end
+
+  def list_pages_static
+    @static_pages = smart_listing_create(:pages_static,
+                                         Page.where(static: true),
+                                         partial: "pages/listing_static",
+                                         sort_attributes: [[:title, "title"]],
+                                         default_sort: { title: "asc" })
+  end
+
+  def list_pages_dynamic
+    @dynamic_pages = smart_listing_create(:pages_dynamic,
+                                          Page.where(static: false),
+                                          partial: "pages/listing_dynamic",
+                                          sort_attributes: [[:title, "title"]],
+                                          default_sort: { title: "asc" })
+  end
+
+  def list_testimonials
+    @testimonials = smart_listing_create(:testimonials,
+                                         Testimonial.all,
+                                         partial: "testimonials/listing",
+                                         sort_attributes: [[:company, "company"],
+                                                           [:created_at, "created_at"],
+                                                           [:author, "author"]],
+                                         default_sort: { created_at: "asc" })
   end
 end

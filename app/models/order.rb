@@ -50,6 +50,7 @@
 #  closed_date             :date
 #  source                  :integer          default(0)
 #  other_source            :string
+#  discount_id             :integer
 #
 # Indexes
 #
@@ -76,6 +77,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
+  belongs_to :discount
 
   has_many :order_items, dependent: :destroy
 
@@ -182,6 +184,8 @@ class Order < ActiveRecord::Base
     end
   end
 
+
+
   def define_clc_quantity
     self.clc_quantity ||= 0
   end
@@ -190,11 +194,11 @@ class Order < ActiveRecord::Base
     [shipping_street, shipping_city, shipping_state, shipping_zip_code, shipping_country].reject(&:blank?).join(' ')
   end
 
-  def confirm_with_partner
-    return if referring_partner_email.blank?
+  def confirm_with_rep
+    return unless seller
 
     order_items.where(orderable_type: 'Event').each do |item|
-      PartnerMailer.registration_made(referring_partner_email, buyer, item.orderable).deliver_now
+      RegistrationMailer.registration_made(seller, buyer, item.orderable).deliver_now
     end
   end
 

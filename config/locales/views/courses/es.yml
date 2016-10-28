@@ -8,10 +8,14 @@ es:
       edit_course: "Editar Curso"
     export:
       abbreviation: 'Abreviación'
-      singular: 'Fabricante'
+      vendor: 'Fabricante'
       slug: 'Slug'
       title: 'Titulo'
       url: 'URL'
+      intro: "Introducción"
+      overview: "Visión de Conjunto"
+      outline: "Contorno"
+      intended_audience: "Público Destinatario"
     new:
       add_course: "Agregar Curso"
     new_js:

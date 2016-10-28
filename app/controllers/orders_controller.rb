@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  include DiscountApplicator
+
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -18,7 +20,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-
     if current_user.try(:admin?) || current_user.try(:sales?)
       @order = Order.new(order_params_admin)
 
@@ -38,7 +39,7 @@ class OrdersController < ApplicationController
       end
 
       if @order.save
-        @order.confirm_with_partner if confirm_with_partner?
+        @order.confirm_with_rep if confirm_with_rep?
         flash[:success] = "Purchase successfully created."
       else
         flash[:alert] = "Purchase failed to create."
@@ -46,6 +47,11 @@ class OrdersController < ApplicationController
 
       redirect_to :back
     else
+      unless valid_input_values?
+        flash[:alert] = "Order submission failed. Form was tampered with."
+        return redirect_to :back
+      end
+
       # Update user information
       current_user.update_attributes(user_params)
 
@@ -82,7 +88,6 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    # @event = Event.find(params[:event])
     @order = Order.find(params[:id])
     render "edit_admin"
   end
@@ -157,6 +162,7 @@ class OrdersController < ApplicationController
                                   :billing_city,
                                   :billing_state,
                                   :billing_zip_code,
+                                  :discount_id,
                                   :shipping_company,
                                   :shipping_first_name,
                                   :shipping_last_name,
@@ -220,6 +226,22 @@ class OrdersController < ApplicationController
                                                            :_destroy])
   end
 
+  def valid_input_values?
+    price = nil
+
+    if order_params[:discount_id].present?
+      discount = Discount.find(order_params[:discount_id])
+      discount = discount.try(:active_and_within_bounds?) ? discount : nil
+
+      price = discounted_total(@cart, discount) if discount
+      price ||= @cart.total_price
+    else
+      price = @cart.total_price
+    end
+
+    price.to_s == cc_params[:paid] && (price / 100).ceil.to_s == clc_params[:clc_quantity]
+  end
+
   def handle_credit_card_payment
     payment_result = Payment::CreateService.new(order_params, cc_params).call
     response = payment_result.data
@@ -259,7 +281,7 @@ class OrdersController < ApplicationController
     error_exists ? transaction_res.errors.errors[0].errorText : nil
   end
 
-  def confirm_with_partner?
-    params[:confirm_with_partner] == 'true'
+  def confirm_with_rep?
+    params[:confirm_with_rep] == 'true'
   end
 end

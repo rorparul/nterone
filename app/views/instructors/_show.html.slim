@@ -1,25 +1,27 @@
 .row
   .col-xs-12
-    label Name
-    p = instructor.full_name
-    label
-      = t('instructors.partial_show.biography')
-    p = instructor.about
-    label
-      = t('instructors.partial_show.contact_info')
-    p
-      span.fa.fa-envelope-o
-      |  
-      a href="mailto:#{instructor.email}" = instructor.email
-    p
-      span.fa.fa-phone
-      |  
-      = instructor.contact_number
-    label = "#{t('instructors.partial_show.all_courses_led_by')} #{instructor.full_name}"
-    table.table-condensed
-      tbody
+    = instructor.video_bio.try(:html_safe)
+    h1 style='margin-bottom: 20px;' = instructor.full_name
+    - if instructor.about.present?
+      .panel.panel-default
+        .panel-body
+          .row
+            .col-xs-12
+              = instructor.about
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-xs-12.col-md-6
+            span.fa.fa-envelope-o style='margin-right: 5px;'
+            |  
+            a href="mailto:#{instructor.email}" = instructor.email
+          .col-xs-12.col-md-6
+            - if instructor.contact_number.present?
+              span.fa.fa-phone style='margin-right: 5px;'
+              |  
+              = instructor.contact_number
+    .panel.panel-default
+      .panel-heading = "#{t('instructors.partial_show.all_courses_led_by')} #{instructor.full_name}"
+      .list-group
         - instructor.taught_video_on_demands.each do |video_on_demand|
-          tr
-            td
-              a href="#{platform_video_on_demand_path(video_on_demand.platform, video_on_demand)}"
-                = video_on_demand.full_title
+          a.list-group-item href="#{platform_video_on_demand_path(video_on_demand.platform, video_on_demand)}" = video_on_demand.full_title

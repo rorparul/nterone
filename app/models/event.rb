@@ -41,6 +41,8 @@
 #  street                         :string
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
+#  resell                         :boolean          default(FALSE)
+#  zipcode                        :string
 #
 
 class Event < ActiveRecord::Base
@@ -63,8 +65,10 @@ class Event < ActiveRecord::Base
   has_many :registrations
 
   # before_save    :update_status
-  before_save :calculate_book_cost,       if: Proc.new { |model| model.calculate_book_costs? }
+  before_save :calculate_book_cost, if: Proc.new { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: Proc.new { |model| model.autocalculate_instructor_costs? }
+  before_save :mark_non_public
+  after_save :confirm_with_instructor, if: Proc.new { |model| model.instructor_id_changed? && model.instructor.present? }
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
@@ -198,5 +202,14 @@ class Event < ActiveRecord::Base
     else
       self.cost_instructor = 0.0
     end
+  end
+
+  def confirm_with_instructor
+    InstructorMailer.confirm_class(instructor, self).deliver_now
+  end
+
+  def mark_non_public
+    self.public = false if resell
+    true
   end
 end

@@ -29,6 +29,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def after_sign_up_path_for(resource)
+    if @cart.order_items.any?
+      main_app.new_order_path
+    else
+      main_app.welcome_path
+    end
+  end
+
   def after_update_path_for(resource)
     main_app.edit_user_registration_path
   end

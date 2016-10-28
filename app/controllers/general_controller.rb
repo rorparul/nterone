@@ -24,6 +24,10 @@ class GeneralController < ApplicationController
     end
   end
 
+  def sign_up_confirmation
+    @page = Page.find_by(title: 'Sign Up Confirmation')
+  end
+
   def about_us
     @page = Page.find_by(title: 'About NterOne')
   end
@@ -99,7 +103,11 @@ class GeneralController < ApplicationController
     else
       flash[:notice] = 'Message failed to send.'
     end
-    redirect_to :back
+    redirect_to contact_us_confirmation_path
+  end
+
+  def contact_us_confirmation
+    @page = Page.find_by(title: 'Contact Us Confirmation')
   end
 
   def sims

@@ -97,7 +97,7 @@ module GeneralHelper
   end
 
   def events_revenue_total(events)
-    events.inject(0) {|sum, event| sum + event.revenue}
+    events.inject(0) { |sum, event| sum + event.revenue }
   end
 
   def contact_info(user)

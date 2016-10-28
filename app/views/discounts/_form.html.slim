@@ -1,0 +1,68 @@
+.form-container
+  = form_for discount do |f|
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :code, "Code"
+          = f.text_field :code, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :value, "Value"
+          = f.text_field :value, data: { autonumeric: true }, class: 'form-control input-sm'
+
+    .form-group
+      label Kind
+      br
+      = f.radio_button :kind, "percent", checked: true
+      |  Percent
+      = f.radio_button :kind, "nominal", style: 'margin-left: 10px;'
+      |  Nominal
+          
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :date_start, "Start Date"
+          br
+          = f.date_select :date_start, { include_blank: true }, { required: false }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :date_end, "End Date"
+          br
+          = f.date_select :date_end, { include_blank: true }, { required: false }
+          
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :limit, "Limit"
+          = f.number_field :limit, class: 'form-control input-sm', step: 1
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :active, "Active"
+          = f.check_box :active, class: 'form-control input-sm'
+          
+    hr
+    
+    h4 Applicable Items and Attributes
+    
+    = f.fields_for :discount_filter, remote: true do |ff|
+      .panel.panel-default
+        .panel-heading
+          | Classes
+          span.pull-right = ff.check_box :event
+        .panel-body
+          .form-group
+            = ff.check_box :event_guaranteed
+            |  Guaranteed
+          hr
+          div.text-center More Criteria to Come
+
+      .panel.panel-default
+        .panel-heading
+          | VODs
+          span.pull-right = ff.check_box :vod
+        .panel-body
+          div.text-center More Criteria to Come
+
+      .form-buttons
+        button.btn.btn-success type="submit" = t('default.action.submit')
+        button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')

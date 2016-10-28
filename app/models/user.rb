@@ -62,6 +62,7 @@
 #  about                   :text
 #  status                  :integer          default(0)
 #  daily_rate              :decimal(8, 2)    default(0.0)
+#  video_bio               :text
 #
 # Indexes
 #
