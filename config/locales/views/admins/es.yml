@@ -73,6 +73,10 @@ es:
       kind: "Tipo"
       lab_courses: "Laboratorio de Cursos"
       limit: "Límite"
+      limitless: "Sin límites"
+      nominal: "Nominal"
+      open: "Abierto"
+      percent: "Por ciento"
       portal: 'Portal de Reservación de Laboratorios'
       published: "Publicado"
       quotation: "Cotización"

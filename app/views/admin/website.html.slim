@@ -29,10 +29,10 @@
               tr
                 td = discount.code
                 td = discount.value
-                td = discount.kind.capitalize
-                td = discount.date_start.present? ? discount.date_start : 'Open'
-                td = discount.date_end.present? ? discount.date_end : 'Open'
-                td = discount.limit.present? ? discount.limit : 'Limitless'
+                td = discount.kind == 'percent' ? t('admins.website.percent') : t('admins.website.nominal')
+                td = discount.date_start.present? ? discount.date_start : t('admins.website.open')
+                td = discount.date_end.present? ? discount.date_end : t('admins.website.open')
+                td = discount.limit.present? ? discount.limit : t('admins.website.limitless')
                 td 
                   - if discount.active
                     span.label.label-success Y

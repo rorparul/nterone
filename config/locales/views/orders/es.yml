@@ -21,6 +21,7 @@ es:
     edit_admin_js:
       edit_order: "Editar Orden"
     new:
+      apply_code: "Aplicar Código"
       billing_address: "Dirección de Facturación"
       caption1: "de esta orden no es calificada para ser comprada con creditos."
       caption2: "Si usted desea divider los pagos entre una tarjeta de crédito y créditos,"
@@ -30,7 +31,7 @@ es:
       cc_code: "Código"
       cc_exp_month: "Fecha de Expiración"
       cc_exp_year: "Fecha de Expiración"
-      cc_num: "Numero"
+      cc_number: "Numero"
       cc_paid: "Total Cargado"
       cisco_learning_credits: "Cisco Learning Credits"
       city: "Ciudad"
@@ -45,8 +46,10 @@ es:
       my_cart: "Mi carro"
       my_payment_info: "Mi información de pago"
       one_year_of_access: "1 año de acceso"
+      payment_method: "Método de pago"
       place_order: "Colocar Orden"
       price: "Precio"
+      promotion_code: "El código de promoción"
       remove_from_cart: "Remover del Carro de Compras"
       same_as: "Misma de facturación"
       shipping_address: "Dirección de Envío"
