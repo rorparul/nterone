@@ -1,6 +1,6 @@
 .row
   .col-xs-12
-    = instructor.video_bio.html_safe
+    = instructor.video_bio.try(:html_safe)
     h1 style='margin-bottom: 20px;' = instructor.full_name
     - if instructor.about.present?
       .panel.panel-default
