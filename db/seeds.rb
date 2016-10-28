@@ -1,194 +1,194 @@
 case Rails.env
 when "development"
 
-    # Article.destroy_all
-    # Company.destroy_all
-    # Category.destroy_all
-    # Cart.destroy_all
-    # Course.destroy_all
-    # Event.destroy_all
-    # LabRental.destroy_all
-    # Order.destroy_all
-    # OrderItem.destroy_all
-    # Page.destroy_all
-    # Platform.destroy_all
-    # Role.destroy_all
-    # User.destroy_all
-    #
-    #
-    # Article.create!(
-    #   page_title: 'Page Title',
-    #   page_description: 'Page Description',
-    #   content: 'Content',
-    #   slug: 'Title',
-    #   kind: 'Kind',
-    #   title: 'Title'
-    # )
-    #
-    #
-    # c1 = Company.create!(
-    #       title: "Company One")
-    #
-    # c2 = Company.create!(
-    #       title: "Company Two"
-    #       )
-    #
-    # c3 = Company.create!(
-    #     title: "Company Three")
-    #
-    # c4 = Company.create!(
-    #     title: "Company Four")
-    #
-    # c5 = Company.create!(
-    #     title: "Company Five")
-    #
-    # c6 = Company.create!(
-    #     title: "Company Six")
-    #
-    # c7 = Company.create!(
-    #     title: "Company Seven")
-    #
-    #
-    # Page.create!([{
-    #   title: 'Welcome',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'NterOne Privacy Policy',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'NterOne Terms and Conditions',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'About NterOne',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Executive Bios',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Instructor Bios',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Press Index',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Blog Index',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Industry Index',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Consulting',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Partners',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Labs',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'NterOne Gives Back',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Featured Classes',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Sitemap',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Vendor Index',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }, {
-    #   title: 'Testimonials',
-    #   content: 'Content',
-    #   page_title: 'Page Title',
-    #   slug: 'welcome',
-    #   static: false,
-    #   page_description: 'Page Description'
-    #
-    # }
-    # ])
-    #
-    #
+    Article.destroy_all
+    Company.destroy_all
+    Category.destroy_all
+    Cart.destroy_all
+    Course.destroy_all
+    Event.destroy_all
+    LabRental.destroy_all
+    Order.destroy_all
+    OrderItem.destroy_all
+    Page.destroy_all
+    Platform.destroy_all
+    Role.destroy_all
+    User.destroy_all
+
+
+    Article.create!(
+      page_title: 'Page Title',
+      page_description: 'Page Description',
+      content: 'Content',
+      slug: 'Title',
+      kind: 'Kind',
+      title: 'Title'
+    )
+
+
+    c1 = Company.create!(
+          title: "Company One")
+
+    c2 = Company.create!(
+          title: "Company Two"
+          )
+
+    c3 = Company.create!(
+        title: "Company Three")
+
+    c4 = Company.create!(
+        title: "Company Four")
+
+    c5 = Company.create!(
+        title: "Company Five")
+
+    c6 = Company.create!(
+        title: "Company Six")
+
+    c7 = Company.create!(
+        title: "Company Seven")
+
+
+    Page.create!([{
+      title: 'Welcome',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'NterOne Privacy Policy',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'NterOne Terms and Conditions',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'About NterOne',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Executive Bios',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Instructor Bios',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Press Index',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Blog Index',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Industry Index',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Consulting',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Partners',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Labs',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'NterOne Gives Back',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Featured Classes',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Sitemap',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Vendor Index',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }, {
+      title: 'Testimonials',
+      content: 'Content',
+      page_title: 'Page Title',
+      slug: 'welcome',
+      static: false,
+      page_description: 'Page Description'
+
+    }
+    ])
+
+
     pf = Platform.create!(
       title: "Platform One",
       url: "platformoneurl.com",
@@ -295,8 +295,8 @@ when "development"
     )
 
     e1 = Event.new(
-      start_date: "%12/%13/%2017",
-      end_date: "%12/%13/%2018",
+      start_date: Time.now,
+      end_date: Time.now,
       format: "Format",
       price: 1000.50,
       course_id: crs1.id,
@@ -306,8 +306,8 @@ when "development"
     e1.save!(validate: false)
 
     e2 = Event.new(
-      start_date: "%12/%14/%2017",
-      end_date: "%12/%14/%2018",
+      start_date: Time.now,
+      end_date: Time.now,
       format: "Format",
       price: 1000.50,
       course_id: crs2.id,
@@ -317,8 +317,8 @@ when "development"
     e2.save!(validate: false)
 
     e3 = Event.new(
-      start_date: "%12/%14/%2017",
-      end_date: "%12/%14/%2018",
+      start_date: Time.now,
+      end_date: Time.now,
       format: "Format",
       price: 1000.50,
       course_id: crs3.id,
@@ -328,8 +328,8 @@ when "development"
     e3.save!(validate: false)
 
     e4 = Event.new(
-      start_date: "%12/%13/%2017",
-      end_date: "%12/%13/%2018",
+      start_date: Time.now,
+      end_date: Time.now,
       format: "Format",
       price: 1000.50,
       course_id: crs4.id,
