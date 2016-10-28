@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   end
 
   create_table "discounts", force: :cascade do |t|
-    t.boolean "active",     default: true
+    t.boolean "active",                             default: true
     t.date    "date_end"
     t.date    "date_start"
     t.integer "limit"
