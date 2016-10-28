@@ -80,7 +80,7 @@
                     = t('orders.new.caption5')
           fieldset
             .form-group
-              label Payment Method
+              label = t('orders.new.payment_method')
               br
               = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button', checked: true
               = " #{t('orders.new.credit_card')}"
@@ -113,11 +113,12 @@
           .row
             .col-xs-12.col-md-6
               .form-group
-                = label_tag :discount_code, 'Promotion Code'
+                = label_tag :discount_code, t('orders.new.promotion_code')
                 .input-group
                   = text_field_tag :discount_code, nil, class: "form-control input-sm discount-code-input"
                   .input-group-btn
-                    button#apply-code.btn.btn-success type="button" Apply Code
+                    button#apply-code.btn.btn-success type="button"
+                      = t('orders.new.apply_code')
           .well
             = f.hidden_field :discount_id
             .cc-method

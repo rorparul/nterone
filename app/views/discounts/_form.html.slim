@@ -3,65 +3,65 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :code, "Code"
+          = f.label :code, t('discounts.partial_form.code')
           = f.text_field :code, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :value, "Value"
+          = f.label :value, t('discounts.partial_form.value')
           = f.text_field :value, data: { autonumeric: true }, class: 'form-control input-sm'
 
     .form-group
-      label Kind
+      label = t('discounts.partial_form.kind')
       br
-      = f.radio_button :kind, "percent", checked: true
-      |  Percent
-      = f.radio_button :kind, "nominal", style: 'margin-left: 10px;'
-      |  Nominal
+      = f.radio_button :kind, "percent", checked: true, style: 'margin-right: 5px;'
+      = t('discounts.partial_form.percent')
+      = f.radio_button :kind, "nominal", style: 'margin-left: 10px; margin-right: 5px;'
+      = t('discounts.partial_form.nominal')
           
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :date_start, "Start Date"
+          = f.label :date_start, t('discounts.partial_form.start_date')
           br
           = f.date_select :date_start, { include_blank: true }, { required: false }
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :date_end, "End Date"
+          = f.label :date_end, t('discounts.partial_form.end_date')
           br
           = f.date_select :date_end, { include_blank: true }, { required: false }
           
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :limit, "Limit"
+          = f.label :limit, t('discounts.partial_form.limit')
           = f.number_field :limit, class: 'form-control input-sm', step: 1
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :active, "Active"
+          = f.label :active, t('discounts.partial_form.active')
           = f.check_box :active, class: 'form-control input-sm'
           
     hr
     
-    h4 Applicable Items and Attributes
+    h4 = t('discounts.partial_form.applicable_items')
     
     = f.fields_for :discount_filter, remote: true do |ff|
       .panel.panel-default
         .panel-heading
-          | Classes
+          = t('discounts.partial_form.classes')
           span.pull-right = ff.check_box :event
         .panel-body
           .form-group
-            = ff.check_box :event_guaranteed
-            |  Guaranteed
+            = ff.check_box :event_guaranteed, style: "margin-right: 5px;"
+            = t('discounts.partial_form.guaranteed')
           hr
-          div.text-center More Criteria to Come
+          div.text-center = t('discounts.partial_form.more_criteria')
 
       .panel.panel-default
         .panel-heading
-          | VODs
+          = t('discounts.partial_form.vods')
           span.pull-right = ff.check_box :vod
         .panel-body
-          div.text-center More Criteria to Come
+          div.text-center = t('discounts.partial_form.more_criteria')
 
       .form-buttons
         button.btn.btn-success type="submit" = t('default.action.submit')
