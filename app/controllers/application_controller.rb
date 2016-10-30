@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   include CurrentCart
 
-  before_action :prepare_exception_notifier
+  # before_action :prepare_exception_notifier
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   before_action :record_user_activity
@@ -76,12 +76,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def prepare_exception_notifier
-    request.env["exception_notifier.exception_data"] = {
-      host:         request.host,
-      current_user: current_user.inspect
-    }
-  end
+  # def prepare_exception_notifier
+  #   request.env["exception_notifier.exception_data"] = {
+  #     host:         request.host,
+  #     current_user: current_user.inspect
+  #   }
+  # end
 
   def set_locale
     case request.host

@@ -18,7 +18,7 @@ gem 'csv-importer'
 gem 'devise', '~> 3.5.6'
 gem 'devise_invitable'
 gem 'enumerize', '~> 0.11.0'
-gem 'exception_notification'
+# gem 'exception_notification'
 gem 'figaro'
 gem "font-awesome-rails"
 gem 'forem', :github => "radar/forem", :branch => "rails4"
@@ -41,6 +41,7 @@ gem 'rails-settings-cached'
 gem 'rack-rewrite', '~> 1.5.0'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'remotipart'
+gem 'rollbar'
 gem 'roo'
 gem 'rubyzip'
 gem 'sass-rails', '~> 5.0.3'
