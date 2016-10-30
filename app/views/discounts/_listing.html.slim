@@ -1,0 +1,31 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr
+          th = smart_listing.sortable t('admins.website.code'), :code
+          th = smart_listing.sortable t('admins.website.value'), :value
+          th = smart_listing.sortable t('admins.website.kind'), :kind
+          th = smart_listing.sortable t('admins.website.start_date'), :date_start
+          th = smart_listing.sortable t('admins.website.end_date'), :date_end
+          th = t('admins.website.limit')
+          th = smart_listing.sortable t('admins.website.active'), :active
+          th colspan='2'
+      tbody
+        - @promotions.each do |promotion|
+          tr
+            td = promotion.code
+            td = promotion.value
+            td = promotion.kind.capitalize
+            td = promotion.date_start.present? ? promotion.date_start : 'Open'
+            td = promotion.date_end.present? ? promotion.date_end : 'Open'
+            td = promotion.limit.present? ? promotion.limit : 'Limitless'
+            td 
+              - if promotion.active
+                span.label.label-success Y
+              - else
+                span.label.label-danger N
+            td.fit = link_to t('default.action.edit'), edit_discount_path(promotion), remote: true
+.panel-footer
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links

@@ -138,10 +138,6 @@ class AdminController < ApplicationController
     params.dig(:events_smart_listing, :sort).blank?
   end
 
-  def list_promotions
-    @discounts = Discount.joins(:discount_filter)
-  end
-
   def list_articles
     @articles = smart_listing_create(:articles,
                                      Article.all,
@@ -180,6 +176,21 @@ class AdminController < ApplicationController
                                           partial: "pages/listing_dynamic",
                                           sort_attributes: [[:title, "title"]],
                                           default_sort: { title: "asc" })
+  end
+
+  def list_promotions
+    @promotions = smart_listing_create(:promotions,
+                                      Discount.joins(:discount_filter),
+                                      partial: "discounts/listing",
+                                      sort_attributes: [
+                                        [:code, "code"],
+                                        [:value, "value"],
+                                        [:kind, "kind"],
+                                        [:date_start, "date_start"],
+                                        [:date_end, "date_end"],
+                                        [:active, "active"]
+                                        ],
+                                        default_sort: { date_start: "asc" })
   end
 
   def list_testimonials

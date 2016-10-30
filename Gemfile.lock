@@ -204,9 +204,6 @@ GEM
       activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
-    exception_notification (4.2.1)
-      actionmailer (>= 4.0, < 6)
-      activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -356,6 +353,8 @@ GEM
     remotipart (1.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.13.3)
+      multi_json
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -509,7 +508,6 @@ DEPENDENCIES
   devise_invitable
   dotenv-rails
   enumerize (~> 0.11.0)
-  exception_notification
   factory_girl_rails
   ffaker (~> 2.1)
   figaro
@@ -541,6 +539,7 @@ DEPENDENCIES
   react-rails
   recaptcha
   remotipart
+  rollbar
   roo
   rspec-rails (= 3.5.0.beta1)
   rubyzip

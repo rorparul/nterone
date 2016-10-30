@@ -3,5 +3,19 @@ es:
     edit_js:
       heading: "Editar Promoción"
     partial_form:
+      actvive: "Activo"
+      applicable_items: "Aplicables a elementos y atributos"
+      classes: "Clases"
+      code: "Código"
+      end_date: "Fecha final"
+      guaranteed: "Garantizada"
+      kind: "Tipo"
+      limit: "Límite"
+      more_criteria: "Más criterios para Ven"
+      nominal: "Nominal"
+      percent: "Por ciento"
+      start_date: "Fecha de inicio"
+      value: "Valor"
+      vods: "VODs"
     new_js:
       heading: "Nueva Promoción"
