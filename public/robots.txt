@@ -29,5 +29,6 @@ Disallow: /training/*/instructors
 Disallow: /training/*/instructors/
 Disallow: /new-search
 Disallow: /contact_us
+Disallow: /*/courses/*
 
 Sitemap: https://www.nterone.com/sitemap.xml.gz
