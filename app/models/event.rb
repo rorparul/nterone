@@ -43,6 +43,7 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
+#  company                        :string
 #
 
 class Event < ActiveRecord::Base
