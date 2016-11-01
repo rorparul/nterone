@@ -21,55 +21,31 @@
   span.text-muted = "#{@video_on_demand.abbreviation}"
 
 .row
-  .col-central.vod-lms-show
+  .col-xs-12.col-central
     #video-on-demand
       .row
-        .col-xs-10.col-xs-offset-1
-          span class=(@purchased ? 'hide' : '')
+        .col-xs-12
+          - unless @purchased
             = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
-          - if @video_on_demand.intro
+            
+          - if @video_on_demand.intro.present?
             .panel.panel-default
               .panel-body
                 = @video_on_demand.intro.html_safe
-          #accordion.panel-group role="tablist" aria-multiselectable="true" class=(@purchased ? 'hide' : '')
-            .panel.panel-default
-              .panel-heading role="tab" id="headingOne"
-                h4
-                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                    | Prequisites &amp; Course Objectives
-              #collapseOne.panel-collapse.collapse role="tabpanel" aria-labelledby="headingOne"
-                .panel-body
-                  = @video_on_demand.overview.html_safe if @video_on_demand.overview
-            .panel.panel-default
-              .panel-heading role="tab" id="headingTwo"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                    | Course Outline
-              #collapseTwo.panel-collapse.collapse role="tabpanel" aria-labelledby="headingTwo"
-                .panel-body
-                  = @video_on_demand.outline.html_safe if @video_on_demand.outline
-            .panel.panel-default
-              .panel-heading role="tab" id="headingThree"
-                h4
-                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                    | Who Should Attend
-              #collapseThree.panel-collapse.collapse role="tabpanel" aria-labelledby="headingThree"
-                .panel-body
-                  = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
+                
+          - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
+            .course-progress
+              .progress-bar-our
+                .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
+                  | #{@video_on_demand.overal_progress_percent_for(current_user)}%
+                
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
-                  .course-progress
-                    .progress-bar-our
-                      .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
-                        | #{@video_on_demand.overal_progress_percent_for(current_user)}%
-
                 - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
                   .panel.panel-default
                     .panel-heading role="tab" id="heading#{index}"
                       strong
-
                         a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}" class='collapse-module'
                           span.fa.fa-caret-down.collapse-module-icon
                           span= video_module.title
@@ -169,6 +145,33 @@
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
                               = link_to_cart(@video_on_demand)
+                              
+          #accordion.panel-group role="tablist" aria-multiselectable="true" class=(@purchased ? 'hide' : '')
+            .panel.panel-default
+              .panel-heading role="tab" id="headingOne"
+                strong
+                  a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                    = t('video_on_demands.show.prerequisites_course_objectives')
+              #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
+                .panel-body
+                  = @video_on_demand.overview.html_safe if @video_on_demand.overview
+            .panel.panel-default
+              .panel-heading role="tab" id="headingTwo"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                    = t('video_on_demands.show.course_outline')
+              #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
+                .panel-body
+                  = @video_on_demand.outline.html_safe if @video_on_demand.outline
+            .panel.panel-default
+              .panel-heading role="tab" id="headingThree"
+                strong
+                  a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
+                    = t('video_on_demands.show.who_should_attend')
+              #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
+                .panel-body
+                  = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
+                                      
           .row class=(@purchased ? 'hide' : '')
             .col-xs-12
               #degrees
@@ -181,9 +184,9 @@
           strong Questions?
         p The NterOne team will be happy to answer your questions.
         p
-          | Email:
+          | Email: 
           a href="mailto:sales@nterone.com" sales@nterone.com
-        p Phone: 703.972.2288
+        p Phone: 703-991-5185
     = render partial: 'layouts/side_column'
 
 .row

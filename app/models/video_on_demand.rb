@@ -46,13 +46,13 @@ class VideoOnDemand < ActiveRecord::Base
   belongs_to :course #TODO remove after transfer
   belongs_to :instructor, class_name: 'User'
 
-  has_many :order_items,               as: :orderable
-  has_many :orders,                    through: :order_items
+  has_many :order_items,               as:        :orderable
+  has_many :orders,                    through:   :order_items
   has_many :category_video_on_demands, dependent: :destroy
-  has_many :categories,                through: :category_video_on_demands
+  has_many :categories,                through:   :category_video_on_demands
   has_many :video_modules,             dependent: :destroy
-  has_many :videos,                    through: :video_modules
-  has_many :users,                     through: :order_items
+  has_many :videos,                    through:   :video_modules
+  has_many :users,                     through:   :order_items
 
   has_one :image, as: :imageable, dependent: :destroy
   has_one :lms_exam

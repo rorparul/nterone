@@ -2,7 +2,8 @@ class Lms::BaseController < ApplicationController
   before_action :authenticate_lms
   layout 'lms'
 
-private
+  private
+  
   def authenticate_lms
     redirect_to root_path if !lms_path?
   end

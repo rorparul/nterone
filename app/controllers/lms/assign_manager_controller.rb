@@ -20,7 +20,8 @@ class Lms::AssignManagerController < Lms::BaseController
     end
   end
 
-private
+  private
+  
   def assign_manager_params
     params.require(:assign_manager).permit(:manager_id)
   end

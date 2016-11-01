@@ -9,7 +9,7 @@ class Lms::StudentCoursesController < Lms::BaseController
     @attempts = @course.exam_attempts_for(@student).order('created_at DESC')
   end
 
-private
+  private
 
   def set_student
     @student = User.find(params[:student_id])

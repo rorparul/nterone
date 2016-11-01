@@ -9,11 +9,11 @@ module QuizHelper
     return if !user
 
     if lms_exam.completed_by?(user)
-      "<span class='status-circle completed' />".html_safe
+      "<span class='status-circle completed'/>".html_safe
     elsif LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
-      "<span class='status-circle started' />".html_safe
+      "<span class='status-circle started'/>".html_safe
     else
-      "<span class='status-circle' />".html_safe
+      "<span class='status-circle'/>".html_safe
     end
   end
 
@@ -28,7 +28,8 @@ module QuizHelper
     end
   end
 
-private
+  private
+  
   def question_type_mapping(type)
     return 0 if type == 'multiple_choice'
     return 1 if type == 'free_form'

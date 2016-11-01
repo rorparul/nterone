@@ -38,14 +38,25 @@ class VideoOnDemandsController < ApplicationController
   def show
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
-    @purchased = vod_purchased?
-    @hide_sidebar = vod_purchased?
 
-    if current_user.present? && current_user.lms?
-      render 'video_on_demands/show_lms', layout: 'lms'
-    else
-      render 'video_on_demands/show'
-    end
+    # @purchased = vod_purchased?
+    # @hide_sidebar = vod_purchased?
+    #
+    # if current_user.present? && current_user.lms?
+    #   render 'video_on_demands/show_lms', layout: 'lms'
+    # else
+    #   render 'video_on_demands/show'
+    # end
+
+    @purchased = vod_purchased?
+
+    # if @video_on_demand.lms?
+    #   render 'video_on_demands/show_lms'
+    # else
+    #   render 'video_on_demands/show'
+    # end
+
+    # render 'video_on_demands/show'
   end
 
   def select

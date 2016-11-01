@@ -11,17 +11,17 @@ class GeneralController < ApplicationController
   def welcome
     @page = Page.find_by(title: 'Welcome')
 
-    return redirect_to lms_assign_manager_index_path if lms_signup_path?
-
-    if current_user && current_user.lms_manager? && lms_path?
-      redirect_to lms_manager_path
-    elsif current_user && current_user.lms_student? && lms_path?
-      redirect_to lms_student_path(current_user)
-    elsif current_user && current_user.lms_business? && lms_path?
-      redirect_to lms_business_index_path
-    else
-      render :welcome
-    end
+    # return redirect_to lms_assign_manager_index_path if lms_signup_path?
+    # 
+    # if current_user && current_user.lms_manager? && lms_path?
+    #   redirect_to lms_manager_path
+    # elsif current_user && current_user.lms_student? && lms_path?
+    #   redirect_to lms_student_path(current_user)
+    # elsif current_user && current_user.lms_business? && lms_path?
+    #   redirect_to lms_business_index_path
+    # else
+    #   render :welcome
+    # end
   end
 
   def sign_up_confirmation

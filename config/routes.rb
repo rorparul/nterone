@@ -174,26 +174,26 @@ NterOne::Application.routes.draw do
   resources :videos
   resources :lms_exams
 
-  namespace :lms do
-    get '/',                to: 'session#new'
-    get '/signup',          to: 'session#signup'
-    get '/manager',         to: 'students#index'
-    get '/assign/:item_id', to: 'student_assignments#assign'
-
-
-    resources :students, only: [:index, :show] do
-      resources :courses,     only: [:show],                     controller: 'student_courses'
-      resources :assignments, only: [:index, :create, :destroy], controller: 'student_assignments'
-    end
-
-    namespace :export do
-      get 'grades'
-      get 'progress'
-    end
-
-    resources :business,       only: :index
-    resources :assign_manager, only: [:index, :create]
-  end
+  # namespace :lms do
+  #   get '/',                to: 'session#new'
+  #   get '/signup',          to: 'session#signup'
+  #   get '/manager',         to: 'students#index'
+  #   get '/assign/:item_id', to: 'student_assignments#assign'
+  #
+  #
+  #   resources :students, only: [:index, :show] do
+  #     resources :courses,     only: [:show],                     controller: 'student_courses'
+  #     resources :assignments, only: [:index, :create, :destroy], controller: 'student_assignments'
+  #   end
+  #
+  #   namespace :export do
+  #     get 'grades'
+  #     get 'progress'
+  #   end
+  #
+  #   resources :business,       only: :index
+  #   resources :assign_manager, only: [:index, :create]
+  # end
 
   namespace :reports do
     resources :commissions,             only: [:new, :create]

@@ -26,7 +26,7 @@ class Lms::ExportController < Lms::BaseController
     end
   end
 
-private
+  private
 
   def set_students
     @students = current_user.lms_business? ? User.lms_students_all : current_user.lms_students

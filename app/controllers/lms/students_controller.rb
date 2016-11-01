@@ -12,7 +12,7 @@ class Lms::StudentsController < Lms::BaseController
     @courses = @student.assigned_vods
   end
 
-private
+  private
 
   def set_student
     @student = User.find(params[:id])

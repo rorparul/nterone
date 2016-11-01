@@ -49,7 +49,7 @@ class Lms::StudentAssignmentsController < Lms::BaseController
     redirect_to lms_student_path(current_user)
   end
 
-private
+  private
 
   def set_student
     @student = User.find(params[:student_id])
