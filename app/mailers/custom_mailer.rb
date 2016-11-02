@@ -11,5 +11,3 @@ class CustomMailer < Devise::Mailer
          subject: "Welcome to #{t'website'}!")
   end
 end
-
-bcc: ['stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net']

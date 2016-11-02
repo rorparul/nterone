@@ -78,7 +78,7 @@ en:
     welcome:
       classes: "Featured Classes"
       classes_paragraph: "View a list of our most popular courses broken down by vendor."
-      image1: "locales/en/welcome-banner-3.jpg"
+      image1: "locales/en/welcome-banner-3.png"
       labs: "Labs"
       labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
       vendor: "Courses by Vendor"
