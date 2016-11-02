@@ -9,6 +9,7 @@ class MyAccountController < ApplicationController
     current_user.planned_subjects.where(active: true).update_all(read: true)
     @my_plan_count = current_user.new_my_plan_count
     @activities = PublicActivity::Activity.where("owner_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(created_at: :desc)
+    @courses = current_user.assigned_vods
   end
 
   def messages
