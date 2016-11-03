@@ -6,22 +6,7 @@
     | /
   span.text-muted= t('instructor.classes.breadcrumbs.my_classes')
 
-.row
-  .col-xs-12
-    .admin.categories.hidden-xs.role-tabs
-      .row.text-center
-        .col-sm-12
-          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
-            = t 'admin.filter.classes'
-          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-            = t 'admin.filter.settings'
-    .categories-mobile.visible-xs.role-tabs
-      .row.text-center
-        .col-sm-12
-          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
-            = t 'admin.filter.classes'
-          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-            = t 'admin.filter.settings'
+= render 'layouts/tabs'
 
 .row
   .col-xs-12
@@ -36,4 +21,4 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .classes').addClass('active-category');
+  $('.permissions .my-classes').addClass('active');

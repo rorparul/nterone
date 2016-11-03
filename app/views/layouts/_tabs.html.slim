@@ -1,0 +1,48 @@
+.row
+  .col-xs-12
+    ul.nav.nav-pills.permissions
+      - if current_user.member?
+        li.plan role="presentation"
+          a href="#{my_account_plan_path}"
+            = t('my_account.partial_tabs.my_nterone')
+      - if current_user.admin? || current_user.sales?
+        li.queue role="presentation"
+          a href="#{admin_queue_path}"
+            = t('admins.partial_tabs.queue')
+      - if current_user.admin?
+        li.insights role="presentation"
+          a href="#{main_app.insights_carts_path}"
+            = t('admins.partial_tabs.insights')
+      - if current_user.admin? || current_user.sales?
+        li.orders role="presentation"
+          a href="#{admin_orders_path}"
+            = t('admins.partial_tabs.orders')
+      - if current_user.instructor?
+        li.my-classes role="presentation"
+          a href="#{instructor_classes_path}"
+            = t 'admins.partial_tabs.my_classes'
+      - if current_user.admin? || current_user.sales?
+        li.classes role="presentation"
+          a href="#{admin_classes_path}"
+            = t 'admins.partial_tabs.classes'
+      - if current_user.admin?
+        li.courses role="presentation"
+          a href="#{admin_courses_path}"
+            = t('admins.partial_tabs.courses')
+      - if current_user.company
+        li.lab-rentals role="presentation"
+          a href="#{lab_rentals_path}"
+            = t('my_account.partial_tabs.lab_rentals')
+      - if current_user.admin?
+        li.people role="presentation"
+          a href="#{admin_people_path}"
+            = t('admins.partial_tabs.people')
+      - if current_user.admin?
+        li.website role="presentation"
+          a href="#{admin_website_path}"
+            = t('admins.partial_tabs.website')
+      - if current_user
+        li.settings role="presentation"
+          a href="#{main_app.edit_user_registration_path}"
+            = t('my_account.partial_tabs.settings')
+    hr

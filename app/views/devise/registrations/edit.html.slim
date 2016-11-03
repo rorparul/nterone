@@ -14,12 +14,7 @@
     span.text-muted
     = t('admins.partial_breadcrumbs.my_account')
 
-.row
-  .col-xs-12
-    - if current_user.admin? || current_user.sales?
-      = render 'admin/tabs'
-    - if current_user.member?
-      = render 'my_account/tabs'
+= render 'layouts/tabs'
     
 = render 'form'
 

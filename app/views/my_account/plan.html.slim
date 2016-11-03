@@ -7,13 +7,13 @@
   span.text-muted
     = t('admins.partial_breadcrumbs.my_account')
 
-= render 'tabs'
+= render 'layouts/tabs'
     
 .row
   .col-xs-12
-    .page-header style="margin: 0;"
+    .page-header style="margin: 0 0 10px 0;"
       h1 style="margin-bottom: 0;"
-        small style="font-size: 15px;" My Assigned Roles
+        small style="font-size: 15px;" My Assigned Courses
 .row
   - @courses.each do |course|
     .col-xs-12.col-md-6.course-wrapper
@@ -33,8 +33,11 @@
         - else
           span.label.label-default.completed Exam Not taken
           
-.page-header
-  h3 = t('my_account.plan.purchased_classes_subscriptions')
+.row
+  .col-xs-12
+    .page-header style="margin: 0 0 10px 0;"
+      h1 style="margin-bottom: 0;"
+        small style="font-size: 15px;" = t('my_account.plan.purchased_classes_subscriptions')
 
 .row
   .col-xs-12
@@ -135,9 +138,12 @@
                 tr
                   td.text-center 
                     = t('my_account.plan.no_completed')
-.page-header
-  h3 
-    = t('my_account.plan.certification_planning_tracking')
+                    
+.row
+  .col-xs-12
+    .page-header style="margin: 0 0 10px 0;"
+      h1 style="margin-bottom: 0;"
+        small style="font-size: 15px;" = t('my_account.plan.certification_planning_tracking')
 
 - unless @planned_subjects.any?
   .row
@@ -187,14 +193,14 @@
         span
           = "#{t('my_account.plan.estimated_total')} #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
-.row
-  .col-xs-12
-    #activity-history
-      .page-header
-        h3 
-          = t('my_account.plan.activity_history')
-      ul
-        = render_activities(@activities, fallback: 'default')
+/ .row
+/   .col-xs-12
+/     #activity-history
+/       .page-header
+/         h3 
+/           = t('my_account.plan.activity_history')
+/       ul
+/         = render_activities(@activities, fallback: 'default')
 
 javascript:
   $('.role-tab').addClass('active');

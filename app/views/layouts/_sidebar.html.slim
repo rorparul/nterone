@@ -9,26 +9,18 @@
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-gear
             span.text = t('admins.partial_breadcrumbs.admin')
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.sales?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-coffee
             span.text= t 'breadcrumbs.my_sales'
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.instructor?
           li = link_to main_app.instructor_classes_path, class: "role-tab" do
             span.fa.fa-users
             span.text= t 'breadcrumbs.instructor'
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.member?
           li = link_to main_app.my_account_plan_path, class: "role-tab" do
             span.fa.fa-user
             span.text My Account
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
       - else
         li = link_to main_app.new_user_session_path, class: "login-tab" do
           span.fa.fa-sign-in
