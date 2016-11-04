@@ -13,9 +13,7 @@
       = link_to new_reports_instructor_utilization_path, remote: true do
         = t('admins.classes.utilization_report')
 
-.row
-  .col-xs-12
-    = render 'tabs'
+= render 'layouts/tabs'
 
 .row
   .col-xs-12
@@ -58,5 +56,5 @@
       = link_to t('admins.classes.xlsx'), student_registered_classes_path(format: 'xlsx')
 
 javascript:
-    $('.role-tab').addClass('active');
-    $('.categories .classes').addClass('active-category');
+  $('.role-tab').addClass('active');
+  $('.permissions .classes').addClass('active');

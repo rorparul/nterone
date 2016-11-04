@@ -20,9 +20,6 @@
                 - user.roles.each do |role|
                   div = role.formatted_role
               td.fit = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
-                / - if user.member?
-                /   = link_to t('users.partial_listing.add_order'), new_order_path(user: user.id), remote: true
-                /   = " | "
               - if current_user.can_resend_invitation?
                 td.fit = link_to(t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post)
               td.fit = link_to t('default.action.edit'), edit_user_path(user)

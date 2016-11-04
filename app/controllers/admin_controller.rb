@@ -180,17 +180,15 @@ class AdminController < ApplicationController
 
   def list_promotions
     @promotions = smart_listing_create(:promotions,
-                                      Discount.joins(:discount_filter),
-                                      partial: "discounts/listing",
-                                      sort_attributes: [
-                                        [:code, "code"],
-                                        [:value, "value"],
-                                        [:kind, "kind"],
-                                        [:date_start, "date_start"],
-                                        [:date_end, "date_end"],
-                                        [:active, "active"]
-                                        ],
-                                        default_sort: { date_start: "asc" })
+                                       Discount.joins(:discount_filter),
+                                       partial: "discounts/listing",
+                                       sort_attributes: [[:code, "code"],
+                                                         [:value, "value"],
+                                                         [:kind, "kind"],
+                                                         [:date_start, "date_start"],
+                                                         [:date_end, "date_end"],
+                                                         [:active, "active"]],
+                                       default_sort: { date_start: "asc" })
   end
 
   def list_testimonials

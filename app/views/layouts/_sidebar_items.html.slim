@@ -4,20 +4,14 @@
       span.fa.fa-gear
       span
       = t('admins.partial_breadcrumbs.admin')
-      - if @total_alert_count > 0
-        span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
   - if current_user.sales?
     li = link_to main_app.admin_classes_path, class: "role-tab" do
       span.fa.fa-coffee
       span My Sales
-      - if @total_alert_count > 0
-        span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
   - if current_user.member?
     li = link_to main_app.my_account_plan_path, class: "role-tab" do
       span.fa.fa-user
       span My Account
-      - if @total_alert_count > 0
-        span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
 - else
   li = link_to main_app.new_user_session_path, class: "login-tab" do
     span.fa.fa-sign-in
@@ -49,6 +43,6 @@ li = link_to main_app.labs_path, class: "labs-tab" do
     span.fa.fa-envelope-o
     span = t('layouts.partial_side_items.contact_us')
 - if user_signed_in?
-  li = link_to main_app.destroy_user_session_path, method: :delete do
+  li = link_to logout_path do
     span.fa.fa-sign-out
     span = t('layouts.partial_side_items.logout')

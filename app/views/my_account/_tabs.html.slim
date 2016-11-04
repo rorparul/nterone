@@ -1,29 +1,17 @@
-.categories.hidden-xs.role-tabs
-  .row.text-center
-    .col-sm-12
-      a.btn.category.btn-category.plan href="#{my_account_plan_path}"
-        = t('my_account.partial_tabs.my_nterone')
+.row
+  .col-xs-12
+    ul.nav.nav-pills.permissions
+      li.plan role="presentation"
+        a href="#{my_account_plan_path}"
+          = t('my_account.partial_tabs.my_nterone')
       - if current_user.company
-        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
-          = t('my_account.partial_tabs.lab_rentals')
-      a.btn.category.btn-category.messages href="#{my_account_messages_path}"
-        = t('my_account.partial_tabs.messages')
-        - if @new_message_count > 0
-          span.badge.badge-alert.badge-alert-settings = @new_message_count
-      a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}" 
-        = t('my_account.partial_tabs.settings')
-      
-.categories-mobile.visible-xs.role-tabs
-  .row.text-center
-    .col-sm-12
-      a.btn.category.btn-category.plan href="#{my_account_plan_path}"
-        = t('my_account.partial_tabs.my_nterone')
-      - if current_user.company
-        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
-          = t('my_account.partial_tabs.lab_rentals')
-      a.btn.category.btn-category.messages href="#{my_account_messages_path}"
-        = t('my_account.partial_tabs.messages')
-        - if @new_message_count > 0
-          span.badge.badge-alert.badge-alert-settings = @new_message_count
-      a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}" 
-        = t('my_account.partial_tabs.settings')
+        li.lab-rentals role="presentation"
+          a href="#{lab_rentals_path}"
+            = t('my_account.partial_tabs.lab_rentals')
+      li.messages role="presentation"
+        a href="#{my_account_messages_path}"
+          = t('my_account.partial_tabs.messages')
+      li.settings role="presentation"
+        a href="#{main_app.edit_user_registration_path}"
+          = t('my_account.partial_tabs.settings')
+    hr

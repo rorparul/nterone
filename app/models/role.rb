@@ -17,7 +17,8 @@ class Role < ActiveRecord::Base
                          member: 4,
                          lms_manager: 5,
                          lms_student: 6,
-                         instructor: 7 },
+                         lms_business: 7,
+                         instructor: 8 },
                          default: :member,
                          predicates: true
 
@@ -33,6 +34,7 @@ class Role < ActiveRecord::Base
       member:        "Member",
       lms_manager:   "LMS Manager",
       lms_student:   "LMS Student",
+      lms_business:  "LMS Business",
       instructor:    "Instructor"
     }
 
@@ -47,6 +49,7 @@ class Role < ActiveRecord::Base
       ["Member", "member"],
       ["LMS Manager", "lms_manager"],
       ["LMS Student", "lms_student"],
+      ['LMS Business', 'lms_business'],
       ["Instructor", "instructor"]
     ]
   end
