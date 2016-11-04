@@ -1,32 +1,50 @@
 - content_for :breadcrumbs do
-  a href="#{lms_path}"
+  a href="#{root_path}"
     span.fa.fa-home
     | Home
+    
+= render 'layouts/tabs'
 
 .row
-  span.lead.pull-left Students
-  =link_to 'Progress CSV', lms_export_progress_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Progress Excell', lms_export_progress_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
+  .col-xs-12
+    div style='margin-bottom: 10px; height: 30px;'
+      h4.text-muted style='display: inline-block; margin: 5.5px 0;' All Students
+      =link_to 'Progress CSV', lms_export_progress_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
+      =link_to 'Progress Excel', lms_export_progress_path(format: 'xlsx'), class: 'btn btn-default pull-right export-button'
+      =link_to 'Grades CSV', lms_export_grades_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
+      =link_to 'Grades Excel', lms_export_grades_path(format: 'xlsx'), class: 'btn btn-default pull-right export-button'
 
-  =link_to 'Grades CSV', lms_export_grades_path(format: 'csv'), class: 'btn btn-default pull-right export-button'
-  =link_to 'Grades Excell', lms_export_grades_path(format: 'xlsx'), class: 'btn btn-info pull-right export-button'
-
-  table.table.table-hover
-    - unless @students.empty?
-      thead
-        td Name
-        td Email
-        td Last Active
-        td Assigned to
-        td Show
-      tbody
-        - @students.each do |student|
-          tr
-            td= student.full_name
-            td= student.email
-            td= time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
-            td= student.lms_manager.try(:full_name)
-            td
-              a href=lms_student_path(student) Show
-    - else
-      p.text-center No Students Found
+.row
+  .col-xs-12
+    table.table.table-hover style="margin-bottom: 10px;"
+      - unless @students.empty?
+        thead
+          tr.active
+            th Name
+            th Email
+            th Last Active
+            th Assignments
+            th Show
+        tbody
+          - @students.each do |student|
+            tr
+              td = student.full_name
+              td = student.email
+              td = time_ago_in_words(student.last_active_at).gsub('about', '') + ' ago' if student.last_active_at.present?
+              td = student.lms_manager.try(:full_name)
+              td
+                a href=lms_student_path(student) Show
+      - else
+        p.text-center No Students Found
+        
+.row
+  .col-xs-12
+    button#back Back
+      
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .lms').addClass('active');
+  
+  $('#back').on('click', function() {
+    location.replace(document.referrer);
+  });

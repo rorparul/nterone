@@ -1,4 +1,4 @@
-class Lms::StudentAssignmentsController < Lms::BaseController
+class Lms::StudentAssignmentsController < ApplicationController
   before_action :authenticate_user!, except: :assign
   before_action :set_student, except: :assign
   before_action :set_assignment, only: :destroy

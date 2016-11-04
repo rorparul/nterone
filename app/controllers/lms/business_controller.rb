@@ -1,4 +1,4 @@
-class Lms::BusinessController < Lms::BaseController
+class Lms::BusinessController < ApplicationController
   before_action :authenticate_user!
 
   def index

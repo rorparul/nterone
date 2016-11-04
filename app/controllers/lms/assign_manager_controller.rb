@@ -1,4 +1,4 @@
-class Lms::AssignManagerController < Lms::BaseController
+class Lms::AssignManagerController < ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -21,7 +21,7 @@ class Lms::AssignManagerController < Lms::BaseController
   end
 
   private
-  
+
   def assign_manager_params
     params.require(:assign_manager).permit(:manager_id)
   end

@@ -308,7 +308,6 @@ class User < ActiveRecord::Base
     has_role? :lms_manager
   end
 
-
   def lms_student?
     has_role? :lms_student
   end

@@ -8,30 +8,6 @@
     = t('admins.partial_breadcrumbs.my_account')
 
 = render 'layouts/tabs'
-    
-.row
-  .col-xs-12
-    .page-header style="margin: 0 0 10px 0;"
-      h1 style="margin-bottom: 0;"
-        small style="font-size: 15px;" My Assigned Courses
-.row
-  - @courses.each do |course|
-    .col-xs-12.col-md-6.course-wrapper
-      .resource-item.without-image
-        .course-links
-          = link_to course.full_title, platform_video_on_demand_path(course.platform, course)
-          = link_to 'Exam Attempts', lms_student_course_path(current_user, course), class: 'label label-info'
-      .results
-        span.label class=watched_count_class(course, @student)
-          | #{course.watched_count(current_user)} / #{course.video_count} Videos Completed
-        br
-        span.label class=quizes_completed_class(course, @student)
-          | #{course.quizes_completed_count_by(current_user)} / #{course.quizes_count} Quizes Completed
-        br
-        - if course.exam_completed_by?(current_user)
-          span.label.label-success Exam Completed
-        - else
-          span.label.label-default.completed Exam Not taken
           
 .row
   .col-xs-12

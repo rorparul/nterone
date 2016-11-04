@@ -1,26 +1,44 @@
 - content_for :breadcrumbs do
-  a href="#{lms_path}"
+  a href="#{root_path}"
     span.fa.fa-home
     | Home
   span.seperator
     | /
   span.text-muted
     | #{@student.full_name} Assignments
+    
+= render 'layouts/tabs'
 
 .row
-  .choose-course
-    = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
-      .form-group
-        = f.label 'Choose Course To Assign'
-        br
-        = f.select :course_id, options_for_select(@assignable_courses.map{|course| ["#{course.title}", course.id]})
-        button.label.label-success type="submit" Assign
+  .col-xs-12
+    div style='margin-bottom: 10px; height: 30px;'
+      h4.text-muted style='display: inline-block; margin: 5.5px 0;' Assigned Courses
+      .choose-course.pull-right style='display: inline-block;'
+        = form_for :assigned_item, url: lms_student_assignments_path, remote: false do |f|
+          = f.select :course_id, options_for_select(@assignable_courses.map{ |course| ["#{course.title}", course.id] }),
+                                 options = {},
+                                 html_options = { class: "form-control sub-select input-sm", style: "display: inline; width: 250px;" }
+          button.btn.btn-success style="display: inline; margin-left: 5px;" type="submit" Assign
+.row
+  .col-xs-12
+    .row
+      - @assignments.each do |assignment|
+        .col-md-6
+          .well
+            span.lead= assignment.item.title
+            =link_to 'Remove Assignment',
+              lms_student_assignment_path(@student, assignment),
+              class: 'label label-danger pull-right remove-assignment',
+              data: { method: :delete, :confirm => 'Are you sure?'}
+            
+.row
+  .col-xs-12
+    button#back Back
 
-  - @assignments.each do |assignment|
-    .col-md-6.assignment
-      .well
-        span.lead= assignment.item.title
-        =link_to 'Remove Assignment',
-          lms_student_assignment_path(@student, assignment),
-          class: 'label label-danger pull-right remove-assignment',
-          data: { method: :delete, :confirm => 'Are you sure?'}
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .lms').addClass('active');
+  
+  $('#back').on('click', function() {
+    location.replace(document.referrer);
+  });

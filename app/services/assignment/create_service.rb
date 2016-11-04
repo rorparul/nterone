@@ -10,7 +10,7 @@ class Assignment::CreateService
     create_assignment
   end
 
-private
+  private
 
   def assignment_exists?
     AssignedItem.exists?(assigner: @assigner, student: @student, item: @item)

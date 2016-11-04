@@ -1,5 +1,5 @@
 - content_for :breadcrumbs do
-  a href="#{lms_path}"
+  a href="#{root_path}"
     span.fa.fa-home
     | Home
   span.seperator
@@ -9,25 +9,44 @@
   span.seperator
     | /
   span.text-muted= @course.title
+  
+= render 'layouts/tabs'
 
-.row.student-courses-attempts
-  h4 Exam Attempts
+.row
+  .col-xs-12
+    div style='margin-bottom: 10px; height: 30px;'
+      h4.text-muted style='display: inline-block; margin: 5.5px 0;' Course Stats
 
-  table.table.table-hover
-    thead
-      td Exam Name
-      td Taken
-      td Time to complete
-      td Results
-    tbody
-      - @attempts.each do |attempt|
-        tr
-          td= attempt.lms_exam.title
-          td
-            | #{time_ago_in_words(attempt.created_at)} ago
-          td #{time_diff(attempt.started_at, attempt.completed_at)} Minutes
-          td
-            b.text
-              | #{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})
-            .progress-bar-our
-              .progress-our style="width: #{attempt.percent_correct}%;"
+.row
+  .col-xs-12
+    table.table.table-hover style="margin-bottom: 10px;"
+      thead
+        tr.active
+          th Exam Name
+          th Taken
+          th Time to complete
+          th Results
+      tbody
+        - @attempts.each do |attempt|
+          tr
+            td= attempt.lms_exam.title
+            td
+              | #{time_ago_in_words(attempt.created_at)} ago
+            td #{time_diff(attempt.started_at, attempt.completed_at)} Minutes
+            td
+              b.text
+                | #{attempt.percent_correct}% (#{attempt.number_correct}/#{attempt.question_count})
+              .progress-bar-our
+                .progress-our style="width: #{attempt.percent_correct}%;"
+                
+.row
+  .col-xs-12
+    button#back Back
+              
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .lms').addClass('active');
+  
+  $('#back').on('click', function() {
+    location.replace(document.referrer);
+  });

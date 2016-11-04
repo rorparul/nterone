@@ -1,4 +1,4 @@
-class Lms::ExportController < Lms::BaseController
+class Lms::ExportController < ApplicationController
   before_action :authenticate_user!
   before_action :set_students
 
