@@ -7,9 +7,7 @@
   a href="#{admin_website_path}"
     = t('admins.partial_breadcrumbs.admin')
     
-.row
-  .col-xs-12
-    = render 'admin/tabs'
+= render 'layouts/tabs'
 
 .panel.panel-default
   .panel-heading
@@ -20,7 +18,7 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .website').addClass('active-category');
+  $('.permissions .website').addClass('active');
 
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);

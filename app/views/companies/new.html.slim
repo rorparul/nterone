@@ -7,9 +7,7 @@
   span.text-muted 
   = t('admins.partial_breadcrumbs.admin')
     
-.row
-  .col-xs-12
-    = render 'admin/tabs'
+= render 'layouts/tabs'
 
 .panel.panel-default
   .panel-heading
@@ -19,6 +17,9 @@
     = render partial: "form", locals: { company: @company }
 
 javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .website').addClass('active');
+  
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });
