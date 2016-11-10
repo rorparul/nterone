@@ -17,8 +17,8 @@ class Role < ActiveRecord::Base
                          member: 4,
                          lms_manager: 5,
                          lms_student: 6,
-                         lms_business: 7,
-                         instructor: 8 },
+                         instructor: 7,
+                         lms_business: 8 },
                          default: :member,
                          predicates: true
 
