@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031190027) do
+ActiveRecord::Schema.define(version: 20161111165853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "description"
     t.string   "page_title"
     t.string   "heading"
+    t.text     "meta_description"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -252,13 +253,12 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -473,8 +473,8 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"

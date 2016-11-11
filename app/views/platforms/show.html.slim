@@ -2,7 +2,7 @@
   = @category.page_title.present? ? @category.page_title : @category.title
 
 - content_for :page_description do
-  = @platform.page_description
+  = @category.meta_description
 
 - content_for :breadcrumbs do
   a href="#{root_path}"

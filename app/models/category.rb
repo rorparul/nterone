@@ -15,6 +15,7 @@
 #  description        :text
 #  page_title         :string
 #  heading            :string
+#  meta_description   :text
 #
 # Indexes
 #
