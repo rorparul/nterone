@@ -318,7 +318,9 @@ javascript:
       value = match[1];
     }
 
-    $(this).closest('.row').find('.order-item-price').val(value);
+    if ( $(this).hasClass("new-order-item") == true ) {
+      $(this).closest('.row').find('.order-item-price').val(value);
+    };
   });
   
   $('.order-item-selector').trigger('change');
