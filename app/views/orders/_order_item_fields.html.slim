@@ -15,7 +15,7 @@
       .col-xs-12.col-sm-3
         .form-group
           = f.label :price, t('orders.partial_order_item_fields.price')
-          = f.text_field :price, class: 'form-control input-sm order-item-price'
+          = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm order-item-price'
     - if order.new_record?
       = link_to_remove_association t('orders.partial_order_item_fields.remove'), f
 - when 'VideoOnDemand'

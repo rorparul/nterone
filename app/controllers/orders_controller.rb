@@ -42,10 +42,12 @@ class OrdersController < ApplicationController
         @order.confirm_with_rep if confirm_with_rep?
         flash[:success] = "Purchase successfully created."
       else
-        flash[:alert] = "Purchase failed to create."
+
+        @event = @order.order_items if @order.order_items
+        render 'create_admin'
       end
 
-      redirect_to :back
+      # redirect_to :back
     else
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
