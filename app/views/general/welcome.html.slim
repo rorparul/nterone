@@ -12,10 +12,8 @@
 .row
   .col-sm-12.text-align.col-central
     #carousel
-      / = link_to main_app.new_user_registration_path(special_event: true) do
-      /   = image_tag "promotion.png", class: 'promotion'
       = link_to main_app.platforms_path do
-        = image_tag t('general.welcome.image1')
+        = image_tag t('general.welcome.banner')
 
     .row
       .col-xs-12

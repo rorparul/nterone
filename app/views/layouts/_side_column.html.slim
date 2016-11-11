@@ -1,6 +1,7 @@
-.side-column-graphics
-  = link_to featured_classes_path do
-    = image_tag "promos/promo-1.jpg"
+- if I18n.locale == :en
+  .side-column-graphics
+    = link_to featured_classes_path do
+      = image_tag "promos/promo-1.jpg"
     
 .side-column-graphics
   = link_to main_app.nterone_gives_back_path do
