@@ -78,7 +78,7 @@ es:
     welcome:
       classes: "Clases Destacadas"
       classes_paragraph: "Ver lista de cursos más populares por fabricante"
-      image1: "locales/es/welcome-banner-3.png"
+      banner: "locales/es/welcome-banner-3.png"
       labs: "Laboratorios"
       labs_paragraph: "Acceso Global 24x7 al Laboratorio"
       vendor: "Cursos por Fabricantes"
