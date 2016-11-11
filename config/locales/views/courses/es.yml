@@ -9,6 +9,7 @@ es:
     export:
       abbreviation: 'Abreviación'
       vendor: 'Fabricante'
+      price: "Precio"
       slug: 'Slug'
       title: 'Titulo'
       url: 'URL'
