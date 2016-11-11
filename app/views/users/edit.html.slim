@@ -1,9 +1,7 @@
 - content_for :breadcrumbs do
   = render "admin/breadcrumbs"
   
-.row
-  .col-xs-12
-    = render 'admin/tabs'
+= render 'layouts/tabs'
 
 = render 'form'
 
@@ -14,7 +12,7 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .people').addClass('active-category');
+  $('.permissions .people').addClass('active');
   
   $('#back').on('click', function() {
     location.replace(document.referrer);

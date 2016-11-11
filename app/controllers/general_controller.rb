@@ -10,6 +10,18 @@ class GeneralController < ApplicationController
 
   def welcome
     @page = Page.find_by(title: 'Welcome')
+
+    # return redirect_to lms_assign_manager_index_path if lms_signup_path?
+    # 
+    # if current_user && current_user.lms_manager? && lms_path?
+    #   redirect_to lms_manager_path
+    # elsif current_user && current_user.lms_student? && lms_path?
+    #   redirect_to lms_student_path(current_user)
+    # elsif current_user && current_user.lms_business? && lms_path?
+    #   redirect_to lms_business_index_path
+    # else
+    #   render :welcome
+    # end
   end
 
   def sign_up_confirmation
@@ -127,5 +139,13 @@ class GeneralController < ApplicationController
 
   def contact_us_params
     params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :feedback)
+  end
+
+  def lms_path?
+    request.referer.present? && request.referer.include?('/lms')
+  end
+
+  def lms_signup_path?
+    request.referer.present? && request.referer.include?('/lms/signup')
   end
 end

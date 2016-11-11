@@ -9,10 +9,13 @@
 //= require parsley
 //= require bootstrap
 //= require bootstrap-select
+//= require bootstrap/tab
 //= require cocoon
 //= require forem
 //= require smart_listing
-//= require general
+//= require react
+//= require react_ujs
+//= require components
 //= require froala_editor.min.js
 //= require plugins/font_family.min.js
 //= require plugins/font_size.min.js
@@ -21,3 +24,4 @@
 //= require plugins/image.min.js
 //= require plugins/image_manager.min.js
 //= require plugins/link.min.js
+//= require general

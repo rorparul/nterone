@@ -96,6 +96,9 @@ class User < ActiveRecord::Base
   has_many :passed_exams,     dependent:  :destroy
   has_many :exams,            through:    :passed_exams
 
+  has_many :assigned_items,   foreign_key: 'student_id'
+  has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
+
   #TODO: track leads through relationships instead
   has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
   has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
@@ -125,10 +128,17 @@ class User < ActiveRecord::Base
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
 
+  has_one :lms_manager, through: :lms_managers_associacion, source: 'manager'
+  has_many :lms_students, through: :lms_students_associacion, source: 'user'
+
+  has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
+  has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
+
   has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
   has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
 
   accepts_nested_attributes_for :interest
+
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
@@ -143,6 +153,14 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
   after_save :update_instructor_costs, if: :daily_rate_changed?
+
+  def self.lms_students_all
+    User.includes(:roles).where(roles: { role: 6 })
+  end
+
+  def self.lms_managers_all
+    User.includes(:roles).where(roles: { role: 5 })
+  end
 
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
@@ -284,6 +302,22 @@ class User < ActiveRecord::Base
 
   def admin?
     has_role? :admin
+  end
+
+  def lms_manager?
+    has_role? :lms_manager
+  end
+
+  def lms_student?
+    has_role? :lms_student
+  end
+
+  def lms_business?
+    has_role? :lms_business
+  end
+
+  def lms?
+    lms_student? || lms_manager? || lms_business?
   end
 
   def sales_manager?

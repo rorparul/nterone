@@ -1,0 +1,27 @@
+.form-container
+  = form_for [exam], remote: false do |f|
+
+    .form-group
+      = f.label :title, 'Exam Title'
+      = f.text_field :title, class: 'form-control input-sm'
+
+    .form-group
+      = f.label :description, 'Exam Description'
+      = f.text_area :description, class: 'form-control input-sm'
+
+    .form-group
+      = f.label 'Exam Type'
+      = f.select(:exam_type, options_for_select(@exam_types), {}, class: 'form-control')
+
+    hr
+
+    h4 Questions
+    hr
+    #questions
+      = react_component('QuizQuestionForm', { questions: questions_for_react(@exam.lms_exam_questions)})
+
+    .form-buttons
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel
+      - if exam.id
+        = link_to 'Delete', lms_exam_path(exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'

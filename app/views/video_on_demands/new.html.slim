@@ -20,9 +20,34 @@
     strong.text-muted 
       = t('video_on_demands.new.add_video_on_demand')
   .panel-body
-    = render partial: "form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
+    div#video-on-demand-new-tabs
+      ul
+        li
+          a href="#overview"
+            | Overview
+        li
+          a href="#video-upload"
+            | Video Upload
+        li
+          a href="#quiz-upload"
+            | Quiz Upload
+      #overview
+        .panel.panel-default
+          .panel-body
+            = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
+      #video-upload
+        .panel.panel-default
+          .panel-body
+            = render partial: "video_upload_form", locals: { video_on_demand: @video_on_demand, video: Video.new }
+      #quiz-upload
+        .panel.panel-default
+          .panel-body
+            = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
+  });
+  $(function() {
+    $( "#video-on-demand-new-tabs" ).tabs();
   });

@@ -2,10 +2,12 @@ NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
              controllers: { registrations: 'users/registrations',
+                            sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
+    get '/logout' => 'devise/sessions#destroy'
   end
 
   mount Forem::Engine, :at => '/forums'
@@ -29,7 +31,7 @@ NterOne::Application.routes.draw do
   get 'cart'                 => 'carts#show',            as: :cart
   get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
   get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
-  
+
   resources :discounts
   resources :order_items
   resources :orders do
@@ -91,6 +93,7 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
+
     resources :subjects, path: 'certifications' do
       collection do
         get  'select'
@@ -98,24 +101,28 @@ NterOne::Application.routes.draw do
       end
       resources :groups, except: [:index, :show]
     end
+
     resources :dividers, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exam_and_course_dynamics, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exams, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :courses, except: [:index] do
       collection do
         get  'page'
@@ -135,19 +142,27 @@ NterOne::Application.routes.draw do
         end
       end
     end
+
     resources :video_on_demands, path: 'video-on-demand' do
       collection do
         get  'select'
         post 'select_to_edit'
         get  'play_video/:id' => 'video_on_demands#play_video', as: :play_video
+        get  '/:video_id/quiz/:id' => 'video_on_demands#init_quiz', as: :init_quiz
+        post '/:video_id/quiz/:id/begin' => 'video_on_demands#begin_quiz', as: :begin_quiz
+        post '/:video_id/quiz/:id/next-question' => 'video_on_demands#next_quiz_question', as: :next_quiz_question
+        post '/:video_id/quiz/:id/exit' => 'video_on_demands#exit_quiz', as: :exit_quiz
+        get  '/:video_id/quiz/:id/scores' => 'video_on_demands#show_scores', as: :show_scores
       end
     end
+
     resources :custom_items, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :instructors do
       collection do
         get  'select'
@@ -156,9 +171,30 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :videos
+  resources :lms_exams
+
+  namespace :lms do
+    get '/manager',         to: 'students#index'
+    get '/assign/:item_id', to: 'student_assignments#assign'
+
+    resources :students, only: [:index, :show] do
+      resources :courses,     only: [:show],                     controller: 'student_courses'
+      resources :assignments, only: [:index, :create, :destroy], controller: 'student_assignments'
+    end
+
+    namespace :export do
+      get 'grades'
+      get 'progress'
+    end
+
+    resources :business,       only: :index
+    resources :assign_manager, only: [:index, :create]
+  end
+
   namespace :reports do
-    resources :commissions, only: [:new, :create]
-    resources :profit_sheets, only: [:new, :create]
+    resources :commissions,             only: [:new, :create]
+    resources :profit_sheets,           only: [:new, :create]
     resources :instructor_utilizations, only: [:new, :create]
   end
 

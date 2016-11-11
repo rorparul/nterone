@@ -1,0 +1,10 @@
+.nested-fields
+  .row
+    .col-xs-12.col-sm-8
+      .form-group
+        = f.label :answer_text
+        = f.text_field :answer_text, class: 'form-control input-sm'
+    .col-xs-12.col-sm-4
+      .form-group
+        = f.label :correct, "Correct Answer?"
+        = f.check_box :correct, class: 'form-control input-sm'

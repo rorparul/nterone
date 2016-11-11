@@ -6,5 +6,6 @@
                        [t('users.partial_role_fields.student'), :member],
                        [t('users.partial_role_fields.lms_student'), :lms_student],
                        [t('users.partial_role_fields.lms_manager'), :lms_manager],
+                       ['LMS Business', :lms_business],
                        [t('users.partial_role_fields.instructor'), :instructor]], {}, { class: 'form-control input-sm' }
   = link_to_remove_association t('users.partial_role_fields.remove_permission'), f

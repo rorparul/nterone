@@ -5,17 +5,16 @@
   span.seperator
     | /
   span.text-muted
-  = t('admins.partial_breadcrumbs.admin')
-    
+    = t('admins.partial_breadcrumbs.admin')
 .row
   .col-xs-12
     = render 'tabs'
-    
+
 .row
   .col-xs-12
     = render partial: 'orders/index', locals: { orders: @orders }
-    
-    
+
+
 javascript:
   $('.role-tab').addClass('active');
   $('.categories .orders').addClass('active-category');

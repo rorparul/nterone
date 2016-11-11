@@ -88,7 +88,8 @@ class EventsController < ApplicationController
   end
 
   def student_registered_classes
-    @platforms = Platform.order(:title)
+    # @platforms = Platform.order(:title)
+    @events = Event.joins(:course).upcoming_events.with_students
 
     respond_to do |format|
       format.xlsx
@@ -97,7 +98,6 @@ class EventsController < ApplicationController
   end
 
   def upload_form
-
   end
 
   def upload

@@ -1,0 +1,45 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  span.text-muted= @student.full_name
+  
+= render 'layouts/tabs'
+  
+.row
+  .col-xs-12
+    div style='margin-bottom: 10px; height: 30px;'
+      h4.text-muted style='display: inline-block; margin: 5.5px 0;' Assigned Courses
+
+.row
+  - @courses.each do |course|
+    .col-xs-12.col-md-6.course-wrapper
+      .resource-item.without-image
+        .course-links
+          = link_to course.full_title, platform_video_on_demand_path(course.platform, course)
+          = link_to 'Exam Attempts', lms_student_course_path(@student, course), class: 'label label-info'
+      .results
+        span.label class=watched_count_class(course, @student)
+          | #{course.watched_count(@student)} / #{course.video_count} Videos Completed
+        br
+        span.label class=quizes_completed_class(course, @student)
+          | #{course.quizes_completed_count_by(@student)} / #{course.quizes_count} Quizes Completed
+        br
+        - if course.exam_completed_by?(@student)
+          span.label.label-success Exam Completed
+        - else
+          span.label.label-default.completed Exam Not taken
+          
+.row
+  .col-xs-12
+    button#back Back
+          
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .lms').addClass('active');
+  
+  $('#back').on('click', function() {
+    location.replace(document.referrer);
+  });

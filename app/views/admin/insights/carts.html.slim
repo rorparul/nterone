@@ -1,9 +1,7 @@
 - content_for :breadcrumbs do 
   = render "admin/breadcrumbs"
   
-.row
-  .col-xs-12
-    = render 'admin/tabs'
+= render 'layouts/tabs'
 
 .panel.panel-default
   .panel-heading
@@ -27,4 +25,4 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .insights').addClass('active-category');
+  $('.permissions .insights').addClass('active');

@@ -1,9 +1,7 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
-.row
-  .col-xs-12
-    = render 'tabs'
+= render 'layouts/tabs'
 
 .row
   .col-xs-12
@@ -69,4 +67,4 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .website').addClass('active-category');
+  $('.permissions .website').addClass('active');

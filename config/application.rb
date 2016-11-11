@@ -31,5 +31,13 @@ module NterOne
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
+
+    config.react.jsx_transform_options = {
+      optional: ['es7.classProperties']
+    }
+
+    config.react.server_renderer_options = {
+      files: ["server_rendering.js"], # files to load for prerendering
+    }
   end
 end
