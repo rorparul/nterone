@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :check_captcha, only: [:create]
+  # prepend_before_action :check_captcha, only: [:create]
 
   def new
     @special_event = params[:special_event]
