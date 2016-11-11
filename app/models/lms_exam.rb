@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: lms_exams
+#
+#  id                 :integer          not null, primary key
+#  title              :string
+#  description        :text
+#  exam_type          :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  video_module_id    :integer
+#  video_id           :integer
+#  slug               :string
+#  video_on_demand_id :integer
+#
+# Indexes
+#
+#  index_lms_exams_on_video_id            (video_id)
+#  index_lms_exams_on_video_module_id     (video_module_id)
+#  index_lms_exams_on_video_on_demand_id  (video_on_demand_id)
+#
+# Foreign Keys
+#
+#  fk_rails_288282c1b2  (video_module_id => video_modules.id)
+#  fk_rails_42a08bef10  (video_id => videos.id)
+#  fk_rails_8802cfdaa4  (video_on_demand_id => video_on_demands.id)
+#
+
 class LmsExam < ActiveRecord::Base
 	extend FriendlyId
 

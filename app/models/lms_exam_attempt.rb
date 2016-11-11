@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: lms_exam_attempts
+#
+#  id           :integer          not null, primary key
+#  lms_exam_id  :integer
+#  user_id      :integer
+#  started_at   :datetime
+#  completed_at :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_lms_exam_attempts_on_lms_exam_id  (lms_exam_id)
+#  index_lms_exam_attempts_on_user_id      (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_17dcfcfc42  (user_id => users.id)
+#  fk_rails_c363284271  (lms_exam_id => lms_exams.id)
+#
+
 class LmsExamAttempt < ActiveRecord::Base
   belongs_to :lms_exam
   belongs_to :user

@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: lms_exam_attempt_answers
+#
+#  id                   :integer          not null, primary key
+#  lms_exam_attempt_id  :integer
+#  lms_exam_question_id :integer
+#  lms_exam_answer_id   :integer
+#  answer_text          :text
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  position             :integer
+#
+# Indexes
+#
+#  index_lms_exam_attempt_answers_on_lms_exam_answer_id    (lms_exam_answer_id)
+#  index_lms_exam_attempt_answers_on_lms_exam_attempt_id   (lms_exam_attempt_id)
+#  index_lms_exam_attempt_answers_on_lms_exam_question_id  (lms_exam_question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_0d79488b8f  (lms_exam_question_id => lms_exam_questions.id)
+#  fk_rails_35a6d2df9d  (lms_exam_answer_id => lms_exam_answers.id)
+#  fk_rails_a2a48529d4  (lms_exam_attempt_id => lms_exam_attempts.id)
+#
+
 class LmsExamAttemptAnswer < ActiveRecord::Base
   belongs_to :lms_exam_attempt
   belongs_to :lms_exam_question
