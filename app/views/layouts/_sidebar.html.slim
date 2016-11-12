@@ -52,7 +52,7 @@
           span.fa.fa-envelope-o
           span.text = t('layouts.partial_sidebar.contact_us')
       - if user_signed_in?
-        li = link_to logout_path do
+        li = link_to main_app.logout_path do
           span.fa.fa-sign-out
           span.text = t('layouts.partial_sidebar.logout')
 
