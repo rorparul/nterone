@@ -42,7 +42,7 @@
           br
           = f.time_zone_select :time_zone,
                                ActiveSupport::TimeZone.us_zones,
-                               { prompt: t('events.partial_form.eastern_timezone') },
+                               { default: t('events.partial_form.eastern_timezone') },
                                { class: 'form-control input-sm' }
 
       .col-xs-12.col-sm-6

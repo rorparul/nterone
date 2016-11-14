@@ -24,7 +24,7 @@ es:
       cost_shipping: "Costo Envío"
       cost_te: "Costos T&L"
       count_weekends: "Cuenta Fin de Semana"
-      eastern_timezone: "Zona Horaria EST (US & Canada)"
+      eastern_timezone: "Eastern Time (US & Canada)"
       end_date: "Fecha de Finalización"
       end_time: "Tiempo de Finalización"
       english: "Ingles"
