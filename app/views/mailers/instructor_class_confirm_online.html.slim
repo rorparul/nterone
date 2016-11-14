@@ -6,7 +6,7 @@ p
 
 ul
   li 
-    = t('mailers.instructor_class_confirm_online.copy4') + " #{@event.start_time.strftime("%I:%M%p")}" +  "#{format_timezone(@event)}. " + t('mailers.instructor_class_confirm_online.copy5')
+    = t('mailers.instructor_class_confirm_online.copy4') + " #{format_time_with_time_zone(@event.start_time, @event.time_zone)}. " + t('mailers.instructor_class_confirm_online.copy5')
   li 
     = t('mailers.instructor_class_confirm_online.copy6')
   li 

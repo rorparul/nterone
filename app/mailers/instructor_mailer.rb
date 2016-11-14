@@ -6,8 +6,8 @@ class InstructorMailer < ApplicationMailer
     @email   = instructor.email
     @event   = event
     # template = event.format == 'Live Online' ? "instructor_class_confirm_online" : "instructor_class_confirm_onsite"
-    # template = "instructor_class_confirm_onsite"
-    template = "instructor_class_confirm_online"
+    template = "instructor_class_confirm_onsite"
+    # template = "instructor_class_confirm_online"
 
     mail(
       to: @email,
