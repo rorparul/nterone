@@ -2,12 +2,12 @@ class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
   include CurrentCart
-
+  
   before_action :prepare_exception_notifier
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   before_action :record_user_activity
-  before_action :get_external_values
+  before_action :get_external_source_values
   before_action :set_cart
   before_action :get_alert_counts
   before_action :update_request_urls
@@ -141,7 +141,7 @@ class ApplicationController < ActionController::Base
     redirect_to(request.referrer || root_path)
   end
 
-  def get_external_values
+  def get_external_source_values
     if true?(params[:external_source])
       cookies[:cart_id]        = params[:cart_id]
       cookies[:source_name]    = params[:source_name]
