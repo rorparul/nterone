@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
   include CurrentCart
-  
+
   before_action :prepare_exception_notifier
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale

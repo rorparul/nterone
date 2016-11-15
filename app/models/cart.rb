@@ -2,9 +2,12 @@
 #
 # Table name: carts
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  source_name    :string
+#  source_user_id :string
+#  source_hash    :string
 #
 
 class Cart < ActiveRecord::Base
