@@ -6,7 +6,7 @@
           tr
             th.fit ID
             th.fit = smart_listing.sortable t('carts.partial_listing.created'), :created_at
-            / th.fit = smart_listing.sortable "Updated", :updated_at
+            th.fit = t('carts.partial_listing.source')
             th.fit = t('carts.partial_listing.items')
             th.fit = t('carts.partial_listing.value') 
             th.actions-column.fit
@@ -15,7 +15,7 @@
             tr
               td.fit = cart.id
               td.fit = cart.created_at.strftime('%A, %m/%d/%y')
-              / td.fit = cart.updated_at.strftime('%A, %m/%d/%y')
+              td.fit = cart.source_name.present? ? cart.source_name : "Local"
               td.fit = cart.order_items.count
               td.fit = "$#{number_with_delimiter(number_with_precision(cart.total_price, precision: 2))}"
               td.actions-column.fit style="text-align: right;" 
