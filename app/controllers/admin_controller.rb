@@ -37,15 +37,20 @@ class AdminController < ApplicationController
   end
 
   def classes
-    events_scope = params[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
-    events_scope = events_scope.with_students                  if params[:only_registered] == "1" || params[:only_registered].blank?
-    events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
+    cookies[:including_past]  = params[:including_past]   if params[:including_past]
+    cookies[:only_registered] = params[:only_registered]  if params[:only_registered]
+    cookies[:filter]          = params[:filter]           if params[:filter]
+
+    events_scope = cookies[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
+    events_scope = events_scope.with_students                  if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
+    events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
 
     @queried_events = events_scope
 
     @events = smart_listing_create(:events,
                                    events_scope,
                                    partial: "events/listing",
+                                   page_sizes: [100, 50, 10],
                                    sort_attributes: [[:start_date, "start_date"],
                                                      [:course, "courses.abbreviation"],
                                                      [:id, "id"],
