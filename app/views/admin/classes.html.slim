@@ -31,23 +31,15 @@
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :only_registered, "0"
-                  - if cookies[:only_registered] == "1"
-                    = check_box_tag :only_registered, "1", true, class: "only-registered"
-                    = t('admins.classes.registered')
-                  - else
-                    = check_box_tag :only_registered, "1", false, class: "only-registered"
-                    = t('admins.classes.registered')
+                  = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered"
+                  = t('admins.classes.registered')
                     
 
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :including_past, "0"
-                  - if cookies[:including_past] == "1"
-                    = check_box_tag :including_past, "1", true
-                    = t('admins.classes.past')
-                  - else
-                    = check_box_tag :including_past, "1", false
-                    = t('admins.classes.past')
+                  = check_box_tag :including_past, "1", cookies[:including_past] == "1"
+                  = t('admins.classes.past')
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, cookies[:filter], class: "search form-control input-sm",
