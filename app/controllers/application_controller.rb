@@ -58,6 +58,8 @@ class ApplicationController < ActionController::Base
                   :email,
                   :password,
                   :password_confirmation,
+                  :source_name,
+                  :source_user_id,
                   interest_attributes: [:id,
                                         :data_center,
                                         :collaboration,
