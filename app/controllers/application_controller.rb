@@ -144,6 +144,7 @@ class ApplicationController < ActionController::Base
       cookies[:cart_id]        = params[:cart_id]
       cookies[:source_name]    = params[:source_name]
       cookies[:source_user_id] = params[:source_user_id]
+      cookies[:source_hash]    = params[:source_hash]
     end
   end
 
