@@ -4,13 +4,15 @@ class ApplicationController < ActionController::Base
   include CurrentCart
 
   # before_action :prepare_exception_notifier
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   before_action :record_user_activity
+  before_action :get_external_values
   before_action :set_cart
   before_action :get_alert_counts
   before_action :update_request_urls
-  after_filter  :store_location
+
+  after_action  :store_location
 
   helper_method :forem_user, :resource_name, :resource, :devise_mapping
 
@@ -135,5 +137,17 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(request.referrer || root_path)
+  end
+
+  def get_external_values
+    if true?(params[:external_source])
+      cookies[:cart_id]        = params[:cart_id]
+      cookies[:source_name]    = params[:source_name]
+      cookies[:source_user_id] = params[:source_user_id]
+    end
+  end
+
+  def true?(string)
+    string == 'true'
   end
 end
