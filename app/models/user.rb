@@ -63,6 +63,8 @@
 #  status                  :integer          default(0)
 #  daily_rate              :decimal(8, 2)    default(0.0)
 #  video_bio               :text
+#  source_name             :string
+#  source_user_id          :string
 #
 # Indexes
 #
@@ -152,6 +154,8 @@ class User < ActiveRecord::Base
          :validatable
 
   validate :password_complexity
+  validates_uniqueness_of :source_user_id, allow_blank: true
+
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
   def self.lms_students_all
