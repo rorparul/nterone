@@ -7,6 +7,7 @@
             th.fit ID
             th.fit = smart_listing.sortable t('carts.partial_listing.created'), :created_at
             th.fit = t('carts.partial_listing.source')
+            th.fit = t('carts.partial_listing.user')
             th.fit = t('carts.partial_listing.items')
             th.fit = t('carts.partial_listing.value') 
             th.actions-column.fit colspan="2"
@@ -16,6 +17,7 @@
               td.fit = cart.id
               td.fit = cart.created_at.strftime('%A, %m/%d/%y')
               td.fit = cart.source_name.present? ? cart.source_name : "Local"
+              td.fit = cart.user.present? ? cart.user.email : "Guest"
               td.fit = cart.order_items.count
               td.fit = "$#{number_with_delimiter(number_with_precision(cart.total_price, precision: 2))}"
               td.fit = link_to t('carts.partial_listing.inspect'), cart_path(cart), remote: true

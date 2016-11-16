@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   belongs_to :company
 
   has_one :interest,          dependent:  :destroy
-
+  has_one :cart,              dependent:  :destroy
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
