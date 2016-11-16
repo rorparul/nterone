@@ -40,6 +40,7 @@ es:
       pdf: "PDF"
       slug: "Slug"
       video_preview: "Video Previo"
+      satellite_viewable: "Visible por satélite"
     partial_index:
       courses: "Cursos"
       course_id: "Curso ID"

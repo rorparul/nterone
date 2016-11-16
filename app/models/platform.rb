@@ -2,14 +2,15 @@
 #
 # Table name: platforms
 #
-#  id               :integer          not null, primary key
-#  title            :string
-#  created_at       :datetime
-#  updated_at       :datetime
-#  url              :string
-#  slug             :string
-#  page_title       :string
-#  page_description :text
+#  id                 :integer          not null, primary key
+#  title              :string
+#  created_at         :datetime
+#  updated_at         :datetime
+#  url                :string
+#  slug               :string
+#  page_title         :string
+#  page_description   :text
+#  satellite_viewable :boolean          default(TRUE)
 #
 # Indexes
 #

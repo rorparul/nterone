@@ -2,27 +2,28 @@
 #
 # Table name: video_on_demands
 #
-#  id                :integer          not null, primary key
-#  course_id         :integer
-#  instructor_id     :integer
-#  level             :string
-#  price             :decimal(8, 2)    default(0.0)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  platform_id       :integer
-#  title             :string
-#  abbreviation      :string
-#  slug              :string
-#  page_title        :string
-#  page_description  :text
-#  intro             :text
-#  overview          :text
-#  outline           :text
-#  intended_audience :text
-#  partner_led       :boolean          default(FALSE)
-#  active            :boolean          default(TRUE)
-#  lms               :boolean          default(FALSE)
-#  heading           :string
+#  id                 :integer          not null, primary key
+#  course_id          :integer
+#  instructor_id      :integer
+#  level              :string
+#  price              :decimal(8, 2)    default(0.0)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  platform_id        :integer
+#  title              :string
+#  abbreviation       :string
+#  slug               :string
+#  page_title         :string
+#  page_description   :text
+#  intro              :text
+#  overview           :text
+#  outline            :text
+#  intended_audience  :text
+#  partner_led        :boolean          default(FALSE)
+#  active             :boolean          default(TRUE)
+#  lms                :boolean          default(FALSE)
+#  heading            :string
+#  satellite_viewable :boolean          default(TRUE)
 #
 # Indexes
 #

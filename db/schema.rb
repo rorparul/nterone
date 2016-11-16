@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115203258) do
+ActiveRecord::Schema.define(version: 20161116033317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,10 +156,10 @@ ActiveRecord::Schema.define(version: 20161115203258) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "platform_id"
-    t.boolean  "active",                                    default: true
+    t.boolean  "active",                                     default: true
     t.string   "abbreviation"
     t.text     "intro"
     t.text     "overview"
@@ -167,12 +167,13 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.text     "intended_audience"
     t.string   "pdf"
     t.text     "video_preview"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",              precision: 8, scale: 2, default: 0.0
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "partner_led",                               default: false
+    t.boolean  "partner_led",                                default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                         default: true
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -256,13 +257,12 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -477,8 +477,8 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -701,6 +701,7 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.boolean  "satellite_viewable", default: true
   end
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
@@ -916,9 +917,9 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.decimal  "price",              precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
@@ -929,10 +930,11 @@ ActiveRecord::Schema.define(version: 20161115203258) do
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
-    t.boolean  "partner_led",                               default: false
-    t.boolean  "active",                                    default: true
-    t.boolean  "lms",                                       default: false
+    t.boolean  "partner_led",                                default: false
+    t.boolean  "active",                                     default: true
+    t.boolean  "lms",                                        default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                         default: true
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

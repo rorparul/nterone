@@ -159,6 +159,7 @@ class CoursesController < ApplicationController
                                    :pdf,
                                    :video_preview,
                                    :partner_led,
+                                   :satellite_viewable,
                                    category_ids: [])
   end
 

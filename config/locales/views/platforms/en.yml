@@ -16,6 +16,7 @@ en:
       platform_title: "Title"
       test_center_url: "URL To Find Test Center"
       title: "Edit Platform"
+      satellite_viewable: "Satellite Viewable"
     partial_items:
       no_matches: "No Matches Found"
     partial_platform:
