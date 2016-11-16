@@ -6,11 +6,11 @@
 .panel.panel-default
   .panel-heading
     strong.text-muted = t('admins.insights.carts.carts')
-    = smart_listing_controls_for(:carts, { class: "form-inline" }) do
-      .checkbox
-        = hidden_field_tag :including_empty, "0"
-        = check_box_tag :including_empty, "1", false, class: "including-empty"
-        = t('admins.insights.carts.empty_carts')
+    / = smart_listing_controls_for(:carts, { class: "form-inline" }) do
+    /   .checkbox
+    /     = hidden_field_tag :including_empty, "0"
+    /     = check_box_tag :including_empty, "1", false, class: "including-empty"
+    /     = t('admins.insights.carts.empty_carts')
 
           / .input-group.input-group-sm.filter.input-append
           /   = text_field_tag :filter, '', class: "search form-control input-sm",
