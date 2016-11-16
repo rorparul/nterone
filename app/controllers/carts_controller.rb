@@ -15,7 +15,14 @@ class CartsController < ApplicationController
   end
 
   def show
-    @cart = Cart.find(params[:cart_id])
+    @cart = Cart.find(params[:id])
     @order_items = @cart.order_items
+  end
+
+  def destroy
+    cart = Cart.find(params[:id])
+    p cart
+    cart.destroy
+    redirect_to :back
   end
 end

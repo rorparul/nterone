@@ -9,7 +9,7 @@
             th.fit = t('carts.partial_listing.source')
             th.fit = t('carts.partial_listing.items')
             th.fit = t('carts.partial_listing.value') 
-            th.actions-column.fit
+            th.actions-column.fit colspan="2"
         tbody
           - smart_listing.collection.each do |cart|
             tr
@@ -18,8 +18,8 @@
               td.fit = cart.source_name.present? ? cart.source_name : "Local"
               td.fit = cart.order_items.count
               td.fit = "$#{number_with_delimiter(number_with_precision(cart.total_price, precision: 2))}"
-              td.actions-column.fit style="text-align: right;" 
-                = link_to t('carts.partial_listing.inspect'), cart_path(cart_id: cart.id), remote: true
+              td.fit = link_to t('carts.partial_listing.inspect'), cart_path(cart), remote: true
+              td.fit = link_to t('carts.partial_listing.delete'), cart_path(cart), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
