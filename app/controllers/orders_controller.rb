@@ -31,7 +31,8 @@ class OrdersController < ApplicationController
         result = handle_credit_card_payment()
 
         if result.failure?
-          render 'create_admin'
+          @order.errors[:base] << "Failed to charge card."
+          return render 'create_admin'
         end
       elsif order_params[:payment_type] == "Cisco Learning Credits"
         @order.assign_attributes(clc_params)
@@ -42,7 +43,7 @@ class OrdersController < ApplicationController
         flash[:success] = "Purchase successfully created."
         render js: "window.location = '#{request.referrer}';"
       else
-        render 'create_admin'
+        return render 'create_admin'
       end
 
       # redirect_to :back
