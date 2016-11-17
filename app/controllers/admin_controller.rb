@@ -38,8 +38,9 @@ class AdminController < ApplicationController
 
   def classes
     events_scope = params[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
-    events_scope = events_scope.with_students                  if params[:only_registered] == "1" || params[:only_registered].blank?
-    events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
+    events_scope = events_scope.where(company: current_user.company.title) if current_user.partner?
+    events_scope = events_scope.with_students                              if params[:only_registered] == "1" || params[:only_registered].blank?
+    events_scope = events_scope.custom_search(params[:filter])             if params[:filter]
 
     @queried_events = events_scope
 
@@ -90,7 +91,8 @@ class AdminController < ApplicationController
 
   def people
     users_scope = User.all
-    users_scope = users_scope.search(params[:filter]) if params[:filter]
+    users_scope = users_scope.where(company: current_user.company) if current_user.partner?
+    users_scope = users_scope.search(params[:filter])              if params[:filter]
 
     @users = smart_listing_create(:users, users_scope,
       partial: "users/listing",
@@ -127,7 +129,7 @@ class AdminController < ApplicationController
   private
 
   def validate_authorization
-    unless current_user.admin? || current_user.sales?
+    unless current_user.admin? || current_user.sales? || current_user.partner?
       redirect_to root_path
     end
   end

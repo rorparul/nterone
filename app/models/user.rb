@@ -274,7 +274,9 @@ class User < ActiveRecord::Base
       member:        "Member",
       instructor:    "Instructor",
       lms_manager:   "LMS Manager",
-      lms_student:   "LMS Student"
+      lms_student:   "LMS Student",
+      partner_admin: "Partner"
+
     }
     roles.each do |role|
       roles_collection += "#{normalized_roles[role.role.to_sym]}, "
@@ -284,6 +286,10 @@ class User < ActiveRecord::Base
 
   def admin?
     has_role? :admin
+  end
+
+  def partner?
+    has_role? :partner_admin
   end
 
   def sales_manager?

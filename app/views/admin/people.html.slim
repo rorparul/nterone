@@ -14,7 +14,8 @@
                 strong.text-muted
                   = t('admins.people.users')
               .col-xs-6
-                = link_to t('default.action.add'), new_user_invitation_path, remote: true, class: "table-header-action"
+                - if policy(:people).save?
+                  = link_to t('default.action.add'), new_user_invitation_path, remote: true, class: "table-header-action"
                 
                 = smart_listing_controls_for(:users, {class: "form-inline text-right smart_listing_form"}) do
                   

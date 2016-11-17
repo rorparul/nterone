@@ -43,6 +43,7 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
+#  company                        :string
 #
 
 class Event < ActiveRecord::Base
@@ -175,6 +176,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def event_platform
+    course.platform.title
+  end
+
   private
 
   def ensure_not_purchased_or_in_cart
@@ -186,8 +191,9 @@ class Event < ActiveRecord::Base
     end
   end
 
+
   def calculate_book_cost
-    platform_title = course.platform.title
+    platform_title = event_platform
     case platform_title
     when "Cisco"
       self.cost_books = 350.00 * student_count

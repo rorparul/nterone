@@ -7,26 +7,30 @@
             th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
             th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
             th.fit = smart_listing.sortable t('default.label.email'), :email
-            th.fit = t('users.partial_listing.permissions')
-            th.fit = smart_listing.sortable t('users.partial_listing.last_active'), :last_active_at
-            th.fit colspan='3'
+            - if policy(:people).show?
+              th.fit = t('users.partial_listing.permissions')
+              th.fit = smart_listing.sortable t('users.partial_listing.last_active'), :last_active_at
+            - if policy(:people).save?
+              th.fit colspan='3'
         tbody
           - smart_listing.collection.each do |user|
             tr
               td.fit = user.first_name
               td.fit = user.last_name
               td.fit = user.email
-              td.fit
-                - user.roles.each do |role|
-                  div = role.formatted_role
-              td.fit = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
-                / - if user.member?
-                /   = link_to t('users.partial_listing.add_order'), new_order_path(user: user.id), remote: true
-                /   = " | "
+              - if policy(:people).show?
+                td.fit
+                  - user.roles.each do |role|
+                    div = role.formatted_role
+                td.fit = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
+                  / - if user.member?
+                  /   = link_to t('users.partial_listing.add_order'), new_order_path(user: user.id), remote: true
+                  /   = " | "
               - if current_user.can_resend_invitation?
                 td.fit = link_to(t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post)
-              td.fit = link_to t('default.action.edit'), edit_user_path(user)
-              td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+              - if policy(:people).save?
+                td.fit = link_to t('default.action.edit'), edit_user_path(user)
+                td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

@@ -11,6 +11,12 @@
             span.text = t('admins.partial_breadcrumbs.admin')
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+        - if current_user.partner?
+          li = link_to main_app.admin_classes_path, class: 'role-tab' do
+            span.fa.fa-gear
+            span.text Partner
+            - if @total_alert_count > 0
+              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.sales?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-coffee

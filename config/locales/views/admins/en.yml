@@ -37,11 +37,13 @@ en:
     partial_breadcrumbs:
       admin: "My Admin"
       blog: "Blog"
+      classes: "Classes"
       edit: "Edit"
       home: "Home"
       industry: "Industry"
       my_sales: "My Sales"
       nci: "NCI"
+      partner: "Partner"
       press: "Press"
       support: "Support"
       training: "Training"
