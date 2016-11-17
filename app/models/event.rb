@@ -125,7 +125,7 @@ class Event < ActiveRecord::Base
   end
 
   def student_count
-    users.count
+    OrderItem.where(orderable_id: self.id, orderable_type: "Event", cart_id: nil).count
   end
 
   def invoiced_amount
