@@ -22,12 +22,7 @@ class GeneralController < ApplicationController
       Rails.logger.info("REQUEST PRESENT")
       valid_request.toggle(:used)
 
-      render plain: 'error=0
-      error_text=Successful
-      aicc_data=
-      [Core]
-        Student_ID=1
-        Student_Name=Student 1'
+      render plain: 'hacp_requests/response'
     else
       Rails.logger.info("REQUEST NOT PRESENT")
       render nothing: true
