@@ -5,7 +5,7 @@ class GeneralController < ApplicationController
     # "https://ondemandelearning.cisco.com/vendor/course/users/auth/hacp/callback?aicc_sid=...&amp;aicc_url=..."
 
     aicc_sid = SecureRandom.uuid
-    aicc_url = "https://nterone.com/hacp/callback"
+    aicc_url = "https://www.nterone.com/hacp/callback"
 
     HacpRequest.create(aicc_sid: aicc_sid)
     redirect_to "https://staging.certdev.net/nterone/ccnp-route/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
@@ -13,9 +13,18 @@ class GeneralController < ApplicationController
 
   def hacp_callback
     # "https://vendor.com/hacp/callback"
-
     Rails.logger.info("HACP CALLBACK: #{params}")
     Rails.logger.debug("HACP CALLBACK: #{params}")
+
+    # session_id    = nil
+    # valid_request = HacpRequest.find_by(aicc_sid: session_id, used: false)
+    #
+    # if valid_request.present?
+    #   valid_request.toggle(:used)
+    #
+    # else
+    #
+    # end
   end
 
   def new_search
