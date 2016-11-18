@@ -22,7 +22,7 @@ class GeneralController < ApplicationController
       Rails.logger.info("REQUEST PRESENT")
       valid_request.toggle(:used)
 
-      render plain: 'hacp_requests/response'
+      render '/hacp_requests/response.txt.erb', layout: false, content_type: 'text/plain'
     else
       Rails.logger.info("REQUEST NOT PRESENT")
       render nothing: true
