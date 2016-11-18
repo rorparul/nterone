@@ -19,14 +19,16 @@ class GeneralController < ApplicationController
     valid_request = HacpRequest.find_by(aicc_sid: session_id, used: false)
 
     if valid_request.present?
-      Rails.logger.info("REQUEST PRESENT")
       valid_request.toggle(:used)
 
-      render '/hacp_requests/response.txt.erb', layout: false, content_type: 'text/plain'
+      @error      = 0
+      @error_text = "Successful"
     else
-      Rails.logger.info("REQUEST NOT PRESENT")
-      render nothing: true
+      @error      = 1
+      @error_text = "UUID already used"
     end
+
+    render '/hacp_requests/response.txt.erb', layout: false, content_type: 'text/plain'
   end
 
   def new_search
