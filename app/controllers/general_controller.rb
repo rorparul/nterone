@@ -16,15 +16,16 @@ class GeneralController < ApplicationController
     Rails.logger.info("HACP CALLBACK: #{params}")
     Rails.logger.debug("HACP CALLBACK: #{params}")
 
-    # session_id    = nil
-    # valid_request = HacpRequest.find_by(aicc_sid: session_id, used: false)
-    #
-    # if valid_request.present?
-    #   valid_request.toggle(:used)
-    #
-    # else
-    #
-    # end
+    session_id    = params[:session_id]
+    valid_request = HacpRequest.find_by(aicc_sid: session_id, used: false)
+
+    if valid_request.present?
+      valid_request.toggle(:used)
+
+      render plain: 'response', layout: false
+    else
+      render nothing: true
+    end
   end
 
   def new_search
