@@ -14,6 +14,7 @@ class GeneralController < ApplicationController
   def hacp_callback
     # "https://vendor.com/hacp/callback"
 
+    Rails.logger.info("HACP CALLBACK: #{params}")
     Rails.logger.debug("HACP CALLBACK: #{params}")
   end
 
