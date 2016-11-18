@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116221443) do
+ActiveRecord::Schema.define(version: 20161118043349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,13 +258,12 @@ ActiveRecord::Schema.define(version: 20161116221443) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -416,6 +415,13 @@ ActiveRecord::Schema.define(version: 20161116221443) do
     t.integer  "platform_id"
   end
 
+  create_table "hacp_requests", force: :cascade do |t|
+    t.string   "aicc_sid"
+    t.boolean  "used",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "image_store_units", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -479,8 +485,8 @@ ActiveRecord::Schema.define(version: 20161116221443) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"

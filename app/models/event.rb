@@ -37,13 +37,12 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  company                        :string
 #
 
 class Event < ActiveRecord::Base
@@ -77,7 +76,7 @@ class Event < ActiveRecord::Base
   validates_associated :course
 
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
-  scope :from_source, ->(source) { joins(:orders).where(orders: { source: source }).distinct }
+  scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
 
 
   search_scope :custom_search do
