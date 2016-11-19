@@ -12,7 +12,6 @@ class GeneralController < ApplicationController
   end
 
   def hacp_callback
-    # "https://vendor.com/hacp/callback"
     Rails.logger.info("HACP CALLBACK: #{params}")
 
     session_id    = params[:session_id]
@@ -28,7 +27,7 @@ class GeneralController < ApplicationController
       @error_text = "UUID already used"
     end
 
-    render '/hacp_requests/response.txt.erb', layout: false, content_type: 'text/plain'
+    render '/hacp_responses/response.txt.erb', layout: false, content_type: 'text/plain'
   end
 
   def new_search
