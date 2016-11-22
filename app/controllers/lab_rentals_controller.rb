@@ -5,7 +5,7 @@ class LabRentalsController < ApplicationController
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-		lab_rentals_scope  = current_user.admin? ? LabRental.joins(:company).all : current_user.lab_rentals
+		lab_rentals_scope  = current_user.admin? ? LabRental.joins(:company).all : LabRental.where(company_id: current_user.company_id)
 		lab_rentals_scope  = LabRental.custom_search(params[:filter]) if params[:filter]
 		@lab_rentals       = smart_listing_create(
 			:lab_rentals,

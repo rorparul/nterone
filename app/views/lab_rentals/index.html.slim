@@ -1,5 +1,8 @@
 - content_for :breadcrumbs do
   = render "admin/breadcrumbs"
+  - if current_user.only_role("member")
+    span.text-muted
+    = t('admins.partial_breadcrumbs.my_account')
 
 - if current_user.admin? == true
   - content_for :actions do
@@ -18,10 +21,7 @@
             strong.text-muted
               = t('lab_rentals.index.lab_rentals')
           .col-xs-6
-            - if current_user.admin?
-              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
-            - else
-              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
+            = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
             
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
 

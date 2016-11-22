@@ -1,6 +1,23 @@
 class GeneralController < ApplicationController
   protect_from_forgery :except => [:upload_photo]
 
+  def hacp_test
+    # "https://ondemandelearning.cisco.com/vendor/course/users/auth/hacp/callback?aicc_sid=...&amp;aicc_url=..."
+
+    aicc_sid = SecureRandom.uuid
+    aicc_url = "https://nterone.com/hacp/callback"
+
+    HacpRequest.create(aicc_sid: aicc_sid)
+    redirect_to "https://staging.certdev.net/nterone/ccnp-route/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+  end
+
+  def hacp_callback
+    # "https://vendor.com/hacp/callback"
+
+    Rails.logger.info("HACP CALLBACK: #{params}")
+    Rails.logger.debug("HACP CALLBACK: #{params}")
+  end
+
   def new_search
   end
 
@@ -10,18 +27,6 @@ class GeneralController < ApplicationController
 
   def welcome
     @page = Page.find_by(title: 'Welcome')
-
-    # return redirect_to lms_assign_manager_index_path if lms_signup_path?
-    # 
-    # if current_user && current_user.lms_manager? && lms_path?
-    #   redirect_to lms_manager_path
-    # elsif current_user && current_user.lms_student? && lms_path?
-    #   redirect_to lms_student_path(current_user)
-    # elsif current_user && current_user.lms_business? && lms_path?
-    #   redirect_to lms_business_index_path
-    # else
-    #   render :welcome
-    # end
   end
 
   def sign_up_confirmation

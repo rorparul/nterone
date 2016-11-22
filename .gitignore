@@ -5,8 +5,8 @@
 # Ignore database configuration
 /config/database.yml
 
-# Ignore uploaded files
-public/uploads/*
+# Ignore Public Files
+public/*
 
 .ruby-gemset
 .ruby-version
@@ -21,3 +21,5 @@ sitemap.xml.gz
 
 # OSX system files
 .DS_Store
+
+.gitignore
