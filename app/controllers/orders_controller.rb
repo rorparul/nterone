@@ -30,8 +30,9 @@ class OrdersController < ApplicationController
       if order_params[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
-        if result.failure?
-          @order.errors[:base] << "Failed to charge card."
+      if result.failure?
+          error = get_error_msg(result.data) || "Failed to charge card."
+          @order.errors[:base] << error
           return render 'create_admin'
         end
       elsif order_params[:payment_type] == "Cisco Learning Credits"
@@ -131,6 +132,7 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = Order.find(params[:id])
+    return redirect_to root_path unless current_user.buyer_orders.pluck(:id).include?(@order.id)
   end
 
   private
