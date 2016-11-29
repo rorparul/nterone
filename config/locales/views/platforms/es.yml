@@ -15,6 +15,7 @@ es:
       platform_title: "Titulo"
       test_center_url: "URL Encontrar Centro de Examenes"
       title: "Editar Plataforma"
+      satellite_viewable: "Visible por satélite"
     partial_items:
       no_matches: "No Matches Found"
     partial_platform:

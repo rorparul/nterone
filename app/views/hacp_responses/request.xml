@@ -1,0 +1,13 @@
+<usernrollmentRequest>
+  <header>
+    <clientID>ELT</clientID>
+    <preferredResponseFormat>XML</preferredResponseFormat>
+    <requestID>5554310400</requestID>
+    <requestTime>2014-01- 01T12:00:00+00:00</requestTime>
+    <userID>userid</userID>
+    <version>E1</version>
+  </header>
+  <parameters>
+    <learnerID>userid</learnerID>
+  </parameters>
+</userEnrollmentRequest>

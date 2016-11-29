@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031190027) do
+ActiveRecord::Schema.define(version: 20161118043349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,8 +80,12 @@ ActiveRecord::Schema.define(version: 20161031190027) do
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "source_name"
+    t.string   "source_user_id"
+    t.string   "source_hash"
+    t.integer  "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -97,6 +101,7 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "description"
     t.string   "page_title"
     t.string   "heading"
+    t.text     "meta_description"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -152,10 +157,10 @@ ActiveRecord::Schema.define(version: 20161031190027) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "platform_id"
-    t.boolean  "active",                                    default: true
+    t.boolean  "active",                                     default: true
     t.string   "abbreviation"
     t.text     "intro"
     t.text     "overview"
@@ -163,12 +168,13 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "intended_audience"
     t.string   "pdf"
     t.text     "video_preview"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",              precision: 8, scale: 2, default: 0.0
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "partner_led",                               default: false
+    t.boolean  "partner_led",                                default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                         default: true
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -252,13 +258,12 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -410,6 +415,13 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.integer  "platform_id"
   end
 
+  create_table "hacp_requests", force: :cascade do |t|
+    t.string   "aicc_sid"
+    t.boolean  "used",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "image_store_units", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -473,8 +485,8 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -697,6 +709,7 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.boolean  "satellite_viewable", default: true
   end
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
@@ -889,6 +902,8 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.integer  "status",                                          default: 0
     t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
     t.text     "video_bio"
+    t.string   "source_name"
+    t.string   "source_user_id"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
@@ -910,9 +925,9 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.decimal  "price",              precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
@@ -923,10 +938,11 @@ ActiveRecord::Schema.define(version: 20161031190027) do
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
-    t.boolean  "partner_led",                               default: false
-    t.boolean  "active",                                    default: true
-    t.boolean  "lms",                                       default: false
+    t.boolean  "partner_led",                                default: false
+    t.boolean  "active",                                     default: true
+    t.boolean  "lms",                                        default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                         default: true
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

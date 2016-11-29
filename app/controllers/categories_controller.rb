@@ -87,6 +87,7 @@ class CategoriesController < ApplicationController
                                      :page_title,
                                      :heading,
                                      :description,
+                                     :meta_description,
                                      :position)
   end
 end

@@ -9,6 +9,7 @@ en:
     export:
       abbreviation: 'Abbreviation'
       vendor: 'Vendor'
+      price: "Price"
       slug: 'Slug'
       title: 'Title'
       url: 'URL'
@@ -39,6 +40,7 @@ en:
       pdf: "PDF"
       slug: "Slug"
       video_preview: "Video Preview"
+      satellite_viewable: "Satellite Viewable"
     partial_index:
       courses: "Courses"
       course_id: "Course ID"

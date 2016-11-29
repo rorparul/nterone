@@ -1,9 +1,0 @@
-class CreateLmsManagedStudents < ActiveRecord::Migration
-  def change
-    create_table :lms_managed_students do |t|
-    	t.integer :user_id
-    	t.integer :manager_id
-      t.timestamps null: false
-    end
-  end
-end

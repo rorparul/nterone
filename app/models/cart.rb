@@ -2,13 +2,19 @@
 #
 # Table name: carts
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  source_name    :string
+#  source_user_id :string
+#  source_hash    :string
+#  user_id        :integer
 #
 
 class Cart < ActiveRecord::Base
   include SearchCop
+
+  belongs_to :user
 
   has_many :order_items, dependent: :destroy
 

@@ -278,6 +278,7 @@ class VideoOnDemandsController < ApplicationController
                                             :lms_exam_question,
                                             :platform_id,
                                             :video_id,
+                                            :satellite_viewable,
                                             category_ids: [],
                                             video_modules_attributes: [:id,
                                                                        :position,

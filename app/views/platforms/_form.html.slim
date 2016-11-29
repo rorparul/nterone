@@ -26,14 +26,21 @@
     = f.label :url, t('platforms.partial_form.test_center_url')
     = f.text_field :url, class: 'form-control input-sm'
     
-  .form-group
-    - if @platform.image.present? && @platform.image.file.present?
-      = image_tag @platform.image.file.platform_icon.url
-      br
-    = f.fields_for :image do |icon|
-      = icon.label :file, t('platforms.partial_form.image')
-      = icon.file_field :file
-      = icon.hidden_field :file_cache
+  .row
+    .col-xs-6
+      .form-group
+        - if @platform.image.present? && @platform.image.file.present?
+          = image_tag @platform.image.file.platform_icon.url
+          br
+        = f.fields_for :image do |icon|
+          = icon.label :file, t('platforms.partial_form.image')
+          = icon.file_field :file
+          = icon.hidden_field :file_cache
+    .col-xs-6
+      .form-group
+        = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
+        br
+        = f.check_box :satellite_viewable
       
   .form-buttons
     button.btn.btn-success type="submit"

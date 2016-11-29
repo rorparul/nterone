@@ -28,9 +28,10 @@ NterOne::Application.routes.draw do
 
   resources :image_store_units
 
-  get 'cart'                 => 'carts#show',            as: :cart
+  resources :carts
   get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
   get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
+  get 'admin/insights/carts' => 'insights#carts',        as: :insights_carts
 
   resources :discounts
   resources :order_items
@@ -213,9 +214,6 @@ NterOne::Application.routes.draw do
     get 'admin/settings',                            as: :admin_settings
   end
 
-  resources :carts
-  get 'admin/insights/carts' => 'insights#carts',          as: :insights_carts
-
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
     get 'my-account/messages',                        as: :my_account_messages
@@ -269,6 +267,9 @@ NterOne::Application.routes.draw do
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
   end
+
+  get  'hacp/test'     => 'general#hacp_test',     as: :hacp_test
+  post 'hacp/callback' => 'general#hacp_callback', as: :hacp_callback
 
   # Redirects:
   get '/training/cisco'  => redirect('/training')

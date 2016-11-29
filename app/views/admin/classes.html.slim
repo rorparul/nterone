@@ -31,17 +31,18 @@
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :only_registered, "0"
-                  = check_box_tag :only_registered, 1, true, class: "only-registered"
+                  = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered"
                   = t('admins.classes.registered')
+                    
 
               .checkbox
                 label.checkbox.inline
                   = hidden_field_tag :including_past, "0"
-                  = check_box_tag :including_past
+                  = check_box_tag :including_past, "1", cookies[:including_past] == "1"
                   = t('admins.classes.past')
 
               .input-group.input-group-sm.filter.input-append
-                = text_field_tag :filter, '', class: "search form-control input-sm",
+                = text_field_tag :filter, cookies[:filter], class: "search form-control input-sm",
                                               placeholder: t('admins.classes.search'),
                                               autocomplete: :off
                 span class="input-group-btn"

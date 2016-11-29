@@ -4,6 +4,7 @@ es:
       created: "Creado"
       inspect: "Inspeccionar"
       items: "Artículos"
+      source: "Fuente"
       value: "Valor"
     partial_show:
       added: "Adicional"

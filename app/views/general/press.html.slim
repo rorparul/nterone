@@ -27,8 +27,7 @@
                 = press_release.title
             = truncate_html(press_release.content, length: 250, omission: '...(continued)')
             small.text-muted
-              = t('default.label.published')
-              = press_release.created_at.strftime("%B %d, %Y")
+              = "#{t('default.label.published')} #{press_release.created_at.strftime("%B %d, %Y")}"
             hr
   
   .col-xs-12.side-column

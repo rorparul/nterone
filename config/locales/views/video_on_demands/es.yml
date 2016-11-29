@@ -31,6 +31,7 @@ es:
       price: "Precio"
       remove: "Remover Modulo"
       title: "Titulo"
+      satellite_viewable: "Visible por satélite"
     partial_select:
       video_on_demand: "Video On Demand"
     partial_video_fields:
