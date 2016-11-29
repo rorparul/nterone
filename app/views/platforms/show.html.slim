@@ -67,7 +67,7 @@
       i.fa.fa-pencil
       = t('platforms.show.edit_custom_item')
       
-- if I18n.locale == :en && @platform.title == "Cisco"
+- if @platform.title == "Cisco"
   = image_tag 'vendor-banners/en/nterone-cisco-award.jpg', style: 'width: 100%; margin-bottom: 10px;'
 
 = render partial: 'platforms/categories_menu', locals: { category: @category,
