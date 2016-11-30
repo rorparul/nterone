@@ -1,5 +1,14 @@
 .form-container
-  = form_for order do |f|
+  = form_for order, remote: true do |f|
+    - if order.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(order.errors.count, 'error')}:"
+        ul
+          - order.errors.full_messages.each do |msg|
+            li = msg
+            
     .row
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
@@ -41,16 +50,20 @@
       = f.text_field :other_source, class: 'form-control input-sm'
 
     - if order.id.present? && order.source == 'other'
-      p= order.other_source
+      p = order.other_source
     hr
 
-    - if order.id.present?
+    - if order.id.present? || errors == true
       #order-items
-        = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
+        = f.fields_for :order_items, order.order_items, include_id: false, remote: true do |order_item|
           = render 'order_item_fields', f: order_item,
                                         type: order_item.object.orderable_type,
                                         order: order
-
+        .links
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
@@ -310,7 +323,9 @@ javascript:
       value = match[1];
     }
 
-    $(this).closest('.row').find('.order-item-price').val(value);
+    if ( $(this).hasClass("new-order-item") == true ) {
+      $(this).closest('.row').find('.order-item-price').val(value);
+    };
   });
   
   $('.order-item-selector').trigger('change');

@@ -30,9 +30,10 @@ class OrdersController < ApplicationController
       if order_params[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
-        if result.failure?
-          flash[:alert] = get_error_msg(result.data) || "Failed to charge card."
-          return redirect_to :back
+      if result.failure?
+          error = get_error_msg(result.data) || "Failed to charge card."
+          @order.errors[:base] << error
+          return render 'create_admin'
         end
       elsif order_params[:payment_type] == "Cisco Learning Credits"
         @order.assign_attributes(clc_params)
@@ -41,11 +42,12 @@ class OrdersController < ApplicationController
       if @order.save
         @order.confirm_with_rep if confirm_with_rep?
         flash[:success] = "Purchase successfully created."
+        render js: "window.location = '#{request.referrer}';"
       else
-        flash[:alert] = "Purchase failed to create."
+        return render 'create_admin'
       end
 
-      redirect_to :back
+      # redirect_to :back
     else
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
@@ -93,25 +95,31 @@ class OrdersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @order.update_attributes(order_params_admin)
-        format.html do
-          flash[:success] = "Order was successfully updated."
-          redirect_to :back
-        end
-
-        format.js do
-          render json: { success: true }
-        end
-      else
-        format.html do
-          flash[:alert] = "Order failed to update."
-          redirect_to :back
-        end
-
-        format.js
-      end
+    if @order.update_attributes(order_params_admin)
+      flash[:success] = "Order was successfully updated."
+      render js: "window.location = '#{request.referrer}';"
+    else
+      render 'edit_admin'
     end
+    # respond_to do |format|
+    #   if @order.update_attributes(order_params_admin)
+    #     format.html do
+    #       flash[:success] = "Order was successfully updated."
+    #       redirect_to :back
+    #     end
+    #
+    #     format.js do
+    #       render json: { success: true }
+    #     end
+    #   else
+    #     format.html do
+    #       flash[:alert] = "Order failed to update."
+    #       redirect_to :back
+    #     end
+    #
+    #     format.js
+    #   end
+    # end
   end
 
   def destroy
@@ -124,6 +132,7 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = Order.find(params[:id])
+    return redirect_to root_path unless current_user.buyer_orders.pluck(:id).include?(@order.id)
   end
 
   private

@@ -1,0 +1,42 @@
+<getUserEnrollmentResponse>
+  <header>
+    <responseID>650388</responseID>
+    <requestID>1857</requestID>
+    <userID>userid</userID>
+    <email>user@host.com</email>
+    <responseTime>2014-04- 01T01:33:57-05:00</responseTime>
+    <overallStatus>success</overallStatus>
+  </header>
+  <enrollmentDetails>
+    <enrollmentItems>
+      <email>userid@host.com</email>
+      <title>Cisco Learning Network Premium Monthly Subscription</title>
+      <partNo>CLNP-MONTHLY- ELT-1.0- 016384</partNo>
+      <deliveryType>Premium subscription</deliveryType>
+      <price>5</price>
+      <enrollmentStatus>Confirmed</enrollmentStatus>
+      <completionStatus>In Progress</completionStatus>
+      <enrolledDate>03/24/2014</enrolledDate>
+      <languageName>English</languageName>
+      <courseId>LCOT00004097</courseId>
+      <mediusOrderNo>DR2933666</mediusOrderNo>
+      <sabaOrderNo>00203597</sabaOrderNo>
+      <packageId>CLNP-MONTHLY- 1.0-016387</packageId>
+      <packageTitle>Cisco Learning Network Premium Monthly</packageTitle>
+      <deepLink>https://learningnetwork.cisco.com/groups/premium</deepLink>
+      <subscriptionStartDate>03/24/2014</subscriptionStartDate>
+      <subscriptionExpiryDate>04/23/2014</subscriptionExpiryDate>
+      <subscriptionStatus>Active</subscriptionStatus>
+      <subscriptionDuration>30</subscriptionDuration>
+      <subscriptionHiddenGracePeriodExpDate>04/26/2014</subscriptionHiddenGracePeriodExpDate>
+      <subscriptionHiddenGracePeriod>3</subscriptionHiddenGracePeriod>
+      <sessionOfferingDetail>
+        <startDate>03/24/2014</startDate>
+        <endDate>04/23/2014</endDate>
+        <sessionTemplate></sessionTemplate>
+        <locationName></locationName>
+      </sessionOfferingDetail>
+      <isLaunchURL>true</isLaunchURL>
+    </enrollmentItems>
+  </enrollmentDetails>
+</getUserEnrollmentResponse>

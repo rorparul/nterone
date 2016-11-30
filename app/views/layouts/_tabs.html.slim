@@ -55,6 +55,10 @@
               li
                 a href='#{lms_student_path(current_user)}'
                   | Assignments
+            - if current_user.admin?
+              li
+                a href="#{hacp_test_path}"
+                  | Cisco Protocol Test
       - if current_user.admin?
         li.people role="presentation"
           a.nav-pill href="#{admin_people_path}"
