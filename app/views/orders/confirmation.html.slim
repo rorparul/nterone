@@ -73,7 +73,7 @@ javascript:
   $('.home-tab').addClass('active');
   
 - if I18n.locale == :en
-  - if Rails.env.development?
+  - if Rails.env.production?
     javascript:
       var google_conversion_id = 871022053;
       var google_conversion_language = "en";
