@@ -1,6 +1,6 @@
 - content_for :breadcrumbs do
   = render "admin/breadcrumbs"
-  - if current_user.only_role("member")
+  - if current_user.only_role?("member")
     span.text-muted
     = t('admins.partial_breadcrumbs.my_account')
 

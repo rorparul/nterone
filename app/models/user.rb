@@ -304,7 +304,7 @@ class User < ActiveRecord::Base
     roles_collection[0...-2]
   end
 
-  def only_role(role)
+  def only_role?(role)
     role = role.to_s + "?"
     if self.send(role)
       return self.roles.count == 1 ? true : false
