@@ -29,7 +29,7 @@
         li.courses role="presentation"
           a.nav-pill href="#{admin_courses_path}"
             = t('admins.partial_tabs.courses')
-      - if current_user.company
+      - if current_user.admin? || current_user.company
         li.lab-rentals role="presentation"
           a.nav-pill href="#{lab_rentals_path}"
             = t('my_account.partial_tabs.lab_rentals')
