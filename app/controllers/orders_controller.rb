@@ -96,10 +96,18 @@ class OrdersController < ApplicationController
 
   def update
     if @order.update_attributes(order_params_admin)
-      flash[:success] = "Order was successfully updated."
-      render js: "window.location = '#{request.referrer}';"
+      if params[:order].keys.count > 1
+        flash[:success] = "Order was successfully updated."
+        render js: "window.location = '#{request.referrer}';"
+      else
+        render json: { success: true }
+      end
     else
-      render 'edit_admin'
+      if params[:order].keys.count > 1
+        render 'edit_admin'
+      else
+        render json: { success: false }
+      end
     end
     # respond_to do |format|
     #   if @order.update_attributes(order_params_admin)

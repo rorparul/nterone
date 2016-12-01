@@ -37,25 +37,26 @@ class OrderItemsController < ApplicationController
   end
 
   private
-    def set_order_item
-      @order_item = OrderItem.find(params[:id])
-    end
+  
+  def set_order_item
+    @order_item = OrderItem.find(params[:id])
+  end
 
-    def order_item_params
-      params.require(:order_item).permit(:event_id,
-                                         :video_on_demand_id,
-                                         :sent_webex_invite,
-                                         :sent_course_material,
-                                         :sent_lab_credentials,
-                                         :note)
-    end
+  def order_item_params
+    params.require(:order_item).permit(:event_id,
+                                       :video_on_demand_id,
+                                       :sent_webex_invite,
+                                       :sent_course_material,
+                                       :sent_lab_credentials,
+                                       :note)
+  end
 
-    def find_orderable
-      order_item_params.each do |name, value|
-        if name =~ /(.+)_id$/
-          return $1.classify.constantize.find(value)
-        end
+  def find_orderable
+    order_item_params.each do |name, value|
+      if name =~ /(.+)_id$/
+        return $1.classify.constantize.find(value)
       end
-      nil
     end
+    nil
+  end
 end
