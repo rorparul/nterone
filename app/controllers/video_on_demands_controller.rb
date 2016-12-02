@@ -279,6 +279,7 @@ class VideoOnDemandsController < ApplicationController
                                             :platform_id,
                                             :video_id,
                                             :satellite_viewable,
+                                            :cisco_digital_learning,
                                             category_ids: [],
                                             video_modules_attributes: [:id,
                                                                        :position,

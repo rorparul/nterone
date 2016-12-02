@@ -1745,12 +1745,14 @@ hr {
 }
 
 .platform {
-  min-height: 325px;
+  // min-height: 325px;
   border-radius: 4px;
   margin-bottom: 10px;
   border: 1px solid #D1D1D1;
   background-color: #F6F6F6;
   text-align: center;
+  float: left;
+  clear: both;
   .logo-container {
     height: 135px;
   }
