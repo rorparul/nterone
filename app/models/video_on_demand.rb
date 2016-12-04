@@ -25,6 +25,7 @@
 #  heading                :string
 #  satellite_viewable     :boolean          default(TRUE)
 #  cisco_digital_learning :boolean          default(FALSE)
+#  cdl_course_code        :string
 #
 # Indexes
 #
@@ -66,7 +67,7 @@ class VideoOnDemand < ActiveRecord::Base
   before_destroy :ensure_not_purchased_or_in_cart
 
   validates :title, :abbreviation, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0.01 }
+  validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :categories
 
   scope :lms, -> { where(lms: true) }

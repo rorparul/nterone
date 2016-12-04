@@ -268,8 +268,9 @@ NterOne::Application.routes.draw do
     get '/users/:id' => 'users#show', as: :user
   end
 
-  get  'hacp/test'     => 'general#hacp_test',     as: :hacp_test
-  post 'hacp/callback' => 'general#hacp_callback', as: :hacp_callback
+  # get  'hacp/test'     => 'cisco_digital_learning#hacp_test',     as: :hacp_test
+  get  'cdl/:cdl_course_code' => 'cisco_digital_learning#show',     as: :cdl_show
+  post 'cdl/callback'         => 'cisco_digital_learning#callback', as: :cdl_callback
 
   # Redirects:
   get '/training/cisco'  => redirect('/training')

@@ -158,6 +158,10 @@ class User < ActiveRecord::Base
 
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
+  def purchased?(orderable)
+    order_items.where(cart_id: nil).where.not(order_id: nil).map(&:orderable).include?(orderable)
+  end
+
   def self.lms_students_all
     User.includes(:roles).where(roles: { role: 6 })
   end
