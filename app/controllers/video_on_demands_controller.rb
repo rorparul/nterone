@@ -5,7 +5,7 @@ class VideoOnDemandsController < ApplicationController
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
-    @video_on_demand.video_modules.build.videos.build
+    # @video_on_demand.video_modules.build.videos.build
 
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
