@@ -5,7 +5,7 @@ class CiscoDigitalLearningController < ApplicationController
 
     course = VideoOnDemand.find_by(cisco_digital_learning: true, cdl_course_code: params[:cdl_course_code])
 
-    if course.present? && purchased?(course)
+    if course.present? && current_user.purchased?(course)
       course_slug = course.cdl_course_code
       aicc_sid    = SecureRandom.uuid
       aicc_url    = "https://www.nterone.com/hacp/callback"
@@ -35,11 +35,5 @@ class CiscoDigitalLearningController < ApplicationController
     end
 
     render '/hacp_responses/response.txt.erb', layout: false, content_type: 'text/plain'
-  end
-
-  private
-
-  def purchased?(course)
-    current_user.video_on_demands.includes?(course)
   end
 end
