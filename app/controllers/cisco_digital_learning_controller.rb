@@ -8,7 +8,7 @@ class CiscoDigitalLearningController < ApplicationController
     if course.present? && current_user.purchased?(course)
       course_slug = course.cdl_course_code
       aicc_sid    = SecureRandom.uuid
-      aicc_url    = "https://www.nterone.com/hacp/callback"
+      aicc_url    = "https://www.nterone.com/cdl/callback"
 
       HacpRequest.create(aicc_sid: aicc_sid)
       redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
