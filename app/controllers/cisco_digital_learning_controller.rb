@@ -1,4 +1,6 @@
 class CiscoDigitalLearningController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: :callback
+
   def show
     # "https://ondemandelearning.cisco.com/vendor/course/users/auth/hacp/callback?aicc_sid=...&amp;aicc_url=..."
     # ccnp-route
