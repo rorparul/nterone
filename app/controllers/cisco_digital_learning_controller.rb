@@ -2,9 +2,6 @@ class CiscoDigitalLearningController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :callback
 
   def show
-    # "https://ondemandelearning.cisco.com/vendor/course/users/auth/hacp/callback?aicc_sid=...&amp;aicc_url=..."
-    # ccnp-route
-
     course = VideoOnDemand.find_by(cisco_digital_learning: true, cdl_course_code: params[:cdl_course_code])
 
     if course.present? && current_user.active_video_on_demands.include?(course)
@@ -13,7 +10,8 @@ class CiscoDigitalLearningController < ApplicationController
       aicc_url    = "https://www.nterone.com/cdl/callback"
 
       current_user.hacp_requests.create(aicc_sid: aicc_sid)
-      redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      # redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      redirect_to "https://ondemandelearning.cisco.com/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
     else
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to :back
