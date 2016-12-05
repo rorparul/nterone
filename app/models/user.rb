@@ -271,13 +271,13 @@ class User < ActiveRecord::Base
 
   def active_video_on_demands
     order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
-      array << order_item.orderable if order_item.order.create_at >= Date.today - 365.day
+      array << order_item.orderable if order_item.order.created_at >= Date.today - 365.day
     end
   end
 
   def inactive_video_on_demands
     order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
-      array << order_item.orderable if order_item.order.create_at < Date.today - 365.day
+      array << order_item.orderable if order_item.order.created_at < Date.today - 365.day
     end
   end
 
