@@ -98,7 +98,7 @@
                                         | Scores
                                         
           - if @video_on_demand.cisco_digital_learning?
-            - if current_user.purchased?(@video_on_demand)
+            - if current_user.active_video_on_demands.include?(@video_on_demand)
               .row
                 .col-xs-12
                   .panel.panel-default

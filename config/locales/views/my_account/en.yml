@@ -9,7 +9,7 @@ en:
       settings: "Settings"
     plan:
       activity_history: "Activity History"
-      active_self_paced_subscriptions: "My Active Self-paced Subscriptions"
+      active_self_paced_subscriptions: "My Active Subscriptions"
       build_my_training_plan: "Build My Training Plan"
       certification_planning_tracking: "Certification Planning and Tracking"
       completed_classes_subscriptions: "My Completed Classes and Subscriptions"

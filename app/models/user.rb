@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
 
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
-  def purchased?(orderable)
+  def purchase?(orderable)
     order_items.where(cart_id: nil).where.not(order_id: nil).map(&:orderable).include?(orderable)
   end
 
@@ -270,14 +270,14 @@ class User < ActiveRecord::Base
   end
 
   def active_video_on_demands
-    order_items.where('orderable_type = ? and created_at >= ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
-      order_item.orderable
+    order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
+      array << order_item.orderable if order_item.order.create_at >= Date.today - 365.day
     end
   end
 
   def inactive_video_on_demands
-    order_items.where('orderable_type = ? and created_at < ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
-      order_item.orderable
+    order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
+      array << order_item.orderable if order_item.order.create_at < Date.today - 365.day
     end
   end
 

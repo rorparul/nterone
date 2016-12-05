@@ -7,7 +7,7 @@ class CiscoDigitalLearningController < ApplicationController
 
     course = VideoOnDemand.find_by(cisco_digital_learning: true, cdl_course_code: params[:cdl_course_code])
 
-    if course.present? && current_user.purchased?(course)
+    if course.present? && current_user.active_video_on_demands.include?(course)
       course_slug = course.cdl_course_code
       aicc_sid    = SecureRandom.uuid
       aicc_url    = "https://www.nterone.com/cdl/callback"
