@@ -139,6 +139,8 @@ class User < ActiveRecord::Base
   has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
   has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
 
+  has_many :hacp_requests,             dependent:   :destroy
+
   accepts_nested_attributes_for :interest
 
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
