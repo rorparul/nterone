@@ -85,6 +85,13 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
   gem 'quiet_assets'
+
+  gem 'spring'
+  gem 'guard'
+  gem 'guard-bundler'
+  gem 'guard-rails'
+  gem 'guard-rspec', '4.7.3'
+  gem 'spring-commands-rspec'
 end
 
 group :doc do
@@ -92,7 +99,8 @@ group :doc do
 end
 
 group :test do
-  gem 'rspec-rails', '3.5.0.beta1'
+  gem 'rspec-rails', '= 3.5.0.beta3'
+  gem 'rspec', '= 3.5.0.beta3'
   gem 'factory_girl_rails'
   gem 'ffaker', '~> 2.1'
   gem 'database_cleaner'
