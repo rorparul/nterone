@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/radar/forem-theme-base.git
-  revision: 218ddc3f021756858c1b642139dfe65747adec3d
-  specs:
-    forem-theme-base (0.0.1)
-
-GIT
   remote: git://github.com/radar/forem.git
   revision: fb37858a51cfc8fe2ccd113e61af42546091fd27
   branch: rails4
@@ -516,7 +510,6 @@ DEPENDENCIES
   figaro
   font-awesome-rails
   forem!
-  forem-theme-base!
   friendly_id
   jbuilder (~> 1.2)
   jquery-rails (~> 4.0.3)
