@@ -27,7 +27,7 @@ es:
     partial_form:
       abbr: "Abreviatura"
       active: "Activo"
-      add_course: "Agregar Curso"
+      title: "Titulo"
       attend: "Quienes Deberían Asistir"
       catgories: "Categorias"
       heading: "Encabezado (H1)"

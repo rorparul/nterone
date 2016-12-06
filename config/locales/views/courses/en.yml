@@ -25,9 +25,9 @@ en:
     partial_clone_form:
       slug: "Slug"
     partial_form:
-      abbr: "Abreviatura"
+      abbr: "Abbreviation"
       active: "Active"
-      add_course: 'Add Course'
+      title: 'Add Course'
       attend: "Who Should Attend"
       catgories: "Categories"
       heading: "Heading (H1)"
