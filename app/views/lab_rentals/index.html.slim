@@ -6,7 +6,7 @@
 
 - if current_user.admin? == true
   - content_for :actions do
-    li 
+    li
       = link_to new_file_path, remote: true do
         = "Upload Lab Reservation File"
 
@@ -17,13 +17,29 @@
     .panel.panel-default
       .panel-heading.panel-heading-with-search
         .row
-          .col-xs-6
+          .col-xs-2
             strong.text-muted
               = t('lab_rentals.index.lab_rentals')
-          .col-xs-6
-            = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
-            
+          .col-xs-10
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
+              / = label_tag :date_start, t('.date_range')
+              / '
+              .input-group.input-group-sm.input-append.filter.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+                .input-group.input-group-sm.filter.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :date_start, '', class: "search form-control input-sm",
+                                                placeholder: t('.search_by_date_start'),
+                                                autocomplete: :off
+                / '
+                / = label_tag :date_end, "-"
+                '
+                .input-group.input-group-sm.filter.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :date_end, '', class: "search form-control input-sm",
+                                                placeholder: t('.search_by_date_end'),
+                                                autocomplete: :off
+              '
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
