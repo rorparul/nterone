@@ -136,6 +136,7 @@ class CoursesController < ApplicationController
       format.xlsx do
         render xlsx: 'export', filename: 'nterone-courses.xlsx'
       end
+      format.csv { send_data CSV::ExportCourseService.new(@courses).to_csv, filename: 'nterone-courses.csv' }
     end
   end
 

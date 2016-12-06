@@ -17,6 +17,7 @@ es:
       overview: "Visión de Conjunto"
       outline: "Contorno"
       intended_audience: "Público Destinatario"
+      categories: "Categorías"
     new:
       add_course: "Agregar Curso"
     new_js:

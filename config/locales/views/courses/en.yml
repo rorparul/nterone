@@ -17,6 +17,7 @@ en:
       overview: "Overview"
       outline: "Outline"
       intended_audience: "Intended Audience"
+      categories: "Categories"
     new:
       add_course: "Add Course"
     new_js:
