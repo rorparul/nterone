@@ -62,6 +62,7 @@ gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'zip-zip'
+gem "celluloid", github: "celluloid/celluloid", submodules: true
 
 group :development do
   gem 'annotate'

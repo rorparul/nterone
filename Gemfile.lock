@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/celluloid/celluloid.git
+  revision: f8e48978f4a299148df65ec2402aaabcdceb7607
+  submodules: true
+  specs:
+    celluloid (0.18.0.pre)
+      celluloid-pool (~> 0.20)
+      celluloid-supervision (~> 0.20)
+      timers (~> 4)
+
+GIT
   remote: git://github.com/radar/forem.git
   revision: fb37858a51cfc8fe2ccd113e61af42546091fd27
   branch: rails4
@@ -132,19 +142,6 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    celluloid (0.17.3)
-      celluloid-essentials
-      celluloid-extras
-      celluloid-fsm
-      celluloid-pool
-      celluloid-supervision
-      timers (>= 4.1.1)
-    celluloid-essentials (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-extras (0.20.5)
-      timers (>= 4.1.1)
-    celluloid-fsm (0.20.5)
-      timers (>= 4.1.1)
     celluloid-pool (0.20.5)
       timers (>= 4.1.1)
     celluloid-supervision (0.20.6)
@@ -287,7 +284,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_magick (4.5.1)
     mini_portile2 (2.1.0)
-    minitest (5.9.1)
+    minitest (5.10.1)
     multi_json (1.12.1)
     nenv (0.3.0)
     net-scp (1.2.1)
@@ -484,7 +481,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    timers (4.1.1)
+    timers (4.1.2)
       hitimes
     traceroute (0.5.0)
       rails (>= 3.0.0)
@@ -540,6 +537,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capistrano-ssh-doctor
   carrierwave (~> 0.10.0)
+  celluloid!
   cocoon
   coffee-rails (~> 4.0.0)
   country_select
