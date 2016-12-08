@@ -4,6 +4,7 @@ ruby '2.3.0'
 
 gem 'authorizenet'
 gem 'autonumeric-rails'
+gem 'aws-sdk-rails'
 gem 'axlsx'
 gem 'axlsx_rails'
 gem 'bootstrap-sass', '~> 3.3.4'
