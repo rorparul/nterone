@@ -8,9 +8,24 @@
 #  title      :string
 #  form_type  :integer
 #  slug       :string
+#  user_id    :integer
+#  kind       :string
+#  street     :string
+#  city       :string
+#  state      :string
+#  zip_code   :string
+#  phone      :string
+#  website    :string
+#  parent_id  :integer
 #
 
 class Company < ActiveRecord::Base
+  extend ActsAsTree::TreeWalker
+
+  acts_as_tree order: 'title'
+
+  belongs_to :user
+
   has_many :users
   has_many :lab_rentals
   has_many :lab_courses
@@ -22,6 +37,6 @@ class Company < ActiveRecord::Base
   private
 
   def create_slug
-    self.slug = self.title.downcase.gsub(' ', '-')
+    self.slug = title.downcase.gsub(' ', '-')
   end
 end

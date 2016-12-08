@@ -279,42 +279,6 @@ span.required {
   margin-bottom: 20px;
 }
 
-.modal {
-  text-align: center;
-  &:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
-  .modal-dialog {
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-    .modal-content {
-      @include value-prefix(background-image, linear-gradient(top, rgb(249, 249, 249) 0%, rgb(242, 242, 242) 100%));
-      border: 1px solid rgb(174, 174, 174);
-      border-radius: 4px;
-      .modal-header {
-        @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
-        border-bottom: 1px solid rgb(174, 174, 174);
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        height: 37px;
-        position: relative;
-        padding: 0;
-        h6.modal-title, h4.modal-title, h3.modal-title {
-          font-size: 12px;
-          font-weight: bold;
-          line-height: 22px;
-          margin: 0px;
-          padding: 8px 14px 7px 14px;
-        }
-      }
-    }
-  }
-}
-
 .smart-listing-controls {
   display: inline-block;
   float: right;
@@ -406,7 +370,7 @@ span.required {
   right: 0;
   left: 0;
   z-index: 100;
-  padding-top: 20px;
+  padding-top: 17px;
 
   @media (min-width: 768px) {
     margin: 0 30px;
@@ -2456,39 +2420,6 @@ footer {
   display: inline;
   margin-left: 5px;
   margin-right: 5px;
-}
-
-.modal#details {
-
-  .modal-content {
-    background-color: #fff;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    border: 1px solid #999;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: 6px;
-    outline: 0;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
-  }
-
-  .modal-header {
-    padding-top: 15px;
-    height: 50px;
-
-    .close {
-      margin-right: 20px;
-    }
-  }
-
-  .modal-body {
-    overflow-y: scroll;
-
-    .event-note {
-      word-break: break-all;
-      white-space: normal;
-    }
-  }
 }
 
 .course-actions {

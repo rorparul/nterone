@@ -13,6 +13,10 @@ $(function() {
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
+    $('.search-select').select2({
+      theme: 'bootstrap',
+      minimumResultsForSearch: 5
+    });
   });
 
   $('#accordion').on('show.bs.collapse', function () {

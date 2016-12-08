@@ -4,16 +4,17 @@
       thead
         tr
           th = smart_listing.sortable t('default.label.title'), :title
-          th = t('admins.website.form_type')
-          th = t('admins.website.portal')
-          th colspan="2" Actions
+          / th = t('admins.website.portal')
+          th colspan="2"
       tbody#pages
         - @companies.each do |company|
           tr
-            td = company.title
-            td = company.form_type
-            td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
-            td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
+            td
+              / = '|_____' * level
+              / = ' ' if level > 0
+              = link_to company.title, company_path(company)
+            / td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
+            td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: true
             td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 .panel-footer
   = smart_listing.paginate

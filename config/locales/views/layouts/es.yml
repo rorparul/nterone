@@ -46,3 +46,9 @@ es:
       testimonials: "Testimonios"
       training: "Entrenamiento"
       welcome: "Bienvenidos"
+    partial_tabs:
+      companies: "Compañías"
+      contacts: "Contactos"
+      leads: "Lleva"
+      marketing: "Márketing"
+      opportunities: "Oportunidades"

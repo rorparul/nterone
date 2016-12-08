@@ -5,14 +5,38 @@
         li.plan role="presentation"
           a.nav-pill href="#{my_account_plan_path}"
             = t('my_account.partial_tabs.my_nterone')
-      - if current_user.admin? || current_user.sales?
-        li.queue role="presentation"
-          a.nav-pill href="#{admin_queue_path}"
-            = t('admins.partial_tabs.queue')
-      - if current_user.admin?
-        li.insights role="presentation"
-          a.nav-pill href="#{main_app.insights_carts_path}"
-            = t('admins.partial_tabs.insights')
+      - if current_user.lms? || current_user.sales?
+        li.dropdown.prospects role="presentation"
+          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            | Prospects
+            span.caret
+          ul.dropdown-menu
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{admin_queue_path}"
+                  = t('layouts.partial_tabs.leads')
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{admin_queue_path}"
+                  = t('layouts.partial_tabs.opportunities')
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{main_app.insights_carts_path}"
+                  = t('admins.partial_tabs.insights')
+      - if current_user.lms? || current_user.sales?
+        li.dropdown.accounts role="presentation"
+          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            | Accounts
+            span.caret
+          ul.dropdown-menu
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{companies_path}"
+                  = t('layouts.partial_tabs.companies')
+            - if current_user.admin?
+              li
+                a href="#{admin_people_path}"
+                  = t('layouts.partial_tabs.contacts')
       - if current_user.admin? || current_user.sales?
         li.orders role="presentation"
           a.nav-pill href="#{admin_orders_path}"
@@ -56,13 +80,9 @@
                 a href='#{lms_student_path(current_user)}'
                   | Assignments
       - if current_user.admin?
-        li.people role="presentation"
-          a.nav-pill href="#{admin_people_path}"
-            = t('admins.partial_tabs.people')
-      - if current_user.admin?
         li.website role="presentation"
           a.nav-pill href="#{admin_website_path}"
-            = t('admins.partial_tabs.website')
+            = t('layouts.partial_tabs.marketing')
       - if current_user
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"

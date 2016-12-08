@@ -53,10 +53,7 @@ es:
       lab_rentals: "Laboratorios"
       messages: "Mensajes"
       orders: "Ordenes"
-      people: "Personas"
-      queue: "Cola"
       settings: "Ajustes"
-      website: "Pagina Web"
     website:
       active: "Activo"
       articles: "Articulos"

@@ -13,6 +13,7 @@
 //= require cocoon
 //= require forem
 //= require smart_listing
+//= require select2
 //= require react
 //= require react_ujs
 //= require components

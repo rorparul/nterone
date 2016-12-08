@@ -141,11 +141,15 @@ class User < ActiveRecord::Base
 
   has_many :hacp_requests,             dependent:   :destroy
 
+  has_many :companies
+
   accepts_nested_attributes_for :interest
 
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
+
+  scope :all_sales, -> { joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)') }
 
   devise :database_authenticatable,
          :invitable,
