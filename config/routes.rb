@@ -266,6 +266,10 @@ NterOne::Application.routes.draw do
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
+
+    namespace :v1 do
+      get '/events/upcoming_public_featured_events' => 'events#upcoming_public_featured_events'
+    end
   end
 
   # get  'hacp/test'     => 'cisco_digital_learning#hacp_test',     as: :hacp_test
