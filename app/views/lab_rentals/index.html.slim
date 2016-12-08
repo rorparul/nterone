@@ -22,23 +22,10 @@
               = t('lab_rentals.index.lab_rentals')
           .col-xs-10
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
-              / = label_tag :date_start, t('.date_range')
-              / '
-              .input-group.input-group-sm.input-append.filter.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
-                .input-group.input-group-sm.filter.input-append
-                  span class="input-group-btn"
-                    = text_field_tag :date_start, '', class: "search form-control input-sm",
-                                                placeholder: t('.search_by_date_start'),
-                                                autocomplete: :off
-                / '
-                / = label_tag :date_end, "-"
-                '
-                .input-group.input-group-sm.filter.input-append
-                  span class="input-group-btn"
-                    = text_field_tag :date_end, '', class: "search form-control input-sm",
-                                                placeholder: t('.search_by_date_end'),
-                                                autocomplete: :off
-              '
+              .filter.hide
+                = text_field_tag :date_start
+                = text_field_tag :date_end
+
               = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
 
               .input-group.input-group-sm.filter.input-append
@@ -49,6 +36,20 @@
                   button class="btn btn-default btn-sm disabled" type="submit"
                     span.glyphicon.glyphicon-search
 
+            .form-inline.pull-right.margin-right-3
+              .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+                .input-group.input-group-sm.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
+                                                placeholder: t('.search_by_date_start'),
+                                                autocomplete: :off
+                '
+                .input-group.input-group-sm.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
+                                                placeholder: t('.search_by_date_end'),
+                                                autocomplete: :off
+              '
       = smart_listing_render(:lab_rentals)
 
 javascript:
