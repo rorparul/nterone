@@ -20,8 +20,7 @@ $ ->
       if $this.data('datepicker')
         date = $this.datepicker('getDate')
         if date
-          value = moment(date).format('YYYY-MM-DD')
+          value = moment(date).format('MM/DD/YYYY')
       if value
         linked_element.val(value)
         linked_element.trigger('keydown')
-
