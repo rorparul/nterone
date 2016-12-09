@@ -35,10 +35,10 @@ body {
     }
     &.active {
       .nav-pill {
-        color: #fff;
-        @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
-        box-shadow: 0px 0px 3px #888888;
-        text-shadow: rgb(48, 48, 48) 0px 1px 0px;
+        // color: #fff;
+        // @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
+        // box-shadow: 0px 0px 3px #888888;
+        // text-shadow: rgb(48, 48, 48) 0px 1px 0px;
       }
     }
   }
@@ -887,23 +887,12 @@ span.required {
 
 .btn {
   &:not(.btn-block, .btn-blue) {
-    // height: 30px;
     border-radius: 3px;
     font-size: 11px;
     font-weight: bold;
     line-height: 14px;
     padding: 7px 10px;
   }
-}
-
-.btn-success {
-  // @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
-  // border: 1px solid rgb(104, 163, 65);
-}
-
-.btn-default {
-  // @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
-  // border: 1px solid rgb(205, 205, 205);
 }
 
 .group {
@@ -972,7 +961,7 @@ table {
 }
 
 .panel-default {
-  background-color: rgb(248, 248, 248);
+  // background-color: rgb(248, 248, 248);
   .panel-heading {
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
   }

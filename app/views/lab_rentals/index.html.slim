@@ -6,7 +6,7 @@
 
 - if current_user.admin? == true
   - content_for :actions do
-    li 
+    li
       = link_to new_file_path, remote: true do
         = "Upload Lab Reservation File"
 
@@ -17,13 +17,16 @@
     .panel.panel-default
       .panel-heading.panel-heading-with-search
         .row
-          .col-xs-6
+          .col-xs-2
             strong.text-muted
               = t('lab_rentals.index.lab_rentals')
-          .col-xs-6
-            = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
-            
+          .col-xs-10
             = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
+              .filter.hide
+                = text_field_tag :date_start
+                = text_field_tag :date_end
+
+              = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
 
               .input-group.input-group-sm.filter.input-append
                 = text_field_tag :filter, '', class: "search form-control input-sm",
@@ -33,6 +36,20 @@
                   button class="btn btn-default btn-sm disabled" type="submit"
                     span.glyphicon.glyphicon-search
 
+            .form-inline.pull-right.margin-right-3
+              .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+                .input-group.input-group-sm.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
+                                                placeholder: t('.search_by_date_start'),
+                                                autocomplete: :off
+                                                
+                .input-group.input-group-sm.input-append
+                  span class="input-group-btn"
+                    = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
+                                                placeholder: t('.search_by_date_end'),
+                                                autocomplete: :off
+                                                
       = smart_listing_render(:lab_rentals)
 
 javascript:

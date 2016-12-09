@@ -1,0 +1,70 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+    | My NterOne
+  span.seperator
+    | /
+  span.text-muted
+    | Accounts
+  span.seperator
+    | /
+  a href="#{companies_path}"
+    | Companies
+  span.seperator
+    | /
+  span.text-muted
+    = @company.title
+
+= render 'layouts/tabs'
+
+h4
+  strong.text-muted Relatives
+.container-muted
+  .row
+    .col-xs-12.col-md-4
+      strong.text-muted Parents
+      br
+      - @company.ancestors.each do |company|
+        = link_to company.title, company_path(company)
+        br
+    .col-xs-12.col-md-4
+      strong.text-muted Siblings
+      br
+      - @company.siblings.each do |company|
+        = link_to company.title, company_path(company)
+        br
+    .col-xs-12.col-md-4
+      strong.text-muted Children
+      br
+      - @company.children.each do |company|
+        = link_to company.title, company_path(company)
+        br
+      
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Contacts
+    .container-muted
+      = link_to t('default.action.add'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = smart_listing_controls_for(:users, {class: 'input-search'}) do
+        .input-group.input-group-sm.filter
+          = text_field_tag :filter, '', class: 'search form-control input-sm', 
+                                        placeholder: t('default.action.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+    = smart_listing_render(:users)
+
+h4
+  strong.text-muted Lab Rental Portal
+.container-muted
+  = link_to "#{request.base_url}/#{@company.slug}/lab-reservations/new", "#{request.base_url}/#{@company.slug}/lab-reservations/new"
+  
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .accounts').addClass('active');

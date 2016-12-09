@@ -1,3 +1,15 @@
+// -----------------------------------------------------------------------------
+// MIXINS
+// -----------------------------------------------------------------------------
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
 table {
   select {
     height: 20px !important;
@@ -12,5 +24,32 @@ table {
     font-size: 14px !important;
     width: 125px !important;
     line-height: 100% !important;
+  }
+}
+
+.container-muted {
+  background-color: rgb(245, 245, 245);
+  padding: 15px;
+  margin-bottom: 10px;
+  .input-search {
+    width: 250px;
+  }
+}
+
+.table-end {
+  border-top: 2px solid rgb(221, 221, 221);
+  margin-bottom: 10px;
+  height: 31px;
+  background-color: rgb(245, 245, 245);
+}
+
+.margin-right-3 {
+  margin-right: 3px;
+}
+
+.controls {
+  height: 40px;
+  .input-search {
+    width: 250px;
   }
 }

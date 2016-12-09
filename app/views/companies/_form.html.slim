@@ -8,31 +8,51 @@ m.form-container
         ul
           - @company.errors.full_messages.each do |msg|
             li = msg
+      
+    .form-group
+      = f.label :user_id, "Owner"
+      = f.select :user_id, surname_ordered_options(@owners),
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+        
+    hr
               
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :parent_id, "Parent Company"
+      = f.collection_select :parent_id, @companies, :id, :title,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+      
+    .form-group
+      = f.label :kind, t('default.label.kind')
+      = f.select :kind, kind_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+      
+    hr
             
     fieldset
       .form-group
-        = f.label :street, "Billing Street"
+        = f.label :street, "Street"
         = f.text_field :street, class: 'form-control input-sm'
         
       .row
         .col-xs-12
           .form-group
-            = f.label :city, "Billing City"
+            = f.label :city, "City"
             = f.text_field :city, class: 'form-control input-sm'
         .col-xs-12
           .form-group
-            = f.label :state, "Billing State"
+            = f.label :state, "State"
             = f.text_field :state, class: 'form-control input-sm'
         .col-xs-12
           .form-group
-            = f.label :zip_code, "Billing Zip Code"
+            = f.label :zip_code, "Zip Code"
             = f.text_field :zip_code, class: 'form-control input-sm'
-          
-    hr
       
     .form-group
       = f.label :phone, "Phone"
@@ -41,30 +61,6 @@ m.form-container
     .form-group
       = f.label :website, "Website"
       = f.text_field :website, class: 'form-control input-sm'
-      
-    hr
-            
-    .form-group
-      = f.label :user_id, "Owner"
-      = f.select :user_id, surname_ordered_options(@owners),
-        { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
-        
-    hr
-            
-    .form-group
-      = f.label :parent_id, "Parent Company"
-      = f.collection_select :parent_id, @companies, :id, :title,
-        { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
-      
-    hr
-      
-    .form-group
-      = f.label :kind, t('default.label.kind')
-      = f.select :kind, ['placeholder 1', 'placeholder 2'],
-        { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
         
     hr
       
@@ -76,6 +72,9 @@ m.form-container
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t('default.action.save')
+        - if @company.new_record?
+          = t('default.action.create')
+        - else
+          = t('default.action.update')
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')

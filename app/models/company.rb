@@ -20,7 +20,10 @@
 #
 
 class Company < ActiveRecord::Base
+  extend ActsAsTree::TreeView
   extend ActsAsTree::TreeWalker
+
+  include SearchCop
 
   acts_as_tree order: 'title'
 
@@ -33,6 +36,11 @@ class Company < ActiveRecord::Base
 	validates :title, presence: true
 
   before_create :create_slug
+
+  search_scope :custom_search do
+    attributes :title
+    attributes :user => ['user.first_name', 'user.last_name', 'user.email']
+  end
 
   private
 
