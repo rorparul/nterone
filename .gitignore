@@ -6,7 +6,7 @@
 /config/database.yml
 
 # Ignore uploaded files
-public/uploads/*
+public/*
 
 .ruby-gemset
 .ruby-version
