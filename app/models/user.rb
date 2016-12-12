@@ -65,6 +65,11 @@
 #  video_bio               :text
 #  source_name             :string
 #  source_user_id          :string
+#  parent_id               :integer
+#  salutation              :string
+#  business_title          :string
+#  do_not_call             :boolean
+#  do_not_email            :boolean
 #
 # Indexes
 #
@@ -81,8 +86,13 @@
 #
 
 class User < ActiveRecord::Base
+  extend ActsAsTree::TreeView
+  extend ActsAsTree::TreeWalker
+
   include RailsSettings::Extend
-  include ModelSearch
+  include SearchCop
+
+  acts_as_tree order: 'last_name'
 
   enum status: { not_applicable: 0, employee: 1, contractor: 2 }
 
@@ -150,6 +160,10 @@ class User < ActiveRecord::Base
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
 
   scope :all_sales, -> { joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)') }
+
+  search_scope :custom_search do
+    attributes :first_name, :last_name, :email
+  end
 
   devise :database_authenticatable,
          :invitable,

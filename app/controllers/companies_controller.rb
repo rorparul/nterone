@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
 		companies_scope = @companies
 		companies_scope = companies_scope.custom_search(params[:filter]) if params[:filter]
 
-		@companies = smart_listing_create(
+		smart_listing_create(
 			:companies,
 			companies_scope,
 			partial: 'companies/listing',
@@ -21,9 +21,8 @@ class CompaniesController < ApplicationController
 	end
 
 	def show
-		users_scope = User.all
-		# users_scope = @company.users
-		users_scope = users_scope.search(params[:filter]) if params[:filter]
+		users_scope = @company.users
+		users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
 
 		@users = smart_listing_create(
 			:users,
@@ -50,7 +49,7 @@ class CompaniesController < ApplicationController
 	def create
 		@company = Company.new(company_params)
 		if @company.save
-			flash[:success] = "Company successfully created!"
+			flash[:success] = "Company successfully created."
       redirect_to :back
 		else
 			render 'shared/new'
@@ -59,7 +58,7 @@ class CompaniesController < ApplicationController
 
 	def update
 		if @company.update(company_params)
-			flash[:success] = "Company successfully created!"
+			flash[:success] = "Company successfully updated."
 			redirect_to :back
 		else
 			render 'shared/edit'
@@ -68,7 +67,7 @@ class CompaniesController < ApplicationController
 
   def destroy
     if @company.destroy
-      flash[:success] = "Company successfully deleted!"
+      flash[:success] = "Company successfully deleted."
     else
       flash[:alert] = "Company failed to delete!"
     end

@@ -35,7 +35,7 @@
                   = t('layouts.partial_tabs.companies')
             - if current_user.admin?
               li
-                a href="#{admin_people_path}"
+                a href="#{users_path}"
                   = t('layouts.partial_tabs.contacts')
       - if current_user.admin? || current_user.sales?
         li.orders role="presentation"

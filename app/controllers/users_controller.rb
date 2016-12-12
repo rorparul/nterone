@@ -1,5 +1,20 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
+  layout 'admin'
+
+  def index
+    users_scope = User.all
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+
+    smart_listing_create(
+      :users,
+      users_scope,
+      partial: 'listing',
+      default_sort: { last_name: 'asc' }
+    )
+  end
 
   def page
     @users = User.order(:last_name).page(params[:page])

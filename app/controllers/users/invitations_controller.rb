@@ -11,12 +11,6 @@ class Users::InvitationsController < Devise::InvitationsController
       @user.roles.create
       @user.update_attributes(referring_partner_email_params)
 
-      if current_user.sales_manager?
-        Lead.create(buyer_id: @user.id)
-      elsif current_user.sales?
-        Lead.create(seller_id: current_user.id, status: 'assigned')
-      end
-
       flash[:success] = 'Successfully Saved!' if skip_invitation?
     else
       flash[:alert] = 'User with specified email is already invited'

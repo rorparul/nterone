@@ -26,7 +26,7 @@ h4
 .container-muted
   .row
     .col-xs-12.col-md-4
-      strong.text-muted Parents
+      strong.text-muted Ancestors
       br
       - @company.ancestors.each do |company|
         = link_to company.title, company_path(company)
@@ -38,9 +38,9 @@ h4
         = link_to company.title, company_path(company)
         br
     .col-xs-12.col-md-4
-      strong.text-muted Children
+      strong.text-muted Descendants
       br
-      - @company.children.each do |company|
+      - @company.descendants.each do |company|
         = link_to company.title, company_path(company)
         br
       
@@ -49,7 +49,7 @@ h4
     h4
       strong.text-muted Contacts
     .container-muted
-      = link_to t('default.action.add'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to t('default.action.new'), new_user_invitation_path(company_id: @company.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
       = smart_listing_controls_for(:users, {class: 'input-search'}) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm', 
