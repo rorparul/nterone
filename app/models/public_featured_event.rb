@@ -21,7 +21,10 @@
 #  platform_title      :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  host                :string
+#  event_id            :integer
 #
 
 class PublicFeaturedEvent < ActiveRecord::Base
+  belongs_to :cloned_event, class_name: "Event", foreign_key: "event_id"
 end

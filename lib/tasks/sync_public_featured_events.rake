@@ -1,9 +1,10 @@
 namespace :sync do
   task :public_featured_events => :environment do
     hosts = %w(www.nterone.com www.nterone.la)
+    current_host = `hostname`.strip
+
     hosts = %w(nterone.dev:3000)  if Rails.env.development?
-    # current_host = `hostname`.strip
-    # sync_hosts = hosts - [current_host]
+    current_host = "nterone.dev:3000"  if Rails.env.development?
 
     events = []
     hosts.each do |host|
@@ -11,6 +12,7 @@ namespace :sync do
       api_events_url = "#{url_scheme}://#{host}/api/v1/events/upcoming_public_featured_events.json"
       json_events = JSON.parse(open(api_events_url).read)
       json_events.each do |json_event|
+        host = 'host'  if host == current_host
         events << {
           full_title:          json_event['full_title'],
           platform_course_url: json_event['platform_course_url'],
@@ -27,7 +29,9 @@ namespace :sync do
           link_to_cart:        json_event['link_to_cart'],
           pdf_url:             json_event['pdf_url'],
           platform_id:         json_event['platform']['id'],
-          platform_title:      json_event['platform']['title']
+          platform_title:      json_event['platform']['title'],
+          event_id:            json_event['event_id'],
+          host:                host
         }
       end
     end

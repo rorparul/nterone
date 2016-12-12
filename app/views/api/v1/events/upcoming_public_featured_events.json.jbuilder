@@ -18,6 +18,8 @@ json.array! @events do |event|
     json.video_preview       event.course.video_preview
     json.link_to_cart        link_to_cart(event)
 
+    json.event_id            event.id
+
     if event.course.pdf.url.present?
       json.pdf_url course_download_platform_courses_url(event.course.platform, event.course)
     end
