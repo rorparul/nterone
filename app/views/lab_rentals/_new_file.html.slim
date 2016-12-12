@@ -1,8 +1,14 @@
-= form_for :lab_rental, url: upload_path_url, method: :post do |f|
-  .form-group
-    = f.file_field :file, class: 'form-control input-sm'
-  .form-buttons
-    button.btn.btn-success type="submit"
-      = t 'generic.button.upload'
-    button.btn.btn-default type="button" data-dismiss="modal"
-      = t 'generic.button.cancel'
+.form-container
+  = form_for :lab_rental, url: upload_path_url, method: :post do |f|
+    
+    .form-group
+      = f.select :company, companies.collect {|company| company.title }, prompt: "Please Select Company", class: "form-control input-sm"
+      
+    .form-group
+      = f.file_field :file, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t 'generic.button.upload'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'

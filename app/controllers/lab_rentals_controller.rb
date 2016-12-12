@@ -52,12 +52,17 @@ class LabRentalsController < ApplicationController
   end
 
   def new_file
-
+    @companies = Company.all.order(:title)
   end
 
   def upload
-    if current_user && current_user.admin?
-      upload = LabsUploader.upload(lab_rental_params[:file])
+    return redirect_to root_path unless current_user && current_user.admin?
+    if params[:lab_rental][:company].empty? || params[:lab_rental][:file].nil?
+      flash[:alert] = "Failed to upload file! Please choose a company and select a file."
+      return redirect_to :back
+    else
+      company = Company.find_by(title: params[:lab_rental][:company])
+      upload = LabsUploader.upload(lab_rental_params[:file], company)
     end
     redirect_to :back
   end
