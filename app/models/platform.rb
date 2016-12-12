@@ -52,30 +52,9 @@ class Platform < ActiveRecord::Base
   end
 
   def upcoming_public_featured_events(host = nil)
-    events.where(
-      "events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date",
-      { active: true, public: true, guaranteed: true, start_date: Date.today }
+    PublicFeaturedEvent.where(
+      "platform_id = :platform_id and start_date >= :start_date", { platform_id: id, start_date: Date.today }
     ).order(:start_date)
-
-    # if host == 'www.nterone.com'
-    #   ActiveRecord::Base.establish_connection(
-    #     adapter:  "postgresql",
-    #     host:     "184.7.26.56",
-    #     username: "pguser",
-    #     password: "qwe123",
-    #     database: "db1_prod"
-    #   )
-    # end
-    #
-    # if host == 'www.nterone.la'
-    #   ActiveRecord::Base.establish_connection(
-    #     adapter:  "postgresql",
-    #     host:     "184.7.26.58",
-    #     username: "pguser",
-    #     password: "qwe123",
-    #     database: "db1_prod"
-    #   )
-    # end
   end
 
   def export
