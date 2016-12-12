@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  full_title: MyString
+  platform_course_url: MyString
+  start_date: 2016-12-09
+  end_date: 2016-12-09
+  length: 1
+  format: MyString
+  language: MyString
+  city: MyString
+  state: MyString
+  street: MyString
+  price: 
+  video_preview: MyText
+  link_to_cart: MyString
+  pdf_url: MyString
+
+two:
+  full_title: MyString
+  platform_course_url: MyString
+  start_date: 2016-12-09
+  end_date: 2016-12-09
+  length: 1
+  format: MyString
+  language: MyString
+  city: MyString
+  state: MyString
+  street: MyString
+  price: 
+  video_preview: MyText
+  link_to_cart: MyString
+  pdf_url: MyString
