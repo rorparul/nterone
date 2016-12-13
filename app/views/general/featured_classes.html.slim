@@ -81,14 +81,15 @@
                         - elsif event.pdf_url.present?
                           = link_to event.pdf_url do
                             | PDF
-                      - if event.host == 'host' && (!user_signed_in? || (user_signed_in? && current_user.member?))
-                        td.fit.text-right
-                          = form_for :order_item, url: order_items_path do |f|
-                            = f.hidden_field :event_id, value: event.id
-                            = event.link_to_cart
-                      - elsif event.host == 'host' && user_signed_in? && current_user.admin?
-                        td.fit
-                          = link_to t('default.action.edit'), edit_platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), remote: true
+                      - if event.host == 'host'
+                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                          td.fit.text-right
+                            = form_for :order_item, url: order_items_path do |f|
+                              = f.hidden_field :event_id, value: event.id
+                              = event.link_to_cart.html_safe
+                        - elsif user_signed_in? && current_user.admin?
+                          td.fit
+                            = link_to t('default.action.edit'), edit_platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), remote: true
                         td.fit
                           = link_to t('default.action.delete'), platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
