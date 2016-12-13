@@ -90,8 +90,8 @@
                         - elsif user_signed_in? && current_user.admin?
                           td.fit
                             = link_to t('default.action.edit'), edit_platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), remote: true
-                        td.fit
-                          = link_to t('default.action.delete'), platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                          td.fit
+                            = link_to t('default.action.delete'), platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
     .row
       .col-xs-12.text-center
