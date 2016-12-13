@@ -1,15 +1,59 @@
 = simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f|
   = devise_error_messages!
-
-  - resource.class.invite_key_fields.each do |field|
-    = f.input field, label: "#{field.to_s.titleize}", wrapper_html: { class: "form-group" }, input_html: { class: 'form-control input-sm' }
+  
   .form-group
-    = f.label :referring_partner_email, t('devise.invitations.referring_partner')
-    = f.text_field :referring_partner_email, class: "form-control input-sm"
+    = f.label :parent_id, 'Owner'
+    = f.select :parent_id, surname_ordered_options(@owners),
+      { include_blank: t('companies.partial_form.dropdown') },
+      { class: 'form-control input-sm search-select' }
+    
+  hr
+  
+  .form-group
+    = f.label :salutation, 'Salutation'
+    = f.text_field :salutation, class: 'form-control input-sm'
+    
+  .form-group
+    = f.label :first_name, 'First Name'
+    = f.text_field :first_name, class: 'form-control input-sm'
+    
+  .form-group
+    = f.label :last_name, 'Last Name'
+    = f.text_field :last_name, class: 'form-control input-sm'
+  
+  hr
+  
+  .form-group
+    = f.label :email, 'Email'
+    .text-with-checkbox-container
+      .checkbox-container
+        i.fa.fa-ban.text-danger
+        = f.check_box :do_not_email
+      = f.text_field :email, class: 'form-control input-sm'
+  
+  .form-group
+    = f.label :contact_number, 'Phone'
+    .text-with-checkbox-container
+      .checkbox-container
+        i.fa.fa-ban.text-danger
+        = f.check_box :do_not_call
+      = f.text_field :contact_number, class: 'form-control input-sm'
+      
+  hr
+  
+  .form-group
+    = f.label :company_id, 'Company'
+    = f.collection_select :company_id, @companies, :id, :title,
+      { include_blank: t('companies.partial_form.dropdown') },
+      { class: 'form-control input-sm search-select' }
+      
+  .form-group
+    = f.label :business_title, 'Business Title'
+    = f.text_field :business_title, class: 'form-control input-sm'
 
   .form-buttons
     button.btn.btn-success type="submit" name="skip_invitation" value="true"
-      = t('default.action.save')
+      = t('default.action.create')
     button.btn.btn-success type="submit" name="skip_invitation" value="false" 
       = t('default.action.save_invite')
     button.btn.btn-default type="button" data-dismiss="modal"

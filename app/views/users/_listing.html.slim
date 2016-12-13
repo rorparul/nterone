@@ -2,7 +2,7 @@
   .table-responsive
     table.table.table-condensed
       thead
-        tr style='background-color: rgb(245, 245, 245);'
+        tr.background-muted
           th = smart_listing.sortable t('default.label.first_name'), :first_name
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
@@ -13,8 +13,7 @@
             td = user.first_name
             td = user.last_name
             td = user.email
-            - if current_user.can_resend_invitation?
-              td.fit = link_to(t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post)
+            td.fit = link_to t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post
             td.fit = link_to t('default.action.edit'), edit_user_path(user)
             td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end  

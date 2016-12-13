@@ -27,6 +27,28 @@ table {
   }
 }
 
+.text-with-checkbox-container {
+  position: relative;
+  .checkbox-container {
+    right: 10px;
+    top: 4px;
+    position: absolute;
+    i {
+      top: 4px;
+      right: 12px;
+      position: absolute;
+      margin-right: 5px;
+    }
+    input {
+      margin: 0;
+    }
+  }
+}
+
+.background-muted {
+  background-color: rgb(245, 245, 245);
+}
+
 .container-muted {
   background-color: rgb(245, 245, 245);
   padding: 15px;

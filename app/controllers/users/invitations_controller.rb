@@ -1,5 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
   def new
+    @owners    = User.all_sales
+    @companies = Company.all
     @origin = params[:origin]
     super
   end
