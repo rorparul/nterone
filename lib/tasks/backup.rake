@@ -1,6 +1,6 @@
 namespace "backup" do
   task "db" => :environment do
-    hostname = `hostname`
+    hostname = `hostname`.strip
 
     logger = Logger.new(Rails.root.join('log', 'backup.log'))
     logger.level = Logger::INFO
@@ -27,7 +27,7 @@ namespace "backup" do
     begin
       system "PGPASSWORD=#{dbconfig["password"]} pg_dump #{params} > #{dump_full_path}"
 
-      if File.exists? dump_full_path
+      if File.exists? dump_full_path && File.size(dump_full_path) > 0
         logger.info("Database dump created.")
 
         system "cd #{Rails.root.join('tmp')} && tar -caf #{backup_path} #{dump_path}"
@@ -54,7 +54,7 @@ namespace "backup" do
           logger.info("Archive file stored to AWS S3.")
 
           # remove old files
-          files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{Setting.aws_s3_path}/").contents
+          files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{hostname}/").contents
           files = files.sort {|x,y| y.last_modified <=> x.last_modified }[Setting.aws_s3_files_keep..-1]
           if files
             files.each do |file|
