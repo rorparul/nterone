@@ -1,7 +1,6 @@
 namespace "backup" do
   task "db" => :environment do
-    if Settings.stage == 'production'
-
+    if Setting.stage == 'production'
       logger = Logger.new(Rails.root.join('log', 'backup.log'))
       logger.level = Logger::INFO
       logger.info("----- DB backup starting")

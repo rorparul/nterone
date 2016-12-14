@@ -1,11 +1,15 @@
 namespace "staging" do
   task "db_clone" => :environment do
-    if Settings.stage == 'staging'
+    if Setting.stage == 'staging'
       logger = Logger.new(Rails.root.join('log', 'backup.log'))
       logger.level = Logger::INFO
       logger.info("----- DB clone starting")
 
       dbconfig = YAML::load(ERB.new(IO.read(Rails.root.join('config', 'database.yml'))).result)[Rails.env]
+
+      # stop passenger
+      logger.info `cd #{Rails.root.join('tmp')} && touch stop.txt`
+      sleep 10
 
       begin
         # S3 client
@@ -31,6 +35,7 @@ namespace "staging" do
           logger.info `cd #{Rails.root.join('tmp')} && tar -xaf #{backup_path}`
 
           if File.exists? dump_full_path
+
             # drop database
             mappings = {host: :host, port: :port, user: :username}
             params = dbconfig
@@ -59,6 +64,9 @@ namespace "staging" do
         logger.fatal("Caught exception; exiting")
         logger.fatal(err)
       end
+      # start passenger
+      logger.info `cd #{Rails.root.join('tmp')} && rm -f stop.txt`
+      sleep 10
       logger.info("----- DB clone finished.")
     end
   end
