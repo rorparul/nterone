@@ -1,6 +1,13 @@
 namespace "staging" do
   task "db_clone" => :environment do
-    if Setting.stage == 'staging'
+    hostname = `hostname`
+
+    hosts = {
+      "staging.nterone.com": "www.nterone.com",
+      "ncistaging.nterone.com": "nci.nterone.com"
+    }
+
+    if hosts.keys.include? hostname
       logger = Logger.new(Rails.root.join('log', 'backup.log'))
       logger.level = Logger::INFO
       logger.info("----- DB clone starting")
@@ -9,7 +16,7 @@ namespace "staging" do
 
       # stop passenger
       logger.info `cd #{Rails.root.join('tmp')} && touch stop.txt`
-      sleep 10
+      sleep 30
 
       begin
         # S3 client
@@ -21,7 +28,7 @@ namespace "staging" do
         })
         s3 = Aws::S3::Client.new
 
-        files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{Setting.aws_s3_path}/").contents
+        files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{hosts[hostname]}/").contents
         if files.size > 0
           last_backup = files.sort {|x,y| y.last_modified <=> x.last_modified }[0]
           backup_path = Rails.root.join('tmp', last_backup.key.split('/')[-1])
