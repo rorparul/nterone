@@ -92,6 +92,7 @@ class CompaniesController < ApplicationController
     params.require(:company).permit(
 			:city,
 			:form_type,
+			:industry_code,
 			:kind,
 			:parent_id,
 			:phone,

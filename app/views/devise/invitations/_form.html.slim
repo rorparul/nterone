@@ -42,14 +42,14 @@
   hr
   
   .form-group
+    = f.label :business_title, 'Business Title'
+    = f.text_field :business_title, class: 'form-control input-sm'
+  
+  .form-group
     = f.label :company_id, 'Company'
     = f.collection_select :company_id, @companies, :id, :title,
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'form-control input-sm search-select' }
-      
-  .form-group
-    = f.label :business_title, 'Business Title'
-    = f.text_field :business_title, class: 'form-control input-sm'
 
   .form-buttons
     button.btn.btn-success type="submit" name="skip_invitation" value="true"

@@ -11,4 +11,12 @@ module CompanyHelper
       ['VMware']
     ]
   end
+
+  def industry_code_options
+    [
+      ['Placeholder'],
+      ['Placeholder'],
+      ['Placeholder']
+    ]
+  end
 end

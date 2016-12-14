@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210211517) do
+ActiveRecord::Schema.define(version: 20161213233128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,8 +141,8 @@ ActiveRecord::Schema.define(version: 20161210211517) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20161210211517) do
     t.string   "phone"
     t.string   "website"
     t.integer  "parent_id"
+    t.string   "industry_code"
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -729,6 +730,29 @@ ActiveRecord::Schema.define(version: 20161210211517) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "public_featured_events", force: :cascade do |t|
+    t.string   "full_title"
+    t.string   "platform_course_url"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "length"
+    t.string   "format"
+    t.string   "language"
+    t.string   "city"
+    t.string   "state"
+    t.string   "street"
+    t.decimal  "price",               precision: 8, scale: 2, default: 0.0
+    t.text     "video_preview"
+    t.string   "link_to_cart"
+    t.string   "pdf_url"
+    t.integer  "platform_id"
+    t.string   "platform_title"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.string   "host"
+    t.integer  "event_id"
   end
 
   create_table "quotes", force: :cascade do |t|

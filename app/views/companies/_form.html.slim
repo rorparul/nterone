@@ -32,6 +32,12 @@ m.form-container
       = f.select :kind, kind_options,
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'form-control input-sm search-select' }
+        
+    .form-group
+      = f.label :industry_code, 'Industry Code'
+      = f.select :industry_code, industry_code_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
       
     hr
             

@@ -2,21 +2,22 @@
 #
 # Table name: companies
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  title      :string
-#  form_type  :integer
-#  slug       :string
-#  user_id    :integer
-#  kind       :string
-#  street     :string
-#  city       :string
-#  state      :string
-#  zip_code   :string
-#  phone      :string
-#  website    :string
-#  parent_id  :integer
+#  id            :integer          not null, primary key
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  title         :string
+#  form_type     :integer
+#  slug          :string
+#  user_id       :integer
+#  kind          :string
+#  street        :string
+#  city          :string
+#  state         :string
+#  zip_code      :string
+#  phone         :string
+#  website       :string
+#  parent_id     :integer
+#  industry_code :string
 #
 
 class Company < ActiveRecord::Base
@@ -38,7 +39,7 @@ class Company < ActiveRecord::Base
   before_create :create_slug
 
   search_scope :custom_search do
-    attributes :title
+    attributes :title, :industry_code
     attributes :user => ['user.first_name', 'user.last_name', 'user.email']
   end
 
