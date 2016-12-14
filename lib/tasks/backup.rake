@@ -9,7 +9,7 @@ namespace "backup" do
     start_time = Time.now
 
     dbconfig = YAML::load(ERB.new(IO.read(Rails.root.join('config', 'database.yml'))).result)[Rails.env]
-    mappings = {database: :dbname, host: :host, port: :port, user: :username}
+    mappings = {database: :dbname, host: :host, port: :port, user: :username, username: :username}
     params = dbconfig
       .select {|c| mappings.keys.include? c.to_sym }
       .map {|k, v| "--#{mappings[k.to_sym]}=#{v}" }
