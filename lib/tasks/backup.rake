@@ -86,4 +86,3 @@ namespace "backup" do
     logger.info("----- DB backup finished.")
   end
 end
-
