@@ -43,7 +43,11 @@
                 tbody
                   - platform.upcoming_public_featured_events.each do |event|
                     tr
-                      td = link_to event.full_title, event.platform_course_url
+                      td
+                        - course_url = platform_course_path(event.course.platform, event.course)
+                        - if event.class.try(:hostname)
+                          - course_url = platform_course_url(event.course.platform, event.course, host: event.class.try(:hostname))
+                        = link_to event.course.full_title, course_url
                       td
                         meta itemprop="startDate" content="#{event.start_date}"
                           = "#{event.start_date.strftime("%-m/%-d/%y")} to "
@@ -75,23 +79,25 @@
                             span itemprop="price"
                               = t('general.featured_classes.free')
                       td.fit
-                        - if event.video_preview.present?
-                          div class="video-link-container" = event.video_preview.html_safe
+                        - if event.course.video_preview.present?
+                          div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
-                        - elsif event.pdf_url.present?
-                          = link_to event.pdf_url do
+                        - elsif event.course.pdf.url.present?
+                          - pdf_url = course_download_platform_courses_path(event.course.platform, event.course)
+                          - if event.class.try(:hostname)
+                            - pdf_url = course_download_platform_courses_url(event.course.platform, event.course, host: event.class.try(:hostname))
+                          = link_to pdf_url do
                             | PDF
-                      - if event.host == 'host'
-                        - if !user_signed_in? || (user_signed_in? && current_user.member?)
-                          td.fit.text-right
-                            = form_for :order_item, url: order_items_path do |f|
-                              = f.hidden_field :event_id, value: event.id
-                              = event.link_to_cart.html_safe
-                        - elsif user_signed_in? && current_user.admin?
-                          td.fit
-                            = link_to t('default.action.edit'), edit_platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), remote: true
-                          td.fit
-                            = link_to t('default.action.delete'), platform_course_event_path(event.cloned_event.course.platform, event.cloned_event.course, event.cloned_event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+                      - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                        td.fit.text-right
+                          = form_for :order_item, url: order_items_path do |f|
+                            = f.hidden_field :event_id, value: event.id
+                            = link_to_cart(event)
+                      - elsif !event.class.try(:hostname) && user_signed_in? && current_user.admin?
+                        td.fit
+                          = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
+                        td.fit
+                          = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
     .row
       .col-xs-12.text-center
