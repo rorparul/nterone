@@ -1,11 +1,25 @@
 namespace "staging" do
   task "db_clone" => :environment do
-    if Settings.stage == 'staging'
-      logger = Logger.new(Rails.root.join('log', 'backup.log'))
-      logger.level = Logger::INFO
-      logger.info("----- DB clone starting")
+    logger = Logger.new(Rails.root.join('log', 'backup.log'))
+    logger.level = Logger::INFO
+    logger.info("----- DB clone starting")
+
+    hostname = `hostname`.strip
+
+    logger.info("hostname: #{hostname}")
+
+    hosts = {
+      "staging.nterone.com": "www.nterone.com",
+      "ncistaging.nterone.com": "nci.nterone.com"
+    }
+
+    if hosts.keys.include? hostname.to_sym
 
       dbconfig = YAML::load(ERB.new(IO.read(Rails.root.join('config', 'database.yml'))).result)[Rails.env]
+
+      # stop passenger
+      logger.info `cd #{Rails.root.join('tmp')} && touch stop.txt`
+      sleep 30
 
       begin
         # S3 client
@@ -17,7 +31,7 @@ namespace "staging" do
         })
         s3 = Aws::S3::Client.new
 
-        files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{Setting.aws_s3_path}/").contents
+        files = s3.list_objects(bucket: Setting.aws_s3_bucket, prefix: "#{hosts[hostname.to_sym]}/").contents
         if files.size > 0
           last_backup = files.sort {|x,y| y.last_modified <=> x.last_modified }[0]
           backup_path = Rails.root.join('tmp', last_backup.key.split('/')[-1])
@@ -31,19 +45,24 @@ namespace "staging" do
           logger.info `cd #{Rails.root.join('tmp')} && tar -xaf #{backup_path}`
 
           if File.exists? dump_full_path
-            # drop database
-            mappings = {host: :host, port: :port, user: :username}
-            params = dbconfig
-              .select {|c| mappings.keys.include? c.to_sym }
-              .map {|k, v| "--#{mappings[k.to_sym]}=#{v}" }
-              .join(" ")
-            logger.info `PGPASSWORD=#{dbconfig["password"]} dropdb #{params} #{dbconfig["database"]} 2>&1`
+
+            begin
+              # drop database
+              mappings = {host: :host, port: :port, user: :username, username: :username}
+              params = dbconfig
+                .select {|c| mappings.keys.include? c.to_sym }
+                .map {|k, v| "--#{mappings[k.to_sym]}=#{v}" }
+                .join(" ")
+              logger.info `PGPASSWORD=#{dbconfig["password"]} dropdb #{params} #{dbconfig["database"]} 2>&1`
+            rescue
+              logger.info("Database #{dbconfig[:database]} doesn't exist.")
+            end
 
             # create database
             logger.info `PGPASSWORD=#{dbconfig["password"]} createdb #{params} #{dbconfig["database"]} 2>&1`
 
             # restore database
-            mappings = {database: :dbname, host: :host, port: :port, user: :username}
+            mappings = {database: :dbname, host: :host, port: :port, user: :username, username: :username}
             params = dbconfig
               .select {|c| mappings.keys.include? c.to_sym }
               .map {|k, v| "--#{mappings[k.to_sym]}=#{v}" }
@@ -59,7 +78,11 @@ namespace "staging" do
         logger.fatal("Caught exception; exiting")
         logger.fatal(err)
       end
-      logger.info("----- DB clone finished.")
+      # start passenger
+      logger.info `cd #{Rails.root.join('tmp')} && rm -f stop.txt`
+      sleep 10
     end
+
+    logger.info("----- DB clone finished.")
   end
 end
