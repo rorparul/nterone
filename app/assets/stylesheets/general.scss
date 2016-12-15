@@ -551,7 +551,6 @@ span.required {
   left: 0;
   border-radius: 4px;
   z-index: 500;
-  box-shadow: 0px 0px 3px #888888;
   &.fixed {
     position: fixed;
     top: 30px;
@@ -559,9 +558,11 @@ span.required {
     margin-left: -15px;
   }
   ul {
+    box-shadow: 0px 0px 3px #888888;
     border-radius: 4px;
     height: 100%;
     overflow-x: hidden;
+    margin-bottom: 20px;
     li {
       margin: 0;
       text-overflow: ellipsis;
