@@ -50,8 +50,9 @@
                       = t('courses.show.upcoming_classes')
                     - if user_signed_in? && current_user.admin?
                       = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
-                  .panel-body.text-center.text-success
-                    | Dates represented in green are guaranteed to run.
+                  - if @course.upcoming_public_events.any?
+                    .panel-body.text-center.text-success
+                      | Dates represented in green are guaranteed to run.
                   .table-responsive
                     table.table.table-compact
                       - if @course.upcoming_public_events.any?
