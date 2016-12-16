@@ -52,30 +52,26 @@ class Platform < ActiveRecord::Base
   end
 
   def upcoming_public_featured_events(host = nil)
-    events.where(
-      "events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date",
-      { active: true, public: true, guaranteed: true, start_date: Date.today }
-    ).order(:start_date)
+    platform_title = self.title
+    events         = []
 
-    # if host == 'www.nterone.com'
-    #   ActiveRecord::Base.establish_connection(
-    #     adapter:  "postgresql",
-    #     host:     "184.7.26.56",
-    #     username: "pguser",
-    #     password: "qwe123",
-    #     database: "db1_prod"
-    #   )
-    # end
-    #
-    # if host == 'www.nterone.la'
-    #   ActiveRecord::Base.establish_connection(
-    #     adapter:  "postgresql",
-    #     host:     "184.7.26.58",
-    #     username: "pguser",
-    #     password: "qwe123",
-    #     database: "db1_prod"
-    #   )
-    # end
+    [Server::Com, Server::La].each do |server|
+      if server::Platform.hostname == Setting.current_hostname
+        platform = self
+      else
+        platform = server::Platform.find_by_title(platform_title)
+      end
+      if platform
+        events += platform.events.where(
+          "events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date",
+          { active: true, public: true, guaranteed: true, start_date: Date.today }
+        ).all.to_a
+      end
+    end
+
+    sorted_events = events.sort { |e1, e2| e1.start_date <=> e2.start_date }
+
+    sorted_events
   end
 
   def export

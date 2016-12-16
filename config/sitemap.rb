@@ -1,4 +1,4 @@
-SitemapGenerator::Sitemap.default_host = "https://www.nterone.com"
+SitemapGenerator::Sitemap.default_host = "https://#{Setting.current_hostname}"
 SitemapGenerator::Sitemap.compress     = false
 
 SitemapGenerator::Sitemap.create do

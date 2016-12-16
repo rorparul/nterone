@@ -86,12 +86,27 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_create
-    if ContactUsMailer.contact_us(contact_us_params).deliver_now
-      flash[:success] = 'Message successfully sent.'
-    else
-      flash[:notice] = 'Message failed to send.'
+    success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+
+    respond_to do |format|
+      format.html do
+        if success
+          flash[:success] = 'Message successfully sent.'
+          redirect_to contact_us_confirmation_path
+        else
+          flash[:notice] = 'Message failed to send.'
+          redirect_to :back
+        end
+      end
+
+      format.js do
+        if success
+          render 'contact_success'
+        else
+          render nothing: true
+        end
+      end
     end
-    redirect_to contact_us_confirmation_path
   end
 
   def contact_us_confirmation
@@ -126,7 +141,7 @@ class GeneralController < ApplicationController
   private
 
   def contact_us_params
-    params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :feedback)
+    params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :subject, :feedback)
   end
 
   def lms_path?

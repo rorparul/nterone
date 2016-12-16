@@ -40,11 +40,14 @@
                       th
                     - elsif user_signed_in? && current_user.admin?
                       th
-                      th
                 tbody
                   - platform.upcoming_public_featured_events.each do |event|
                     tr
-                      td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
+                      td
+                        - course_url = platform_course_path(event.course.platform, event.course)
+                        - if event.class.try(:hostname)
+                          - course_url = platform_course_url(event.course.platform, event.course, host: event.class.try(:hostname))
+                        = link_to event.course.full_title, course_url
                       td
                         meta itemprop="startDate" content="#{event.start_date}"
                           = "#{event.start_date.strftime("%-m/%-d/%y")} to "
@@ -60,7 +63,7 @@
                             = event.state
                       - else
                         - if event.format == "Live Online"
-                          td 
+                          td
                             = t('general.featured_classes.webex')
                         - else
                           td
@@ -80,14 +83,17 @@
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
                         - elsif event.course.pdf.url.present?
-                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
+                          - pdf_url = course_download_platform_courses_path(event.course.platform, event.course)
+                          - if event.class.try(:hostname)
+                            - pdf_url = course_download_platform_courses_url(event.course.platform, event.course, host: event.class.try(:hostname))
+                          = link_to pdf_url do
                             | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
                             = f.hidden_field :event_id, value: event.id
                             = link_to_cart(event)
-                      - elsif user_signed_in? && current_user.admin?
+                      - elsif !event.class.try(:hostname) && user_signed_in? && current_user.admin?
                         td.fit
                           = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                         td.fit

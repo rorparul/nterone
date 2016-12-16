@@ -24,29 +24,27 @@ module CartsHelper
   end
 
   def link_to_cart(item)
-    items_in_cart = @cart.order_items.collect do |order_item|
-      order_item.orderable
-    end
-
-    items_purchased = if user_signed_in?
-                        current_user.order_items.collect do |order_item|
-                          order_item.orderable
-                        end
+    carted_items    = @cart.order_items.map(&:orderable)
+    purchased_items = user_signed_in? ? current_user.purchased_items(orderables: true) : []
+    messages        = if item.class == Event
+                        ['Registration in cart', 'Registered', 'Register']
+                      elsif item.class == VideoOnDemand
+                        ['Subscription in cart', 'Subscribed', 'Subscribe']
                       else
-                        []
+                        ['Item in cart', 'Purchased', 'Add to cart']
                       end
 
-    if items_in_cart.include?(item)
+    if carted_items.include?(item)
       ("<button class='btn-link' type='submit' disabled='true'>" +
-        "<span class='text-muted'>Item in cart</span>" +
+        "<span class='text-muted'>#{messages[0]}</span>" +
       "</button>").html_safe
-    elsif items_purchased.include?(item)
+    elsif purchased_items.include?(item)
       ("<button class='btn-link' type='submit' disabled='true'>" +
-        "<span class='text-muted'>Item purchased</span>" +
+        "<span class='text-muted'>#{messages[1]}</span>" +
       "</button>").html_safe
     else
       ("<button class='btn-link' type='submit'>" +
-        "<span class='text-cart'>Add to cart</span>" +
+        "<span class='text-cart'>#{messages[2]}</span>" +
       "</button>").html_safe
     end
   end

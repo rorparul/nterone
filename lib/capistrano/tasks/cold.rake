@@ -9,7 +9,9 @@ namespace :deploy do
   task :initdb do
     on primary :web do |host|
       within release_path do
-        execute :rake, 'db:schema:load'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'db:schema:load'
+        end
       end
     end
   end
