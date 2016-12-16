@@ -11,7 +11,7 @@ $ ->
   $("input[data-linked]").each (i)->
     $this = $(this)
     linked_element = $($this.data("linked"))
-    console.log linked_element
+    linked_element.val("")
 
     linked_element.keydown (e)->
       $this.val(linked_element.val())

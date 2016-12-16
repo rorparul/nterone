@@ -9,6 +9,10 @@ class LabRentalsController < ApplicationController
     lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
+    elsif params[:date_start].present?
+      lab_rentals_scope  = lab_rentals_scope.where("first_day >= '#{params[:date_start]}'")
+    elsif params[:date_end].present?
+      lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
     @lab_rentals       = smart_listing_create(
       :lab_rentals,
