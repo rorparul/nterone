@@ -3,11 +3,14 @@ class ContactUsMailer < ApplicationMailer
     @name      = params[:name]
     @phone     = params[:phone]
     @email     = params[:email]
+    subject    = params[:subject].present? ? params[:subject] : "#{t'website'} Contact Us"
     @inquiry   = params[:inquiry]
     @feedback  = params[:feedback]
-    
-    mail(to: params[:recipient],
-         bcc: ['stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net'],
-         subject: "#{t'website'} Contact Us")
+
+    mail(
+      to: params[:recipient],
+      bcc: ['stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net'],
+      subject: subject
+    )
   end
 end

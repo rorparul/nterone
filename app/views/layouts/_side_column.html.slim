@@ -1,9 +1,36 @@
+- if controller_name == 'courses' && action_name == 'show'
+  .panel.panel-default.panel-contact-us
+    .panel-body.panel-contact-us
+      = form_for :contact_us, url: contact_us_path(source: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
+        label Request Information
+        
+        = f.hidden_field :recipient, value: "sales#{t('email')}"
+          
+        .form-group
+          = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if current_user)
+          
+        .form-group
+          = f.text_field :email, class: 'form-control input-sm', placeholder: 'Email', value: (current_user.email if current_user)
+          
+        .form-group
+          = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if current_user)
+          
+        .form-group
+          = f.text_area :subject, rows: 4, class: 'form-control', placeholder: 'Subject', value: "Please contact me in regards to #{@course.full_title}."
+          
+        .form-group
+          = f.text_area :inquiry, rows: 8, placeholder: 'Inquiry', class: 'form-control'
+          
+        .form-buttons
+          button.btn.btn-success type="submit" style='width: 100%;'
+            = t('default.action.send')
+
 - if I18n.locale == :en
   .side-column-graphics
     = link_to featured_classes_path do
       = image_tag 'promos/promo-1.jpg'
       
-- unless controller_name == 'courses'
+- unless controller_name == 'courses' && action_name == 'show'
   .side-column-graphics
     = link_to main_app.nterone_gives_back_path do
       = image_tag 'nterone-gives-back.png'

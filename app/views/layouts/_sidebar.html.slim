@@ -56,7 +56,7 @@
           span.fa.fa-sign-out
           span.text = t('layouts.partial_sidebar.logout')
   
-    - if controller_name == 'courses'
+    - if controller_name == 'courses' && action_name == 'show'
       = render partial: 'shared/credits'
 
 .sidebar-mobile.visible-xs
