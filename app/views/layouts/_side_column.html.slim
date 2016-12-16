@@ -5,6 +5,7 @@
         label Request Information
         
         = f.hidden_field :recipient, value: "sales#{t('email')}"
+        = f.hidden_field :subject, value: "Please contact me in regards to #{@course.full_title}."
           
         .form-group
           = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if current_user)
@@ -16,10 +17,7 @@
           = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if current_user)
           
         .form-group
-          = f.text_area :subject, rows: 4, class: 'form-control', placeholder: 'Subject', value: "Please contact me in regards to #{@course.full_title}."
-          
-        .form-group
-          = f.text_area :inquiry, rows: 8, placeholder: 'Inquiry', class: 'form-control'
+          = f.text_area :inquiry, value: "Please contact me in regards to #{@course.full_title}.", rows: 8, class: 'form-control'
           
         .form-buttons
           button.btn.btn-success type="submit" style='width: 100%;'
