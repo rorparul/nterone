@@ -50,6 +50,8 @@
                       = t('courses.show.upcoming_classes')
                     - if user_signed_in? && current_user.admin?
                       = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
+                  .panel-body.text-center.text-success
+                    | Dates represented in green are guaranteed to run.
                   .table-responsive
                     table.table.table-compact
                       - if @course.upcoming_public_events.any?
@@ -76,7 +78,7 @@
                           - @course.upcoming_public_events.each do |event|
                             tr
                               div itemscope="true" itemtype="http://schema.org/EducationEvent"
-                                td
+                                td class="#{'text-success' if event.guaranteed}"
                                   meta itemprop="startDate" content="#{event.start_date}"
                                     = "#{event.start_date.strftime("%-m/%-d/%y")} to "
                                   meta itemprop="endDate" content="#{event.end_date}"
