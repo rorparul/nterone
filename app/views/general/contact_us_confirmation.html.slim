@@ -28,28 +28,4 @@ javascript:
     location.replace(document.referrer);
   });
   
-- if I18n.locale == :en
-  - if Rails.env.production?
-    javascript:
-      var google_conversion_id = 871022053;
-      var google_conversion_language = "en";
-      var google_conversion_format = "3";
-      var google_conversion_color = "ffffff";
-      var google_conversion_label = "NY8yCLvf2WoQ5fuqnwM";
-      var google_remarketing_only = false;
-    script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
-    noscript
-      div style="display:inline;"
-        img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/871022053/?label=NY8yCLvf2WoQ5fuqnwM&amp;guid=ON&amp;script=0"
-    
-    javascript:
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1697430287242506');
-      fbq('track', 'PageView');
-      fbq('track', 'Purchase', {value: '0.00', currency:'USD'});
-    noscript
-      img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1697430287242506&ev=PageView&noscript=1"
+= render partial: 'shared/conversion_scripts'
