@@ -92,10 +92,11 @@ class GeneralController < ApplicationController
       format.html do
         if success
           flash[:success] = 'Message successfully sent.'
+          redirect_to contact_us_confirmation_path
         else
           flash[:notice] = 'Message failed to send.'
+          redirect_to :back
         end
-        redirect_to contact_us_confirmation_path
       end
 
       format.js do
