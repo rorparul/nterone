@@ -23,8 +23,8 @@ wb.styles do |style|
         event_price = event.price > 0.00 ? number_with_delimiter(number_with_precision(event.price, precision: 2)) : 'Free'
 
         sheet.add_row [
-          event.abbreviation,
-          event.title,
+          event.course.abbreviation,
+          event.course.title,
           platform.title,
           event.start_date.strftime("%-m/%-d/%y"),
           event.end_date.strftime("%-m/%-d/%y"),
