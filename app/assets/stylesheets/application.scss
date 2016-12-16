@@ -4,6 +4,7 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'components/bootstrap-datepicker3.min';
 @import 'font-awesome';
 @import 'parsley';
 @import 'devise';
@@ -14,4 +15,3 @@
 @import 'froala_style.min';
 @import 'plugins/image_manager.min';
 @import 'plugins/image.min';
-@import 'components/bootstrap-datepicker3.min'
