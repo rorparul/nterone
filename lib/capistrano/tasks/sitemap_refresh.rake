@@ -4,7 +4,7 @@ namespace :deploy do
     on primary :web do |host|
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, 'sitemap:refresh'
+          execute :rake, 'sitemap:production_refresh'
         end
       end
     end
