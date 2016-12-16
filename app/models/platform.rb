@@ -53,7 +53,7 @@ class Platform < ActiveRecord::Base
 
   def upcoming_public_featured_events(host = nil)
     platform_title = self.title
-    events = []
+    events         = []
 
     [Server::Com, Server::La].each do |server|
       if server::Platform.hostname == Setting.current_hostname
@@ -69,7 +69,9 @@ class Platform < ActiveRecord::Base
       end
     end
 
-    events
+    sorted_events = events.sort { |e1, e2| e1.start_date <=> e2.start_date }
+
+    sorted_events
   end
 
   def export
