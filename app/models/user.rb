@@ -178,12 +178,12 @@ class User < ActiveRecord::Base
 
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
-  def carted_items(orderables: false)
+  def carted_items(args = {})
     items = order_items.includes(:orderable).where(order_id: nil).where.not(cart_id: nil)
     args[:orderables] ? items.map(&:orderable) : items
   end
 
-  def purchased_items(orderables: false)
+  def purchased_items(args = {})
     items = order_items.includes(:orderable).where(cart_id: nil).where.not(order_id: nil)
     args[:orderables] ? items.map(&:orderable) : items
   end

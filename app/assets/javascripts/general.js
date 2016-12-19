@@ -1,4 +1,6 @@
 $(function() {
+  prepareFroala();
+
   $('.selectpicker').selectpicker();
 
   $('#menu-toggle').on('click', function() {
@@ -13,6 +15,7 @@ $(function() {
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
+    prepareFroala();
   });
 
   $('#accordion').on('show.bs.collapse', function () {
@@ -36,10 +39,13 @@ $(function() {
 			$('.sidebar-v2').removeClass("fixed");
 		}
 	});
+});
 
+function prepareFroala() {
   $('.froala').froalaEditor({
+    key: 'Padtj1A-32zpB2twt==',
     height: 240,
     imageUploadURL: '/public/uploads/editor',
     imageUploadMethod: 'POST'
   });
-});
+}

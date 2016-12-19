@@ -3,7 +3,7 @@ namespace :sitemap do
   task :production_refresh do
     hostname = `hostname`.strip
     unless hostname.include? "staging"
-      execute :rake, "sitemap:refresh"
+      Rake::Task['sitemap:refresh'].invoke
     end
   end
 end

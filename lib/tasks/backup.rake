@@ -27,7 +27,7 @@ namespace "backup" do
     begin
       system "PGPASSWORD=#{dbconfig["password"]} pg_dump #{params} > #{dump_full_path}"
 
-      if File.exists? dump_full_path && File.size(dump_full_path) > 0
+      if File.exists?(dump_full_path) && File.size(dump_full_path) > 0
         logger.info("Database dump created.")
 
         system "cd #{Rails.root.join('tmp')} && tar -caf #{backup_path} #{dump_path}"
