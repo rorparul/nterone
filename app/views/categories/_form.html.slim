@@ -49,10 +49,3 @@
         = t('default.button.cancel')
       - if category.id
         = link_to t('default.action.delete'), platform_category_path(platform, category), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger'
-
-javascript:
-  $('.froala').froalaEditor({
-    height: 240,
-    imageUploadURL: '/public/uploads/froala',
-    imageUploadMethod: 'POST'
-  });
