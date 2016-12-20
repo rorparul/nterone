@@ -79,6 +79,7 @@ NterOne::Application.routes.draw do
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
 
+  resources :opportunities
   resources :companies
   resources :lab_courses
 
