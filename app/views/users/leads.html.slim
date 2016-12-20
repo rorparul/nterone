@@ -9,16 +9,20 @@
   span.seperator
     | /
   span.text-muted
-    | Users
+    | Prospects
+  span.seperator
+    | /
+  span.text-muted
+    | Leads
 
 = render 'layouts/tabs'
 
 .row
   .col-xs-12
     h4
-      strong.text-muted Contacts
+      strong.text-muted Leads
     .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to t('default.action.new'), new_lead_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',
@@ -31,4 +35,4 @@
       
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .accounts').addClass('active');
+  $('.permissions .prospects').addClass('active');

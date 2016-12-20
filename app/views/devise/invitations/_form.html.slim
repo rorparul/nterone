@@ -1,4 +1,4 @@
-= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f|
+= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
   
   .form-group
@@ -6,8 +6,20 @@
     = f.select :parent_id, surname_ordered_options(@owners),
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'form-control input-sm search-select' }
-    
+      
   hr
+  
+  - unless resource.status == 'qualified'
+    .form-group
+      = f.label :status, t('users.partial_form.status')
+      = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
+        options = {},
+        html_options = { class: 'form-control input-sm search-select' }
+        
+    hr
+    
+  - else
+    = f.hidden_field :status, value: 'qualified'
   
   .form-group
     = f.label :salutation, 'Salutation'
@@ -20,36 +32,58 @@
   .form-group
     = f.label :last_name, 'Last Name'
     = f.text_field :last_name, class: 'form-control input-sm'
-  
+    
   hr
-  
+      
   .form-group
     = f.label :email, 'Email'
-    .text-with-checkbox-container
-      .checkbox-container
-        i.fa.fa-ban.text-danger
-        = f.check_box :do_not_email
-      = f.text_field :email, class: 'form-control input-sm'
+    = f.text_field :email, class: 'form-control input-sm'
+      
+  .form-group
+    = f.label :email_alternative, 'Email Alternative'
+    = f.text_field :email_alternative, class: 'form-control input-sm'
+      
+  .form-group
+    = f.label :do_not_email, 'Do Not Email'
+    br
+    = f.check_box :do_not_email
   
   .form-group
     = f.label :contact_number, 'Phone'
-    .text-with-checkbox-container
-      .checkbox-container
-        i.fa.fa-ban.text-danger
-        = f.check_box :do_not_call
-      = f.text_field :contact_number, class: 'form-control input-sm'
+    = f.text_field :contact_number, class: 'form-control input-sm'
+  
+  .form-group
+    = f.label :phone_alternative, 'Phone Alternative'
+    = f.text_field :phone_alternative, class: 'form-control input-sm'
+      
+  .form-group
+    = f.label :do_not_call, 'Do Not Call'
+    br
+    = f.check_box :do_not_call
       
   hr
   
   .form-group
     = f.label :business_title, 'Business Title'
     = f.text_field :business_title, class: 'form-control input-sm'
+    
+  - unless resource.status == 'qualified'
+    .form-group
+      = f.label :company_name, 'Company'
+      = f.text_field :company_name, class: 'form-control input-sm'
+  
+  - else
+    .form-group
+      = f.label :company_id, 'Company'
+      = f.collection_select :company_id, @companies, :id, :title,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+      
+  hr
   
   .form-group
-    = f.label :company_id, 'Company'
-    = f.collection_select :company_id, @companies, :id, :title,
-      { include_blank: t('companies.partial_form.dropdown') },
-      { class: 'form-control input-sm search-select' }
+    = f.label :notes, 'Notes'
+    = f.text_area :notes, rows: 10, class: 'form-control input-sm'
 
   .form-buttons
     button.btn.btn-success type="submit" name="skip_invitation" value="true"

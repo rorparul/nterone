@@ -2,8 +2,10 @@ class Users::InvitationsController < Devise::InvitationsController
   def new
     @owners    = User.all_sales
     @companies = Company.all
-    @origin = params[:origin]
-    super
+    self.resource = resource_class.new
+    resource.assign_attributes(parent_id: current_user.id)
+    resource.assign_attributes(status: 3) if request.path == '/users/contacts/new'
+    render :new
   end
 
   def create

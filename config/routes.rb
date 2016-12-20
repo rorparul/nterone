@@ -7,7 +7,9 @@ NterOne::Application.routes.draw do
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
-    get '/logout' => 'devise/sessions#destroy'
+    get  'logout'             => 'devise/sessions#destroy'
+    get  'users/leads/new'    => 'users/invitations#new', as: :new_lead
+    get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
   mount Forem::Engine, :at => '/forums'
@@ -15,8 +17,8 @@ NterOne::Application.routes.draw do
   resources :users  do
     post :toggle_archived, on: :member
     collection do
-      get '/users/:id/edit_from_my_queue' => 'users#edit_from_my_queue', as: :edit_from_my_queue
-      get 'page'
+      get  'leads'        => 'users#leads',            as: :leads
+      get  'contacts'     => 'users#contacts',         as: :contacts
     end
   end
 
@@ -60,7 +62,7 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :leads, only: [:index, :edit, :update, :show], path: 'my-queue' do
+  resources :leads, only: [:edit, :update, :show], path: 'my-queue' do
     collection do
       get 'leads/:id/download_quote' => 'leads#download_quote', as: :download_quote
       get 'leads/:id/email_quote'    => 'leads#email_quote',    as: :email_quote

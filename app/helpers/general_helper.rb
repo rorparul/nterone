@@ -125,10 +125,9 @@ module GeneralHelper
     resources.collect do |resource|
       first_name = resource.first_name
       last_name  = resource.last_name
+      compound   = "#{last_name + ', ' if last_name.present?}#{first_name}"
 
-      compound = "#{last_name + ', ' if last_name.present?}#{first_name}"
-
-      compound.present? ? compound : resource.email
+      compound.present? ? [compound, resource.id] : [resource.email, resource.id]
     end
   end
 end
