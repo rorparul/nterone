@@ -9,21 +9,21 @@
   span.seperator
     | /
   span.text-muted
-    | Accounts
+    | Prospects
   span.seperator
     | /
   span.text-muted
-    | Companies
+    | Opportunities
 
 = render 'layouts/tabs'
 
 .row
   .col-xs-12
     h4
-      strong.text-muted Companies
+      strong.text-muted Opportunities
     .container-muted
-      = link_to t('default.action.new'), new_company_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = smart_listing_controls_for(:companies, { class: 'input-search' }) do
+      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',
                                         placeholder: t('admins.classes.search'),
@@ -31,8 +31,8 @@
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
-    = smart_listing_render(:companies)
+    = smart_listing_render(:opportunities)
       
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .accounts').addClass('active');
+  $('.permissions .prospects').addClass('active');

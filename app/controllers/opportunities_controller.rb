@@ -11,10 +11,10 @@ class OpportunitiesController < ApplicationController
 
   def index
     opportunities_scope = Opportunity.all
-    opportunities_scope = companies_scope.custom_search(params[:filter]) if params[:filter]
+    opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
     smart_listing_create(
-      :companies,
+      :opportunities,
       opportunities_scope,
       partial: 'opportunities/listing',
       default_sort: { title: 'asc' }
@@ -78,7 +78,7 @@ class OpportunitiesController < ApplicationController
   private
 
   def set_opportunity
-    @company = Opportunity.find(params[:id])
+    @opportunity = Opportunity.find(params[:id])
   end
 
   def set_companies
@@ -90,7 +90,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def set_contacts
-    @owners = User.contacts
+    @contacts = User.contacts
   end
 
   def opportunity_params

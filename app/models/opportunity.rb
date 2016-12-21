@@ -16,4 +16,14 @@
 #
 
 class Opportunity < ActiveRecord::Base
+  include SearchCop
+
+  belongs_to :employee, class_name: 'User'
+  belongs_to :customer, class_name: 'User'
+
+  search_scope :custom_search do
+    attributes :title, :industry_code
+    attributes company: ['company.title', 'company.industry_code']
+    # attributes :user => ['user.first_name', 'user.last_name', 'user.email']
+  end
 end
