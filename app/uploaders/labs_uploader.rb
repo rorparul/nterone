@@ -1,16 +1,8 @@
 class LabsUploader
-  def self.upload(file)
-      if file.original_filename == "globalknowledge.csv"
-        spreadsheet = open_spreadsheet(file)
-        header = format_header_gk(spreadsheet.row(1))
-        format_rows_gk(spreadsheet, header)
-      elsif file.original_filename == "universityofphoenix.csv"
-        spreadsheet = open_spreadsheet(file)
-        header = format_header_up(spreadsheet.row(1))
-        format_rows_up(spreadsheet, header)
-      else
-        return
-      end
+  def self.upload(file, company)
+    spreadsheet = open_spreadsheet(file)
+    header = format_header(spreadsheet.row(1))
+    format_rows(spreadsheet, header, company)
   end
 
   def self.open_spreadsheet(file)
@@ -22,154 +14,170 @@ class LabsUploader
     end
   end
 
-  def self.format_header_up(row)
+  def self.format_header(row)
     row.map do |column|
       case column
-      when "courses"
-        :course
+      when "cancel"
+        :canceled
       when "classdate"
         :first_day
       when "classenddate"
         :last_day
-      when "studentname"
-        :name
-      when "studentemail"
-        :email
-      when "instructorinformation"
-        :instructor
-      when "instructoremailaddress"
-        :instructor_email
-      when "notes"
-        :notes
-      end
-    end
-  end
-
-  def self.format_header_gk(row)
-    row.map do |column|
-      case column
-      when "courses"
-        :course
-      when "classdate"
-        :first_day
-      when "studentqty"
-        :num_of_students
-      when "starttime"
-        :start_time
-      when "instructorinformation"
-        :instructor
-      when "instructoremailaddress"
-        :instructor_email
-      when "instructorphone"
-        :instructor_phone
-      when "notes"
-        :notes
-      when "location"
-        :location
-      when "confirmed"
-        :confirmed
       when "company"
         :company_id
+      when "confirmed"
+        :confirmed
+      when "courses"
+        :course
+      when "instructoremailaddress"
+        :instructor_email
+      when "instructorinformation"
+        :instructor
+      when "instructorphone"
+        :instructor_phone
+      when "location"
+        :location
+      when "notes"
+        :notes
+      when "starttime"
+        :start_time
+      when "studentemail"
+        :email
+      when "studentname"
+        :name
+      when "studentqty"
+        :num_of_students
       when "timezone"
         :time_zone
-      when "cancel"
-        :canceled
+      else
+        :DELETE
       end
     end
   end
 
-  def self.format_rows_up(spreadsheet, header)
-    company = Company.find_by(title: "University of Phoenix")
+  def self.format_rows(spreadsheet, header, company)
     (2..spreadsheet.last_row).each do |i|
       row_original = Hash[[header, spreadsheet.row(i)].transpose]
-      unless row_original[:instructor_email] =~ /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
-         row_original[:instructor_email] = nil
+      row_original.delete(:DELETE)
+
+      if row_original[:canceled]
+        if row_original[:canceled] == "CANCELED"
+           row_original[:canceled] = true
+        else
+           row_original[:canceled] = false
+        end
       end
 
+      row_original[:company_id] = company.id
+
+      if row_original[:confirmed]
+        if row_original[:confirmed] == "YES"
+           row_original[:confirmed] = true
+        else
+           row_original[:confirmed] = false
+        end
+      end
+
+      # if row_original[:course]
+      #
+      # end
+      #
+      # if row_original[:email]
+      #
+      # end
+
+      row_original[:end_time] = Time.new(2000, 01, 01, 17, 0, 0)
 
       if row_original[:first_day]
-        row_original[:first_day] = Date.strptime(row_original[:first_day], "%m/%d/%Y")
+        # row_original[:first_day] = Date.strptime(row_original[:first_day], "%m/%d/%Y")
+        modified_first_day_input = row_original[:first_day].gsub('="', '').gsub('"', '') if row_original[:first_day]
+        if modified_first_day_input =~ /\//
+          first_day = Date.strptime(modified_first_day_input, "%m/%d/%Y") if modified_first_day_input
+          row_original[:first_day] = first_day if first_day
+        end
       end
+
+      # if row_original[:instructor]
+      #
+      # end
+
+      if row_original[:instructor_email]
+        unless row_original[:instructor_email] =~ /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
+           row_original[:instructor_email] = nil
+        end
+      end
+
+      # if row_original[:instructor_phone]
+      #
+      # end
 
       if row_original[:last_day]
         row_original[:last_day] = Date.strptime(row_original[:last_day], "%m/%d/%Y")
       end
 
-      lab_rental = LabRental.new(
-        company_id: company.id,
-        start_time: "%8:%0:%0",
-        end_time: "%17:%0:%0",
-        time_zone: "Mountain Time (US & Canada)",
-        notes: row_original[:notes],
-        instructor_email: row_original[:instructor_email],
-        instructor: row_original[:instructor],
-        first_day: row_original[:first_day],
-        last_day: row_original[:last_day],
-        kind: 2
-      )
-
-      lab_course = LabCourse.find_by(title: row_original[:course])
-      if lab_course
-        lab_rental.assign_attributes(lab_course_id: lab_course.id)
+      case company
+      when company.title == "Global Knowledge"
+        row_original[:kind] = 1
+      when company.title == "University of Phoenix"
+        row_original[:kind] = 2
       else
-        lab_course = LabCourse.create(title: row_original[:course], company_id: company.id)
-        lab_rental.assign_attributes(lab_course_id: lab_course.id)
+        row_original[:kind] = 3
       end
-      lab_rental.save
 
-      lab_student = LabStudent.find_by(email: row_original[:email])
-      if lab_student
-        lab_student.update_attribute(:lab_rental_id, lab_rental.id)
-      else
-        lab_student = LabStudent.new(lab_rental_id: lab_rental.id, name: row_original[:name], email: row_original[:email])
-        lab_student.save(validate: false)
+      # if row_original[:location]
+      #
+      # end
+      #
+      # if row_original[:name]
+      #
+      # end
+      #
+      # if row_original[:notes]
+      #
+      # end
+      #
+      # if row_original[:num_of_students]
+      #
+      # end
+
+      if row_original[:start_time]
+        modified_start_time_input = row_original[:start_time].gsub('="', '').gsub('"', '') if row_original[:start_time]
+        row_original[:start_time] = modified_start_time_input if modified_start_time_input
       end
-      lab_rental.save
+
+      if row_original[:time_zone]
+        case company
+        when company.title == "Global Knowledge"
+          row_original[:time_zone] = "Eastern Time (US & Canada)"
+        when company.title == "University of Phoenix"
+          row_original[:time_zone] = "Mountain Time (US & Canada)"
+        else
+          row_original[:time_zone] = "Eastern Time (US & Canada)"
+        end
+      end
+
+      if LabRental.where(row_original).empty?
+        lab_rental = LabRental.new(row_original)
+        lab_course = LabCourse.find_by(title: row_original[:course])
+        if lab_course
+          lab_rental.assign_attributes(lab_course_id: lab_course.id)
+        else
+          lab_course = LabCourse.create(title: row_original[:course], company_id: company.id)
+          lab_rental.assign_attributes(lab_course_id: lab_course.id)
+        end
+
+        lab_rental.save
+        if row_original[:email]
+          lab_student = LabStudent.find_by(email: row_original[:email])
+          if lab_student
+            lab_student.update_attribute(:lab_rental_id, lab_rental.id)
+          else
+            lab_student = LabStudent.new(lab_rental_id: lab_rental.id, name: row_original[:name], email: row_original[:email])
+            lab_student.save(validate: false)
+          end
+          lab_rental.save
+        end
+      end
     end
   end
-
-
-  def self.format_rows_gk(spreadsheet, header)
-    company = Company.find_by(title: "Global Knowledge")
-    (2..spreadsheet.last_row).each do |i|
-      row_original = Hash[[header, spreadsheet.row(i)].transpose]
-      row_original[:company_id] = company.id
-      row_original[:end_time] = "%17:%0:%0"
-      row_original[:time_zone] = "Eastern Time (US & Canada)"
-      unless row_original[:instructor_email] =~ /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
-         row_original[:instructor_email] = nil
-      end
-      if row_original[:confirmed] == "YES"
-         row_original[:confirmed] = true
-      else
-         row_original[:confirmed] = false
-      end
-      if row_original[:canceled] == "CANCELED"
-         row_original[:canceled] = true
-      else
-         row_original[:canceled] = false
-      end
-      modified_first_day_input = row_original[:first_day].gsub('="', '').gsub('"', '') if row_original[:first_day]
-      if modified_first_day_input =~ /\//
-        first_day = Date.strptime(modified_first_day_input, "%m/%d/%Y") if modified_first_day_input
-        row_original[:first_day] = first_day if first_day
-      end
-
-      modified_start_time_input = row_original[:start_time].gsub('="', '').gsub('"', '') if row_original[:start_time]
-      row_original[:start_time] = modified_start_time_input if modified_start_time_input
-
-      row_new = row_original.dup
-
-      lab_rental = LabRental.new(row_new)
-      lab_course = LabCourse.find_by(title: row_original[:course])
-      if lab_course
-        lab_rental.assign_attributes(lab_course_id: lab_course.id, kind: 1)
-      else
-        lab_course = LabCourse.create(title: row_original[:course], company_id: company.id)
-        lab_rental.assign_attributes(lab_course_id: lab_course.id, kind: 1)
-      end
-      lab_rental.save
-    end # (2..spreadsheet.last_row).each do |i|
-  end # format_rows_gk
-
 end
