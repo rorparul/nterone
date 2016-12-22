@@ -2,12 +2,14 @@
 #
 # Table name: video_modules
 #
-#  id                 :integer          not null, primary key
-#  video_on_demand_id :integer
-#  title              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  position           :integer          default(0)
+#  id                     :integer          not null, primary key
+#  video_on_demand_id     :integer
+#  title                  :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  position               :integer          default(0)
+#  cisco_digital_learning :boolean          default(FALSE)
+#  cdl_course_code        :string
 #
 
 class VideoModule < ActiveRecord::Base

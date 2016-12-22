@@ -10,8 +10,8 @@ class CiscoDigitalLearningController < ApplicationController
       aicc_url    = "https://www.nterone.com/cdl/callback"
 
       current_user.hacp_requests.create(aicc_sid: aicc_sid)
-      # redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
-      redirect_to "https://ondemandelearning.cisco.com/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      # redirect_to "https://ondemandelearning.cisco.com/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
     else
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to :back

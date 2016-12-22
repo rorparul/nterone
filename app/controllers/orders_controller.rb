@@ -256,7 +256,7 @@ class OrdersController < ApplicationController
       price = @cart.total_price
     end
 
-    price.to_s == cc_params[:paid] && (price / 100).ceil.to_s == clc_params[:clc_quantity]
+    price.to_s == cc_params[:paid] && @cart.credits_required_for_total_applicable_for_credits.to_s == clc_params[:clc_quantity]
   end
 
   def handle_credit_card_payment

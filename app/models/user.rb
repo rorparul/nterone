@@ -70,6 +70,10 @@
 #  business_title          :string
 #  do_not_call             :boolean
 #  do_not_email            :boolean
+#  email_alternative       :string
+#  phone_alternative       :string
+#  notes                   :text
+#  aasm_state              :string
 #
 # Indexes
 #

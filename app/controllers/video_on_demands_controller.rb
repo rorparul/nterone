@@ -267,6 +267,7 @@ class VideoOnDemandsController < ApplicationController
                                             video_modules_attributes: [:id,
                                                                        :position,
                                                                        :title,
+                                                                       :cdl_course_code,
                                                                        :_destroy,
                                                                        videos_attributes: [:id,
                                                                                            :position,
