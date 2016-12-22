@@ -65,15 +65,6 @@
 #  video_bio               :text
 #  source_name             :string
 #  source_user_id          :string
-#  parent_id               :integer
-#  salutation              :string
-#  business_title          :string
-#  do_not_call             :boolean
-#  do_not_email            :boolean
-#  email_alternative       :string
-#  phone_alternative       :string
-#  notes                   :text
-#  aasm_state              :string
 #
 # Indexes
 #
