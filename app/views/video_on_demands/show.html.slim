@@ -25,8 +25,7 @@
     #video-on-demand
       .row
         .col-xs-12
-          - unless @purchased
-            = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
+          = image_tag t("courses.show.image"), class: "course-banner"
             
           - if @video_on_demand.intro.present?
             .panel.panel-default
