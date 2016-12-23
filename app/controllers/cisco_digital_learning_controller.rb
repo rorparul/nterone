@@ -2,7 +2,8 @@ class CiscoDigitalLearningController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :callback
 
   def show
-    course = VideoOnDemand.find_by(cisco_digital_learning: true, cdl_course_code: params[:cdl_course_code])
+    module = VideoModule.where(cdl_course_code: params[:module_id])
+    course = module.video_on_demand
 
     if course.present? && current_user.active_video_on_demands.include?(course)
       course_slug = course.cdl_course_code

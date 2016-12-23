@@ -50,7 +50,7 @@
                           .panel-body style="padding: 0 15px;"
                             = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
                             - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
-                              = link_to "Digital Learning Portal for #{video_module.title}", cdl_show_path(video_module.cdl_course_code)
+                              = link_to "Digital Learning Portal for #{video_module.title}", cdl_show_path(video_module.id)
                               i.fa.fa-external-link style='margin-left: 10px;'
                             - else
                               = video_module.title
