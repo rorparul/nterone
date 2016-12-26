@@ -55,7 +55,7 @@ class Platform < ActiveRecord::Base
     platform_title = self.title
     events         = []
 
-    [Server::Com, Server::La].each do |server|
+    [Server::Ca, Server::Com, Server::La].each do |server|
       if server::Platform.hostname == Setting.current_hostname
         platform = self
       else
