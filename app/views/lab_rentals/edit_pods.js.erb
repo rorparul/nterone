@@ -1,0 +1,3 @@
+$('.modal-title').html('Pod Settings');
+$('.modal-body').html("<%= escape_javascript(render partial: 'edit_pods', locals: { pod_settings: @pod_settings }) %>");
+$('#myModal').modal('show');

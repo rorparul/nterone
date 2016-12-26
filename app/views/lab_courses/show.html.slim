@@ -1,0 +1,51 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  a href="/labs"
+    = t('admins.partial_breadcrumbs.labs')
+  span.seperator
+    | /
+  span.text-muted = "#{@lab_course.title}"
+
+.row
+  .col-xs-12.col-central
+    #course
+      .row
+        .col-xs-12
+          / = image_tag t("courses.show.image"), class: "course-banner"
+
+          .panel.panel-default
+            .panel-body
+              h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
+              = @lab_course.description if @lab_course.description
+              
+    .row
+      .col-xs-12
+        .panel.panel-default
+          .panel-heading.panel-heading-with-search
+            .row
+              .col-xs-4
+                strong.text-muted
+                  = "Available Labs"
+              .col-xs-8
+                .filter.hide
+                  = text_field_tag :date_start, "Start Date"
+                  = text_field_tag :date_end, "End Date"
+                .form-inline.pull-right.margin-right-3
+                  .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+                    .input-group.input-group-sm.input-append
+                      span.input-group-btn style="z-index: 100;"
+                        = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
+                                                    placeholder: "Search By Start Date", autocomplete: :off
+                    '
+                    .input-group.input-group-sm.input-append
+                      span.input-group-btn style="z-index: 100;"
+                        = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
+                                                    placeholder: "Search By End Date", autocomplete: :off
+                  '
+                  
+  .col-xs-12.side-column
+    = render partial: 'layouts/side_column'

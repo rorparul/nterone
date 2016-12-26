@@ -112,6 +112,22 @@ class LabRentalsController < ApplicationController
     redirect_to :back
   end
 
+  def edit_pods
+    return redirect_to root_url unless current_user.admin?
+    @pod_settings = Setting.pods
+  end
+
+  def update_pods
+    return redirect_to root_url unless current_user.admin?
+    if params[:available_pods_for_individuals].empty? || params[:available_pods_for_partners].empty?
+      flash[:alert]     = "Failed to update settings. Data submitted was not a number."
+    else
+      Setting.pods      = {available_pods_for_individuals: params[:available_pods_for_individuals].to_i, available_pods_for_partners: params[:available_pods_for_partners].to_i}
+      flash[:success]   = "Availability of pods currently set to #{Setting.pods[:available_pods_for_individuals]} for individuals, and #{Setting.pods[:available_pods_for_partners]} for partners."
+    end
+      redirect_to :back
+  end
+
   private
 
   def set_lab_rental

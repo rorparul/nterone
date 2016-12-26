@@ -1,4 +1,11 @@
 class LabCoursesController < ApplicationController
+	include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
+	def show
+		@lab_course = LabCourse.find(params[:id])
+	end
+
 	def new
 		authorize @lab_course = LabCourse.new
 	end

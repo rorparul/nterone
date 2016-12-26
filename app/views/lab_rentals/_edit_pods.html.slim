@@ -1,0 +1,20 @@
+.form-container
+  = form_tag update_pods_path
+  
+    .form-group
+      = label_tag :available_pods_for_individuals, "Number of pods for individuals"
+      = number_field_tag :available_pods_for_individuals, { min: 0, step: 1 }, class: "form-control input-sm"
+      
+    .form-group
+      = label_tag :available_pods_for_partners, "Number of pods for partners"
+      = number_field_tag :available_pods_for_partners, { min: 0, step: 1 }, class: "form-control input-sm"
+      
+    / .form-group
+    /   = label_tag :unit_price, "Price Per Hour"
+    /   .input-group.input-group-sm
+    /     span.input-group-addon $
+    /     = number_field_tag :unit_price, { min: 0, step: 0.01 }, class: "form-control input-sm"
+    
+    .actions
+      button.btn.btn-success type="submit" Save
+      button.btn.btn-default type="button" data-dismiss="modal" Cancel

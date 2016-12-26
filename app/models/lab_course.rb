@@ -2,11 +2,14 @@
 #
 # Table name: lab_courses
 #
-#  id         :integer          not null, primary key
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  company_id :integer
+#  id               :integer          not null, primary key
+#  title            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  company_id       :integer
+#  level_individual :boolean
+#  level_partner    :boolean
+#  description      :text
 #
 
 class LabCourse < ActiveRecord::Base

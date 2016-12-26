@@ -18,6 +18,17 @@
     = image_tag t('general.labs.image1'), class: "header-image"
     = @page.content.try(:html_safe)
     
+    .row style="margin-top: 20px;"
+      - @lab_courses.each do |lab_course|
+        .col-xs-12.col-sm-6.col-md-4.col-xl-2
+          = link_to lab_course_path(lab_course) do 
+            .panel.panel-default.panel-lab-course
+              .panel-heading
+                .panel-title
+                  = lab_course.title
+              .panel-body
+                = lab_course.description
+    
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
