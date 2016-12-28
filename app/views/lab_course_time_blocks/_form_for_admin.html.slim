@@ -1,0 +1,48 @@
+.form-container
+  = form_for [lab_course, time_block] do |f|
+    = f.hidden_field :lab_course_id, value: lab_course.id
+
+
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :title, "Title"
+          = f.text_field :title, class: 'form-control input-sm'
+      
+      
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :unit_quantity, "Number of Hours"
+          = f.number_field :unit_quantity, options: {min: 0, max: 24, step: 1}, class: 'form-control input-sm'
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :ratio, "Number of Students"
+          = f.number_field :ratio, options: {min: 0, step: 1}, class: 'form-control input-sm'
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :price, "Price"
+          = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
+          
+      
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :level_individual, "Individual Level", style: "margin-right: 5px;"
+          = f.hidden_field :level_individual, value: 'false'
+          = f.check_box :level_individual, { }, 'true', class: 'form-control input-sm'
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :level_partner, "Partner Level", style: "margin-right: 5px;"
+          = f.hidden_field :level_partner, value: 'false'
+          = f.check_box :level_partner, { }, 'true', class: 'form-control input-sm'
+      
+      
+    .form-buttons
+      button.btn.btn-success type="submit" = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
+      - if time_block.id
+        = link_to t('default.action.delete'), lab_course_lab_course_time_block_path(lab_course, time_block),
+          method: :delete,
+          data: { confirm: t('default.prompt.confirm_delete') },
+          class: 'text-danger'

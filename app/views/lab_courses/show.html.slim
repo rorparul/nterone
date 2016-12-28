@@ -9,43 +9,49 @@
   span.seperator
     | /
   span.text-muted = "#{@lab_course.title}"
+  
+- if current_user.admin? == true
+  - content_for :actions do
+    li
+      = link_to new_lab_course_lab_course_time_block_path(@lab_course), remote: true do
+        = "New Time Block"
 
 .row
   .col-xs-12.col-central
-    #course
-      .row
-        .col-xs-12
-          / = image_tag t("courses.show.image"), class: "course-banner"
-
-          .panel.panel-default
-            .panel-body
-              h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
-              = @lab_course.description if @lab_course.description
-              
     .row
       .col-xs-12
+        / = image_tag t("courses.show.image"), class: "course-banner"
+
         .panel.panel-default
-          .panel-heading.panel-heading-with-search
-            .row
-              .col-xs-4
-                strong.text-muted
-                  = "Available Labs"
-              .col-xs-8
-                .filter.hide
-                  = text_field_tag :date_start, "Start Date"
-                  = text_field_tag :date_end, "End Date"
-                .form-inline.pull-right.margin-right-3
-                  .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
-                    .input-group.input-group-sm.input-append
-                      span.input-group-btn style="z-index: 100;"
-                        = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
-                                                    placeholder: "Search By Start Date", autocomplete: :off
-                    '
-                    .input-group.input-group-sm.input-append
-                      span.input-group-btn style="z-index: 100;"
-                        = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
-                                                    placeholder: "Search By End Date", autocomplete: :off
-                  '
+          .panel-body
+            h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
+            = @lab_course.description if @lab_course.description
+              
+    .row
+      - if @time_blocks.any?
+        - @time_blocks.each do |time_block|
+          .col-xs-12.col-sm-6
+            = link_to date_select_lab_course_time_block_path(id: time_block.id), remote: true do
+              .panel.panel-default
+                .panel-heading
+                  .panel-title style="text-align: center;"
+                    = time_block.title
+                  .panel-body
+                    .table-responsive
+                      table.table.table-compact
+                        thead
+                          tr
+                            th Hours
+                            th Students
+                            th Price
+                        tbody
+                          tr
+                            td = time_block.unit_quantity
+                            td = time_block.ratio
+                            td = dollar_value(time_block.price)
+                - if user_signed_in? && current_user.admin?
+                  = link_to t('default.action.edit'), edit_lab_course_lab_course_time_block_path(@lab_course, time_block), remote: true, class: "edit-lab-course-time-block"
+                        
                   
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

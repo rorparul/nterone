@@ -3,7 +3,8 @@ class LabCoursesController < ApplicationController
   helper  SmartListing::Helper
 
 	def show
-		@lab_course = LabCourse.find(params[:id])
+		@lab_course 	= LabCourse.find(params[:id])
+		@time_blocks	= @lab_course.lab_course_time_blocks.order(:price)
 	end
 
 	def new

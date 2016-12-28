@@ -1,0 +1,5 @@
+$('.modal-title').html('Rent Time Block');
+$('.modal-body').html("<%= escape_javascript(render partial: 'date_select', locals: { time_block: @time_block } ) %>");
+$('.modal-body').append("<hr>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'time_select', locals: { time_starts: @time_starts }) %>");
+$('#myModal').modal('show');

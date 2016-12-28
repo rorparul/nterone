@@ -80,7 +80,12 @@ NterOne::Application.routes.draw do
   post 'update_pods/lab_rentals'  => 'lab_rentals#update_pods', as: :update_pods
 
   resources :companies
-  resources :lab_courses
+
+  resources :lab_courses do
+    resources :lab_course_time_blocks
+  end
+  get  'date_select/lab_course_time_blocks' => 'lab_course_time_blocks#date_select', as: :date_select_lab_course_time_block
+  post 'time_select/lab_course_time_blocks' => 'lab_course_time_blocks#time_select', as: :time_select_lab_course_time_block
 
   resources :platforms, path: 'training' do
     collection do

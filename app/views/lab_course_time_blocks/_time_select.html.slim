@@ -1,0 +1,10 @@
+.form-container
+  
+  .form-group
+    = label_tag :time_start, "Select a Start Time"
+    br
+    = select_tag :time_start, options_for_select(time_starts), prompt: "Please Select", class: 'form-control input-sm'
+  
+  .form-buttons
+    button.btn.btn-success type="submit" = "Add To Cart"
+    button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
