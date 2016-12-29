@@ -40,29 +40,23 @@ class LabCourseTimeBlocksController < ApplicationController
   end
 
   def date_select
-    @time_starts =* (0..23).map do |n|
-      if n / 12 == 0
-        n = n % 12 == 0 ? "12:00am" : (n % 12).to_s + ":00am"
-      else
-        n = n % 12 == 0 ? "12:00pm" : (n % 12).to_s + ":00pm"
-      end
-    end
+    build_time_starts
   end
 
   def time_select
-    @lab_rentals = LabRental.where(first_day: params[:date_start], time_zone: params[:time_zone])
-    @time_starts =* (0..23).map do |n|
-      if n / 12 == 0
-        n = n % 12 == 0 ? "12:00am" : (n % 12).to_s + ":00am"
-      else
-        n = n % 12 == 0 ? "12:00pm" : (n % 12).to_s + ":00pm"
+    duration = @time_block.unit_quantity
+    determine_pods
+    build_time_starts
+    lab_rentals = LabRental.where(first_day: (params[:date_start].to_datetime - 1)..(params[:date_start].to_datetime + 1), time_zone: params[:time_zone])
+    @time_starts.each_with_index do |time_start, index|
+      count = 0
+      lab_rentals.each do |lab_rental|
+        overlap = ( lab_rental.start_time.strftime( "%H%M" ).to_i - (time_start.to_time.strftime( "%H%M" ).to_i + duration*100) ) * ( time_start.to_time.strftime( "%H%M" ).to_i - lab_rental.end_time.strftime( "%H%M" ).to_i )
+        count += 1 if overlap > 0
       end
+      @time_starts[index] = nil if count >= @pods
     end
-    puts
-    puts
-    p @lab_rentals
-    puts
-    puts
+    @time_starts.compact!
   end
 
   private
@@ -86,6 +80,22 @@ class LabCourseTimeBlocksController < ApplicationController
 
   def authorize_lab_course_time_block
     authorize @time_block
+  end
+
+  def build_time_starts
+    @time_starts =* (0..23).map do |n|
+      if n / 12 == 0
+        n = n % 12 == 0 ? "12:00am" : (n % 12).to_s + ":00am"
+      else
+        n = n % 12 == 0 ? "12:00pm" : (n % 12).to_s + ":00pm"
+      end
+    end
+  end
+
+  def determine_pods
+    @pods = 0
+    @pods += Setting.pods[:available_pods_for_partners] if @time_block.level_partner
+    @pods += Setting.pods[:available_pods_for_individuals] if @time_block.level_individual
   end
 
 end

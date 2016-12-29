@@ -10,13 +10,13 @@
         = time_zone_select :time_zone, '', ActiveSupport::TimeZone.us_zones, { default: t('events.partial_form.eastern_timezone') }, class: 'form-control input-sm'
     .col-xs-12.col-sm-6
       .form-group
-        = label_tag :date_start, "Select a Date"
+        = label_tag :date_start, "Select Date"
         br
         = text_field_tag :date_start, '', class: 'form-control input-sm'
 
 javascript:
   $(function() {
-    $('#date_start').datepicker();
+    $('#date_start').datepicker({format: "yyyy-mm-dd"});
   });
   
   $('#date_start').on('change', function() {

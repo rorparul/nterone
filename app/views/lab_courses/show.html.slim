@@ -10,7 +10,7 @@
     | /
   span.text-muted = "#{@lab_course.title}"
   
-- if current_user.admin? == true
+- if current_user && current_user.admin? == true
   - content_for :actions do
     li
       = link_to new_lab_course_lab_course_time_block_path(@lab_course), remote: true do
