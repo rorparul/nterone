@@ -7,7 +7,13 @@
       = label_tag :time_start, "Select a Start Time"
       br
       = select_tag :time_start, options_for_select(time_starts.collect {|time| ["#{time.strftime("%I:%M%p")} - #{(time + 60 * 60 * time_block.unit_quantity).strftime("%I:%M%p")}", time]}), prompt: "Please Select", class: 'form-control input-sm'
-  
+    / = label_tag :time_start, "Select a Start Time"
+    / - if time_starts && time_starts.any?
+    /   = check_box_tag :time_start
+    /   
+    / - else
+    /   h4 There is nothing available on this day.
+      
     .form-buttons
       button.btn.btn-success type="submit" = "Add To Cart"
       button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')

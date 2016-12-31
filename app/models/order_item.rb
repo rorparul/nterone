@@ -28,7 +28,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :orderable, polymorphic: true
 
-  before_create :copy_current_orderable_price
+  before_create :copy_current_orderable_price, unless: Proc.new {|model| model.orderable_type == "LabRental"}
   before_save   :update_status
   after_save    :update_event_status
   after_save    :calculate_event_book_cost, if: Proc.new {|model| model.cart_id.nil? }

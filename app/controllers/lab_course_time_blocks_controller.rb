@@ -55,7 +55,7 @@ class LabCourseTimeBlocksController < ApplicationController
     @time_starts.each_with_index do |time_start, index|
       count = 0
       lab_rentals.each do |lab_rental|
-        overlap = ( lab_rental.start_time.strftime( "%H%M" ).to_i - (time_start.strftime( "%H%M" ).to_i + duration * 100) ) * ( time_start.strftime( "%H%M" ).to_i - lab_rental.end_time.strftime( "%H%M" ).to_i )
+        overlap = ( lab_rental.start_time.utc.strftime( "%H%M" ).to_i - (time_start.utc.strftime( "%H%M" ).to_i + duration * 100) ) * ( time_start.utc.strftime( "%H%M" ).to_i - lab_rental.end_time.utc.strftime( "%H%M" ).to_i )
         count += 1 if overlap > 0
       end
       @time_starts[index] = nil if count >= @pods
@@ -82,7 +82,19 @@ class LabCourseTimeBlocksController < ApplicationController
     )
 
     if lab_rental.save
-      flash[:success] = "Successfully added time block to cart."
+      order_item = OrderItem.new(
+      orderable_type: "LabRental",
+      orderable_id: lab_rental.id,
+      cart_id: @cart.id,
+      price: @time_block.price,
+      user_id: current_user.id,
+      note: "Created through self checkout."
+      )
+      if order_item.save
+        flash[:success] = "Item successfully added to cart! Please go to #{view_context.link_to "My Cart", new_order_path} to complete transaction".html_safe
+      else
+        flash[:alert] = "Failed to add time block to cart!"
+      end
     else
       flash[:alert] = "Failed to add time block to cart!"
     end
