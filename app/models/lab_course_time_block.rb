@@ -17,4 +17,8 @@ class LabCourseTimeBlock < ActiveRecord::Base
   belongs_to :lab_course
 
   validates :lab_course_id, :title, :unit_size, :unit_quantity, :ratio, presence: true
+
+  def full_title
+    "#{self.lab_course.title}: #{self.title}"
+  end
 end

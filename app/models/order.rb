@@ -179,11 +179,28 @@ class Order < ActiveRecord::Base
 
   def add_order_items_from_cart(cart)
     cart.order_items.each do |item|
-      item.cart_id = nil
-      self.order_items << item
+      if item.orderable_type == "LabRental"
+        determine_pods()
+        first_day   = item.orderable.first_day
+        start_time  = item.orderable.start_time.utc.strftime( "%H%M" ).to_i
+        end_time    = item.orderable.end_time.utc.strftime( "%H%M" ).to_i
+        lab_rentals = LabRental.where(first_day: (first_day - 1)..(first_day + 1) )
+        lab_rentals.each do |lab_rental|
+          overlap = ( lab_rental.start_time.utc.strftime( "%H%M" ).to_i - end_time ) * ( start_time - lab_rental.end_time.utc.strftime( "%H%M" ).to_i )
+          count += 1 if overlap >= 0
+        end
+      else
+        item.cart_id = nil
+        self.order_items << item
+      end
     end
   end
 
+  def determine_pods(time_block)
+    @pods = 0
+    @pods += Setting.pods[:available_pods_for_partners] if time_block.level_partner
+    @pods += Setting.pods[:available_pods_for_individuals] if time_block.level_individual
+  end
 
 
   def define_clc_quantity

@@ -48,7 +48,7 @@ class LabCourseTimeBlocksController < ApplicationController
   def time_select
     @time_zone  = params[:time_zone]
     @date_start = params[:date_start]
-    duration = @time_block.unit_quantity
+    duration    = @time_block.unit_quantity
     determine_pods
     build_time_starts
     lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1))
@@ -56,7 +56,7 @@ class LabCourseTimeBlocksController < ApplicationController
       count = 0
       lab_rentals.each do |lab_rental|
         overlap = ( lab_rental.start_time.utc.strftime( "%H%M" ).to_i - (time_start.utc.strftime( "%H%M" ).to_i + duration * 100) ) * ( time_start.utc.strftime( "%H%M" ).to_i - lab_rental.end_time.utc.strftime( "%H%M" ).to_i )
-        count += 1 if overlap > 0
+        count += 1 if overlap >= 0
       end
       @time_starts[index] = nil if count >= @pods
     end
