@@ -1,10 +1,13 @@
 .form-container
-
-  .form-group
-    = label_tag :time_start, "Select a Start Time"
-    br
-    = select_tag :time_start, options_for_select(time_starts), prompt: "Please Select", class: 'form-control input-sm'
+  = form_for :reservation, url: reserve_lab_course_time_block_path do
+    = hidden_field_tag :id, time_block.id
+    = hidden_field_tag :date_start, date_start
+    = hidden_field_tag :time_zone, time_zone
+    .form-group
+      = label_tag :time_start, "Select a Start Time"
+      br
+      = select_tag :time_start, options_for_select(time_starts.collect {|time| ["#{time.strftime("%I:%M%p")} - #{(time + 60 * 60 * time_block.unit_quantity).strftime("%I:%M%p")}", time]}), prompt: "Please Select", class: 'form-control input-sm'
   
-  .form-buttons
-    button.btn.btn-success type="submit" = "Add To Cart"
-    button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
+    .form-buttons
+      button.btn.btn-success type="submit" = "Add To Cart"
+      button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')

@@ -41,22 +41,52 @@ class LabCourseTimeBlocksController < ApplicationController
 
   def date_select
     build_time_starts
+    @time_zone  = nil
+    @date_start = nil
   end
 
   def time_select
+    @time_zone  = params[:time_zone]
+    @date_start = params[:date_start]
     duration = @time_block.unit_quantity
     determine_pods
     build_time_starts
-    lab_rentals = LabRental.where(first_day: (params[:date_start].to_datetime - 1)..(params[:date_start].to_datetime + 1), time_zone: params[:time_zone])
+    lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1))
     @time_starts.each_with_index do |time_start, index|
       count = 0
       lab_rentals.each do |lab_rental|
-        overlap = ( lab_rental.start_time.strftime( "%H%M" ).to_i - (time_start.to_time.strftime( "%H%M" ).to_i + duration*100) ) * ( time_start.to_time.strftime( "%H%M" ).to_i - lab_rental.end_time.strftime( "%H%M" ).to_i )
+        overlap = ( lab_rental.start_time.strftime( "%H%M" ).to_i - (time_start.strftime( "%H%M" ).to_i + duration * 100) ) * ( time_start.strftime( "%H%M" ).to_i - lab_rental.end_time.strftime( "%H%M" ).to_i )
         count += 1 if overlap > 0
       end
       @time_starts[index] = nil if count >= @pods
     end
     @time_starts.compact!
+  end
+
+  def reserve
+    @time_zone  = params[:time_zone]
+    @start_time = params[:time_start].to_time.in_time_zone(@time_zone)
+    @end_time   = @start_time + 60 * 60 * @time_block.unit_quantity
+    @first_day  = @start_time.to_date
+    @last_day   = @end_time.to_date
+    lab_rental  = LabRental.new(
+      end_time: @end_time,
+      first_day: @first_day,
+      lab_course_id: @time_block.lab_course.id,
+      last_day: @last_day,
+      notes: "Created through self checkout.",
+      num_of_students: @time_block.ratio,
+      start_time: @start_time,
+      time_zone: @time_zone,
+      user_id: current_user.id
+    )
+
+    if lab_rental.save
+      flash[:success] = "Successfully added time block to cart."
+    else
+      flash[:alert] = "Failed to add time block to cart!"
+    end
+    redirect_to :back
   end
 
   private
@@ -74,6 +104,20 @@ class LabCourseTimeBlocksController < ApplicationController
     )
   end
 
+  def lab_rental_params
+    params.require(:lab_rental).permit(
+      :end_time,
+      :first_day,
+      :lab_course_id,
+      :last_day,
+      :notes,
+      :num_of_students,
+      :start_time,
+      :time_zone,
+      :user_id
+    )
+  end
+
   def set_time_block
     @time_block = LabCourseTimeBlock.find(params[:id])
   end
@@ -83,11 +127,19 @@ class LabCourseTimeBlocksController < ApplicationController
   end
 
   def build_time_starts
-    @time_starts =* (0..23).map do |n|
-      if n / 12 == 0
-        n = n % 12 == 0 ? "12:00am" : (n % 12).to_s + ":00am"
-      else
-        n = n % 12 == 0 ? "12:00pm" : (n % 12).to_s + ":00pm"
+    if params[:date_start]
+      @time_starts =* (0..23).map do |n|
+        n = Time.mktime(
+        params[:date_start].to_time.year,
+        params[:date_start].to_time.month,
+        params[:date_start].to_time.day,
+        n,
+        0)
+        set_in_timezone(n, params[:time_zone][0])
+      end
+    else
+      @time_starts =* (0..23).map do |n|
+        n = (n.to_s + ":00").to_time
       end
     end
   end
@@ -98,4 +150,7 @@ class LabCourseTimeBlocksController < ApplicationController
     @pods += Setting.pods[:available_pods_for_individuals] if @time_block.level_individual
   end
 
+  def set_in_timezone(time, zone)
+    ActiveSupport::TimeZone[zone].parse(time.asctime)
+  end
 end
