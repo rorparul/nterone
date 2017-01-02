@@ -7,6 +7,8 @@
         - lab_rental.errors.full_messages.each do |msg|
           p = msg
           
+    = f.hidden_field :level, value: 'partner'
+    
     - if @lab_rental.new_record?
       = f.hidden_field :kind
 

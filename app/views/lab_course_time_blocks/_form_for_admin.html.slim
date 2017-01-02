@@ -1,6 +1,7 @@
 .form-container
   = form_for [lab_course, time_block] do |f|
     = f.hidden_field :lab_course_id, value: lab_course.id
+    = f.hidden_field :level, value: "individual"
 
 
     .row
@@ -25,17 +26,15 @@
           = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
           
       
-    .row
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :level_individual, "Individual Level", style: "margin-right: 5px;"
-          = f.hidden_field :level_individual, value: 'false'
-          = f.check_box :level_individual, { }, 'true', class: 'form-control input-sm'
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :level_partner, "Partner Level", style: "margin-right: 5px;"
-          = f.hidden_field :level_partner, value: 'false'
-          = f.check_box :level_partner, { }, 'true', class: 'form-control input-sm'
+    / .row
+    /   .col-xs-12.col-sm-4
+    /     .form-group
+    /       = f.label :level, "Individual Level", style: "margin-right: 5px;"
+    /       = f.radio_button :level, "individual"
+    /   .col-xs-12.col-sm-4
+    /     .form-group
+    /         = f.label :level, "Partner Level", style: "margin-right: 5px;"
+    /         = f.radio_button :level, "partner"
       
       
     .form-buttons

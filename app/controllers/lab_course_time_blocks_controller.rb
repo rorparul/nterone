@@ -73,6 +73,7 @@ class LabCourseTimeBlocksController < ApplicationController
       end_time: @end_time,
       first_day: @first_day,
       lab_course_id: @time_block.lab_course.id,
+      lab_course_time_block_id: @time_block.id,
       last_day: @last_day,
       notes: "Created through self checkout.",
       num_of_students: @time_block.ratio,
@@ -106,8 +107,7 @@ class LabCourseTimeBlocksController < ApplicationController
   def time_block_params
     params.require(:lab_course_time_block).permit(
       :lab_course_id,
-      :level_individual,
-      :level_partner,
+      :level,
       :price,
       :ratio,
       :title,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161227050424) do
+ActiveRecord::Schema.define(version: 20170101235601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -529,12 +529,11 @@ ActiveRecord::Schema.define(version: 20161227050424) do
   create_table "lab_course_time_blocks", force: :cascade do |t|
     t.integer "lab_course_id"
     t.string  "title"
-    t.decimal "unit_size",        precision: 4, scale: 2, default: 1.0
+    t.decimal "unit_size",     precision: 4, scale: 2, default: 1.0
     t.integer "unit_quantity"
-    t.integer "ratio",                                    default: 1
-    t.boolean "level_individual",                         default: false
-    t.boolean "level_partner",                            default: false
-    t.decimal "price",            precision: 8, scale: 2, default: 0.0
+    t.integer "ratio",                                 default: 1
+    t.decimal "price",         precision: 8, scale: 2, default: 0.0
+    t.string  "level"
   end
 
   create_table "lab_courses", force: :cascade do |t|
