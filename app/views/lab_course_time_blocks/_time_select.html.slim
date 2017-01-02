@@ -4,24 +4,32 @@
     = hidden_field_tag :date_start, date_start
     = hidden_field_tag :time_zone, time_zone
     .panel.panel-default
-      .panel-heading.panel-heading-with-search
+      .panel-heading
+        .panel-title Select a Times
+      .panel-body
         table.table
           thead
             tr
               th.fit
-              th Select a Time
+              th.fit.text-center Start Time
+              th.fit.text-center -
+              th.fit.text-center End Time
+              th
           - if time_starts && time_starts.any?
             - time_starts.each do |time|
               tbody
                 tr 
                   td.fit = radio_button_tag :time_start, time, checked: false
-                  td = "#{time.strftime("%I:%M%p")} - #{(time + 60 * 60 * time_block.unit_quantity).strftime("%I:%M%p")}"
+                  td.fit.text-center = "#{time.strftime("%l:%M%p")}"
+                  th.fit.text-center -
+                  td.fit.text-center = "#{(time + 60 * 60 * time_block.unit_quantity).strftime("%l:%M%p")}"
+                  td
 
           - else
             tbody
               tr
                 td
-                  td There is nothing available on this day.
+                  td.text-center There is nothing available on this day.
       
     .form-buttons
       button.btn.btn-success type="submit" = "Add To Cart"

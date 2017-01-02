@@ -4,7 +4,7 @@ class LabCoursesController < ApplicationController
 
 	def show
 		@lab_course 	= LabCourse.find(params[:id])
-		@time_blocks	= @lab_course.lab_course_time_blocks.order(:price)
+		@time_blocks	= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
 	end
 
 	def new

@@ -14,6 +14,32 @@
     .page-header style="margin: 0 0 10px 0;"
       h1 style="margin-bottom: 0;"
         small style="font-size: 15px;" = t('my_account.plan.purchased_classes_subscriptions')
+        
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted Pod Rentals
+      .table-responsive
+        .panel-table
+          table.table.table-condensed.fixed-table
+            - if @time_blocks.any?
+              thead
+                tr.text-muted
+                  th colspan="2" Lab Course
+                  th Date
+                  th Time
+                  th Time Zone
+              - @time_blocks.each do |time_block|
+                tbody
+                  tr
+                    td colspan="2" = time_block.lab_course.title
+                    td = time_block.first_day.strftime("%B %_d, %Y")
+                    td = "#{time_block.start_time.strftime("%l:%M%p")} - #{time_block.end_time.strftime("%l:%M%p")}"
+                    td = time_block.time_zone
+            - else 
+              tr
+                td.text-center You have no upcoming Pod rentals.
 
 .row
   .col-xs-12

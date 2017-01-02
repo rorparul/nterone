@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170101235601) do
+ActiveRecord::Schema.define(version: 20170102003459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -566,6 +566,7 @@ ActiveRecord::Schema.define(version: 20170101235601) do
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
     t.date     "last_day"
+    t.string   "level"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree

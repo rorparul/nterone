@@ -5,7 +5,7 @@ class LabRentalsController < ApplicationController
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-    lab_rentals_scope  = current_user.admin? ? LabRental.joins(:company).all : LabRental.where(company_id: current_user.company_id)
+    lab_rentals_scope  = current_user.admin? ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.company_id)
     lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
@@ -14,6 +14,12 @@ class LabRentalsController < ApplicationController
     elsif params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
+    lab_rentals_scope.each_with_index do |lab_rental, index|
+      if lab_rental.level == 'individual'
+        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id).exists?
+      end
+    end
+    lab_rentals_scope.to_a.compact!
     @lab_rentals       = smart_listing_create(
       :lab_rentals,
       lab_rentals_scope,
@@ -158,6 +164,7 @@ class LabRentalsController < ApplicationController
       :time_zone,
       :twenty_four_hours,
       :file,
+      :level,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end

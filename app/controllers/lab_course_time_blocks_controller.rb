@@ -51,12 +51,16 @@ class LabCourseTimeBlocksController < ApplicationController
     duration    = @time_block.unit_quantity
     determine_pods
     build_time_starts
-    lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1))
+    lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1), level: 'individual')
     @time_starts.each_with_index do |time_start, index|
       count = 0
       lab_rentals.each do |lab_rental|
-        overlap = ( lab_rental.start_time.utc.strftime( "%H%M" ).to_i - (time_start.utc.strftime( "%H%M" ).to_i + duration * 100) ) * ( time_start.utc.strftime( "%H%M" ).to_i - lab_rental.end_time.utc.strftime( "%H%M" ).to_i )
-        count += 1 if overlap >= 0
+        if OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id).exists?
+          lab_rental_start = (lab_rental.first_day.to_s + lab_rental.start_time.strftime(" %H:%M %z")).to_time
+          lab_rental_end   = (lab_rental.last_day.to_s + lab_rental.end_time.strftime(" %H:%M %z")).to_time
+          overlap = ( lab_rental_start.utc - (time_start.utc + duration * 60 * 60) ) * ( time_start.utc - lab_rental_end.utc )
+          count += 1 if overlap >= 0
+        end
       end
       @time_starts[index] = nil if count >= @pods
     end
@@ -73,8 +77,8 @@ class LabCourseTimeBlocksController < ApplicationController
       end_time: @end_time,
       first_day: @first_day,
       lab_course_id: @time_block.lab_course.id,
-      lab_course_time_block_id: @time_block.id,
       last_day: @last_day,
+      level: @time_block.level,
       notes: "Created through self checkout.",
       num_of_students: @time_block.ratio,
       start_time: @start_time,
@@ -158,8 +162,8 @@ class LabCourseTimeBlocksController < ApplicationController
 
   def determine_pods
     @pods = 0
-    @pods += Setting.pods[:available_pods_for_partners] if @time_block.level_partner
-    @pods += Setting.pods[:available_pods_for_individuals] if @time_block.level_individual
+    @pods += Setting.pods[:available_pods_for_partners] if @time_block.level == "partner"
+    @pods += Setting.pods[:available_pods_for_individuals] if @time_block.level == 'individual'
   end
 
   def set_in_timezone(time, zone)
