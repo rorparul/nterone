@@ -4,3 +4,12 @@ en:
       edit_lab_course: "Edit Lab Course"
     new:
       add_lab_course: "Add Lab Course"
+    partial_form:
+      abbreviation: "Abbreviation"
+      description: "Description"
+      for_company: "For Company"
+    show:
+      hours: "Hours"
+      new_time_block: "New Time Block"
+      price: "Price"
+      students: "Students"

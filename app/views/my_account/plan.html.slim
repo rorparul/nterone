@@ -19,17 +19,17 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted Pod Rentals
+        strong.text-muted = t('my_account.plan.pod_rentals')
       .table-responsive
         .panel-table
           table.table.table-condensed.fixed-table
             - if @time_blocks.any?
               thead
                 tr.text-muted
-                  th colspan="2" Lab Course
-                  th Date
-                  th Time
-                  th Time Zone
+                  th colspan="2" = t('my_account.plan.lab_course')
+                  th = t('my_account.plan.date')
+                  th = t('my_account.plan.time')
+                  th = t('my_account.plan.time_zone')
               - @time_blocks.each do |time_block|
                 tbody
                   tr
@@ -39,7 +39,7 @@
                     td = time_block.time_zone
             - else 
               tr
-                td.text-center You have no upcoming Pod rentals.
+                td.text-center = t('my_account.plan.no_pod_rentals')
 
 .row
   .col-xs-12

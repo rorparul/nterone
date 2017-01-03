@@ -18,11 +18,11 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :abbreviation, "Abbreviation"
+          = f.label :abbreviation, t('lab_courses.partial_form.abbreviation')
           = f.text_field :abbreviation, class: "form-control input-sm"
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :company_id, 'For Company'
+          = f.label :company_id, t('lab_courses.partial_form.for_company')
           = f.select :company_id, Company.all.collect { |company| [company.title, company.id] },
             { include_blank: 'Please select' },
             { class: 'form-control' }
@@ -30,7 +30,7 @@
     .row
       .col-xs-12
         .form-group
-          = f.label :description, "Description"
+          = f.label :description, t('lab_courses.partial_form.description')
           = f.text_area :description, class: "form-control input-sm"
 
     .form-buttons

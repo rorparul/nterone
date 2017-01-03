@@ -8,10 +8,10 @@
   - content_for :actions do
     li
       = link_to new_file_path, remote: true do
-        = "Upload Lab Reservation File"
+        = t('lab_rentals.index.upload_file')
     li 
       = link_to edit_pods_path, remote: true do
-        = "Pod Settings"
+        = t('lab_rentals.index.pod_settings')
 
 = render 'layouts/tabs'
 

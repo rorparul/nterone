@@ -53,7 +53,7 @@
                   - if order_item.orderable_type == "LabRental"
                     td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course)
                     td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
-                    td = "Pod Rental"
+                    td = t('orders.new.pod_rental')
                   td
                     | $
                     span.price = number_with_delimiter(number_with_precision(order_item.price, precision: 2))

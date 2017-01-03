@@ -1,0 +1,24 @@
+es:
+  lab_course_time_blocks:
+    date_select_js:
+      rent_time_block: "Bloque de tiempo de alquiler"
+    edit_js:
+      edit_time_block: "Editar bloque de tiempo"
+    new_js:
+      new_time_block: "Nuevo bloque de tiempo"
+    partial_date_select:
+      select_date: "Seleccione Una Fecha"
+      select_time_zone: "Seleccione Una Zona Horaria"
+    partial_form_for_admin:
+      individual_level: "Nivel individual"
+      number_of_hours: "Número de Horas"
+      number_of_students: "Numero de Estudiantes"
+      partner_level: "Nivel de Socio"
+      price: "Precio"
+      title: "Título"
+    partial_time_select:
+      add_to_cart: "Añadir a la cesta"
+      end_time: "Hora de Finalización"
+      nothing_available: "No hay nada disponible en este día."
+      select_times: "Seleccione Tiempos"
+      start_time: "Hora de Inicio"

@@ -14,7 +14,7 @@
   - content_for :actions do
     li
       = link_to new_lab_course_lab_course_time_block_path(@lab_course), remote: true do
-        = "New Time Block"
+        = t('lab_courses.show.new_time_block')
 
 .row
   .col-xs-12.col-central
@@ -41,9 +41,9 @@
                       table.table.table-compact
                         thead
                           tr
-                            th Hours
-                            th Students
-                            th Price
+                            th = t('lab_courses.show.hours')
+                            th = t('lab_courses.show.students')
+                            th = t('lab_courses.show.price')
                         tbody
                           tr
                             td = time_block.unit_quantity

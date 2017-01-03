@@ -7,33 +7,33 @@
     .row
       .col-xs-12
         .form-group
-          = f.label :title, "Title"
+          = f.label :title, t('lab_course_time_blocks.partial_form_for_admin.title')
           = f.text_field :title, class: 'form-control input-sm'
       
       
     .row
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :unit_quantity, "Number of Hours"
+          = f.label :unit_quantity, t('lab_course_time_blocks.partial_form_for_admin.number_of_hours')
           = f.number_field :unit_quantity, options: {min: 0, max: 24, step: 1}, class: 'form-control input-sm'
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :ratio, "Number of Students"
+          = f.label :ratio, t('lab_course_time_blocks.partial_form_for_admin.number_of_students')
           = f.number_field :ratio, options: {min: 0, step: 1}, class: 'form-control input-sm'
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :price, "Price"
+          = f.label :price, t('lab_course_time_blocks.partial_form_for_admin.price')
           = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
           
       
     / .row
     /   .col-xs-12.col-sm-4
     /     .form-group
-    /       = f.label :level, "Individual Level", style: "margin-right: 5px;"
+    /       = f.label :level, t('lab_course_time_blocks.partial_form_for_admin.individual_level'), style: "margin-right: 5px;"
     /       = f.radio_button :level, "individual"
     /   .col-xs-12.col-sm-4
     /     .form-group
-    /         = f.label :level, "Partner Level", style: "margin-right: 5px;"
+    /         = f.label :level, t('lab_course_time_blocks.partial_form_for_admin.partner_level'), style: "margin-right: 5px;"
     /         = f.radio_button :level, "partner"
       
       

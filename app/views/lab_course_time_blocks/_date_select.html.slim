@@ -4,12 +4,12 @@
   .row
     .col-xs-12.col-sm-6
       .form-group
-        = label_tag :time_zone, "Select Time Zone"
+        = label_tag :time_zone, t('lab_course_time_blocks.partial_date_select.select_time_zone')
         br
         = time_zone_select :time_zone, '', ActiveSupport::TimeZone.us_zones, { default: t('events.partial_form.eastern_timezone') }, class: 'form-control input-sm'
     .col-xs-12.col-sm-6
       .form-group
-        = label_tag :date_start, "Select Date"
+        = label_tag :date_start, t('lab_course_time_blocks.partial_date_select.select_date')
         br
         = text_field_tag :date_start, '', class: 'form-control input-sm'
 

@@ -45,7 +45,7 @@
             = f.time_select :start_time, { ampm: true, default: { hour: '00', minute: '00' } }, { required: true }
       .col-xs-12.col-sm-4
         .form-group
-          = f.label :time_zone, 'Time Zone'
+          = f.label :time_zone, t('lab_rentals.partial_form.time_zone')
           span.required *
           - if @lab_rental.kind == 1
             = f.time_zone_select :time_zone,

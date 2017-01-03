@@ -5,15 +5,15 @@
     = hidden_field_tag :time_zone, time_zone
     .panel.panel-default
       .panel-heading
-        .panel-title Select a Times
+        .panel-title = t('lab_course_time_blocks.partial_time_select.select_times')
       .panel-body
         table.table
           thead
             tr
               th.fit
-              th.fit.text-center Start Time
+              th.fit.text-center = t('lab_course_time_blocks.partial_time_select.start_time')
               th.fit.text-center -
-              th.fit.text-center End Time
+              th.fit.text-center = t('lab_course_time_blocks.partial_time_select.end_time')
               th
           - if time_starts && time_starts.any?
             - time_starts.each do |time|
@@ -29,8 +29,8 @@
             tbody
               tr
                 td
-                  td.text-center There is nothing available on this day.
+                  td.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
       
     .form-buttons
-      button.btn.btn-success type="submit" = "Add To Cart"
+      button.btn.btn-success type="submit" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
       button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
