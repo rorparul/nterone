@@ -3,7 +3,7 @@ class LabCoursesController < ApplicationController
   helper  SmartListing::Helper
 
 	def show
-		@lab_course 	= LabCourse.find(params[:id])
+		@lab_course 	= LabCourse.friendly.find(params[:id])
 		@time_blocks	= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
 	end
 
@@ -12,7 +12,7 @@ class LabCoursesController < ApplicationController
 	end
 
 	def edit
-		authorize @lab_course = LabCourse.find(params[:id])
+		authorize @lab_course = LabCourse.friendly.find(params[:id])
 	end
 
 	def create
@@ -27,7 +27,7 @@ class LabCoursesController < ApplicationController
 	end
 
 	def update
-		@lab_course = LabCourse.find(params[:id])
+		@lab_course = LabCourse.friendly.find(params[:id])
 
 		if @lab_course.update(lab_course_params)
 			flash[:success] = "Lab Course successfully created!"
@@ -38,7 +38,7 @@ class LabCoursesController < ApplicationController
 	end
 
   def destroy
-  	@lab_course = LabCourse.find(params[:id])
+  	@lab_course = LabCourse.friendly.find(params[:id])
 
     if @lab_course.destroy
       flash[:success] = "Lab Course successfully deleted!"
@@ -52,6 +52,10 @@ class LabCoursesController < ApplicationController
 	private
 
   def lab_course_params
-    params.require(:lab_course).permit(:title, :company_id)
+    params.require(:lab_course).permit(
+		:abbreviation,
+		:company_id,
+		:description,
+		:title)
   end
 end

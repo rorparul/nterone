@@ -16,7 +16,7 @@ class LabRentalsController < ApplicationController
     end
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
-        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id).exists?
+        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
       end
     end
     lab_rentals_scope.to_a.compact!

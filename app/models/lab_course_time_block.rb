@@ -14,7 +14,6 @@
 
 class LabCourseTimeBlock < ActiveRecord::Base
   belongs_to :lab_course
-  has_many :lab_rentals
 
   validates :lab_course_id, :title, :unit_size, :unit_quantity, :ratio, presence: true
   validates :level, inclusion: { in: %w(individual partner), message: "%{value} is not a valid level" }

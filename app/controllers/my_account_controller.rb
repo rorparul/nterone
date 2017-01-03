@@ -10,7 +10,7 @@ class MyAccountController < ApplicationController
     @my_plan_count  = current_user.new_my_plan_count
     @time_blocks    = current_user.lab_rentals.where("level = ? AND first_day >= ?", 'individual', Date.today)
     @time_blocks.each_with_index do |time_block, index|
-      @time_blocks[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: time_block.id).exists?
+      @time_blocks[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: time_block.id, cart_id: nil).exists?
     end
     @time_blocks.to_a.compact!
     # @activities = PublicActivity::Activity.where("owner_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(created_at: :desc)

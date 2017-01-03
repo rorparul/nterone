@@ -41,7 +41,6 @@ class LabRental < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :company
   belongs_to :lab_course
-	belongs_to :lab_course_time_block
 
 	has_many :lab_students, dependent: :destroy
 
