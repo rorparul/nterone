@@ -2,17 +2,18 @@ class LabCoursesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
+	before_action :set_lab_course, except: [:new, :create]
+	before_action :authorize_lab_course, except: [:show]
+
 	def show
-		@lab_course 	= LabCourse.friendly.find(params[:id])
 		@time_blocks	= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
 	end
 
 	def new
-		authorize @lab_course = LabCourse.new
+		@lab_course = LabCourse.new
 	end
 
 	def edit
-		authorize @lab_course = LabCourse.friendly.find(params[:id])
 	end
 
 	def create
@@ -27,8 +28,6 @@ class LabCoursesController < ApplicationController
 	end
 
 	def update
-		@lab_course = LabCourse.friendly.find(params[:id])
-
 		if @lab_course.update(lab_course_params)
 			flash[:success] = "Lab Course successfully created!"
 			redirect_to admin_website_path
@@ -38,8 +37,6 @@ class LabCoursesController < ApplicationController
 	end
 
   def destroy
-  	@lab_course = LabCourse.friendly.find(params[:id])
-
     if @lab_course.destroy
       flash[:success] = "Lab Course successfully deleted!"
     else
@@ -58,4 +55,12 @@ class LabCoursesController < ApplicationController
 		:description,
 		:title)
   end
+
+	def set_lab_course
+		@lab_course = LabCourse.friendly.find(params[:id])
+	end
+
+	def authorize_lab_course
+		redirect_to root_url unless current_user.admin?
+	end
 end

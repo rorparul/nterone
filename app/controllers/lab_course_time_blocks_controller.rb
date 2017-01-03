@@ -1,6 +1,6 @@
 class LabCourseTimeBlocksController < ApplicationController
   before_action :set_time_block, except: [:new, :create]
-  # before_action :authorize_lab_course_time_block
+  before_action :authorize_lab_course_time_block, except: [:date_select, :time_select, :reserve]
 
   def new
     @lab_course = LabCourse.find(params[:lab_course_id])
@@ -139,7 +139,7 @@ class LabCourseTimeBlocksController < ApplicationController
   end
 
   def authorize_lab_course_time_block
-    authorize @time_block
+    redirect_to root_url unless current_user.admin?
   end
 
   def build_time_starts
