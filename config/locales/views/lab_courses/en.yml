@@ -6,6 +6,7 @@ en:
       add_lab_course: "Add Lab Course"
     partial_form:
       abbreviation: "Abbreviation"
+      card_description: "Card Description"
       description: "Description"
       for_company: "For Company"
     show:

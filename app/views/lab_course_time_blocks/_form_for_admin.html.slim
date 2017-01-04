@@ -23,7 +23,9 @@
       .col-xs-12.col-sm-4
         .form-group
           = f.label :price, t('lab_course_time_blocks.partial_form_for_admin.price')
-          = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
+          .input-group.input-group-sm
+            span.input-group-addon $
+            = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
           
       
     / .row

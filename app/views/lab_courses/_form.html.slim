@@ -30,8 +30,13 @@
     .row
       .col-xs-12
         .form-group
+          = f.label :card_description, t('lab_courses.partial_form.card_description')
+          = f.text_area :card_description, class: 'form-control input-sm'
+    .row
+      .col-xs-12
+        .form-group
           = f.label :description, t('lab_courses.partial_form.description')
-          = f.text_area :description, class: "form-control input-sm"
+          = f.text_area :description, class: "form-control input-sm froala"
 
     .form-buttons
       button.btn.btn-success type="submit" = t('default.action.save')

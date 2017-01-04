@@ -2,14 +2,15 @@
 #
 # Table name: lab_courses
 #
-#  id           :integer          not null, primary key
-#  title        :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  company_id   :integer
-#  description  :text
-#  slug         :string
-#  abbreviation :string
+#  id               :integer          not null, primary key
+#  title            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  company_id       :integer
+#  description      :text
+#  slug             :string
+#  abbreviation     :string
+#  card_description :text
 #
 
 class LabCourse < ActiveRecord::Base
@@ -19,7 +20,7 @@ class LabCourse < ActiveRecord::Base
   def slug_candidates
     [
       :title,
-      [:title, :abbreviaton]
+      [:title, :abbreviation]
     ]
   end
 

@@ -30,6 +30,7 @@ es:
       image: "locales/es/instructors.png"
     labs:
       image1: "locales/es/labs.png"
+      new_lab_course: "Nuevo curso de laboratorio"
     partial_contact_us_form:
       billing: "Facturación"
       billing_address: "NterOne Dirección de Facturación"

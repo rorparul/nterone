@@ -2565,10 +2565,20 @@ footer {
 }
 
 .panel-lab-course {
-  .panel-heading {
-    min-height: 100px;
+  .panel-body {
+    color: black;
+    height: 300px;
+    overflow: hidden;
+    h4 {
+      color: #525252;
+    }
   }
-  .panel-body {min-height: 250px;}
+}
+
+.lab-course-link {
+  &:hover {
+    text-decoration: none !important;
+  }
 }
 
 .edit-lab-course-time-block {

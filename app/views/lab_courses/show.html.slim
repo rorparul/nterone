@@ -25,7 +25,7 @@
         .panel.panel-default
           .panel-body
             h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
-            = @lab_course.description if @lab_course.description
+            = @lab_course.description.try(:html_safe) if @lab_course.description
               
     .row
       - if @time_blocks.any?
