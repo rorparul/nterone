@@ -79,8 +79,17 @@ NterOne::Application.routes.draw do
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
 
-  resources :opportunities
-  resources :companies
+  resources :opportunities do
+    collection do
+      get ':id/copy' => 'opportunities#copy', as: :copy
+    end
+  end
+  resources :companies do
+    collection do
+      get 'pluck' => 'companies#pluck'
+    end
+  end
+  get 'pluck' => 'courses#pluck', as: :pluck_courses
   resources :lab_courses
 
   resources :platforms, path: 'training' do

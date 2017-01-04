@@ -18,6 +18,7 @@
 #  website       :string
 #  parent_id     :integer
 #  industry_code :string
+#  partner       :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base
@@ -33,10 +34,14 @@ class Company < ActiveRecord::Base
   has_many :users
   has_many :lab_rentals
   has_many :lab_courses
+  has_many :account_opportunities, class_name: 'Opportunity', foreign_key: 'account_id'
+  has_many :partner_opportunities, class_name: 'Opportunity', foreign_key: 'partner_id'
 
 	validates :title, presence: true
 
   before_create :create_slug
+
+  scope :partners, -> { where(kind: 'Channel Partner') }
 
   search_scope :custom_search do
     attributes :title, :industry_code

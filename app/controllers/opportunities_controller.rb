@@ -2,10 +2,8 @@ class OpportunitiesController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :set_opportunity,   only: [:show, :edit, :update, :destroy]
-  before_action :set_companies,     only: [:new, :edit]
-  before_action :set_owners,        only: [:new, :edit]
-  before_action :set_contacts,      only: [:new, :edit]
+  before_action :set_opportunity,  only: [:show, :edit, :update, :destroy, :copy]
+  before_action :set_associations, only: [:new, :edit, :copy]
 
   layout 'admin'
 
@@ -17,7 +15,8 @@ class OpportunitiesController < ApplicationController
       :opportunities,
       opportunities_scope,
       partial: 'opportunities/listing',
-      default_sort: { title: 'asc' }
+      sort_attributes: [[:created_at, 'opportunities.created_at']],
+      default_sort: { created_at: 'desc' }
     )
   end
 
@@ -75,31 +74,40 @@ class OpportunitiesController < ApplicationController
     redirect_to :back
   end
 
+  def copy
+    @opportunity = @opportunity.dup
+    render 'shared/new'
+  end
+
   private
 
   def set_opportunity
     @opportunity = Opportunity.find(params[:id])
   end
 
-  def set_companies
-    @companies = Company.all
-  end
-
-  def set_owners
-    @owners = User.all_sales
-  end
-
-  def set_contacts
-    @contacts = User.contacts
+  def set_associations
+    @companies = Company.order('lower(title)')
+    @courses   = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
+    @partners  = Company.partners.order('lower(title)')
+    @owners    = User.all_sales
+    @contacts  = User.contacts
   end
 
   def opportunity_params
     params.require(:opportunity).permit(
+      :account_id,
       :amount,
-      :company,
+      :billing_city,
+      :billing_state,
+      :billing_street,
+      :billing_zip_code,
+      :course_id,
       :customer_id,
       :employee_id,
+      :event_id,
       :kind,
+      :partner_id,
+      :payment_kind,
       :reason_for_loss,
       :stage,
       :title

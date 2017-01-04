@@ -21,6 +21,24 @@ m.form-container
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
       
+    .form-group
+      = f.label :kind, 'Kind'
+      = f.select :kind, opportunity_kind_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+        
+    .form-group
+      = f.label :course_id, 'Course'
+      = f.select :course_id, grouped_options_for_select(grouped_courses_options(@courses), f.object.course_id),
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select course-select' }
+        
+    .form-group
+      = f.label :event_id, 'Event'
+      = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_public_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select event-select', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_public_events.empty? }
+      
     hr
     
     .form-group
@@ -30,65 +48,63 @@ m.form-container
         { class: 'form-control input-sm search-select' }
         
     hr
-              
+    
     .form-group
-      = f.label :title, t('default.label.title')
-      = f.text_field :title, class: 'form-control input-sm'
-      
-    / .form-group
-    /   = f.label :parent_id, "Parent Company"
-    /   = f.collection_select :parent_id, @companies, :id, :title,
-    /     { include_blank: t('companies.partial_form.dropdown') },
-    /     { class: 'form-control input-sm search-select' }
-    /   
-    / .form-group
-    /   = f.label :kind, t('default.label.kind')
-    /   = f.select :kind, kind_options,
-    /     { include_blank: t('companies.partial_form.dropdown') },
-    /     { class: 'form-control input-sm search-select' }
-    /     
-    / .form-group
-    /   = f.label :industry_code, 'Industry Code'
-    /   = f.select :industry_code, industry_code_options,
-    /     { include_blank: t('companies.partial_form.dropdown') },
-    /     { class: 'form-control input-sm search-select' }
-    /   
-    / hr
-    /         
-    / fieldset
-    /   .form-group
-    /     = f.label :street, "Street"
-    /     = f.text_field :street, class: 'form-control input-sm'
-    /     
-    /   .row
-    /     .col-xs-12
-    /       .form-group
-    /         = f.label :city, "City"
-    /         = f.text_field :city, class: 'form-control input-sm'
-    /     .col-xs-12
-    /       .form-group
-    /         = f.label :state, "State"
-    /         = f.text_field :state, class: 'form-control input-sm'
-    /     .col-xs-12
-    /       .form-group
-    /         = f.label :zip_code, "Zip Code"
-    /         = f.text_field :zip_code, class: 'form-control input-sm'
-    /   
-    / .form-group
-    /   = f.label :phone, "Phone"
-    /   = f.text_field :phone, class: 'form-control input-sm'
-    /   
-    / .form-group
-    /   = f.label :website, "Website"
-    /   = f.text_field :website, class: 'form-control input-sm'
-    /     
-    / hr
-    /   
-    / .form-group
-    /   = f.label :form_type, t('companies.partial_form.form_type')
-    /   = f.select :form_type, [[t('companies.partial_form.option_1'), 1], [t('companies.partial_form.option_2'), 2]],
-    /     { include_blank: t('companies.partial_form.dropdown') },
-    /     { class: 'form-control input-sm search-select' }
+      = f.label :stage, 'Stage'
+      = f.select :stage, opportunity_stages_options,
+        {},
+        { class: 'form-control input-sm search-select stage-select' }
+        
+    .form-group
+      = f.label :reason_for_loss, 'Reason for Loss'
+      = f.select :reason_for_loss, opportunity_reasons_for_loss_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select reason-for-loss-select', disabled: @opportunity.stage != 0 }
+          
+    .form-group
+      = f.label :amount, 'Amount'
+      .input-group.input-group-sm
+        span.input-group-addon $  
+        = f.text_field :amount, data: { autonumeric: true }, class: 'form-control input-sm'
+        
+    .form-group
+      = f.label :partner_id, 'Partner'
+      = f.collection_select :partner_id, @partners, :id, :title,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select company-select' }
+        
+    hr
+    
+    .form-group
+      = f.label :account_id, 'Company'
+      = f.collection_select :account_id, @companies, :id, :title,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select company-select' }
+        
+    .form-group
+      = f.label :payment_kind, 'Payment Type'
+      = f.select :payment_kind, opportunity_payment_kind_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+     
+    fieldset
+      .form-group
+        = f.label :billing_street, 'Billing Street'
+        = f.text_field :billing_street, class: 'form-control input-sm'
+        
+      .row
+        .col-xs-12
+          .form-group
+            = f.label :billing_city, 'Billing City'
+            = f.text_field :billing_city, class: 'form-control input-sm'
+        .col-xs-12
+          .form-group
+            = f.label :billing_state, 'Billing State'
+            = f.text_field :billing_state, class: 'form-control input-sm'
+        .col-xs-12
+          .form-group
+            = f.label :billing_zip_code, 'Billing Zip Code'
+            = f.text_field :billing_zip_code, class: 'form-control input-sm'
       
     .form-buttons
       button.btn.btn-success type="submit"
@@ -98,13 +114,23 @@ m.form-container
           = t('default.action.update')
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')
-        
-        
-        / :amount,
-        / :company,
-        / :customer_id,
-        / :employee_id,
-        / :kind,
-        / :reason_for_loss,
-        / :stage,
-        / :title
+
+javascript:
+  $('select.stage-select').on('change', function(){
+    if($(this).val() == 0) {
+      $('select.reason-for-loss-select').prop('disabled', false);
+    } else {
+      $('select.reason-for-loss-select').select2().val('').trigger('change');
+      $('select.reason-for-loss-select').prop('disabled', true);
+    }
+  });
+  
+  $('select.company-select').on('change', function(){
+    var companyId = $(this).val();
+    $.get("#{pluck_companies_path}", { company_id: companyId });
+  });
+  
+  $('select.course-select').on('change', function(){
+    var courseId = $(this).val();
+    $.get("#{pluck_courses_path}", { course_id: courseId });
+  });

@@ -19,10 +19,10 @@
               li
                 a href="#{opportunities_path}"
                   = t('layouts.partial_tabs.opportunities')
-            - if current_user.admin? || current_user.sales?
-              li
-                a href="#{main_app.insights_carts_path}"
-                  = t('admins.partial_tabs.insights')
+            / - if current_user.admin? || current_user.sales?
+            /   li
+            /     a href="#{main_app.insights_carts_path}"
+            /       = t('admins.partial_tabs.insights')
       - if current_user.lms? || current_user.sales?
         li.dropdown.accounts role="presentation"
           a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -31,12 +31,12 @@
           ul.dropdown-menu
             - if current_user.admin? || current_user.sales?
               li
-                a href="#{companies_path}"
-                  = t('layouts.partial_tabs.companies')
-            - if current_user.admin? || current_user.sales?
-              li
                 a href="#{contacts_users_path}"
                   = t('layouts.partial_tabs.contacts')
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{companies_path}"
+                  = t('layouts.partial_tabs.companies')
       - if current_user.admin? || current_user.sales?
         li.orders role="presentation"
           a.nav-pill href="#{admin_orders_path}"

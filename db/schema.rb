@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220181550) do
+ActiveRecord::Schema.define(version: 20161230211423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,13 @@ ActiveRecord::Schema.define(version: 20161220181550) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "category_packages", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "package_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "category_subjects", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "subject_id"
@@ -141,8 +148,8 @@ ActiveRecord::Schema.define(version: 20161220181550) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -156,6 +163,7 @@ ActiveRecord::Schema.define(version: 20161220181550) do
     t.string   "website"
     t.integer  "parent_id"
     t.string   "industry_code"
+    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -268,13 +276,12 @@ ActiveRecord::Schema.define(version: 20161220181550) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -497,8 +504,8 @@ ActiveRecord::Schema.define(version: 20161220181550) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -614,14 +621,24 @@ ActiveRecord::Schema.define(version: 20161220181550) do
   create_table "opportunities", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "customer_id"
-    t.integer  "company_id"
+    t.integer  "account_id"
     t.string   "title"
     t.integer  "stage"
-    t.decimal  "amount",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",           precision: 8, scale: 2, default: 0.0
     t.string   "kind"
     t.string   "reason_for_loss"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.boolean  "waiting",                                  default: false
+    t.string   "payment_kind"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip_code"
+    t.integer  "partner_id"
+    t.date     "date_closed"
+    t.integer  "course_id"
+    t.integer  "event_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -695,6 +712,28 @@ ActiveRecord::Schema.define(version: 20161220181550) do
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
+
+  create_table "package_items", force: :cascade do |t|
+    t.integer  "package_id"
+    t.string   "packageable_type"
+    t.integer  "packageable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "platform_id"
+    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.text     "description"
+    t.string   "abbreviation"
+    t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
+    t.boolean  "partner_led",                              default: false
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -973,9 +1012,11 @@ ActiveRecord::Schema.define(version: 20161220181550) do
   create_table "video_modules", force: :cascade do |t|
     t.integer  "video_on_demand_id"
     t.string   "title"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "position",           default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "position",               default: 0
+    t.boolean  "cisco_digital_learning", default: false
+    t.string   "cdl_course_code"
   end
 
   create_table "video_on_demands", force: :cascade do |t|

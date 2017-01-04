@@ -142,6 +142,10 @@ class CoursesController < ApplicationController
     end
   end
 
+  def pluck
+    @course = Course.find_by(id: params[:course_id])
+  end
+
   private
 
   def course_params

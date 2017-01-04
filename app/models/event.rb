@@ -37,13 +37,12 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  company                        :string
 #
 
 class Event < ActiveRecord::Base
@@ -60,6 +59,7 @@ class Event < ActiveRecord::Base
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
 
+  has_many :opportunities
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items

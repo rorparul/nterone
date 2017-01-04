@@ -74,6 +74,10 @@ class CompaniesController < ApplicationController
     redirect_to :back
   end
 
+	def pluck
+		@company = Company.find_by(id: params[:company_id])
+	end
+
 	private
 
 	def set_company
@@ -95,6 +99,7 @@ class CompaniesController < ApplicationController
 			:industry_code,
 			:kind,
 			:parent_id,
+			:partner,
 			:phone,
 			:state,
 			:street,
