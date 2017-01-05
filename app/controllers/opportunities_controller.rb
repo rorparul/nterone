@@ -104,6 +104,7 @@ class OpportunitiesController < ApplicationController
       :course_id,
       :customer_id,
       :employee_id,
+      :email_optional,
       :event_id,
       :kind,
       :partner_id,

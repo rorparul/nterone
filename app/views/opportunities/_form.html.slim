@@ -15,6 +15,10 @@ m.form-container
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'form-control input-sm search-select' }
         
+    .form-group
+      = f.label :email_optional, 'Additional Email Recipient (Optional)'
+      = f.text_field :email_optional, class: 'form-control input-sm'
+        
     hr
     
     .form-group
