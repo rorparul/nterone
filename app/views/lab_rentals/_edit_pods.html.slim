@@ -3,11 +3,11 @@
   
     .form-group
       = label_tag :available_pods_for_individuals, t('lab_rentals.partial_edit_pods.number_for_individuals')
-      = number_field_tag :available_pods_for_individuals, { min: 0, step: 1 }, class: "form-control input-sm"
+      = number_field_tag :available_pods_for_individuals, pod_settings[:available_pods_for_individuals], min: 0, step: 1, class: "form-control input-sm"
       
     .form-group
       = label_tag :available_pods_for_partners, t('lab_rentals.partial_edit_pods.number_for_partners')
-      = number_field_tag :available_pods_for_partners, { min: 0, step: 1 }, class: "form-control input-sm" 
+      = number_field_tag :available_pods_for_partners, pod_settings[:available_pods_for_partners], min: 0, step: 1, class: "form-control input-sm" 
     
     .actions
       button.btn.btn-success type="submit" = t('default.action.save')

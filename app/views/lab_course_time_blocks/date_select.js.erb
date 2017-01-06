@@ -1,5 +1,0 @@
-$('.modal-title').html('<%= t("lab_course_time_blocks.date_select_js.rent_time_block") %>');
-$('.modal-body').html("<%= escape_javascript(render partial: 'date_select', locals: { time_block: @time_block } ) %>");
-$('.modal-body').append("<hr>");
-$('.modal-body').append("<%= escape_javascript(render partial: 'time_select', locals: { time_block: @time_block, time_starts: @time_starts, date_start: @date_start, time_zone: @time_zone }) %>");
-$('#myModal').modal('show');

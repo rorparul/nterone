@@ -20,37 +20,97 @@
   .col-xs-12.col-central
     .row
       .col-xs-12
-        / = image_tag t("courses.show.image"), class: "course-banner"
-
         .panel.panel-default
           .panel-body
             h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
             = @lab_course.description.try(:html_safe) if @lab_course.description
-              
-    .row
-      - if @time_blocks.any?
-        - @time_blocks.each do |time_block|
-          .col-xs-12.col-sm-6
-            = link_to date_select_lab_course_time_block_path(id: time_block.id), remote: true do
-              .panel.panel-default
-                .panel-heading
-                  .panel-title style="text-align: center;"
-                    = time_block.title
-                  .panel-body
-                    .table-responsive
-                      table.table.table-compact
-                        thead
-                          tr
-                            th = t('lab_courses.show.hours')
-                            th = t('lab_courses.show.students')
-                            th = t('lab_courses.show.price')
-                        tbody
-                          tr
-                            td = time_block.unit_quantity
-                            td = time_block.ratio
-                            td = dollar_value(time_block.price)
-                - if user_signed_in? && current_user.admin?
-                  = link_to t('default.action.edit'), edit_lab_course_lab_course_time_block_path(@lab_course, time_block), remote: true, class: "edit-lab-course-time-block"
+            
+      
+        .row
+          .col-xs-12
+            .well style="background-color: white;"
+              = render partial: 'date_select'
+            
+        - unless @time_blocks.empty?
+          .row
+            .col-xs-12
+              ul.nav.nav-tabs role="tablist"
+                - @time_blocks.each do |key, value|
+                  - if @time_blocks.keys.first == key
+                    li.active role="tab"
+                      a href="##{number_in_words(key.unit_quantity).capitalize}" aria-controls="tab" role="tab" data-toggle="tab"
+                        | #{number_in_words(key.unit_quantity).capitalize + " Hour Block"}
+                  - else
+                    li role="tab"
+                      a href="##{number_in_words(key.unit_quantity).capitalize}" aria-controls="tab" role="tab" data-toggle="tab"
+                        | #{number_in_words(key.unit_quantity).capitalize + " Hour Block"}
+          .row
+            .col-xs-12
+              .well style="background-color: white; border-top: 0px; border-top-left-radius: 0; border-top-right-radius: 0;"
+                .row
+                  .col-xs-12
+                    .form-container
+                      = form_for :reservation, url: reserve_lab_course_time_block_path do
+                        .tab-content style="margin-top: 15px;"
+                          - @time_blocks.each do |key, value|
+                            - if @time_blocks.keys.first == key
+                              .tab-pane.active role="tabpanel" id="#{number_in_words(key.unit_quantity).capitalize}"
+                                  .panel.panel-default
+                                    .panel-heading
+                                      .panel-title = t('lab_course_time_blocks.partial_time_select.select_times')
+                                    .panel-body
+                                      table.table.table-default
+                                        - unless value.nil? || value.empty?
+                                          thead
+                                            tr
+                                              th.fit
+                                              th.fit.text-center = t('lab_course_time_blocks.partial_time_select.start_time')
+                                              th.fit.text-center 
+                                              th.fit.text-center = t('lab_course_time_blocks.partial_time_select.end_time')
+                                              th
+                                          tbody
+                                            - value.each do |time|
+                                              tr 
+                                                td.fit = radio_button_tag :time_start, [key, time], checked: false
+                                                td.fit.text-center = "#{time.strftime("%l:%M%p")}"
+                                                th.fit.text-center -
+                                                td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
+                                                td
+                                        - else 
+                                          tbody
+                                            tr
+                                              h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+                            - else
+                              .tab-pane role="tabpanel" id="#{number_in_words(key.unit_quantity).capitalize}"
+                                .panel.panel-default
+                                  .panel-heading
+                                    .panel-title = t('lab_course_time_blocks.partial_time_select.select_times')
+                                  .panel-body
+                                    table.table.table-default
+                                      - unless value.nil? || value.empty?
+                                        thead
+                                          tr
+                                            th.fit
+                                            th.fit.text-center = t('lab_course_time_blocks.partial_time_select.start_time')
+                                            th.fit.text-center 
+                                            th.fit.text-center = t('lab_course_time_blocks.partial_time_select.end_time')
+                                            th
+                                        tbody
+                                          - value.each do |time|
+                                            tr 
+                                              td.fit = radio_button_tag :time_start, [key, time], checked: false
+                                              td.fit.text-center = "#{time.strftime("%l:%M%p")}"
+                                              th.fit.text-center -
+                                              td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
+                                              td
+                                      - else
+                                        tbody
+                                          tr
+                                            h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+                                            
+                                            
+                        .form-buttons
+                          button.btn.btn-success type="submit" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
                         
                   
   .col-xs-12.side-column
