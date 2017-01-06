@@ -17,7 +17,7 @@ class LabCoursesController < ApplicationController
 	end
 
 	def time_select
-		@time_zone			= params[:time_zone][0]
+		@time_zone			= params[:time_zone]
 		@date_start			= params[:date_start]
 		@time_block_ids = params[:time_blocks].split.map(&:to_i)
 		@time_blocks 		= LabCourseTimeBlock.where(id: @time_block_ids)
