@@ -3,11 +3,11 @@ class LabCoursesController < ApplicationController
   helper  SmartListing::Helper
 
 	before_action :set_lab_course, except: [:new, :create]
-	before_action :authorize_lab_course, except: [:show]
+	before_action :authorize_lab_course, except: [:show, :time_select]
 
 	def show
 		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
-		@time_zone 				= nil
+		@time_zone 				= Time.zone.name
 		@date_start				= Date.today
 		@time_block_ids 	= []
 		@time_blocks.each do |block|
@@ -22,7 +22,6 @@ class LabCoursesController < ApplicationController
 		@time_block_ids = params[:time_blocks].split.map(&:to_i)
 		@time_blocks 		= LabCourseTimeBlock.where(id: @time_block_ids)
 		filter_times
-		render 'show'
 	end
 
 	def new
@@ -99,6 +98,9 @@ class LabCoursesController < ApplicationController
 					end
 				end
 				@time_starts[index] = nil if count >= @pods
+			end
+			@time_starts.each do |time|
+				puts time
 			end
 			@filtered_blocks[time_block] = @time_starts.reject {|time| time.nil?}
 		end

@@ -1,0 +1,61 @@
+= form_for :reservation, url: reserve_lab_course_time_block_path do
+  .tab-content style="margin-top: 15px;"
+    - time_blocks.each do |key, value|
+      - if time_blocks.keys.first == key
+        .tab-pane.active role="tabpanel" id="#{number_in_words(key.unit_quantity).capitalize}"
+            .panel.panel-default
+              .panel-heading
+                .panel-title = t('lab_course_time_blocks.partial_time_select.select_times')
+              .panel-body
+                table.table.table-default
+                  - unless value.nil? || value.empty?
+                    thead
+                      tr
+                        th.fit
+                        th.fit.text-center = t('lab_course_time_blocks.partial_time_select.start_time')
+                        th.fit.text-center 
+                        th.fit.text-center = t('lab_course_time_blocks.partial_time_select.end_time')
+                        th
+                    tbody
+                      - value.each do |time|
+                        tr 
+                          td.fit = radio_button_tag :time_start, [key, time], checked: false
+                          td.fit.text-center = "#{time.strftime("%l:%M%p")}"
+                          th.fit.text-center -
+                          td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
+                          td = time.strftime("%Z")
+                  - else 
+                    tbody
+                      tr
+                        h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+      - else
+        .tab-pane role="tabpanel" id="#{number_in_words(key.unit_quantity).capitalize}"
+          .panel.panel-default
+            .panel-heading
+              .panel-title = t('lab_course_time_blocks.partial_time_select.select_times')
+            .panel-body
+              table.table.table-default
+                - unless value.nil? || value.empty?
+                  thead
+                    tr
+                      th.fit
+                      th.fit.text-center = t('lab_course_time_blocks.partial_time_select.start_time')
+                      th.fit.text-center 
+                      th.fit.text-center = t('lab_course_time_blocks.partial_time_select.end_time')
+                      th
+                  tbody
+                    - value.each do |time|
+                      tr 
+                        td.fit = radio_button_tag :time_start, [key, time], checked: false
+                        td.fit.text-center = "#{time.strftime("%l:%M%p")}"
+                        th.fit.text-center -
+                        td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
+                        td = time.strftime("%Z")
+                - else
+                  tbody
+                    tr
+                      h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+                      
+                      
+  .form-buttons
+    button.btn.btn-success type="submit" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
