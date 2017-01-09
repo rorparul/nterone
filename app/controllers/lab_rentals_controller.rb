@@ -134,6 +134,47 @@ class LabRentalsController < ApplicationController
       redirect_to :back
   end
 
+  def self_checkout
+    data        = params[:time_start].split
+    @time_block = LabCourseTimeBlock.find(data[0])
+    @time_zone  = params[:time_zone]
+    @start_time = "#{data[1]} #{data[2]} #{data[3]}".to_time.in_time_zone(@time_zone)
+    @end_time   = @start_time + 60 * 60 * @time_block.unit_quantity
+    @first_day  = @start_time.to_date
+    @last_day   = @end_time.to_date
+    lab_rental  = LabRental.new(
+      end_time: @end_time,
+      first_day: @first_day,
+      lab_course_id: @time_block.lab_course.id,
+      last_day: @last_day,
+      level: @time_block.level,
+      notes: "Created through self checkout.",
+      num_of_students: @time_block.ratio,
+      start_time: @start_time,
+      time_zone: @time_zone,
+      user_id: current_user.id
+    )
+
+    if lab_rental.save
+      order_item = OrderItem.new(
+      orderable_type: "LabRental",
+      orderable_id: lab_rental.id,
+      cart_id: @cart.id,
+      price: @time_block.price,
+      user_id: current_user.id,
+      note: "Created through self checkout."
+      )
+      if order_item.save
+        flash[:success] = "Item successfully added to cart! Please go to #{view_context.link_to "My Cart", new_order_path} to complete transaction".html_safe
+      else
+        flash[:alert] = "Failed to add time block to cart!"
+      end
+    else
+      flash[:alert] = "Failed to add time block to cart!"
+    end
+    redirect_to :back
+  end
+
   private
 
   def set_lab_rental

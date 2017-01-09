@@ -78,6 +78,7 @@ NterOne::Application.routes.draw do
   post 'upload_path' => 'lab_rentals#upload'
   get 'edit_pods/lab_rentals'     => 'lab_rentals#edit_pods',   as: :edit_pods
   post 'update_pods/lab_rentals'  => 'lab_rentals#update_pods', as: :update_pods
+  post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
   resources :companies
 
@@ -85,7 +86,6 @@ NterOne::Application.routes.draw do
     resources :lab_course_time_blocks
   end
   post 'time_select/lab_course_time_blocks' => 'lab_courses#time_select',            as: :time_select_lab_course_time_block
-  post 'reserve/lab_course_time_blocks'     => 'lab_course_time_blocks#reserve',     as: :reserve_lab_course_time_block
 
   resources :platforms, path: 'training' do
     collection do

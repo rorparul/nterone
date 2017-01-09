@@ -94,7 +94,7 @@ class LabCoursesController < ApplicationController
 						lab_rental_start = (lab_rental.first_day.to_s + lab_rental.start_time.strftime(" %H:%M %z")).to_time
 						lab_rental_end   = (lab_rental.last_day.to_s + lab_rental.end_time.strftime(" %H:%M %z")).to_time
 						overlap = ( lab_rental_start.utc - (time_start.utc + duration * 60 * 60) ) * ( time_start.utc - lab_rental_end.utc )
-						count += 1 if overlap >= 0
+						count += 1 if overlap > 0
 					end
 				end
 				@time_starts[index] = nil if count >= @pods

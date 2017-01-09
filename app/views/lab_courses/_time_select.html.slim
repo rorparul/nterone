@@ -1,4 +1,5 @@
-= form_for :reservation, url: reserve_lab_course_time_block_path do
+= form_for :reservation, url: checkout_lab_rental_path do
+  = hidden_field_tag :time_zone, @time_zone
   .tab-content style="margin-top: 15px;"
     - time_blocks.each do |key, value|
       - if time_blocks.keys.first == key
@@ -19,7 +20,7 @@
                     tbody
                       - value.each do |time|
                         tr 
-                          td.fit = radio_button_tag :time_start, [key, time], checked: false
+                          td.fit = radio_button_tag :time_start, [key.id, time], checked: false
                           td.fit.text-center = "#{time.strftime("%l:%M%p")}"
                           th.fit.text-center -
                           td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
@@ -46,7 +47,7 @@
                   tbody
                     - value.each do |time|
                       tr 
-                        td.fit = radio_button_tag :time_start, [key, time], checked: false
+                        td.fit = radio_button_tag :time_start, [key.id, time], checked: false
                         td.fit.text-center = "#{time.strftime("%l:%M%p")}"
                         th.fit.text-center -
                         td.fit.text-center = "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}"
