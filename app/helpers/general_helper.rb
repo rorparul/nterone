@@ -152,9 +152,9 @@ module GeneralHelper
         return str + "#{name}"
       elsif int < 100 && int/num > 0
         return str + "#{name}" if int%num == 0
-        return str + "#{name} " + in_words(int%num)
+        return str + "#{name} " + number_in_words(int%num)
       elsif int/num > 0
-        return str + in_words(int/num) + " #{name} " + in_words(int%num)
+        return str + number_in_words(int/num) + " #{name} " + number_in_words(int%num)
       end
     end
   end

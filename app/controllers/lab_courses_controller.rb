@@ -7,6 +7,7 @@ class LabCoursesController < ApplicationController
 
 	def show
 		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
+		@time_zones 			= (ActiveSupport::TimeZone.us_zones << ActiveSupport::TimeZone.all).flatten
 		@time_zone 				= Time.zone.name
 		@date_start				= Date.today
 		@time_block_ids 	= []
