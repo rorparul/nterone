@@ -2587,3 +2587,15 @@ footer {
   top: 10px;
   right: 30px;
 }
+
+.card-fade {
+  // @include value-prefix(background-image, linear-gradient(top, rgba(91, 165, 203, 0) 0%, rgba(58, 112, 171, 0) 100%));
+  background-color: red;
+  bottom: 0px;
+  left: 0px;
+  height: 300px;
+  position: relative;
+  right: 0px;
+  top: -300px;
+  width: 100%;
+}
