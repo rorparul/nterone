@@ -47,7 +47,6 @@ class LabCourseTimeBlocksController < ApplicationController
       :level,
       :price,
       :ratio,
-      :title,
       :unit_size,
       :unit_quantity
     )

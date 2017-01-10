@@ -3,24 +3,18 @@
     = f.hidden_field :lab_course_id, value: lab_course.id
     = f.hidden_field :level, value: "individual"
 
-
-    .row
-      .col-xs-12
-        .form-group
-          = f.label :title, t('lab_course_time_blocks.partial_form_for_admin.title')
-          = f.text_field :title, class: 'form-control input-sm'
       
       
     .row
-      .col-xs-12.col-sm-4
+      .col-xs-12.col-sm-6
         .form-group
           = f.label :unit_quantity, t('lab_course_time_blocks.partial_form_for_admin.number_of_hours')
           = f.number_field :unit_quantity, options: {min: 0, max: 24, step: 1}, class: 'form-control input-sm'
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :ratio, t('lab_course_time_blocks.partial_form_for_admin.number_of_students')
-          = f.number_field :ratio, options: {min: 0, step: 1}, class: 'form-control input-sm'
-      .col-xs-12.col-sm-4
+      / .col-xs-12.col-sm-4
+      /   .form-group
+      /     = f.label :ratio, t('lab_course_time_blocks.partial_form_for_admin.number_of_students')
+      /     = f.number_field :ratio, options: {min: 0, step: 1}, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
         .form-group
           = f.label :price, t('lab_course_time_blocks.partial_form_for_admin.price')
           .input-group.input-group-sm

@@ -25,7 +25,7 @@
                         .panel-heading
                           - if current_user && current_user.admin?
                             = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true, style: "float: right;"
-                          .panel-title = "#{key.title}: #{dollar_value(key.price)}"
+                          .panel-title = "#{number_in_words(key.unit_quantity).capitalize} Hour Block: #{dollar_value(key.price)}"
                         .panel-body
                           table.table.table-default
                             - unless value.nil? || value.empty?
@@ -52,7 +52,7 @@
                       .panel-heading
                         - if current_user && current_user.admin?
                           = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true, style: "float: right;"
-                        .panel-title = "#{key.title}: #{dollar_value(key.price)}"
+                        .panel-title = "#{number_in_words(key.unit_quantity).capitalize} Hour Block: #{dollar_value(key.price)}"
                       .panel-body
                         table.table.table-default
                           - unless value.nil? || value.empty?
