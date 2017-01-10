@@ -20,22 +20,8 @@ class OpportunitiesController < ApplicationController
     )
   end
 
-  # def show
-  #   users_scope = @company.users
-  #   users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-  #
-  #   @users = smart_listing_create(
-  #     :users,
-  #     users_scope,
-  #     partial: 'users/listing',
-  #     default_sort: { last_name: 'asc' }
-  #   )
-  #
-  #   respond_to do |format|
-  #     format.html
-  #     format.js { render 'users/index' }
-  #   end
-  # end
+  def show
+  end
 
   def new
     @opportunity = Opportunity.new

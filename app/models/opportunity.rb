@@ -67,11 +67,11 @@ class Opportunity < ActiveRecord::Base
 
   def create_order
     order = Order.new(
-      seller_id: employee.id,
-      buyer_id: customer.id,
+      seller_id: employee.try(:id),
+      buyer_id: customer.try(:id),
       opportunity_id: id,
-      first_name: customer.first_name,
-      last_name: customer.last_name,
+      first_name: customer.try(:first_name),
+      last_name: customer.try(:last_name),
       referring_partner_email: email_optional
       # billing_street: nil,
       # billing_city: nil,
@@ -106,9 +106,9 @@ class Opportunity < ActiveRecord::Base
     )
 
     order_item = order.order_items.new(
-      user_id: customer.id,
+      user_id: customer.try(:id),
       orderable_type: 'Event',
-      orderable_id: event.id,
+      orderable_id: event.try(:id),
       price: amount
     )
 
@@ -118,8 +118,6 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_order
-    p "UPDATE ORDER"
-
     order_item = order.order_items.find_by(
       orderable_type: 'Event',
       orderable_id: event_id_was

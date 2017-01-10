@@ -23,7 +23,6 @@
       strong.text-muted Opportunities
     .container-muted
       = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-      / = link_to 'Copy', new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
       = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',

@@ -9,62 +9,20 @@
   span.seperator
     | /
   span.text-muted
-    | Accounts
+    | Prospects
   span.seperator
     | /
   a href="#{companies_path}"
-    | Companies
+    | Opportunities
   span.seperator
     | /
   span.text-muted
-    = @company.title
+    = @opportunity.id
 
 = render 'layouts/tabs'
 
-h4
-  strong.text-muted Relatives
-.container-muted
-  .row
-    .col-xs-12.col-md-4
-      strong.text-muted Ancestors
-      br
-      - @company.ancestors.each do |company|
-        = link_to company.title, company_path(company)
-        br
-    .col-xs-12.col-md-4
-      strong.text-muted Siblings
-      br
-      - @company.siblings.each do |company|
-        = link_to company.title, company_path(company)
-        br
-    .col-xs-12.col-md-4
-      strong.text-muted Descendants
-      br
-      - @company.descendants.each do |company|
-        = link_to company.title, company_path(company)
-        br
-      
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Contacts
-    .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path(company_id: @company.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = smart_listing_controls_for(:users, {class: 'input-search'}) do
-        .input-group.input-group-sm.filter
-          = text_field_tag :filter, '', class: 'search form-control input-sm', 
-                                        placeholder: t('default.action.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
-    = smart_listing_render(:users)
 
-h4
-  strong.text-muted Lab Rental Portal
-.container-muted
-  = link_to "#{request.base_url}/#{@company.slug}/lab-reservations/new", "#{request.base_url}/#{@company.slug}/lab-reservations/new"
   
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .accounts').addClass('active');
+  $('.permissions .prospects').addClass('active');

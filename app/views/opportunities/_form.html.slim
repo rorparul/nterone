@@ -74,7 +74,7 @@ m.form-container
     .form-group
       = f.label :partner_id, 'Partner'
       = f.collection_select :partner_id, @partners, :id, :title,
-        { include_blank: t('companies.partial_form.dropdown') },
+        { include_blank: 'NterOne' },
         { class: 'form-control input-sm search-select company-select' }
         
     hr
