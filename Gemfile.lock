@@ -62,6 +62,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_tree (2.6.0)
+      activerecord (>= 3.0.0)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.1.1)
@@ -535,6 +537,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_tree
   annotate
   authorizenet
   autonumeric-rails
@@ -608,6 +611,7 @@ DEPENDENCIES
   sdoc
   search_cop
   seedbank
+  select2-rails
   shoulda-matchers
   sidekiq
   sidetiq

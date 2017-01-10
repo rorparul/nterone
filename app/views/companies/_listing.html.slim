@@ -2,19 +2,21 @@
   .table-responsive
     table.table.table-condensed
       thead
-        tr
+        tr.background-muted
           th = smart_listing.sortable t('default.label.title'), :title
-          th = t('admins.website.form_type')
-          th = t('admins.website.portal')
-          th colspan="2" Actions
-      tbody#pages
-        - @companies.each do |company|
+          th Website
+          th colspan='2'
+      tbody
+        - smart_listing.collection.each do |company|
           tr
-            td = company.title
-            td = company.form_type
-            td = link_to "#{request.base_url}/#{company.slug}/lab-reservations/new", "#{request.base_url}/#{company.slug}/lab-reservations/new"
-            td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: false
-            td.fit = link_to t('default.action.delete'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-.panel-footer
-  = smart_listing.paginate
-  = smart_listing.pagination_per_page_links
+            td = link_to company.title, company_path(company)
+            td = link_to 'Visit', company.website if company.website.present?
+            td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: true
+            td.fit = link_to t('default.action.destroy'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted.text-center
+    = t('default.placeholder.no_records')

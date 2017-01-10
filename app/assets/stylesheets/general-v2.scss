@@ -1,3 +1,15 @@
+// -----------------------------------------------------------------------------
+// MIXINS
+// -----------------------------------------------------------------------------
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
 table {
   select {
     height: 20px !important;
@@ -15,8 +27,53 @@ table {
   }
 }
 
+.text-with-checkbox-container {
+  position: relative;
+  .checkbox-container {
+    right: 10px;
+    top: 4px;
+    position: absolute;
+    i {
+      top: 4px;
+      right: 12px;
+      position: absolute;
+      margin-right: 5px;
+    }
+    input {
+      margin: 0;
+    }
+  }
+}
+
+.background-muted {
+  background-color: rgb(245, 245, 245);
+}
+
+.container-muted {
+  background-color: rgb(245, 245, 245);
+  padding: 15px;
+  margin-bottom: 10px;
+  .input-search {
+    width: 250px;
+  }
+}
+
+.table-end {
+  border-top: 2px solid rgb(221, 221, 221);
+  margin-bottom: 10px;
+  height: 31px;
+  background-color: rgb(245, 245, 245);
+}
+
 .margin-right-3 {
   margin-right: 3px;
+}
+
+.controls {
+  height: 40px;
+  .input-search {
+    width: 250px;
+  }
 }
 
 .input-daterange input {

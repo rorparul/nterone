@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222041702) do
+ActiveRecord::Schema.define(version: 20170106074434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,8 +148,8 @@ ActiveRecord::Schema.define(version: 20161222041702) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20161222041702) do
     t.string   "website"
     t.integer  "parent_id"
     t.string   "industry_code"
+    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -620,14 +621,25 @@ ActiveRecord::Schema.define(version: 20161222041702) do
   create_table "opportunities", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "customer_id"
-    t.integer  "company_id"
+    t.integer  "account_id"
     t.string   "title"
     t.integer  "stage"
-    t.decimal  "amount",          precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",           precision: 8, scale: 2, default: 0.0
     t.string   "kind"
     t.string   "reason_for_loss"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.boolean  "waiting",                                  default: false
+    t.string   "payment_kind"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip_code"
+    t.integer  "partner_id"
+    t.date     "date_closed"
+    t.integer  "course_id"
+    t.integer  "event_id"
+    t.string   "email_optional"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -697,6 +709,7 @@ ActiveRecord::Schema.define(version: 20161222041702) do
     t.integer  "source",                                          default: 0
     t.string   "other_source"
     t.integer  "discount_id"
+    t.integer  "opportunity_id"
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree

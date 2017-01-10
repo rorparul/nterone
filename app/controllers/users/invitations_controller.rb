@@ -1,7 +1,11 @@
 class Users::InvitationsController < Devise::InvitationsController
   def new
-    @origin = params[:origin]
-    super
+    @owners    = User.all_sales
+    @companies = Company.all
+    self.resource = resource_class.new
+    resource.assign_attributes(parent_id: current_user.id)
+    resource.assign_attributes(status: 3) if request.path == '/users/contacts/new'
+    render :new
   end
 
   def create
@@ -10,12 +14,6 @@ class Users::InvitationsController < Devise::InvitationsController
 
       @user.roles.create
       @user.update_attributes(referring_partner_email_params)
-
-      if current_user.sales_manager?
-        Lead.create(buyer_id: @user.id)
-      elsif current_user.sales?
-        Lead.create(seller_id: current_user.id, status: 'assigned')
-      end
 
       flash[:success] = 'Successfully Saved!' if skip_invitation?
     else

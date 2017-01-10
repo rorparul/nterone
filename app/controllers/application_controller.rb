@@ -144,9 +144,6 @@ class ApplicationController < ActionController::Base
   def get_external_source_values
     if true?(params[:external_source])
       cookies[:cart_id] = params[:cart_id]
-      # cookies[:source_name]    = params[:source_name]
-      # cookies[:source_user_id] = params[:source_user_id]
-      # cookies[:source_hash]    = params[:source_hash]
     end
   end
 

@@ -10,17 +10,77 @@ m.form-container
             li = msg
       
     .form-group
+      = f.label :user_id, "Owner"
+      = f.select :user_id, surname_ordered_options(@owners),
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+        
+    hr
+              
+    .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :parent_id, "Parent Company"
+      = f.collection_select :parent_id, @companies, :id, :title,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+      
+    .form-group
+      = f.label :kind, t('default.label.kind')
+      = f.select :kind, kind_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+        
+    .form-group
+      = f.label :industry_code, 'Industry Code'
+      = f.select :industry_code, industry_code_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+      
+    hr
+            
+    fieldset
+      .form-group
+        = f.label :street, "Street"
+        = f.text_field :street, class: 'form-control input-sm'
+        
+      .row
+        .col-xs-12
+          .form-group
+            = f.label :city, "City"
+            = f.text_field :city, class: 'form-control input-sm'
+        .col-xs-12
+          .form-group
+            = f.label :state, "State"
+            = f.text_field :state, class: 'form-control input-sm'
+        .col-xs-12
+          .form-group
+            = f.label :zip_code, "Zip Code"
+            = f.text_field :zip_code, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :phone, "Phone"
+      = f.text_field :phone, class: 'form-control input-sm'
+      
+    .form-group
+      = f.label :website, "Website"
+      = f.text_field :website, class: 'form-control input-sm'
+        
+    hr
       
     .form-group
       = f.label :form_type, t('companies.partial_form.form_type')
       = f.select :form_type, [[t('companies.partial_form.option_1'), 1], [t('companies.partial_form.option_2'), 2]],
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm' }
+        { class: 'form-control input-sm search-select' }
       
     .form-buttons
       button.btn.btn-success type="submit"
-        = t('default.action.save')
+        - if @company.new_record?
+          = t('default.action.create')
+        - else
+          = t('default.action.update')
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')

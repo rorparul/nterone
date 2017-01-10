@@ -1,0 +1,6 @@
+es:
+  shared:
+    edit_js:
+      companies: "Editar Empresa"
+    new_js:
+      companies: "Agregar Empresa"

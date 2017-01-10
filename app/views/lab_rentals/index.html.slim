@@ -43,13 +43,13 @@
                     = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
                                                 placeholder: t('.search_by_date_start'),
                                                 autocomplete: :off
-                '
+                                                
                 .input-group.input-group-sm.input-append
                   span class="input-group-btn"
                     = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
                                                 placeholder: t('.search_by_date_end'),
                                                 autocomplete: :off
-              '
+                                                
       = smart_listing_render(:lab_rentals)
 
 javascript:

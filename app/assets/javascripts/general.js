@@ -1,5 +1,5 @@
 $(function() {
-  prepareFroala();
+  prepareInputs();
 
   $('.selectpicker').selectpicker();
 
@@ -15,7 +15,7 @@ $(function() {
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
-    prepareFroala();
+    prepareInputs();
   });
 
   $('#accordion').on('show.bs.collapse', function () {
@@ -41,7 +41,11 @@ $(function() {
 	});
 });
 
-function prepareFroala() {
+function prepareInputs() {
+  $('.search-select').select2({
+    theme: 'bootstrap'
+  });
+
   $('.froala').froalaEditor({
     key: 'Padtj1A-32zpB2twt==',
     height: 240,

@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
 
-  def page
-    @users = User.order(:last_name).page(params[:page])
+  layout 'admin'
+
+  def index
+    users_scope = User.all
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    prepare_smart_listing(users_scope)
   end
 
   def show
@@ -52,6 +57,18 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def leads
+    users_scope = User.leads
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    prepare_smart_listing(users_scope)
+  end
+
+  def contacts
+    users_scope = User.contacts
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    prepare_smart_listing(users_scope)
+  end
+
   private
 
   def user_params
@@ -59,6 +76,7 @@ class UsersController < ApplicationController
                                  :first_name,
                                  :last_name,
                                  :contact_number,
+                                 :phone_alternative,
                                  :country,
                                  :street,
                                  :city,
@@ -84,8 +102,19 @@ class UsersController < ApplicationController
                                  :status,
                                  :video_bio,
                                  :about,
+                                 :notes,
+                                 :email_alternative,
                                  roles_attributes: [:id,
                                                     :role,
                                                     :_destroy])
+  end
+
+  def prepare_smart_listing(users_scope)
+    smart_listing_create(
+      :users,
+      users_scope,
+      partial: 'listing',
+      default_sort: { last_name: 'asc' }
+    )
   end
 end

@@ -90,15 +90,22 @@
 #
 
 class User < ActiveRecord::Base
-  include RailsSettings::Extend
-  include ModelSearch
+  extend ActsAsTree::TreeView
+  extend ActsAsTree::TreeWalker
 
-  enum status: { not_applicable: 0, employee: 1, contractor: 2 }
+  include RailsSettings::Extend
+  include SearchCop
+
+  acts_as_tree order: 'last_name'
+
+  enum status: { open: 0, contacted: 1, pending_class: 2, qualified: 3, closed: 4 }
+  # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
 
   has_one :interest,          dependent:  :destroy
   has_one :cart,              dependent:  :destroy
+  has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
@@ -109,15 +116,7 @@ class User < ActiveRecord::Base
 
   has_many :assigned_items,   foreign_key: 'student_id'
   has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
-
-  #TODO: track leads through relationships instead
-  has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
-  has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
-  # has_many :selling,        through: :seller_leads, source: :leads
-  # has_many :buying,         through: :buyer_leads,  source: :leads
-
-  has_many :lab_rentals # TODO: Consider the dependencies
-
+  has_many :lab_rentals # TODO: Review dependencies
   has_many :messages,             dependent:   :destroy
   has_many :posts
   has_many :roles,                dependent:   :destroy
@@ -138,23 +137,33 @@ class User < ActiveRecord::Base
                                   foreign_key: 'seller_id'
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
-
   has_one :lms_manager, through: :lms_managers_associacion, source: 'manager'
   has_many :lms_students, through: :lms_students_associacion, source: 'user'
-
   has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
-  has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
-
   has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
   has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
-
   has_many :hacp_requests,             dependent:   :destroy
+  has_many :companies
+  has_many :opportunities,        class_name:  'Opportunity',
+                                  foreign_key: 'employee_id'
+  # has_many :buyer_orders,         class_name:  'Opportunity',
+  #                                 foreign_key: 'customer_id'
+  # has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
+  # has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
+  # has_many :selling,        through: :seller_leads, source: :leads
+  # has_many :buying,         through: :buyer_leads,  source: :leads
 
   accepts_nested_attributes_for :interest
-
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)') }
+  scope :leads,            -> { where.not(status: 3) }
+  scope :contacts,         -> { where(status: 3) }
+
+  search_scope :custom_search do
+    attributes :first_name, :last_name, :email
+  end
 
   devise :database_authenticatable,
          :invitable,
@@ -386,9 +395,9 @@ class User < ActiveRecord::Base
     roles.any? { |role| role.role.to_sym == role_param }
   end
 
-  def can_resend_invitation?
-    admin? || sales_rep?
-  end
+  # def can_resend_invitation?
+  #   admin? || sales_rep?
+  # end
 
   private
 

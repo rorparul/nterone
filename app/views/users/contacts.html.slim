@@ -1,0 +1,38 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+    | My NterOne
+  span.seperator
+    | /
+  span.text-muted
+    | Accounts
+  span.seperator
+    | /
+  span.text-muted
+    | Contacts
+
+= render 'layouts/tabs'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Contacts
+    .container-muted
+      = link_to t('default.action.new'), new_contact_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = smart_listing_controls_for(:users, { class: 'input-search' }) do
+        .input-group.input-group-sm.filter
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+    = smart_listing_render(:users)
+      
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .accounts').addClass('active');
