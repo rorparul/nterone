@@ -31,7 +31,7 @@ class OrderItem < ActiveRecord::Base
   before_create :copy_current_orderable_price
   before_save   :update_status
   after_save    :update_event_status
-  after_save    :calculate_event_book_cost, if: Proc.new {|model| model.cart_id.nil? }
+  after_save    :calculate_event_book_cost, if: Proc.new { |model| model.cart_id.nil? }
   after_destroy :calculate_event_book_cost
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }

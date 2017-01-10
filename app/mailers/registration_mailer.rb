@@ -8,13 +8,16 @@ class RegistrationMailer < ApplicationMailer
     mail(
       to: @seller_email,
       bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
-      subject:       'NterOne Web Student Added Confirmation',
+      subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
     )
   end
 
-  def confirmation(order_item)
+  def create(order_item)
+    @event = order_item.orderable
+    @user  = order_item.order.buyer
+
     sales_rep_email = order_item.order.seller.try(:email)
     partner_email   = order_item.order.referring_partner_email
     customer_email  = order_item.order.buyer.try(:email)
@@ -24,7 +27,7 @@ class RegistrationMailer < ApplicationMailer
     mail(
       to: [sales_rep_email, partner_email, customer_email],
       bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
-      subject:       'Registration Confirmation',
+      subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
     )

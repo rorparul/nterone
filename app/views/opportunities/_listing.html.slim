@@ -5,12 +5,18 @@
         tr.background-muted
           th = t('default.label.title')
           th = smart_listing.sortable 'Stage', :stage
+          th = smart_listing.sortable 'Waiting', :waiting
           th colspan='3'
       tbody
         - smart_listing.collection.each do |opportunity|
           tr
             td = link_to opportunity.title, opportunity_path(opportunity)
             td = opportunity_stage_in_text(opportunity.stage)
+            td
+              - if opportunity.waiting
+                span.label.label-success = t('events.partial_listing.y')
+              - else
+                span.label.label-default = t('events.partial_listing.n')
             td.fit = link_to t('default.action.edit'), edit_opportunity_path(opportunity), remote: true
             td.fit = link_to 'Copy', copy_opportunities_path(opportunity), remote: true
             td.fit = link_to t('default.action.destroy'), opportunity_path(opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

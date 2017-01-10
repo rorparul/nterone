@@ -39,9 +39,9 @@ m.form-container
         
     .form-group
       = f.label :event_id, 'Event'
-      = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_public_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
+      = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select event-select', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_public_events.empty? }
+        { class: 'form-control input-sm search-select event-select', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
       
     hr
     
