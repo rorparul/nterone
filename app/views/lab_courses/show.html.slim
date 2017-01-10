@@ -32,25 +32,9 @@
               = render partial: 'date_select'
             
         - unless @time_blocks.empty?
-          .row
-            .col-xs-12
-              ul.nav.nav-tabs role="tablist"
-                - @time_blocks.each do |key, value|
-                  - if @time_blocks.keys.first == key
-                    li.active role="tab"
-                      a href="##{number_in_words(key.unit_quantity).capitalize}" aria-controls="tab" role="tab" data-toggle="tab"
-                        | #{number_in_words(key.unit_quantity).capitalize + " Hour Block"}
-                  - else
-                    li role="tab"
-                      a href="##{number_in_words(key.unit_quantity).capitalize}" aria-controls="tab" role="tab" data-toggle="tab"
-                        | #{number_in_words(key.unit_quantity).capitalize + " Hour Block"}
-          .row
-            .col-xs-12
-              .well style="background-color: white; border-top: 0px; border-top-left-radius: 0; border-top-right-radius: 0;"
-                .row
-                  .col-xs-12.time_select_partial
-                    .form-container
-                      = render partial: 'time_select', locals: { time_blocks: @time_blocks }
+          .time-select-partial
+            .form-container
+              = render partial: 'time_select', locals: { lab_course: @lab_course, time_blocks: @time_blocks, time_zone: @time_zone }
                         
                   
   .col-xs-12.side-column

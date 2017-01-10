@@ -26,13 +26,15 @@
     .row style="margin-top: 20px;"
       - @lab_courses.each do |lab_course|
         .col-xs-12.col-sm-6.col-md-4.col-xl-2
-          = link_to lab_course_path(lab_course), class: "lab-course-link" do 
             .panel.panel-default.panel-lab-course
-              .card-fade
-              .panel-body
-                h4 = lab_course.full_title
-                / = lab_course.try(:card_description).length > 215 ? truncate(lab_course.try(:card_description), length: 235, omission: " . . . (Learn More)") : lab_course.try(:card_description) + " . . . (Learn More)"
-                = lab_course.try(:card_description)
+              - if current_user && current_user.admin?
+                = link_to "Edit", edit_lab_course_path(lab_course), class: "edit-lab-course"
+              = link_to lab_course_path(lab_course), class: "lab-course-link" do 
+                .card-fade
+                .panel-body
+                  h4 = lab_course.full_title
+                  / = lab_course.try(:card_description).length > 215 ? truncate(lab_course.try(:card_description), length: 235, omission: " . . . (Learn More)") : lab_course.try(:card_description) + " . . . (Learn More)"
+                  = lab_course.try(:card_description)
     
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

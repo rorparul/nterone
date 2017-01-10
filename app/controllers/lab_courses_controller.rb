@@ -10,18 +10,13 @@ class LabCoursesController < ApplicationController
 		@time_zones 			= (ActiveSupport::TimeZone.us_zones << ActiveSupport::TimeZone.all).flatten
 		@time_zone 				= Time.zone.name
 		@date_start				= Date.today
-		@time_block_ids 	= []
-		@time_blocks.each do |block|
-			@time_block_ids << block.id
-		end
 		filter_times
 	end
 
 	def time_select
 		@time_zone			= params[:time_zone]
 		@date_start			= params[:date_start]
-		@time_block_ids = params[:time_blocks].split.map(&:to_i)
-		@time_blocks 		= LabCourseTimeBlock.where(id: @time_block_ids)
+		@time_blocks 		= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
 		filter_times
 	end
 

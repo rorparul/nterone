@@ -1,6 +1,5 @@
 = form_for :time_zone_and_date_start, url: time_select_lab_course_time_block_path, remote: true do
   = hidden_field_tag  :id, @lab_course.id
-  = hidden_field_tag :time_blocks, @time_block_ids
   
   .row
     .col-xs-12.col-sm-6
@@ -15,14 +14,18 @@
         = text_field_tag :date_start, Date.today, class: 'form-control input-sm'
 
 javascript:
-  $(function() {
-    $('#date_start').datepicker({format: "yyyy-mm-dd"});
-  });
+  $(document).ready(function() {
   
-  $('#date_start').on('change', function() {
-    $(this).closest('form').submit();
-  });
-  
-  $('#time_zone').on('change', function() {
-    $(this).closest('form').submit();
+    $(function() {
+      $('#date_start').datepicker({format: "yyyy-mm-dd"});
+    });
+    
+    $('#date_start').on('change', function() {
+      $(this).closest('form').submit();
+    });
+    
+    $('#time_zone').on('change', function() {
+      $(this).closest('form').submit();
+    });
+    
   });
