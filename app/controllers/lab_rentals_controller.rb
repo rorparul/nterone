@@ -135,6 +135,7 @@ class LabRentalsController < ApplicationController
   end
 
   def self_checkout
+    return redirect_to new_user_registration_url unless user_signed_in?
     data        = params[:time_start].split
     @time_block = LabCourseTimeBlock.find(data[0])
     @time_zone  = params[:time_zone]

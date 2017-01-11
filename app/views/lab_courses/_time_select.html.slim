@@ -31,17 +31,21 @@
                             - unless value.nil? || value.empty?
                               thead
                                 tr
-                                  th.fit
+                                  / th.fit
                                   th = t('lab_course_time_blocks.partial_time_select.start_time')
                                   th = t('lab_course_time_blocks.partial_time_select.end_time')
                                   th Time Zone
+                                  th
                               tbody
                                 - value.each do |time|
                                   tr 
-                                    td.fit = radio_button_tag :time_start, [key.id, time], checked: false
+                                    / td.fit = radio_button_tag :time_start, [key.id, time], checked: false
                                     td = "#{time.strftime("%l:%M%p")}"
                                     td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
-                                    td = time.strftime("%Z")
+                                    td = time.zone
+                                    td.fit
+                                      .btn.btn-success style="background-color: #f8f8f8; border: none; color: #5cb85c; float: right; position: absolute;" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                                      button.btn.btn-success style="opacity: 0;" type="submit" name="time_start" value="#{key.id} #{time}" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
                             - else 
                               tbody
                                 tr
@@ -58,22 +62,26 @@
                           - unless value.nil? || value.empty?
                             thead
                               tr
-                                th.fit
+                                / th.fit
                                 th = t('lab_course_time_blocks.partial_time_select.start_time')
                                 th = t('lab_course_time_blocks.partial_time_select.end_time')
                                 th Time Zone
+                                th
                             tbody
                               - value.each do |time|
                                 tr 
-                                  td.fit = radio_button_tag :time_start, [key.id, time], checked: false
+                                  / td.fit = radio_button_tag :time_start, [key.id, time], checked: false
                                   td = "#{time.strftime("%l:%M%p")}"
                                   td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
-                                  td = time.strftime("%Z")
+                                  td = time.zone
+                                  td.fit
+                                    .btn.btn-success style="background-color: #f8f8f8; border: none; color: #5cb85c; float: right; position: absolute;" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                                    button.btn.btn-success style="opacity: 0;" type="submit" name="time_start" value="#{key.id} #{time}" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
                           - else
                             tbody
                               tr
                                 h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
                                 
                                 
-            .form-buttons
-              button.btn.btn-success type="submit" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+            / .form-buttons
+            /   button.btn.btn-success type="submit" = t('lab_course_time_blocks.partial_time_select.add_to_cart')

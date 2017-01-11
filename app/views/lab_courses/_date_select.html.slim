@@ -15,23 +15,17 @@
 
 javascript:
   $(document).ready(function() {
-    count = 0
+
     $(function() {
       $('#date_start').datepicker({format: "yyyy-mm-dd"});
     });
     
     $('#date_start').on('change', function() {
-      count = count + 1
-      if ( count > 1 ) {
-        $(this).closest('form').submit();
-      };
+      $(this).closest('form').submit();
     });
     
     $('#time_zone').on('change', function() {
-      count = count + 1
-      if ( count > 1 ) {
-        $(this).closest('form').submit();
-      };
+      $(this).closest('form').submit();
     });
     
   });
