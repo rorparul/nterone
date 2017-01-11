@@ -33,8 +33,8 @@
                 .panel-body 
                   h4 = lab_course.full_title
                   / = lab_course.try(:card_description)
-                  = lab_course.try(:card_description).length > 255 ? truncate(lab_course.try(:card_description), length: 260, omission: " . . .") : lab_course.try(:card_description)
-                  p style="position: absolute; bottom: 15px; right: 20px;" (Learn More)
+                  / = lab_course.try(:card_description).length > 255 ? truncate(lab_course.try(:card_description), length: 260, omission: " . . .") : lab_course.try(:card_description)
+                  / p style="position: absolute; bottom: 15px; right: 20px;" (Learn More)
     
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'

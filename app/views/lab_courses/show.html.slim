@@ -6,9 +6,9 @@
     | /
   a href="/labs"
     = t('admins.partial_breadcrumbs.labs')
-  span.seperator
+  span.seperator.breadcrumbs-title
     | /
-  span.text-muted = "#{@lab_course.title}"
+  span.text-muted.breadcrumbs-title = "#{@lab_course.try(:abbreviation)}"
   
 - if current_user && current_user.admin? == true
   - content_for :actions do
