@@ -7,16 +7,19 @@ class LabCoursesController < ApplicationController
 
 	def show
 		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
-		@time_zones 			= (ActiveSupport::TimeZone.us_zones << ActiveSupport::TimeZone.all).flatten
+		# @time_zones 			= (ActiveSupport::TimeZone.us_zones << ActiveSupport::TimeZone.all).flatten
+		@time_zones				= [["United States Time Zones", ActiveSupport::TimeZone.us_zones.uniq],["All Time Zones", ActiveSupport::TimeZone.all.uniq]]
 		@time_zone 				= Time.zone.name
 		@date_start				= Date.today
 		filter_times
 	end
 
 	def time_select
-		@time_zone			= params[:time_zone]
 		@date_start			= params[:date_start]
 		@time_blocks 		= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
+		@time_zone			= params[:time_zone].split
+		@time_zone.delete_at(0)
+		@time_zone = @time_zone.join(" ")
 		filter_times
 	end
 

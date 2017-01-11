@@ -6,7 +6,8 @@
       .form-group
         = label_tag :time_zone, t('lab_course_time_blocks.partial_date_select.select_time_zone')
         br
-        = select_tag :time_zone, options_from_collection_for_select(@time_zones, 'name', 'name', Time.zone.name), { class: 'form-control input-sm' }
+        / = select_tag :time_zone, options_from_collection_for_select(@time_zones, 'name', 'name', Time.zone.name), { class: 'form-control input-sm' }
+        = select_tag :time_zone, grouped_options_for_select(@time_zones, Time.zone), { class: 'form-control input-sm' }
     .col-xs-12.col-sm-6
       .form-group
         = label_tag :date_start, t('lab_course_time_blocks.partial_date_select.select_date')

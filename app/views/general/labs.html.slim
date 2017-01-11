@@ -30,8 +30,9 @@
               - if current_user && current_user.admin?
                 = link_to "Edit", edit_lab_course_path(lab_course), class: "edit-lab-course"
               = link_to lab_course_path(lab_course), class: "lab-course-link" do 
-                .panel-body
+                .panel-body 
                   h4 = lab_course.full_title
+                  / = lab_course.try(:card_description)
                   = lab_course.try(:card_description).length > 255 ? truncate(lab_course.try(:card_description), length: 260, omission: " . . .") : lab_course.try(:card_description)
                   p style="position: absolute; bottom: 15px; right: 20px;" (Learn More)
     
