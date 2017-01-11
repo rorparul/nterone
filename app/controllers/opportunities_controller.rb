@@ -15,7 +15,11 @@ class OpportunitiesController < ApplicationController
       :opportunities,
       opportunities_scope,
       partial: 'opportunities/listing',
-      sort_attributes: [[:created_at, 'opportunities.created_at']],
+      sort_attributes: [
+        [:created_at, 'opportunities.created_at'],
+        [:stage, 'stage'],
+        [:waiting, 'waiting']
+      ],
       default_sort: { created_at: 'desc' }
     )
   end
