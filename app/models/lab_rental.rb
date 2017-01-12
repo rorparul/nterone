@@ -24,6 +24,7 @@
 #  time_zone         :string
 #  twenty_four_hours :boolean
 #  last_day          :date
+#  level             :string
 #
 # Indexes
 #
