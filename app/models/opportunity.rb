@@ -38,10 +38,18 @@ class Opportunity < ActiveRecord::Base
 
   has_one :order, dependent: :destroy
 
+  scope :pending, -> { where(stage: [10, 50, 75, 90]) }
+  scope :won,     -> { where(stage: 100) }
+  scope :lost,    -> { where(stage: 0) }
+  scope :closed,  -> { where(stage: [100, 0]) }
+  scope :waiting, -> { where(waiting: true) }
+
   search_scope :custom_search do
     attributes :title
-    attributes account: ['account.title', 'account.industry_code']
-    attributes partner: ['partner.title', 'partner.industry_code']
+    attributes account:  ['account.title', 'account.industry_code']
+    attributes course:   ['course.abbreviation', 'course.title']
+    attributes customer: ['customer.first_name', 'customer.last_name', 'customer.email']
+    attributes partner:  ['partner.title', 'partner.industry_code']
   end
 
   before_save :update_title,       if: proc { |model| model.title.blank? && model.course.present? }

@@ -9,7 +9,7 @@
   span.seperator
     | /
   span.text-muted
-    | Prospects
+    | Sales
   span.seperator
     | /
   span.text-muted
@@ -22,15 +22,32 @@
     h4
       strong.text-muted Opportunities
     .container-muted
-      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
+      .row
+        .col-xs-6
+          = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+        .col-xs-6
+          = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+            .input-group.input-group-sm.filter
+              = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
+              span.input-group-btn
+                button.btn.btn-default.btn-sm.disabled type="submit"
+                  span.glyphicon.glyphicon-search
+            
+            .radio
+              label
+                input type="radio" name="selection" id="selection_open" value="open" checked='true'
+                | Open
+            .radio
+              label
+                input type="radio" name="selection" id="selection_waiting" value="waiting"
+                | Waiting
+            .radio
+              label
+                input type="radio" name="selection" id="selection_closed" value="closed"
+                | Closed
+                
     = smart_listing_render(:opportunities)
       
 javascript:

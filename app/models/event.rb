@@ -79,7 +79,6 @@ class Event < ActiveRecord::Base
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
   scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
 
-
   search_scope :custom_search do
     attributes :id, :format, :start_date, :public, :guaranteed
     attributes :course => ["course.abbreviation", "course.title"]

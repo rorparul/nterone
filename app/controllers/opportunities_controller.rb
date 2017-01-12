@@ -8,7 +8,10 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
-    opportunities_scope = Opportunity.all
+    opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection] == nil
+    opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
+    opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
     smart_listing_create(
@@ -66,6 +69,7 @@ class OpportunitiesController < ApplicationController
 
   def copy
     @opportunity = @opportunity.dup
+    @opportunity.stage = 10
     render 'shared/new'
   end
 
