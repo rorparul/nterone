@@ -8,9 +8,15 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
-    opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection] == nil
-    opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-    opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+    if current_user.admin?
+      opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
+      opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
+      opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+    else
+      opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
+      opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
+      opportunities_scope = current_user.opportunities.closed  if params[:selection] == 'closed'
+    end
 
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 

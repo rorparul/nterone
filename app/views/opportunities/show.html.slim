@@ -21,8 +21,8 @@
 
 = render 'layouts/tabs'
 
+= link_to @opportunity.order.id, admin_orders_show_path(@opportunity.order) if @opportunity.order.present?
 
-  
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
