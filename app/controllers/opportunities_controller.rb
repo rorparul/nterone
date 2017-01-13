@@ -107,6 +107,7 @@ class OpportunitiesController < ApplicationController
       :email_optional,
       :event_id,
       :kind,
+      :notes,
       :partner_id,
       :payment_kind,
       :reason_for_loss,

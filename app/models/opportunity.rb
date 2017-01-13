@@ -24,6 +24,7 @@
 #  course_id        :integer
 #  event_id         :integer
 #  email_optional   :string
+#  notes            :text
 #
 
 class Opportunity < ActiveRecord::Base

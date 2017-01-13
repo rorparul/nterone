@@ -77,6 +77,10 @@ m.form-container
         { include_blank: 'NterOne' },
         { class: 'form-control input-sm search-select company-select' }
         
+    .form-group
+      = f.label :notes, 'Notes'
+      = f.text_area :notes, rows: 10, class: 'form-control'
+        
     hr
     
     .form-group

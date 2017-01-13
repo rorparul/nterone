@@ -17,10 +17,67 @@
 
 = render 'layouts/tabs'
 
+
+/ h4
+/   strong.text-muted Relatives
+/ .container-muted
+/   .row
+/     .col-xs-12.col-md-4
+/       strong.text-muted Ancestors
+/       br
+/       - @company.ancestors.each do |company|
+/         = link_to company.title, company_path(company)
+/         br
+/     .col-xs-12.col-md-4
+/       strong.text-muted Siblings
+/       br
+/       - @company.siblings.each do |company|
+/         = link_to company.title, company_path(company)
+/         br
+/     .col-xs-12.col-md-4
+/       strong.text-muted Descendants
+/       br
+/       - @company.descendants.each do |company|
+/         = link_to company.title, company_path(company)
+/         br
+
+
 .row
   .col-xs-12
     h4
-      strong.text-muted Opportunities
+      strong.text-muted Summary
+    .container-muted
+      .row
+        .col-xs-12.col-md-2
+          strong.text-muted Open
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.pending.sum(:amount), precision: 2))}"
+        .col-xs-12.col-md-2
+          strong.text-muted Waiting
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.waiting.sum(:amount), precision: 2))}"
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (MTD)
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ?', Date.today.beginning_of_month).sum(:amount), precision: 2))}"
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (Last Month)
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount), precision: 2))}"
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (YTD)
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount), precision: 2))}"
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (Last Year)
+          br
+          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ? and date_closed <= ?', Date.today.last_year.beginning_of_year, Date.today.last_year.end_of_year).sum(:amount), precision: 2))}"
+          
+          
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Opportunities  
     .container-muted
       .row
         .col-xs-6
