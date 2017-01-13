@@ -126,7 +126,7 @@ class SalesForceUploader
           end
         end
         Company.create(row_original) if Company.where(row_original).empty?
-      when "Contacts"
+      when "Contacts" || "Leads"
         if row_original[:do_not_email]
           row_original[:do_not_email] = row_original[:do_not_email] == "1" || 1 ? true : false
         end
@@ -141,16 +141,37 @@ class SalesForceUploader
         # Create user if user does not exist
         user = User.find_by(email: row_original[:email])
         if user.nil?
+          row_original[:status]     = 3 if type == "Contacts"
+          row_original[:company_id] = Company.find_by(title: row_original[:company_name]).id unless Company.find_by(title: row_original[:company_name]).nil?
           user = User.create(row_original)
         end
         #  Create associated lead
         if @rep && (@rep.sales? || @rep.admin?)
           Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
         end
-      when "Leads"
-        
       when "Opportunities"
+        if row_original[:account_id]
+          company = Company.find_by(title: row_original[:account_id])
+          row_original[:account_id] = company.id unless company.nil?
+        end
 
+        if row_original[:amount]
+          row_original[:amount] = row_original[:amount].to_d
+        end
+
+        if row_original[:date_closed]
+          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y')
+        end
+
+        # Associate Opportunity with rep if rep exists
+        if row_original[:employee_id]
+          # Must find by full name
+          first_name = row_original[:employee_id].split.first
+          last_name  = row_original[:employee_id].split.last
+          rep        = User.find_by(first_name: first_name, last_name: last_name)
+          row_original[:employee_id] = rep.id unless rep.nil?
+        end
+        Opportunity.create(row_original)
       else
         flash[:alert] = "Something went horribly wrong!"
         return redirect_to :back
