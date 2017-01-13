@@ -110,7 +110,7 @@ class SalesForceUploader
       case type
       when "Companies"
         if row_original[:user_id]
-          #  Must find my full name
+          #  Must find by full name
           if row_original[:user_id] == "Company Earnings"
             row_original[:user_id] = nil
           else
@@ -136,23 +136,24 @@ class SalesForceUploader
           first_name = row_original[:seller_id].split.first
           last_name  = row_original[:seller_id].split.last
           @rep       = User.find_by(first_name: first_name, last_name: last_name)
-          row_original.delete(:seller_id)
         end
         # Create user if user does not exist
         user = User.find_by(email: row_original[:email])
-        if user.nil?
+        if user.nil? && !(row_original[:email].nil?) && !(row_original[:email].blank?) && !(row_original[:email].empty?) && !(row_original[:first_name].nil?) && !(row_original[:last_name].nil?)
+          row_original.delete(:seller_id)
+          row_original[:password]   = row_original[:first_name].first(3) + row_original[:last_name].first(3) + "Password1"
           row_original[:status]     = 3 if type == "Contacts"
           row_original[:company_id] = Company.find_by(title: row_original[:company_name]).id unless Company.find_by(title: row_original[:company_name]).nil?
-          user = User.create(row_original)
+          user = User.create!(row_original)
         end
         #  Create associated lead
-        if @rep && (@rep.sales? || @rep.admin?)
+        if user && @rep && (@rep.sales? || @rep.admin?)
           Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
         end
       when "Opportunities"
         if row_original[:account_id]
           company = Company.find_by(title: row_original[:account_id])
-          row_original[:account_id] = company.id unless company.nil?
+          row_original[:account_id] = company.nil? ? nil : company.id
         end
 
         if row_original[:amount]
@@ -169,7 +170,9 @@ class SalesForceUploader
           first_name = row_original[:employee_id].split.first
           last_name  = row_original[:employee_id].split.last
           rep        = User.find_by(first_name: first_name, last_name: last_name)
-          row_original[:employee_id] = rep.id unless rep.nil?
+          if rep && (rep.sales? || rep.admin?)
+            row_original[:employee_id] = rep.id
+          end
         end
         Opportunity.create(row_original)
       else
