@@ -127,9 +127,9 @@ class SalesForceUploader
         end
         Company.create(row_original) if Company.where(row_original).empty?
       when "Contacts" || "Leads"
-        if row_original[:do_not_email]
-          row_original[:do_not_email] = row_original[:do_not_email] == "1" || 1 ? true : false
-        end
+        # if row_original[:do_not_email]
+          # row_original[:do_not_email] == "1" || 1 ? row_original[:do_not_email] = true : row_original[:do_not_email] = false
+        # end
         # If Contact has seller_id obtain information to create an associated lead resource
         if row_original[:seller_id]
           # Must find rep by full name
