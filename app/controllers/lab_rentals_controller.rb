@@ -77,9 +77,9 @@ class LabRentalsController < ApplicationController
       flash[:success] = 'Lab Reservation successfully submitted!'
       LabReservationMailer.create_reservation(current_user, @lab_rental).deliver_now
       if user_signed_in? && (current_user.admin? || current_user.company)
-	redirect_to lab_rentals_path
+	       redirect_to lab_rentals_path
       else
-	redirect_to :back
+	       redirect_to :back
       end
     else
       render 'new'

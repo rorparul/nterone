@@ -14,6 +14,13 @@
     | /
   span.text-muted
     | Companies
+    
+    
+- if current_user.admin? == true
+  - content_for :actions do
+    li
+      = link_to sales_force_form_path, remote: true do
+        = "Upload Lab Reservation File"
 
 = render 'layouts/tabs'
 
