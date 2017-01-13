@@ -6,10 +6,10 @@ class SalesForceController < ApplicationController
   end
 
   def upload
-    # if params[:upload][:file] == nil
-    #   flash[:alert] = "Please upload a file!"
-    #   return redirect_to :back
-    # end
+    if params[:upload][:file] == nil
+      flash[:alert] = "Please upload a file!"
+      return redirect_to :back
+    end
     @file = params[:upload][:file]
     @type = params[:upload][:type]
     if @type == "Companies" || "Contacts"|| "Leads" || "Opportunities"

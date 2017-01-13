@@ -16,11 +16,12 @@ class SalesForceUploader
 
   def self.format_header(row, type)
     row.map do |title|
-      if type == "Company"
+      if type == "Companies"
         case title
         when "Account Name"
           :title
         when "Account Owner"
+          # Must Find By Name
           :user_id
         when "Website"
           :website
@@ -34,6 +35,7 @@ class SalesForceUploader
         when "Alternate Phone Number"
           :phone_alternative
         when "Contact Owner: Full Name"
+          # Must find by name
           :seller_id
         when "Email"
           :email
@@ -63,6 +65,7 @@ class SalesForceUploader
         when "Last Name"
           :last_name
         when "Lead Owner"
+          # Must find by name
           :seller_id
         when "Mobile"
           :phone_alternative
@@ -80,6 +83,7 @@ class SalesForceUploader
       elsif type == "Opportunities"
         case title
         when "Account Name"
+          # Must find by name
           :account_id
         when "Amount"
           :amount
@@ -88,6 +92,7 @@ class SalesForceUploader
         when "Opportunity Name"
           :title
         when "Opportunity Owner"
+          # Must find by name
           :employee_id
         when "Stage"
           :stage
@@ -99,7 +104,58 @@ class SalesForceUploader
   end
 
   def self.format_rows(spreadsheet, header, type)
+    (2..spreadsheet.last_row).each do |i|
+      row_original = Hash[[header, spreadsheet.row(i)].transpose]
+      row_original.delete(:DELETE)
+      case type
+      when "Companies"
+        if row_original[:user_id]
+          #  Must find my full name
+          if row_original[:user_id] == "Company Earnings"
+            row_original[:user_id] = nil
+          else
+            first_name = row_original[:user_id].split.first
+            last_name  = row_original[:user_id].split.last
+            user       = User.find_by(first_name: first_name, last_name: last_name)
+            if user && (user.sales? || user.admin?)
+              row_original[:user_id] = user.id
+            else
+              # Cannot create users without email address
+              row_original[:user_id] = nil
+            end
+          end
+        end
+        Company.create(row_original) if Company.where(row_original).empty?
+      when "Contacts"
+        if row_original[:do_not_email]
+          row_original[:do_not_email] = row_original[:do_not_email] == "1" || 1 ? true : false
+        end
+        # If Contact has seller_id obtain information to create an associated lead resource
+        if row_original[:seller_id]
+          # Must find rep by full name
+          first_name = row_original[:seller_id].split.first
+          last_name  = row_original[:seller_id].split.last
+          @rep       = User.find_by(first_name: first_name, last_name: last_name)
+          row_original.delete(:seller_id)
+        end
+        # Create user if user does not exist
+        user = User.find_by(email: row_original[:email])
+        if user.nil?
+          user = User.create(row_original)
+        end
+        #  Create associated lead
+        if @rep && (@rep.sales? || @rep.admin?)
+          Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
+        end
+      when "Leads"
+        
+      when "Opportunities"
 
+      else
+        flash[:alert] = "Something went horribly wrong!"
+        return redirect_to :back
+      end
+    end
   end
 
 end
