@@ -119,6 +119,12 @@ class SalesForceUploader
             user       = User.find_by(first_name: first_name, last_name: last_name)
             if user && (user.sales? || user.admin?)
               row_original[:user_id] = user.id
+            elsif user.nil? && !(first_name.nil?) && !(first_name.blank?) && !(last_name.nil?) && !(last_name.blank?)
+              email     = first_name + "." + last_name + "@nterone.com"
+              password  = first_name.first(3) + last_name.first(3) + "Password1"
+              user      = User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
+              Role.create(user_id: user.id, role: 3)
+              row_original[:user_id] = user.id
             else
               # Cannot create users without email address
               row_original[:user_id] = nil
@@ -144,10 +150,16 @@ class SalesForceUploader
           row_original[:password]   = row_original[:first_name].first(3) + row_original[:last_name].first(3) + "Password1"
           row_original[:status]     = 3 if type == "Contacts"
           row_original[:company_id] = Company.find_by(title: row_original[:company_name]).id unless Company.find_by(title: row_original[:company_name]).nil?
-          user = User.create!(row_original)
+          user = User.create(row_original)
         end
         #  Create associated lead
         if user && @rep && (@rep.sales? || @rep.admin?)
+          Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
+        else
+          email     = first_name + "." + last_name + "@nterone.com"
+          password  = first_name.first(3) + last_name.first(3) + "Password1"
+          @rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
+          Role.create(user_id: @rep.id, role: 3)
           Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
         end
       when "Opportunities"
@@ -172,9 +184,15 @@ class SalesForceUploader
           rep        = User.find_by(first_name: first_name, last_name: last_name)
           if rep && (rep.sales? || rep.admin?)
             row_original[:employee_id] = rep.id
+          else
+            email     = first_name + "." + last_name + "@nterone.com"
+            password  = first_name.first(3) + last_name.first(3) + "Password1"
+            rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
+            Role.create(user_id: rep.id, role: 3)
+            row_original[:employee_id] = rep.id
           end
         end
-        Opportunity.create(row_original)
+        Opportunity.create(row_original) if Opportunity.where(row_original).empty?
       else
         flash[:alert] = "Something went horribly wrong!"
         return redirect_to :back
