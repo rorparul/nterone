@@ -116,10 +116,13 @@ class SalesForceUploader
           else
             first_name = row_original[:user_id].split.first
             last_name  = row_original[:user_id].split.last
-            user       = User.find_by(first_name: first_name, last_name: last_name)
-            if user && (user.sales? || user.admin?)
-              row_original[:user_id] = user.id
-            elsif user.nil? && !(first_name.nil?) && !(first_name.blank?) && !(last_name.nil?) && !(last_name.blank?)
+            users      = User.where(first_name: first_name, last_name: last_name)
+            users.each do |user|
+              @user = user if user.sales? || user.admin?
+            end
+            if @user
+              row_original[:user_id] = @user.id
+            elsif @user.nil? && !(first_name.nil?) && !(first_name.blank?) && !(last_name.nil?) && !(last_name.blank?)
               email     = first_name + "." + last_name + "@nterone.com"
               password  = first_name.first(3) + last_name.first(3) + "Password1"
               user      = User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
@@ -141,7 +144,10 @@ class SalesForceUploader
           # Must find rep by full name
           first_name = row_original[:seller_id].split.first
           last_name  = row_original[:seller_id].split.last
-          @rep       = User.find_by(first_name: first_name, last_name: last_name)
+          users      = User.where(first_name: first_name, last_name: last_name)
+          users.each do |user|
+            @rep = user if user.sales? || user.admin?
+          end
         end
         # Create user if user does not exist
         user = User.find_by(email: row_original[:email])
@@ -153,7 +159,7 @@ class SalesForceUploader
           user = User.create(row_original)
         end
         #  Create associated lead
-        if user && @rep && (@rep.sales? || @rep.admin?)
+        if user && @rep
           Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
         else
           email     = first_name + "." + last_name + "@nterone.com"
@@ -181,9 +187,12 @@ class SalesForceUploader
           # Must find by full name
           first_name = row_original[:employee_id].split.first
           last_name  = row_original[:employee_id].split.last
-          rep        = User.find_by(first_name: first_name, last_name: last_name)
-          if rep && (rep.sales? || rep.admin?)
-            row_original[:employee_id] = rep.id
+          users      = User.where(first_name: first_name, last_name: last_name)
+          users.each do |user|
+            @rep = user if user.sales? || user.admin?
+          end
+          if @rep
+            row_original[:employee_id] = @rep.id
           else
             email     = first_name + "." + last_name + "@nterone.com"
             password  = first_name.first(3) + last_name.first(3) + "Password1"
