@@ -179,7 +179,7 @@ class SalesForceUploader
         end
 
         if row_original[:date_closed]
-          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y')
+          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y').to_date
         end
 
         # Associate Opportunity with rep if rep exists
@@ -201,7 +201,10 @@ class SalesForceUploader
             row_original[:employee_id] = rep.id
           end
         end
-        Opportunity.create(row_original) if Opportunity.where(row_original).empty?
+        if Opportunity.where(row_original).empty?
+          opportunity = Opportunity.create(row_original)
+          opportunity.update_attribute(:date_closed, row_original[:date_closed])
+        end
       else
         flash[:alert] = "Something went horribly wrong!"
         return redirect_to :back
