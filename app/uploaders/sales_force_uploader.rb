@@ -94,8 +94,12 @@ class SalesForceUploader
         when "Opportunity Owner"
           # Must find by name
           :employee_id
-        when "Stage"
+        when "Probability (%)"
           :stage
+        when "Next Step"
+          :notes
+        when "Created Date"
+          :created_at
         else
           :DELETE
         end
@@ -114,34 +118,38 @@ class SalesForceUploader
           if row_original[:user_id] == "Company Earnings"
             row_original[:user_id] = nil
           else
+
+            # NOTE: Capture sales rep
             first_name = row_original[:user_id].split.first
             last_name  = row_original[:user_id].split.last
             users      = User.where(first_name: first_name, last_name: last_name)
             users.each do |user|
               @user = user if user.sales? || user.admin?
             end
+
             if @user
               row_original[:user_id] = @user.id
-            elsif @user.nil? && !(first_name.nil?) && !(first_name.blank?) && !(last_name.nil?) && !(last_name.blank?)
-              email     = first_name + "." + last_name + "@nterone.com"
-              password  = first_name.first(3) + last_name.first(3) + "Password1"
-              user      = User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
-              Role.create(user_id: user.id, role: 3)
-              row_original[:user_id] = user.id
-            else
-              # Cannot create users without email address
-              row_original[:user_id] = nil
+            # elsif @user.nil? && !(first_name.nil?) && !(first_name.blank?) && !(last_name.nil?) && !(last_name.blank?)
+            #   email     = first_name + "." + last_name + "@nterone.com"
+            #   password  = first_name.first(3) + last_name.first(3) + "Password1"
+            #   user      = User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
+            #   Role.create(user_id: user.id, role: 3)
+            #   row_original[:user_id] = user.id
+            # else
+            #   # Cannot create users without email address
+            #   row_original[:user_id] = nil
             end
           end
         end
         Company.create(row_original) if Company.where(row_original).empty?
-      when "Contacts" || "Leads"
+      when "Contacts"
         # if row_original[:do_not_email]
           # row_original[:do_not_email] == "1" || 1 ? row_original[:do_not_email] = true : row_original[:do_not_email] = false
         # end
         # If Contact has seller_id obtain information to create an associated lead resource
+
+        # NOTE: Capture sales rep
         if row_original[:seller_id]
-          # Must find rep by full name
           first_name = row_original[:seller_id].split.first
           last_name  = row_original[:seller_id].split.last
           users      = User.where(first_name: first_name, last_name: last_name)
@@ -149,24 +157,52 @@ class SalesForceUploader
             @rep = user if user.sales? || user.admin?
           end
         end
+
         # Create user if user does not exist
         user = User.find_by(email: row_original[:email])
         if user.nil? && !(row_original[:email].nil?) && !(row_original[:email].blank?) && !(row_original[:email].empty?) && !(row_original[:first_name].nil?) && !(row_original[:last_name].nil?)
           row_original.delete(:seller_id)
+          row_original[:parent_id]  = @rep.try(:id)
           row_original[:password]   = row_original[:first_name].first(3) + row_original[:last_name].first(3) + "Password1"
-          row_original[:status]     = 3 if type == "Contacts"
+          row_original[:status]     = 3
           row_original[:company_id] = Company.find_by(title: row_original[:company_name]).id unless Company.find_by(title: row_original[:company_name]).nil?
-          user = User.create(row_original)
+          # row_original[:first_name].capitalize! if row_original[:first_name].present?
+          # row_original[:last_name].capitalize! if row_original[:last_name].present?
+          user = User.new(row_original)
+          user.save(:validate => false)
         end
         #  Create associated lead
-        if user && @rep
-          Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
-        else
-          email     = first_name + "." + last_name + "@nterone.com"
-          password  = first_name.first(3) + last_name.first(3) + "Password1"
-          @rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
-          Role.create(user_id: @rep.id, role: 3)
-          Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
+        # if user && @rep
+        #   # Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
+        # else
+        #   email     = first_name + "." + last_name + "@nterone.com"
+        #   password  = first_name.first(3) + last_name.first(3) + "Password1"
+        #   @rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
+        #   Role.create(user_id: @rep.id, role: 3)
+        #   # Lead.create(seller_id: @rep.id, buyer_id: user.id, status: 'assigned')
+        # end
+      when "Leads"
+        # NOTE: Capture sales rep
+        if row_original[:seller_id]
+          first_name = row_original[:seller_id].split.first
+          last_name  = row_original[:seller_id].split.last
+          users      = User.where(first_name: first_name, last_name: last_name)
+          users.each do |user|
+            @rep = user if user.sales? || user.admin?
+          end
+        end
+
+        user = User.find_by(email: row_original[:email])
+        if user.nil? && !(row_original[:email].nil?) && !(row_original[:email].blank?) && !(row_original[:email].empty?) && !(row_original[:first_name].nil?) && !(row_original[:last_name].nil?)
+          row_original.delete(:seller_id)
+          row_original[:parent_id]  = @rep.try(:id)
+          row_original[:password]   = row_original[:first_name].first(3) + row_original[:last_name].first(3) + "Password1"
+          row_original[:status]     = 0
+          row_original[:company_id] = Company.find_by(title: row_original[:company_name]).id unless Company.find_by(title: row_original[:company_name]).nil?
+          # row_original[:first_name].capitalize! if row_original[:first_name].present?
+          # row_original[:last_name].capitalize! if row_original[:last_name].present?
+          user = User.new(row_original)
+          user.save(:validate => false)
         end
       when "Opportunities"
         if row_original[:account_id]
@@ -193,12 +229,12 @@ class SalesForceUploader
           end
           if @rep
             row_original[:employee_id] = @rep.id
-          else
-            email     = first_name + "." + last_name + "@nterone.com"
-            password  = first_name.first(3) + last_name.first(3) + "Password1"
-            rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
-            Role.create(user_id: rep.id, role: 3)
-            row_original[:employee_id] = rep.id
+          # else
+          #   email     = first_name + "." + last_name + "@nterone.com"
+          #   password  = first_name.first(3) + last_name.first(3) + "Password1"
+          #   rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
+          #   Role.create(user_id: rep.id, role: 3)
+          #   row_original[:employee_id] = rep.id
           end
         end
         if Opportunity.where(row_original).empty?
@@ -206,8 +242,8 @@ class SalesForceUploader
           opportunity.update_attribute(:date_closed, row_original[:date_closed])
         end
       else
-        flash[:alert] = "Something went horribly wrong!"
-        return redirect_to :back
+        # flash[:alert] = "Something went horribly wrong!"
+        # return redirect_to :back
       end
     end
   end

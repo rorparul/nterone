@@ -38,19 +38,19 @@
         .col-xs-12.col-md-4
           strong.text-muted Ancestors
           br
-          - @company.ancestors.each do |company|
+          - @company.ancestors.first(10).each do |company|
             = link_to company.title, company_path(company)
             br
         .col-xs-12.col-md-4
           strong.text-muted Siblings
           br
-          - @company.siblings.each do |company|
+          - @company.siblings.first(10).each do |company|
             = link_to company.title, company_path(company)
             br
         .col-xs-12.col-md-4
           strong.text-muted Descendants
           br
-          - @company.descendants.each do |company|
+          - @company.descendants.first(10).each do |company|
             = link_to company.title, company_path(company)
             br
       
