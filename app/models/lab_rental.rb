@@ -18,13 +18,12 @@
 #  user_id           :integer
 #  company_id        :integer
 #  canceled          :boolean
-#  lab_course_id     :integer
 #  end_time          :time
+#  lab_course_id     :integer
 #  kind              :integer
 #  time_zone         :string
 #  twenty_four_hours :boolean
 #  last_day          :date
-#  level             :string
 #
 # Indexes
 #
