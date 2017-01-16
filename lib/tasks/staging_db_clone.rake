@@ -19,6 +19,12 @@ namespace "staging" do
 
       # stop passenger
       logger.info `cd #{Rails.root.join('tmp')} && touch stop.txt`
+      # stop Passenger RubyApp
+      process_info = `ps ax | grep "Passenger RubyApp" | grep -v "grep"`
+      process_pid = /^(\d+)/.match process_info
+      if process_pid
+        logger.info `kill #{process_pid}`
+      end
       sleep 30
 
       begin
