@@ -1,6 +1,6 @@
 class AddStuffToCompanies < ActiveRecord::Migration
   def change
-    add_column(:companies, :user_id, :integer) unless column_exists? :companies, :user_id
+    add_column :companies, :user_id,  :integer
     add_column :companies, :kind,     :string
     add_column :companies, :street,   :string
     add_column :companies, :city,     :string
