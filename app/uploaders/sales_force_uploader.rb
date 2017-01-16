@@ -170,6 +170,7 @@ class SalesForceUploader
           # row_original[:last_name].capitalize! if row_original[:last_name].present?
           user = User.new(row_original)
           user.save(:validate => false)
+          Role.create(user_id: user.id, role: 4)
         end
         #  Create associated lead
         # if user && @rep
@@ -203,6 +204,7 @@ class SalesForceUploader
           # row_original[:last_name].capitalize! if row_original[:last_name].present?
           user = User.new(row_original)
           user.save(:validate => false)
+          Role.create(user_id: user.id, role: 4)
         end
       when "Opportunities"
         if row_original[:account_id]
