@@ -8,14 +8,6 @@ m.form-container
         ul
           - @company.errors.full_messages.each do |msg|
             li = msg
-      
-    .form-group
-      = f.label :user_id, "Owner"
-      = f.select :user_id, surname_ordered_options(@owners),
-        { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
-        
-    hr
               
     .form-group
       = f.label :title, t('default.label.title')
@@ -73,6 +65,14 @@ m.form-container
     .form-group
       = f.label :form_type, t('companies.partial_form.form_type')
       = f.select :form_type, [[t('companies.partial_form.option_1'), 1], [t('companies.partial_form.option_2'), 2]],
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'form-control input-sm search-select' }
+        
+    hr
+    
+    .form-group
+      = f.label :user_id, 'Sales Rep'
+      = f.select :user_id, surname_ordered_options(@owners),
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'form-control input-sm search-select' }
       

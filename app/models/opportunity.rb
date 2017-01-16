@@ -60,6 +60,30 @@ class Opportunity < ActiveRecord::Base
   after_save :update_order,  if: proc { |model| model.order.present? && model.event_id_changed? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
 
+  def self.amount_open
+    pending.sum(:amount)
+  end
+
+  def self.amount_waiting
+    waiting.sum(:amount)
+  end
+
+  def self.amount_won_mtd
+    won.where('date_closed >= ?', Date.today.beginning_of_month).sum(:amount)
+  end
+
+  def self.amount_won_last_month
+    where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount)
+  end
+
+  def self.amount_won_ytd
+    where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount)
+  end
+
+  def self.amount_won_last_year
+    where('date_closed >= ? and date_closed <= ?', Date.today.last_year.beginning_of_year, Date.today.last_year.end_of_year).sum(:amount)
+  end
+
   private
 
   def update_title

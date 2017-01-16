@@ -16,73 +16,43 @@
     | Opportunities
 
 = render 'layouts/tabs'
-
-
-/ h4
-/   strong.text-muted Relatives
-/ .container-muted
-/   .row
-/     .col-xs-12.col-md-4
-/       strong.text-muted Ancestors
-/       br
-/       - @company.ancestors.each do |company|
-/         = link_to company.title, company_path(company)
-/         br
-/     .col-xs-12.col-md-4
-/       strong.text-muted Siblings
-/       br
-/       - @company.siblings.each do |company|
-/         = link_to company.title, company_path(company)
-/         br
-/     .col-xs-12.col-md-4
-/       strong.text-muted Descendants
-/       br
-/       - @company.descendants.each do |company|
-/         = link_to company.title, company_path(company)
-/         br
-
-
+          
 .row
   .col-xs-12
     h4
-      strong.text-muted Summary
+      strong.text-muted Opportunities
     .container-muted
       .row
         .col-xs-12.col-md-2
           strong.text-muted Open
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.pending.sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_open : current_user.opportunities.amount_open)
         .col-xs-12.col-md-2
           strong.text-muted Waiting
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.waiting.sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_waiting : current_user.opportunities.amount_waiting)
         .col-xs-12.col-md-2
           strong.text-muted Closed (MTD)
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ?', Date.today.beginning_of_month).sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_mtd : current_user.opportunities.amount_won_mtd)
         .col-xs-12.col-md-2
           strong.text-muted Closed (Last Month)
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_month : current_user.opportunities.amount_won_last_month)
         .col-xs-12.col-md-2
           strong.text-muted Closed (YTD)
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_ytd : current_user.opportunities.amount_won_ytd)
         .col-xs-12.col-md-2
           strong.text-muted Closed (Last Year)
           br
-          = "$#{number_with_delimiter(number_with_precision(Opportunity.won.where('date_closed >= ? and date_closed <= ?', Date.today.last_year.beginning_of_year, Date.today.last_year.end_of_year).sum(:amount), precision: 2))}"
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_year : current_user.opportunities.amount_won_last_year)
           
-          
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Opportunities  
     .container-muted
       .row
-        .col-xs-6
+        .col-xs-12.col-md-6
           = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-        .col-xs-6
+        .col-xs-12.col-md-6
           = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
             .input-group.input-group-sm.filter
               = text_field_tag :filter, '', class: 'search form-control input-sm',

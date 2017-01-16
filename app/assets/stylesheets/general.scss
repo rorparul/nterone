@@ -33,14 +33,6 @@ body {
     @media (max-width: 767px) {
       width: 100%;
     }
-    &.active {
-      .nav-pill {
-        // color: #fff;
-        // @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
-        // box-shadow: 0px 0px 3px #888888;
-        // text-shadow: rgb(48, 48, 48) 0px 1px 0px;
-      }
-    }
   }
 }
 
@@ -693,7 +685,6 @@ span.required {
     border: 1px solid rgb(210, 210, 210);
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
     @media (max-width: 767px) { width: 100%; }
-    // text-shadow: rgb(48, 48, 48) 0px 1px 0px;
   }
   .active-category {
     color: #fff;
@@ -924,18 +915,6 @@ span.required {
   }
 }
 
-table {
-  thead {
-
-  }
-  tbody {
-
-  }
-  tr {
-    // padding: 5px 10px;
-  }
-}
-
 .password-reset {
   margin: 0 0 0 5px;
   @include value-prefix(background-image, linear-gradient(top, rgb(91, 165, 203) 0%, rgb(58, 112, 171) 100%));
@@ -962,7 +941,6 @@ table {
 }
 
 .panel-default {
-  // background-color: rgb(248, 248, 248);
   .panel-heading {
     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
   }
@@ -988,9 +966,6 @@ table {
     width: 230px;
     display: inline-block;
   }
-  // @media (max-width: 767px) {
-  //
-  // }
 }
 
 .credits-image {
@@ -1015,9 +990,6 @@ table {
     float: none !important;
     max-width: 200px;
     margin-bottom: 20px;
-    // @media (min-width: 768px) {
-    //
-    // }
     @media (max-width: 767px) {
       padding: 15px;
     }
@@ -1032,9 +1004,6 @@ table {
   @media (min-width: 768px) {
     width: calc(100% - 230px);
   }
-  // @media (max-width: 767px) {
-  //
-  // }
 }
 
 .forum-post-content {
@@ -1061,10 +1030,6 @@ table {
   ul.training {
     padding-left: 20px;
   }
-}
-
-.starting-word {
-  // font-size: 18px;
 }
 
 .expanded-text {
@@ -1260,18 +1225,6 @@ table {
         }
       }
       .subject-group-item {
-        // td:nth-child(1) {
-        //   width: 60px;
-        // }
-        // td:nth-child(2) {
-        //   a {
-        //     text-decoration: none;
-        //   }
-        //   span {
-        //     color: #4d7f12;
-        //     font-weight: bold;
-        //   }
-        // }
         a {
           text-decoration: none;
         }
@@ -1330,7 +1283,6 @@ table {
         td {
           font-size: 14px;
           padding: 2px;
-          // text-transform: uppercase;
           text-align: center;
         }
       }
