@@ -24,6 +24,7 @@
 #  course_id        :integer
 #  event_id         :integer
 #  email_optional   :string
+#  notes            :text
 #
 
 class Opportunity < ActiveRecord::Base
@@ -38,10 +39,18 @@ class Opportunity < ActiveRecord::Base
 
   has_one :order, dependent: :destroy
 
+  scope :pending, -> { where(stage: [10, 50, 75, 90]) }
+  scope :won,     -> { where(stage: 100) }
+  scope :lost,    -> { where(stage: 0) }
+  scope :closed,  -> { where(stage: [100, 0]) }
+  scope :waiting, -> { where(waiting: true) }
+
   search_scope :custom_search do
     attributes :title
-    attributes account: ['account.title', 'account.industry_code']
-    attributes partner: ['partner.title', 'partner.industry_code']
+    attributes account:  ['account.title', 'account.industry_code']
+    attributes course:   ['course.abbreviation', 'course.title']
+    attributes customer: ['customer.first_name', 'customer.last_name', 'customer.email']
+    attributes partner:  ['partner.title', 'partner.industry_code']
   end
 
   before_save :update_title,       if: proc { |model| model.title.blank? && model.course.present? }
@@ -50,6 +59,30 @@ class Opportunity < ActiveRecord::Base
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
   after_save :update_order,  if: proc { |model| model.order.present? && model.event_id_changed? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
+
+  def self.amount_open
+    pending.sum(:amount)
+  end
+
+  def self.amount_waiting
+    waiting.sum(:amount)
+  end
+
+  def self.amount_won_mtd
+    won.where('date_closed >= ?', Date.today.beginning_of_month).sum(:amount)
+  end
+
+  def self.amount_won_last_month
+    where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount)
+  end
+
+  def self.amount_won_ytd
+    where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount)
+  end
+
+  def self.amount_won_last_year
+    where('date_closed >= ? and date_closed <= ?', Date.today.last_year.beginning_of_year, Date.today.last_year.end_of_year).sum(:amount)
+  end
 
   private
 

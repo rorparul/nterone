@@ -9,7 +9,7 @@
   span.seperator
     | /
   span.text-muted
-    | Accounts
+    | Sales
   span.seperator
     | /
   a href="#{companies_path}"
@@ -21,28 +21,38 @@
 
 = render 'layouts/tabs'
 
-h4
-  strong.text-muted Relatives
-.container-muted
-  .row
-    .col-xs-12.col-md-4
-      strong.text-muted Ancestors
-      br
-      - @company.ancestors.each do |company|
-        = link_to company.title, company_path(company)
-        br
-    .col-xs-12.col-md-4
-      strong.text-muted Siblings
-      br
-      - @company.siblings.each do |company|
-        = link_to company.title, company_path(company)
-        br
-    .col-xs-12.col-md-4
-      strong.text-muted Descendants
-      br
-      - @company.descendants.each do |company|
-        = link_to company.title, company_path(company)
-        br
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted = @company.title
+    .container-muted
+      = link_to t('default.action.edit'), edit_company_path(@company), remote: true, class: 'btn btn-default btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to t('default.action.destroy'), company_path(@company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
+
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted Relatives
+    .container-muted
+      .row
+        .col-xs-12.col-md-4
+          strong.text-muted Ancestors
+          br
+          - @company.ancestors.each do |company|
+            = link_to company.title, company_path(company)
+            br
+        .col-xs-12.col-md-4
+          strong.text-muted Siblings
+          br
+          - @company.siblings.each do |company|
+            = link_to company.title, company_path(company)
+            br
+        .col-xs-12.col-md-4
+          strong.text-muted Descendants
+          br
+          - @company.descendants.each do |company|
+            = link_to company.title, company_path(company)
+            br
       
 .row
   .col-xs-12
@@ -60,11 +70,49 @@ h4
               span.glyphicon.glyphicon-search
     = smart_listing_render(:users)
 
-h4
-  strong.text-muted Lab Rental Portal
-.container-muted
-  = link_to "#{request.base_url}/#{@company.slug}/lab-reservations/new", "#{request.base_url}/#{@company.slug}/lab-reservations/new"
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted Lab Rental Portal
+    .container-muted
+      = link_to "#{request.base_url}/#{@company.slug}/lab-reservations/new", "#{request.base_url}/#{@company.slug}/lab-reservations/new"
+      
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Sales Rep
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Sales Rep
+          br
+          - if @company.user.present?
+            = link_to @company.user.full_name, user_path(@company.user)
+          - else
+            | N/A
+            
+
+            / #  title         :string
+            / #  form_type     :integer
+            / #  slug          :string
+            / #  user_id       :integer
+            / #  kind          :string
+            / #  street        :string
+            / #  city          :string
+            / #  state         :string
+            / #  zip_code      :string
+            / #  phone         :string
+            / #  website       :string
+            / #  parent_id     :integer
+            / #  industry_code :string
+            / #  partner       :boolean          default(FALSE)
+            
+  
+.row
+  .col-xs-12 
+    .container-muted
+      = link_to 'Back', url_for(:back), class: 'btn btn-primary btn-sm', role: 'button', style: 'margin-right: 5px;'
   
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .accounts').addClass('active');
+  $('.permissions .sales').addClass('active');

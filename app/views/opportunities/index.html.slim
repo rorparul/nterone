@@ -9,30 +9,74 @@
   span.seperator
     | /
   span.text-muted
-    | Prospects
+    | Sales
   span.seperator
     | /
   span.text-muted
     | Opportunities
 
 = render 'layouts/tabs'
-
+          
 .row
   .col-xs-12
     h4
       strong.text-muted Opportunities
     .container-muted
-      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
+      .row
+        .col-xs-12.col-md-2
+          strong.text-muted Open
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_open : current_user.opportunities.amount_open)
+        .col-xs-12.col-md-2
+          strong.text-muted Waiting
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_waiting : current_user.opportunities.amount_waiting)
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (MTD)
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_mtd : current_user.opportunities.amount_won_mtd)
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (Last Month)
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_month : current_user.opportunities.amount_won_last_month)
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (YTD)
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_ytd : current_user.opportunities.amount_won_ytd)
+        .col-xs-12.col-md-2
+          strong.text-muted Closed (Last Year)
+          br
+          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_year : current_user.opportunities.amount_won_last_year)
+          
+    .container-muted
+      .row
+        .col-xs-12.col-md-6
+          = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+        .col-xs-12.col-md-6
+          = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+            .input-group.input-group-sm.filter
+              = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
+              span.input-group-btn
+                button.btn.btn-default.btn-sm.disabled type="submit"
+                  span.glyphicon.glyphicon-search
+            
+            .radio
+              label
+                input type="radio" name="selection" id="selection_open" value="open" checked='true'
+                | Open
+            .radio
+              label
+                input type="radio" name="selection" id="selection_waiting" value="waiting"
+                | Waiting
+            .radio
+              label
+                input type="radio" name="selection" id="selection_closed" value="closed"
+                | Closed
+                
     = smart_listing_render(:opportunities)
       
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .prospects').addClass('active');
+  $('.permissions .sales').addClass('active');

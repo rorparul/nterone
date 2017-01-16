@@ -9,10 +9,10 @@
   span.seperator
     | /
   span.text-muted
-    | Prospects
+    | Sales
   span.seperator
     | /
-  a href="#{companies_path}"
+  a href="#{opportunities_path}"
     | Opportunities
   span.seperator
     | /
@@ -21,8 +21,173 @@
 
 = render 'layouts/tabs'
 
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted = @opportunity.title
+    .container-muted
+      = link_to t('default.action.edit'), edit_opportunity_path(@opportunity), remote: true, class: 'btn btn-default btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to 'Copy', copy_opportunities_path(@opportunity), remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to t('default.action.destroy'), opportunity_path(@opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
+    
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Status
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Stage
+          br
+          = opportunity_stage_in_text(@opportunity.stage)
+        .col-xs-12.col-md-3
+          strong.text-muted Opened
+          br
+          = "#{time_ago_in_words(@opportunity.created_at)} ago"
+        .col-xs-12.col-md-3
+          strong.text-muted Closed
+          br
+          - if @opportunity.date_closed
+            = "#{time_ago_in_words(@opportunity.date_closed)} ago"
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Waiting
+          br
+          - if @opportunity.waiting
+            | Yes
+          - else
+            | No
+      hr
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Reason for Loss
+          br
+          = @opportunity.reason_for_loss.presence || 'N/A'
+            
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Product or Service
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Delivery Type
+          br
+          = @opportunity.kind || 'N/A'
+        .col-xs-12.col-md-3
+          strong.text-muted Course
+          br
+          - if @opportunity.course.present?
+            = link_to @opportunity.course.full_title, platform_course_path(@opportunity.course.platform, @opportunity.course)
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Event
+          br
+          - if @opportunity.event.present?
+            = "#{@opportunity.event.start_date} to #{@opportunity.event.end_date}"
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Amount
+          br
+          = number_to_currency(@opportunity.amount)
+          
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Order
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Order
+          br
+          -if @opportunity.order.present?
+            = link_to @opportunity.order.id, admin_orders_show_path(@opportunity.order)
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Payment Type
+          br
+          = @opportunity.payment_kind.presence || 'N/A'
+            
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Student and Company
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Student
+          br
+          - if @opportunity.customer.present?
+            = link_to @opportunity.customer.full_name, user_path(@opportunity.customer)
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Company
+          br
+          - if @opportunity.account.present?
+            = link_to @opportunity.account.title, company_path(@opportunity.account)
+          - else
+            | N/A
+      hr
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Billing Street
+          br
+          = @opportunity.billing_street.presence || 'N/A'
+        .col-xs-12.col-md-3
+          strong.text-muted Billing City
+          br
+          = @opportunity.billing_city.presence || 'N/A'
+        .col-xs-12.col-md-3
+          strong.text-muted Billing State
+          br
+          = @opportunity.billing_state.presence || 'N/A'
+        .col-xs-12.col-md-3
+          strong.text-muted Billing Zip Code
+          br
+          = @opportunity.billing_zip_code.presence || 'N/A'
+        
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Notes
+    .container-muted
+      = @opportunity.notes.try(:html_safe) || 'N/A'
+        
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Sales Rep and Delivering Partner
+    .container-muted
+      .row
+        .col-xs-12.col-md-3
+          strong.text-muted Sales Rep
+          br
+          - if @opportunity.employee.present?
+            = link_to @opportunity.employee.full_name, user_path(@opportunity.employee)
+          - else
+            | N/A
+        .col-xs-12.col-md-3
+          strong.text-muted Delivering Partner
+          br
+          - if @opportunity.partner.present?
+            = link_to @opportunity.partner.title, company_path(@opportunity.partner)
+          - else
+            | NterOne
+        .col-xs-12.col-md-3
+          strong.text-muted Optional Email
+          br
+          = @opportunity.email_optional || 'N/A'
+        
+.row
+  .col-xs-12 
+    .container-muted
+      = link_to 'Back', url_for(:back), class: 'btn btn-primary btn-sm', role: 'button', style: 'margin-right: 5px;'
 
-  
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .prospects').addClass('active');
+  $('.permissions .sales').addClass('active');
