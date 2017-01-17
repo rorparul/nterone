@@ -10,7 +10,7 @@
         - smart_listing.collection.each do |company|
           tr
             td = link_to company.title, company_path(company)
-            td = link_to 'Visit', company.website if company.website.present?
+            td = url_to 'Visit', company.website if company.website.present?
             td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: true
             td.fit = link_to t('default.action.destroy'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end
