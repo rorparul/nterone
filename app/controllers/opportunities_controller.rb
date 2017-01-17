@@ -9,11 +9,19 @@ class OpportunitiesController < ApplicationController
 
   def index
     if current_user.admin? || current_user.sales_manager?
-      respond_to { |format| format.html { @owners = User.all_sales }}
+      @owners = User.all_sales
 
-      opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
-      opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-      opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+      unless params[:filter_user].present?
+        opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
+        opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
+        opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+      else
+        sales_rep = User.find(params[:filter_user])
+
+        opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
+        opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
+        opportunities_scope = sales_rep.opportunities.closed  if params[:selection] == 'closed'
+      end
     else
       opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
       opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
