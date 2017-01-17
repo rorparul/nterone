@@ -26,27 +26,27 @@
         .col-xs-12.col-md-2
           strong.text-muted Open
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_open : current_user.opportunities.amount_open)
+          #amount-open = number_to_currency(@amount_open)
         .col-xs-12.col-md-2
           strong.text-muted Waiting
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_waiting : current_user.opportunities.amount_waiting)
+          #amount-waiting = number_to_currency(@amount_waiting)
         .col-xs-12.col-md-2
           strong.text-muted Closed (MTD)
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_won_mtd : current_user.opportunities.amount_won_mtd)
+          #amount-won-mtd = number_to_currency(@amount_won_mtd)
         .col-xs-12.col-md-2
           strong.text-muted Closed (Last Month)
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_month : current_user.opportunities.amount_won_last_month)
+          #amount-won-last-month = number_to_currency(@amount_won_last_month)
         .col-xs-12.col-md-2
           strong.text-muted Closed (YTD)
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_won_ytd : current_user.opportunities.amount_won_ytd)
+          #amount-won-ytd = number_to_currency(@amount_won_ytd)
         .col-xs-12.col-md-2
           strong.text-muted Closed (Last Year)
           br
-          = number_to_currency(current_user.admin? ? Opportunity.amount_won_last_year : current_user.opportunities.amount_won_last_year)
+          #amount-won-last-year = number_to_currency(@amount_won_last_year)
           
     .container-muted
       .row

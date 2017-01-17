@@ -1,1 +1,8 @@
+$('#amount-open').html("<%= number_to_currency(@amount_open) %>");
+$('#amount-waiting').html("<%= number_to_currency(@amount_waiting) %>");
+$('#amount-won-mtd').html("<%= number_to_currency(@amount_won_mtd) %>");
+$('#amount-won-last-month').html("<%= number_to_currency(@amount_won_last_month) %>");
+$('#amount-won-ytd').html("<%= number_to_currency(@amount_won_ytd) %>");
+$('#amount-won-last-year').html("<%= number_to_currency(@amount_won_last_year) %>");
+
 <%= smart_listing_update(:opportunities) %>

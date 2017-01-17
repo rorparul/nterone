@@ -12,17 +12,38 @@ class OpportunitiesController < ApplicationController
       @owners = User.all_sales
 
       unless params[:filter_user].present?
+        @amount_open           = Opportunity.amount_open
+        @amount_waiting        = Opportunity.amount_waiting
+        @amount_won_mtd        = Opportunity.amount_won_mtd
+        @amount_won_last_month = Opportunity.amount_won_last_month
+        @amount_won_ytd        = Opportunity.amount_won_ytd
+        @amount_won_last_year  = Opportunity.amount_won_last_year
+
         opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
         opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
         opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
       else
         sales_rep = User.find(params[:filter_user])
 
+        @amount_open           = sales_rep.opportunities.amount_open
+        @amount_waiting        = sales_rep.opportunities.amount_waiting
+        @amount_won_mtd        = sales_rep.opportunities.amount_won_mtd
+        @amount_won_last_month = sales_rep.opportunities.amount_won_last_month
+        @amount_won_ytd        = sales_rep.opportunities.amount_won_ytd
+        @amount_won_last_year  = sales_rep.opportunities.amount_won_last_year
+
         opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
         opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
         opportunities_scope = sales_rep.opportunities.closed  if params[:selection] == 'closed'
       end
     else
+      @amount_open           = current_user.opportunities.amount_open
+      @amount_waiting        = current_user.opportunities.amount_waiting
+      @amount_won_mtd        = current_user.opportunities.amount_won_mtd
+      @amount_won_last_month = current_user.opportunities.amount_won_last_month
+      @amount_won_ytd        = current_user.opportunities.amount_won_ytd
+      @amount_won_last_year  = current_user.opportunities.amount_won_last_year
+
       opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
       opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
       opportunities_scope = current_user.opportunities.closed  if params[:selection] == 'closed'
