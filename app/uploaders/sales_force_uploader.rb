@@ -216,9 +216,9 @@ class SalesForceUploader
           row_original[:amount] = row_original[:amount].to_d
         end
 
-        if row_original[:date_closed]
-          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y').to_date
-        end
+        # if row_original[:date_closed]
+        #   row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y').to_date
+        # end
 
         # Associate Opportunity with rep if rep exists
         if row_original[:employee_id]
