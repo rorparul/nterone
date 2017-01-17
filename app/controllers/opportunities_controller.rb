@@ -8,7 +8,9 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
-    if current_user.admin?
+    if current_user.admin? || current_user.sales_manager?
+      respond_to { |format| format.html { @owners = User.all_sales }}
+
       opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
       opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
       opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
