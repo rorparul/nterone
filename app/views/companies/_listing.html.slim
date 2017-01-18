@@ -5,12 +5,14 @@
         tr.background-muted
           th = smart_listing.sortable t('default.label.title'), :title
           th Website
+          th Sales Rep
           th colspan='2'
       tbody
         - smart_listing.collection.each do |company|
           tr
             td = link_to company.title, company_path(company)
-            td = url_to 'Visit', company.website if company.website.present?
+            td = link_to 'Visit', url_with_protocol(company.website) if company.website.present?
+            td = company.user.try(:full_name)
             td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: true
             td.fit = link_to t('default.action.destroy'), company_path(company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end

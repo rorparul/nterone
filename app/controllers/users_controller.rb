@@ -114,7 +114,7 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
-      default_sort: { last_name: 'asc' }
+      default_sort: { created_at: 'desc' }
     )
   end
 end
