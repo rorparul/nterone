@@ -7,16 +7,25 @@
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
           th Sales Rep
-          th colspan='3'
+          th colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
             td = user.first_name
             td = user.last_name
             td = user.email
-            td = user.parent.try(:full_name)
-            td.fit = link_to t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post
-            td.fit = link_to t('default.action.edit'), edit_user_path(user)
+            td id="user-#{user.id}-sales-rep"
+              - if current_user.admin? || current_user.sales_manager?
+                - if user.parent.present?
+                  = user.parent.full_name
+                - else
+                  = link_to 'Assign', assign_users_path(user), remote: true, class: 'text-warning'
+              - else
+                - if user.parent.present?
+                  = user.parent.full_name
+                - else
+                  span.text-warning Unassigned
+            td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
             td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end  
   .container-muted

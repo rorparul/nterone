@@ -17,8 +17,9 @@ NterOne::Application.routes.draw do
   resources :users  do
     post :toggle_archived, on: :member
     collection do
-      get  'leads'        => 'users#leads',            as: :leads
-      get  'contacts'     => 'users#contacts',         as: :contacts
+      get 'leads'    => 'users#leads',    as: :leads
+      get 'contacts' => 'users#contacts', as: :contacts
+      get ':id/assign'   => 'users#assign',   as: :assign
     end
   end
 

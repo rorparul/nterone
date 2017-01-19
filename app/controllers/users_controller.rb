@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
+  before_action :set_user, only: [:show, :edit, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
+
   layout 'admin'
 
   def index
@@ -11,7 +13,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @planned_subjects = @user.planned_subjects.where(active: true)
     @user.planned_subjects.where(active: true).update_all(read: true)
     @my_plan_count = @user.new_my_plan_count
@@ -19,37 +20,45 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+  end
+
+  def assign
+    @owners = User.all_sales
   end
 
   def edit_from_my_queue
-    @user = User.find(params[:id])
   end
 
   def update
-    user = User.find(params[:id])
-    if user.update_attributes(user_params)
-      flash[:success] = 'User successfully updated!'
-    else
-      flash[:alert] = 'User unsuccessfully updated!'
+    respond_to do |format|
+      unless @user.update_attributes(user_params)
+        format.html do
+          flash[:success] = 'User successfully updated!'
+          redirect_to :back
+        end
+        format.js
+      else
+        format.html do
+          flash[:alert] = 'User unsuccessfully updated!'
+          redirect_to :back
+        end
+        format.js
+      end
     end
-    redirect_to :back
   end
 
   def toggle_archived
-    user = User.find(params[:id])
-    user.toggle(:archived)
-    if user.save
-      flash[:success] = "User successfully #{user.archived ? 'archived' : 'unarchived'}!"
+    @user.toggle(:archived)
+    if @user.save
+      flash[:success] = "User successfully #{@user.archived ? 'archived' : 'unarchived'}!"
     else
-      flash[:alert] = "User unsuccessfully #{user.archived ? 'unarchived' : 'archived'}"
+      flash[:alert] = "User unsuccessfully #{@user.archived ? 'unarchived' : 'archived'}"
     end
     redirect_to :back
   end
 
   def destroy
-    user = User.find(params[:id])
-    if user.destroy
+    if @user.destroy
       flash[:success] = 'User successfully deleted!'
     else
       flash[:alert] = 'User unsuccessfully deleted!'
@@ -71,42 +80,51 @@ class UsersController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:company_id,
-                                 :first_name,
-                                 :last_name,
-                                 :contact_number,
-                                 :phone_alternative,
-                                 :country,
-                                 :street,
-                                 :city,
-                                 :daily_rate,
-                                 :state,
-                                 :zipcode,
-                                 :archived,
-                                 :same_addresses,
-                                 :billing_company,
-                                 :billing_first_name,
-                                 :billing_last_name,
-                                 :billing_street,
-                                 :billing_city,
-                                 :billing_state,
-                                 :billing_zip_code,
-                                 :shipping_company,
-                                 :shipping_first_name,
-                                 :shipping_last_name,
-                                 :shipping_street,
-                                 :shipping_city,
-                                 :shipping_state,
-                                 :shipping_zip_code,
-                                 :status,
-                                 :video_bio,
-                                 :about,
-                                 :notes,
-                                 :email_alternative,
-                                 roles_attributes: [:id,
-                                                    :role,
-                                                    :_destroy])
+    params.require(:user).permit(
+      :about,
+      :archived,
+      :billing_city,
+      :billing_company,
+      :billing_first_name,
+      :billing_last_name,
+      :billing_state,
+      :billing_street,
+      :billing_zip_code,
+      :city,
+      :company_id,
+      :contact_number,
+      :country,
+      :daily_rate,
+      :email_alternative,
+      :first_name,
+      :last_name,
+      :notes,
+      :parent_id,
+      :phone_alternative,
+      :same_addresses,
+      :shipping_city,
+      :shipping_company,
+      :shipping_first_name,
+      :shipping_last_name,
+      :shipping_state,
+      :shipping_street,
+      :shipping_zip_code,
+      :state,
+      :status,
+      :street,
+      :video_bio,
+      :zipcode,
+      roles_attributes: [
+        :id,
+        :role,
+        :_destroy
+      ]
+    )
   end
 
   def prepare_smart_listing(users_scope)
