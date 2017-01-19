@@ -6,14 +6,24 @@
           th = smart_listing.sortable t('default.label.first_name'), :first_name
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
+          th = smart_listing.sortable t('default.label.company'), :company
           th Sales Rep
           th colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
-            td = user.first_name
-            td = user.last_name
+            - if action_name == 'leads'
+              td = link_to user.first_name, lead_users_path(user)
+              td = link_to user.last_name, lead_users_path(user)
+            - if action_name == 'contacts'
+              td = link_to user.first_name, contact_users_path(user)
+              td = link_to user.last_name, contact_users_path(user)
             td = user.email
+            td
+              - if user.company.present?
+                = link_to user.company.title, company_path(user.company)
+              - else
+                | N/A
             td id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
                 - if user.parent.present?

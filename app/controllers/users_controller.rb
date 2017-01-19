@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :set_user, only: [:show, :edit, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
+  before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
 
   layout 'admin'
 
@@ -17,6 +17,12 @@ class UsersController < ApplicationController
     @user.planned_subjects.where(active: true).update_all(read: true)
     @my_plan_count = @user.new_my_plan_count
     @activities = PublicActivity::Activity.where("owner_id = ? OR recipient_id = ?", @user.id, @user.id).order(created_at: :desc)
+  end
+
+  def show_as_lead
+  end
+
+  def show_as_contact
   end
 
   def edit
