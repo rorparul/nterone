@@ -26,7 +26,7 @@
     h4
       strong.text-muted = @opportunity.title
     .container-muted
-      = link_to t('default.action.edit'), edit_opportunity_path(@opportunity), remote: true, class: 'btn btn-default btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to t('default.action.edit'), edit_opportunity_path(@opportunity), remote: true, class: 'btn btn-warning btn-sm', role: 'button', style: 'margin-right: 5px;'
       = link_to 'Copy', copy_opportunities_path(@opportunity), remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
       = link_to t('default.action.destroy'), opportunity_path(@opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
     

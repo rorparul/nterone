@@ -11,8 +11,8 @@
           tr
             td = link_to opportunity.title, opportunity_path(opportunity)
             td = opportunity_stage_in_text(opportunity.stage)
-            td.fit = link_to t('default.action.edit'), edit_opportunity_path(opportunity), remote: true
-            td.fit = link_to 'Copy', copy_opportunities_path(opportunity), remote: true
+            td.fit = link_to t('default.action.edit'), edit_opportunity_path(opportunity), remote: true, class: 'text-warning'
+            td.fit = link_to 'Copy', copy_opportunities_path(opportunity), remote: true, class: 'text-success'
             td.fit = link_to t('default.action.destroy'), opportunity_path(opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end
   .container-muted
