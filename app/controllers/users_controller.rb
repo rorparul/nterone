@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
+  before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
 
   layout 'admin'
 
@@ -25,7 +25,15 @@ class UsersController < ApplicationController
   def show_as_contact
   end
 
+  def show_as_sales_rep
+  end
+
   def edit
+  end
+
+  def edit_from_sales
+    @owners    = User.all_sales
+    @companies = Company.all
   end
 
   def assign

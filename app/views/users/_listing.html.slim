@@ -15,9 +15,12 @@
             - if action_name == 'leads'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)
-            - if action_name == 'contacts'
+            - elsif action_name == 'contacts'
               td = link_to user.first_name, contact_users_path(user)
               td = link_to user.last_name, contact_users_path(user)
+            - else
+              td = user.first_name
+              td = user.last_name
             td = user.email
             td
               - if user.company.present?
@@ -35,7 +38,10 @@
                   = user.parent.full_name
                 - else
                   span.text-warning Unassigned
-            td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
+            - if action_name == 'leads' || action_name == 'contacts'
+              td.fit = link_to t('default.action.edit'), edit_from_sales_users_path(user), remote: true, class: 'text-warning'
+            - else
+              td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
             td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
     .table-end  
   .container-muted
