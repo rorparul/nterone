@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      unless @user.update_attributes(user_params)
+      if @user.update_attributes(user_params)
         format.html do
           flash[:success] = 'User successfully updated!'
           redirect_to :back
