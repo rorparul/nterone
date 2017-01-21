@@ -8,6 +8,9 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
+    start_date = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
+    end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
+
     if current_user.admin? || current_user.sales_manager?
       @owners = User.all_sales
 
@@ -21,7 +24,7 @@ class OpportunitiesController < ApplicationController
 
         opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
         opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-        opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
+        opportunities_scope = Opportunity.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
       else
         sales_rep = User.find(params[:filter_user])
 
@@ -34,7 +37,7 @@ class OpportunitiesController < ApplicationController
 
         opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
         opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
-        opportunities_scope = sales_rep.opportunities.closed  if params[:selection] == 'closed'
+        opportunities_scope = sales_rep.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
       end
     else
       @amount_open           = current_user.opportunities.amount_open
@@ -46,7 +49,7 @@ class OpportunitiesController < ApplicationController
 
       opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
       opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
-      opportunities_scope = current_user.opportunities.closed  if params[:selection] == 'closed'
+      opportunities_scope = current_user.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
     end
 
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]

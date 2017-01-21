@@ -82,8 +82,27 @@
                 input type="radio" name="selection" id="selection_closed" value="closed"
                 | Closed
                 
+            #end-date.pull-right style='margin: 4px 15px 4px 0;'
+              = date_select :end_date, :end_date,
+                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+                { disabled: true, class: 'input-date' }
+            #start-date.pull-right style='margin: 4px 15px 4px 0;'
+              = date_select :start_date, :start_date,
+                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: Opportunity.minimum(:date_closed) },
+                { disabled: true, class: 'input-date' }
+                
     = smart_listing_render(:opportunities)
       
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+  
+  $('.radio input').on('change', function(){
+    if($('#selection_closed').is(':checked')){
+      console.log('SELECTED!!!');
+      $('.input-date').prop('disabled', false);
+    }else{
+      console.log('NOT SELECTED!!!');
+      $('.input-date').prop('disabled', true);
+    }
+  });
