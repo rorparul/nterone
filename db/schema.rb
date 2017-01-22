@@ -57,6 +57,12 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.string   "poster"
   end
 
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string   "page_title"
     t.text     "page_description"
@@ -78,6 +84,38 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   end
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
+
+  create_table "blog_posts", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "slug"
+    t.text     "page_description"
+  end
+
+  create_table "bootsy_image_galleries", force: :cascade do |t|
+    t.integer  "bootsy_resource_id"
+    t.string   "bootsy_resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bootsy_images", force: :cascade do |t|
+    t.string   "image_file"
+    t.integer  "image_gallery_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "carousel_items", force: :cascade do |t|
+    t.string   "caption"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "active",     default: true
+    t.string   "url"
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",     null: false
@@ -115,13 +153,6 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "category_packages", force: :cascade do |t|
-    t.integer  "category_id"
-    t.integer  "package_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "category_subjects", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "subject_id"
@@ -148,22 +179,12 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
-    t.integer  "user_id"
-    t.string   "kind"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip_code"
-    t.string   "phone"
-    t.string   "website"
-    t.integer  "parent_id"
     t.string   "industry_code"
-    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -276,8 +297,8 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.string   "street"
     t.integer  "language",                                               default: 0
+    t.string   "street"
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
@@ -402,6 +423,13 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   add_index "forem_views", ["user_id"], name: "index_forem_views_on_user_id", using: :btree
   add_index "forem_views", ["viewable_id"], name: "index_forem_views_on_viewable_id", using: :btree
 
+  create_table "forums", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -455,6 +483,16 @@ ActiveRecord::Schema.define(version: 20170112235019) do
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
+  create_table "industry_articles", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "slug"
+    t.text     "page_description"
+  end
+
   create_table "instructors", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -504,8 +542,8 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.time     "end_time"
     t.integer  "lab_course_id"
+    t.time     "end_time"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
@@ -716,28 +754,6 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
 
-  create_table "package_items", force: :cascade do |t|
-    t.integer  "package_id"
-    t.string   "packageable_type"
-    t.integer  "packageable_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "packages", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "platform_id"
-    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.text     "description"
-    t.string   "abbreviation"
-    t.string   "slug"
-    t.string   "page_title"
-    t.text     "page_description"
-    t.boolean  "partner_led",                              default: false
-  end
-
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -781,11 +797,29 @@ ActiveRecord::Schema.define(version: 20170112235019) do
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
 
+  create_table "posts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prep_items", force: :cascade do |t|
     t.integer  "exam_id"
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "press_releases", force: :cascade do |t|
+    t.string   "page_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "slug"
+    t.text     "page_description"
   end
 
   create_table "public_featured_events", force: :cascade do |t|
@@ -910,26 +944,12 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.integer  "course_id"
   end
 
-  create_table "thredded_user_topic_reads", force: :cascade do |t|
-    t.integer  "user_id",                 null: false
-    t.integer  "topic_id",                null: false
-    t.integer  "post_id",                 null: false
-    t.integer  "posts_count", default: 0, null: false
-    t.integer  "page",        default: 1, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "topics", force: :cascade do |t|
+    t.integer  "forum_id"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
-  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
-
-  create_table "user_companies", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "company_id"
-  end
-
-  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
-  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                           default: "",               null: false
@@ -994,11 +1014,6 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.text     "video_bio"
     t.string   "source_name"
     t.string   "source_user_id"
-    t.integer  "parent_id"
-    t.string   "salutation"
-    t.string   "business_title"
-    t.boolean  "do_not_call"
-    t.boolean  "do_not_email"
     t.string   "email_alternative"
     t.string   "phone_alternative"
     t.text     "notes"
@@ -1041,8 +1056,8 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.text     "intended_audience"
     t.boolean  "partner_led",                                    default: false
     t.boolean  "active",                                         default: true
-    t.boolean  "lms",                                            default: false
     t.string   "heading"
+    t.boolean  "lms",                                            default: false
     t.boolean  "satellite_viewable",                             default: true
     t.boolean  "cisco_digital_learning",                         default: false
     t.string   "cdl_course_code"
@@ -1084,7 +1099,5 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   add_foreign_key "lms_exams", "videos"
   add_foreign_key "taken_exams", "lms_exams"
   add_foreign_key "taken_exams", "users"
-  add_foreign_key "user_companies", "companies"
-  add_foreign_key "user_companies", "users"
   add_foreign_key "users", "companies"
 end

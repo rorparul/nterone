@@ -8,17 +8,7 @@
 #  title         :string
 #  form_type     :integer
 #  slug          :string
-#  user_id       :integer
-#  kind          :string
-#  street        :string
-#  city          :string
-#  state         :string
-#  zip_code      :string
-#  phone         :string
-#  website       :string
-#  parent_id     :integer
 #  industry_code :string
-#  partner       :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base
