@@ -109,6 +109,7 @@ group :test do
   gem 'rspec', '= 3.5.0.beta3'
   gem 'factory_girl_rails'
   gem 'ffaker', '~> 2.1'
+  gem 'faker'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
 end
