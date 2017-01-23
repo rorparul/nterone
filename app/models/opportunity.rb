@@ -156,11 +156,13 @@ class Opportunity < ActiveRecord::Base
       orderable_id: event_id_was
     )
 
-    order_item.update(
-      orderable_id: event_id
-    )
+    if order_item
+      order_item.update(
+        orderable_id: event_id
+      )
 
-    RegistrationMailer.create(order_item).deliver_now
+      RegistrationMailer.create(order_item).deliver_now
+    end
   end
 
   def destroy_order

@@ -12,7 +12,7 @@ module OpportunitiesHelper
 
   def opportunity_stage_in_text(percent)
     stage = opportunity_stages_options.find { |stage| stage[1] == percent }
-    stage.first
+    stage.first  if stage
   end
 
   def opportunity_reasons_for_loss_options
