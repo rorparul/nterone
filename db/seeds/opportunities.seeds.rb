@@ -7,7 +7,7 @@ after :events do
 
   Opportunity.destroy_all  if Rails.env.development?
 
-  User.limit(3).each do |employee|
+  (User.limit(2).to_a + [User.find(123)]).each do |employee|
     50.times.each do
       customer = User.all.to_a.sample
       account  = Company.all.to_a.sample
