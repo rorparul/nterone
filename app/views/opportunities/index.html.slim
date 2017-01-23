@@ -99,10 +99,8 @@ javascript:
   
   $('.radio input').on('change', function(){
     if($('#selection_closed').is(':checked')){
-      console.log('SELECTED!!!');
       $('.input-date').prop('disabled', false);
     }else{
-      console.log('NOT SELECTED!!!');
       $('.input-date').prop('disabled', true);
     }
   });
