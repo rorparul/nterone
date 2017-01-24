@@ -93,7 +93,10 @@ NterOne::Application.routes.draw do
       get 'pluck' => 'companies#pluck'
     end
   end
-  get 'pluck' => 'courses#pluck', as: :pluck_courses
+
+  get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
+  get 'events/pluck'  => 'events#pluck',  as: :pluck_events
+
   resources :lab_courses
 
   resources :platforms, path: 'training' do

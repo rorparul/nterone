@@ -110,7 +110,7 @@ class OpportunitiesController < ApplicationController
 
   def copy
     @opportunity = @opportunity.dup
-    @opportunity.stage = 10
+    # @opportunity.stage = 10
     render 'shared/new'
   end
 
