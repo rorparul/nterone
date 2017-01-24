@@ -2,9 +2,10 @@ class CompaniesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
 	helper  SmartListing::Helper
 
-	before_action :set_company,   only: [:show, :edit, :update, :destroy]
-	before_action :set_companies, only: [:index, :new, :edit]
-	before_action :set_owners,    only: [:new, :edit]
+	before_action :set_company,       only: [:show, :edit, :update, :destroy]
+	before_action :set_companies,     only: [:index, :new, :edit]
+	before_action :set_owners,        only: [:new, :edit]
+	before_action :authorize_company, except: [:pluck]
 
 	layout 'admin'
 
@@ -90,6 +91,11 @@ class CompaniesController < ApplicationController
 
 	def set_owners
 		@owners = User.all_sales
+	end
+
+	def authorize_company
+		@company ||= Company.new
+		authorize @company
 	end
 
 	def list_leads
