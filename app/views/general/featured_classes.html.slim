@@ -44,11 +44,10 @@
                   - platform.upcoming_public_featured_events.each do |event|
                     tr
                       td
-                        / - course_url = platform_course_path(event.course.platform, event.course)
-                        / - if event.class.try(:hostname)
-                        /   - course_url = platform_course_url(event.course.platform, event.course, host: event.class.try(:hostname))
-                        / = link_to event.course.full_title, course_url
-                        = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
+                        - course_url = platform_course_path(event.course.platform, event.course)
+                        - if event.class.try(:hostname)
+                          - course_url = platform_course_url(event.course.platform, event.course, host: event.class.try(:hostname))
+                        = link_to event.course.full_title, course_url
                       td
                         meta itemprop="startDate" content="#{event.start_date}"
                           = "#{event.start_date.strftime("%-m/%-d/%y")} to "
