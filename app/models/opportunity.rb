@@ -57,7 +57,7 @@ class Opportunity < ActiveRecord::Base
   before_save :update_date_closed, if: proc { |model| model.stage_changed? }
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
-  after_save :update_order,  if: proc { |model| model.order.present? && model.event_id_changed? }
+  after_save :update_order,  if: proc { |model| model.event_id_changed? && model.stage == 100 && model.order.present? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
 
   def self.amount_open

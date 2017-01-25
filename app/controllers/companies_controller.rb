@@ -30,10 +30,13 @@ class CompaniesController < ApplicationController
 			end
 
 			format.js do
-				name = params.keys.first.chomp("_smart_listing")
-				symbol = "list_#{name}".to_sym
+				keys        = params.keys
+				listing_key = keys.find { |key| key =~ /_smart_listing/ }
+				name        = listing_key.chomp("_smart_listing")
+				symbol      = "list_#{name}".to_sym
+				@list       = name.to_sym
+				
 				self.send(symbol)
-				@list = name.to_sym
 			end
 		end
 	end
