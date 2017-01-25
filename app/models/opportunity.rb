@@ -151,14 +151,25 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_order
-    order_item = order.order_items.find_by(
-      orderable_type: 'Event',
-      orderable_id: event_id_was
-    )
+    if waiting
+      order_item = order.order_items.create(
+        user_id: customer.try(:id),
+        orderable_type: 'Event',
+        orderable_id: event.try(:id),
+        price: amount
+      )
 
-    order_item.update(
-      orderable_id: event_id
-    )
+      self.update_column(:waiting, false)
+    else
+      order_item = order.order_items.find_by(
+        orderable_type: 'Event',
+        orderable_id: event_id_was
+      )
+
+      order_item.update(
+        orderable_id: event_id
+      )
+    end
 
     RegistrationMailer.create(order_item).deliver_now
   end
