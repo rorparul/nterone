@@ -64,12 +64,17 @@ class Event < ActiveRecord::Base
   has_many :users,       through: :order_items
   has_many :registrations
 
-  # before_save    :update_status
-  before_save :calculate_book_cost, if: Proc.new { |model| model.calculate_book_costs? }
-  before_save :calculate_instructor_cost, if: Proc.new { |model| model.autocalculate_instructor_costs? }
+  before_save :calculate_book_cost, if: proc { |model| model.calculate_book_costs? }
+  before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
-  after_save :confirm_with_instructor, if: Proc.new { |model| model.instructor_id_changed? && model.instructor.present? }
+
+  after_save :create_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
+  after_save :destroy_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true && model.guaranteed? }
+  after_save :confirm_with_instructor, if: proc { |model| model.instructor_id_changed? && model.instructor.present? }
+
   before_destroy :ensure_not_purchased_or_in_cart
+
+  after_destroy :destroy_gtr_alert
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
@@ -77,7 +82,6 @@ class Event < ActiveRecord::Base
 
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
   scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
-
 
   search_scope :custom_search do
     attributes :id, :format, :start_date, :public, :guaranteed
@@ -176,6 +180,14 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+  def create_gtr_alert
+    EventMailer.create_gtr_alert(self).deliver_now
+  end
+
+  def destroy_gtr_alert
+    EventMailer.destroy_gtr_alert(self).deliver_now
+  end
 
   def ensure_not_purchased_or_in_cart
     if users.empty?
