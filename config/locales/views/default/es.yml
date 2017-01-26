@@ -44,6 +44,8 @@ es:
       no_records: "No registros encontrados."
       search_form: "Buscar por Certificaciones, cursos o exámenes"
       select: "Por Favor Seleccionar"
+      start_date: "Comienzo Fecha"
+      end_date: "Fin Fecha"
     prompt:
       confirm_delete: "Estas Seguro?"
       none_select: "Ninguno"

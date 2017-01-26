@@ -44,6 +44,8 @@ en:
       no_records: "No records found."
       search_form: "Search by certification, course, or exam"
       select: "Please select"
+      start_date: "Start Date"
+      end_date: "End Date"
     prompt:
       confirm_delete: "Are you sure?"
       none_select: "None"

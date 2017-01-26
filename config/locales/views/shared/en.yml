@@ -4,3 +4,6 @@ en:
       companies: "Edit Company"
     new_js:
       companies: "New Company"
+
+    opportunities:
+      export_popup: "Export Opportunities"

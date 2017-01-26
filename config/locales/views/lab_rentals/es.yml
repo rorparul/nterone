@@ -4,8 +4,6 @@ es:
       edit_lab_rental: "Editar Reservación de Laboratorio"
     index:
       lab_rentals: "Reservaciones de Laboratorio"
-      search_by_date_start: "Fecha Comienzo"
-      search_by_date_end: "Fecha Fin"
       date_range: "Fecha"
     mailers:
       reservation:

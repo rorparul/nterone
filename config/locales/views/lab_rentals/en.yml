@@ -4,8 +4,6 @@ en:
       edit_lab_rental: "Edit Lab Reservation"
     index:
       lab_rentals: "Lab Reservations"
-      search_by_date_start: "Date Start"
-      search_by_date_end: "Date End"
       date_range: "Date"
     mailers:
       reservation:
