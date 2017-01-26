@@ -69,7 +69,7 @@ class Event < ActiveRecord::Base
   before_save :mark_non_public
 
   after_save :create_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
-  after_save :destroy_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true && model.guaranteed? }
+  after_save :destroy_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
   after_save :confirm_with_instructor, if: proc { |model| model.instructor_id_changed? && model.instructor.present? }
 
   before_destroy :ensure_not_purchased_or_in_cart
