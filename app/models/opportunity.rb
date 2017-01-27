@@ -72,6 +72,10 @@ class Opportunity < ActiveRecord::Base
     won.where('date_closed >= ? and date_closed <= ?', Date.today.last_year.beginning_of_year, Date.today.last_year.end_of_year).sum(:amount)
   end
 
+  def closed?
+    [0, 100].include? stage
+  end
+
   private
 
   def update_title

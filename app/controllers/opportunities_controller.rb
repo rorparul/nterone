@@ -8,8 +8,8 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
-    start_date = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
-    end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
+    start_date = params[:start_date]
+    end_date   = params[:end_date]
 
     if current_user.admin? || current_user.sales_manager?
       @owners = User.all_sales
@@ -24,7 +24,7 @@ class OpportunitiesController < ApplicationController
 
         opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
         opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-        opportunities_scope = Opportunity.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+        opportunities_scope = Opportunity.closed  if params[:selection] == 'closed'
       else
         sales_rep = User.find(params[:filter_user])
 
@@ -35,9 +35,9 @@ class OpportunitiesController < ApplicationController
         @amount_won_ytd        = sales_rep.opportunities.amount_won_ytd
         @amount_won_last_year  = sales_rep.opportunities.amount_won_last_year
 
-        opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
+        opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
         opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
-        opportunities_scope = sales_rep.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+        opportunities_scope = sales_rep.opportunities.closed  if params[:selection] == 'closed'
       end
     else
       @amount_open           = current_user.opportunities.amount_open
@@ -49,7 +49,17 @@ class OpportunitiesController < ApplicationController
 
       opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
       opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
-      opportunities_scope = current_user.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+      opportunities_scope = current_user.opportunities.closed  if params[:selection] == 'closed'
+    end
+
+    if params[:selection] == 'closed'
+      if params[:date_start].present? && params[:date_end].present?
+        opportunities_scope  = opportunities_scope.where(date_closed: params[:date_start]..params[:date_end])
+      elsif params[:date_start].present?
+        opportunities_scope  = opportunities_scope.where("date_closed >= '#{params[:date_start]}'")
+      elsif params[:date_end].present?
+        opportunities_scope  = opportunities_scope.where("date_closed <= '#{params[:date_end]}'")
+      end
     end
 
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
@@ -113,9 +123,57 @@ class OpportunitiesController < ApplicationController
     render 'shared/new'
   end
 
+  def export_popup
+    if current_user.admin? || current_user.sales_manager?
+      @owners = User.all_sales
+      @all_users = User.all
+    else
+      @owners = []
+      @all_users = []
+    end
+    render 'shared/action_modal'
+  end
+
+  def export
+    if current_user.admin? || current_user.sales_manager?
+      if params[:filter][:user].present?
+        opportunities_scope = User.find(params[:filter][:user]).opportunities
+      else
+        opportunities_scope = Opportunity
+      end
+    else
+      opportunities_scope = current_user.opportunities
+    end
+
+    opportunities_scope = opportunities_scope.pending if params[:filter][:stage] == 'Open'
+    opportunities_scope = opportunities_scope.waiting if params[:filter][:stage] == 'Waiting'
+    if params[:filter][:stage] == 'Closed'
+      opportunities_scope = opportunities_scope.closed
+
+      if params[:filter][:date_start].present? && params[:filter][:date_end].present?
+        opportunities_scope  = opportunities_scope.where(date_closed: params[:filter][:date_start]..params[:filter][:date_end])
+      elsif params[:filter][:date_start].present?
+        opportunities_scope  = opportunities_scope.where("date_closed >= '#{params[:filter][:date_start]}'")
+      elsif params[:filter][:date_end].present?
+        opportunities_scope  = opportunities_scope.where("date_closed <= '#{params[:filter][:date_end]}'")
+      end
+    end
+
+    opportunities_scope = opportunities_scope.where(account_id: params[:filter][:account])  if params[:filter][:account].present?
+    opportunities_scope = opportunities_scope.where(partner_id: params[:filter][:partner])  if params[:filter][:partner].present?
+    opportunities_scope = opportunities_scope.where(employee_id: params[:filter][:employee])  if params[:filter][:employee].present?
+    opportunities_scope = opportunities_scope.where(customer_id: params[:filter][:customer])  if params[:filter][:customer].present?
+    opportunities_scope = opportunities_scope.where(course_id: params[:filter][:course])  if params[:filter][:course].present?
+
+    @opportunities = opportunities_scope.all
+  end
+
   private
 
   def set_opportunity
+    if current_user.admin? || current_user.sales_manager?
+    else
+    end
     @opportunity = Opportunity.find(params[:id])
   end
 

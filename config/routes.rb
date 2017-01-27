@@ -85,7 +85,9 @@ NterOne::Application.routes.draw do
 
   resources :opportunities do
     collection do
-      get ':id/copy' => 'opportunities#copy', as: :copy
+      get  ':id/copy' => 'opportunities#copy', as: :copy
+      get  'export_popup'
+      post 'export'
     end
   end
   resources :companies do

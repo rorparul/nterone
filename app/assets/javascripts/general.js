@@ -42,7 +42,29 @@ $(function() {
 });
 
 function prepareInputs() {
-  $('.search-select').select2({
+
+  // datepicker with data-linked
+
+  $("input[data-linked]").each(function(i) {
+    var $this = $(this);
+    var linked_element = $($this.data("linked"));
+    linked_element.val("");
+    linked_element.keydown(function(e) {
+      $this.val(linked_element.val());
+    });
+    $this.on('change', function(e) {
+      if ($this.data('datepicker')) {
+	var date = $this.datepicker('getDate');
+	if (date) {
+	  var value = moment(date).format('YYYY-MM-DD');
+	  linked_element.val(value);
+	  linked_element.trigger('keydown');
+	}
+      }
+    });
+  });
+
+  $('.select2, .search-select').select2({
     theme: 'bootstrap'
   });
 
@@ -85,4 +107,5 @@ function prepareInputs() {
       'html'
     ]
   });
+
 }

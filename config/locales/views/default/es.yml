@@ -23,6 +23,7 @@ es:
       submit: "enviar"
       toggle: "Palanca"
       upload: "Cargar"
+      export: "Exportar"
     contact:
       email: "@nterone.la"
       phone: "703-991-5185"
