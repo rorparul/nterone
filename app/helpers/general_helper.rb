@@ -108,7 +108,11 @@ module GeneralHelper
   end
 
   def dollar_value(price)
-    "$#{price}"
+    if price.to_s[-2] == "."
+      "$#{price}" + "0"
+    else
+      "$#{price}"
+    end
   end
 
   def number_in_words(int)

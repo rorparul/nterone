@@ -3,7 +3,7 @@ class LabCourseTimeBlocksController < ApplicationController
   before_action :authorize_lab_course_time_block, except: [:date_select, :time_select]
 
   def new
-    @lab_course = LabCourse.find(params[:lab_course_id])
+    @lab_course = LabCourse.friendly.find(params[:lab_course_id])
     @time_block = LabCourseTimeBlock.new
   end
 

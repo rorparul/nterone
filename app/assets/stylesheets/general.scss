@@ -2605,3 +2605,33 @@ footer {
     display: none;
   }
 }
+
+.labrental-time-select {
+  thead, tbody {
+    tr th {
+      @media (max-width: 767px) {
+        font-size: 11px;
+      }
+      @media (max-width: 680px) {
+        font-size: 10px;
+      }
+    }
+    tr td {
+      @media (max-width: 767px) {
+        // line-height: 30px;
+        font-size: 11px;
+      }
+      @media (max-width: 680px) {
+        font-size: 10px;
+      }
+      button, .btn {
+        @media (max-width: 767px) {
+          font-size: 11px;
+        }
+        @media (max-width: 680px) {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
