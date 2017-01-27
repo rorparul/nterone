@@ -83,9 +83,9 @@ class LabRentalsController < ApplicationController
       flash[:success] = 'Lab Reservation successfully submitted!'
       LabReservationMailer.create_reservation(current_user, @lab_rental).deliver_now
       if user_signed_in? && (current_user.admin? || current_user.company)
-	redirect_to lab_rentals_path
+	      redirect_to lab_rentals_path
       else
-	redirect_to :back
+	      redirect_to :back
       end
     else
       render 'new'
@@ -120,6 +120,7 @@ class LabRentalsController < ApplicationController
 
   def edit_pods
     return redirect_to root_url unless current_user.admin?
+    prepare_pod_settings
     @pod_settings = Setting.pods
   end
 
@@ -131,7 +132,7 @@ class LabRentalsController < ApplicationController
       Setting.pods      = {available_pods_for_individuals: params[:available_pods_for_individuals].to_i, available_pods_for_partners: params[:available_pods_for_partners].to_i}
       flash[:success]   = "Availability of pods currently set to #{Setting.pods[:available_pods_for_individuals]} for individuals, and #{Setting.pods[:available_pods_for_partners]} for partners."
     end
-      redirect_to :back
+    redirect_to :back
   end
 
   def self_checkout
@@ -184,6 +185,15 @@ class LabRentalsController < ApplicationController
 
   def verify_company
     redirect_to root_path if (!current_user.admin? && !current_user.company)
+  end
+
+  def prepare_pod_settings
+    if Setting.pods.nil?
+      Setting.pods = {
+        available_pods_for_individuals: 0,
+        available_pods_for_partners: 0
+      }
+    end
   end
 
   def lab_rental_params

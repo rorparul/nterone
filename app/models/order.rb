@@ -51,6 +51,7 @@
 #  source                  :integer          default(0)
 #  other_source            :string
 #  discount_id             :integer
+#  opportunity_id          :integer
 #
 # Indexes
 #
