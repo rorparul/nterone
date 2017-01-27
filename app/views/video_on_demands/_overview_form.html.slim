@@ -18,18 +18,6 @@
       = f.text_area :page_description, class: 'form-control input-sm'
 
     hr
-    
-    .row
-     .col-xs-6
-       .form-group
-         = f.label :cisco_digital_learning, "CDL"
-         br
-         = f.check_box :cisco_digital_learning
-     .col-xs-6
-       .form-group
-         = f.label :cdl_course_code, "CDL Course Code"
-         br
-         = f.text_field :cdl_course_code, class: 'form-control input-sm'
 
     .form-group
       = f.label :category_ids, t('video_on_demands.partial_form.categories')
@@ -95,6 +83,11 @@
          = f.label :satellite_viewable, t('video_on_demands.partial_form.satellite_viewable')
          br
          = f.check_box :satellite_viewable
+      .col-xs-12.col-md-3
+        .form-group
+          = f.label :cisco_digital_learning, "CDL"
+          br
+          = f.check_box :cisco_digital_learning
 
     .form-group
       = f.label :heading, t('video_on_demands.partial_form.heading')
