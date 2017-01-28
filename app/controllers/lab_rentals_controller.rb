@@ -159,12 +159,12 @@ class LabRentalsController < ApplicationController
 
     if lab_rental.save
       order_item = OrderItem.new(
-      orderable_type: "LabRental",
-      orderable_id: lab_rental.id,
-      cart_id: @cart.id,
-      price: @time_block.price,
-      user_id: current_user.id,
-      note: "Created through self checkout."
+        orderable_type: "LabRental",
+        orderable_id: lab_rental.id,
+        cart_id: @cart.id,
+        price: @time_block.price,
+        user_id: current_user.id,
+        note: "Created through self checkout."
       )
       if order_item.save
         flash[:success] = "Item successfully added to cart! Please go to #{view_context.link_to "My Cart", new_order_path} to complete transaction".html_safe

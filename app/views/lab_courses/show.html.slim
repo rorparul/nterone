@@ -25,7 +25,6 @@
             h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
             = @lab_course.description.try(:html_safe) if @lab_course.description
             
-      
         .row
           .col-xs-12
             .well style="background-color: white;"
@@ -36,6 +35,8 @@
             .form-container
               = render partial: 'time_select', locals: { lab_course: @lab_course, time_blocks: @time_blocks, time_zone: @time_zone }
                         
-                  
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
+    
+javascript:
+  $('.labs-tab').addClass('active');

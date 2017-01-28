@@ -13,7 +13,6 @@ class MyAccountController < ApplicationController
       @time_blocks[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: time_block.id, cart_id: nil).exists?
     end
     @time_blocks.to_a.compact!
-    # @activities = PublicActivity::Activity.where("owner_id = ? OR recipient_id = ?", current_user.id, current_user.id).order(created_at: :desc)
   end
 
   def messages

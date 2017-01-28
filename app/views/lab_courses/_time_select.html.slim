@@ -22,8 +22,6 @@
                 - if time_blocks.keys.first == key
                   .tab-pane.active role="tabpanel" id="#{number_in_words(key.unit_quantity).gsub(" ", "-")}"
                       .panel.panel-default
-                        - if current_user && current_user.admin?
-                          = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true, style: "position: absolute; right: 20px; top: 20px;"
                         table.table.table-compact.labrental-time-select
                           - unless value.nil? || value.empty?
                             thead
@@ -33,6 +31,8 @@
                                 th Time Zone
                                 th Price
                                 th.fit
+                                  - if user_signed_in? && current_user.admin?
+                                    = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
                             tbody
                               - value.each do |time|
                                 tr 
@@ -50,8 +50,6 @@
                 - else
                   .tab-pane role="tabpanel" id="#{number_in_words(key.unit_quantity).gsub(" ", "-")}"
                     .panel.panel-default
-                      - if current_user && current_user.admin?
-                        = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true, style: "float: right; margin: 5px 5px 0px 0px;"
                       table.table.table-compact.labrental-time-select
                         - unless value.nil? || value.empty?
                           thead
@@ -61,6 +59,8 @@
                               th Time Zone
                               th Price
                               th
+                                - if user_signed_in? && current_user.admin?
+                                  = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
                           tbody
                             - value.each do |time|
                               tr 

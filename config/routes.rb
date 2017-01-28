@@ -85,7 +85,7 @@ NterOne::Application.routes.draw do
   resources :lab_courses do
     resources :lab_course_time_blocks
   end
-  post 'time_select/lab_course_time_blocks' => 'lab_courses#time_select',            as: :time_select_lab_course_time_block
+  post 'time_select/lab_course_time_blocks' => 'lab_courses#time_select', as: :time_select_lab_course_time_block
 
   resources :platforms, path: 'training' do
     collection do

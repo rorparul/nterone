@@ -118,6 +118,8 @@ class User < ActiveRecord::Base
 
   has_many :lab_rentals # TODO: Consider the dependencies
 
+  has_many :individual_lab_rentals, through: :order_items, source: :orderable, source_type: 'LabRental'
+
   has_many :messages,             dependent:   :destroy
   has_many :posts
   has_many :roles,                dependent:   :destroy

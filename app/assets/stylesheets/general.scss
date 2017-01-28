@@ -2567,10 +2567,10 @@ footer {
 .panel-lab-course {
   .panel-body {
     color: black;
-    height: 300px;
+    height: 250px;
     overflow: hidden;
-    h4 {
-      color: #525252;
+    h3 {
+      font-weight: bold;
     }
   }
 }
