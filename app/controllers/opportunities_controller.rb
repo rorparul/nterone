@@ -4,7 +4,7 @@ class OpportunitiesController < ApplicationController
 
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
   before_action :set_associations,      only: [:new, :edit, :copy]
-  before_action :authorize_opportunity, except: [:copy]
+  before_action :authorize_opportunity, except: [:copy, :export_popup]
 
   layout 'admin'
 
@@ -105,7 +105,6 @@ class OpportunitiesController < ApplicationController
 
   def copy
     @opportunity = @opportunity.dup
-    # @opportunity.stage = 10
     render 'shared/new'
   end
 
@@ -157,9 +156,6 @@ class OpportunitiesController < ApplicationController
   private
 
   def set_opportunity
-    if current_user.admin? || current_user.sales_manager?
-    else
-    end
     @opportunity = Opportunity.find(params[:id])
   end
 
