@@ -16,7 +16,7 @@
 .row
   .col-xs-12
     h4
-      strong.text-muted Contacts
+      strong.text-muted People
     .container-muted
       = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
@@ -31,4 +31,4 @@
       
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .accounts').addClass('active');
+  $('.permissions .people').addClass('active');

@@ -45,7 +45,7 @@ class Opportunity < ActiveRecord::Base
   before_save :update_date_closed, if: proc { |model| model.stage_changed? }
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
-  after_save :update_order,  if: proc { |model| model.order.present? && model.event_id_changed? }
+  after_save :update_order,  if: proc { |model| model.event_id_changed? && model.stage == 100 && model.order.present? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
 
   def self.amount_open
@@ -143,18 +143,27 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_order
-    order_item = order.order_items.find_by(
-      orderable_type: 'Event',
-      orderable_id: event_id_was
-    )
+    if waiting
+      order_item = order.order_items.create(
+        user_id: customer.try(:id),
+        orderable_type: 'Event',
+        orderable_id: event.try(:id),
+        price: amount
+      )
 
-    if order_item
+      self.update_column(:waiting, false)
+    else
+      order_item = order.order_items.find_by(
+        orderable_type: 'Event',
+        orderable_id: event_id_was
+      )
+
       order_item.update(
         orderable_id: event_id
       )
-
-      RegistrationMailer.create(order_item).deliver_now
     end
+    
+    RegistrationMailer.create(order_item).deliver_now
   end
 
   def destroy_order

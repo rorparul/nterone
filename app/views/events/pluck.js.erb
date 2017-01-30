@@ -1,0 +1,5 @@
+<% if @event.present? %>
+  $('#opportunity_amount').val("<%= number_with_precision(@event.price, precision: 2) %>");
+<% else %>
+  $('#opportunity_amount').val("0.00");
+<% end %>

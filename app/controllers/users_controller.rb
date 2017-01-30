@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   helper  SmartListing::Helper
 
   before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
+  before_action :authorize_user, except: [:show, :toggle_archived]
 
   layout 'admin'
 
@@ -40,8 +41,8 @@ class UsersController < ApplicationController
     @owners = User.all_sales
   end
 
-  def edit_from_my_queue
-  end
+  # def edit_from_my_queue
+  # end
 
   def update
     respond_to do |format|
@@ -96,6 +97,11 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    @user ||= User.new
+    authorize @user
   end
 
   def user_params

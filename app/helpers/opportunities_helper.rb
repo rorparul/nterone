@@ -30,6 +30,7 @@ module OpportunitiesHelper
       ['Live Online Private'],
       ['Onsite Private'],
       ['Self–paced Learning'],
+      ['Lab Rental'],
       ['Other']
     ]
   end

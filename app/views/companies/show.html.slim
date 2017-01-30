@@ -57,18 +57,85 @@
 .row
   .col-xs-12
     h4
+      strong.text-muted Leads
+    .container-muted
+      = link_to t('default.action.new'), new_lead_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:leads, { class: 'input-search' }) do
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+    = smart_listing_render(:leads)
+      
+.row
+  .col-xs-12
+    h4
       strong.text-muted Contacts
     .container-muted
       = link_to t('default.action.new'), new_user_invitation_path(company_id: @company.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = smart_listing_controls_for(:users, {class: 'input-search'}) do
-        .input-group.input-group-sm.filter
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:contacts, {class: 'input-search'}) do
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
           = text_field_tag :filter, '', class: 'search form-control input-sm', 
                                         placeholder: t('default.action.search'),
                                         autocomplete: :off
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
-    = smart_listing_render(:users)
+    = smart_listing_render(:contacts)
+    
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Opportunities
+    .container-muted
+      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+              
+        - if current_user.admin? || current_user.sales_manager?
+          .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
+            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+
+        .radio
+          label
+            input type="radio" name="selection" id="selection_open" value="open" checked='true'
+            | Open
+        .radio
+          label
+            input type="radio" name="selection" id="selection_waiting" value="waiting"
+            | Waiting
+        .radio
+          label
+            input type="radio" name="selection" id="selection_closed" value="closed"
+            | Closed
+            
+        #end-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :end_date, :end_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+            { disabled: true, class: 'input-date' }
+        #start-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :start_date, :start_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: @company.account_opportunities.minimum(:date_closed) },
+            { disabled: true, class: 'input-date' }
+            
+    = smart_listing_render(:opportunities)
 
 .row
   .col-xs-12 
@@ -86,23 +153,6 @@
         = link_to @company.user.full_name, user_path(@company.user)
       - else
         | N/A
-            
-
-            / #  title         :string
-            / #  form_type     :integer
-            / #  slug          :string
-            / #  user_id       :integer
-            / #  kind          :string
-            / #  street        :string
-            / #  city          :string
-            / #  state         :string
-            / #  zip_code      :string
-            / #  phone         :string
-            / #  website       :string
-            / #  parent_id     :integer
-            / #  industry_code :string
-            / #  partner       :boolean          default(FALSE)
-            
   
 .row
   .col-xs-12 
@@ -112,3 +162,11 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+  
+  $('.radio input').on('change', function(){
+    if($('#selection_closed').is(':checked')){
+      $('.input-date').prop('disabled', false);
+    }else{
+      $('.input-date').prop('disabled', true);
+    }
+  });

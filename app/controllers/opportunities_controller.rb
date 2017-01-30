@@ -2,8 +2,9 @@ class OpportunitiesController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-  before_action :set_opportunity,  only: [:show, :edit, :update, :destroy, :copy]
-  before_action :set_associations, only: [:new, :edit, :copy]
+  before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
+  before_action :set_associations,      only: [:new, :edit, :copy]
+  before_action :authorize_opportunity, except: [:copy]
 
   layout 'admin'
 
@@ -104,7 +105,7 @@ class OpportunitiesController < ApplicationController
 
   def copy
     @opportunity = @opportunity.dup
-    @opportunity.stage = 10
+    # @opportunity.stage = 10
     render 'shared/new'
   end
 
@@ -168,6 +169,11 @@ class OpportunitiesController < ApplicationController
     @partners  = Company.partners.order('lower(title)')
     @owners    = User.all_sales
     @contacts  = User.contacts
+  end
+
+  def authorize_opportunity
+    @opportunity ||= Opportunity.new
+    authorize @opportunity
   end
 
   def opportunity_params

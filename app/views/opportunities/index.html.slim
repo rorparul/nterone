@@ -49,66 +49,45 @@
           #amount-won-last-year = number_to_currency(@amount_won_last_year)
 
     .container-muted
-      .row
-        .col-xs-12
-          = link_to t('default.action.add'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-          = link_to export_popup_opportunities_path, remote: true, class: 'pull-right btn btn-default btn-sm', role: 'button', title: 'Export' do
-            i.fa.fa-file-excel-o aria-hidden="true"
-          = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
-            .input-group.input-group-sm.filter style='margin-right: 15px;'
-              = text_field_tag :filter, '', class: 'search form-control input-sm',
-                                            placeholder: t('admins.classes.search'),
-                                            autocomplete: :off
-              span.input-group-btn
-                button.btn.btn-default.btn-sm.disabled type="submit"
-                  span.glyphicon.glyphicon-search
-
-            - if current_user.admin? || current_user.sales_manager?
-              .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
-                = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
-                                              placeholder: t('admins.classes.search'),
-                                              autocomplete: :off
-
-            .radio
-              label
-                input type="radio" name="selection" id="selection_open" value="open" checked='true'
-                | Open
-            .radio
-              label
-                input type="radio" name="selection" id="selection_waiting" value="waiting"
-                | Waiting
-            .radio
-              label
-                input type="radio" name="selection" id="selection_closed" value="closed"
-                | Closed
-
-            .filter.hide
-              = text_field_tag :date_start
-              = text_field_tag :date_end
-            #closed-dates.form-inline.pull-right.margin-right-3[style="display: none"]
-              .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
-                .input-group.input-group-sm.input-append.margin-right-3
-                  span class="input-group-btn"
-                    = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
-                                                placeholder: t('default.placeholder.start_date'),
-                                                autocomplete: :off
-
-                .input-group.input-group-sm.input-append
-                  span class="input-group-btn"
-                    = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
-                                                placeholder: t('default.placeholder.end_date'),
-                                                autocomplete: :off
-
-            / #end-date.pull-right style='margin: 4px 15px 4px 0;'
-            /   = text_field_tag :end_date
-            /   / = date_select :end_date, :end_date,
-            /   /   { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
-            /   /   { disabled: true, class: 'input-date' }
-            / #start-date.pull-right style='margin: 4px 15px 4px 0;'
-            /   = text_field_tag :start_date
-            /   / = date_select :start_date, :start_date,
-            /   /   { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: Opportunity.minimum(:date_closed) },
-            /   /   { disabled: true, class: 'input-date' }
+      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to export_popup_opportunities_path, remote: true, class: 'pull-right btn btn-default btn-sm', role: 'button', title: 'Export' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+              
+        - if current_user.admin? || current_user.sales_manager?
+          .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
+            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+        
+        .radio
+          label
+            input type="radio" name="selection" id="selection_open" value="open" checked='true'
+            | Open
+        .radio
+          label
+            input type="radio" name="selection" id="selection_waiting" value="waiting"
+            | Waiting
+        .radio
+          label
+            input type="radio" name="selection" id="selection_closed" value="closed"
+            | Closed
+            
+        #end-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :end_date, :end_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+            { disabled: true, class: 'input-date' }
+        #start-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :start_date, :start_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: Opportunity.minimum(:date_closed) },
+            { disabled: true, class: 'input-date' }
 
     = smart_listing_render(:opportunities)
 
@@ -118,9 +97,9 @@ javascript:
 
   $('.radio input').on('change', function(){
     if($('#selection_closed').is(':checked')){
-      $('#closed-dates').show(700)
+      $('.input-date').prop('disabled', false);
     }else{
-      $('#closed-dates').hide(500)
+      $('.input-date').prop('disabled', true);
     }
   });
 
