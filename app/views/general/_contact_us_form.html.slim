@@ -1,15 +1,15 @@
 = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
   .radio
     label
-      = f.radio_button :recipient, "helpdesk#{t('email')}", checked: true
+      = f.radio_button :recipient, "helpdesk@nterone.#{Setting.tld}", checked: true
       = t('general.partial_contact_us_form.help_desk')
   .radio
     label
-      = f.radio_button :recipient, "sales#{t('email')}"
+      = f.radio_button :recipient, "sales@nterone.#{Setting.tld}"
       = t('general.partial_contact_us_form.sales')
   .radio
     label
-      = f.radio_button :recipient, "billing#{t('email')}"
+      = f.radio_button :recipient, "billing@nterone.#{Setting.tld}"
       = t('general.partial_contact_us_form.billing')
   
   .form-group
