@@ -11,22 +11,20 @@ class EventMailer < ApplicationMailer
 
   def create_gtr_alert(event)
     @event = event
-    host   = ActionMailer::Base.default_url_options[:host]
 
     mail(
-      to: "helpdesk#{I18n.t('email')}",
-      subject: "New GTR on #{host}",
+      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca'],
+      subject: "New GTR on #{`hostname`}",
       template_name: 'gtr_alert'
     )
   end
 
   def destroy_gtr_alert(event)
     @event = event
-    host   = ActionMailer::Base.default_url_options[:host]
 
     mail(
-      to: "helpdesk#{I18n.t('email')}",
-      subject: "Canceled GTR on #{host}",
+      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca'],
+      subject: "Canceled GTR on #{`hostname`}",
       template_name: 'gtr_alert'
     )
   end

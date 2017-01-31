@@ -1,4 +1,9 @@
 module GeneralHelper
+  def formatted_domain
+    top_level = request.host.match(/\w+$/).to_s
+    "www.NterOne.#{top_level}"
+  end
+
   def personal_greeting
     personal_greeting = "Guest"
 
