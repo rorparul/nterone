@@ -3,7 +3,7 @@
     h4
       strong.text-muted = @user.full_name.presence || @user.email
     .container-muted
-      = link_to t('default.action.edit'), edit_user_path(@user), remote: true, class: 'btn btn-warning btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to t('default.action.edit'), edit_from_sales_users_path(@user), remote: true, class: 'btn btn-warning btn-sm', role: 'button', style: 'margin-right: 5px;'
       = link_to t('default.action.destroy'), user_path(@user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
 
 .row
