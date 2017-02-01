@@ -29,8 +29,10 @@ table
         td 
           = t('order_mailer.confirmation.copy7')
 
-p = "#{t('order_mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-p = "#{t('order_mailer.confirmation.copy9')} #{@order.clc_quantity}"
+- if @order.payment_type == "Credit Card"
+  p = "#{t('order_mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+- if @order.payment_type == "Cisco Learning Credits"
+  p = "#{t('order_mailer.confirmation.copy9')} #{@order.clc_quantity}"
 
 p
   = t('order_mailer.confirmation.copy10')
