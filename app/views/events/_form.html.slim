@@ -70,12 +70,20 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
+          = f.label :theater, t('events.partial_form.theater')
+          = f.select :theater,
+                    [["United States", "united_states"], ["Latin America", "latin_america"], ["Canada", "canada"]],
+                    { prompt: true },
+                    { class: 'form-control input-sm' }
+      .col-xs-12.col-sm-6
+        .form-group
           = f.label :language, t('events.partial_form.language')
           = f.select :language,
                      [[t('events.partial_form.english'), 'en'],
                       [t('events.partial_form.spanish'), 'es']],
                      { prompt: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
@@ -83,8 +91,6 @@
                     User.only_instructors.collect { |user| [user.full_name, user.id] },
                     { prompt: true, include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm' }
-
-    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :format, t('events.partial_form.format')

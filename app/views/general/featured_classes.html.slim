@@ -62,13 +62,13 @@
                           = event.format
                       td.fit = event.language.upcase
                       - if event.city.present? || event.state.present? || event.street.present?
-                        td.fit.location-td style="cursor: help;"
+                        td.fit.location-td.text-center style="cursor: help;"
                           .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
                             = event.state
                             i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                       - else
                         - if event.format == "Live Online"
-                          td 
+                          td.text-center
                             = t('general.featured_classes.webex')
                         - else
                           td
@@ -83,7 +83,7 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
                               = t('general.featured_classes.free')
-                      td.fit
+                      td.fit.text-center
                         - if event.course.video_preview.present?
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'

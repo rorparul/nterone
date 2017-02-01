@@ -181,6 +181,7 @@ class EventsController < ApplicationController
                                   :calculate_book_costs,
                                   :language,
                                   :resell,
+                                  :theater,
                                   :zipcode)
   end
 

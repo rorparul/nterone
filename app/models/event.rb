@@ -43,12 +43,22 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
+#  theater                        :integer
 #
 
 class Event < ActiveRecord::Base
   include SearchCop
 
-  enum language: { en: 0, es: 1 }
+  enum theater: {
+    united_states: 0,
+    latin_america: 1,
+    canada: 2
+  }
+
+  enum language: {
+    en: 0,
+    es: 1
+  }
 
   enum remind_period: {
     one_week: 0,

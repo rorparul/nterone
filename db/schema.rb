@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112235019) do
+ActiveRecord::Schema.define(version: 20170201182250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
+    t.integer  "theater"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
