@@ -32,7 +32,8 @@
                     th = t('general.featured_classes.date')
                     th = t('general.featured_classes.length')
                     th = t('general.featured_classes.format')
-                    th = t('general.featured_classes.language')
+                    th title="#{t('general.featured_classes.language')}"
+                      i.fa.fa-globe aria-hidden="true"
                     th = t('general.featured_classes.location')
                     th = t('general.featured_classes.price')
                     th = t('general.featured_classes.preview')
@@ -51,13 +52,20 @@
                         meta itemprop="endDate" content="#{event.end_date}"
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
-                      td.fit = event.format
+                      - if event.format == "ClearConnect"
+                        td.fit.location-td style="cursor: help;"
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title="ClearConnect allows you to join training remotely via webex, any video-conferencing system, or at the onsite location(s) listed."
+                            = event.format
+                            i.fa.fa-info-circle.text-info aria-hidden="true" style="margin-left: 5px;"
+                      - else
+                        td.fit
+                          = event.format
                       td.fit = event.language.upcase
                       - if event.city.present? || event.state.present? || event.street.present?
-                        td.fit.location-td
+                        td.fit.location-td style="cursor: help;"
                           .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
-                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
                             = event.state
+                            i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                       - else
                         - if event.format == "Live Online"
                           td 
