@@ -174,12 +174,12 @@
               = f.label :billing_state, t('oorders.partial_form.state')
               - if user_signed_in?
                 = f.select :billing_state,
-                           us_states,
+                           grouped_options_for_select(country_regions),
                            { prompt: true },
                            { class: 'form-control input-sm' }
               - else
                 = f.select :billing_state,
-                           us_states,
+                           grouped_options_for_select(country_regions),
                            { prompt: true },
                            { class: 'form-control input-sm' }
           .col-xs-12.col-md-2
@@ -224,12 +224,12 @@
               = f.label :shipping_state, t('orders.partial_form.state')
               - if user_signed_in?
                 = f.select :shipping_state,
-                           us_states,
+                           grouped_options_for_select(country_regions),
                            { prompt: true },
                            { class: 'form-control input-sm disableable' }
               - else
                 = f.select :shipping_state,
-                           us_states,
+                           grouped_options_for_select(country_regions),
                            { prompt: true },
                            { class: 'form-control input-sm disableable' }
           .col-xs-12.col-md-2

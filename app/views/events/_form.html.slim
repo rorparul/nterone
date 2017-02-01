@@ -117,7 +117,7 @@
         .form-group
           = f.label :state, t('events.partial_form.state')
           = f.select :state,
-                     us_states,
+                     grouped_options_for_select(country_regions, event.state),
                      { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6

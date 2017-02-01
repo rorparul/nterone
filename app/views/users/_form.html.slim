@@ -95,7 +95,7 @@
                 .form-group
                   = f.label :billing_state, t('users.partial_form.state')
                   = f.select :billing_state,
-                             us_states,
+                             grouped_options_for_select(country_regions, user.billing_state),
                              { prompt: true },
                              { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
@@ -138,7 +138,7 @@
                 .form-group
                   = f.label :shipping_state, t('users.partial_form.shipping_state')
                   = f.select :shipping_state,
-                             us_states,
+                             grouped_options_for_select(country_regions),
                              { prompt: true },
                              { class: 'form-control input-sm input-shipping-address' }
               .col-xs-12.col-md-2
