@@ -1,0 +1,44 @@
+p 
+  = t('devise.mailer.welcome_experts_exchange.hello') + " #{@user.first_name},"
+
+p 
+  = t('devise.mailer.welcome_experts_exchange.thank_you_for_registering')
+
+p 
+  = t('devise.mailer.welcome_experts_exchange.you_have_been')
+  a href="http://www.nterone.com"
+    = t('devise.mailer.welcome_experts_exchange.nterone_link')
+  = t('devise.mailer.welcome_experts_exchange.you_can_purchase')
+  
+p 
+  = t('devise.mailer.welcome_experts_exchange.we_look_forward')
+  a href="mailto:bob#{t('default.contact.email')}" 
+    = "Bob Conner"
+  = t('devise.mailer.welcome_experts_exchange.if_you_have_questions')
+  
+p style="margin-bottom: 60px;"
+  = t('devise.mailer.welcome_experts_exchange.thank_you_again')
+  
+p 
+  table
+    tr
+      td style="color: #000080; font-weight: bold;" Bob Conner | Senior Account Executive | NterOne Corporation – A Veteran Owned Business
+    tr
+      td style="color: #000080; font-weight: bold; padding-bottom: 15px;" Office: (330)-680-5733 | Cell: (330)-607-8639 
+      
+    tr
+      td style= "margin-bottom: 15px; padding-bottom: 15px;" 
+        span style="color: #000080; font-weight: bold;" Links: 
+        = "NterOne Home Page   | Cisco Courses | VMware Courses"
+        
+    tr
+      td style="color: #000080; font-weight: bold; padding-bottom: 15px;" Information about NterOne:
+      
+    tr
+      td NterOne Awarded Cisco Americas Learning Partner of the Year for 2016
+    tr
+      td NterOne Achieves Direct Learning Partner Status with Cisco
+    tr
+      td Cisco Application Centric Infrastructure (ACI) Case Study: NterOne
+    tr
+      td NterOne Corporation Wins Cisco Innovation Award
