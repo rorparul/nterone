@@ -95,7 +95,7 @@
                 .form-group
                   = f.label :billing_state, t('users.partial_form.state')
                   = f.select :billing_state,
-                             grouped_options_for_select(country_regions, user.billing_state),
+                             grouped_options_for_select(country_regions, @user.billing_state),
                              { prompt: true },
                              { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
