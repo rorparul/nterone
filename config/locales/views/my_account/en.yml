@@ -16,7 +16,7 @@ en:
       countdown: "Countdown"
       course: "Course"
       date: "Date"
-      days_access_left: "Days of Access Left"
+      days_access_left: "Time of Access Remaining"
       details: "Details"
       duration: "Duration"
       end_date: "End Date"
