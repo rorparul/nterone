@@ -11,6 +11,7 @@
 #  slug             :string
 #  abbreviation     :string
 #  card_description :text
+#  level            :string           default("both")
 #
 
 class LabCourse < ActiveRecord::Base

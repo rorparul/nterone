@@ -7,7 +7,6 @@ class LabCoursesController < ApplicationController
 
 	def show
 		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
-		# @time_zones 			= (ActiveSupport::TimeZone.us_zones << ActiveSupport::TimeZone.all).flatten
 		@time_zones				= [["United States Time Zones", ActiveSupport::TimeZone.us_zones.uniq],["All Time Zones", ActiveSupport::TimeZone.all.uniq]]
 		@time_zone 				= Time.zone.name
 		@date_start				= Date.today
@@ -43,8 +42,8 @@ class LabCoursesController < ApplicationController
 
 	def update
 		if @lab_course.update(lab_course_params)
-			flash[:success] = "Lab Course successfully created!"
-			redirect_to admin_website_path
+			flash[:success] = "Lab Course successfully updated!"
+			redirect_to :back
 		else
 			render 'edit'
 		end
@@ -64,11 +63,13 @@ class LabCoursesController < ApplicationController
 
   def lab_course_params
     params.require(:lab_course).permit(
-		:abbreviation,
-		:card_description,
-		:company_id,
-		:description,
-		:title)
+			:abbreviation,
+			:card_description,
+			:company_id,
+			:description,
+			:title,
+			:level
+		)
   end
 
 	def set_lab_course

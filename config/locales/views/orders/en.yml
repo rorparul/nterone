@@ -24,8 +24,8 @@ en:
     new:
       apply_code: "Apply Code"
       billing_address: "Billing Address"
-      caption1: " of this order is not applicable to be purchased with credits."
-      caption2: " If you wish to split payment between a credit card and credits,"
+      caption1: " of this order is not applicable to be purchased with learning credits."
+      caption2: " If you wish to split payment between a credit card and learning credits,"
       caption3: " please contact NterOne by email at"
       caption4: ", or by phone at "
       caption5: "for assistance."

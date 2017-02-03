@@ -12,7 +12,7 @@
     .row
       .col-xs-12
         .form-group
-          = f.label :lab_course, t('default.label.lab_course_title')
+          = f.label :lab_course, t('default.label.title')
           = f.text_field :title, class: 'form-control input-sm'
       
     .row
@@ -25,13 +25,26 @@
           = f.label :company_id, t('lab_courses.partial_form.for_company')
           = f.select :company_id, Company.all.collect { |company| [company.title, company.id] },
             { include_blank: 'Please select' },
-            { class: 'form-control' }
+            { class: 'form-control', disabled: @lab_course.level == 'individual' }
             
-    / .row
-    /   .col-xs-12
-    /     .form-group
-    /       = f.label :card_description, t('lab_courses.partial_form.card_description')
-    /       = f.text_area :card_description, class: 'form-control input-sm'
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          label Level
+          br
+          .radio style="display: inline-block; margin: 0 10px 0 0;"
+            label
+              = f.radio_button :level, "both", id: "selection_both", checked: 'true'
+              | Both
+          .radio style="display: inline-block; margin: 0 10px 0 0;"
+            label
+              = f.radio_button :level, "individual", id: "selection_individual"
+              | Individual
+          .radio style="display: inline-block; margin: 0 10px 0 0;"
+            label
+              = f.radio_button :level, "partner", id: "selection_partner"
+              | Partner
+              
     .row
       .col-xs-12
         .form-group
@@ -41,3 +54,12 @@
     .form-buttons
       button.btn.btn-success type="submit" = t('default.action.save')
       button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
+      
+javascript:
+  $('.radio input').on('change', function(){
+    if($('#selection_individual').is(':checked')){
+      $('#lab_course_company_id').prop('disabled', true);
+    }else{
+      $('#lab_course_company_id').prop('disabled', false);
+    }
+  });
