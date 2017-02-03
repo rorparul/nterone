@@ -33,7 +33,7 @@
                 .panel-body style="display: relative;"
                   h3.text-muted = lab_course.full_title
                   p.text-center style="position: absolute; bottom: 40px;"
-                    - if lab_course.lab_course_time_blocks.any?
+                    - if lab_course.available?
                       span.text-success Available
                     - else
                       span.text-danger Unavailable

@@ -15,6 +15,7 @@
 
 class LabCourse < ActiveRecord::Base
   extend FriendlyId
+
   friendly_id :slug_candidates, use: :slugged
 
   def slug_candidates
@@ -31,6 +32,9 @@ class LabCourse < ActiveRecord::Base
 
   validates :title, presence: true
 
+  def available?
+    lab_course_time_blocks.any?
+  end
 
   def full_title
     if abbreviation.present?
