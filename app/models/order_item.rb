@@ -87,6 +87,12 @@ class OrderItem < ActiveRecord::Base
     self.price * self.orderable.commission_percent
   end
 
+  def clc_applicable
+    return true if orderable_type == 'Event' && orderable.course.platform.title == 'Cisco'
+    return true if orderable_type == 'VideoOnDemand' && orderable.cisco_digital_learning == true
+    return false
+  end
+
   private
 
   def copy_current_orderable_price

@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
       if order_params[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
-      if result.failure?
+        if result.failure?
           error = get_error_msg(result.data) || "Failed to charge card."
           @order.errors[:base] << error
           return render 'create_admin'

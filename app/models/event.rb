@@ -100,6 +100,8 @@ class Event < ActiveRecord::Base
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
   end
 
+  delegate :platform, to: :course
+
   def self.upcoming_events
     where("start_date >= :start_date", { start_date: Date.today })
   end
