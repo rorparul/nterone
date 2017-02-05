@@ -79,6 +79,7 @@ class OrdersController < ApplicationController
         end
         flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
         OrderMailer.confirmation(current_user, @order).deliver_now
+        OrderMailer.lab_rental_confirmation(current_user, @order).deliver_now
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
