@@ -97,7 +97,7 @@ class LabCoursesController < ApplicationController
 						count += 1 if overlap > 0
 					end
 				end
-				@time_starts[index] = nil if count >= @pods
+				@time_starts[index] = nil if count >= @pods || @time_starts[index].utc < Time.now.utc + 2.hours
 			end
 			@time_starts.each do |time|
 				puts time
