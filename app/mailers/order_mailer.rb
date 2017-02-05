@@ -10,12 +10,7 @@ class OrderMailer < ApplicationMailer
   def lab_rental_confirmation(user, order)
     @user   = user
     @order  = order
-    @order.order_items.each do |order_item|
-      if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
-        mail(to: ['helpdesk@nterone.com', 'techsupport@nterone.com'],
-             subject: 'POD Rental')
-        return
-      end
-    end
+    mail(to: ['helpdesk@nterone.com', 'techsupport@nterone.com'],
+         subject: 'POD Rental')
   end
 end

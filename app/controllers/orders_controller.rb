@@ -70,16 +70,20 @@ class OrdersController < ApplicationController
         @order.assign_attributes(clc_params)
       end
 
+      # Boolean for OrderMailer.lab_rental_confirmation method
+      pod_order = false
+
       # Create order
       @order.assign_attributes(order_params)
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
+          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
         flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
         OrderMailer.confirmation(current_user, @order).deliver_now
-        OrderMailer.lab_rental_confirmation(current_user, @order).deliver_now
+        OrderMailer.lab_rental_confirmation(current_user, @order).deliver_now if pod_order
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
