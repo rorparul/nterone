@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203194834) do
+ActiveRecord::Schema.define(version: 20170206185005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -556,6 +556,8 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.string   "abbreviation"
     t.text     "card_description"
     t.string   "level",            default: "both"
+    t.integer  "pods_individual",  default: 0
+    t.integer  "pods_partner",     default: 0
   end
 
   create_table "lab_rentals", force: :cascade do |t|

@@ -76,8 +76,6 @@ NterOne::Application.routes.draw do
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
-  get 'edit_pods/lab_rentals'     => 'lab_rentals#edit_pods',   as: :edit_pods
-  post 'update_pods/lab_rentals'  => 'lab_rentals#update_pods', as: :update_pods
   post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
   resources :companies

@@ -12,6 +12,8 @@
 #  abbreviation     :string
 #  card_description :text
 #  level            :string           default("both")
+#  pods_individual  :integer          default(0)
+#  pods_partner     :integer          default(0)
 #
 
 class LabCourse < ActiveRecord::Base
