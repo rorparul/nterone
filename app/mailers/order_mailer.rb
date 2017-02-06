@@ -7,9 +7,9 @@ class OrderMailer < ApplicationMailer
          subject: 'NterOne.com Order Confirmation')
   end
 
-  def lab_rental_confirmation(user, order)
-    @user   = user
-    @order  = order
+  def lab_rental_notification(user, order_pods)
+    @user       = user
+    @pods       = order_pods
     mail(to: ['helpdesk@nterone.com', 'techsupport@nterone.com'],
          subject: 'POD Rental')
   end

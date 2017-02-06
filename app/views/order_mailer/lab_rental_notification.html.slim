@@ -1,0 +1,22 @@
+p The following Pods were reserved by #{@user.full_name}.
+
+br
+
+table
+  thead
+    tr
+      th style="text-align: left;" LabCourse
+      th style="text-align: left;" Date
+      th style="text-align: left;" Start Time
+      th style="text-align: left;" End Time
+  tbody
+    - @pods.each do |pod|
+      tr
+        td style="padding-right: 25px;"  = link_to pod.lab_course.full_title, lab_course_path(pod.lab_course), target: "_blank"
+        td style="padding-right: 25px;" = pod.first_day.strftime("%-m/%-d/%y")
+        td style="padding-right: 25px;" = pod.start_time.in_time_zone(pod.time_zone).strftime("%I:%M%p")
+        td style="padding-right: 25px;" = pod.end_time.in_time_zone(pod.time_zone).strftime("%I:%M%p")
+          
+br
+
+p You can reach #{@user.full_name} at #{mail_to(@user.email, @user.email)}.

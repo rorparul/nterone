@@ -5,9 +5,9 @@ class OrderMailerPreview < ActionMailer::Preview
     OrderMailer.confirmation(user, order)
   end
 
-  def lab_rental_confirmation
+  def lab_rental_notification
     user = User.first
-    order = Order.first
-    OrderMailer.lab_rental_confirmation(user, order)
+    pods = LabRental.where(level: 'individual')
+    OrderMailer.lab_rental_notification(user, pods)
   end
 end
