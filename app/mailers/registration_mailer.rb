@@ -5,13 +5,13 @@ class RegistrationMailer < ApplicationMailer
     @seller_email                  = seller.email
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
 
-    mail(
-      to: @seller_email,
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
-      subject:       'NterOne Registration Confirmation',
-      template_path: 'mailers',
-      template_name: 'student_added'
-    )
+    # mail(
+    #   to: @seller_email,
+    #   bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
+    #   subject:       'NterOne Registration Confirmation',
+    #   template_path: 'mailers',
+    #   template_name: 'student_added'
+    # )
   end
 
   def create(order_item)
@@ -24,12 +24,12 @@ class RegistrationMailer < ApplicationMailer
 
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
 
-    mail(
-      to: [sales_rep_email, partner_email, customer_email],
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
-      subject:       'NterOne Registration Confirmation',
-      template_path: 'mailers',
-      template_name: 'student_added'
-    )
+    # mail(
+    #   to: [sales_rep_email, partner_email, customer_email],
+    #   bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
+    #   subject:       'NterOne Registration Confirmation',
+    #   template_path: 'mailers',
+    #   template_name: 'student_added'
+    # )
   end
 end
