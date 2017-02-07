@@ -34,9 +34,10 @@ class LabCourse < ActiveRecord::Base
   has_many :lab_course_time_blocks
 
   validates :title, presence: true
+  validates :pods_individual, :pods_partner, numericality: { greater_than_or_equal_to: 0 }
 
-  def available?
-    lab_course_time_blocks.any?
+  def available_to_individual?
+    pods_individual > 0 && lab_course_time_blocks.any?
   end
 
   def full_title

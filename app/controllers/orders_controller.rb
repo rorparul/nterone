@@ -307,7 +307,7 @@ class OrdersController < ApplicationController
   def order_pods
     pods = []
     @order.order_items.each do |order_item|
-      if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+      if order_item.orderable_type == 'LabRental' && order_item.orderable.level != "partner"
         pods << order_item.orderable
       end
     end

@@ -37,13 +37,12 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  company                        :string
 #  theater                        :integer
 #
 
