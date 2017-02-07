@@ -5,18 +5,18 @@ p
 
 p
  = t('devise.mailer.welcome.copy1')
- a href="http://www.nterone.com"
-   = t('devise.mailer.welcome.copy2')
+ a href="http://www.#{Setting.host}"
+   = Setting.formatted_domain
  = t('devise.mailer.welcome.copy3')
  = t('devise.mailer.welcome.copy4')
 
 p
   = t('devise.mailer.welcome.copy5')
   = t('devise.mailer.welcome.copy6')
-  a href="mailto:helpdesk#{t('default.contact.email')}" = "helpdesk#{t('default.contact.email')}"
+  a href="mailto:helpdesk@nterone.#{Setting.tld}" = "helpdesk@nterone.#{Setting.tld}"
   = t('devise.mailer.welcome.copy7')
-  a href="mailto:sales#{t('default.contact.email')}" 
-    = "sales#{t('default.contact.email')}"
+  a href="mailto:sales@nterone#{Setting.tld}" 
+    = "sales@nterone.#{Setting.tld}"
   = t('devise.mailer.welcome.copy8')
   = t('devise.mailer.welcome.copy9')
   = t('devise.mailer.welcome.copy10')

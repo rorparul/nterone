@@ -116,7 +116,12 @@ class User < ActiveRecord::Base
 
   has_many :assigned_items,   foreign_key: 'student_id'
   has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
-  has_many :lab_rentals # TODO: Review dependencies
+
+  #TODO: track leads through relationships instead
+  has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
+  has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
+  has_many :lab_rentals # TODO: Consider the dependencies
+  has_many :individual_lab_rentals, through: :order_items, source: :orderable, source_type: 'LabRental'
   has_many :messages,             dependent:   :destroy
   has_many :posts
   has_many :roles,                dependent:   :destroy

@@ -4,3 +4,13 @@ es:
       edit_lab_course: "Editar Laboratorio del Curso"
     new:
       add_lab_course: "Agregar Laboratorio del Curso"
+    partial_form:
+      abbreviation: "Abreviatura"
+      card_description: 'Descripción de la tarjeta'
+      description: "Descripción"
+      for_company: "Para la compañia"
+    show:
+      hours: "Horas"
+      new_time_block: "Nuevo bloque de tiempo"
+      price: "Precio"
+      students: "Estudiantes"

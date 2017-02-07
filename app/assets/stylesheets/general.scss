@@ -2435,3 +2435,75 @@ footer {
     }
   }
 }
+
+.panel-lab-course {
+  .panel-body {
+    color: black;
+    height: 250px;
+    overflow: hidden;
+    h3 {
+      font-weight: bold;
+    }
+  }
+}
+
+.lab-course-link {
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.edit-lab-course {
+  float: right;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.card-fade {
+  // @include value-prefix(background-image, linear-gradient(top, rgba(91, 165, 203, 0) 0%, rgba(58, 112, 171, 0) 100%));
+  background-color: red;
+  bottom: 0px;
+  left: 0px;
+  height: 300px;
+  position: relative;
+  right: 0px;
+  top: 300px;
+  width: 100%;
+}
+
+.breadcrumbs-title {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.labrental-time-select {
+  thead, tbody {
+    tr th {
+      @media (max-width: 767px) {
+        font-size: 11px;
+      }
+      @media (max-width: 680px) {
+        font-size: 10px;
+      }
+    }
+    tr td {
+      @media (max-width: 767px) {
+        // line-height: 30px;
+        font-size: 11px;
+      }
+      @media (max-width: 680px) {
+        font-size: 10px;
+      }
+      button, .btn {
+        @media (max-width: 767px) {
+          font-size: 11px;
+        }
+        @media (max-width: 680px) {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

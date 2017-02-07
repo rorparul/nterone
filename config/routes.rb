@@ -82,6 +82,7 @@ NterOne::Application.routes.draw do
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
+  post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
   resources :opportunities do
     collection do
@@ -99,7 +100,10 @@ NterOne::Application.routes.draw do
   get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
   get 'events/pluck'  => 'events#pluck',  as: :pluck_events
 
-  resources :lab_courses
+  resources :lab_courses do
+    resources :lab_course_time_blocks
+  end
+  post 'time_select/lab_course_time_blocks' => 'lab_courses#time_select', as: :time_select_lab_course_time_block
 
   resources :platforms, path: 'training' do
     collection do

@@ -1,10 +1,32 @@
 class LabCoursesController < ApplicationController
+	include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+
+	before_action :set_lab_course, except: [:new, :create]
+	before_action :authorize_lab_course, except: [:show, :time_select]
+
+	def show
+		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
+		@time_zones				= [["United States Time Zones", ActiveSupport::TimeZone.us_zones.uniq],["All Time Zones", ActiveSupport::TimeZone.all.uniq]]
+		@time_zone 				= Time.zone.name
+		@date_start				= Date.today
+		filter_times
+	end
+
+	def time_select
+		@date_start			= params[:date_start]
+		@time_blocks 		= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
+		@time_zone			= params[:time_zone].split
+		@time_zone.delete_at(0)
+		@time_zone = @time_zone.join(" ")
+		filter_times
+	end
+
 	def new
-		authorize @lab_course = LabCourse.new
+		@lab_course = LabCourse.new
 	end
 
 	def edit
-		authorize @lab_course = LabCourse.find(params[:id])
 	end
 
 	def create
@@ -19,19 +41,15 @@ class LabCoursesController < ApplicationController
 	end
 
 	def update
-		@lab_course = LabCourse.find(params[:id])
-
 		if @lab_course.update(lab_course_params)
-			flash[:success] = "Lab Course successfully created!"
-			redirect_to admin_website_path
+			flash[:success] = "Lab Course successfully updated!"
+			redirect_to :back
 		else
 			render 'edit'
 		end
 	end
 
   def destroy
-  	@lab_course = LabCourse.find(params[:id])
-
     if @lab_course.destroy
       flash[:success] = "Lab Course successfully deleted!"
     else
@@ -44,6 +62,72 @@ class LabCoursesController < ApplicationController
 	private
 
   def lab_course_params
-    params.require(:lab_course).permit(:title, :company_id)
+    params.require(:lab_course).permit(
+			:abbreviation,
+			:card_description,
+			:company_id,
+			:description,
+			:level,
+			:pods_individual,
+			:pods_partner,
+			:title
+		)
   end
+
+	def set_lab_course
+		@lab_course = LabCourse.friendly.find(params[:id])
+	end
+
+	def authorize_lab_course
+		redirect_to root_url unless current_user.admin?
+	end
+
+	def filter_times
+		@filtered_blocks = {}
+		@time_blocks.each do |time_block|
+			duration = time_block.unit_quantity
+			determine_pods
+			build_time_starts
+			lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1), lab_course_id: @lab_course.id)
+			@time_starts.each_with_index do |time_start, index|
+				count = 0
+				lab_rentals.each do |lab_rental|
+					if OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id).exists?
+						lab_rental_start = (lab_rental.first_day.to_s + lab_rental.start_time.strftime(" %H:%M %z")).to_time
+						lab_rental_end   = (lab_rental.last_day.to_s + lab_rental.end_time.strftime(" %H:%M %z")).to_time
+						overlap = ( lab_rental_start.utc - (time_start.utc + duration * 60 * 60) ) * ( time_start.utc - lab_rental_end.utc )
+						count += 1 if overlap > 0
+					end
+				end
+				@time_starts[index] = nil if count >= @pods || @time_starts[index].utc < Time.now.utc + 2.hours
+			end
+			@time_starts.each do |time|
+				puts time
+			end
+			@filtered_blocks[time_block] = @time_starts.reject {|time| time.nil?}
+		end
+		@time_blocks = @filtered_blocks
+	end
+
+	def build_time_starts
+    @time_starts =* (0..23).map do |n|
+      n = Time.mktime(
+      @date_start.to_time.year,
+      @date_start.to_time.month,
+      @date_start.to_time.day,
+      n,
+      0)
+      @time_zone == nil ? set_in_timezone(n, Time.now.zone) : set_in_timezone(n, @time_zone)
+    end
+  end
+
+	def set_in_timezone(time, zone)
+    ActiveSupport::TimeZone[zone].parse(time.asctime)
+  end
+
+	def determine_pods
+    @pods = 0
+    @pods += @lab_course.pods_individual unless @lab_course.pods_individual.nil?
+  end
+
 end

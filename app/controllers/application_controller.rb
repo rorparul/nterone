@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
 
   def skip_path_store?
     path = request.fullpath
-    path =~ /\/users/ || path =~ /\/lms\/signup/ || path =~ /\/lms$/
+    path =~ /\/users/ || path =~ /\/lms\/signup/ || path =~ /\/lms$/ || path =~ /\/checkout\/lab_rental/ || path =~ /\/time_select\/lab_course_time_blocks/
   end
 
   def update_request_urls

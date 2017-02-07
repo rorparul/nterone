@@ -51,27 +51,11 @@ class Platform < ActiveRecord::Base
     events.where("events.active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today }).order(:start_date)
   end
 
-  def upcoming_public_featured_events(host = nil)
-    platform_title = self.title
-    events         = []
-
-    [Server::Ca, Server::Com, Server::La].each do |server|
-      if server::Platform.hostname == Setting.current_hostname
-        platform = self
-      else
-        platform = server::Platform.find_by_title(platform_title)
-      end
-      if platform
-        events += platform.events.where(
-          "events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date",
-          { active: true, public: true, guaranteed: true, start_date: Date.today }
-        ).all.to_a
-      end
-    end
-
-    sorted_events = events.sort { |e1, e2| e1.start_date <=> e2.start_date }
-
-    sorted_events
+  def upcoming_public_featured_events
+    events.where(
+      "events.active = :active and public = :public and guaranteed = :guaranteed and start_date >= :start_date",
+      { active: true, public: true, guaranteed: true, start_date: Date.today }
+    ).order(:start_date)
   end
 
   def export

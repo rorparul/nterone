@@ -5,6 +5,8 @@
         thead
           tr
             th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
+            th.fit
+              i.fa.fa-globe aria-hidden="true"
             th.fit = "#{t('events.partial_listing.note')}"
             th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
             th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
@@ -25,9 +27,9 @@
           - if @grouped_events.present?
             - @grouped_events.each do |date_str, events|
               tr
-                td(style="background-color: #D5DDF2;" colspan=10)
+                td(style="background-color: #D5DDF2;" colspan=11)
                   strong = date_str
-                td(style="background-color: #D5DDF2;" colspan=10)
+                td(style="background-color: #D5DDF2;" colspan=11)
                     strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
               - events.each do |event|
                 = render partial: 'events/listing_event', locals: { event: event }

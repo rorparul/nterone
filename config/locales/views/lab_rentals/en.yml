@@ -1,10 +1,18 @@
 en:
   lab_rentals:
     edit:
+      back_to_lab_reservations: "Back to Lab Reservations"
       edit_lab_rental: "Edit Lab Reservation"
+      lab_reservations: "Lab Reservations"
+    edit_pods_js:
+      pod_settings: "Pod Settings"
     index:
       lab_rentals: "Lab Reservations"
       date_range: "Date"
+      pod_settings: "Pod Settings"
+      search_by_date_start: "Date Start"
+      search_by_date_end: "Date End"
+      upload_file: "Upload Lab Reservation File"
     mailers:
       reservation:
         copy1: "Thank you!"
@@ -26,14 +34,21 @@ en:
         copy17: "The NterOne Team"
     new:
       add_lab_rental: "Request Lab Reservation"
+      back_to_lab_reservations: "Back to Lab Reservations"
+      lab_reservations: "Lab Reservations"
+      new: "New"
     new_js:
       add_lab_rental: "Request Lab Reservation"
+    partial_edit_pods:
+      number_for_individuals: "Number of pods for individuals"
+      number_for_partners: "Number of pods for partners"
     partial_listing:
       canceled: "Canceled"
       company: "Partner"
       confirmed: "Confirmed"
       course: "Course"
       email: "Email"
+      individual_level: "Individual Level"
       instructor: "Instructor"
       location: "Location"
       no_of_students: "Students"
@@ -55,6 +70,7 @@ en:
       notes: "Notes"
       number_of_students: "Number of Students"
       start_time: "Start Time (EST)"
+      time_zone: "Time Zone"
     show_lab_students_js:
       lab_students: '[t]Lab Students'
     show_note:

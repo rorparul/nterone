@@ -179,12 +179,13 @@ ActiveRecord::Schema.define(version: 20170112235019) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
     t.string   "industry_code"
+    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -303,6 +304,7 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
+    t.integer  "theater"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -519,11 +521,27 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "lab_course_time_blocks", force: :cascade do |t|
+    t.integer "lab_course_id"
+    t.decimal "unit_size",     precision: 4, scale: 2, default: 1.0
+    t.integer "unit_quantity"
+    t.integer "ratio",                                 default: 1
+    t.decimal "price",         precision: 8, scale: 2, default: 0.0
+    t.string  "level"
+  end
+
   create_table "lab_courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "company_id"
+    t.text     "description"
+    t.string   "slug"
+    t.string   "abbreviation"
+    t.text     "card_description"
+    t.string   "level",            default: "both"
+    t.integer  "pods_individual",  default: 0
+    t.integer  "pods_partner",     default: 0
   end
 
   create_table "lab_rentals", force: :cascade do |t|
@@ -548,6 +566,7 @@ ActiveRecord::Schema.define(version: 20170112235019) do
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
     t.date     "last_day"
+    t.string   "level"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree

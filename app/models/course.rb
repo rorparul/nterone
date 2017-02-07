@@ -30,8 +30,11 @@
 
 class Course < ActiveRecord::Base
   extend FriendlyId
-  mount_uploader :pdf, PdfUploader
+
   include Imageable
+  include SlugValidation
+
+  mount_uploader :pdf, PdfUploader
 
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
@@ -63,6 +66,8 @@ class Course < ActiveRecord::Base
 
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
+
+  before_save :format_slug
 
   def active_events
     events.where(active: true).order(:start_date)

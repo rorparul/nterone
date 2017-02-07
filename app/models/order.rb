@@ -51,6 +51,7 @@
 #  source                  :integer          default(0)
 #  other_source            :string
 #  discount_id             :integer
+#  opportunity_id          :integer
 #
 # Indexes
 #
@@ -184,7 +185,6 @@ class Order < ActiveRecord::Base
       self.order_items << item
     end
   end
-
 
 
   def define_clc_quantity

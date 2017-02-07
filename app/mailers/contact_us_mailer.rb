@@ -3,7 +3,7 @@ class ContactUsMailer < ApplicationMailer
     @name      = params[:name]
     @phone     = params[:phone]
     @email     = params[:email]
-    subject    = params[:subject].present? ? params[:subject] : "#{t'website'} Contact Us"
+    subject    = params[:subject].present? ? params[:subject] : "#{Setting.formatted_domain} Contact Us"
     @inquiry   = params[:inquiry]
     @feedback  = params[:feedback]
 

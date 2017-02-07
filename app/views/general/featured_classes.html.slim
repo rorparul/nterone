@@ -32,7 +32,8 @@
                     th = t('general.featured_classes.date')
                     th = t('general.featured_classes.length')
                     th = t('general.featured_classes.format')
-                    th = t('general.featured_classes.language')
+                    th title="#{t('general.featured_classes.language')}"
+                      i.fa.fa-globe aria-hidden="true"
                     th = t('general.featured_classes.location')
                     th = t('general.featured_classes.price')
                     th = t('general.featured_classes.preview')
@@ -40,30 +41,34 @@
                       th
                     - elsif user_signed_in? && current_user.admin?
                       th
+                      th
                 tbody
                   - platform.upcoming_public_featured_events.each do |event|
                     tr
-                      td
-                        - course_url = platform_course_path(event.course.platform, event.course)
-                        - if event.class.try(:hostname)
-                          - course_url = platform_course_url(event.course.platform, event.course, host: event.class.try(:hostname))
-                        = link_to event.course.full_title, course_url
+                      td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
                       td
                         meta itemprop="startDate" content="#{event.start_date}"
                           = "#{event.start_date.strftime("%-m/%-d/%y")} to "
                         meta itemprop="endDate" content="#{event.end_date}"
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
-                      td.fit = event.format
+                      - if event.format == "ClearConnect"
+                        td.fit.location-td style="cursor: help;"
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title="ClearConnect allows you to join training remotely via webex, any video-conferencing system, or at the onsite location(s) listed."
+                            = event.format
+                            i.fa.fa-info-circle.text-info aria-hidden="true" style="margin-left: 5px;"
+                      - else
+                        td.fit
+                          = event.format
                       td.fit = event.language.upcase
                       - if event.city.present? || event.state.present? || event.street.present?
-                        td.fit.location-td
+                        td.fit.location-td.text-center style="cursor: help;"
                           .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
-                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
                             = event.state
+                            i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                       - else
                         - if event.format == "Live Online"
-                          td
+                          td.text-center
                             = t('general.featured_classes.webex')
                         - else
                           td
@@ -78,22 +83,19 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
                               = t('general.featured_classes.free')
-                      td.fit
+                      td.fit.text-center
                         - if event.course.video_preview.present?
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
                         - elsif event.course.pdf.url.present?
-                          - pdf_url = course_download_platform_courses_path(event.course.platform, event.course)
-                          - if event.class.try(:hostname)
-                            - pdf_url = course_download_platform_courses_url(event.course.platform, event.course, host: event.class.try(:hostname))
-                          = link_to pdf_url do
+                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
                             | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
                           = form_for :order_item, url: order_items_path do |f|
                             = f.hidden_field :event_id, value: event.id
                             = link_to_cart(event)
-                      - elsif !event.class.try(:hostname) && user_signed_in? && current_user.admin?
+                      - elsif user_signed_in? && current_user.admin?
                         td.fit
                           = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                         td.fit

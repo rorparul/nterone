@@ -78,7 +78,7 @@ class Cart < ActiveRecord::Base
 
   def total_applicable_for_credits
     order_items.inject(BigDecimal.new(0)) do |total, order_item|
-      if order_item.orderable_type == 'Event' && order_item.orderable.course.platform.title == "Cisco"
+      if order_item.clc_applicable
         total + order_item.price
       else
         total + BigDecimal.new(0)

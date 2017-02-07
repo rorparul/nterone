@@ -12,12 +12,31 @@
     | /
   span.text-muted 
   = t('admins.partial_breadcrumbs.labs')
+  
+- if current_user && current_user.admin? == true
+  - content_for :actions do
+    li
+      = link_to t('general.labs.new_lab_course'), new_lab_course_path, remote: false
     
 .row
   .col-xs-12.col-central
     = image_tag t('general.labs.image1'), class: "header-image"
     = @page.content.try(:html_safe)
     
+    .row style="margin-top: 20px;"
+      - @lab_courses.each do |lab_course|
+        .col-xs-12.col-sm-6.col-md-4.col-xl-2
+            .panel.panel-default.panel-lab-course
+              - if current_user && current_user.admin?
+                = link_to "Edit", edit_lab_course_path(lab_course), class: "edit-lab-course"
+              = link_to lab_course_path(lab_course), class: "lab-course-link" do 
+                .panel-body style="display: relative;"
+                  h3.text-muted = lab_course.full_title
+                  p.text-center style="position: absolute; bottom: 40px;"
+                    - if lab_course.available_to_individual?
+                      span.text-success Available
+                    - else
+                      span.text-danger Unavailable
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     

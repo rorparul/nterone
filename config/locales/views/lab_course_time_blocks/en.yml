@@ -1,0 +1,24 @@
+en:
+  lab_course_time_blocks:
+    date_select_js:
+      rent_time_block: "Rent Time Block"
+    edit_js:
+      edit_time_block: "Edit Time Block"
+    new_js:
+      new_time_block: "New Time Block"
+    partial_date_select:
+      select_date: "Select Date"
+      select_time_zone: "Select Time Zone"
+    partial_form_for_admin:
+      individual_level: "Individual Level"
+      number_of_hours: "Number of Hours"
+      number_of_students: "Number of Students"
+      partner_level: "Partner Level"
+      price: "Price"
+      title: "Title"
+    partial_time_select:
+      add_to_cart: "Add To Cart"
+      end_time: "End Time"
+      nothing_available: "There is nothing available on this day."
+      select_times: "Select Times"
+      start_time: "Start Time"

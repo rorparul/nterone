@@ -5,7 +5,7 @@ class LabRentalsController < ApplicationController
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-    lab_rentals_scope  = current_user.admin? ? LabRental.joins(:company).all : LabRental.where(company_id: current_user.company_id)
+    lab_rentals_scope  = current_user.admin? ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.company_id)
     lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
@@ -14,6 +14,12 @@ class LabRentalsController < ApplicationController
     elsif params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
+    lab_rentals_scope.each_with_index do |lab_rental, index|
+      if lab_rental.level == 'individual'
+        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
+      end
+    end
+    lab_rentals_scope.to_a.compact!
     @lab_rentals       = smart_listing_create(
       :lab_rentals,
       lab_rentals_scope,
@@ -77,9 +83,9 @@ class LabRentalsController < ApplicationController
       flash[:success] = 'Lab Reservation successfully submitted!'
       LabReservationMailer.create_reservation(current_user, @lab_rental).deliver_now
       if user_signed_in? && (current_user.admin? || current_user.company)
-	       redirect_to lab_rentals_path
+	      redirect_to lab_rentals_path
       else
-	       redirect_to :back
+	      redirect_to :back
       end
     else
       render 'new'
@@ -108,6 +114,48 @@ class LabRentalsController < ApplicationController
       LabReservationMailer.destroy_reservation(current_user, @lab_rental).deliver_now
     else
       flash[:alert] = "Lab Reservations can't be canceled within 2 weeks of their start date."
+    end
+    redirect_to :back
+  end
+
+  def self_checkout
+    return redirect_to new_user_registration_url unless user_signed_in?
+    data        = params[:time_start].split
+    @time_block = LabCourseTimeBlock.find(data[0])
+    @time_zone  = params[:time_zone]
+    @start_time = "#{data[1]} #{data[2]} #{data[3]}".to_time.in_time_zone(@time_zone)
+    @end_time   = @start_time + 60 * 60 * @time_block.unit_quantity
+    @first_day  = @start_time.to_date
+    @last_day   = @end_time.to_date
+    lab_rental  = LabRental.new(
+      end_time: @end_time,
+      first_day: @first_day,
+      lab_course_id: @time_block.lab_course.id,
+      last_day: @last_day,
+      level: @time_block.level,
+      notes: "Created through self checkout.",
+      num_of_students: @time_block.ratio,
+      start_time: @start_time,
+      time_zone: @time_zone,
+      user_id: current_user.id
+    )
+
+    if lab_rental.save
+      order_item = OrderItem.new(
+        orderable_type: "LabRental",
+        orderable_id: lab_rental.id,
+        cart_id: @cart.id,
+        price: @time_block.price,
+        user_id: current_user.id,
+        note: "Created through self checkout."
+      )
+      if order_item.save
+        flash[:success] = "Item successfully added to cart! Please go to #{view_context.link_to "My Cart", new_order_path} to complete transaction".html_safe
+      else
+        flash[:alert] = "Failed to add time block to cart!"
+      end
+    else
+      flash[:alert] = "Failed to add time block to cart!"
     end
     redirect_to :back
   end
@@ -142,6 +190,7 @@ class LabRentalsController < ApplicationController
       :time_zone,
       :twenty_four_hours,
       :file,
+      :level,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end

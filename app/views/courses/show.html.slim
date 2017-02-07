@@ -58,21 +58,18 @@
                       - if @course.upcoming_public_events.any?
                         thead
                           tr
-                            th
-                              = t('courses.show.date')
-                            th 
-                              = t('courses.show.length')
-                            th 
-                              = t('courses.show.format')
-                            th 
-                              = t('courses.show.location')
-                            th
-                              = t('courses.show.status')
-                            th 
-                              = t('courses.show.price')
+                            th = t('courses.show.date')
+                            th = t('courses.show.length')
+                            th = t('courses.show.format')
+                            th title="#{t('general.featured_classes.language')}"
+                              i.fa.fa-globe aria-hidden="true"
+                            th = t('courses.show.location')
+                            th = t('courses.show.status')
+                            th = t('courses.show.price')
                             - if !user_signed_in? || (user_signed_in? && current_user.member?)
                               th
                             - elsif user_signed_in? && current_user.admin?
+                              th
                               th
                       tbody
                         - if @course.upcoming_public_events.any?
@@ -85,15 +82,24 @@
                                   meta itemprop="endDate" content="#{event.end_date}"
                                     = "#{event.end_date.strftime("%-m/%-d/%y")}"
                                 td = "#{pluralize(event.length, 'Day')}"
-                                td = event.format
+                                - if event.format == "ClearConnect"
+                                  td.fit.location-td style="cursor: help;"
+                                    .for-tooltip data-toggle="tooltip" data-placement="top" title="ClearConnect allows you to join training remotely via webex, any video-conferencing system, or at the onsite location(s) listed."
+                                      = event.format
+                                      i.fa.fa-info-circle.text-info aria-hidden="true" style="margin-left: 5px;"
+                                - else
+                                  td.fit
+                                    = event.format
+                                td.fit = event.language.upcase
                                 - if event.city.present? || event.state.present? || event.street.present?
-                                  td.fit.location-td
+                                  td.fit.location-td style="cursor: help;"
                                     .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
-                                      i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
                                       = event.state
+                                      i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                                 - else
                                   - if event.format == "Live Online"
-                                    td Webex
+                                    td 
+                                      = t('general.featured_classes.webex')
                                   - else
                                     td
                                 td
@@ -115,9 +121,9 @@
                                       = f.hidden_field :event_id, value: event.id
                                       = link_to_cart(event)
                                 - elsif user_signed_in? && current_user.admin?
-                                  td.fit.text-right
+                                  td.fit
                                     = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                    |  | 
+                                  td.fit
                                     = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
                         - else
                           tr

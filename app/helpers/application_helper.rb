@@ -67,4 +67,29 @@ module ApplicationHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def canadian_provinces
+    [
+      ["Alberta", "AB"],
+      ["British Columbia", "BC"],
+      ["Manitoba", "MB"],
+      ["New Brunsick", "NB"],
+      ["Newfoundland and Labrador", "NL"],
+      ["Nova Scotia", "NS"],
+      ["Northwest Territories", "NT"],
+      ["Nunavut", "NU"],
+      ["Ontario", "ON"],
+      ["Prince Edward Island", "PE"],
+      ["Quebec", "QC"],
+      ["Saskatchewan", "SK"],
+      ["Yukon", "YT"]
+    ]
+  end
+
+  def country_regions
+    [
+      ["United States", us_states],
+      ["Canada", canadian_provinces]
+    ]
+  end
 end
