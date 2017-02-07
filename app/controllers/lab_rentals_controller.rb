@@ -118,23 +118,6 @@ class LabRentalsController < ApplicationController
     redirect_to :back
   end
 
-  def edit_pods
-    return redirect_to root_url unless current_user.admin?
-    prepare_pod_settings
-    @pod_settings = Setting.pods
-  end
-
-  def update_pods
-    return redirect_to root_url unless current_user.admin?
-    if params[:available_pods_for_individuals].empty? || params[:available_pods_for_partners].empty?
-      flash[:alert]     = "Failed to update settings. Data submitted was not a number."
-    else
-      Setting.pods      = {available_pods_for_individuals: params[:available_pods_for_individuals].to_i, available_pods_for_partners: params[:available_pods_for_partners].to_i}
-      flash[:success]   = "Availability of pods currently set to #{Setting.pods[:available_pods_for_individuals]} for individuals, and #{Setting.pods[:available_pods_for_partners]} for partners."
-    end
-    redirect_to :back
-  end
-
   def self_checkout
     return redirect_to new_user_registration_url unless user_signed_in?
     data        = params[:time_start].split
@@ -185,15 +168,6 @@ class LabRentalsController < ApplicationController
 
   def verify_company
     redirect_to root_path if (!current_user.admin? && !current_user.company)
-  end
-
-  def prepare_pod_settings
-    if Setting.pods.nil?
-      Setting.pods = {
-        available_pods_for_individuals: 0,
-        available_pods_for_partners: 0
-      }
-    end
   end
 
   def lab_rental_params
