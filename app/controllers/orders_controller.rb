@@ -76,9 +76,11 @@ class OrdersController < ApplicationController
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
+          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
         flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
         OrderMailer.confirmation(current_user, @order).deliver_now
+        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
@@ -300,5 +302,15 @@ class OrdersController < ApplicationController
 
   def confirm_with_rep?
     params[:confirm_with_rep] == 'true'
+  end
+
+  def order_pods
+    pods = []
+    @order.order_items.each do |order_item|
+      if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+        pods << order_item.orderable
+      end
+    end
+    return pods
   end
 end
