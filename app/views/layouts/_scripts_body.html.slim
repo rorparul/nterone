@@ -1,6 +1,6 @@
 - if Rails.env.production?
   - if !user_signed_in? || current_user.try(:member?)
-    - if Setting.tld = "com"
+    - if Setting.tld == "com"
         javascript:
           var google_conversion_id = 871022053;
           var google_custom_params = window.google_tag_params;
@@ -9,7 +9,7 @@
         noscript
           div style="display:inline;"
             img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/871022053/?guid=ON&amp;script=0"
-    - if Setting.tld = "la"
+    - if Setting.tld == "la"
       javascript:
         var google_conversion_id = 861066809;
         var google_custom_params = window.google_tag_params;
@@ -19,7 +19,7 @@
         div style="display:inline;"
           img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/861066809/?guid=ON&amp;script=0"
           
-    - if Setting.tld = "ca"
+    - if Setting.tld == "ca"
       javascript:
         var google_conversion_id = 861077806;
         var google_custom_params = window.google_tag_params;

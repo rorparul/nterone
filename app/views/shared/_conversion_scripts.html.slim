@@ -1,5 +1,5 @@
 - if Rails.env.production?
-  - if Setting.tld = "com"
+  - if Setting.tld == "com"
     javascript:
       var google_conversion_id = 871022053;
       var google_conversion_language = "en";
@@ -24,7 +24,7 @@
     noscript
       img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1697430287242506&ev=PageView&noscript=1"
       
-  - if Setting.tld = "la"
+  - if Setting.tld == "la"
     javascript:
       var google_conversion_id = 861066809;
       var google_conversion_language = "en";
