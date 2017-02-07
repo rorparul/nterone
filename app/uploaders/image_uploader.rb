@@ -20,6 +20,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_limit: [150, 93]
   end
 
+  version :subject_large_icon, if: :subject? do
+    process resize_to_fill: [100, 100]
+  end
+
   version :subject_icon, if: :subject? do
     process resize_to_fill: [62, 62]
   end
@@ -39,7 +43,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def subject?(picture)
-    model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand'
+    model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand' || model.imageable_type == 'LabCourse'
   end
 
   def carousel_item?(picture)

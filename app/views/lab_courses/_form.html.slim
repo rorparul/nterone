@@ -50,6 +50,17 @@
         .form-group
           = f.label :description, t('lab_courses.partial_form.description')
           = f.text_area :description, class: "form-control input-sm froala"
+          
+    .row
+      .col-xs-6
+        .form-group
+          - if @lab_course.image.present? && @lab_course.image.file.present?
+            = image_tag @lab_course.image.file.subject_icon.url
+            br
+          = f.fields_for :image do |icon|
+            = icon.label :file, t('platforms.partial_form.image')
+            = icon.file_field :file
+            = icon.hidden_field :file_cache
 
     .form-buttons
       button.btn.btn-success type="submit" = t('default.action.save')
