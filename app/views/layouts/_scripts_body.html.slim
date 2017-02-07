@@ -1,11 +1,30 @@
 - if Rails.env.production?
-  - if I18n.locale == :en
-    - if !user_signed_in? || current_user.try(:member?)
+  - if !user_signed_in? || current_user.try(:member?)
+    - if I18n.locale == :en
+        javascript:
+          var google_conversion_id = 871022053;
+          var google_custom_params = window.google_tag_params;
+          var google_remarketing_only = true;
+        script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
+        noscript
+          div style="display:inline;"
+            img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/871022053/?guid=ON&amp;script=0"
+    - if I18n.locale == :es
       javascript:
-        var google_conversion_id = 871022053;
+        var google_conversion_id = 861066809;
         var google_custom_params = window.google_tag_params;
         var google_remarketing_only = true;
       script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
       noscript
         div style="display:inline;"
-          img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/871022053/?guid=ON&amp;script=0"
+          img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/861066809/?guid=ON&amp;script=0"
+          
+    - if Setting.tld = "ca"
+      javascript:
+        var google_conversion_id = 861077806;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+      script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"
+      noscript
+        div style="display:inline;"
+          img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/861077806/?guid=ON&amp;script=0"
