@@ -2,20 +2,18 @@ class SalesForceController < ApplicationController
   before_action :authorize_user
 
   def form
-    @types = ["Companies", "Contacts", "Leads", "Opportunities"]
+    "/giphy"
   end
 
   def upload
-    if params[:upload][:file] == nil
-      flash[:alert] = "Please upload a file!"
-      return redirect_to :back
-    end
-    @file = params[:upload][:file]
-    @type = params[:upload][:type]
-    if @type == "Companies" || "Contacts"|| "Leads" || "Opportunities"
-      upload = SalesForceUploader.upload(@file, @type)
+    return redirect_to :back unless params[:upload]
+    @contacts = params[:upload][:contacts]
+    @leads    = params[:upload][:leads]
+    @tasks    = params[:upload][:tasks]
+    if @contacts.nil? || @leads.nil? || @tasks.nil?
+      flash[:alert] = "One or more files missing!!!"
     else
-      flash[:alert] = "File type not valid!"
+      SalesForceUploader.upload(@contacts, @leads, @tasks)
     end
     redirect_to :back
   end

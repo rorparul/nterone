@@ -1,8 +1,15 @@
 class SalesForceUploader
-  def self.upload(file, type)
-    spreadsheet = open_spreadsheet(file)
-    header      = format_header(spreadsheet.row(1), type)
-    format_rows(spreadsheet, header, type)
+  def self.upload(contacts, leads, tasks)
+    @contacts         = open_spreadsheet(contacts)
+    @contacts_header  = format_header(@contacts.row(1), "Contacts")
+
+    @leads            = open_spreadsheet(leads)
+    @leads_header     = format_header(@leads.row(1), "Leads")
+
+    @tasks            = open_spreadsheet(tasks)
+    @tasks_header     = format_header(@tasks.row(1), "Tasks")
+
+    save_tasks
   end
 
   def self.open_spreadsheet(file)
@@ -100,6 +107,25 @@ class SalesForceUploader
           :notes
         when "Created Date"
           :created_at
+        else
+          :DELETE
+        end
+      elsif type == "Tasks"
+        case title
+        when "ActivityDate"
+          :activity_date
+        when "Description"
+          :description
+        when "OwnerId"
+          :rep_id
+        when "Priority"
+          :priority
+        when "Status"
+          :status
+        when "Subject"
+          :subject
+        when "WhoId"
+          :user_id
         else
           :DELETE
         end

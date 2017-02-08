@@ -10,6 +10,11 @@
     | /
   span.text-muted
     | Users
+    
+= content_for :actions do 
+  li
+    = link_to sales_force_form_path, remote: true do
+      = "Upload Sales Force Files"
 
 = render 'layouts/tabs'
 

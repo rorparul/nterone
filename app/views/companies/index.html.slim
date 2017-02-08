@@ -15,12 +15,6 @@
   span.text-muted
     | Companies
     
-    
-- if current_user.admin? == true
-  - content_for :actions do
-    li
-      = link_to sales_force_form_path, remote: true do
-        = "Upload Sales Force File"
 
 = render 'layouts/tabs'
 
