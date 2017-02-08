@@ -33,3 +33,37 @@ namespace :deploy do
     end
   end
 end
+
+namespace :deploy do
+  namespace :db do
+    desc "Load the database schema if needed"
+    task load: [:set_rails_env] do
+      on primary :db do
+        if not test(%Q[[ -e "#{shared_path.join(".schema_loaded")}" ]])
+          within release_path do
+            with rails_env: fetch(:rails_env) do
+              execute :rake, "db:schema:load"
+              execute :touch, shared_path.join(".schema_loaded")
+            end
+          end
+        end
+      end
+    end
+  end
+
+  before "deploy:migrate", "deploy:db:load"
+end
+
+namespace :rails do
+  desc 'Open a rails console `cap [staging] rails:console [server_index default: 0]`'
+  task :console do
+    on roles(:app) do |server|
+      server_index = ARGV[2].to_i
+      return if server != roles(:app)[server_index]
+      puts "Opening a console on: #{host}...."
+      cmd = "ssh #{server.user}@#{host} -t 'cd #{fetch(:deploy_to)}/current && ~/.rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec rails console #{fetch(:rails_env)}'"
+      puts cmd
+      exec cmd
+    end
+  end
+end

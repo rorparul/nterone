@@ -1,37 +1,52 @@
 - unless smart_listing.empty?
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        thead
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th = smart_listing.sortable t('default.label.first_name'), :first_name
+          th = smart_listing.sortable t('default.label.last_name'), :last_name
+          th = smart_listing.sortable t('default.label.email'), :email
+          th = smart_listing.sortable t('default.label.company'), :company
+          th Sales Rep
+          th colspan='2'
+      tbody
+        - smart_listing.collection.each do |user|
           tr
-            th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
-            th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
-            th.fit = smart_listing.sortable t('default.label.email'), :email
-            th.fit = t('users.partial_listing.permissions')
-            th.fit = smart_listing.sortable t('users.partial_listing.last_active'), :last_active_at
-            th.fit colspan='3'
-        tbody
-          - smart_listing.collection.each do |user|
-            tr
-              td.fit = user.first_name
-              td.fit = user.last_name
-              td.fit = user.email
-              td.fit
-                - user.roles.each do |role|
-                  div = role.formatted_role
-              td.fit = "#{time_ago_in_words(user.last_active_at.strftime("%B %d, %Y, %l:%M %P"))} ago" if user.last_active_at
-              - if current_user.can_resend_invitation?
-                td.fit = link_to(t('users.partial_listing.reinvite'), resend_invite_path(user), method: :post)
-              td.fit = link_to t('default.action.edit'), edit_user_path(user)
-              td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-  .panel-footer
+            - if action_name == 'leads'
+              td = link_to user.first_name, lead_users_path(user)
+              td = link_to user.last_name, lead_users_path(user)
+            - elsif action_name == 'contacts'
+              td = link_to user.first_name, contact_users_path(user)
+              td = link_to user.last_name, contact_users_path(user)
+            - else
+              td = user.first_name
+              td = user.last_name
+            td = user.email
+            td
+              - if user.company.present?
+                = link_to user.company.title, company_path(user.company)
+              - else
+                | N/A
+            td id="user-#{user.id}-sales-rep"
+              - if current_user.admin? || current_user.sales_manager?
+                - if user.parent.present?
+                  = user.parent.full_name
+                - else
+                  = link_to 'Assign', assign_users_path(user), remote: true, class: 'text-warning'
+              - else
+                - if user.parent.present?
+                  = user.parent.full_name
+                - else
+                  span.text-warning Unassigned
+            - if action_name == 'leads' || action_name == 'contacts'
+              td.fit = link_to t('default.action.edit'), edit_from_sales_users_path(user), remote: true, class: 'text-warning'
+            - else
+              td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
+            td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+    .table-end  
+  .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
 - else
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        tbody
-          tr
-            td.text-center
-              = t('default.placeholder.no_records')
+  .container-muted.text-center
+    = t('default.placeholder.no_records')

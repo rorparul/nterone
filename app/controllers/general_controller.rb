@@ -53,7 +53,7 @@ class GeneralController < ApplicationController
 
   def labs
     @page         = Page.find_by(title: 'Labs')
-    @lab_courses  = LabCourse.where(level: "individual").order(:title)
+    @lab_courses  = LabCourse.where.not(level: 'partner').order(:title)
   end
 
   def nterone_gives_back

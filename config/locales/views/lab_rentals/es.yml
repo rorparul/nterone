@@ -7,8 +7,8 @@ es:
     edit_pods_js:
       pod_settings: "Configuración del pod"
     index:
-      date_range: "Fecha"
       lab_rentals: "Reservaciones de Laboratorio"
+      date_range: "Fecha"
       pod_settings: "Configuración del pod"
       search_by_date_start: "Fecha Comienzo"
       search_by_date_end: "Fecha Fin"

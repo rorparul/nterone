@@ -196,6 +196,7 @@
                   = t('events.partial_show.royalty_id')
                 th
                   = t('events.partial_show.po_number')
+                th
             tbody
               - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
@@ -232,7 +233,7 @@
                       - if order_item.order
                         = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
                           = f.select :seller_id,
-                                     Role.where(role: [2, 3]).collect { |role| [role.user.full_name, role.user.id] },
+                                     Role.where(role: [2, 3]).collect { |role| [role.user.try(:full_name), role.user.try(:id)] },
                                      { prompt: true },
                                      { class: 'form-control input-sm table-select' }
                   - else
@@ -258,8 +259,7 @@
                   td = form_for order_item.order, remote: true do |f|
                       = f.text_field :po_number, class: "form-control form-async"
 
-                  / td = link_to t('generic.action.edit'), edit_order_item_path(order_item), remote: true
-                  / td = link_to t('generic.action.delete'), order_path(order_item.order), method: :delete, data: { confirm: t('generic.prompt.delete_confirm') }
+                  td = link_to 'Add to Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
   
 javascript:
   $('.table-select, .check-select').on('change', function() {

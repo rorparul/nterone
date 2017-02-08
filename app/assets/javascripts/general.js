@@ -1,5 +1,5 @@
 $(function() {
-  prepareFroala();
+  prepareInputs();
 
   $('.selectpicker').selectpicker();
 
@@ -15,7 +15,7 @@ $(function() {
 
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
-    prepareFroala();
+    prepareInputs();
   });
 
   $('#accordion').on('show.bs.collapse', function () {
@@ -41,11 +41,71 @@ $(function() {
 	});
 });
 
-function prepareFroala() {
+function prepareInputs() {
+
+  // datepicker with data-linked
+
+  $("input[data-linked]").each(function(i) {
+    var $this = $(this);
+    var linked_element = $($this.data("linked"));
+    linked_element.val("");
+    linked_element.keydown(function(e) {
+      $this.val(linked_element.val());
+    });
+    $this.on('change', function(e) {
+      if ($this.data('datepicker')) {
+	var date = $this.datepicker('getDate');
+	if (date) {
+	  var value = moment(date).format('YYYY-MM-DD');
+	  linked_element.val(value);
+	  linked_element.trigger('keydown');
+	}
+      }
+    });
+  });
+
+  $('.select2, .search-select').select2({
+    theme: 'bootstrap'
+  });
+
   $('.froala').froalaEditor({
     key: 'Padtj1A-32zpB2twt==',
     height: 240,
     imageUploadURL: '/public/uploads/editor',
-    imageUploadMethod: 'POST'
+    imageUploadMethod: 'POST',
+    toolbarButtons: [
+      'fullscreen',
+      'bold',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'subscript',
+      'superscript',
+      'fontFamily',
+      'fontSize',
+      'color',
+      'emoticons',
+      'inlineStyle',
+      'paragraphStyle',
+      'paragraphFormat',
+      'align',
+      'formatOL',
+      'formatUL',
+      'outdent',
+      'indent',
+      'quote',
+      'insertHR',
+      'insertLink',
+      'insertImage',
+      'insertVideo',
+      'insertFile',
+      'insertTable',
+      'undo',
+      'redo',
+      'clearFormatting',
+      'selectAll',
+      'html'
+    ]
   });
+
 }

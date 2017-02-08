@@ -34,16 +34,25 @@
           br
           .radio style="display: inline-block; margin: 0 10px 0 0;"
             label
-              = f.radio_button :level, "both", id: "selection_both", checked: 'true'
-              | Both
-          .radio style="display: inline-block; margin: 0 10px 0 0;"
-            label
               = f.radio_button :level, "individual", id: "selection_individual"
               | Individual
           .radio style="display: inline-block; margin: 0 10px 0 0;"
             label
               = f.radio_button :level, "partner", id: "selection_partner"
               | Partner
+          .radio style="display: inline-block; margin: 0 10px 0 0;"
+            label
+              = f.radio_button :level, "both", id: "selection_both"
+              | Both
+              
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :pods_individual
+          = f.number_field :pods_individual, min: 0, step: 1, class: 'form-control input-sm'
+      .col-xs-12.col-sm-3
+        .form-group
+          = f.label :pods_partner
+          = f.number_field :pods_partner, min: 0, step: 1, class: 'form-control input-sm'
               
     .row
       .col-xs-12

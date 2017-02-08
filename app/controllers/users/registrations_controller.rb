@@ -26,9 +26,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user.settings.poker_chip_number = params[:poker_chip_number]
       end
 
-      if @user.interest
-        Lead.create(buyer_id: @user.id, status: 'unassigned')
-      end
+      # if @user.interest
+      #   Lead.create(buyer_id: @user.id, status: 'unassigned')
+      # end
     end
 
     if @user.persisted? && lms_path?

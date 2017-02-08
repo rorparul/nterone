@@ -1,0 +1,24 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+    | My NterOne
+  span.seperator
+    | /
+  span.text-muted
+    | Sales
+  span.seperator
+    | /
+  a href="#{contacts_users_path}"
+    | Contacts
+  span.seperator
+    | /
+  span.text-muted
+    = @user.full_name.presence || @user.email
+
+= render 'layouts/tabs'
+
+= render 'users/show'

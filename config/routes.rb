@@ -7,7 +7,9 @@ NterOne::Application.routes.draw do
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
-    get '/logout' => 'devise/sessions#destroy'
+    get  'logout'             => 'devise/sessions#destroy'
+    get  'users/leads/new'    => 'users/invitations#new', as: :new_lead
+    get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
   mount Forem::Engine, :at => '/forums'
@@ -15,8 +17,12 @@ NterOne::Application.routes.draw do
   resources :users  do
     post :toggle_archived, on: :member
     collection do
-      get '/users/:id/edit_from_my_queue' => 'users#edit_from_my_queue', as: :edit_from_my_queue
-      get 'page'
+      get ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
+      get 'leads'               => 'users#leads',           as: :leads
+      get 'contacts'            => 'users#contacts',        as: :contacts
+      get 'leads/:id'           => 'users#show_as_lead',    as: :lead
+      get 'contacts/:id'        => 'users#show_as_contact', as: :contact
+      get ':id/assign'          => 'users#assign',          as: :assign
     end
   end
 
@@ -60,7 +66,7 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :leads, only: [:index, :edit, :update, :show], path: 'my-queue' do
+  resources :leads, only: [:edit, :update, :show], path: 'my-queue' do
     collection do
       get 'leads/:id/download_quote' => 'leads#download_quote', as: :download_quote
       get 'leads/:id/email_quote'    => 'leads#email_quote',    as: :email_quote
@@ -76,11 +82,23 @@ NterOne::Application.routes.draw do
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
-  get 'edit_pods/lab_rentals'     => 'lab_rentals#edit_pods',   as: :edit_pods
-  post 'update_pods/lab_rentals'  => 'lab_rentals#update_pods', as: :update_pods
   post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
-  resources :companies
+  resources :opportunities do
+    collection do
+      get  ':id/copy' => 'opportunities#copy', as: :copy
+      get  'export_popup'
+      post 'export'
+    end
+  end
+  resources :companies do
+    collection do
+      get 'pluck' => 'companies#pluck'
+    end
+  end
+
+  get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
+  get 'events/pluck'  => 'events#pluck',  as: :pluck_events
 
   resources :lab_courses do
     resources :lab_course_time_blocks
@@ -305,4 +323,6 @@ NterOne::Application.routes.draw do
   get "/cisco-learning-credits/"               => redirect("/training")
 
   post "public/uploads/editor"                 => 'general#editor_upload_photo'
+  get 'sales_force/form'                 => 'sales_force#form',                   as: :sales_force_form
+  post 'sales_force/upload'              => 'sales_force#upload',                 as: :sales_force_upload
 end

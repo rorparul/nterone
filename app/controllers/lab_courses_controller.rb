@@ -70,8 +70,10 @@ class LabCoursesController < ApplicationController
 			:card_description,
 			:company_id,
 			:description,
-			:title,
-			:level
+			:level,
+			:pods_individual,
+			:pods_partner,
+			:title
 		)
   end
 
@@ -87,9 +89,9 @@ class LabCoursesController < ApplicationController
 		@filtered_blocks = {}
 		@time_blocks.each do |time_block|
 			duration = time_block.unit_quantity
-			determine_pods(time_block)
+			determine_pods
 			build_time_starts
-			lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1), level: 'individual')
+			lab_rentals = LabRental.where(first_day: (@date_start.to_datetime - 1)..(@date_start.to_datetime + 1), lab_course_id: @lab_course.id)
 			@time_starts.each_with_index do |time_start, index|
 				count = 0
 				lab_rentals.each do |lab_rental|
@@ -126,10 +128,9 @@ class LabCoursesController < ApplicationController
     ActiveSupport::TimeZone[zone].parse(time.asctime)
   end
 
-	def determine_pods(time_block)
+	def determine_pods
     @pods = 0
-    @pods += Setting.pods[:available_pods_for_partners] if time_block.level == "partner"
-    @pods += Setting.pods[:available_pods_for_individuals] if time_block.level == 'individual'
+    @pods += @lab_course.pods_individual unless @lab_course.pods_individual.nil?
   end
 
 end

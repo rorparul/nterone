@@ -1,5 +1,5 @@
 - if Rails.env.production?
-  - if I18n.locale == :en
+  - if Setting.tld == "com"
     - if !user_signed_in? || current_user.try(:member?)
       meta name="msvalidate.01" content="581235DC300C850870F5BA01773F0285"
       meta name="google-site-verification" content="GbDxJ38Z6K04pZnExu3LAXqLuQZArvTHdZPCvqFq9QM"
@@ -44,11 +44,54 @@
     script type="text/javascript" src="//badge.topratedlocal.com/load-badge/default/right?mobile=pin"
     a href="http://www.topratedlocal.com/nterone-reviews" id="trl-badge-poweredby" Powered by Top Rated Local&reg;
       
-  - if I18n.locale == :es
+  - if Setting.tld == "la"
     - if !user_signed_in? || current_user.try(:member?)
+      meta name="google-site-verification" content="lYfuNW1EbFJRtAT2qBQkQrygnwvUtTM4dSX2AcwUjJY"
+      
       javascript:
         window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
         d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
         _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
         $.src="//v2.zopim.com/?4Efd83VP84hajOBizIjsd794PJRIvMeh";z.t=+new Date;$.
         type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+        
+    javascript:
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-91483734-1', 'auto');
+      ga('send', 'pageview');
+      
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '409175342769513');
+      fbq('track', 'PageView');
+    noscript
+      img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=409175342769513&ev=PageView&noscript=1"
+  
+  - if Setting.tld == "ca"
+    - if !user_signed_in? || current_user.try(:member?)
+      meta name="google-site-verification" content="HgEf3Yk12TlT7ZI-54wXQbAw96MC6JPTiZWgOb4N0tw"
+        
+    javascript:
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-91508219-1', 'auto');
+      ga('send', 'pageview');
+      
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+      document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '378146555883173');
+      fbq('track', 'PageView');
+    noscript
+      img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=378146555883173&ev=PageView&noscript=1"
+    

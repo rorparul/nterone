@@ -1,0 +1,9 @@
+= form_for @user, url: user_path(@user), html: { method: :put }, remote: true do |f|
+  .form-group
+    = f.label :parent_id, 'Sales Rep'
+    = f.select :parent_id, surname_ordered_options(@owners),
+      { include_blank: t('companies.partial_form.dropdown') },
+      { class: 'form-control input-sm search-select' }
+      
+  .form-buttons
+    button.btn.btn-success type="submit" name="skip_invitation" value="true" Update

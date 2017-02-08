@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
-  layout "admin"
+  layout 'admin'
 
   def queue
     if current_user.sales_manager? || current_user.admin?
@@ -112,7 +112,6 @@ class AdminController < ApplicationController
     respond_to do |format|
       format.html do
         list_articles
-        list_companies
         list_lab_courses
         list_pages_dynamic
         list_pages_static
@@ -151,13 +150,6 @@ class AdminController < ApplicationController
                                                        [:kind, "kind"],
                                                        [:title, "title"]],
                                      default_sort: { created_at: "asc" })
-  end
-
-  def list_companies
-    @companies = smart_listing_create(:companies,
-                                      Company.all,
-                                      partial: "companies/listing",
-                                      default_sort: { title: "asc" })
   end
 
   def list_lab_courses

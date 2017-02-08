@@ -9,9 +9,6 @@
     li
       = link_to new_file_path, remote: true do
         = t('lab_rentals.index.upload_file')
-    li 
-      = link_to edit_pods_path, remote: true do
-        = t('lab_rentals.index.pod_settings')
 
 = render 'layouts/tabs'
 
@@ -44,15 +41,15 @@
                 .input-group.input-group-sm.input-append
                   span class="input-group-btn"
                     = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
-                                                placeholder: t('.search_by_date_start'),
+                                                placeholder: t('default.placeholder.start_date'),
                                                 autocomplete: :off
-                '
+
                 .input-group.input-group-sm.input-append
                   span class="input-group-btn"
                     = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
-                                                placeholder: t('.search_by_date_end'),
+                                                placeholder: t('default.placeholder.end_date'),
                                                 autocomplete: :off
-              '
+
       = smart_listing_render(:lab_rentals)
 
 javascript:

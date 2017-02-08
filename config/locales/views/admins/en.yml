@@ -54,10 +54,7 @@ en:
       lab_rentals: "Labs"
       messages: "Messages"
       orders: "Orders"
-      people: "People"
-      queue: "Queue"
       settings: "Settings"
-      website: "Website"
     website:
       active: "Active"
       articles: "Articles"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203194834) do
+ActiveRecord::Schema.define(version: 20170112235019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,13 +153,6 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "category_packages", force: :cascade do |t|
-    t.integer  "category_id"
-    t.integer  "package_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "category_subjects", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "subject_id"
@@ -186,21 +179,13 @@ ActiveRecord::Schema.define(version: 20170203194834) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
-    t.integer  "user_id"
-    t.string   "kind"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip_code"
-    t.string   "phone"
-    t.string   "website"
-    t.integer  "parent_id"
     t.string   "industry_code"
+    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -319,7 +304,6 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.string   "company"
     t.integer  "theater"
   end
 
@@ -556,6 +540,8 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.string   "abbreviation"
     t.text     "card_description"
     t.string   "level",            default: "both"
+    t.integer  "pods_individual",  default: 0
+    t.integer  "pods_partner",     default: 0
   end
 
   create_table "lab_rentals", force: :cascade do |t|
@@ -711,6 +697,7 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.integer  "course_id"
     t.integer  "event_id"
     t.string   "email_optional"
+    t.text     "notes"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -785,28 +772,6 @@ ActiveRecord::Schema.define(version: 20170203194834) do
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
-
-  create_table "package_items", force: :cascade do |t|
-    t.integer  "package_id"
-    t.string   "packageable_type"
-    t.integer  "packageable_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  create_table "packages", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "platform_id"
-    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.text     "description"
-    t.string   "abbreviation"
-    t.string   "slug"
-    t.string   "page_title"
-    t.text     "page_description"
-    t.boolean  "partner_led",                              default: false
-  end
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -998,33 +963,12 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.integer  "course_id"
   end
 
-  create_table "thredded_user_topic_reads", force: :cascade do |t|
-    t.integer  "user_id",                 null: false
-    t.integer  "topic_id",                null: false
-    t.integer  "post_id",                 null: false
-    t.integer  "posts_count", default: 0, null: false
-    t.integer  "page",        default: 1, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
-  add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
-
   create_table "topics", force: :cascade do |t|
     t.integer  "forum_id"
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "user_companies", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "company_id"
-  end
-
-  add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
-  add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                           default: "",               null: false
@@ -1089,11 +1033,6 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.text     "video_bio"
     t.string   "source_name"
     t.string   "source_user_id"
-    t.integer  "parent_id"
-    t.string   "salutation"
-    t.string   "business_title"
-    t.boolean  "do_not_call"
-    t.boolean  "do_not_email"
     t.string   "email_alternative"
     t.string   "phone_alternative"
     t.text     "notes"
@@ -1136,8 +1075,8 @@ ActiveRecord::Schema.define(version: 20170203194834) do
     t.text     "intended_audience"
     t.boolean  "partner_led",                                    default: false
     t.boolean  "active",                                         default: true
-    t.boolean  "lms",                                            default: false
     t.string   "heading"
+    t.boolean  "lms",                                            default: false
     t.boolean  "satellite_viewable",                             default: true
     t.boolean  "cisco_digital_learning",                         default: false
     t.string   "cdl_course_code"
@@ -1179,7 +1118,5 @@ ActiveRecord::Schema.define(version: 20170203194834) do
   add_foreign_key "lms_exams", "videos"
   add_foreign_key "taken_exams", "lms_exams"
   add_foreign_key "taken_exams", "users"
-  add_foreign_key "user_companies", "companies"
-  add_foreign_key "user_companies", "users"
   add_foreign_key "users", "companies"
 end

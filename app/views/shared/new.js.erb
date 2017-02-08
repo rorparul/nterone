@@ -1,0 +1,3 @@
+$('.modal-title').html('<%= t("shared.new_js.#{controller_name}") %>');
+$('.modal-body').html('<%= escape_javascript(render partial: "#{controller_name}/form") %>');
+$('#myModal').modal('show');

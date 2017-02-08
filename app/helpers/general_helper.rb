@@ -167,4 +167,24 @@ module GeneralHelper
       end
     end
   end
+
+  def nested_options(resources)
+    options = []
+
+    resources.walk_tree do |resource, level|
+      options << ["#{'|_____' * level}#{' ' if level > 0}#{resource.title}", resource.id]
+    end
+
+    options
+  end
+
+  def surname_ordered_options(resources)
+    resources.collect do |resource|
+      first_name = resource.first_name
+      last_name  = resource.last_name
+      compound   = "#{last_name + ', ' if last_name.present?}#{first_name}"
+
+      compound.present? ? [compound, resource.id] : [resource.email, resource.id]
+    end
+  end
 end

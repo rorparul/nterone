@@ -141,6 +141,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def pluck
+    @event = Event.find_by(id: params[:event_id])
+  end
+
   private
 
   def event_params

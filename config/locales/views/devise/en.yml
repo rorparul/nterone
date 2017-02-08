@@ -5,7 +5,7 @@ en:
         resend: "Resend confirmation instructions"
     invitations:
       new_js:
-        add_student: "Add Student"
+        add_student: "New Contact"
       partial_form:
         referring_partner: "Referring Partner Email"
     mailer:

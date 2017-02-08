@@ -48,6 +48,7 @@ class Course < ActiveRecord::Base
   belongs_to :platform
   belongs_to :lab_rental
 
+  has_many :opportunities
   has_many :category_courses,         dependent: :destroy
   has_many :categories,               through: :category_courses
   has_many :group_items,              as: :groupable, dependent: :destroy

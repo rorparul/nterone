@@ -12,6 +12,8 @@
 #  abbreviation     :string
 #  card_description :text
 #  level            :string           default("both")
+#  pods_individual  :integer          default(0)
+#  pods_partner     :integer          default(0)
 #
 
 class LabCourse < ActiveRecord::Base
@@ -37,9 +39,10 @@ class LabCourse < ActiveRecord::Base
   accepts_nested_attributes_for :image
 
   validates :title, presence: true
+  validates :pods_individual, :pods_partner, numericality: { greater_than_or_equal_to: 0 }
 
-  def available?
-    lab_course_time_blocks.any?
+  def available_to_individual?
+    pods_individual > 0 && lab_course_time_blocks.any?
   end
 
   def full_title

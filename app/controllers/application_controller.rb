@@ -85,7 +85,8 @@ class ApplicationController < ActionController::Base
     end
 
     # remove trailing zeros
-    parts = parts.slice(0, parts.rindex{|e| e != 0}.to_i + 1)
+    parts = parts.slice(0, parts.rindex{ |e| e != 0}.to_i + 1)
+
     return nil if parts[0] == 0  # empty date fields set
 
     Date.new(*parts)
@@ -144,9 +145,6 @@ class ApplicationController < ActionController::Base
   def get_external_source_values
     if true?(params[:external_source])
       cookies[:cart_id] = params[:cart_id]
-      # cookies[:source_name]    = params[:source_name]
-      # cookies[:source_user_id] = params[:source_user_id]
-      # cookies[:source_hash]    = params[:source_hash]
     end
   end
 
