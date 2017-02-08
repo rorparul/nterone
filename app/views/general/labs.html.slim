@@ -37,6 +37,9 @@
                       span.text-success Available
                     - else
                       span.text-danger Unavailable
+                  - if lab_course.image.present? && lab_course.image.file.present?
+                    = image_tag lab_course.image.file.subject_large_icon.url, class: "lab-course-card-pic"
+                  
   .col-xs-12.side-column
     = render partial: 'layouts/side_column'
     
