@@ -270,7 +270,8 @@ NterOne::Application.routes.draw do
   get  'search'                                      => 'general#search'
   get  'contact_us'                                  => 'general#contact_us_new',            as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
-  get  'contact_us_confirmation'                     => 'general#contact_us_confirmation',   as: :contact_us_confirmation
+  get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
+  get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
