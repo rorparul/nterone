@@ -31,8 +31,8 @@
                 = link_to "Edit", edit_lab_course_path(lab_course), class: "edit-lab-course"
               = link_to lab_course_path(lab_course), class: "lab-course-link" do 
                 .panel-body style="display: relative;"
-                  h3.text-muted = lab_course.full_title
-                  p.text-center style="position: absolute; bottom: 40px;"
+                  h4.text-muted style="margin-top: 20px;" = lab_course.full_title
+                  p.text-center style="position: absolute; top: 10px;"
                     - if lab_course.available_to_individual?
                       span.text-success Available
                     - else
