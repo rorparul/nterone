@@ -1,15 +1,42 @@
 class SalesForceUploader
-  def self.upload(contacts, leads, tasks)
+  def self.upload(contacts, leads, users, tasks)
     @contacts         = open_spreadsheet(contacts)
-    @contacts_header  = format_header(@contacts.row(1), "Contacts")
-
     @leads            = open_spreadsheet(leads)
-    @leads_header     = format_header(@leads.row(1), "Leads")
-
+    @users            = open_spreadsheet(users)
     @tasks            = open_spreadsheet(tasks)
     @tasks_header     = format_header(@tasks.row(1), "Tasks")
-
     save_tasks
+  end
+
+  def save_tasks
+    (2..@tasks.last_row).each do |i|
+      n = 0
+      row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
+      row_tasks.delete(:DELETE)
+      find_user(@contacts, row_tasks[:user_id])
+      find_user(@leads, row_tasks[:user_id]) unless @user
+      find_user(@users, row_tasks[:rep_id], true)
+      row_tasks[:user_id] = @user.id
+      row_tasks[:rep_id]  = @rep.id
+      if row_tasks[:priority]
+        row_task[:priority] == 'Normal' ? row_task[:priority] = 2 : row_task[:priority] = 3
+      end
+      if row_tasks[:complete]
+        row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
+      end
+      Task.create(row_tasks)
+      n += 1
+      return if n == 2
+    end
+  end
+
+  def find_user(table, id, rep = false)
+    table.each do |row|
+      if row['Id'] == id
+        return @user = User.find_by(email: row['Email']) unless rep = true
+        return @rep = User.find_by(email: row['Email'])
+      end
+    end
   end
 
   def self.open_spreadsheet(file)
@@ -121,7 +148,7 @@ class SalesForceUploader
         when "Priority"
           :priority
         when "Status"
-          :status
+          :complete
         when "Subject"
           :subject
         when "WhoId"

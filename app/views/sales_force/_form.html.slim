@@ -3,14 +3,20 @@
       
 
     .row
-      .col-xs-12.col-sm-4
+      .col-xs-12.col-sm-6
         .form-group
           = f.label :contacts, "Contacts"
           = f.file_field :contacts, class: 'form-control input-sm'
-      .col-xs-12.col-sm-4
+      .col-xs-12.col-sm-6
         .form-group
           = f.label :leads, "Leads"
           = f.file_field :leads, class: 'form-control input-sm'
+          
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :users, "Users"
+          = f.file_field :users, class: 'form-control input-sm'
       .col-xs-12.col-sm-4
         .form-group
           = f.label :tasks, "Tasks"
