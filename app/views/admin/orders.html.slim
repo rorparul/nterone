@@ -1,12 +1,6 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
-- content_for :actions do
-  li
-    = link_to new_user_invitation_path(origin: "orders"), remote: true do
-      i.fa.fa-plus
-      = t('admins.orders.add_user')
-
 = render 'layouts/tabs'
 
 .row
