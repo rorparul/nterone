@@ -9,7 +9,7 @@ class SalesForceController < ApplicationController
     return redirect_to :back unless params[:upload]
     @contacts = params[:upload][:contacts]
     @leads    = params[:upload][:leads]
-    @users    = params[:uploads][:users]
+    @users    = params[:upload][:users]
     @tasks    = params[:upload][:tasks]
     if @contacts.nil? || @leads.nil? || @users.nil? || @tasks.nil?
       flash[:alert] = "One or more files missing!!!"

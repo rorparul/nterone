@@ -2,15 +2,23 @@ class SalesForceUploader
   require 'csv'
 
   def self.upload(contacts, leads, users, tasks)
-    @contacts         = CSV.read(contacts, { headers: true, encoding: 'windows-1251:utf-8' } )
-    @leads            = CSV.read(leads, { headers: true, encoding: 'windows-1251:utf-8' } )
-    @users            = CSV.read(users, { headers: true, encoding: 'windows-1251:utf-8' } )
-    @tasks            = CSV.read(tasks, { headers: true, encoding: 'windows-1251:utf-8' } )
+    @contacts           = Roo::CSV.new(contacts.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
+    @leads              = Roo::CSV.new(leads.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
+    @users              = Roo::CSV.new(users.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
+    @tasks              = Roo::CSV.new(tasks.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
+    # @contacts               = CSV.read(contacts.path, { headers: true, encoding: 'windows-1251:utf-8' } )
+    # @leads                  = CSV.read(leads.path, { headers: true, encoding: 'windows-1251:utf-8' } )
+    # @tasks                  = CSV.read(tasks.path, { headers: true, encoding: 'windows-1251:utf-8' } )
+    # @users                  = CSV.read(users.path, { headers: true, encoding: 'windows-1251:utf-8' } )
+    # @contacts         = open_spreadsheet(contacts)
+    # @leads            = open_spreadsheet(leads)
+    # @users            = open_spreadsheet(users)
+    # @tasks            = open_spreadsheet(tasks)
     @tasks_header     = format_header(@tasks.row(1), "Tasks")
     save_tasks
   end
 
-  def save_tasks
+  def self.save_tasks
     n = 0
     (2..@tasks.last_row).each do |i|
       row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
@@ -34,7 +42,7 @@ class SalesForceUploader
     end
   end
 
-  def find_user(table, id)
+  def self.find_user(table, id)
     table.each do |row|
       if row['Id'] == id
         return @user = User.find_by(email: row['Email']) unless @user
