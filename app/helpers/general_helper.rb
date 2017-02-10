@@ -24,6 +24,22 @@ module GeneralHelper
     "<span class='text'>".html_safe + t("side_menu.welcome").html_safe + " #{personal_greeting}<span/>".html_safe
   end
 
+  def existing_select2_ajax_user(user)
+    if user.present?
+      [["#{user.last_name}, #{user.first_name}", user.id]]
+    else
+      []
+    end
+  end
+
+  def existing_select2_ajax_company(company)
+    if company.present?
+      [[company.title, company.id]]
+    else
+      []
+    end
+  end
+
   def planned_course(user, course)
     user.chosen_courses.where(planned: true).any? do |chosen_course|
       chosen_course.course == course

@@ -11,7 +11,6 @@
 //= require bootstrap-select
 //= require bootstrap/tab
 //= require cocoon
-//= require forem
 //= require smart_listing
 //= require select2
 //= require react
@@ -25,6 +24,6 @@
 //= require plugins/image.min.js
 //= require plugins/image_manager.min.js
 //= require plugins/link.min.js
-//= require general
 //= require moment
 //= require bootstrap-datetimepicker
+//= require general

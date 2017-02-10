@@ -10,6 +10,10 @@ class UserPolicy < ApplicationPolicy
   def contacts?
     @user.admin? || @user.sales?
   end
+  
+  def sales_reps?
+    @user.admin? || @user.sales?
+  end
 
   def show_as_lead?
     @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))

@@ -10,15 +10,23 @@ class CompaniesController < ApplicationController
 	layout 'admin'
 
 	def index
-		companies_scope = @companies
-		companies_scope = companies_scope.custom_search(params[:filter]) if params[:filter]
+		respond_to do |format|
+			format.any(:html, :js) do
+				companies_scope = @companies
+				companies_scope = companies_scope.custom_search(params[:filter]) if params[:filter]
 
-		smart_listing_create(
-			:companies,
-			companies_scope,
-			partial: 'companies/listing',
-			default_sort: { title: 'asc' }
-		)
+				smart_listing_create(
+					:companies,
+					companies_scope,
+					partial: 'companies/listing',
+					default_sort: { title: 'asc' }
+				)
+			end
+
+			format.json do
+				render json: { items: @companies.custom_search(params[:q]).order(:title) }
+			end
+		end
 	end
 
 	def show
@@ -35,7 +43,7 @@ class CompaniesController < ApplicationController
 				name        = listing_key.chomp("_smart_listing")
 				symbol      = "list_#{name}".to_sym
 				@list       = name.to_sym
-				
+
 				self.send(symbol)
 			end
 		end
