@@ -93,7 +93,11 @@ class GeneralController < ApplicationController
       format.html do
         if success
           flash[:success] = 'Message successfully sent.'
-          redirect_to contact_us_confirmation_path
+          if params[:origin] == "course"
+            redirect_to course_inquiry_confirmation_path
+          else
+            redirect_to general_inquiry_confirmation_path
+          end
         else
           flash[:notice] = 'Message failed to send.'
           redirect_to :back

@@ -1,7 +1,7 @@
 - if ["courses"].include?(controller_name) && action_name == 'show'
   .panel.panel-default.panel-contact-us
     .panel-body.panel-contact-us
-      = form_for :contact_us, url: contact_us_path, method: :post, html: { class: 'contact-us-form' } do |f|
+      = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
         label Request Information
         
         = f.hidden_field :recipient, value: "sales#{t('email')}"

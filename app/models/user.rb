@@ -162,7 +162,9 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
-  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)') }
+  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }) }
+  # scope :leads,            -> { joins(:roles).where(roles: { role: 4 }).where.not(status: 3) }
+  # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
   scope :leads,            -> { where.not(status: 3) }
   scope :contacts,         -> { where(status: 3) }
 

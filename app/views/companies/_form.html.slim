@@ -15,9 +15,9 @@ m.form-container
       
     .form-group
       = f.label :parent_id, "Parent Company"
-      = f.collection_select :parent_id, @companies, :id, :title,
+      = f.select :parent_id, existing_select2_ajax_company(@company.parent),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-companies-select', style: "width: 100%;" }
       
     .form-group
       = f.label :kind, t('default.label.kind')
@@ -72,9 +72,9 @@ m.form-container
     
     .form-group
       = f.label :user_id, 'Sales Rep'
-      = f.select :user_id, surname_ordered_options(@owners),
+      = f.select :user_id, existing_select2_ajax_user(@company.user),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-sales-select', style: "width: 100%;" }
       
     .form-buttons
       button.btn.btn-success type="submit"
@@ -84,3 +84,56 @@ m.form-container
           = t('default.action.update')
       button.btn.btn-default type="button" data-dismiss="modal"
         = t('default.action.cancel')
+        
+javascript:
+  $('.search-sales-select').select2({
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.search-companies-select').select2({
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });

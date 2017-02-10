@@ -160,11 +160,11 @@ class OpportunitiesController < ApplicationController
   end
 
   def set_associations
-    @companies = Company.order('lower(title)')
+    # @companies = Company.order('lower(title)')
     @courses   = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
-    @partners  = Company.partners.order('lower(title)')
-    @owners    = User.all_sales
-    @contacts  = User.contacts
+    # @partners  = Company.partners.order('lower(title)')
+    # @owners    = User.all_sales
+    # @contacts  = User.contacts
   end
 
   def authorize_opportunity

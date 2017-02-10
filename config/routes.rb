@@ -12,7 +12,7 @@ NterOne::Application.routes.draw do
     get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
-  mount Forem::Engine, :at => '/forums'
+  # mount Forem::Engine, :at => '/forums'
 
   resources :users  do
     post :toggle_archived, on: :member
@@ -20,6 +20,7 @@ NterOne::Application.routes.draw do
       get ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
       get 'leads'               => 'users#leads',           as: :leads
       get 'contacts'            => 'users#contacts',        as: :contacts
+      get 'sales_reps'          => 'users#sales_reps',      as: :sales_reps
       get 'leads/:id'           => 'users#show_as_lead',    as: :lead
       get 'contacts/:id'        => 'users#show_as_contact', as: :contact
       get ':id/assign'          => 'users#assign',          as: :assign
@@ -270,7 +271,8 @@ NterOne::Application.routes.draw do
   get  'search'                                      => 'general#search'
   get  'contact_us'                                  => 'general#contact_us_new',            as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
-  get  'contact_us_confirmation'                     => 'general#contact_us_confirmation',   as: :contact_us_confirmation
+  get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
+  get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role

@@ -42,9 +42,6 @@ $(function() {
 });
 
 function prepareInputs() {
-
-  // datepicker with data-linked
-
   $("input[data-linked]").each(function(i) {
     var $this = $(this);
     var linked_element = $($this.data("linked"));
@@ -52,21 +49,20 @@ function prepareInputs() {
     linked_element.keydown(function(e) {
       $this.val(linked_element.val());
     });
+
     $this.on('change', function(e) {
       if ($this.data('datepicker')) {
-	var date = $this.datepicker('getDate');
-	if (date) {
-	  var value = moment(date).format('YYYY-MM-DD');
-	  linked_element.val(value);
-	  linked_element.trigger('keydown');
-	}
+      	var date = $this.datepicker('getDate');
+      	if (date) {
+      	  var value = moment(date).format('YYYY-MM-DD');
+      	  linked_element.val(value);
+      	  linked_element.trigger('keydown');
+      	}
       }
     });
   });
 
-  $('.select2, .search-select').select2({
-    theme: 'bootstrap'
-  });
+  $('.search-select').select2();
 
   $('.froala').froalaEditor({
     key: 'Padtj1A-32zpB2twt==',
@@ -107,5 +103,4 @@ function prepareInputs() {
       'html'
     ]
   });
-
 }
