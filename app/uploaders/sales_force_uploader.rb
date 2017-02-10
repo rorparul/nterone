@@ -1,21 +1,25 @@
 class SalesForceUploader
+  require 'csv'
+
   def self.upload(contacts, leads, users, tasks)
-    @contacts         = open_spreadsheet(contacts)
-    @leads            = open_spreadsheet(leads)
-    @users            = open_spreadsheet(users)
-    @tasks            = open_spreadsheet(tasks)
+    @contacts         = CSV.read(contacts, { headers: true, encoding: 'windows-1251:utf-8' } )
+    @leads            = CSV.read(leads, { headers: true, encoding: 'windows-1251:utf-8' } )
+    @users            = CSV.read(users, { headers: true, encoding: 'windows-1251:utf-8' } )
+    @tasks            = CSV.read(tasks, { headers: true, encoding: 'windows-1251:utf-8' } )
     @tasks_header     = format_header(@tasks.row(1), "Tasks")
     save_tasks
   end
 
   def save_tasks
+    n = 0
     (2..@tasks.last_row).each do |i|
-      n = 0
       row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
       row_tasks.delete(:DELETE)
+      @user = nil, @rep = nil
       find_user(@contacts, row_tasks[:user_id])
       find_user(@leads, row_tasks[:user_id]) unless @user
-      find_user(@users, row_tasks[:rep_id], true)
+      find_user(@users, row_tasks[:rep_id])
+      next if @user.nil? || @rep.nil?
       row_tasks[:user_id] = @user.id
       row_tasks[:rep_id]  = @rep.id
       if row_tasks[:priority]
@@ -30,10 +34,10 @@ class SalesForceUploader
     end
   end
 
-  def find_user(table, id, rep = false)
+  def find_user(table, id)
     table.each do |row|
       if row['Id'] == id
-        return @user = User.find_by(email: row['Email']) unless rep = true
+        return @user = User.find_by(email: row['Email']) unless @user
         return @rep = User.find_by(email: row['Email'])
       end
     end

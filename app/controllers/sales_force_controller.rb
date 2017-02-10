@@ -14,7 +14,7 @@ class SalesForceController < ApplicationController
     if @contacts.nil? || @leads.nil? || @users.nil? || @tasks.nil?
       flash[:alert] = "One or more files missing!!!"
     else
-      SalesForceUploader.upload(@contacts, @leads, @users, @tasks)
+      upload = SalesForceUploader.upload(@contacts, @leads, @users, @tasks)
     end
     redirect_to :back
   end
