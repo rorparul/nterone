@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206185005) do
+ActiveRecord::Schema.define(version: 20170209013719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -991,6 +991,18 @@ ActiveRecord::Schema.define(version: 20170206185005) do
 
   add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
   add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "activity_date"
+    t.text     "description"
+    t.integer  "rep_id"
+    t.integer  "priority",      default: 2
+    t.string   "subject"
+    t.integer  "user_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "complete",      default: false
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
