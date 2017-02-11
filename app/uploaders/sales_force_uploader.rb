@@ -6,14 +6,6 @@ class SalesForceUploader
     @leads              = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
     @users              = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
     @tasks              = Roo::CSV.new(tasks.path, csv_options: {encoding: 'windows-1251:utf-8'})
-    # @contacts               = CSV.read(contacts.path, { headers: true, encoding: 'windows-1251:utf-8' } )
-    # @leads                  = CSV.read(leads.path, { headers: true, encoding: 'windows-1251:utf-8' } )
-    # @tasks                  = CSV.read(tasks.path, { headers: true, encoding: 'windows-1251:utf-8' } )
-    # @users                  = CSV.read(users.path, { headers: true, encoding: 'windows-1251:utf-8' } )
-    # @contacts         = open_spreadsheet(contacts)
-    # @leads            = open_spreadsheet(leads)
-    # @users            = open_spreadsheet(users)
-    # @tasks            = open_spreadsheet(tasks)
     @tasks_header     = format_header(@tasks.row(1), "Tasks")
     save_tasks
   end
