@@ -2,10 +2,10 @@ class SalesForceUploader
   require 'csv'
 
   def self.upload(contacts, leads, users, tasks)
-    @contacts           = Roo::CSV.new(contacts.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
-    @leads              = Roo::CSV.new(leads.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
-    @users              = Roo::CSV.new(users.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
-    @tasks              = Roo::CSV.new(tasks.path, csv_options: {headers: true, encoding: 'windows-1251:utf-8'})
+    @contacts           = Roo::CSV.new(contacts.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @leads              = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @users              = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @tasks              = Roo::CSV.new(tasks.path, csv_options: {encoding: 'windows-1251:utf-8'})
     # @contacts               = CSV.read(contacts.path, { headers: true, encoding: 'windows-1251:utf-8' } )
     # @leads                  = CSV.read(leads.path, { headers: true, encoding: 'windows-1251:utf-8' } )
     # @tasks                  = CSV.read(tasks.path, { headers: true, encoding: 'windows-1251:utf-8' } )
@@ -43,10 +43,10 @@ class SalesForceUploader
   end
 
   def self.find_user(table, id)
-    table.each do |row|
-      if row['Id'] == id
-        return @user = User.find_by(email: row['Email']) unless @user
-        return @rep = User.find_by(email: row['Email'])
+    table.each(ID: 'Id', email: 'Email') do |row|
+      if row[:ID] == id
+        return @user = User.find_by(email: row[:email]) unless @user
+        return @rep = User.find_by(email: row[:email])
       end
     end
   end
