@@ -23,7 +23,8 @@ class SalesForceUploader
     (2..@tasks.last_row).each do |i|
       row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
       row_tasks.delete(:DELETE)
-      @user = nil, @rep = nil
+      @user = nil
+      @rep = nil
       find_user(@contacts, row_tasks[:user_id])
       find_user(@leads, row_tasks[:user_id]) unless @user
       find_user(@users, row_tasks[:rep_id])
@@ -31,7 +32,7 @@ class SalesForceUploader
       row_tasks[:user_id] = @user.id
       row_tasks[:rep_id]  = @rep.id
       if row_tasks[:priority]
-        row_task[:priority] == 'Normal' ? row_task[:priority] = 2 : row_task[:priority] = 3
+        row_tasks[:priority] == 'Normal' ? row_tasks[:priority] = 2 : row_tasks[:priority] = 3
       end
       if row_tasks[:complete]
         row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
