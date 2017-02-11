@@ -243,6 +243,10 @@ class SalesForceUploader
           #   rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
           #   Role.create(user_id: rep.id, role: 3)
           #   row_original[:employee_id] = rep.id
+          # NOTE: Switching the employee_id to nil may have a similar problem as switching the user_id to nil in Companies
+          # NOTE: It may be best to update the employee_id attributes from 0 to nil in the database first 
+          else
+            row_original[:employee_id] = nil
           end
         end
         if Opportunity.where(row_original).empty?
