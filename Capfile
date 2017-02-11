@@ -2,9 +2,9 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rvm'
 
-# require 'capistrano/rails'
-require 'capistrano/bundler' # Rails needs Bundler, right?
-require 'capistrano/rails/assets'
+require 'capistrano/rails'
+# require 'capistrano/bundler' # Rails needs Bundler, right?
+# require 'capistrano/rails/assets'
 # require 'capistrano/rails/migrations'
 
 require 'capistrano/passenger'

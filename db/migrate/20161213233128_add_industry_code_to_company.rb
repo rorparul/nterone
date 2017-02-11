@@ -1,5 +1,5 @@
 class AddIndustryCodeToCompany < ActiveRecord::Migration
-  def change
+  def up
     add_column :companies, :industry_code, :string
   end
 end

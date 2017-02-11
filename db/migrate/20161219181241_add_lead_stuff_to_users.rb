@@ -1,5 +1,5 @@
 class AddLeadStuffToUsers < ActiveRecord::Migration
-  def change
+  def up
     add_column :users, :email_alternative, :string
     add_column :users, :phone_alternative, :string
     add_column :users, :notes, :text
