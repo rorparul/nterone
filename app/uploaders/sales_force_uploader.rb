@@ -30,11 +30,11 @@ class SalesForceUploader
         end
       elsif type == "Contacts"
         case title
-        when "Account Name: Account Name"
+        when "Account Name"
           :company_name
-        when "Alternate Phone Number"
+        when "Mobile"
           :phone_alternative
-        when "Contact Owner: Full Name"
+        when "Account Owner"
           # Must find by name
           :seller_id
         when "Email"
@@ -136,7 +136,9 @@ class SalesForceUploader
             #   Role.create(user_id: user.id, role: 3)
             #   row_original[:user_id] = user.id
             # else
-            #   # Cannot create users without email address
+            #   # NOTE: This condition needs to be commented back in for the uploader to save the user_id as nil
+            #   # NOTE: However, this may result in the creation of pre-existing companies since the row_original will not match those in the database
+            #   # NOTE: IMO the best solution is to update all current records where user_id == 0 to user_id == nil before commenting out that line
             #   row_original[:user_id] = nil
             end
           end
