@@ -1,5 +1,5 @@
 class AddCmrValuesToUser < ActiveRecord::Migration
-  def change
+  def up
     add_column :users, :parent_id, :integer
     add_column :users, :salutation, :string
     add_column :users, :business_title, :string
