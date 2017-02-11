@@ -11,7 +11,6 @@ class SalesForceUploader
   end
 
   def self.save_tasks
-    n = 0
     (2..@tasks.last_row).each do |i|
       row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
       row_tasks.delete(:DELETE)
@@ -30,8 +29,6 @@ class SalesForceUploader
         row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
       end
       Task.create(row_tasks)
-      n += 1
-      return if n == 2
     end
   end
 
