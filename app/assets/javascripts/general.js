@@ -62,10 +62,11 @@ function prepareInputs() {
     });
   });
 
-  $('.search-select').select2();
+  $('.search-select').select2({
+    dropdownParent: $(".search-select").closest('.form-group')
+  });
 
   $('.froala').froalaEditor({
-    key: 'Padtj1A-32zpB2twt==',
     height: 240,
     imageUploadURL: '/public/uploads/editor',
     imageUploadMethod: 'POST',
