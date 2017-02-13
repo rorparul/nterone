@@ -167,6 +167,7 @@ class User < ActiveRecord::Base
   # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
   scope :leads,            -> { where.not(status: 3) }
   scope :contacts,         -> { where(status: 3) }
+  scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }
 
   search_scope :custom_search do
     attributes :first_name, :last_name, :email

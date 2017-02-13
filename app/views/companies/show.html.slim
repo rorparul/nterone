@@ -44,9 +44,10 @@
         .col-xs-12.col-md-4
           strong.text-muted Siblings
           br
-          - @company.siblings.first(10).each do |company|
-            = link_to company.title, company_path(company)
-            br
+          - if @company.parent.present?
+            - @company.siblings.first(10).each do |company|
+              = link_to company.title, company_path(company)
+              br
         .col-xs-12.col-md-4
           strong.text-muted Descendants
           br

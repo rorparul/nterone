@@ -101,6 +101,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def members
+    render json: { items: User.members.custom_search(params[:q]).order(:last_name) }
+  end
+
   def sales_reps
     render json: { items: User.all_sales.custom_search(params[:q]).order(:last_name) }
   end
