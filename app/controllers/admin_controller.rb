@@ -95,7 +95,7 @@ class AdminController < ApplicationController
 
   def people
     users_scope = User.all
-    users_scope = users_scope.search(params[:filter]) if params[:filter]
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
 
     @users = smart_listing_create(:users, users_scope,
       partial: "users/listing",
