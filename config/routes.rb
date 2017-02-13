@@ -235,7 +235,6 @@ NterOne::Application.routes.draw do
     get 'admin/courses',                             as: :admin_courses
     get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
-    get 'admin/people',                              as: :admin_people
     get 'admin/website',                             as: :admin_website
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
@@ -247,6 +246,7 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'admin/people'                                => 'users#index',                       as: :admin_people
   get  'instructor/classes'                          => 'instructors#classes',               as: :instructor_classes
   get  'instructor/classes/:id'                      => 'instructors#classes_show',          as: :instructor_classes_show
   get  'welcome'                                     => 'general#sign_up_confirmation',      as: :welcome
