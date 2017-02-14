@@ -1,7 +1,10 @@
 .form-container
   = form_for task, remote: true do |f|
     = f.hidden_field :rep_id, value: current_user.id
-    - unless user.nil?
+    - if user.nil?
+      = f.hidden_field :user_page, value: false
+    - else
+      = f.hidden_field :user_page, value: true
       = f.hidden_field :user_id, value: user.id
   
     .row

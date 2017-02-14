@@ -18,8 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      index_tasks
-      render 'index'
+      find_path
     else
       render 'new'
     end
@@ -34,12 +33,7 @@ class TasksController < ApplicationController
   def complete
     task = Task.find(params[:task_id])
     task.update_attribute(:complete, params[:task][:complete])
-    if task.user_id.nil?
-      index_tasks
-      render 'index'
-    else
-      redirect_to :back
-    end
+    find_path
   end
 
   private
@@ -58,6 +52,15 @@ class TasksController < ApplicationController
 
   def index_tasks
     @tasks = Task.where(rep_id: current_user.id, complete: false).order(:activity_date)
+  end
+
+  def find_path
+    if params[:task][:user_page] == 'false'
+      index_tasks
+      render 'index'
+    else
+      render js: "window.location = '#{request.referrer}';"
+    end
   end
 
   def set_task

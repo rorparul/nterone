@@ -13,6 +13,7 @@ table.table
         td = task.activity_date.strftime("%l:%M%p")
         td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
             = f.check_box :complete, class: "task-complete"
+            = f.hidden_field :user_page, value: false
 
 javascript:
   $('.task-complete').change(function() {

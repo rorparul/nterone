@@ -22,3 +22,16 @@
 = render 'layouts/tabs'
 
 = render 'users/show'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Tasks
+    .container-muted
+      = link_to t('default.action.new'), new_task_path(user_id: @user.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
+    = smart_listing_render(:tasks)
+
+.row
+  .col-xs-12 
+    .container-muted
+      = link_to 'Back', url_for(:back), class: 'btn btn-primary btn-sm', role: 'button', style: 'margin-right: 5px;'

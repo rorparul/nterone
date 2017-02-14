@@ -7,7 +7,7 @@
           th Description
           th Date
           th Time
-          th Status
+          th Complete
       tbody
         - smart_listing.collection.each do |task|
           tr
@@ -17,6 +17,7 @@
             td = task.activity_date.strftime("%l:%M%p")
             td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
                 = f.check_box :complete, class: "task-complete"
+                = f.hidden_field :user_page, value: true
   .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
