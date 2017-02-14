@@ -67,6 +67,10 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :tasks do
+    patch 'task/complete' => 'tasks#complete', as: :complete
+  end
+
   resources :leads, only: [:edit, :update, :show], path: 'my-queue' do
     collection do
       get 'leads/:id/download_quote' => 'leads#download_quote', as: :download_quote

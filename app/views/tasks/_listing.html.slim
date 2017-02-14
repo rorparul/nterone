@@ -1,0 +1,30 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th Subject
+          th Description
+          th Date
+          th Time
+          th Status
+      tbody
+        - smart_listing.collection.each do |task|
+          tr
+            td = task.subject
+            td = task.description
+            td = task.activity_date.strftime("%-m/%-d/%y")
+            td = task.activity_date.strftime("%l:%M%p")
+            td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
+                = f.check_box :complete, class: "task-complete"
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted style="color: black;"
+    = 'N/A'
+
+javascript:
+  $('.task-complete').change(function() {
+    $(this).parents('form:first').submit();
+  });

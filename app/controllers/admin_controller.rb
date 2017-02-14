@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include SmartListingConcerns
   include MessageManager
 
   before_action :authenticate_user!
@@ -109,23 +110,14 @@ class AdminController < ApplicationController
   end
 
   def website
-    respond_to do |format|
-      format.html do
-        list_articles
-        list_lab_courses
-        list_pages_dynamic
-        list_pages_static
-        list_testimonials
-        list_promotions
-      end
-
-      format.js do
-        name = params.keys.first.chomp("_smart_listing")
-        symbol = "list_#{name}".to_sym
-        self.send(symbol)
-        @list = name.to_sym
-      end
-    end
+    manage_smart_listing(
+      ['list_articles',
+        'list_lab_courses',
+        'list_pages_dynamic',
+        'list_pages_static',
+        'list_testimonials',
+        'list_promotions']
+    )
   end
 
   private

@@ -1,0 +1,3 @@
+$('.modal-title').html("New Task");
+$('.modal-body').html("<%= escape_javascript(render partial: 'new', locals: { task: @task, priorities: @priorities, user: @user }) %>");
+$('#myModal').modal('show');

@@ -1,0 +1,21 @@
+table.table
+  thead
+    tr
+      th = link_to "Task", new_task_path, remote: true
+      th Date
+      th Time
+      th Status
+  tbody
+    - tasks.each do |task|
+      tr
+        td = task.description
+        td = task.activity_date.strftime("%-m/%-d/%y")
+        td = task.activity_date.strftime("%l:%M%p")
+        td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
+            = f.check_box :complete, class: "task-complete"
+
+javascript:
+  $('.task-complete').change(function() {
+    $(this).parents('form:first').submit();
+  });
+  

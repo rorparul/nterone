@@ -1,0 +1,36 @@
+.form-container
+  = form_for task, remote: true do |f|
+    = f.hidden_field :rep_id, value: current_user.id
+    - unless user.nil?
+      = f.hidden_field :user_id, value: user.id
+  
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :subject, "Subject"
+          = f.text_field :subject, class: "form-control input-sm"
+    
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :description, "Description"
+          = f.text_area :description, class: "form-control input-sm"
+          
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :activity_date, "Date and Time"
+          br
+          = f.datetime_select :activity_date, { start_year: Date.today.year, ampm: true }
+          
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :priority, "Priority"
+          = f.select :priority, priorities, {}, class: "form-control input-sm"
+    
+  
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      = link_to "Back", tasks_path, remote: true, class: "btn.btn-default"
