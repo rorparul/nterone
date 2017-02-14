@@ -7,12 +7,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id]) if params[:user_id]
-    @priorities = [
-      ["Low", 1],
-      ["Normal", 2],
-      ["High", 3]
-    ]
+    form_data
   end
 
   def create
@@ -25,9 +20,15 @@ class TasksController < ApplicationController
   end
 
   def edit
+    form_data
   end
 
   def update
+    if @task.update_attributes(task_params)
+      find_path
+    else
+      render 'edit'
+    end
   end
 
   def complete
@@ -61,6 +62,15 @@ class TasksController < ApplicationController
     else
       render js: "window.location = '#{request.referrer}';"
     end
+  end
+
+  def form_data
+    @user = User.find(params[:user_id]) if params[:user_id]
+    @priorities = [
+      ["Low", 1],
+      ["Normal", 2],
+      ["High", 3]
+    ]
   end
 
   def set_task

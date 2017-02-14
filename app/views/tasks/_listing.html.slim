@@ -8,6 +8,7 @@
           th Date
           th Time
           th Complete
+          th
       tbody
         - smart_listing.collection.each do |task|
           tr
@@ -18,6 +19,7 @@
             td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
                 = f.check_box :complete, class: "task-complete"
                 = f.hidden_field :user_page, value: true
+            td = link_to "Edit", edit_task_path(id: task.id, user_id: @user.id), remote: true
   .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

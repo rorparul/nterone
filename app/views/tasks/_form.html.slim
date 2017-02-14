@@ -36,4 +36,5 @@
     .form-buttons
       button.btn.btn-success type="submit"
         = t('default.action.save')
-      = link_to "Back", tasks_path, remote: true, class: "btn.btn-default"
+      - if user.nil?
+        = link_to "Back", tasks_path, remote: true, class: "btn.btn-default"
