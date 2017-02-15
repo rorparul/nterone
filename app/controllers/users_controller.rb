@@ -168,6 +168,9 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
+      sort_attributes: [[:first_name, "first_name"],
+                        [:last_name, "last_name"],
+                        [:email, "email"]],
       default_sort: { created_at: 'desc' }
     )
   end
