@@ -38,3 +38,6 @@
         = t('default.action.save')
       - if user.nil?
         = link_to "Back", tasks_path, remote: true, class: "btn.btn-default"
+      - else 
+        button.btn.btn-default type="button" data-dismiss="modal"
+          = t('default.action.cancel')

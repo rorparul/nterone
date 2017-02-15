@@ -176,9 +176,24 @@ class UsersController < ApplicationController
   end
 
   def list_tasks
-    tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id).order(:activity_date)
+
+    if params[:selection] == "complete"
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: true)
+    elsif params[:selection] == "due"
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: false)
+    else
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id)
+    end
+
+    tasks_scope = tasks_scope.custom_search(params[:filter]) if params[:filter]
     @tasks      = smart_listing_create(:tasks,
                                        tasks_scope,
-                                       partial: 'tasks/listing')
+                                       partial: 'tasks/listing',
+                                       sort_attributes: [[:activity_date, "activity_date"],
+                                                         [:description, "description"],
+                                                         [:priority, "priority"],
+                                                         [:subject, "subject"],
+                                                         [:complete, "complete"]],
+                                                         default_sort: { activity_date: "asc" })
   end
 end

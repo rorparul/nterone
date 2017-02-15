@@ -3,11 +3,12 @@
     table.table.table-condensed
       thead
         tr.background-muted
-          th Subject
-          th Description
-          th Date
-          th Time
-          th Complete
+          th = smart_listing.sortable "Subject", :subject
+          th = smart_listing.sortable "Description", :description
+          th = smart_listing.sortable "Date", :activity_date
+          th = smart_listing.sortable "Time", :activity_date
+          th = smart_listing.sortable "Priority", :priority
+          th = smart_listing.sortable "Complete", :complete
           th
       tbody
         - smart_listing.collection.each do |task|
@@ -16,6 +17,7 @@
             td = task.description
             td = task.activity_date.strftime("%-m/%-d/%y")
             td = task.activity_date.strftime("%l:%M%p")
+            td = task.priority_in_words
             td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
                 = f.check_box :complete, class: "task-complete"
                 = f.hidden_field :user_page, value: true

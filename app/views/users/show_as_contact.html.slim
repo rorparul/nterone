@@ -29,6 +29,23 @@
       strong.text-muted Tasks
     .container-muted
       = link_to t('default.action.new'), new_task_path(user_id: @user.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = smart_listing_controls_for(:tasks, { class: 'input-search' }) do                
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+        .radio
+          label
+            input type="radio" name="selection" id="selection_all" value="all" checked='true'
+            | All
+        .radio
+          label
+            input type="radio" name="selection" id="selection_due" value="due"
+            | Due
+        .radio
+          label
+            input type="radio" name="selection" id="selection_complete" value="complete"
+            | Completed
     = smart_listing_render(:tasks)
 
 .row

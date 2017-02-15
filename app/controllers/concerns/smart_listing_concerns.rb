@@ -15,10 +15,14 @@ module SmartListingConcerns
       end
 
       format.js do
-        name = params.keys.first.chomp("_smart_listing")
-        symbol = "list_#{name}".to_sym
-        self.send(symbol)
-        @list = name.to_sym
+        params.keys.each do |key|
+          if key.last(7) == "listing"
+            name = key.chomp("_smart_listing")
+            symbol = "list_#{name}".to_sym
+            self.send(symbol)
+            return @list = name.to_sym
+          end
+        end
       end
     end
   end
