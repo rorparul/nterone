@@ -6,7 +6,7 @@
     = f.select :parent_id,
                existing_select2_ajax_user(@user.parent),
                { include_blank: t('companies.partial_form.dropdown') },
-               { class: 'search-sales-select', style: "width: 100%;" }
+               { class: 'search-sales-select form-control', style: "width: 100%;" }
       
   hr
   
@@ -15,7 +15,7 @@
       = f.label :status, t('users.partial_form.status')
       = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
         options = {},
-        html_options = { class: 'form-control input-sm search-select' }
+        html_options = { class: 'form-control search-select' }
         
     hr
     
@@ -24,25 +24,25 @@
   
   .form-group
     = f.label :salutation, 'Salutation'
-    = f.text_field :salutation, class: 'form-control input-sm'
+    = f.text_field :salutation, class: 'form-control'
     
   .form-group
     = f.label :first_name, 'First Name'
-    = f.text_field :first_name, class: 'form-control input-sm'
+    = f.text_field :first_name, class: 'form-control'
     
   .form-group
     = f.label :last_name, 'Last Name'
-    = f.text_field :last_name, class: 'form-control input-sm'
+    = f.text_field :last_name, class: 'form-control'
     
   hr
       
   .form-group
     = f.label :email, 'Email'
-    = f.text_field :email, class: 'form-control input-sm'
+    = f.text_field :email, class: 'form-control'
       
   .form-group
     = f.label :email_alternative, 'Email Alternative'
-    = f.text_field :email_alternative, class: 'form-control input-sm'
+    = f.text_field :email_alternative, class: 'form-control'
       
   .form-group
     = f.label :do_not_email, 'Do Not Email'
@@ -51,11 +51,11 @@
   
   .form-group
     = f.label :contact_number, 'Phone'
-    = f.text_field :contact_number, class: 'form-control input-sm'
+    = f.text_field :contact_number, class: 'form-control'
   
   .form-group
     = f.label :phone_alternative, 'Phone Alternative'
-    = f.text_field :phone_alternative, class: 'form-control input-sm'
+    = f.text_field :phone_alternative, class: 'form-control'
       
   .form-group
     = f.label :do_not_call, 'Do Not Call'
@@ -66,14 +66,14 @@
   
   .form-group
     = f.label :business_title, 'Business Title'
-    = f.text_field :business_title, class: 'form-control input-sm'
+    = f.text_field :business_title, class: 'form-control'
     
   .form-group
     = f.label :company_id, 'Company'
     = f.select :company_id,
                existing_select2_ajax_company(@user.company),
                { include_blank: t('companies.partial_form.dropdown') },
-               { class: 'search-companies-select', style: "width: 100%;" }
+               { class: 'search-companies-select form-control', style: "width: 100%;" }
       
   hr
   
@@ -91,7 +91,8 @@
       
 javascript:
   $('.search-sales-select').select2({
-    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
       dataType: 'json',
@@ -117,7 +118,8 @@ javascript:
   });
   
   $('.search-companies-select').select2({
-    dropdownParent: $(".search-companies-select").closest('.form-group'),
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",
       dataType: 'json',
