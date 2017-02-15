@@ -10,7 +10,11 @@ class UserPolicy < ApplicationPolicy
   def contacts?
     @user.admin? || @user.sales?
   end
-  
+
+  def members?
+    @user.admin? || @user.sales?
+  end
+
   def sales_reps?
     @user.admin? || @user.sales?
   end

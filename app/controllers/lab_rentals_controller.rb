@@ -5,7 +5,8 @@ class LabRentalsController < ApplicationController
   before_action :set_lab_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-    lab_rentals_scope  = current_user.admin? ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.company_id)
+    redirect_to root_path unless user_signed_in?
+    lab_rentals_scope  = current_user.try(:admin?) ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.try(:company_id))
     lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
@@ -36,7 +37,7 @@ class LabRentalsController < ApplicationController
     default_sort: { "first_day": "desc" }
     )
 
-    render layout: "admin" if current_user.admin?
+    render layout: "admin" if current_user.try(:admin?)
   end
 
   def show

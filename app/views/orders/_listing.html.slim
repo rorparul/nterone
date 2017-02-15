@@ -12,11 +12,9 @@
             th.fit = smart_listing.sortable t('orders.partial_listing.source'), :source
             th.fit = smart_listing.sortable t('orders.partial_listing.auth_code'), :auth_code
             th.fit = smart_listing.sortable t('orders.partial_listing.credits'), :clc_quantity
-            th.fit
-              = t('orders.partial_listing.so_num')
+            th.fit = t('orders.partial_listing.so_num')
             th.fit = smart_listing.sortable t('orders.partial_listing.created'), :created_at
-            th.fit 
-              = t('orders.partial_listing.member_email')
+            th.fit = t('orders.partial_listing.member_email')
             th.fit
         tbody
           - smart_listing.collection.each do |order|
