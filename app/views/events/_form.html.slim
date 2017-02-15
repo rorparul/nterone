@@ -19,7 +19,7 @@
         .form-group
           = f.label :start_time, t('events.partial_form.start_time')
           br
-          = f.time_select :start_time, { ampm: true }, {}
+          = f.time_select :start_time, { ampm: true, default: { hour: "10", minute: "00" } }, {}
 
     .row
       .col-xs-12.col-sm-6
@@ -31,7 +31,7 @@
         .form-group
           = f.label :end_time, t('events.partial_form.end_time')
           br
-          = f.time_select :end_time, { ampm: true }, {}
+          = f.time_select :end_time, { ampm: true, default: { hour: "18", minute: "00" } }, {}
 
     hr
 
