@@ -203,4 +203,17 @@ module GeneralHelper
       compound.present? ? [compound, resource.id] : [resource.email, resource.id]
     end
   end
+
+  # First argument is an array/collection of AR objects
+  # Second argument is a string with the same name as a numerical attribute on that object
+  def sum_of(objects, attribute)
+    symbol = attribute.to_sym
+    sum = 0
+    objects.each do |object|
+      unless object.send(symbol).nil?
+        sum += object.send(symbol)
+      end
+    end
+    return sum
+  end
 end

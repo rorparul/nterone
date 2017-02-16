@@ -1,0 +1,40 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: 'BEC0BF', :border => { :style => :thin, :color =>"959595" })
+
+  wb.add_worksheet(name: 'Sales Report') do |sheet|
+    headers = [
+      "Opportunity Owner",
+      "Account Name",
+      "Opportunity Name",
+      "Course Catalog",
+      'Close Date',
+      "Amount"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @opportunities.each do |employee, sales|
+      sales.each do |sale|
+        sheet.add_row [
+          "#{employee.full_name}",
+          "#{sale.account.title}",
+          "#{sale.customer.full_name}",
+          "#{sale.course.title}",
+          "#{sale.date_closed}",
+          "$#{sale.amount}"
+        ]
+      end
+
+      sheet.add_row [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "$#{sum_of(sales, 'amount')}"
+      ]
+    end
+  end
+end
