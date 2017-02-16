@@ -1,0 +1,75 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '000066', fg_color: 'ffffff', b: true, :border => { :style => :thin, :color =>"ffffff" })
+
+  wb.add_worksheet(name: 'Sales Report') do |sheet|
+    headers = [
+      "Opportunity Owner",
+      "Account Name",
+      "Opportunity Name",
+      "Course Catalog",
+      'Close Date',
+      "Amount"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @grouped_opportunities.each do |employee, sales|
+      sales.each do |sale|
+        sheet.add_row [
+          "#{employee.full_name}",
+          "#{sale.account.try(:title)}",
+          "#{sale.customer.full_name}",
+          "#{sale.course.try(:title)}",
+          "#{sale.date_closed}",
+          "$#{number_with_delimiter(sale.amount)}"
+        ]
+      end
+
+      sum_of_group_sales = [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "$#{number_with_delimiter(sum_of(sales, 'amount'))}"
+      ]
+
+      sheet.add_row sum_of_group_sales, style: Array.new(sum_of_group_sales.size, color)
+    end
+
+    @company_sales.each do |sale|
+      sheet.add_row [
+        "Company Sales",
+        "#{sale.account.try(:title)}",
+        "#{sale.customer.full_name}",
+        "#{sale.course.try(:title)}",
+        "#{sale.date_closed}",
+        "$#{number_with_delimiter(sale.amount)}"
+      ]
+    end
+
+    sum_of_company_sales = [
+      "",
+      "",
+      "",
+      "Total Company Sales",
+      "",
+      "$#{number_with_delimiter(sum_of(@company_sales, 'amount'))}"
+    ]
+
+    sheet.add_row sum_of_company_sales, style: Array.new(sum_of_company_sales.size, color)
+
+    sum_of_all_sales = [
+      "",
+      "",
+      "",
+      "Total NterOne Sales",
+      "",
+      "$#{number_with_delimiter(sum_of(@opportunities, 'amount'))}"
+    ]
+
+    sheet.add_row sum_of_all_sales, style: Array.new(sum_of_all_sales.size, color)
+  end
+end

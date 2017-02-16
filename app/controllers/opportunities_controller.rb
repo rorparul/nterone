@@ -182,6 +182,7 @@ class OpportunitiesController < ApplicationController
       :billing_zip_code,
       :course_id,
       :customer_id,
+      :date_closed,
       :employee_id,
       :email_optional,
       :event_id,

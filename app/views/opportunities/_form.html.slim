@@ -21,6 +21,11 @@
       { class: 'search-select stage-select form-control' }
       
   .form-group
+    = f.label :date_closed, "Close Date"
+    br
+    = f.date_select :date_closed, class: 'form-control'
+      
+  .form-group
     = f.label :reason_for_loss, 'Reason for Loss'
     = f.select :reason_for_loss, opportunity_reasons_for_loss_options,
       { include_blank: t('companies.partial_form.dropdown') },

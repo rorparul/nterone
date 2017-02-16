@@ -224,6 +224,7 @@ NterOne::Application.routes.draw do
     resources :commissions,             only: [:new, :create]
     resources :profit_sheets,           only: [:new, :create]
     resources :instructor_utilizations, only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
   end
 
   controller :admin do
