@@ -33,11 +33,7 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    if params[:origin] == "orders"
-      admin_orders_path
-    else
-      admin_people_path
-    end
+    request.referrer
   end
 
   private
@@ -63,7 +59,19 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def invite_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user).permit(:business_title,
+                                 :company_id,
+                                 :contact_number,
+                                 :do_not_call,
+                                 :do_not_email,
+                                 :email_alternative,
+                                 :email,
+                                 :first_name,
+                                 :last_name,
+                                 :parent_id,
+                                 :phone_alternative,
+                                 :salutation,
+                                 :status)
   end
 
   def referring_partner_email_params
