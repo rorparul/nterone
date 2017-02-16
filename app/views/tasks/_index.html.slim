@@ -1,19 +1,25 @@
 table.table
   thead
     tr
+      th.fit
       th = link_to "Task", new_task_path, remote: true
-      th Date
-      th Time
-      th Status
+      th.fit Date
+      th.fit Time
+      th.fit
+      td.fit
   tbody
     - tasks.each do |task|
       tr
-        td = task.description
-        td = task.activity_date.strftime("%-m/%-d/%y")
-        td = task.activity_date.strftime("%l:%M%p")
-        td = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
+        td.fit = form_for task, url: task_complete_path(task_id: task.id), remote: true do |f|
             = f.check_box :complete, class: "task-complete"
             = f.hidden_field :user_page, value: false
+        td = task.subject
+        td.fit = task.activity_date.strftime("%-m/%-d/%y")
+        td.fit = task.activity_date.strftime("%l:%M%p")
+        td.fit = link_to  task_path(task.id), remote: true do
+                span.glyphicon.glyphicon-eye-open
+        td.fit = link_to edit_task_path(task.id), remote: true do 
+                span.glyphicon.glyphicon-pencil
 
 javascript:
   $('.task-complete').change(function() {

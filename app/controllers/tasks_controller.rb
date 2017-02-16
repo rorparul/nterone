@@ -6,6 +6,10 @@ class TasksController < ApplicationController
     index_tasks
   end
 
+  def show
+    
+  end
+
   def new
     form_data
   end
@@ -35,6 +39,11 @@ class TasksController < ApplicationController
     task = Task.find(params[:task_id])
     task.update_attribute(:complete, params[:task][:complete])
     find_path
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to :back
   end
 
   private
