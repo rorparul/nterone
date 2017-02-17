@@ -1,7 +1,13 @@
 class SalesForceUploader
   require 'csv'
 
-  def self.upload(contacts, leads, users, tasks)
+  def self.upload_other(file, type)
+    spreadsheet = open_spreadsheet(file)
+    header      = format_header(spreadsheet.row(1), type)
+    format_rows(spreadsheet, header, type)
+  end
+
+  def self.upload_tasks(contacts, leads, users, tasks)
     @contacts           = Roo::CSV.new(contacts.path, csv_options: {encoding: 'windows-1251:utf-8'})
     @leads              = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
     @users              = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
@@ -299,7 +305,7 @@ class SalesForceUploader
           #   Role.create(user_id: rep.id, role: 3)
           #   row_original[:employee_id] = rep.id
           # NOTE: Switching the employee_id to nil may have a similar problem as switching the user_id to nil in Companies
-          # NOTE: It may be best to update the employee_id attributes from 0 to nil in the database first 
+          # NOTE: It may be best to update the employee_id attributes from 0 to nil in the database first
           else
             row_original[:employee_id] = nil
           end
