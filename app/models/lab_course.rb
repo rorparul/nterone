@@ -19,6 +19,8 @@
 class LabCourse < ActiveRecord::Base
   extend FriendlyId
 
+  include Imageable
+
   friendly_id :slug_candidates, use: :slugged
 
   def slug_candidates
@@ -32,6 +34,9 @@ class LabCourse < ActiveRecord::Base
 
   has_many :lab_rentals
   has_many :lab_course_time_blocks
+
+  has_one  :image, as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :image
 
   validates :title, presence: true
   validates :pods_individual, :pods_partner, numericality: { greater_than_or_equal_to: 0 }

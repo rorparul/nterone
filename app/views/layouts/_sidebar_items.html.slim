@@ -25,10 +25,10 @@ li = link_to main_app.platforms_path, class: 'training-tab' do
 li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
   span.fa.fa-thumbs-o-up
   span = t('layouts.partial_side_items.testimonials')
-- unless I18n.locale == :es
-  li = link_to forem.root_path, class: "forums-tab" do
-    span.fa.fa-comments-o
-    span = t('layouts.partial_side_items.forums')
+/ - unless I18n.locale == :es
+/   li = link_to forem.root_path, class: "forums-tab" do
+/     span.fa.fa-comments-o
+/     span = t('layouts.partial_side_items.forums')
 li = link_to main_app.consulting_path, class: "consulting-tab" do
   span.fa.fa-puzzle-piece
   span = t('layouts.partial_side_items.consulting')

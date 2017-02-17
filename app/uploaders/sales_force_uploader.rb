@@ -66,11 +66,11 @@ class SalesForceUploader
         end
       elsif type == "Contacts"
         case title
-        when "Account Name: Account Name"
+        when "Account Name"
           :company_name
-        when "Alternate Phone Number"
+        when "Mobile"
           :phone_alternative
-        when "Contact Owner: Full Name"
+        when "Account Owner"
           # Must find by name
           :seller_id
         when "Email"
@@ -191,7 +191,9 @@ class SalesForceUploader
             #   Role.create(user_id: user.id, role: 3)
             #   row_original[:user_id] = user.id
             # else
-            #   # Cannot create users without email address
+            #   # NOTE: This condition needs to be commented back in for the uploader to save the user_id as nil
+            #   # NOTE: However, this may result in the creation of pre-existing companies since the row_original will not match those in the database
+            #   # NOTE: IMO the best solution is to update all current records where user_id == 0 to user_id == nil before commenting out that line
             #   row_original[:user_id] = nil
             end
           end
@@ -271,9 +273,13 @@ class SalesForceUploader
           row_original[:amount] = row_original[:amount].to_d
         end
 
-        # if row_original[:date_closed]
-        #   row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y').to_date
-        # end
+        if row_original[:date_closed]
+          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%d/%m/%Y').to_date
+        end
+
+        if row_original[:created_at]
+          row_original[:created_at] = Date.strptime(row_original[:created_at], '%d/%m/%Y').to_date
+        end
 
         # Associate Opportunity with rep if rep exists
         if row_original[:employee_id]
@@ -292,6 +298,10 @@ class SalesForceUploader
           #   rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
           #   Role.create(user_id: rep.id, role: 3)
           #   row_original[:employee_id] = rep.id
+          # NOTE: Switching the employee_id to nil may have a similar problem as switching the user_id to nil in Companies
+          # NOTE: It may be best to update the employee_id attributes from 0 to nil in the database first 
+          else
+            row_original[:employee_id] = nil
           end
         end
         if Opportunity.where(row_original).empty?

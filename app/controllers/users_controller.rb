@@ -88,9 +88,21 @@ class UsersController < ApplicationController
   end
 
   def contacts
-    users_scope = User.contacts
-    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-    prepare_smart_listing(users_scope)
+    respond_to do |format|
+      format.any(:html, :js) do
+        users_scope = User.contacts
+        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+        prepare_smart_listing(users_scope)
+      end
+
+      format.json do
+        render json: { items: User.contacts.custom_search(params[:q]).order(:last_name) }
+      end
+    end
+  end
+
+  def sales_reps
+    render json: { items: User.all_sales.custom_search(params[:q]).order(:last_name) }
   end
 
   private

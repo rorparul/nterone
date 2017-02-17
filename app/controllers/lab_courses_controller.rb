@@ -24,14 +24,16 @@ class LabCoursesController < ApplicationController
 
 	def new
 		@lab_course = LabCourse.new
+		@lab_course.build_image
 	end
 
 	def edit
+		@lab_course.build_image unless @lab_course.image.present?
 	end
 
 	def create
 		@lab_course = LabCourse.new(lab_course_params)
-
+		@lab_course.set_image(url_param: params['lab_course'], for: :image)
 		if @lab_course.save
 			flash[:success] = "Lab Course successfully created!"
       redirect_to admin_website_path
@@ -41,6 +43,7 @@ class LabCoursesController < ApplicationController
 	end
 
 	def update
+		@lab_course.set_image(url_param: params['lab_course'], for: :image)
 		if @lab_course.update(lab_course_params)
 			flash[:success] = "Lab Course successfully updated!"
 			redirect_to :back

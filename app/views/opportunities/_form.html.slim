@@ -19,13 +19,13 @@ m.form-container
       = f.label :stage, 'Stage'
       = f.select :stage, opportunity_stages_options,
         {},
-        { class: 'form-control input-sm search-select stage-select' }
+        { class: 'search-select stage-select', style: "width: 100%;" }
         
     .form-group
       = f.label :reason_for_loss, 'Reason for Loss'
       = f.select :reason_for_loss, opportunity_reasons_for_loss_options,
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select reason-for-loss-select', disabled: @opportunity.stage != 0 }
+        { class: 'search-select reason-for-loss-select', style: "width: 100%;", disabled: @opportunity.stage != 0 }
         
     hr
     
@@ -33,19 +33,19 @@ m.form-container
       = f.label :kind, 'Delivery Type'
       = f.select :kind, opportunity_kind_options,
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-select', style: "width: 100%;" }
         
     .form-group
       = f.label :course_id, 'Course'
       = f.select :course_id, grouped_options_for_select(grouped_courses_options(@courses), f.object.course_id),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select course-select' }
+        { class: 'search-select course-select', style: "width: 100%;" }
         
     .form-group
       = f.label :event_id, 'Event (Date)'
       = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select event-select', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
+        { class: 'search-select event-select', style: "width: 100%;", disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
     
     .form-group
       = f.label :amount, 'Amount'
@@ -59,21 +59,21 @@ m.form-container
       = f.label :payment_kind, 'Payment Type'
       = f.select :payment_kind, opportunity_payment_kind_options,
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-select', style: "width: 100%;" }
       
     hr
     
     .form-group
       = f.label :customer_id, "Student"
-      = f.select :customer_id, surname_ordered_options(@contacts),
+      = f.select :customer_id, existing_select2_ajax_user(@opportunity.customer),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-contacts-select', style: "width: 100%;" }
     
     .form-group
       = f.label :account_id, 'Company'
-      = f.collection_select :account_id, @companies, :id, :title,
+      = f.select :account_id, existing_select2_ajax_company(@opportunity.account),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select company-select' }
+        { class: 'search-companies-select', style: "width: 100%;" }
         
     fieldset
       .form-group
@@ -104,15 +104,15 @@ m.form-container
         
     .form-group
       = f.label :employee_id, "Sales Rep"
-      = f.select :employee_id, surname_ordered_options(@owners),
+      = f.select :employee_id, existing_select2_ajax_user(@opportunity.employee),
         { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'form-control input-sm search-select' }
+        { class: 'search-sales-select', style: "width: 100%;" }
         
     .form-group
       = f.label :partner_id, 'Delivering Partner'
-      = f.collection_select :partner_id, @partners, :id, :title,
+      = f.select :partner_id, existing_select2_ajax_company(@opportunity.partner),
         { include_blank: 'NterOne' },
-        { class: 'form-control input-sm search-select company-select' }
+        { class: 'search-companies-select', style: "width: 100%;" }
         
     .form-group
       = f.label :email_optional, 'Additional Email Recipient (Optional)'
@@ -128,6 +128,84 @@ m.form-container
         = t('default.action.cancel')
 
 javascript:
+  $('.search-contacts-select').select2({
+    dropdownParent: $(".search-contacts-select").closest('.form-group'),
+    ajax: {
+      url: "#{contacts_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.search-sales-select').select2({
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+
+  $('.search-companies-select').select2({
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+
   $('select.stage-select').on('change', function(){
     if($(this).val() == 0) {
       $('select.reason-for-loss-select').prop('disabled', false);

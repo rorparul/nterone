@@ -27,21 +27,21 @@
     .form-group
       = f.label :seller_id, t('orders.partial_form_for_admin.seller')
       = f.select :seller_id,
-                 User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 existing_select2_ajax_user(order.seller),
                  { prompt: t('default.placeholder.select') },
-                 { class: "form-control input-sm" }
+                 { class: "form-control input-sm search-sales-select", style: "width: 100%;" }
 
     .form-group
       = f.label :buyer_id, t('orders.partial_form_for_admin.buyer')
       = f.select :buyer_id,
-                 User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 existing_select2_ajax_user(order.buyer),
                  { prompt: t('default.placeholder.select') },
-                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+                 { class: "buyer-selector search-contacts-select", style: "width: 100%;", disabled: !order.new_record? }
 
     .form-group
       = f.label :source, t('orders.partial_form_for_admin.source')
       = f.select :source,
-                 Order.sources.map{|k, v| [k.humanize, k]},
+                 Order.sources.map{ |k, v| [k.humanize, k] },
                  { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm source-selector", disabled: !order.new_record? }
 
@@ -295,11 +295,63 @@
         = t('default.action.cancel')
 
 javascript:
-  $('.buyer-selector').on('change', function () {
+  $('.search-contacts-select').select2({
+    dropdownParent: $(".search-contacts-select").closest('.form-group'),
+    ajax: {
+      url: "#{contacts_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.search-sales-select').select2({
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.buyer-selector').on('change', function() {
     var userId = this.value
     var url = '/api/users/' + userId
 
-    $.get(url, function (data) {
+    $.get(url, function(data) {
       var fields = [
         'shipping_first_name', 'shipping_last_name', 'shipping_street',
         'shipping_city', 'shipping_state', 'shipping_zip_code', 'shipping_company',
@@ -308,29 +360,29 @@ javascript:
         'referring_partner_email'
       ]
 
-      fields.forEach(function (field) {
-        if (data[field]) $('#order_' + field).val(data[field])
+      fields.forEach(function(field) {
+        if(data[field]) $('#order_' + field).val(data[field])
       })
 
     })
   })
 
-  $('#order-items').on('change', '.order-item-selector', function (e) {
+  $('#order-items').on('change', '.order-item-selector', function(e) {
     var value = $(this).find('option:selected').text();
     var match = value.match(/-\s\$(.+)$/);
 
-    if (match) {
+    if(match) {
       value = match[1];
     }
 
-    if ( $(this).hasClass("new-order-item") == true ) {
+    if($(this).hasClass("new-order-item") == true) {
       $(this).closest('.row').find('.order-item-price').val(value);
     };
   });
   
   $('.order-item-selector').trigger('change');
 
-  $('.source-selector').on('change', function () {
+  $('.source-selector').on('change', function() {
     if (this.value == 'other') {
       $('.source-other').removeClass('hide')
     } else {

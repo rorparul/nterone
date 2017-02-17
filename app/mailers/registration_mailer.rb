@@ -19,13 +19,12 @@ class RegistrationMailer < ApplicationMailer
     @user  = order_item.order.buyer
 
     sales_rep_email = order_item.order.seller.try(:email)
-    partner_email   = order_item.order.referring_partner_email
-    customer_email  = order_item.order.buyer.try(:email)
+    # partner_email   = order_item.order.referring_partner_email
 
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
 
     mail(
-      to: [sales_rep_email, partner_email, customer_email],
+      to: [sales_rep_email],
       bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}"],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',

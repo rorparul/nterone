@@ -30,7 +30,7 @@
                                 th = t('lab_course_time_blocks.partial_time_select.end_time')
                                 th Time Zone
                                 th Price
-                                th.fit
+                                th.fit style="text-align: right;"
                                   - if user_signed_in? && current_user.admin?
                                     = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
                             tbody
