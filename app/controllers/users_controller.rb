@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   end
 
   def leads
-    users_scope = User.leads
+    users_scope = params[:selection] == 'all_leads' ? User.leads : User.leads.where(parent_id: current_user.id)
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
     prepare_smart_listing(users_scope)
   end
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   def contacts
     respond_to do |format|
       format.any(:html, :js) do
-        users_scope = User.contacts
+        users_scope = params[:selection] == 'all_contacts' ? User.contacts : User.contacts.where(parent_id: current_user.id)
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
       end
@@ -106,6 +106,10 @@ class UsersController < ApplicationController
         render json: { items: User.contacts.custom_search(params[:q]).order(:last_name) }
       end
     end
+  end
+
+  def members
+    render json: { items: User.members.custom_search(params[:q]).order(:last_name) }
   end
 
   def sales_reps
@@ -171,6 +175,9 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
+      sort_attributes: [[:first_name, "first_name"],
+                        [:last_name, "last_name"],
+                        [:email, "email"]],
       default_sort: { created_at: 'desc' }
     )
   end

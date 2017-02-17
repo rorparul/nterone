@@ -54,7 +54,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   before_save :update_title,       if: proc { |model| model.title.blank? && model.course.present? }
-  before_save :update_date_closed, if: proc { |model| model.stage_changed? }
+  # before_save :update_date_closed, if: proc { |model| model.stage_changed? }
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
   after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.stage == 100 && model.order.present? }
@@ -94,13 +94,13 @@ class Opportunity < ActiveRecord::Base
     self.title = course.full_title
   end
 
-  def update_date_closed
-    if stage == 0 || stage == 100
-      self.date_closed = Date.today
-    else
-      self.date_closed = nil
-    end
-  end
+  # def update_date_closed
+  #   if stage == 0 || stage == 100
+  #     self.date_closed = Date.today
+  #   else
+  #     self.date_closed = nil
+  #   end
+  # end
 
   def create_order
     order = Order.new(

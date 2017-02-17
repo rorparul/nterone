@@ -63,7 +63,8 @@ function prepareInputs() {
   });
 
   $('.search-select').select2({
-    dropdownParent: $(".search-select").closest('.form-group')
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap"
   });
 
   $('.froala').froalaEditor({

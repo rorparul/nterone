@@ -50,7 +50,7 @@
 
     .container-muted
       = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-      = link_to export_popup_opportunities_path, remote: true, class: 'pull-right', role: 'button', title: 'Export', style: 'margin: 5px 0;' do
+      = link_to new_reports_sale_path, remote: true, class: 'pull-right', role: 'button', title: 'Export', style: 'margin: 5px 0;' do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
         .input-group.input-group-sm.filter style='margin-right: 15px;'
@@ -62,8 +62,8 @@
               span.glyphicon.glyphicon-search
               
         - if current_user.admin? || current_user.sales_manager?
-          .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
-            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
+          .input-group.input-group-sm.filter style='margin-right: 15px;'
+            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
                                           placeholder: t('admins.classes.search'),
                                           autocomplete: :off
         

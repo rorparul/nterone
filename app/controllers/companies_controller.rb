@@ -12,7 +12,7 @@ class CompaniesController < ApplicationController
 	def index
 		respond_to do |format|
 			format.any(:html, :js) do
-				companies_scope = @companies
+				companies_scope = params[:selection] == 'all_companies' ? @companies : @companies.where(user_id: current_user.id)
 				companies_scope = companies_scope.custom_search(params[:filter]) if params[:filter]
 
 				smart_listing_create(

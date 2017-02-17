@@ -29,10 +29,20 @@
         .input-group.input-group-sm.filter style='margin-right: 15px;'
           = text_field_tag :filter, '', class: 'search form-control input-sm',
                                         placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
+                                        autocomplete: :off                                       
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
+              
+        .radio
+          label
+            input type="radio" name="selection" id="selection_all_leads" value="all_leads" checked='true'
+            | All Leads
+        .radio
+          label
+            input type="radio" name="selection" id="selection_my_leads" value="my_leads" checked='true'
+            | My Leads
+              
     = smart_listing_render(:users)
       
 javascript:

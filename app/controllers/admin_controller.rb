@@ -25,7 +25,19 @@ class AdminController < ApplicationController
   def orders
     orders_scope = Order.all
     orders_scope = Order.custom_search(params[:filter]) if params[:filter]
-    @orders = smart_listing_create(:orders, orders_scope, partial: "orders/listing", default_sort: { "orders.created_at": "desc"})
+    @orders = smart_listing_create(:orders,
+                                   orders_scope,
+                                   partial: "orders/listing",
+                                   sort_attributes: [[:id, "id"],
+                                                     [:status_position, "status_position"],
+                                                     [:total, "total"],
+                                                     [:paid, "paid"],
+                                                     [:balance, "balance"],
+                                                     [:source, "source"],
+                                                     [:auth_code, "auth_code"],
+                                                     [:clc_quantity, "clc_quantity"],
+                                                     [:created_at, "orders.created_at"]],
+                                   default_sort: { "orders.created_at": "desc"})
 
     respond_to do |format|
       format.html
@@ -96,7 +108,7 @@ class AdminController < ApplicationController
 
   def people
     users_scope = User.all
-    users_scope = users_scope.search(params[:filter]) if params[:filter]
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
 
     @users = smart_listing_create(:users, users_scope,
       partial: "users/listing",

@@ -3,9 +3,9 @@ a href="#{root_path}"
   = t('admins.partial_breadcrumbs.home')
 span.seperator
   | /
-- if current_user.admin?
+- if current_user.try(:admin?)
   span.text-muted
   = t('admins.partial_breadcrumbs.admin')
-- if current_user.sales?
+- if current_user.try(:sales?)
   span.text-muted
   = t('admins.partial_breadcrumbs.my_sales')
