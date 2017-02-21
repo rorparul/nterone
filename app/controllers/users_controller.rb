@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   end
 
   def leads
-    users_scope = User.leads
+    users_scope = params[:selection] == 'all_leads' ? User.leads : User.leads.where(parent_id: current_user.id)
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
     prepare_smart_listing(users_scope)
   end
@@ -90,7 +90,7 @@ class UsersController < ApplicationController
   def contacts
     respond_to do |format|
       format.any(:html, :js) do
-        users_scope = User.contacts
+        users_scope = params[:selection] == 'all_contacts' ? User.contacts : User.contacts.where(parent_id: current_user.id)
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
       end
