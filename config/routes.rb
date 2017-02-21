@@ -2,7 +2,6 @@ NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
              controllers: { registrations: 'users/registrations',
-                            sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
   devise_scope :user do
