@@ -81,12 +81,12 @@
             | Closed
             
         #end-date.pull-right style='margin: 4px 15px 4px 0;'
-          = date_select :end_date, :end_date,
+          = date_select :date_end, :date_end,
             { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
             { disabled: true, class: 'input-date' }
         #start-date.pull-right style='margin: 4px 15px 4px 0;'
-          = date_select :start_date, :start_date,
-            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: Opportunity.minimum(:date_closed) },
+          = date_select :date_start, :date_start,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: {year: Date.today.year, month: Date.today.month, day: 1} },
             { disabled: true, class: 'input-date' }
 
     = smart_listing_render(:opportunities)
