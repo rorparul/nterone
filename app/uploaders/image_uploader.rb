@@ -49,4 +49,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   def carousel_item?(picture)
     model.imageable_type == 'CarouselItem'
   end
+
+  def topology?(picture)
+    model.imageable_type == 'Topology'
+  end
 end

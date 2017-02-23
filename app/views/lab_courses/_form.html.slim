@@ -70,6 +70,12 @@
             = icon.label :file, t('platforms.partial_form.image')
             = icon.file_field :file
             = icon.hidden_field :file_cache
+          
+          = f.fields_for :topology do |image|
+              = image.fields_for :image do |file|
+                = f.label :file
+                = f.file_field :file
+          
 
     .form-buttons
       button.btn.btn-success type="submit" = t('default.action.save')

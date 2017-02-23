@@ -25,6 +25,7 @@ class LabCoursesController < ApplicationController
 	def new
 		@lab_course = LabCourse.new
 		@lab_course.build_image
+		@lab_course.build_topology.build_image
 	end
 
 	def edit
@@ -73,7 +74,15 @@ class LabCoursesController < ApplicationController
 			:level,
 			:pods_individual,
 			:pods_partner,
-			:title
+			:title,
+			image_attributes: [
+				:file
+			]
+			topology_attributes: [
+				image_attributes: [
+					:file
+				]
+			]
 		)
   end
 

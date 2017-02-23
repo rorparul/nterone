@@ -35,6 +35,9 @@ class LabCourse < ActiveRecord::Base
   has_many :lab_rentals
   has_many :lab_course_time_blocks
 
+  has_one :topology
+  accepts_nested_attributes_for :topology
+
   has_one  :image, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :image
 
@@ -42,7 +45,7 @@ class LabCourse < ActiveRecord::Base
   validates :pods_individual, :pods_partner, numericality: { greater_than_or_equal_to: 0 }
 
   def available_to_individual?
-    pods_individual > 0 && lab_course_time_blocks.any?
+    pods_individual != nil && pods_individual > 0 && lab_course_time_blocks.any?
   end
 
   def full_title
