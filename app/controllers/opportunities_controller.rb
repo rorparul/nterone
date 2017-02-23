@@ -57,9 +57,10 @@ class OpportunitiesController < ApplicationController
       sort_attributes: [
         [:created_at, 'opportunities.created_at'],
         [:stage, 'stage'],
-        [:waiting, 'waiting']
+        [:waiting, 'waiting'],
+        [:date_closed, 'date_closed']
       ],
-      default_sort: { created_at: 'desc' }
+      default_sort: { date_closed: 'desc' }
     )
   end
 
