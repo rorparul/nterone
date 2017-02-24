@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: topologies
+#
+#  id            :integer          not null, primary key
+#  lab_course_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Topology < ActiveRecord::Base
   include Imageable
 

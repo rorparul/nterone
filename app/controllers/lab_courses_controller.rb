@@ -25,7 +25,6 @@ class LabCoursesController < ApplicationController
 	def new
 		@lab_course = LabCourse.new
 		@lab_course.build_image
-		@lab_course.build_topology.build_image
 	end
 
 	def edit
@@ -36,6 +35,7 @@ class LabCoursesController < ApplicationController
 		@lab_course = LabCourse.new(lab_course_params)
 		@lab_course.set_image(url_param: params['lab_course'], for: :image)
 		if @lab_course.save
+			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully created!"
       redirect_to admin_website_path
 		else
@@ -46,6 +46,7 @@ class LabCoursesController < ApplicationController
 	def update
 		@lab_course.set_image(url_param: params['lab_course'], for: :image)
 		if @lab_course.update(lab_course_params)
+			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully updated!"
 			redirect_to :back
 		else
@@ -77,11 +78,6 @@ class LabCoursesController < ApplicationController
 			:title,
 			image_attributes: [
 				:file
-			]
-			topology_attributes: [
-				image_attributes: [
-					:file
-				]
 			]
 		)
   end
@@ -141,5 +137,10 @@ class LabCoursesController < ApplicationController
     @pods = 0
     @pods += @lab_course.pods_individual unless @lab_course.pods_individual.nil?
   end
+
+	def create_topology
+		@topology = @lab_course.create_topology
+		@topology.create_image(file: params[:topology])
+	end
 
 end

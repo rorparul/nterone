@@ -70,11 +70,13 @@
             = icon.label :file, t('platforms.partial_form.image')
             = icon.file_field :file
             = icon.hidden_field :file_cache
-          
-          = f.fields_for :topology do |image|
-              = image.fields_for :image do |file|
-                = f.label :file
-                = f.file_field :file
+      .col-xs-6
+        .form-group
+          - if @lab_course.topology.present? && @lab_course.topology.image.present? && @lab_course.topology.image.file.present?
+            = image_tag @lab_course.topology.image.file.url, style: "width: 62px; height: 62px;"
+            br
+          = label_tag :topology
+          = file_field_tag :topology
           
 
     .form-buttons

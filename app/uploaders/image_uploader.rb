@@ -43,14 +43,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def subject?(picture)
-    model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand' || model.imageable_type == 'LabCourse'
+    model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand' || model.imageable_type == 'LabCourse' || model.imageable_type == 'Topology'
   end
 
   def carousel_item?(picture)
     model.imageable_type == 'CarouselItem'
   end
 
-  def topology?(picture)
-    model.imageable_type == 'Topology'
-  end
+
 end

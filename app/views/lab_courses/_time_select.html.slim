@@ -12,6 +12,13 @@
             li role="tab"
               a href="##{number_in_words(key.unit_quantity).gsub(" ", "-")}" aria-controls="tab" role="tab" data-toggle="tab"
                 | #{key.unit_quantity.to_s + " Hour Block"}
+        li role="tab"
+          a href="#lab-course-description" aria-controls="tab" role="tab" data-toggle="tab"
+            | Overview
+        li role="tab"
+          a href="#lab-course-topology" aria-controls="tab" role="tab" data-toggle="tab"
+            | Topology
+                
   .row
     .col-xs-12
       .well style="background-color: white; border-top: 0px; border-top-left-radius: 0; border-top-right-radius: 0;"
@@ -75,4 +82,11 @@
                           tbody
                             tr
                               h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
-                                
+                              
+              .tab-pane role="tabpanel" id="lab-course-description"
+                .panel.panel-default style="padding: 15px;"
+                  = @lab_course.description.try(:html_safe) if @lab_course.description
+                  
+              .tab-pane role="tabpanel" id="lab-course-topology"
+                .panel.panel-default
+                  = image_tag @lab_course.topology.image.file.url, style: "width: 100%; border-radius: 5px;" if @lab_course.topology && @lab_course.topology.image
