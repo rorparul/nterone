@@ -8,6 +8,17 @@ class ClassesUploader
       row_original = Hash[[header, spreadsheet.row(i)].transpose]
       row_new      = row_original.dup
       row_new.delete(:course_title)
+
+      if row_new[:start_date]
+        row_new[:start_date] = Date.strptime(row_new[:start_date], '%m/%d/%Y').to_date
+        row_new[:start_date] = row_new[:start_date] + 2000.years
+      end
+
+      if row_new[:end_date]
+        row_new[:end_date] = Date.strptime(row_new[:end_date], '%m/%d/%Y').to_date
+        row_new[:end_date] = row_new[:end_date] + 2000.years
+      end
+
       event = Event.new(row_new)
 
       if Event.find_by(course_id: event.course_id,
@@ -21,7 +32,7 @@ class ClassesUploader
         report[:success] = false
         report[:failures] << row_original
       else
-        unless event.save(row)
+        unless event.save
           report[:failures] << row_original
         end
       end
@@ -40,7 +51,7 @@ class ClassesUploader
 
   def self.format_header(header)
     header.map do |title|
-      case title
+      case title.strip
       when "Course ID"
         :course_id
       when "Course Title"
