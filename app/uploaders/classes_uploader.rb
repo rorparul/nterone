@@ -9,13 +9,6 @@ class ClassesUploader
       row_new      = row_original.dup
       row_new.delete(:course_title)
 
-      puts
-      puts
-      puts "Row:"
-      puts row_new
-      puts
-      puts
-
       if row_new[:start_date]
         row_new[:start_date] = Date.strptime(row_new[:start_date], '%m/%d/%Y') + 2000.years
       end
