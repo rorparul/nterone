@@ -9,14 +9,19 @@ class ClassesUploader
       row_new      = row_original.dup
       row_new.delete(:course_title)
 
+      puts
+      puts
+      puts "Row:"
+      puts row_new
+      puts
+      puts
+
       if row_new[:start_date]
-        row_new[:start_date] = Date.strptime(row_new[:start_date], '%m/%d/%Y').to_date
-        row_new[:start_date] = row_new[:start_date] + 2000.years
+        row_new[:start_date] = Date.strptime(row_new[:start_date], '%m/%d/%Y') + 2000.years
       end
 
       if row_new[:end_date]
-        row_new[:end_date] = Date.strptime(row_new[:end_date], '%m/%d/%Y').to_date
-        row_new[:end_date] = row_new[:end_date] + 2000.years
+        row_new[:end_date] = Date.strptime(row_new[:end_date], '%m/%d/%Y') + 2000.years
       end
 
       event = Event.new(row_new)
@@ -33,6 +38,7 @@ class ClassesUploader
         report[:failures] << row_original
       else
         unless event.save
+          p event.errors
           report[:failures] << row_original
         end
       end
