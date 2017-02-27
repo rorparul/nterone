@@ -1,6 +1,7 @@
 class OpportunitiesController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include FlyForm
 
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
   before_action :set_associations,      only: [:new, :edit, :copy]
@@ -67,7 +68,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def new
-    @opportunity = Opportunity.new
+    @opportunity = fly_form('get')
     render 'shared/new'
   end
 
@@ -77,10 +78,12 @@ class OpportunitiesController < ApplicationController
 
   def create
     @opportunity = Opportunity.new(opportunity_params)
-    if @opportunity.save
+    if  @opportunity.save
+      fly_form('destroy')
       flash[:success] = 'Opportunity successfully created.'
       redirect_to :back
     else
+      fly_form('post')
       render 'shared/new'
     end
   end

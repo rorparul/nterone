@@ -328,4 +328,5 @@ NterOne::Application.routes.draw do
   post "public/uploads/editor"                 => 'general#editor_upload_photo'
   get 'sales_force/form'                 => 'sales_force#form',                   as: :sales_force_form
   post 'sales_force/upload'              => 'sales_force#upload',                 as: :sales_force_upload
+  post 'fly_forms/update'                => 'fly_forms#update',                   as: :fly_form
 end
