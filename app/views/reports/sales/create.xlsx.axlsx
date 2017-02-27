@@ -9,6 +9,7 @@ wb.styles do |style|
       "Account Name",
       "Opportunity Name",
       "Course Catalog",
+      "Probability (%)",
       'Close Date',
       "Amount"
     ]
@@ -22,6 +23,7 @@ wb.styles do |style|
           "#{sale.account.try(:title)}",
           "#{sale.customer.full_name}",
           "#{sale.course.try(:title)}",
+          "#{sale.stage}%",
           "#{sale.date_closed}",
           "$#{number_with_delimiter(sale.amount)}"
         ]
@@ -45,6 +47,7 @@ wb.styles do |style|
         "#{sale.account.try(:title)}",
         "#{sale.customer.full_name}",
         "#{sale.course.try(:title)}",
+        "#{sale.stage}%",
         "#{sale.date_closed}",
         "$#{number_with_delimiter(sale.amount)}"
       ]
