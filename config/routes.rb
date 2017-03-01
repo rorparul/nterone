@@ -291,6 +291,7 @@ NterOne::Application.routes.draw do
   get  'sims/versastack'                             => 'general#sims',                      as: :sims
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
@@ -325,8 +326,8 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/editor"                 => 'general#editor_upload_photo'
-  get 'sales_force/form'                 => 'sales_force#form',                   as: :sales_force_form
-  post 'sales_force/upload'              => 'sales_force#upload',                 as: :sales_force_upload
-  post 'fly_forms/update'                => 'fly_forms#update',                   as: :fly_form
+  post "public/uploads/editor" => 'general#editor_upload_photo'
+  get  'sales_force/form'      => 'sales_force#form',           as: :sales_force_form
+  post 'sales_force/upload'    => 'sales_force#upload',         as: :sales_force_upload
+  post 'fly_forms/update'      => 'fly_forms#update',           as: :fly_form
 end
