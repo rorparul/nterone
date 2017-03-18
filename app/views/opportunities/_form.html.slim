@@ -73,7 +73,7 @@
       .input-group
         = f.select :customer_id, existing_select2_ajax_user(@opportunity.customer),
           { include_blank: t('companies.partial_form.dropdown') },
-          { class: 'search-contacts-select form-control', style: "width: 100%; border-top-right-radius: 0; border-bottom-right-radius: 0;" }
+          { class: 'search-members-select form-control', style: "width: 100%; border-top-right-radius: 0; border-bottom-right-radius: 0;" }
         span.input-group-btn
           button.btn.btn-success type="button" style="padding: 0;"
             = link_to "New", new_contact_path, remote: true, style: "display: inline-block; color: white; padding: 6px 12px; text-decoration: none;"
@@ -149,13 +149,13 @@ javascript:
       "#{fly_form_path}",
       flyForm
     );
-  });  
+  });
   
-  $('.search-contacts-select').select2({
+  $('.search-members-select').select2({
     dropdownParent: $(".modal-body.panel-body"),
     theme: "bootstrap",
     ajax: {
-      url: "#{contacts_users_path}",
+      url: "#{members_users_path}",
       dataType: 'json',
       delay: 500,
       data: function(params) {
