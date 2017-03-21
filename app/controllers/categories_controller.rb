@@ -99,6 +99,7 @@ class CategoriesController < ApplicationController
                                      :heading,
                                      :description,
                                      :meta_description,
-                                     :position)
+                                     :position,
+                                     :video)
   end
 end
