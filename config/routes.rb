@@ -293,6 +293,7 @@ NterOne::Application.routes.draw do
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
   get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user

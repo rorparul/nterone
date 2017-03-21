@@ -403,10 +403,6 @@ class User < ActiveRecord::Base
     roles.any? { |role| role.role.to_sym == role_param }
   end
 
-  # def can_resend_invitation?
-  #   admin? || sales_rep?
-  # end
-
   private
 
   def update_instructor_costs

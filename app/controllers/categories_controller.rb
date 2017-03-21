@@ -67,6 +67,17 @@ class CategoriesController < ApplicationController
     redirect_to platform_category_path(@category.platform, Category.parent_categories.first)
   end
 
+  def cisco_self_paced
+    session[:last_category_url] = request.url
+
+    @platform   = Platform.find_by(title: "Cisco")
+    @category   = Category.find_by(title: "Self-Paced")
+    @categories = @platform.parent_categories.order(:position).includes(:children)
+    @items      = category_items(@category)
+
+    render 'platforms/show'
+  end
+
   private
 
   def set_category
