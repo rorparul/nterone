@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :set_page, only: [:index, :show, :edit, :update, :delete]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
+  before_action :set_page,           only: [:show, :edit, :update, :delete]
 
   def new
     authorize @page = Page.new
