@@ -38,7 +38,7 @@ html
               = link_to main_app.new_order_path do
                 i.fa.fa-shopping-cart
                 = t('layouts.admin.my_cart')
-                span.badge = @cart.order_items.count
+                span.badge = @cart.try(:order_items).try(:count)
             - if current_user.admin? || current_user.sales?
               = link_to tasks_path, remote: true do
                 span.glyphicon.glyphicon-tasks 

@@ -90,7 +90,7 @@ NterOne::Application.configure do
     :domain               => 'nterone.com',
     :port                 => 587,
     :user_name            => "nci@nterone.com",
-    :password             => 'Ni2015!!',
+    :password             => 'Ni2017!!',
     :authentication       => :login,
     :enable_starttls_auto => true
   }

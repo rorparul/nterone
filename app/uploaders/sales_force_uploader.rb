@@ -1,8 +1,50 @@
 class SalesForceUploader
-  def self.upload(file, type)
+  require 'csv'
+
+  def self.upload_other(file, type)
     spreadsheet = open_spreadsheet(file)
     header      = format_header(spreadsheet.row(1), type)
     format_rows(spreadsheet, header, type)
+  end
+
+  def self.upload_tasks(contacts, leads, users, tasks)
+    @contacts           = Roo::CSV.new(contacts.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @leads              = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @users              = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @tasks              = Roo::CSV.new(tasks.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    @tasks_header     = format_header(@tasks.row(1), "Tasks")
+    save_tasks
+  end
+
+  def self.save_tasks
+    (2..@tasks.last_row).each do |i|
+      row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
+      row_tasks.delete(:DELETE)
+      @user = nil
+      @rep = nil
+      find_user(@contacts, row_tasks[:user_id])
+      find_user(@leads, row_tasks[:user_id]) unless @user
+      find_user(@users, row_tasks[:rep_id])
+      next if @user.nil? || @rep.nil?
+      row_tasks[:user_id] = @user.id
+      row_tasks[:rep_id]  = @rep.id
+      if row_tasks[:priority]
+        row_tasks[:priority] == 'Normal' ? row_tasks[:priority] = 2 : row_tasks[:priority] = 3
+      end
+      if row_tasks[:complete]
+        row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
+      end
+      Task.create(row_tasks)
+    end
+  end
+
+  def self.find_user(table, id)
+    table.each(ID: 'Id', email: 'Email') do |row|
+      if row[:ID] == id
+        return @user = User.find_by(email: row[:email]) unless @user
+        return @rep = User.find_by(email: row[:email])
+      end
+    end
   end
 
   def self.open_spreadsheet(file)
@@ -30,11 +72,11 @@ class SalesForceUploader
         end
       elsif type == "Contacts"
         case title
-        when "Account Name: Account Name"
+        when "Account Name"
           :company_name
-        when "Alternate Phone Number"
+        when "Mobile"
           :phone_alternative
-        when "Contact Owner: Full Name"
+        when "Account Owner"
           # Must find by name
           :seller_id
         when "Email"
@@ -103,6 +145,25 @@ class SalesForceUploader
         else
           :DELETE
         end
+      elsif type == "Tasks"
+        case title
+        when "ActivityDate"
+          :activity_date
+        when "Description"
+          :description
+        when "OwnerId"
+          :rep_id
+        when "Priority"
+          :priority
+        when "Status"
+          :complete
+        when "Subject"
+          :subject
+        when "WhoId"
+          :user_id
+        else
+          :DELETE
+        end
       end
     end
   end
@@ -136,7 +197,9 @@ class SalesForceUploader
             #   Role.create(user_id: user.id, role: 3)
             #   row_original[:user_id] = user.id
             # else
-            #   # Cannot create users without email address
+            #   # NOTE: This condition needs to be commented back in for the uploader to save the user_id as nil
+            #   # NOTE: However, this may result in the creation of pre-existing companies since the row_original will not match those in the database
+            #   # NOTE: IMO the best solution is to update all current records where user_id == 0 to user_id == nil before commenting out that line
             #   row_original[:user_id] = nil
             end
           end
@@ -216,9 +279,13 @@ class SalesForceUploader
           row_original[:amount] = row_original[:amount].to_d
         end
 
-        # if row_original[:date_closed]
-        #   row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%m/%d/%Y').to_date
-        # end
+        if row_original[:date_closed]
+          row_original[:date_closed] = Date.strptime(row_original[:date_closed], '%d/%m/%Y').to_date
+        end
+
+        if row_original[:created_at]
+          row_original[:created_at] = Date.strptime(row_original[:created_at], '%d/%m/%Y').to_date
+        end
 
         # Associate Opportunity with rep if rep exists
         if row_original[:employee_id]
@@ -237,6 +304,10 @@ class SalesForceUploader
           #   rep      = User.create(first_name: first_name, last_name: last_name, email: email, password: password)
           #   Role.create(user_id: rep.id, role: 3)
           #   row_original[:employee_id] = rep.id
+          # NOTE: Switching the employee_id to nil may have a similar problem as switching the user_id to nil in Companies
+          # NOTE: It may be best to update the employee_id attributes from 0 to nil in the database first
+          else
+            row_original[:employee_id] = nil
           end
         end
         if Opportunity.where(row_original).empty?

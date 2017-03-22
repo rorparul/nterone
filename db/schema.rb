@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206185005) do
+ActiveRecord::Schema.define(version: 20170321193908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170206185005) do
     t.string   "page_title"
     t.string   "heading"
     t.text     "meta_description"
+    t.text     "video"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -148,8 +149,8 @@ ActiveRecord::Schema.define(version: 20170206185005) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -163,7 +164,6 @@ ActiveRecord::Schema.define(version: 20170206185005) do
     t.string   "website"
     t.integer  "parent_id"
     t.string   "industry_code"
-    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 20170206185005) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
+    t.string   "company"
     t.integer  "theater"
   end
 
@@ -919,6 +920,18 @@ ActiveRecord::Schema.define(version: 20170206185005) do
   add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
   add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
 
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "activity_date"
+    t.text     "description"
+    t.integer  "rep_id"
+    t.integer  "priority",      default: 2
+    t.string   "subject"
+    t.integer  "user_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "complete",      default: false
+  end
+
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -945,7 +958,7 @@ ActiveRecord::Schema.define(version: 20170206185005) do
     t.integer "user_id"
     t.integer "company_id"
   end
-
+  
   add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
   add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 

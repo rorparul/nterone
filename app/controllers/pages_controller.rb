@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: :show
-  before_action :set_page, except: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
+  before_action :set_page,           only: [:show, :edit, :update, :delete]
 
   def new
     authorize @page = Page.new
@@ -32,6 +32,10 @@ class PagesController < ApplicationController
   end
 
   def delete
+  end
+
+  def cisco_learning_credits
+    @page = Page.find_or_create_by(title: __method__.to_s.titleize, static: true)
   end
 
   private

@@ -1,0 +1,48 @@
+- content_for :page_title do
+  = @page.page_title
+  
+- content_for :page_description do
+  = @page.page_description
+
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+  | Cisco Learning Credits
+
+.row#consulting
+  .col-xs-12.col-central
+    = image_tag "static-banners/#{Setting.tld}/cisco-learning-credits.png", class: "header-image"
+    
+    .panel.panel-default
+      .panel-body
+        = form_for :contact_us, url: contact_us_path(origin: "learning_credits"), method: :post, html: { class: 'contact-us-form' } do |f|
+          = f.hidden_field :recipient, value: "sales#{t('email')}"
+          = f.hidden_field :subject, value: "Cisco Learning Credits Inquiry"
+            
+          .form-group
+            = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if user_signed_in?)
+            
+          .form-group
+            = f.text_field :email, class: 'form-control input-sm', placeholder: 'Email', value: (current_user.email if user_signed_in?)
+            
+          .form-group
+            = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if user_signed_in?)
+            
+          .form-group
+            = f.text_area :inquiry, value: "Please contact me to discuss using Cisco Learning Credits to sign-up for training.", rows: 8, class: 'form-control'
+            
+          .form-buttons
+            button.btn.btn-success type="submit" style='width: 100%;'
+              | Request Information
+              
+    = @page.content.try(:html_safe)
+        
+  .col-xs-12.side-column
+    = render partial: 'layouts/side_column'
+    
+javascript:
+  $('.home-tab').addClass('active');

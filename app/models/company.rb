@@ -18,7 +18,6 @@
 #  website       :string
 #  parent_id     :integer
 #  industry_code :string
-#  partner       :boolean          default(FALSE)
 #
 
 class Company < ActiveRecord::Base

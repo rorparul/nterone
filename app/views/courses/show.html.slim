@@ -181,7 +181,16 @@
           = "#{t('default.label.email') + ": "}"
           a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
 
-        p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
+        p
+          = "#{t('default.label.phone')}: "
+          - if Setting.tld == "ca"
+            | 613-317-2480
+          - if Setting.tld == "com"
+            | 703-991-5185
+          - if Setting.tld == "la"
+            | 703-972-2288
+          - if Setting.tld == "local"
+            | 703-991-5185
     = render partial: 'layouts/side_column'
 
 .row

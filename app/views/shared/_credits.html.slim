@@ -1,13 +1,14 @@
-.panel.panel-default.panel-red
-  .panel-heading.text-center
-    strong = t('layouts.partial_side_column.title')
-  .panel-body
-    span
-      = t('layouts.partial_side_column.paragraph')
-      .text-center
-        = image_tag 'credits-cisco.png',  class: 'credits-image'
-        = image_tag 'credits-vmware.png', class: 'credits-image'
-    span
-      a href="mailto:sales#{t('email')}"
-        = t('layouts.partial_side_column.contact_us_link')
-      = t('layouts.partial_side_column.contact_us_body')
+= link_to cisco_learning_credits_path, style: "text-decoration: none;" do
+  .panel.panel-default.panel-red
+    .panel-heading.text-center
+      strong = t('layouts.partial_side_column.title')
+    .panel-body
+      span
+        = t('layouts.partial_side_column.paragraph')
+        .text-center
+          = image_tag 'credits-cisco.png',  class: 'credits-image'
+          = image_tag 'credits-vmware.png', class: 'credits-image'
+      span
+        a href="mailto:sales#{t('email')}"
+          = t('layouts.partial_side_column.contact_us_link')
+        = t('layouts.partial_side_column.contact_us_body')
