@@ -1,0 +1,45 @@
+.form-container
+  = form_for task, remote: true do |f|
+    = f.hidden_field :rep_id, value: current_user.id
+    - if user.nil?
+      = f.hidden_field :user_page, value: false
+    - else
+      = f.hidden_field :user_page, value: true
+      = f.hidden_field :user_id, value: user.id
+  
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :subject, "Subject"
+          = f.text_field :subject, class: "form-control input-sm"
+    
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :description, "Description"
+          = f.text_area :description, class: "form-control input-sm"
+          
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :activity_date, "Date and Time"
+          br
+          = f.datetime_select :activity_date, { start_year: Date.today.year, ampm: true }
+          
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :priority, "Priority"
+          = f.select :priority, priorities, {}, class: "form-control input-sm"
+    
+  
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t('default.action.save')
+      - if user.nil?
+        = link_to "Back", tasks_path, remote: true
+      - else 
+        button.btn.btn-default type="button" data-dismiss="modal"
+          = t('default.action.cancel')
+      - if controller.action_name == "edit"
+        = link_to "Delete", task_path(task), data: { confirm: 'Are you sure?' }, method: :delete, class: "text-danger", style: "float: right;"

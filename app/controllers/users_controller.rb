@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include SmartListingConcerns
 
   before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
@@ -21,9 +22,15 @@ class UsersController < ApplicationController
   end
 
   def show_as_lead
+    manage_smart_listing(
+      ['list_tasks']
+    )
   end
 
   def show_as_contact
+    manage_smart_listing(
+      ['list_tasks']
+    )
   end
 
   def show_as_sales_rep
@@ -173,5 +180,27 @@ class UsersController < ApplicationController
                         [:email, "email"]],
       default_sort: { created_at: 'desc' }
     )
+  end
+
+  def list_tasks
+
+    if params[:selection] == "complete"
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: true)
+    elsif params[:selection] == "due"
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: false)
+    else
+      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id)
+    end
+
+    tasks_scope = tasks_scope.custom_search(params[:filter]) if params[:filter]
+    @tasks      = smart_listing_create(:tasks,
+                                       tasks_scope,
+                                       partial: 'tasks/listing',
+                                       sort_attributes: [[:activity_date, "activity_date"],
+                                                         [:description, "description"],
+                                                         [:priority, "priority"],
+                                                         [:subject, "subject"],
+                                                         [:complete, "complete"]],
+                                                         default_sort: { activity_date: "asc" })
   end
 end

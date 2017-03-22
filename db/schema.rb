@@ -958,7 +958,7 @@ ActiveRecord::Schema.define(version: 20170321193908) do
     t.integer "user_id"
     t.integer "company_id"
   end
-
+  
   add_index "user_companies", ["company_id"], name: "index_user_companies_on_company_id", using: :btree
   add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
