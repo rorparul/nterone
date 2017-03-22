@@ -328,8 +328,10 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/editor" => 'general#editor_upload_photo'
-  get  'sales_force/form'      => 'sales_force#form',           as: :sales_force_form
-  post 'sales_force/upload'    => 'sales_force#upload',         as: :sales_force_upload
+  post "public/uploads/editor"                     => 'general#editor_upload_photo'
+  get 'sales_force/form_for_tasks'                 => 'sales_force#form_for_tasks',               as: :sales_force_form_for_tasks
+  post 'sales_force/upload_tasks'                  => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
+  get 'sales_force/form_for_other'                 => 'sales_force#form_for_other',               as: :sales_force_form_for_other
+  post 'sales_force/upload_other'                  => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
   post 'fly_forms/update'      => 'fly_forms#update',           as: :fly_form
 end

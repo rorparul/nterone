@@ -10,6 +10,14 @@
     | /
   span.text-muted
     | Users
+    
+= content_for :actions do 
+  li
+    = link_to sales_force_form_for_tasks_path, remote: true do
+      = "Upload Sales Force Task Files"
+  li 
+    = link_to sales_force_form_for_other_path, remote: true do
+      = "Upload Other Sales Force Files"
 
 = render 'layouts/tabs'
 
