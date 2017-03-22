@@ -19,9 +19,9 @@ wb.styles do |style|
     @grouped_opportunities.each do |employee, sales|
       sales.each do |sale|
         sheet.add_row [
-          "#{employee.full_name}",
+          "#{employee.try(:full_name)}",
           "#{sale.account.try(:title)}",
-          "#{sale.customer.full_name}",
+          "#{sale.customer.try(:full_name)}",
           "#{sale.course.try(:title)}",
           "#{sale.stage}%",
           "#{sale.date_closed}",
@@ -45,7 +45,7 @@ wb.styles do |style|
       sheet.add_row [
         "Company Sales",
         "#{sale.account.try(:title)}",
-        "#{sale.customer.full_name}",
+        "#{sale.customer.try(:full_name)}",
         "#{sale.course.try(:title)}",
         "#{sale.stage}%",
         "#{sale.date_closed}",
