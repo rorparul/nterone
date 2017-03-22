@@ -16,7 +16,7 @@
 
 class Task < ActiveRecord::Base
   include SearchCop
-  
+
   belongs_to :user
   belongs_to :rep, class_name: "User", foreign_key: :rep_id
 
@@ -35,3 +35,4 @@ class Task < ActiveRecord::Base
       "High"
     end
   end
+end
