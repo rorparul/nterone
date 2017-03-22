@@ -36,7 +36,7 @@
       = f.select :buyer_id,
                  existing_select2_ajax_user(order.buyer),
                  { prompt: t('default.placeholder.select') },
-                 { class: "buyer-selector search-contacts-select", style: "width: 100%;", disabled: !order.new_record? }
+                 { class: "buyer-selector search-members-select", style: "width: 100%;", disabled: !order.new_record? }
 
     .form-group
       = f.label :source, t('orders.partial_form_for_admin.source')
@@ -295,10 +295,10 @@
         = t('default.action.cancel')
 
 javascript:
-  $('.search-contacts-select').select2({
-    dropdownParent: $(".search-contacts-select").closest('.form-group'),
+  $('.search-members-select').select2({
+    dropdownParent: $(".search-members-select").closest('.form-group'),
     ajax: {
-      url: "#{contacts_users_path}",
+      url: "#{members_users_path}",
       dataType: 'json',
       delay: 500,
       data: function(params) {

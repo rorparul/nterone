@@ -2,7 +2,6 @@ NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
              controllers: { registrations: 'users/registrations',
-                            sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
   devise_scope :user do
@@ -20,6 +19,7 @@ NterOne::Application.routes.draw do
       get ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
       get 'leads'               => 'users#leads',           as: :leads
       get 'contacts'            => 'users#contacts',        as: :contacts
+      get 'members'             => 'users#members',         as: :members
       get 'sales_reps'          => 'users#sales_reps',      as: :sales_reps
       get 'leads/:id'           => 'users#show_as_lead',    as: :lead
       get 'contacts/:id'        => 'users#show_as_contact', as: :contact
@@ -223,6 +223,7 @@ NterOne::Application.routes.draw do
     resources :commissions,             only: [:new, :create]
     resources :profit_sheets,           only: [:new, :create]
     resources :instructor_utilizations, only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
   end
 
   controller :admin do
@@ -234,7 +235,6 @@ NterOne::Application.routes.draw do
     get 'admin/courses',                             as: :admin_courses
     get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
-    get 'admin/people',                              as: :admin_people
     get 'admin/website',                             as: :admin_website
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
@@ -246,6 +246,7 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'admin/people'                                => 'users#index',                       as: :admin_people
   get  'instructor/classes'                          => 'instructors#classes',               as: :instructor_classes
   get  'instructor/classes/:id'                      => 'instructors#classes_show',          as: :instructor_classes_show
   get  'welcome'                                     => 'general#sign_up_confirmation',      as: :welcome
@@ -273,6 +274,7 @@ NterOne::Application.routes.draw do
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
   get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
+  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',   as: :learning_credits_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
@@ -290,6 +292,8 @@ NterOne::Application.routes.draw do
   get  'sims/versastack'                             => 'general#sims',                      as: :sims
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
@@ -329,4 +333,5 @@ NterOne::Application.routes.draw do
   post 'sales_force/upload_tasks'                  => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
   get 'sales_force/form_for_other'                 => 'sales_force#form_for_other',               as: :sales_force_form_for_other
   post 'sales_force/upload_other'                  => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
+  post 'fly_forms/update'      => 'fly_forms#update',           as: :fly_form
 end

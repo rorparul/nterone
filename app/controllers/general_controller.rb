@@ -95,6 +95,8 @@ class GeneralController < ApplicationController
           flash[:success] = 'Message successfully sent.'
           if params[:origin] == "course"
             redirect_to course_inquiry_confirmation_path
+          elsif params[:origin] == "learning_credits"
+            redirect_to learning_credits_inquiry_confirmation_path
           else
             redirect_to general_inquiry_confirmation_path
           end

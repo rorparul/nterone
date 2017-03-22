@@ -34,6 +34,15 @@
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
+              
+        .radio
+          label
+            input type="radio" name="selection" id="selection_all_companies" value="all_companies" checked='true'
+            | All Companies
+        .radio
+          label
+            input type="radio" name="selection" id="selection_my_contacts" value="my_companies" checked='true'
+            | My Companies
     = smart_listing_render(:companies)
       
 javascript:
