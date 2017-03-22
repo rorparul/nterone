@@ -6,15 +6,36 @@ class CustomMailer < Devise::Mailer
 
   def welcome_experts_exchange(user)
     @user = user
-    mail(to: @user.email,
-         bcc: ["bob@nterone.com", "sales#{I18n.t('email')}", "helpdesk#{I18n.t('email')}", "billing#{I18n.t('email')}", 'stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net'],
-         subject: "Welcome to #{t'website'}!")
+    mail(
+      to: @user.email,
+      bcc: [
+        "bob@nterone.com",
+        "sales#{I18n.t('email')}",
+        "helpdesk#{I18n.t('email')}",
+        "billing#{I18n.t('email')}",
+        'stephanie.pouse@madwiremedia.com',
+        'marketing360+m9874@bcc.mad360.net',
+        'marketing360+M10780@bcc.mad360.net',
+        'marketing360+M10794@bcc.mad360.net'
+      ],
+      subject: "Welcome to #{t'website'}!"
+    )
   end
 
   def welcome(user)
     @user = user
-    mail(to: @user.email,
-         bcc: ["sales#{I18n.t('email')}", "helpdesk#{I18n.t('email')}", "billing#{I18n.t('email')}", 'stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net'],
-         subject: "Welcome to #{t'website'}!")
+    mail(
+      to: @user.email,
+      bcc: [
+        "sales#{I18n.t('email')}",
+        "helpdesk#{I18n.t('email')}",
+        "billing#{I18n.t('email')}",
+        'stephanie.pouse@madwiremedia.com',
+        'marketing360+m9874@bcc.mad360.net',
+        'marketing360+M10780@bcc.mad360.net',
+        'marketing360+M10794@bcc.mad360.net'
+      ],
+      subject: "Welcome to #{t'website'}!"
+    )
   end
 end

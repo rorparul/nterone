@@ -2,7 +2,6 @@ NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
              controllers: { registrations: 'users/registrations',
-                            sessions: 'users/sessions',
                             invitations:   'users/invitations' }
 
   devise_scope :user do
@@ -275,6 +274,7 @@ NterOne::Application.routes.draw do
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
   get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
+  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',   as: :learning_credits_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
@@ -292,6 +292,8 @@ NterOne::Application.routes.draw do
   get  'sims/versastack'                             => 'general#sims',                      as: :sims
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
@@ -326,7 +328,8 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/editor"                 => 'general#editor_upload_photo'
-  get 'sales_force/form'                 => 'sales_force#form',                   as: :sales_force_form
-  post 'sales_force/upload'              => 'sales_force#upload',                 as: :sales_force_upload
+  post "public/uploads/editor" => 'general#editor_upload_photo'
+  get  'sales_force/form'      => 'sales_force#form',           as: :sales_force_form
+  post 'sales_force/upload'    => 'sales_force#upload',         as: :sales_force_upload
+  post 'fly_forms/update'      => 'fly_forms#update',           as: :fly_form
 end
