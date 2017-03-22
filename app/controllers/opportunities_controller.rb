@@ -10,8 +10,8 @@ class OpportunitiesController < ApplicationController
   layout 'admin'
 
   def index
-    start_date = params[:start_date]
-    end_date   = params[:end_date]
+    date_start = Date.parse params[:date_start].values.join("-") if params[:date_start]
+    date_end   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
     if current_user.admin? || current_user.sales_manager?
       @owners = User.all_sales
@@ -41,11 +41,11 @@ class OpportunitiesController < ApplicationController
 
     if params[:selection] == 'closed'
       if params[:date_start].present? && params[:date_end].present?
-        opportunities_scope = opportunities_scope.where(date_closed: params[:date_start]..params[:date_end])
+        opportunities_scope  = opportunities_scope.where(date_closed: date_start..date_end)
       elsif params[:date_start].present?
-        opportunities_scope = opportunities_scope.where("date_closed >= '#{params[:date_start]}'")
+        opportunities_scope  = opportunities_scope.where("date_closed >= '#{date_start}'")
       elsif params[:date_end].present?
-        opportunities_scope = opportunities_scope.where("date_closed <= '#{params[:date_end]}'")
+        opportunities_scope  = opportunities_scope.where("date_closed <= '#{date_end}'")
       end
     end
 
@@ -62,7 +62,7 @@ class OpportunitiesController < ApplicationController
         [:date_closed, 'date_closed'],
         [:amount, 'amount']
       ],
-      default_sort: { created_at: 'desc' }
+      default_sort: { date_closed: 'desc' }
     )
   end
 

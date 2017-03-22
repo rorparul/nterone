@@ -70,7 +70,7 @@ wb.styles do |style|
       "",
       "Total NterOne Sales",
       "",
-      "$#{number_with_delimiter(sum_of(@opportunities, 'amount'))}"
+      "$#{number_with_delimiter(sum_of(@opportunities, 'amount') + sum_of(@company_sales, 'amount'))}"
     ]
 
     sheet.add_row sum_of_all_sales, style: Array.new(sum_of_all_sales.size, color)

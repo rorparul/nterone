@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(version: 20170321193908) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -164,7 +164,6 @@ ActiveRecord::Schema.define(version: 20170321193908) do
     t.string   "website"
     t.integer  "parent_id"
     t.string   "industry_code"
-    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -283,6 +282,7 @@ ActiveRecord::Schema.define(version: 20170321193908) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
+    t.string   "company"
     t.integer  "theater"
   end
 
@@ -919,6 +919,18 @@ ActiveRecord::Schema.define(version: 20170321193908) do
 
   add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
   add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "activity_date"
+    t.text     "description"
+    t.integer  "rep_id"
+    t.integer  "priority",      default: 2
+    t.string   "subject"
+    t.integer  "user_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "complete",      default: false
+  end
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
