@@ -39,6 +39,7 @@ class GeneralController < ApplicationController
   end
 
   def industry
+    redirect_to root_path unless Setting.tld == "com"
     @page              = Page.find_by(title: 'Industry Index')
     @industry_articles = Article.where(kind: "Industry Article").order(created_at: :desc)
   end
