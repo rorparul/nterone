@@ -4,7 +4,7 @@
       = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
         label Request Information
         
-        = f.hidden_field :recipient, value: "sales#{t('email')}"
+        = f.hidden_field :recipient, value: "sales@nterone.#{Setting.tld}"
         = f.hidden_field :subject, value: "Please contact me in regards to #{@course.full_title}."
           
         .form-group

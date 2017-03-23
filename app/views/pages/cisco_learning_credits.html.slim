@@ -20,7 +20,7 @@
     .panel.panel-default
       .panel-body
         = form_for :contact_us, url: contact_us_path(origin: "learning_credits"), method: :post, html: { class: 'contact-us-form' } do |f|
-          = f.hidden_field :recipient, value: "sales#{t('email')}"
+          = f.hidden_field :recipient, value: "sales@nterone.#{Setting.tld}"
           = f.hidden_field :subject, value: "Cisco Learning Credits Inquiry"
             
           .form-group
