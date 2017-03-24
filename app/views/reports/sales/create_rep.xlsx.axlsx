@@ -27,7 +27,7 @@ wb.styles do |style|
         "$#{number_with_delimiter(sale.amount)}"
       ]
     end
-    
+
       sum_of_group_sales = [
         "",
         "",
@@ -35,7 +35,7 @@ wb.styles do |style|
         "",
         "",
         "Total",
-        "$#{number_with_delimiter(sum_of(@opportunities, 'amount'))}"
+        "$#{number_with_delimiter( sum_of(@opportunities, 'amount') - sum_of(@opportunities.lost, 'amount') )}"
       ]
 
       sheet.add_row sum_of_group_sales, style: Array.new(sum_of_group_sales.size, color)

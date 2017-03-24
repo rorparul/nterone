@@ -36,7 +36,7 @@ wb.styles do |style|
         "",
         "",
         "Total",
-        "$#{number_with_delimiter(sum_of(sales, 'amount'))}"
+        "$#{number_with_delimiter( sum_of(sales, 'amount') - sum_of(array_to_records(sales, Opportunity).lost, 'amount') )}"
       ]
 
       sheet.add_row sum_of_group_sales, style: Array.new(sum_of_group_sales.size, color)
@@ -61,7 +61,7 @@ wb.styles do |style|
       "",
       "Total Company Sales",
       "",
-      "$#{number_with_delimiter(sum_of(@company_sales, 'amount'))}"
+      "$#{number_with_delimiter( sum_of(@company_sales, 'amount') - sum_of(@company_sales.lost, 'amount') )}"
     ]
 
     sheet.add_row sum_of_company_sales, style: Array.new(sum_of_company_sales.size, color)
@@ -73,7 +73,7 @@ wb.styles do |style|
       "",
       "Total NterOne Sales",
       "",
-      "$#{number_with_delimiter(sum_of(@opportunities, 'amount') + sum_of(@company_sales, 'amount'))}"
+      "$#{number_with_delimiter( sum_of(@opportunities, 'amount') - sum_of(@opportunities.lost, 'amount') )}"
     ]
 
     sheet.add_row sum_of_all_sales, style: Array.new(sum_of_all_sales.size, color)

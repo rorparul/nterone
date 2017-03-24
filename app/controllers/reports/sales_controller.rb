@@ -9,20 +9,22 @@ class Reports::SalesController < ApplicationController
   def create
     start_date = parse_date_select(report_params, :start_date)
     end_date = parse_date_select(report_params, :end_date)
+
+    @opportunities  = Opportunity.where(date_closed: start_date..end_date).where.not(customer_id: nil)
+    @opportunities  = @opportunities.where(waiting: false) unless params[:report][:waiting] == "1"
+    @opportunities  = @opportunities.closed                unless params[:report][:open] == "1"
+
     if current_user.admin?
-      @opportunities  = Opportunity.where(date_closed: start_date..end_date, reason_for_loss: nil).where.not(customer_id: nil)
-      @opportunities  = @opportunities.where(waiting: false) unless params[:waiting]
-      @opportunities  = @opportunities.closed                unless params[:open]
       @company_sales  = @opportunities.where(employee_id: nil)
-      @employee_sales = @opportunities.where.not(employee_id: nil)
-      @grouped_sales  = @employee_sales.group_by {|opportunity| opportunity.employee}
+      employee_sales  = @opportunities.where.not(employee_id: nil)
+      @grouped_sales  = employee_sales.group_by {|opportunity| opportunity.employee}
       respond_to do |format|
         format.xlsx {
           render xlsx: 'sales_report', file: 'reports/sales/create_admin.xlsx.axlsx'
         }
       end
     else
-      @opportunities = Opportunity.where(date_closed: start_date..end_date, employee_id: current_user.id, reason_for_loss: nil).where.not(customer_id: nil)
+      @opportunities  = @opportunities.where(employee_id: current_user.id)
       respond_to do |format|
         format.xlsx {
           render xlsx: 'sales_report', file: 'reports/sales/create_rep.xlsx.axlsx'
