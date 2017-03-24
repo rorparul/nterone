@@ -13,17 +13,27 @@
         hr
         .categories.hidden-xs
           - platform.parent_categories.order(:position).each do |category|
-            = link_to category.title,
-                      platform_category_path(category.platform, category),
-                      class: "btn btn-category category"
+            - if category.title == "Self-Paced"
+              = link_to category.title,
+                        cisco_self_paced_path,
+                        class: "btn btn-category category"
+            - else
+              = link_to category.title,
+                        platform_category_path(category.platform, category),
+                        class: "btn btn-category category"
         .categories-mobile.visible-xs
           .panel-group
             - platform.parent_categories.order(:position).each do |category|
               .panel
                 .panel-heading
-                  = link_to category.title,
-                            platform_category_path(category.platform, category),
-                            class: "btn btn-category category"
+                  - if category.title == "Self-Paced"
+                    = link_to category.title,
+                              cisco_self_paced_path,
+                              class: "btn btn-category category"
+                  - else
+                    = link_to category.title,
+                              platform_category_path(category.platform, category),
+                              class: "btn btn-category category"
   - if user_signed_in? && current_user.admin?
     .platform-item-edit
       .dropdown.pull-left
