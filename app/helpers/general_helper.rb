@@ -216,4 +216,11 @@ module GeneralHelper
     end
     return sum
   end
+
+  # First arument is an array
+  # Second argument is the Class of the objects contained in the array
+  def array_to_records(array, object)
+    array = array.map {|i| i.id }
+    return object.where(id: array)
+  end
 end

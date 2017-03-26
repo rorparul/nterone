@@ -11,6 +11,16 @@
           = f.label :end_date, t('reports.profit_sheets.partial_form.end')
           br
           = f.date_select :end_date, class: 'form-control input-sm'
+          
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :open, "Include Open", style: "margin-right: 5px;"
+          = f.check_box :open
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :waiting, "Include Waiting", style: "margin-right: 5px;"
+          = f.check_box :waiting
   
   
     button.btn.btn-success
