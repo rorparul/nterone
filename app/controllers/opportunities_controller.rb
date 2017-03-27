@@ -149,11 +149,11 @@ class OpportunitiesController < ApplicationController
       end
     end
 
-    opportunities_scope = opportunities_scope.where(account_id: params[:filter][:account]) if params[:filter][:account].present?
-    opportunities_scope = opportunities_scope.where(partner_id: params[:filter][:partner]) if params[:filter][:partner].present?
+    opportunities_scope = opportunities_scope.where(account_id: params[:filter][:account])   if params[:filter][:account].present?
+    opportunities_scope = opportunities_scope.where(partner_id: params[:filter][:partner])   if params[:filter][:partner].present?
     opportunities_scope = opportunities_scope.where(employee_id: params[:filter][:employee]) if params[:filter][:employee].present?
     opportunities_scope = opportunities_scope.where(customer_id: params[:filter][:customer]) if params[:filter][:customer].present?
-    opportunities_scope = opportunities_scope.where(course_id: params[:filter][:course]) if params[:filter][:course].present?
+    opportunities_scope = opportunities_scope.where(course_id: params[:filter][:course])     if params[:filter][:course].present?
 
     @opportunities = opportunities_scope.all
   end

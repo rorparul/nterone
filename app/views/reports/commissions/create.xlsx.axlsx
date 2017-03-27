@@ -28,7 +28,6 @@ wb.styles do |style|
       ]
     end
 
-
     style = style.add_style(bg_color: 'F7B079', alignment: { horizontal: :left })
 
     sheet.add_row(
