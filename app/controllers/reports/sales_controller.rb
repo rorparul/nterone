@@ -14,6 +14,8 @@ class Reports::SalesController < ApplicationController
     @opportunities = @opportunities.waiting if report_params[:status] == "waiting"
     @opportunities = @opportunities.won     if report_params[:status] == "won"
 
+    @remove_percent_column = report_params[:status] == "won"
+
     if current_user.admin?
       @company_sales = @opportunities.where(employee_id: nil)
       employee_sales = @opportunities.where.not(employee_id: nil)
