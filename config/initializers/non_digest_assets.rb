@@ -1,1 +1,1 @@
-NonStupidDigestAssets.whitelist += ["static-banners/*/cisco-learning-credits.png"]
+# NonStupidDigestAssets.whitelist += ["static-banners/*/cisco-learning-credits.png"]
