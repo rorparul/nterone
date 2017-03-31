@@ -296,6 +296,8 @@ GEM
     net-ssh (3.2.0)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
+    non-stupid-digest-assets (1.0.9)
+      sprockets (>= 2.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -574,6 +576,7 @@ DEPENDENCIES
   meta_request (~> 0.3.4)
   mini_magick
   momentjs-rails (>= 2.9.0)
+  non-stupid-digest-assets
   parsley-rails
   passenger
   pg
