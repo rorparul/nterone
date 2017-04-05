@@ -70,7 +70,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def update_event_status
-    if orderable_type == "Event"
+    if orderable_type == "Event" && self.orderable.present?
       if self.orderable.order_items.where(cart_id: nil).all? { |order_item| order_item.status == "complete" }
         orderable.update_attributes(status: "Confirmed")
       else
