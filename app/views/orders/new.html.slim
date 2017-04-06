@@ -64,22 +64,22 @@
   .row
     .col-xs-12
       = form_tag "https://checkout.e-xact.com/pay", method: :post
-        / The payment data.
         - x_amount        = number_with_precision(@cart.total_price, precision: 2)
-        - x_login         = "HCO-NTERO-710"  #  Take from Payment Page ID in Payment Pages interface
-        - transaction_key = "DTxm3lRAIaSfWHwTGnsN" # Take from Payment Pages configuration interface
-        - x_currency_code = "CAD" #  Needs to agree with the currency of the payment page
+        - x_login         = "HCO-NTERO-710"
+        - transaction_key = "DTxm3lRAIaSfWHwTGnsN"
+        - x_currency_code = "CAD"
         - x_fp_sequence   = ((rand*100000).to_i + 2000).to_s
-        - x_fp_timestamp  = Time.now.to_i.to_s # needs to be in UTC. Make sure webserver produces UTC
-         
-        / The values that contribute to x_fp_hash 
-        - hmac_data = "#{x_login}^#{x_fp_sequence}^#{x_fp_timestamp}^#{x_amount}^#{x_currency_code}"
+        - x_fp_timestamp  = Time.now.to_i.to_s
+        - hmac_data       = "#{x_login}^#{x_fp_sequence}^#{x_fp_timestamp}^#{x_amount}^#{x_currency_code}"
+        - x_fp_hash       = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("md5"), transaction_key, hmac_data)
         
-        / Calculate HMAC-SHA1 
-        - x_fp_hash = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"),transaction_key, hmac_data)
-        
-        / Or, to calculate HMAC-MD5, comment out above and uncomment below
-        / - x_fp_hash = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("md5"),transaction_key, hmac_data)
+        - p x_amount
+        - p x_login
+        - p transaction_key
+        - p x_currency_code
+        - p x_fp_sequence
+        - p x_fp_timestamp
+        - p x_fp_hash
         
         = hidden_field_tag "x_amount", x_amount
         = hidden_field_tag "x_login", x_login
@@ -97,9 +97,64 @@
           - if order_item.orderable_type == "LabRental"
             = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.lab_course.title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>NO"
               
-        .form-buttons
-          button.btn.btn-success type="submit"
-           | Pay with E-xact Transactions
+        .panel.panel-default
+          .panel-heading
+            strong.text-muted
+              | Cisco Learning Credits and Promotion Info
+          .panel-body
+            - if @cart.any_not_applicable_for_credits?
+              .row
+                .col-xs-12
+                  .form-group
+                    .text-warning
+                      strong  
+                        = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
+                      = t('orders.new.caption1')
+                      = t('orders.new.caption2')
+                      = "#{t('orders.new.caption3')} "
+                      = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
+                      = t('orders.new.caption4')
+                      strong 703-972-2288, 
+                      = t('orders.new.caption5')
+                    
+            .row
+              .col-xs-12  
+                fieldset
+                  .form-group
+                    label = t('orders.new.payment_method')
+                    br
+                    = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button', checked: true
+                    = " #{t('orders.new.credit_card')}"
+                    = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', style: 'margin-left: 10px;', disabled: @cart.any_not_applicable_for_credits?
+                    = " #{t('orders.new.cisco_learning_credits')}"
+
+            .row
+              .col-xs-12.col-md-6
+                .form-group
+                  = label_tag :discount_code, t('orders.new.promotion_code')
+                  .input-group
+                    = text_field_tag :discount_code, nil, class: "form-control input-sm discount-code-input"
+                    .input-group-btn
+                      button#apply-code.btn.btn-success type="button"
+                        = t('orders.new.apply_code')
+                    
+            .row
+              .col-xs-12     
+                .well
+                  = f.hidden_field :discount_id
+                  .cc-method
+                    label = t('orders.new.cc_paid')
+                    = f.hidden_field :paid, value: @cart.total_price
+                    .total = "$#{number_with_delimiter(number_with_precision(@cart.total_price, precision: 2))}"
+                  .clc-method
+                    label = t('orders.new.clc_quantity')
+                    = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
+                    .total = @cart.credits_required_for_total_applicable_for_credits
+                      
+          .panel-footer
+            .form-buttons
+              button.btn.btn-success type="submit"
+               | Pay with E-xact Transactions
 - else
   .row
     .col-xs-12
@@ -119,7 +174,7 @@
                       = t('orders.new.caption1')
                       = t('orders.new.caption2')
                       = "#{t('orders.new.caption3')} "
-                      = mail_to "sales#{t('defaul.contact.email')}", "sales#{t('default.contact.email')}"
+                      = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
                       = t('orders.new.caption4')
                       strong 703-972-2288, 
                       = t('orders.new.caption5')
