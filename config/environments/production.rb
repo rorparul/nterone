@@ -96,19 +96,20 @@ NterOne::Application.configure do
   }
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
-  :email => {
-    :email_prefix => "[NterOne/Company Website] ",
-    :sender_address => %{"Issue Notifier" <exceptionnotificationservice@gmail.com>},
-    :exception_recipients => %w{ryanstorberg@icloud.com},
-    :delivery_method => :smtp,
-    :smtp_settings => {
-      :address              => 'smtp.gmail.com',
-      :domain               => 'gmail.com',
-      :port                 => 587,
-      :user_name            => 'exceptionnotificationservice@gmail.com',
-      :password             => 'UMUp8WnxHY"z',
-      :authentication       => :login,
-      :enable_starttls_auto => true
+    :email => {
+      :email_prefix         => "[NterOne/Company Website] ",
+      :sender_address       => %{"Issue Notifier" <exceptionnotificationservice@gmail.com>},
+      :exception_recipients => %w{ryanstorberg@icloud.com},
+      :error_grouping       => true,
+      :delivery_method      => :smtp,
+      :smtp_settings => {
+        :address              => 'smtp.gmail.com',
+        :domain               => 'gmail.com',
+        :port                 => 587,
+        :user_name            => 'exceptionnotificationservice@gmail.com',
+        :password             => 'UMUp8WnxHY"z',
+        :authentication       => :login,
+        :enable_starttls_auto => true
+      }
     }
-  }
 end
