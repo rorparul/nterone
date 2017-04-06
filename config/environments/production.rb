@@ -99,7 +99,7 @@ NterOne::Application.configure do
   :email => {
     :email_prefix => "[NterOne/Company Website] ",
     :sender_address => %{"Issue Notifier" <exceptionnotificationservice@gmail.com>},
-    :exception_recipients => %w{ryanstorberg@icloud.com}
+    :exception_recipients => %w{ryanstorberg@icloud.com},
     :delivery_method => :smtp,
     :smtp_settings => {
       :address              => 'smtp.gmail.com',
