@@ -88,7 +88,6 @@ NterOne::Application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.office365.com',
     port:                 587,
-    domain:               'nterone.com',
     user_name:            'email@nterone.com',
     password:             'jWD{5FTTrTix',
     authentication:       :login,
@@ -97,8 +96,8 @@ NterOne::Application.configure do
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     email: {
-      email_prefix:        '[NterOne/Company Website] ',
-      sender_address:      %{"Exception Notifier" <email@nterone.com>},
-      exception_recipients: %w{ryanstorberg@icloud.com}
+      email_prefix:         "[NterOne/Company Website (#{Setting.tld})] ",
+      sender_address:       "'Exception Notification' <email@nterone.com>",
+      exception_recipients: ['ryanstorberg@icloud.com']
     }
 end
