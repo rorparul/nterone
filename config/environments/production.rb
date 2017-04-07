@@ -96,7 +96,7 @@ NterOne::Application.configure do
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     :email => {
-      :email_prefix         => "NterOne/Company Website (.#{Setting.tld}): ",
+      :email_prefix         => "[NterOne/Company Website] ",
       :sender_address       => "'Exception Notification' <email@nterone.com>",
       :exception_recipients => ['ryanstorberg@icloud.com']
     }
