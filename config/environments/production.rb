@@ -86,18 +86,18 @@ NterOne::Application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method       = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.office365.com',
-    port:                 587,
-    user_name:            'email@nterone.com',
-    password:             'jWD{5FTTrTix',
-    authentication:       :login,
-    enable_starttls_auto: true
+    :address              => 'smtp.office365.com',
+    :port                 => 587,
+    :user_name            => 'email@nterone.com',
+    :password             => 'jWD{5FTTrTix',
+    :authentication       => :login,
+    :enable_starttls_auto => true
   }
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
-    email: {
-      email_prefix:         "[NterOne/Company Website (#{Setting.tld})] ",
-      sender_address:       "'Exception Notification' <email@nterone.com>",
-      exception_recipients: ['ryanstorberg@icloud.com']
+    :email => {
+      :email_prefix         => "[NterOne/Company Website (#{Setting.tld})] ",
+      :sender_address       => "'Exception Notification' <email@nterone.com>",
+      :exception_recipients => ['ryanstorberg@icloud.com']
     }
 end
