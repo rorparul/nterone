@@ -82,34 +82,23 @@ NterOne::Application.configure do
 
   Rails.application.routes.default_url_options[:host] = Setting.host
 
-  config.action_mailer.default_url_options = { host: Setting.host }
+  config.action_mailer.default_url_options   = { host: Setting.host }
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method       = :smtp
   config.action_mailer.smtp_settings = {
     :address              => 'smtp.office365.com',
     :domain               => 'nterone.com',
     :port                 => 587,
-    :user_name            => "nci@nterone.com",
-    :password             => 'Ni2017!!',
+    :user_name            => 'email@nterone.com',
+    :password             => 'jWD{5FTTrTix',
     :authentication       => :login,
     :enable_starttls_auto => true
   }
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
     :email => {
-      :email_prefix         => "[NterOne/Company Website] ",
-      :sender_address       => %{"Issue Notifier" <exceptionnotificationservice@gmail.com>},
-      :exception_recipients => %w{ryanstorberg@icloud.com},
-      :error_grouping       => true,
-      :delivery_method      => :smtp,
-      :smtp_settings => {
-        :address              => 'smtp.gmail.com',
-        :domain               => 'gmail.com',
-        :port                 => 587,
-        :user_name            => 'exceptionnotificationservice@gmail.com',
-        :password             => 'UMUp8WnxHY"z',
-        :authentication       => :login,
-        :enable_starttls_auto => true
-      }
+      :email_prefix => "[NterOne/NCI] ",
+      :sender_address => %{"Issue Notifier" <email@nterone.com>},
+      :exception_recipients => %w{ryanstorberg@icloud.com}
     }
 end

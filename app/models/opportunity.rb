@@ -53,7 +53,7 @@ class Opportunity < ActiveRecord::Base
     attributes partner:  ['partner.title', 'partner.industry_code']
   end
 
-  before_save :update_title,       if: proc { |model| model.title.blank? && model.course.present? }
+  before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   # before_save :update_date_closed, if: proc { |model| model.stage_changed? }
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
