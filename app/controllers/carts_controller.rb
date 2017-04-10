@@ -12,6 +12,19 @@ class CartsController < ApplicationController
 
     @price ||= discounted_total(@cart, @discount) if @discount
     @price ||= @cart.total_price
+
+    if params[:form] == 'ca'
+      @x_amount        = @price
+      @x_login         = 'HCO-NTERO-710'
+      @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
+      @x_currency_code = 'CAD'
+      @x_fp_sequence   = ((rand*100000).to_i + 2000).to_s
+      @x_fp_timestamp  = Time.now.to_i.to_s
+      @hmac_data       = "#{@x_login}^#{@x_fp_sequence}^#{@x_fp_timestamp}^#{@x_amount}^#{@x_currency_code}"
+      @x_fp_hash       = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('md5'), @transaction_key, @hmac_data)
+
+      return render 'render_discount_for_ca'
+    end
   end
 
   def show
@@ -21,7 +34,6 @@ class CartsController < ApplicationController
 
   def destroy
     cart = Cart.find(params[:id])
-    p cart
     cart.destroy
     redirect_to :back
   end

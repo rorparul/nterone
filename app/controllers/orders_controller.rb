@@ -17,6 +17,10 @@ class OrdersController < ApplicationController
     else
       @order = Order.new
     end
+
+    if Setting.tld == 'ca' && params[:form] != 'default'
+      return render 'new_for_ca'
+    end
   end
 
   def create

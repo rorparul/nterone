@@ -1,0 +1,21 @@
+<% if @discount.present? %>
+  $('.discount-code-input').css({'border': '1px solid green', 'color': 'green'});
+  $('#order_discount_id').val("<%= @discount.id %>");
+  $('.cc-method #order_paid').val("<%= @x_amount %>");
+  $('.cc-method .total').text("$<%= number_with_delimiter(number_with_precision(@x_amount, precision: 2)) %> (after <%= formatted_discount(@discount) %> discount applied to applicable items)");
+  $('#x_amount').val("<%= number_with_precision(@x_amount, precision: 2) %>");
+  $('#x_login').val("<%= @x_login %>");
+  $('#x_fp_sequence').val("<%= @x_fp_sequence %>");
+  $('#x_fp_timestamp').val("<%= @x_fp_timestamp %>");
+  $('#x_fp_hash').val("<%= @x_fp_hash %>");
+<% else %>
+  $('.discount-code-input').css({'border': '1px solid red', 'color': 'red'});
+  $('#order_discount_id').val("<%= nil %>");
+  $('.cc-method #order_paid').val("<%= @x_amount %>");
+  $('.cc-method .total').text("$<%= number_with_delimiter(number_with_precision(@x_amount, precision: 2)) %>");
+  $('#x_amount').val("<%= number_with_precision(@x_amount, precision: 2) %>");
+  $('#x_login').val("<%= @x_login %>");
+  $('#x_fp_sequence').val("<%= @x_fp_sequence %>");
+  $('#x_fp_timestamp').val("<%= @x_fp_timestamp %>");
+  $('#x_fp_hash').val("<%= @x_fp_hash %>");
+<% end %>
