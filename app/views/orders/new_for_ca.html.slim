@@ -62,7 +62,8 @@
 
 .row
   .col-xs-12
-    = form_tag "https://checkout.e-xact.com/pay", method: :post
+    / = form_tag "https://checkout.e-xact.com/pay", method: :post
+    = form_tag "https://rpm.demo.e-xact.com/payment", method: :post
       - x_amount        = number_with_precision(@cart.total_price, precision: 2)
       - x_login         = "HCO-NTERO-710"
       - transaction_key = "DTxm3lRAIaSfWHwTGnsN"
@@ -90,11 +91,11 @@
       = hidden_field_tag :x_test_request, "TRUE"
       - @cart.order_items.each do |order_item|
         - if order_item.orderable_type == 'Event'
-          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.course.full_title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>NO"
+          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.course.full_title}<|>#{order_item.orderable.course.full_title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>YES"
         - if order_item.orderable_type == 'VideoOnDemand'
-          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.full_title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>NO"
+          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.full_title}<|>#{order_item.orderable.full_title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>YES"
         - if order_item.orderable_type == "LabRental"
-          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.lab_course.title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>NO"
+          = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.lab_course.title}<|>#{order_item.orderable.lab_course.title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>YES"
             
       .panel.panel-default
         .panel-heading

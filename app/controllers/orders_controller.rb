@@ -18,6 +18,8 @@ class OrdersController < ApplicationController
       @order = Order.new
     end
 
+    return render 'new_for_ca'
+
     if Setting.tld == 'ca' && params[:form] != 'default'
       return render 'new_for_ca'
     end
@@ -149,6 +151,16 @@ class OrdersController < ApplicationController
     return redirect_to root_path unless current_user.buyer_orders.pluck(:id).include?(@order.id)
   end
 
+  def exact_confirmation
+    if params[:x_response_code] == 1
+      p "Success!"
+    elsif params[:x_response_code] == 2
+      p "Declined!"
+    elsif params[:x_response_code] == 3
+      p "Error!"
+    end
+  end
+
   private
 
   def set_order
@@ -156,97 +168,109 @@ class OrdersController < ApplicationController
   end
 
   def user_params
-    params.require(:order).permit(:same_addresses,
-                                  :billing_first_name,
-                                  :billing_last_name,
-                                  :billing_street,
-                                  :billing_city,
-                                  :billing_state,
-                                  :billing_zip_code,
-                                  :shipping_first_name,
-                                  :shipping_last_name,
-                                  :shipping_street,
-                                  :shipping_city,
-                                  :shipping_state,
-                                  :shipping_zip_code,
-                                  :referring_partner_email)
+    params.require(:order).permit(
+      :same_addresses,
+      :billing_first_name,
+      :billing_last_name,
+      :billing_street,
+      :billing_city,
+      :billing_state,
+      :billing_zip_code,
+      :shipping_first_name,
+      :shipping_last_name,
+      :shipping_street,
+      :shipping_city,
+      :shipping_state,
+      :shipping_zip_code,
+      :referring_partner_email
+    )
   end
 
   def order_params
-    params.require(:order).permit(:seller_id,
-                                  :buyer_id,
-                                  :status,
-                                  :payment_type,
-                                  :same_addresses,
-                                  :billing_company,
-                                  :billing_first_name,
-                                  :billing_last_name,
-                                  :billing_street,
-                                  :billing_city,
-                                  :billing_state,
-                                  :billing_zip_code,
-                                  :discount_id,
-                                  :shipping_company,
-                                  :shipping_first_name,
-                                  :shipping_last_name,
-                                  :shipping_street,
-                                  :shipping_city,
-                                  :shipping_state,
-                                  :shipping_zip_code)
+    params.require(:order).permit(
+      :seller_id,
+      :buyer_id,
+      :status,
+      :payment_type,
+      :same_addresses,
+      :billing_company,
+      :billing_first_name,
+      :billing_last_name,
+      :billing_street,
+      :billing_city,
+      :billing_state,
+      :billing_zip_code,
+      :discount_id,
+      :shipping_company,
+      :shipping_first_name,
+      :shipping_last_name,
+      :shipping_street,
+      :shipping_city,
+      :shipping_state,
+      :shipping_zip_code
+    )
   end
 
   def cc_params
-    params.require(:order).permit(:credit_card_number,
-                                  :expiration_month,
-                                  :expiration_year,
-                                  :security_code,
-                                  :paid)
+    params.require(:order).permit(
+      :credit_card_number,
+      :expiration_month,
+      :expiration_year,
+      :security_code,
+      :paid
+    )
   end
 
   def clc_params
-    params.require(:order).permit(:clc_number,
-                                  :clc_quantity)
+    params.require(:order).permit(
+      :clc_number,
+      :clc_quantity
+    )
   end
 
   def order_params_admin
-    params.require(:order).permit(:seller_id,
-                                  :buyer_id,
-                                  :clc_number,
-                                  :clc_quantity,
-                                  :payment_type,
-                                  :paid,
-                                  :po_paid,
-                                  :invoice_number,
-                                  :reviewed,
-                                  :gilmore_order_number,
-                                  :gilmore_invoice,
-                                  :royalty_id,
-                                  :po_number,
-                                  :closed_date,
-                                  :referring_partner_email,
-                                  :same_addresses,
-                                  :billing_company,
-                                  :billing_first_name,
-                                  :billing_last_name,
-                                  :billing_street,
-                                  :billing_city,
-                                  :billing_state,
-                                  :billing_zip_code,
-                                  :shipping_company,
-                                  :shipping_first_name,
-                                  :shipping_last_name,
-                                  :shipping_street,
-                                  :shipping_city,
-                                  :shipping_state,
-                                  :shipping_zip_code,
-                                  :source,
-                                  :other_source,
-                                  order_items_attributes: [:id,
-                                                           :user_id,
-                                                           :orderable_id,
-                                                           :orderable_type,
-                                                           :price,
-                                                           :_destroy])
+    params.require(:order).permit(
+      :seller_id,
+      :buyer_id,
+      :clc_number,
+      :clc_quantity,
+      :payment_type,
+      :paid,
+      :po_paid,
+      :invoice_number,
+      :reviewed,
+      :gilmore_order_number,
+      :gilmore_invoice,
+      :royalty_id,
+      :po_number,
+      :closed_date,
+      :referring_partner_email,
+      :same_addresses,
+      :billing_company,
+      :billing_first_name,
+      :billing_last_name,
+      :billing_street,
+      :billing_city,
+      :billing_state,
+      :billing_zip_code,
+      :shipping_company,
+      :shipping_first_name,
+      :shipping_last_name,
+      :shipping_street,
+      :shipping_city,
+      :shipping_state,
+      :shipping_zip_code,
+      :source,
+      :other_source,
+      order_items_attributes: [
+        :id,
+        :user_id,
+        :orderable_id,
+        :orderable_type,
+        :price,
+        :_destroy
+      ]
+    )
   end
 
   def valid_input_values?
