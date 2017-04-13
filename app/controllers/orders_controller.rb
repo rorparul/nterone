@@ -13,7 +13,8 @@ class OrdersController < ApplicationController
       @order = Order.new
       @user  = params[:user] ? User.find(params[:user]) : nil
       @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
-      render 'new_admin'
+
+      return render 'new_admin'
     else
       @order = Order.new
     end
@@ -21,6 +22,15 @@ class OrdersController < ApplicationController
     return render 'new_for_ca'
 
     if Setting.tld == 'ca' && params[:form] != 'default'
+      @x_amount        = number_with_precision(@cart.total_price, precision: 2)
+      @x_login         = 'HCO-NTERO-710'
+      @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
+      @x_currency_code = 'CAD'
+      @x_fp_sequence   = ((rand*100000).to_i + 2000).to_s
+      @x_fp_timestamp  = Time.now.to_i.to_s
+      @hmac_data       = "#{@x_login}^#{@x_fp_sequence}^#{@x_fp_timestamp}^#{@x_amount}^#{@x_currency_code}"
+      @x_fp_hash       = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new('md5'), @transaction_key, @hmac_data)
+
       return render 'new_for_ca'
     end
   end
@@ -117,25 +127,6 @@ class OrdersController < ApplicationController
         render json: { success: false }
       end
     end
-    # respond_to do |format|
-    #   if @order.update_attributes(order_params_admin)
-    #     format.html do
-    #       flash[:success] = "Order was successfully updated."
-    #       redirect_to :back
-    #     end
-    #
-    #     format.js do
-    #       render json: { success: true }
-    #     end
-    #   else
-    #     format.html do
-    #       flash[:alert] = "Order failed to update."
-    #       redirect_to :back
-    #     end
-    #
-    #     format.js
-    #   end
-    # end
   end
 
   def destroy
@@ -151,13 +142,50 @@ class OrdersController < ApplicationController
     return redirect_to root_path unless current_user.buyer_orders.pluck(:id).include?(@order.id)
   end
 
-  def exact_confirmation
+  def exact_create
     if params[:x_response_code] == 1
-      p "Success!"
+      # unless valid_input_values?
+      #   flash[:alert] = "Order submission failed. Form was tampered with."
+      #   return redirect_to :back
+      # end
+      #
+      # # Update user information
+      # current_user.update_attributes(user_params)
+
+      # Create transaction
+      @order = current_user.buyer_orders.build
+      # if order_params[:payment_type] == "Credit Card"
+      #   result = handle_credit_card_payment()
+      #
+      #   if result.failure?
+      #     flash[:alert] = "Failed to charge card."
+      #     return redirect_to :back
+      #   end
+      # elsif order_params[:payment_type] == "Cisco Learning Credits"
+      #   @order.assign_attributes(clc_params)
+      # end
+
+      # Create order
+      # @order.assign_attributes(order_params)
+      @order.add_order_items_from_cart(@cart)
+      if @order.save
+        @order.order_items.each do |order_item|
+          current_user.order_items << order_item
+          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+        end
+        flash[:success] = 'You\'ve successfully completed your order. Please check your email for a confirmation.'
+        OrderMailer.confirmation(current_user, @order).deliver_now
+        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+        return redirect_to confirmation_orders_path(@order)
+      else
+        render 'new'
+      end
     elsif params[:x_response_code] == 2
-      p "Declined!"
+      flash[:alert] = 'Your payment was declined.'
+      return redirect_to new_order_path
     elsif params[:x_response_code] == 3
-      p "Error!"
+      flash[:alert] = 'There was an error during the payment process.'
+      return redirect_to new_order_path
     end
   end
 

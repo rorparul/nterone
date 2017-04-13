@@ -44,8 +44,8 @@ NterOne::Application.routes.draw do
   resources :order_items
   resources :orders do
     collection do
-      get  '/:id/confirmation'    => 'orders#confirmation',       as: :confirmation
-      post '/e-xact/confirmation' => 'orders#exact_confirmation', as: :exact_confirmation
+      get  '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+      post '/e-xact/create'    => 'orders#exact_create', as: :exact_create
     end
   end
 
