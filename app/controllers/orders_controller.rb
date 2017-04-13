@@ -4,6 +4,8 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+  skip_before_action :verify_authenticity_token, only: :exact_create
+
   def index
     @orders = Order.order('created_at desc').page(params[:page])
   end
