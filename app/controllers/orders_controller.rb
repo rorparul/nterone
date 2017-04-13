@@ -19,9 +19,7 @@ class OrdersController < ApplicationController
       @order = Order.new
     end
 
-    return render 'new_for_ca'
-
-    if Setting.tld == 'ca' && params[:form] != 'default'
+    if (Setting.tld == 'ca' && params[:form] != 'default') || true
       @x_amount        = number_with_precision(@cart.total_price, precision: 2)
       @x_login         = 'HCO-NTERO-710'
       @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
