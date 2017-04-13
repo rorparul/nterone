@@ -143,7 +143,7 @@ class OrdersController < ApplicationController
   end
 
   def exact_create
-    if params[:x_response_code] == 1
+    if params[:x_response_code] == '1'
       # unless valid_input_values?
       #   flash[:alert] = "Order submission failed. Form was tampered with."
       #   return redirect_to :back
@@ -180,10 +180,10 @@ class OrdersController < ApplicationController
       else
         render 'new'
       end
-    elsif params[:x_response_code] == 2
+    elsif params[:x_response_code] == '2'
       flash[:alert] = 'Your payment was declined.'
       return redirect_to new_order_path
-    elsif params[:x_response_code] == 3
+    elsif params[:x_response_code] == '3'
       flash[:alert] = 'There was an error during the payment process.'
       return redirect_to new_order_path
     end
