@@ -67,7 +67,7 @@
       = hidden_field_tag :user_id, current_user.id
       = hidden_field_tag :cart_id, @cart.id
       
-      = hidden_field_tag :x_amount, @x_amount
+      = hidden_field_tag :x_amount, number_with_precision(@x_amount, precision: 2)
       = hidden_field_tag :x_login, @x_login
       = hidden_field_tag :x_fp_sequence, @x_fp_sequence
       = hidden_field_tag :x_fp_timestamp, @x_fp_timestamp

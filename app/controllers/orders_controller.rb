@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     end
 
     if (Setting.tld == 'ca' && params[:form] != 'default') || true
-      @x_amount        = number_with_precision(@cart.total_price, precision: 2)
+      @x_amount        = @cart.total_price
       @x_login         = 'HCO-NTERO-710'
       @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
       @x_currency_code = 'CAD'
