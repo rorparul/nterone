@@ -14,7 +14,7 @@ class CartsController < ApplicationController
     @price ||= @cart.total_price
 
     if params[:form] == 'ca'
-      @x_amount        = @price
+      @x_amount        = view_context.number_with_precision(@price, precision: 2)
       @x_login         = 'HCO-NTERO-710'
       @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
       @x_currency_code = 'CAD'
