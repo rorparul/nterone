@@ -63,7 +63,7 @@ class Subject < ActiveRecord::Base
   def self.search(query)
     subjects = []
 
-    where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.downcase}%").each do |subject|
+    where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.try(:downcase)}%").each do |subject|
       subjects << subject
     end
 
