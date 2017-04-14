@@ -67,7 +67,7 @@ class Subject < ActiveRecord::Base
       subjects << subject
     end
 
-    Course.where("LOWER(title) like ?", "%#{query.downcase}%").each do |course|
+    Course.where("LOWER(title) like ?", "%#{query.try(:downcase)}%").each do |course|
       course.group_items.each do |group_item|
         if group_item.group
           if group_item.group.header.downcase.include?("recommended")
