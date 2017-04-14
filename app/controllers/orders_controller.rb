@@ -166,7 +166,7 @@ class OrdersController < ApplicationController
       # end
 
       # Create order
-      # @order.assign_attributes(order_params)
+      @order.assign_attributes(paid: params[:x_amount])
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|

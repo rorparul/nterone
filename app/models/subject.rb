@@ -63,11 +63,11 @@ class Subject < ActiveRecord::Base
   def self.search(query)
     subjects = []
 
-    where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.downcase}%").each do |subject|
+    where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.try(:downcase)}%").each do |subject|
       subjects << subject
     end
 
-    Course.where("LOWER(title) like ?", "%#{query.downcase}%").each do |course|
+    Course.where("LOWER(title) like ?", "%#{query.try(:downcase)}%").each do |course|
       course.group_items.each do |group_item|
         if group_item.group
           if group_item.group.header.downcase.include?("recommended")
@@ -95,7 +95,7 @@ class Subject < ActiveRecord::Base
       end
     end
 
-    Exam.where("LOWER(title) like ?", "%#{query.downcase}%").each do |exam|
+    Exam.where("LOWER(title) like ?", "%#{query.try(:downcase)}%").each do |exam|
       exam.exam_and_course_dynamics.each do |exam_and_course_dynamic|
         exam_and_course_dynamic.group_items.each do |group_item|
           if group_item.group
