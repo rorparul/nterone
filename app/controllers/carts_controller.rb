@@ -15,8 +15,8 @@ class CartsController < ApplicationController
 
     if params[:form] == 'ca'
       @x_amount        = view_context.number_with_precision(@price, precision: 2)
-      @x_login         = 'HCO-NTERO-710'
-      @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
+      @x_login         = 'WSP-NTERO-QyTV6QATZA'
+      @transaction_key = 'L2Q9MfxD9GtkthkT7cs~'
       @x_currency_code = 'CAD'
       @x_fp_sequence   = ((rand*100000).to_i + 2000).to_s
       @x_fp_timestamp  = Time.now.to_i.to_s

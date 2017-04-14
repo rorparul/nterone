@@ -21,10 +21,10 @@ class OrdersController < ApplicationController
       @order = Order.new
     end
 
-    if (Setting.tld == 'ca' && params[:form] != 'default') || true
+    if Setting.tld == 'ca' && params[:form] != 'default'
       @x_amount        = view_context.number_with_precision(@cart.total_price, precision: 2)
-      @x_login         = 'HCO-NTERO-710'
-      @transaction_key = 'DTxm3lRAIaSfWHwTGnsN'
+      @x_login         = 'WSP-NTERO-QyTV6QATZA'
+      @transaction_key = 'L2Q9MfxD9GtkthkT7cs~'
       @x_currency_code = 'CAD'
       @x_fp_sequence   = ((rand*100000).to_i + 2000).to_s
       @x_fp_timestamp  = Time.now.to_i.to_s
@@ -144,29 +144,8 @@ class OrdersController < ApplicationController
 
   def exact_create
     if params[:x_response_code] == '1'
-      # unless valid_input_values?
-      #   flash[:alert] = "Order submission failed. Form was tampered with."
-      #   return redirect_to :back
-      # end
-      #
-      # # Update user information
-      # current_user.update_attributes(user_params)
-
-      # Create transaction
       @order = current_user.buyer_orders.build
-      # if order_params[:payment_type] == "Credit Card"
-      #   result = handle_credit_card_payment()
-      #
-      #   if result.failure?
-      #     flash[:alert] = "Failed to charge card."
-      #     return redirect_to :back
-      #   end
-      # elsif order_params[:payment_type] == "Cisco Learning Credits"
-      #   @order.assign_attributes(clc_params)
-      # end
-
-      # Create order
-      @order.assign_attributes(paid: params[:x_amount])
+      @order.assign_attributes(payment_type: 'Credit Card', paid: params[:x_amount])
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|
