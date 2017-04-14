@@ -95,7 +95,7 @@ class Subject < ActiveRecord::Base
       end
     end
 
-    Exam.where("LOWER(title) like ?", "%#{query.downcase}%").each do |exam|
+    Exam.where("LOWER(title) like ?", "%#{query.try(:downcase)}%").each do |exam|
       exam.exam_and_course_dynamics.each do |exam_and_course_dynamic|
         exam_and_course_dynamic.group_items.each do |group_item|
           if group_item.group
