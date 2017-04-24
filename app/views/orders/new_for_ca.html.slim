@@ -62,8 +62,7 @@
 
 .row
   .col-xs-12
-    / = form_tag "https://checkout.e-xact.com/pay", method: :post    
-    = form_tag 'https://rpm.demo.e-xact.com/payment', method: :post
+    = form_tag "https://checkout.e-xact.com/pay", method: :post
       = hidden_field_tag :user_id, current_user.id
       = hidden_field_tag :cart_id, @cart.id
       
