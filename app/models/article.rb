@@ -11,10 +11,13 @@
 #  updated_at       :datetime         not null
 #  kind             :string
 #  title            :string
+#  theater          :integer
 #
 
 class Article < ActiveRecord::Base
   extend FriendlyId
+
+  include Theaters
 
   validates :kind, :title, :content, presence: true
 

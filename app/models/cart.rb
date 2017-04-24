@@ -9,10 +9,12 @@
 #  source_user_id :string
 #  source_hash    :string
 #  user_id        :integer
+#  theater        :integer
 #
 
 class Cart < ActiveRecord::Base
   include SearchCop
+  include Theaters
 
   belongs_to :user
 

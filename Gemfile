@@ -82,23 +82,22 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem 'capistrano', '~> 3.5.0'
-  gem 'capistrano-rvm'
-  gem 'capistrano-rails'
   gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano-ssh-doctor'
+  gem 'capistrano', '~> 3.5.0'
   gem 'dotenv-rails'
-  gem 'pry-byebug', '~> 3.1.0'
-  gem 'pry-rails', '~> 0.3.4'
-  gem 'quiet_assets'
-
-  gem 'spring'
-  gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
+  gem 'guard'
+  gem 'pry-byebug', '~> 3.1.0'
+  gem 'pry-rails', '~> 0.3.4'
+  gem 'quiet_assets'
   gem 'spring-commands-rspec'
+  gem 'spring'
 end
 
 group :doc do
@@ -106,11 +105,11 @@ group :doc do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'ffaker', '~> 2.1'
   gem 'rspec-rails', '= 3.5.0.beta3'
   gem 'rspec', '= 3.5.0.beta3'
-  gem 'factory_girl_rails'
-  gem 'ffaker', '~> 2.1'
-  gem 'faker'
-  gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
 end

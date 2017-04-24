@@ -10,6 +10,13 @@
             li = msg
             
     .form-group
+      = f.label :theater, t('events.partial_form.theater')
+      = f.select :theater,
+                [["United States", "united_states"], ["Latin America", "latin_america"], ["Canada", "canada"]],
+                { prompt: true },
+                { class: 'form-control input-sm' }
+    
+    .form-group
       = f.label :page_title, t('pages.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
       

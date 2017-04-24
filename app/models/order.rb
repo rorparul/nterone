@@ -52,6 +52,7 @@
 #  other_source            :string
 #  discount_id             :integer
 #  opportunity_id          :integer
+#  theater                 :integer
 #
 # Indexes
 #
@@ -60,8 +61,10 @@
 #
 
 class Order < ActiveRecord::Base
-  include SearchCop
   extend Enumerize
+
+  include SearchCop
+  include Theaters
 
   enum source: {
     cisco_locator: 1,

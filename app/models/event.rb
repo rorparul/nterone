@@ -37,24 +37,18 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  company                        :string
 #  theater                        :integer
 #
 
 class Event < ActiveRecord::Base
   include SearchCop
-
-  enum theater: {
-    united_states: 0,
-    latin_america: 1,
-    canada: 2
-  }
+  include Theaters
 
   enum language: {
     en: 0,

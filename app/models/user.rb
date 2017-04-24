@@ -74,6 +74,7 @@
 #  phone_alternative       :string
 #  notes                   :text
 #  aasm_state              :string
+#  theater                 :integer
 #
 # Indexes
 #
@@ -95,10 +96,18 @@ class User < ActiveRecord::Base
 
   include RailsSettings::Extend
   include SearchCop
+  include Theaters
 
   acts_as_tree order: 'last_name'
 
-  enum status: { open: 0, contacted: 1, pending_class: 2, qualified: 3, closed: 4 }
+  enum status: {
+    open: 0,
+    contacted: 1,
+    pending_class: 2,
+    qualified: 3,
+    closed: 4
+  }
+
   # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
