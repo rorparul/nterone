@@ -216,7 +216,7 @@
                   td = contact_info(order_item.user) if order_item.user
                   td = order_item.user.company_name if order_item.user
                   td = order_item.try(:order).shipping_address
-                  td = order_item.user.referring_partner_email if order_item.user
+                  td = order_item.order.try(:referring_partner_email)
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   - if order_item.order
                     td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
