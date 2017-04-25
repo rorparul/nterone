@@ -6,7 +6,6 @@ defaults: &defaults
   aws_s3_bucket: "nterone-backup"
   aws_s3_path: "nterone"
   aws_s3_files_keep: 10
-
   current_hostname: "<%= `hostname`.strip %>"
   tld: "<%= `hostname`.match(/\w+$/).to_s %>"
   host: "<%= "nterone.#{`hostname`.match(/\w+$/).to_s}" %>"

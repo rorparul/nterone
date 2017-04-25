@@ -165,7 +165,7 @@ class AdminController < ApplicationController
 
   def list_pages_static
     @static_pages = smart_listing_create(:pages_static,
-                                         Page.where(static: true),
+                                         Page.unscoped.where(static: true),
                                          partial: "pages/listing_static",
                                          sort_attributes: [[:title, "title"]],
                                          default_sort: { title: "asc" })
@@ -173,7 +173,7 @@ class AdminController < ApplicationController
 
   def list_pages_dynamic
     @dynamic_pages = smart_listing_create(:pages_dynamic,
-                                          Page.where(static: false),
+                                          Page.unscoped.where(static: false),
                                           partial: "pages/listing_dynamic",
                                           sort_attributes: [[:title, "title"]],
                                           default_sort: { title: "asc" })
