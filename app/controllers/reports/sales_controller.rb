@@ -3,6 +3,9 @@ class Reports::SalesController < ApplicationController
   before_action :authorize_report
 
   def new
+    if current_user.admin? || current_user.sales_manager?
+      @owners = User.all_sales
+    end
   end
 
   def create
@@ -16,8 +19,13 @@ class Reports::SalesController < ApplicationController
 
     @remove_percent_column = report_params[:status] == "won"
 
-    if current_user.admin?
-      @company_sales = @opportunities.where(employee_id: nil)
+    if current_user.admin? || current_user.sales_manager?
+      if params[:filter_user] == ''
+        @company_sales = @opportunities.where(employee_id: nil)
+      else
+        @company_sales = @opportunities.where(employee_id: params[:filter_user])
+      end
+
       employee_sales = @opportunities.where.not(employee_id: nil)
       @grouped_sales = employee_sales.group_by { |opportunity| opportunity.employee }
 
