@@ -10,7 +10,7 @@ module Theaters
   end
 
   def current_theater
-    case Rails.application.config.tdl
+    case Rails.application.config.tld
     when 'com'
       0
     when 'la'
