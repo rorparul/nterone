@@ -24,7 +24,7 @@ class Reports::SalesController < ApplicationController
         @company_sales = @opportunities.where(employee_id: nil)
         employee_sales = @opportunities.where.not(employee_id: nil)
       else
-        @company_sales = []
+        @company_sales = @opportunities.where(employee_id: 0)
         employee_sales = @opportunities.where(employee_id: params[:filter_user])
       end
 
