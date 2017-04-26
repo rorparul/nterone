@@ -98,6 +98,6 @@ NterOne::Application.configure do
     :email => {
       :email_prefix         => "[NterOne/Company Website] ",
       :sender_address       => "'Exception Notification' <email@nterone.com>",
-      :exception_recipients => ['ryanstorberg@icloud.com']
+      :exception_recipients => ['ryan@storberg.net']
     }
 end
