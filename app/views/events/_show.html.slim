@@ -214,7 +214,7 @@
                       = f.text_field :invoice_number, class: "form-control form-async"
                   td = order_item.user.full_name if order_item.user
                   td = contact_info(order_item.user) if order_item.user
-                  td = order_item.user.company_name if order_item.user
+                  td = order_item.user.try(:company).try(:title)
                   td = order_item.try(:order).shipping_address
                   td = order_item.order.try(:referring_partner_email)
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
