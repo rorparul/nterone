@@ -70,12 +70,14 @@ class Event < ActiveRecord::Base
   has_many :users,       through: :order_items
   has_many :registrations
 
-  before_save :calculate_book_cost, if: proc { |model| model.calculate_book_costs? }
+  after_initialize :set_theater
+
+  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
 
-  after_save :create_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
-  after_save :destroy_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
+  after_save :create_gtr_alert,        if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
+  after_save :destroy_gtr_alert,       if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
   after_save :confirm_with_instructor, if: proc { |model| model.instructor_id_changed? && model.instructor.present? }
 
   before_destroy :ensure_not_purchased_or_in_cart
@@ -86,8 +88,9 @@ class Event < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
-  scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
+  scope :default, -> { where(theater: current_theater) }
   scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
+  scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
   search_scope :custom_search do
     attributes :id, :format, :start_date, :public, :guaranteed
@@ -188,6 +191,10 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+  def set_theater
+    self.theater ||= current_theater
+  end
 
   def create_gtr_alert
     EventMailer.create_gtr_alert(self).deliver_now
