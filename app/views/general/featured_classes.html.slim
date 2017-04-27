@@ -110,7 +110,7 @@
 
 javascript:
   $('.home-tab').addClass('active');
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
   $(document).on('click', '.video-trigger', function(e) {
     e.preventDefault();
     $(this).prev('.video-link-container').find('div').click();

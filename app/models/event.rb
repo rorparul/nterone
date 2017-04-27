@@ -88,8 +88,8 @@ class Event < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
-  scope :default, -> { where(theater: current_theater) }
-  scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
+  # scope :default,       -> { where(theater: current_theater) }
+  scope :from_source,   -> (source) { joins(:orders).where(orders: { source: source }).distinct }
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
   search_scope :custom_search do
