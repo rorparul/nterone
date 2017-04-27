@@ -19,15 +19,7 @@ class Page < ActiveRecord::Base
 
   include Theaters
 
-  friendly_id :title, use: [:slugged, :finders]
-
-  after_initialize :set_theater
-
   scope :default, -> { where(theater: current_theater) }
 
-  private
-
-  def set_theater
-    self.theater ||= current_theater
-  end
+  friendly_id :title, use: [:slugged, :finders]
 end

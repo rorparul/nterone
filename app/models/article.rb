@@ -19,6 +19,8 @@ class Article < ActiveRecord::Base
 
   include Theaters
 
+  scope :default, -> { where(theater: current_theater) }
+
   validates :kind, :title, :content, presence: true
 
   friendly_id :title, use: [:slugged, :finders]

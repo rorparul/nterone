@@ -123,12 +123,14 @@ class AdminController < ApplicationController
 
   def website
     manage_smart_listing(
-      ['list_articles',
+      [
+        'list_articles',
         'list_lab_courses',
         'list_pages_dynamic',
         'list_pages_static',
         'list_testimonials',
-        'list_promotions']
+        'list_promotions'
+      ]
     )
   end
 
@@ -148,7 +150,7 @@ class AdminController < ApplicationController
 
   def list_articles
     @articles = smart_listing_create(:articles,
-                                     Article.all,
+                                     Article.unscoped.all,
                                      partial: "articles/listing",
                                      sort_attributes: [[:created_at, "created_at"],
                                                        [:kind, "kind"],

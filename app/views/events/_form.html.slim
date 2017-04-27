@@ -72,7 +72,7 @@
         .form-group
           = f.label :theater, t('events.partial_form.theater')
           = f.select :theater,
-                    [["United States", "united_states"], ["Latin America", "latin_america"], ["Canada", "canada"]],
+                    Event.options_for_theaters,
                     { prompt: true },
                     { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6

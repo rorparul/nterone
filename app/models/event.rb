@@ -70,8 +70,6 @@ class Event < ActiveRecord::Base
   has_many :users,       through: :order_items
   has_many :registrations
 
-  after_initialize :set_theater
-
   before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
@@ -88,7 +86,6 @@ class Event < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
-  # scope :default,       -> { where(theater: current_theater) }
   scope :from_source,   -> (source) { joins(:orders).where(orders: { source: source }).distinct }
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
@@ -191,10 +188,6 @@ class Event < ActiveRecord::Base
   end
 
   private
-
-  def set_theater
-    self.theater ||= current_theater
-  end
 
   def create_gtr_alert
     EventMailer.create_gtr_alert(self).deliver_now
