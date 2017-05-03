@@ -11,15 +11,16 @@
 #  updated_at       :datetime         not null
 #  kind             :string
 #  title            :string
-#  theater          :integer
+#  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class Article < ActiveRecord::Base
   extend FriendlyId
 
-  include Theaters
+  include Regions
 
-  scope :default, -> { where(theater: current_theater) }
+  scope :default, -> { where(origin_region: current_region) }
 
   validates :kind, :title, :content, presence: true
 

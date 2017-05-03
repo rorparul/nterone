@@ -9,12 +9,13 @@
 #  source_user_id :string
 #  source_hash    :string
 #  user_id        :integer
-#  theater        :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Cart < ActiveRecord::Base
   include SearchCop
-  include Theaters
+  include Regions
 
   belongs_to :user
 

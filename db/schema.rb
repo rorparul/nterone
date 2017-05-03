@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424045816) do
+ActiveRecord::Schema.define(version: 20170428025248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,11 +62,12 @@ ActiveRecord::Schema.define(version: 20170424045816) do
     t.text     "page_description"
     t.text     "content"
     t.string   "slug"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "kind"
     t.string   "title"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions",   default: [],              array: true
   end
 
   create_table "assigned_items", force: :cascade do |t|
@@ -81,13 +82,14 @@ ActiveRecord::Schema.define(version: 20170424045816) do
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "source_name"
     t.string   "source_user_id"
     t.string   "source_hash"
     t.integer  "user_id"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -285,7 +287,8 @@ ActiveRecord::Schema.define(version: 20170424045816) do
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                         default: [],                     array: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -732,7 +735,8 @@ ActiveRecord::Schema.define(version: 20170424045816) do
     t.string   "other_source"
     t.integer  "discount_id"
     t.integer  "opportunity_id"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                  default: [],                        array: true
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
@@ -769,7 +773,8 @@ ActiveRecord::Schema.define(version: 20170424045816) do
     t.string   "slug"
     t.boolean  "static",           default: false
     t.text     "page_description"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions",   default: [],                 array: true
   end
 
   create_table "passed_exams", force: :cascade do |t|
@@ -1038,7 +1043,8 @@ ActiveRecord::Schema.define(version: 20170424045816) do
     t.string   "phone_alternative"
     t.text     "notes"
     t.string   "aasm_state"
-    t.integer  "theater"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                  default: [],                            array: true
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

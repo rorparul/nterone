@@ -43,12 +43,13 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  theater                        :integer
+#  origin_region                  :integer
+#  active_regions                 :text             default([]), is an Array
 #
 
 class Event < ActiveRecord::Base
   include SearchCop
-  include Theaters
+  include Regions
 
   enum language: {
     en: 0,

@@ -1,12 +1,12 @@
 tr
   td.fit = event.id
   td.fit style="cursor: help;"
-    - if event.theater == 'united_states'
-      i.fa.fa-circle.text-danger aria-hidden="true" title="#{event.theater.titleize}"
-    - elsif event.theater == 'latin_america'
-      i.fa.fa-circle.text-warning aria-hidden="true" title="#{event.theater.titleize}"
-    - elsif event.theater == 'canada'
-      i.fa.fa-circle.text-info aria-hidden="true" title="#{event.theater.titleize}"
+    - if event.origin_region == 'united_states'
+      i.fa.fa-circle.text-danger aria-hidden="true" title="#{event.origin_region.titleize}"
+    - elsif event.origin_region == 'latin_america'
+      i.fa.fa-circle.text-warning aria-hidden="true" title="#{event.origin_region.titleize}"
+    - elsif event.origin_region == 'canada'
+      i.fa.fa-circle.text-info aria-hidden="true" title="#{event.origin_region.titleize}"
     - else
       i.fa.fa-circle-thin aria-hidden="true" title="N/A"
   td.fit

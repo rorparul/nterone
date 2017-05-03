@@ -11,15 +11,16 @@
 #  slug             :string
 #  static           :boolean          default(FALSE)
 #  page_description :text
-#  theater          :integer
+#  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class Page < ActiveRecord::Base
   extend FriendlyId
 
-  include Theaters
+  include Regions
 
-  scope :default, -> { where(theater: current_theater) }
+  scope :default, -> { where(origin_region: current_region) }
 
   friendly_id :title, use: [:slugged, :finders]
 end

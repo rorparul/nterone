@@ -49,7 +49,7 @@ class PagesController < ApplicationController
       :content,
       :page_description,
       :page_title,
-      :theater,
+      :origin_region,
       :title
     )
   end

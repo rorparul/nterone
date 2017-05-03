@@ -135,9 +135,9 @@ class EventsController < ApplicationController
     @event.update_attributes(in_house_note_params)
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render json: {
-        success: true, in_house_note: @event.in_house_note
-      }}
+      format.js do
+        render json: { success: true, in_house_note: @event.in_house_note }
+      end
     end
   end
 
@@ -148,45 +148,48 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:id,
-                                  :start_date,
-                                  :start_time,
-                                  :end_date,
-                                  :end_time,
-                                  :format,
-                                  :guaranteed,
-                                  :instructor_id,
-                                  :active,
-                                  :price,
-                                  :city,
-                                  :state,
-                                  :street,
-                                  :file,
-                                  :public,
-                                  :status,
-                                  :lab_source,
-                                  :cost_instructor,
-                                  :cost_lab,
-                                  :cost_te,
-                                  :cost_facility,
-                                  :cost_books,
-                                  :cost_shipping,
-                                  :partner_led,
-                                  :time_zone,
-                                  :should_remind,
-                                  :remind_period,
-                                  :sent_all_webex_invite,
-                                  :sent_all_course_material,
-                                  :sent_all_lab_credentials,
-                                  :note,
-                                  :in_house_note,
-                                  :count_weekends,
-                                  :autocalculate_instructor_costs,
-                                  :calculate_book_costs,
-                                  :language,
-                                  :resell,
-                                  :theater,
-                                  :zipcode)
+    params.require(:event).permit(
+      :active_regions,
+      :active,
+      :autocalculate_instructor_costs,
+      :calculate_book_costs,
+      :city,
+      :cost_books,
+      :cost_facility,
+      :cost_instructor,
+      :cost_lab,
+      :cost_shipping,
+      :cost_te,
+      :count_weekends,
+      :end_date,
+      :end_time,
+      :file,
+      :format,
+      :guaranteed,
+      :id,
+      :in_house_note,
+      :instructor_id,
+      :lab_source,
+      :language,
+      :note,
+      :origin_region,
+      :partner_led,
+      :price,
+      :public,
+      :remind_period,
+      :resell,
+      :sent_all_course_material,
+      :sent_all_lab_credentials,
+      :sent_all_webex_invite,
+      :should_remind,
+      :start_date,
+      :start_time,
+      :state,
+      :status,
+      :street,
+      :time_zone,
+      :zipcode
+    )
   end
 
   def in_house_note_params

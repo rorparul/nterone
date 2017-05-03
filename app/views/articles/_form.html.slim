@@ -10,6 +10,13 @@
             li = msg
             
     .form-group
+      = f.label :origin_region, 'Origin Region'
+      = f.select :origin_region,
+                Article.options_for_origin_regions,
+                { prompt: true },
+                { class: 'form-control input-sm' }
+            
+    .form-group
       = f.label :page_title, t('articles.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
       

@@ -74,7 +74,8 @@
 #  phone_alternative       :string
 #  notes                   :text
 #  aasm_state              :string
-#  theater                 :integer
+#  origin_region           :integer
+#  active_regions          :text             default([]), is an Array
 #
 # Indexes
 #
@@ -96,7 +97,7 @@ class User < ActiveRecord::Base
 
   include RailsSettings::Extend
   include SearchCop
-  include Theaters
+  include Regions
 
   acts_as_tree order: 'last_name'
 

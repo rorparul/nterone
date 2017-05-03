@@ -10,9 +10,9 @@
             li = msg
             
     .form-group
-      = f.label :theater, t('events.partial_form.theater')
-      = f.select :theater,
-                Page.options_for_theaters,
+      = f.label :origin_region, 'Origin Region'
+      = f.select :origin_region,
+                Page.options_for_origin_regions,
                 { prompt: true },
                 { class: 'form-control input-sm' }
     
