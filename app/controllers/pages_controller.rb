@@ -50,7 +50,8 @@ class PagesController < ApplicationController
       :page_description,
       :page_title,
       :origin_region,
-      :title
+      :title,
+      active_regions: []
     )
   end
 end

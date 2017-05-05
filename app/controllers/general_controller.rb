@@ -30,18 +30,18 @@ class GeneralController < ApplicationController
 
   def press
     @page           = Page.find_by(title: 'Press Index')
-    @press_releases = Article.where(kind: "Press Release").order(created_at: :desc)
+    @press_releases = Article.active_in_current_region.where(kind: "Press Release").order(created_at: :desc)
   end
 
   def blog
     @page       = Page.find_by(title: 'Blog Index')
-    @blog_posts = Article.where(kind: "Blog Post").order(created_at: :desc)
+    @blog_posts = Article.active_in_current_region.where(kind: "Blog Post").order(created_at: :desc)
   end
 
   def industry
     redirect_to root_path unless Setting.tld == "com"
     @page              = Page.find_by(title: 'Industry Index')
-    @industry_articles = Article.where(kind: "Industry Article").order(created_at: :desc)
+    @industry_articles = Article.active_in_current_region.where(kind: "Industry Article").order(created_at: :desc)
   end
 
   def consulting

@@ -9,12 +9,7 @@
           - page.errors.full_messages.each do |msg|
             li = msg
             
-    .form-group
-      = f.label :origin_region, 'Origin Region'
-      = f.select :origin_region,
-                Page.options_for_origin_regions,
-                { prompt: true },
-                { class: 'form-control input-sm' }
+    = render partial: 'shared/region_inputs', locals: { model: Page, f: f }
     
     .form-group
       = f.label :page_title, t('pages.partial_form.page_title')

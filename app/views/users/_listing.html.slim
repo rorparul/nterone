@@ -3,6 +3,8 @@
     table.table.table-condensed
       thead
         tr.background-muted
+          th.fit
+            i.fa.fa-globe aria-hidden="true" title='Origin Region'
           th = smart_listing.sortable t('default.label.first_name'), :first_name
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
@@ -12,6 +14,15 @@
       tbody
         - smart_listing.collection.each do |user|
           tr
+            td.fit style="cursor: help;"
+              - if user.origin_region == 'united_states'
+                i.fa.fa-circle.text-danger aria-hidden="true" title="#{user.origin_region.titleize}"
+              - elsif user.origin_region == 'latin_america'
+                i.fa.fa-circle.text-warning aria-hidden="true" title="#{user.origin_region.titleize}"
+              - elsif user.origin_region == 'canada'
+                i.fa.fa-circle.text-info aria-hidden="true" title="#{user.origin_region.titleize}"
+              - else
+                i.fa.fa-circle-thin aria-hidden="true" title="N/A"
             - if action_name == 'leads'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)

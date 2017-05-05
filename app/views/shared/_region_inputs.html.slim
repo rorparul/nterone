@@ -1,0 +1,34 @@
+.row
+  .col-xs-12.col-sm-6
+    .form-group
+      = f.label :origin_region, 'Origin Region'
+      = f.select :origin_region,
+                model.options_for_regions,
+                { prompt: true },
+                { class: 'form-control input-sm' }
+          
+.row      
+  .col-xs-12
+    .form-group
+      = f.label :active_regions, 'Active Region(s)'
+      = f.select :active_regions,
+                model.options_for_regions,
+                { prompt: true },
+                { class: 'form-control input-sm active-regions-select', style: "width: 100%;", multiple: 'true' }
+      
+- if request.xhr?     
+  javascript:
+    $('.active-regions-select').select2({
+      dropdownParent: $(".modal-body.panel-body"),
+      theme: "bootstrap",
+      tags: true,
+      placeholder: "Please select"
+    });
+    
+- else
+  javascript:
+    $('.active-regions-select').select2({
+      theme: "bootstrap",
+      tags: true,
+      placeholder: "Please select"
+    });

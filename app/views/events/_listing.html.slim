@@ -3,9 +3,9 @@
     table.table.table-condensed
       thead
         tr.background-muted
-          th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
           th.fit
             i.fa.fa-globe aria-hidden="true" title='Origin Region'
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
           th.fit = "#{t('events.partial_listing.note')}"
           th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
           th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course

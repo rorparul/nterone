@@ -7,17 +7,16 @@ class EventsController < ApplicationController
   end
 
   def feed
-    @events = Event.upcoming_public_events
+    @events = Event.upcoming_public_events.active_in_current_region
     respond_to do |format|
       format.rss { render :layout => false }
     end
   end
 
   def new
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @event       = @course.events.build
-    # @instructors = @platform.instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @event    = @course.events.build
   end
 
   def create
@@ -34,31 +33,28 @@ class EventsController < ApplicationController
   end
 
   def select
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @events      = @course.events
-    @event       = @course.events.build
-    # @instructors = User.only_instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @events   = @course.events
+    @event    = @course.events.build
   end
 
-  def  select_to_edit
+  def select_to_edit
     if event_params[:id] == 'none'
       platform = Platform.find(params[:platform_id])
       course   = Course.find(params[:course_id])
       redirect_to select_platform_course_events_path(platform, course)
     else
-      @platform    = Platform.find(params[:platform_id])
-      @course      = Course.find(params[:course_id])
-      @event       = Event.find(event_params[:id])
-      # @instructors = @platform.instructors
+      @platform = Platform.find(params[:platform_id])
+      @course   = Course.find(params[:course_id])
+      @event    = Event.find(event_params[:id])
     end
   end
 
   def edit
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @event       = Event.find(params[:id])
-    # @instructors = @platform.instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @event    = Event.find(params[:id])
   end
 
   def update
@@ -72,7 +68,6 @@ class EventsController < ApplicationController
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
     else
-      # @instructors  = @platform.instructors
       render 'select_to_edit'
     end
   end
@@ -88,7 +83,6 @@ class EventsController < ApplicationController
   end
 
   def student_registered_classes
-    # @platforms = Platform.order(:title)
     @events = Event.joins(:course).upcoming_events.with_students
 
     respond_to do |format|
@@ -149,7 +143,6 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(
-      :active_regions,
       :active,
       :autocalculate_instructor_costs,
       :calculate_book_costs,
@@ -188,7 +181,8 @@ class EventsController < ApplicationController
       :status,
       :street,
       :time_zone,
-      :zipcode
+      :zipcode,
+      active_regions: []
     )
   end
 

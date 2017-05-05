@@ -10,6 +10,17 @@
             li = msg
             
     .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :origin_region, 'Origin Region'
+          = f.select :origin_region,
+                    Order.options_for_regions,
+                    { prompt: true, default: order.current_region_as_key },
+                    { class: 'form-control input-sm' }
+    
+    hr
+            
+    .row
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
           .form-group

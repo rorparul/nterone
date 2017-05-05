@@ -1,13 +1,9 @@
 module Regions
   extend ActiveSupport::Concern
 
-  class_methods do
-    def options_for_origin_regions
-      origin_regions.keys.sort.map { |region| [region.titleize, region] }
-    end
-  end
-
   included do
+    scope :active_in_current_region, -> { where("active_regions @> ?", "{#{self.new.current_region_as_key}}") }
+
     enum origin_region: {
       united_states: 0,
       latin_america: 1,
@@ -17,7 +13,17 @@ module Regions
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
 
-  def current_region
+  class_methods do
+    def options_for_regions
+      origin_regions.keys.sort.map { |region| [region.titleize, region] }
+    end
+  end
+
+  def current_region_as_key
+    self.class.origin_regions.key(current_region_as_value)
+  end
+
+  def current_region_as_value
     case Rails.application.config.tld
     when 'com'
       0
@@ -25,12 +31,14 @@ module Regions
       1
     when 'ca'
       2
+    else
+      0
     end
   end
 
   private
 
   def set_origin_region
-    self.origin_region = current_region
+    self.origin_region ||= current_region_as_value
   end
 end

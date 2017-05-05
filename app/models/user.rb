@@ -99,6 +99,8 @@ class User < ActiveRecord::Base
   include SearchCop
   include Regions
 
+  # default_scope { all }
+
   acts_as_tree order: 'last_name'
 
   enum status: {

@@ -20,8 +20,6 @@ class Article < ActiveRecord::Base
 
   include Regions
 
-  scope :default, -> { where(origin_region: current_region) }
-
   validates :kind, :title, :content, presence: true
 
   friendly_id :title, use: [:slugged, :finders]

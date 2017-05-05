@@ -51,12 +51,15 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:page_title,
-                                    :page_description,
-                                    :kind,
-                                    :title,
-                                    :content,
-                                    :created_at)
+    params.require(:article).permit(
+      :page_title,
+      :page_description,
+      :kind,
+      :title,
+      :content,
+      :created_at,
+      active_regions: []
+    )
   end
 
 

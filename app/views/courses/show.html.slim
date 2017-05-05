@@ -50,12 +50,12 @@
                       = t('courses.show.upcoming_classes')
                     - if user_signed_in? && current_user.admin?
                       = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
-                  - if @course.upcoming_public_events.any?
+                  - if @course.upcoming_public_events.active_in_current_region.any?
                     .panel-body.text-center.text-success
                       strong Dates represented in green are guaranteed to run.
                   .table-responsive
                     table.table.table-compact
-                      - if @course.upcoming_public_events.any?
+                      - if @course.upcoming_public_events.active_in_current_region.any?
                         thead
                           tr
                             th = t('courses.show.date')
@@ -72,8 +72,8 @@
                               th
                               th
                       tbody
-                        - if @course.upcoming_public_events.any?
-                          - @course.upcoming_public_events.each do |event|
+                        - if @course.upcoming_public_events.active_in_current_region.any?
+                          - @course.upcoming_public_events.active_in_current_region.each do |event|
                             tr
                               div itemscope="true" itemtype="http://schema.org/EducationEvent"
                                 td class="#{'text-success font-weight-bold' if event.guaranteed}"
@@ -217,7 +217,7 @@ javascript:
   $('[data-toggle="tooltip"]').tooltip()
 
 script type="application/ld+json"
-  - @course.upcoming_public_events.each do |event|
+  - @course.upcoming_public_events.active_in_current_region.each do |event|
     | {
     | "@context": "http://schema.org",
     | "@type": "EducationEvent",

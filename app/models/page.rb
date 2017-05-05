@@ -20,7 +20,7 @@ class Page < ActiveRecord::Base
 
   include Regions
 
-  scope :default, -> { where(origin_region: current_region) }
+  scope :default, -> { where(origin_region: current_region_as_value) }
 
   friendly_id :title, use: [:slugged, :finders]
 end
