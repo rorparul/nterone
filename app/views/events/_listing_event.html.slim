@@ -8,6 +8,11 @@ tr
       i.fa.fa-circle.text-info aria-hidden="true" title="#{event.origin_region.titleize}"
     - else
       i.fa.fa-circle-thin aria-hidden="true" title="N/A"
+  td.fit
+    - event.active_regions.each do |active_region|
+      - if active_region.present?
+        span.label.label-info = active_region.titleize
+        br
   td.fit = event.id
   td.fit
     = link_to edit_in_house_note_path(event), remote: true do
