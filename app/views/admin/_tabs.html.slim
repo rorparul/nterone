@@ -1,0 +1,72 @@
+.admin.categories.hidden-xs.role-tabs style='margin-bottom: 10px;'
+  .row.text-center
+    .col-sm-12
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.queue href="#{admin_queue_path}"
+          = t('admins.partial_tabs.queue')
+      - if current_user.admin?
+        a.btn.category.btn-category.insights href="#{main_app.insights_carts_path}"
+          = t('admins.partial_tabs.insights')
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.orders href="#{admin_orders_path}"
+          = t 'admins.partial_tabs.orders'
+      - if policy(:admin).show?
+        a.btn.category.btn-category.classes href="#{admin_classes_path}"
+          = t 'admins.partial_tabs.classes'
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.courses href="#{admin_courses_path}"
+          = t('admins.partial_tabs.courses')
+      - if current_user.admin?
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t('admins.partial_tabs.lab_rentals')
+        a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
+          = t('admins.partial_tabs.announcements')
+      - if policy(:admin).admin? || policy(:admin).partner? 
+        a.btn.category.btn-category.people href="#{admin_people_path}"
+          = t('admins.partial_tabs.people')
+      - if policy(:admin).admin?
+        a.btn.category.btn-category.website href="#{admin_website_path}"
+          = t('admins.partial_tabs.website')
+        a.btn.category.btn-category.messages href="#{admin_messages_path}"
+          = t('admins.partial_tabs.messages')
+          - if @new_message_count > 0
+            span.badge.badge-alert.badge-alert-settings = @new_message_count
+      - if policy(:admin).show?
+        a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+          = t('admins.partial_tabs.settings')
+.categories-mobile.visible-xs.role-tabs
+  .row.text-center
+    .col-sm-12
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.queue href="#{admin_queue_path}"
+          = t('admins.partial_tabs.queue')
+      - if current_user.admin?
+        a.btn.category.btn-category.insights href="#{main_app.insights_carts_path}"
+          = t('admins.partial_tabs.insights')
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.orders href="#{admin_orders_path}"
+          = t('admins.partial_tabs.orders')
+      - if policy(:admin).show?
+        a.btn.category.btn-category.classes href="#{admin_classes_path}"
+          = t('admins.partial_tabs.classes')
+      - if policy(:admin).admin? || policy(:admin).sales_rep? || policy(:admin).sales_manager?
+        a.btn.category.btn-category.courses href="#{admin_courses_path}"
+          = t('admins.partial_tabs.courses')
+      - if current_user.admin?
+        a.btn.category.btn-category.lab-rentals href="#{lab_rentals_path}"
+          = t('admins.partial_tabs.lab_rentals')
+        a.btn.category.btn-category.announcements href="#{admin_announcements_path}"
+          = t('admins.partial_tabs.announcements')
+      - if policy(:admin).admin? || policy(:admin).partner?
+        a.btn.category.btn-category.people href="#{admin_people_path}"
+          = t('admins.partial_tabs.people')
+      - if current_user.admin?
+        a.btn.category.btn-category.website href="#{admin_website_path}"
+          = t('admins.partial_tabs.website')
+        a.btn.category.btn-category.messages href="#{admin_messages_path}"
+          = t('admins.partial_tabs.messages')
+          - if @new_message_count > 0
+            span.badge.badge-alert.badge-alert-settings = @new_message_count
+      - if policy(:admin).show?
+        a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+          = t('admins.partial_tabs.settings')
