@@ -1,5 +1,9 @@
 = form_for resource, as: resource_name, url: registration_path(resource), html: { "data-parsley-validate" => true } do |f|
   = devise_error_messages!
+  
+  = f.hidden_field :source_name,    value: cookies[:source_name]
+  = f.hidden_field :source_user_id, value: cookies[:source_user_id]
+  
   = f.text_field  :first_name, autofocus: true,  placeholder: t('default.label.first_name'),    class: 'form-control sign-in-field session-input',          required: true
   = f.text_field  :last_name,  autofocus: false, placeholder: t('default.label.last_name'),     class: 'form-control sign-in-field session-input',          required: true
   = f.email_field :email,      autofocus: false, placeholder: t('default.label.email'), class: 'form-control regEmail sign-in-field session-input', required: true

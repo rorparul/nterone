@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, except: :show
+  before_action :authenticate_user!, except: [:show, :cisco_self_paced]
   before_action :set_category,       only: [:show, :update, :destroy]
 
   def index
@@ -9,13 +9,11 @@ class CategoriesController < ApplicationController
 
   def show
     session[:last_category_url] = request.url
+
     @platform   = Platform.find(params[:platform_id])
     @categories = @platform.parent_categories.order(:position).includes(:children)
-    if @category.parent
-      @items = @category.items
-    else
-      @items = @category.children_items
-    end
+    @items = category_items(@category)
+
     render 'platforms/show'
   end
 
@@ -69,10 +67,28 @@ class CategoriesController < ApplicationController
     redirect_to platform_category_path(@category.platform, Category.parent_categories.first)
   end
 
+  def cisco_self_paced
+    session[:last_category_url] = request.url
+
+    @platform   = Platform.find_by(title: "Cisco")
+    @category   = Category.find_by(title: "Self-Paced")
+    @categories = @platform.parent_categories.order(:position).includes(:children)
+    @items      = category_items(@category)
+
+    render 'platforms/show'
+  end
+
   private
 
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  def category_items(category)
+    items = category.items + category.children_items
+
+    return items if current_user.try(:lms?)
+    items.select { |item| item.class.name != 'VideoOnDemand' || !item.lms }
   end
 
   def category_params
@@ -82,6 +98,8 @@ class CategoriesController < ApplicationController
                                      :page_title,
                                      :heading,
                                      :description,
-                                     :position)
+                                     :meta_description,
+                                     :position,
+                                     :video)
   end
 end

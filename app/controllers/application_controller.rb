@@ -4,13 +4,17 @@ class ApplicationController < ActionController::Base
   include CurrentCart
 
   before_action :prepare_exception_notifier
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   before_action :record_user_activity
+  before_action :get_external_source_values
   before_action :set_cart
   before_action :get_alert_counts
   before_action :update_request_urls
-  after_filter  :store_location
+
+  after_action  :store_location
+
+  helper_method :forem_user, :resource_name, :resource, :devise_mapping
 
   protect_from_forgery with: :exception
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -18,7 +22,6 @@ class ApplicationController < ActionController::Base
   def forem_user
     current_user
   end
-  helper_method :forem_user
 
   def access_denied(exception)
     redirect_to root_path, alert: exception.message
@@ -26,6 +29,18 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
   end
 
   def authenticate_admin!
@@ -43,6 +58,8 @@ class ApplicationController < ActionController::Base
                   :email,
                   :password,
                   :password_confirmation,
+                  :source_name,
+                  :source_user_id,
                   interest_attributes: [:id,
                                         :data_center,
                                         :collaboration,
@@ -68,7 +85,8 @@ class ApplicationController < ActionController::Base
     end
 
     # remove trailing zeros
-    parts = parts.slice(0, parts.rindex{|e| e != 0}.to_i + 1)
+    parts = parts.slice(0, parts.rindex{ |e| e != 0}.to_i + 1)
+
     return nil if parts[0] == 0  # empty date fields set
 
     Date.new(*parts)
@@ -85,17 +103,22 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     case request.host
-    when "www.nterone.la"
-      I18n.locale = :es
-    when "www.nterone.com"
+    when 'www.nterone.com'
       I18n.locale = :en
+    when 'www.nterone.la'
+      I18n.locale = :es
     else
       I18n.locale = :en
     end
   end
 
   def store_location
-    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+    session[:previous_url] = request.fullpath unless skip_path_store?
+  end
+
+  def skip_path_store?
+    path = request.fullpath
+    path =~ /\/users/ || path =~ /\/lms\/signup/ || path =~ /\/lms$/ || path =~ /\/checkout\/lab_rental/ || path =~ /\/time_select\/lab_course_time_blocks/
   end
 
   def update_request_urls
@@ -117,5 +140,15 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(request.referrer || root_path)
+  end
+
+  def get_external_source_values
+    if true?(params[:external_source])
+      cookies[:cart_id] = params[:cart_id]
+    end
+  end
+
+  def true?(string)
+    string == 'true'
   end
 end

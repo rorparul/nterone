@@ -3,11 +3,22 @@ class ClassesUploader
     report = { success: true, failures: []}
     spreadsheet = open_spreadsheet(file)
     header = format_header(spreadsheet.row(1))
+
     (2..spreadsheet.last_row).each do |i|
       row_original = Hash[[header, spreadsheet.row(i)].transpose]
       row_new      = row_original.dup
       row_new.delete(:course_title)
+
+      if row_new[:start_time]
+        row_new[:start_time] = Time.at(row_new[:start_time])
+      end
+
+      if row_new[:end_time]
+        row_new[:end_time] = Time.at(row_new[:end_time])
+      end
+
       event = Event.new(row_new)
+
       if Event.find_by(course_id: event.course_id,
                        start_date: event.start_date,
                        end_date: event.end_date,
@@ -15,10 +26,12 @@ class ClassesUploader
                        end_time: event.end_time,
                        format: event.format,
                        price: event.price)
+
         report[:success] = false
         report[:failures] << row_original
       else
-        unless event.save(row)
+        unless event.save
+          p event.errors
           report[:failures] << row_original
         end
       end
@@ -37,7 +50,7 @@ class ClassesUploader
 
   def self.format_header(header)
     header.map do |title|
-      case title
+      case title.strip
       when "Course ID"
         :course_id
       when "Course Title"

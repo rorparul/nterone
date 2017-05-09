@@ -49,16 +49,14 @@ en:
       training: "Training"
     partial_tabs:
       announcements: "Announcements"
+      my_classes: "My Classes"
       classes: "Classes"
       courses: "Courses"
       insights: "Insights"
       lab_rentals: "Labs"
       messages: "Messages"
       orders: "Orders"
-      people: "People"
-      queue: "Queue"
       settings: "Settings"
-      website: "Website"
     website:
       active: "Active"
       articles: "Articles"

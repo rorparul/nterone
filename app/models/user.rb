@@ -63,6 +63,19 @@
 #  status                  :integer          default(0)
 #  daily_rate              :decimal(8, 2)    default(0.0)
 #  video_bio               :text
+#  source_name             :string
+#  source_user_id          :string
+#  parent_id               :integer
+#  salutation              :string
+#  business_title          :string
+#  do_not_call             :boolean
+#  do_not_email            :boolean
+#  email_alternative       :string
+#  phone_alternative       :string
+#  notes                   :text
+#  aasm_state              :string
+#  origin_region           :integer
+#  active_regions          :text             default([]), is an Array
 #
 # Indexes
 #
@@ -79,15 +92,32 @@
 #
 
 class User < ActiveRecord::Base
-  include RailsSettings::Extend
-  include ModelSearch
+  extend ActsAsTree::TreeView
+  extend ActsAsTree::TreeWalker
 
-  enum status: { not_applicable: 0, employee: 1, contractor: 2 }
+  include RailsSettings::Extend
+  include SearchCop
+  include Regions
+
+  # default_scope { all }
+
+  acts_as_tree order: 'last_name'
+
+  enum status: {
+    open: 0,
+    contacted: 1,
+    pending_class: 2,
+    qualified: 3,
+    closed: 4
+  }
+
+  # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
 
   has_one :interest,          dependent:  :destroy
-
+  has_one :cart,              dependent:  :destroy
+  has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
 
   has_many :planned_subjects, dependent:  :destroy
   has_many :subjects,         through:    :planned_subjects
@@ -96,14 +126,14 @@ class User < ActiveRecord::Base
   has_many :passed_exams,     dependent:  :destroy
   has_many :exams,            through:    :passed_exams
 
+  has_many :assigned_items,   foreign_key: 'student_id'
+  has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
+
   #TODO: track leads through relationships instead
   has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
   has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
-  # has_many :selling,        through: :seller_leads, source: :leads
-  # has_many :buying,         through: :buyer_leads,  source: :leads
-
   has_many :lab_rentals # TODO: Consider the dependencies
-
+  has_many :individual_lab_rentals, through: :order_items, source: :orderable, source_type: 'LabRental'
   has_many :messages,             dependent:   :destroy
   has_many :posts
   has_many :roles,                dependent:   :destroy
@@ -124,14 +154,36 @@ class User < ActiveRecord::Base
                                   foreign_key: 'seller_id'
   has_many :prospects,            through:     :seller_relationships,
                                   source:      :buyer
-
+  has_one :lms_manager, through: :lms_managers_associacion, source: 'manager'
+  has_many :lms_students, through: :lms_students_associacion, source: 'user'
+  has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
   has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
   has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
+  has_many :hacp_requests,             dependent:   :destroy
+  has_many :companies
+  has_many :opportunities,        class_name:  'Opportunity',
+                                  foreign_key: 'employee_id'
+  # has_many :buyer_orders,         class_name:  'Opportunity',
+  #                                 foreign_key: 'customer_id'
+  # has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
+  # has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
+  # has_many :selling,        through: :seller_leads, source: :leads
+  # has_many :buying,         through: :buyer_leads,  source: :leads
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
-  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
+  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }) }
+  # scope :leads,            -> { joins(:roles).where(roles: { role: 4 }).where.not(status: 3) }
+  # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
+  scope :leads,            -> { where.not(status: 3) }
+  scope :contacts,         -> { where(status: 3) }
+  scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }
+
+  search_scope :custom_search do
+    attributes :first_name, :last_name, :email
+  end
 
   devise :database_authenticatable,
          :invitable,
@@ -142,7 +194,31 @@ class User < ActiveRecord::Base
          :validatable
 
   validate :password_complexity
+  validates_uniqueness_of :source_user_id, allow_blank: true
+
   after_save :update_instructor_costs, if: :daily_rate_changed?
+
+  def carted_items(args = {})
+    items = order_items.includes(:orderable).where(order_id: nil).where.not(cart_id: nil)
+    args[:orderables] ? items.map(&:orderable) : items
+  end
+
+  def purchased_items(args = {})
+    items = order_items.includes(:orderable).where(cart_id: nil).where.not(order_id: nil)
+    args[:orderables] ? items.map(&:orderable) : items
+  end
+
+  def purchase?(orderable)
+    order_items.where(cart_id: nil).where.not(order_id: nil).map(&:orderable).include?(orderable)
+  end
+
+  def self.lms_students_all
+    User.includes(:roles).where(roles: { role: 6 })
+  end
+
+  def self.lms_managers_all
+    User.includes(:roles).where(roles: { role: 5 })
+  end
 
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
@@ -242,14 +318,14 @@ class User < ActiveRecord::Base
   end
 
   def active_video_on_demands
-    order_items.where('orderable_type = ? and created_at >= ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
-      order_item.orderable
+    order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
+      array << order_item.orderable if order_item.order.created_at >= Date.today - 365.day
     end
   end
 
   def inactive_video_on_demands
-    order_items.where('orderable_type = ? and created_at < ?', 'VideoOnDemand', Date.today - 365.day).collect do |order_item|
-      order_item.orderable
+    order_items.where(orderable_type: 'VideoOnDemand').each_with_object([]) do |order_item, array|
+      array << order_item.orderable if order_item.order.created_at < Date.today - 365.day
     end
   end
 
@@ -284,12 +360,38 @@ class User < ActiveRecord::Base
     roles_collection[0...-2]
   end
 
+  def only_role?(role)
+    role = role.to_s + "?"
+    if self.send(role)
+      return self.roles.count == 1 ? true : false
+    else
+      return false
+    end
+  end
+
   def admin?
     has_role? :admin
   end
 
+<<<<<<< HEAD
   def partner?
     has_role? :partner_admin
+=======
+  def lms_manager?
+    has_role? :lms_manager
+  end
+
+  def lms_student?
+    has_role? :lms_student
+  end
+
+  def lms_business?
+    has_role? :lms_business
+  end
+
+  def lms?
+    lms_student? || lms_manager? || lms_business?
+>>>>>>> staging
   end
 
   def sales_manager?
@@ -318,10 +420,6 @@ class User < ActiveRecord::Base
 
   def has_role?(role_param)
     roles.any? { |role| role.role.to_sym == role_param }
-  end
-
-  def can_resend_invitation?
-    admin? || sales_rep?
   end
 
   private

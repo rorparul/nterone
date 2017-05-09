@@ -3,64 +3,64 @@ css:
     border: 1px solid black;
     padding: 5px;
   }
-  
+
   .text-red {
     color: red;
   }
 
 = image_tag attachments["#{t('mailers.student_added.image1')}"]
 
-p 
+p
   = t('mailers.student_added.copy1')
 
 p
   = t('mailers.student_added.copy2')
   = t('mailers.student_added.copy3')
 
-p 
+p
   = t('mailers.student_added.copy4')
 
-p 
+p
   = t('mailers.student_added.copy5')
 table
   tr
-    td 
+    td
       = t('mailers.student_added.copy6')
     td.text-red = @event.course.full_title
   tr
     td
       = t('mailers.student_added.copy7')
-    td 
+    td
       = @user.full_name
   tr
     td
-      = t('mailers.student_added.copy8') 
-    td 
+      = t('mailers.student_added.copy8')
+    td
       = @event.format
   tr
     td
       = t('mailers.student_added.copy9')
-    td.text-red 
+    td.text-red
       = "#{@event.start_date} thru #{@event.end_date}"
   tr
     td
       = t('mailers.student_added.copy10')
-    td.text-red 
-      = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+    td.text-red
+      = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.try :upcase}"
   tr
     td
       = t('mailers.student_added.copy11')
-    td.text-red 
-      = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.upcase}"
+    td.text-red
+      = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.try :upcase}"
   tr
     td colspan="2"
       = t('mailers.student_added.copy12')
 
-p.text-red 
+p.text-red
   = t('mailers.student_added.copy13')
 
 p
-  span.text-red Note: 
+  span.text-red Note:
   = t('mailers.student_added.copy14')
   a href="http://www.webex.com/test-meeting.html" http://www.webex.com/test-meeting.html
 
@@ -79,11 +79,11 @@ ul
   li
     = t('mailers.student_added.copy21')
     a href="mailto:helpdesk#{t('default.contact.email')}" helpdesk#{t('default.contact.email')}
-  li 
+  li
     = t('mailers.student_added.copy22')
     = "703-972-2288 Ext. 1022"
   li
-    = t('mailers.student_added.copy23') 
+    = t('mailers.student_added.copy23')
     = "8:00am EST – 8:00pm EST"
 
 p
@@ -93,5 +93,5 @@ p
   = t('mailers.student_added.copy25')
 
 p
-  a href="#{t('mailers.student_added.copy26')}" 
+  a href="#{t('mailers.student_added.copy26')}"
     = t('mailers.student_added.copy27')

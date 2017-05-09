@@ -1,0 +1,4 @@
+$('.modal-title').html("<%= escape_javascript(@quiz.title) %>");
+$('.modal-body').addClass('quiz-container')
+$('.modal-body').html("<div class='lead text-capitalize'><%= escape_javascript(@quiz.description) %></div><form action=\"<%= escape_javascript(begin_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\" data-remote=\"true\"><button class='btn btn-success btn-quiz-medium'>Begin Quiz</button></form>");
+$('#myModal').modal('show');

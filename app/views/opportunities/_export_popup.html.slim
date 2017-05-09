@@ -1,0 +1,33 @@
+h3 Filter Options
+= simple_form_for :filter, url: export_opportunities_path(format: 'xlsx') do |f|
+  = f.input :user, as: :select, collection: @owners.map {|c| [c.full_name, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :account, as: :select, collection: Company.all.map {|c| [c.title, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :partner, as: :select, collection: Company.all.map {|c| [c.title, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :employee, as: :select, collection: @all_users.map {|c| [c.full_name, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :customer, as: :select, collection: @all_users.map {|c| [c.full_name, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :course, as: :select, collection: Course.all.map {|c| [c.full_title, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  / = f.input :event, as: :select, collection: Event.all.map {|c| [c.full_name, c.id]}, input_html: { class: "select2" }, include_blank: 'All'
+  = f.input :stage, as: :radio_buttons, collection: %w(All Open Waiting Closed), item_wrapper_class: "radio-inline"
+  .date_closed.form-inline.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+    = f.hidden_field :date_start
+    = f.hidden_field :date_end
+    = f.input :_date_start2, as: :string, wrapper: 'inline_form', placeholder: 'Date start', input_html: { data: { linked: "#filter_date_start" } }
+    '
+    | -
+    '
+    = f.input :_date_end2, as: :string, wrapper: 'inline_form', placeholder: 'Date end', input_html: { data: { linked: "#filter_date_end" } }
+
+  .form-buttons
+    button.btn.btn-success type="submit"
+      = t('default.action.export')
+    button.btn.btn-default type="button" data-dismiss="modal"
+      = t('default.action.cancel')
+
+coffee:
+  $('input.radio_buttons').change (e)->
+    if $('#filter_stage_closed').is(':checked')
+      $('div.date_closed').show(700)
+    else
+      $('div.date_closed').hide(500)
+
+  $('#filter_stage_all').click()

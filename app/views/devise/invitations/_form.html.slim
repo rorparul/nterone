@@ -1,16 +1,145 @@
-= simple_form_for resource, as: resource_name, url: invitation_path(resource_name, origin: @origin), html: { method: :post} do |f|
+= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f|
   = devise_error_messages!
-    
-  - resource.class.invite_key_fields.each do |field|
-    = f.input field, label: "#{field.to_s.titleize}", wrapper_html: { class: "form-group" }, input_html: { class: 'form-control input-sm' }
+  
   .form-group
-    = f.label :referring_partner_email, t('devise.invitations.referring_partner')
-    = f.text_field :referring_partner_email, class: "form-control input-sm"
+    = f.label :parent_id, 'Owner'
+    = f.select :parent_id,
+               existing_select2_ajax_user(@user.parent),
+               { include_blank: t('companies.partial_form.dropdown') },
+               { class: 'search-sales-select form-control', style: "width: 100%;" }
+      
+  hr
+  
+  - unless resource.status == 'qualified'
+    .form-group
+      = f.label :status, t('users.partial_form.status')
+      = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
+        options = {},
+        html_options = { class: 'form-control search-select' }
+        
+    hr
+    
+  - else
+    = f.hidden_field :status, value: 'qualified'
+  
+  .form-group
+    = f.label :salutation, 'Salutation'
+    = f.text_field :salutation, class: 'form-control'
+    
+  .form-group
+    = f.label :first_name, 'First Name'
+    = f.text_field :first_name, class: 'form-control'
+    
+  .form-group
+    = f.label :last_name, 'Last Name'
+    = f.text_field :last_name, class: 'form-control'
+    
+  hr
+      
+  .form-group
+    = f.label :email, 'Email'
+    = f.text_field :email, class: 'form-control'
+      
+  .form-group
+    = f.label :email_alternative, 'Email Alternative'
+    = f.text_field :email_alternative, class: 'form-control'
+      
+  .form-group
+    = f.label :do_not_email, 'Do Not Email'
+    br
+    = f.check_box :do_not_email
+  
+  .form-group
+    = f.label :contact_number, 'Phone'
+    = f.text_field :contact_number, class: 'form-control'
+  
+  .form-group
+    = f.label :phone_alternative, 'Phone Alternative'
+    = f.text_field :phone_alternative, class: 'form-control'
+      
+  .form-group
+    = f.label :do_not_call, 'Do Not Call'
+    br
+    = f.check_box :do_not_call
+      
+  hr
+  
+  .form-group
+    = f.label :business_title, 'Business Title'
+    = f.text_field :business_title, class: 'form-control'
+    
+  .form-group
+    = f.label :company_id, 'Company'
+    = f.select :company_id,
+               existing_select2_ajax_company(@user.company),
+               { include_blank: t('companies.partial_form.dropdown') },
+               { class: 'search-companies-select form-control', style: "width: 100%;" }
+      
+  hr
+  
+  .form-group
+    = f.label :notes, 'Notes'
+    = f.text_area :notes, rows: 10, class: 'form-control froala'
 
   .form-buttons
     button.btn.btn-success type="submit" name="skip_invitation" value="true"
-      = t('default.action.save')
+      = t('default.action.create')
     button.btn.btn-success type="submit" name="skip_invitation" value="false" 
       = t('default.action.save_invite')
     button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
+      
+javascript:
+  $('.search-sales-select').select2({
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.search-companies-select').select2({
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });

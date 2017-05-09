@@ -50,15 +50,20 @@
                       = t('orders.new.one_year_of_access')
                     td
                       = t('orders.new.video_on_demand')
+                  - if order_item.orderable_type == "LabRental"
+                    td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course)
+                    td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
+                    td = t('orders.new.pod_rental')
                   td
                     | $
                     span.price = number_with_delimiter(number_with_precision(order_item.price, precision: 2))
                   td.text-right
                     = link_to t('orders.new.remove_from_cart'), order_item, method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-
-= form_for @order do |f|    
-  .row
-    .col-xs-12
+.row
+  .col-xs-12
+    = form_for @order do |f|
+      = f.hidden_field :origin_region, value: @order.current_region_as_key
+      
       .panel.panel-default
         .panel-heading
           strong.text-muted
@@ -74,7 +79,7 @@
                     = t('orders.new.caption1')
                     = t('orders.new.caption2')
                     = "#{t('orders.new.caption3')} "
-                    = mail_to "sales#{t('defaul.contact.email')}", "sales#{t('default.contact.email')}"
+                    = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
                     = t('orders.new.caption4')
                     strong 703-972-2288, 
                     = t('orders.new.caption5')
@@ -82,10 +87,17 @@
             .form-group
               label = t('orders.new.payment_method')
               br
-              = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button', checked: true
-              = " #{t('orders.new.credit_card')}"
-              = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', style: 'margin-left: 10px;', disabled: @cart.any_not_applicable_for_credits?
-              = " #{t('orders.new.cisco_learning_credits')}"
+              - if Setting.tld == 'ca'
+                = link_to new_order_path, style: "color: black; text-decoration: none;" do
+                  = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button'
+                  = " #{t('orders.new.credit_card')}"
+                = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', style: 'margin-left: 10px;', checked: true
+                = " #{t('orders.new.cisco_learning_credits')}"
+              - else
+                = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button', checked: true
+                = " #{t('orders.new.credit_card')}"
+                = f.radio_button :payment_type, 'Cisco Learning Credits', class: 'payment-type-radio-button', style: 'margin-left: 10px;', disabled: @cart.any_not_applicable_for_credits?
+                = " #{t('orders.new.cisco_learning_credits')}"
             .row.cc-method
               .col-xs-12.col-md-6
                 .form-group
@@ -176,13 +188,12 @@
                   = f.label :billing_state, t('orders.new.state')
                   - if user_signed_in?
                     = f.select :billing_state,
-                               us_states,
-                               { prompt: true,
-                                 selected: current_user.billing_state },
+                               grouped_options_for_select(country_regions, current_user.billing_state),
+                               { prompt: true  },
                                { class: 'form-control input-sm' }
                   - else
                     = f.select :billing_state,
-                               us_states,
+                               grouped_options_for_select(country_regions),
                                { prompt: true },
                                { class: 'form-control input-sm' }
               .col-xs-12.col-md-2
@@ -230,13 +241,12 @@
                     = f.label :shipping_state, t('orders.new.state')
                     - if user_signed_in?
                       = f.select :shipping_state,
-                                 us_states,
-                                 { prompt: true,
-                                   selected: current_user.shipping_state },
+                                 grouped_options_for_select(country_regions, current_user.shipping_state),
+                                 { prompt: true },
                                  { class: 'form-control input-sm disableable' }
                     - else
                       = f.select :shipping_state,
-                                 us_states,
+                                 grouped_options_for_select(country_regions),
                                  { prompt: true },
                                  { class: 'form-control input-sm disableable' }
                 .col-xs-12.col-md-2
@@ -247,6 +257,7 @@
           .form-buttons
             button.btn.btn-success type="submit"
               = t('orders.new.place_order')
+
         
 javascript:
   $('.home-tab').addClass('active');

@@ -1,5 +1,25 @@
 .form-container
-  = form_for order do |f|
+  = form_for order, remote: true do |f|
+    - if order.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(order.errors.count, 'error')}:"
+        ul
+          - order.errors.full_messages.each do |msg|
+            li = msg
+            
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :origin_region, 'Origin Region'
+          = f.select :origin_region,
+                    Order.options_for_regions,
+                    { prompt: true, default: order.current_region_as_key },
+                    { class: 'form-control input-sm' }
+    
+    hr
+            
     .row
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
@@ -18,21 +38,21 @@
     .form-group
       = f.label :seller_id, t('orders.partial_form_for_admin.seller')
       = f.select :seller_id,
-                 User.joins(:roles).where(roles: { role: [2, 3] }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 existing_select2_ajax_user(order.seller),
                  { prompt: t('default.placeholder.select') },
-                 { class: "form-control input-sm" }
+                 { class: "form-control input-sm search-sales-select", style: "width: 100%;" }
 
     .form-group
       = f.label :buyer_id, t('orders.partial_form_for_admin.buyer')
       = f.select :buyer_id,
-                 User.joins(:roles).where(roles: { role: 4 }).order('lower(last_name)').collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                 existing_select2_ajax_user(order.buyer),
                  { prompt: t('default.placeholder.select') },
-                 { class: "form-control input-sm buyer-selector", disabled: !order.new_record? }
+                 { class: "buyer-selector search-members-select", style: "width: 100%;", disabled: !order.new_record? }
 
     .form-group
       = f.label :source, t('orders.partial_form_for_admin.source')
       = f.select :source,
-                 Order.sources.map{|k, v| [k.humanize, k]},
+                 Order.sources.map{ |k, v| [k.humanize, k] },
                  { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm source-selector", disabled: !order.new_record? }
 
@@ -41,16 +61,20 @@
       = f.text_field :other_source, class: 'form-control input-sm'
 
     - if order.id.present? && order.source == 'other'
-      p= order.other_source
+      p = order.other_source
     hr
 
-    - if order.id.present?
+    - if order.id.present? || errors == true
       #order-items
-        = f.fields_for :order_items, order.order_items, include_id: false do |order_item|
+        = f.fields_for :order_items, order.order_items, include_id: false, remote: true do |order_item|
           = render 'order_item_fields', f: order_item,
                                         type: order_item.object.orderable_type,
                                         order: order
-
+        .links
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
@@ -209,12 +233,12 @@
               = f.label :billing_state, t('orders.partial_form_for_admin.state')
               - if user_signed_in?
                 = f.select :billing_state,
-                           us_states,
+                           grouped_options_for_select(country_regions, order.billing_state),
                            { prompt: t('default.placeholder.select') },
                            { class: 'form-control input-sm' }
               - else
                 = f.select :billing_state,
-                           us_states,
+                           grouped_options_for_select(country_regions, order.billing_state),
                            { prompt: t('default.placeholder.select') },
                            { class: 'form-control input-sm' }
           .col-xs-12.col-md-2
@@ -260,12 +284,12 @@
             = f.label :shipping_state, t('orders.partial_form_for_admin.state')
             - if user_signed_in?
               = f.select :shipping_state,
-                         us_states,
+                         grouped_options_for_select(country_regions, order.shipping_state),
                          { prompt: t('default.placeholder.select') },
                          { class: 'form-control input-sm disableable' }
             - else
               = f.select :shipping_state,
-                         us_states,
+                         grouped_options_for_select(country_regions, order.shipping_state),
                          { prompt: t('default.placeholder.select') },
                          { class: 'form-control input-sm disableable' }
         .col-xs-12.col-md-2
@@ -282,11 +306,63 @@
         = t('default.action.cancel')
 
 javascript:
-  $('.buyer-selector').on('change', function () {
+  $('.search-members-select').select2({
+    dropdownParent: $(".search-members-select").closest('.form-group'),
+    ajax: {
+      url: "#{members_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.search-sales-select').select2({
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });
+  
+  $('.buyer-selector').on('change', function() {
     var userId = this.value
     var url = '/api/users/' + userId
 
-    $.get(url, function (data) {
+    $.get(url, function(data) {
       var fields = [
         'shipping_first_name', 'shipping_last_name', 'shipping_street',
         'shipping_city', 'shipping_state', 'shipping_zip_code', 'shipping_company',
@@ -295,27 +371,29 @@ javascript:
         'referring_partner_email'
       ]
 
-      fields.forEach(function (field) {
-        if (data[field]) $('#order_' + field).val(data[field])
+      fields.forEach(function(field) {
+        if(data[field]) $('#order_' + field).val(data[field])
       })
 
     })
   })
 
-  $('#order-items').on('change', '.order-item-selector', function (e) {
+  $('#order-items').on('change', '.order-item-selector', function(e) {
     var value = $(this).find('option:selected').text();
     var match = value.match(/-\s\$(.+)$/);
 
-    if (match) {
+    if(match) {
       value = match[1];
     }
 
-    $(this).closest('.row').find('.order-item-price').val(value);
+    if($(this).hasClass("new-order-item") == true) {
+      $(this).closest('.row').find('.order-item-price').val(value);
+    };
   });
   
   $('.order-item-selector').trigger('change');
 
-  $('.source-selector').on('change', function () {
+  $('.source-selector').on('change', function() {
     if (this.value == 'other') {
       $('.source-other').removeClass('hide')
     } else {

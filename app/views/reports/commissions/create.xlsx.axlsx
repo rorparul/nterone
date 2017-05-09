@@ -21,13 +21,12 @@ wb.styles do |style|
       sheet.add_row [
         item.orderable.start_date.strftime("%-m/%-d/%y"),
         item.orderable.course.abbreviation,
-        item.order.buyer.full_name,
+        item.order.buyer.try(:full_name),
         "$#{item.revenue}",
         "#{commission_percent}%",
         "$#{item.commission}"
       ]
     end
-
 
     style = style.add_style(bg_color: 'F7B079', alignment: { horizontal: :left })
 

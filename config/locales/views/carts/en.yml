@@ -4,6 +4,7 @@ en:
       created: "Created"
       inspect: "Inspect"
       items: "Items"
+      source: "Source"
       value: "Value"
     partial_show:
       added: "Added"

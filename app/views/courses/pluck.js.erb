@@ -1,0 +1,13 @@
+<% options = "<option>Please select</option>" %>
+
+<% if @course.present? && @course.upcoming_events.any? %>
+  <% @course.upcoming_events.each do |event| %>
+    <% options += "<option value='#{event.id}'>#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}</option>" %>
+  <% end %>
+  $('select.event-select').html("<%= escape_javascript(options.html_safe) %>");
+  $('select.event-select').prop('disabled', false);
+<% else %>
+  $('select.event-select').html("<%= escape_javascript(options.html_safe) %>");
+  $('select.event-select').select2().val('').trigger('change');;
+  $('select.event-select').prop('disabled', true);
+<% end %>

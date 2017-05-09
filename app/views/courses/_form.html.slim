@@ -27,7 +27,7 @@
                  html_options = { class: "form-control input-sm", multiple: 'true' }
 
     .form-group
-      = f.label :title, t('courses.partial_form.add_course')
+      = f.label :title, t('courses.partial_form.title')
       = f.text_field :title, class: 'form-control input-sm'
 
     .form-group
@@ -90,6 +90,11 @@
           = f.label :partner_led, t('courses.partial_form.partner')
           br
           = f.check_box :partner_led
+      .col-xs-6.col-md-4
+        .form-group
+          = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
+          br
+          = f.check_box :satellite_viewable
 
     .form-buttons
       button.btn.btn-success type="submit"

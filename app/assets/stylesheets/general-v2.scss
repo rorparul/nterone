@@ -1,3 +1,22 @@
+// -----------------------------------------------------------------------------
+// MIXINS
+// -----------------------------------------------------------------------------
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
+// -----------------------------------------------------------------------------
+// OVERRIDES
+// -----------------------------------------------------------------------------
+.select2-results__option {
+  text-align: left;
+}
+
 table {
   select {
     height: 20px !important;
@@ -13,4 +32,68 @@ table {
     width: 125px !important;
     line-height: 100% !important;
   }
+}
+
+.text-with-checkbox-container {
+  position: relative;
+  .checkbox-container {
+    right: 10px;
+    top: 4px;
+    position: absolute;
+    i {
+      top: 4px;
+      right: 12px;
+      position: absolute;
+      margin-right: 5px;
+    }
+    input {
+      margin: 0;
+    }
+  }
+}
+
+.background-muted {
+  background-color: rgb(245, 245, 245);
+}
+
+.container-muted {
+  background-color: rgb(245, 245, 245);
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.table-end {
+  border-top: 2px solid rgb(221, 221, 221);
+  margin-bottom: 10px;
+  height: 31px;
+  background-color: rgb(245, 245, 245);
+}
+
+.margin-right-3 {
+  margin-right: 3px;
+}
+
+.smart-listing-controls {
+  height: 30px;
+  .radio {
+    display: inline-block;
+    margin: 5px 15px 5px 0;
+  }
+  .checkbox {
+    display: inline-block;
+    float: right;
+    margin: 5px 15px 5px 0;
+  }
+  .filter {
+    float: right;
+    width: 200px;
+  }
+}
+
+.input-daterange input {
+  text-align: left;
+}
+
+.font-weight-bold {
+  font-weight: bold;
 }

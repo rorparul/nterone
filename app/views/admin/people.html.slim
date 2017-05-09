@@ -1,8 +1,11 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
-    
+
+= render 'layouts/tabs'
+
 .row
   .col-xs-12
+<<<<<<< HEAD
     = render 'tabs'
     
     .row
@@ -24,21 +27,39 @@
                   /     = hidden_field_tag :including_team, "0"
                   /     = check_box_tag :including_team
                   /     = t('admin.admin_people.row.people.filter.non_students')
+=======
+    .panel.panel-default
+      .panel-heading.panel-heading-with-search
+        .row
+          .col-xs-6
+            strong.text-muted
+              = t('admins.people.users')
+          .col-xs-6
+            = link_to t('default.action.add'), new_user_invitation_path, remote: true, class: "table-header-action"
+            
+            = smart_listing_controls_for(:users, {class: "form-inline text-right smart_listing_form"}) do
+              
+              / .checkbox
+              /   label.checkbox.inline
+              /     = hidden_field_tag :including_team, "0"
+              /     = check_box_tag :including_team
+              /     = t('admin.admin_people.row.people.filter.non_students')
 
-                  .input-group.input-group-sm.filter.input-append
-                    = text_field_tag :filter, '', class: "search form-control input-sm", 
-                                                  placeholder: t('default.action.search'),
-                                                  autocomplete: :off
-                    span class="input-group-btn"
-                      button class="btn btn-default btn-sm disabled" type="submit"
-                        span.glyphicon.glyphicon-search
-                
-          = smart_listing_render(:users)
-    
+              .input-group.input-group-sm.filter.input-append
+                = text_field_tag :filter, '', class: "search form-control input-sm", 
+                                              placeholder: t('default.action.search'),
+                                              autocomplete: :off
+                span class="input-group-btn"
+                  button class="btn btn-default btn-sm disabled" type="submit"
+                    span.glyphicon.glyphicon-search
+
+      = smart_listing_render(:users)
+>>>>>>> staging
+
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .people').addClass('active-category');
-  
+  $('.permissions .people').addClass('active');
+
   $(document).on('change', '.selector-role', function() {
     $(this).closest('form').submit();
   });

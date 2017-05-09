@@ -19,7 +19,7 @@
     .panel.panel-default
       .panel-body = @page.content.try(:html_safe)
     - @platforms.each do |platform|
-      - if platform.upcoming_public_featured_events.any?
+      - if platform.upcoming_public_featured_events.active_in_current_region.any?
         #featured-classes
           .panel.panel-default
             .panel-heading
@@ -32,7 +32,8 @@
                     th = t('general.featured_classes.date')
                     th = t('general.featured_classes.length')
                     th = t('general.featured_classes.format')
-                    th = t('general.featured_classes.language')
+                    th title="#{t('general.featured_classes.language')}"
+                      i.fa.fa-globe aria-hidden="true"
                     th = t('general.featured_classes.location')
                     th = t('general.featured_classes.price')
                     th = t('general.featured_classes.preview')
@@ -42,7 +43,7 @@
                       th
                       th
                 tbody
-                  - platform.upcoming_public_featured_events.each do |event|
+                  - platform.upcoming_public_featured_events.active_in_current_region.each do |event|
                     tr
                       td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
                       td
@@ -51,16 +52,23 @@
                         meta itemprop="endDate" content="#{event.end_date}"
                           = "#{event.end_date.strftime("%-m/%-d/%y")}"
                       td.fit = "#{pluralize(event.length, 'Day')}"
-                      td.fit = event.format
+                      - if event.format == "ClearConnect"
+                        td.fit.location-td style="cursor: help;"
+                          .for-tooltip data-toggle="tooltip" data-placement="top" title="ClearConnect allows you to join training remotely via webex, any video-conferencing system, or at the onsite location(s) listed."
+                            = event.format
+                            i.fa.fa-info-circle.text-info aria-hidden="true" style="margin-left: 5px;"
+                      - else
+                        td.fit
+                          = event.format
                       td.fit = event.language.upcase
                       - if event.city.present? || event.state.present? || event.street.present?
-                        td.fit.location-td
+                        td.fit.location-td.text-center style="cursor: help;"
                           .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
-                            i.fa.fa-map-marker aria-hidden="true" style="margin-right: 5px;"
                             = event.state
+                            i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                       - else
                         - if event.format == "Live Online"
-                          td 
+                          td.text-center
                             = t('general.featured_classes.webex')
                         - else
                           td
@@ -75,7 +83,7 @@
                           div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"
                             span itemprop="price"
                               = t('general.featured_classes.free')
-                      td.fit
+                      td.fit.text-center
                         - if event.course.video_preview.present?
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
@@ -102,7 +110,7 @@
 
 javascript:
   $('.home-tab').addClass('active');
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
   $(document).on('click', '.video-trigger', function(e) {
     e.preventDefault();
     $(this).prev('.video-link-container').find('div').click();

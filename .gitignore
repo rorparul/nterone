@@ -18,4 +18,6 @@ erd.pdf
 /config/application.yml
 
 sitemap.xml.gz
+
+# OSX system files
 .DS_Store

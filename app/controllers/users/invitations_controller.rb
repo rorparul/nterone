@@ -1,7 +1,12 @@
 class Users::InvitationsController < Devise::InvitationsController
+  before_action :set_user, only: [:create]
+
   def new
-    @origin = params[:origin]
-    super
+    self.resource = resource_class.new
+    resource.assign_attributes(parent_id: current_user.id)
+    resource.assign_attributes(status: 3) if request.path == '/users/contacts/new'
+    resource.assign_attributes(email: "#{SecureRandom.hex(10)}@placeholder.email")
+    render :new
   end
 
   def create
@@ -11,15 +16,9 @@ class Users::InvitationsController < Devise::InvitationsController
       @user.roles.create
       @user.update_attributes(referring_partner_email_params)
 
-      if current_user.sales_manager?
-        Lead.create(buyer_id: @user.id)
-      elsif current_user.sales?
-        Lead.create(seller_id: current_user.id, status: 'assigned')
-      end
-
       flash[:success] = 'Successfully Saved!' if skip_invitation?
     else
-      flash[:alert] = 'User with specified email is already invited'
+      flash[:alert] = "#{@user.full_name}, belonging to #{@user.parent.try(:full_name) || 'nobody'}, with specified email is already invited."
       redirect_to :back
     end
   end
@@ -35,36 +34,48 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def after_invite_path_for(resource)
-    if params[:origin] == "orders"
-      admin_orders_path
-    else
-      admin_people_path
-    end
+    request.referrer
   end
 
   private
 
-  # this is called when creating invitation
-  # should return an instance of resource class
-  def invite_resource
-    ## skip sending emails on invite
-    super do |u|
-      u.skip_invitation = skip_invitation?
+  def set_user
+    if invite_params[:email].present?
+      @user = User.find_by(email: invite_params[:email].downcase)
     end
   end
 
   def not_invited?
-    if invite_params[:email].present?
-      !User.where(email: invite_params[:email]).present?
-    end
+    @user.nil?
   end
 
   def skip_invitation?
     params[:skip_invitation] == 'true' ? true : false
   end
 
+  def invite_resource
+    super do |u|
+      u.skip_invitation = skip_invitation?
+    end
+  end
+
   def invite_params
-    params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user).permit(
+      :business_title,
+      :company_id,
+      :contact_number,
+      :do_not_call,
+      :do_not_email,
+      :email_alternative,
+      :email,
+      :first_name,
+      :last_name,
+      :notes,
+      :parent_id,
+      :phone_alternative,
+      :salutation,
+      :status
+    )
   end
 
   def referring_partner_email_params

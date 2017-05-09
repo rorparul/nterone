@@ -10,6 +10,8 @@
     | /
   span.text-muted
     = t('admins.partial_breadcrumbs.edit')
+    
+= render 'layouts/tabs'
 
 .panel.panel-default
   .panel-heading
@@ -19,6 +21,9 @@
     = render partial: "form", locals: { lab_course: @lab_course }
 
 javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .website').addClass('active');
+  
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });

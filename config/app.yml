@@ -1,7 +1,15 @@
 # config/app.yml for rails-settings-cached
 defaults: &defaults
-  foo: "Foo"
-  bar: 123
+  aws_s3_access_key_id: "AKIAJ57ZDYLSWNFV6HAQ"
+  aws_s3_secret_access_key: "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"
+  aws_s3_region: "us-west-2"
+  aws_s3_bucket: "nterone-backup"
+  aws_s3_path: "nterone"
+  aws_s3_files_keep: 10
+  current_hostname: "<%= `hostname`.strip %>"
+  tld: "<%= `hostname`.match(/\w+$/).to_s %>"
+  host: "<%= "nterone.#{`hostname`.match(/\w+$/).to_s}" %>"
+  formatted_domain: "<%= "www.NterOne.#{`hostname`.match(/\w+$/).to_s}" %>"
 
 development:
   <<: *defaults

@@ -9,6 +9,7 @@ en:
     export:
       abbreviation: 'Abbreviation'
       vendor: 'Vendor'
+      price: "Price"
       slug: 'Slug'
       title: 'Title'
       url: 'URL'
@@ -16,6 +17,7 @@ en:
       overview: "Overview"
       outline: "Outline"
       intended_audience: "Intended Audience"
+      categories: "Categories"
     new:
       add_course: "Add Course"
     new_js:
@@ -23,9 +25,9 @@ en:
     partial_clone_form:
       slug: "Slug"
     partial_form:
-      abbr: "Abreviatura"
+      abbr: "Abbreviation"
       active: "Active"
-      add_course: 'Add Course'
+      title: 'Add Course'
       attend: "Who Should Attend"
       catgories: "Categories"
       heading: "Heading (H1)"
@@ -39,6 +41,7 @@ en:
       pdf: "PDF"
       slug: "Slug"
       video_preview: "Video Preview"
+      satellite_viewable: "Satellite Viewable"
     partial_index:
       courses: "Courses"
       course_id: "Course ID"

@@ -1,0 +1,173 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+    | My NterOne
+  span.seperator
+    | /
+  span.text-muted
+    | Sales
+  span.seperator
+    | /
+  a href="#{companies_path}"
+    | Companies
+  span.seperator
+    | /
+  span.text-muted
+    = @company.title
+
+= render 'layouts/tabs'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted = @company.title
+    .container-muted
+      = link_to t('default.action.edit'), edit_company_path(@company), remote: true, class: 'btn btn-warning btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to t('default.action.destroy'), company_path(@company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
+
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted Relatives
+    .container-muted
+      .row
+        .col-xs-12.col-md-4
+          strong.text-muted Ancestors
+          br
+          - @company.ancestors.first(10).each do |company|
+            = link_to company.title, company_path(company)
+            br
+        .col-xs-12.col-md-4
+          strong.text-muted Siblings
+          br
+          - if @company.parent.present?
+            - @company.siblings.first(10).each do |company|
+              = link_to company.title, company_path(company)
+              br
+        .col-xs-12.col-md-4
+          strong.text-muted Descendants
+          br
+          - @company.descendants.first(10).each do |company|
+            = link_to company.title, company_path(company)
+            br
+      
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Leads
+    .container-muted
+      = link_to t('default.action.new'), new_lead_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:leads, { class: 'input-search' }) do
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+    = smart_listing_render(:leads)
+      
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Contacts
+    .container-muted
+      = link_to t('default.action.new'), new_user_invitation_path(company_id: @company.id), remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:contacts, {class: 'input-search'}) do
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm', 
+                                        placeholder: t('default.action.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+    = smart_listing_render(:contacts)
+    
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Opportunities
+    .container-muted
+      = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span.input-group-btn
+            button.btn.btn-default.btn-sm.disabled type="submit"
+              span.glyphicon.glyphicon-search
+              
+        - if current_user.admin? || current_user.sales_manager?
+          .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
+            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+
+        .radio
+          label
+            input type="radio" name="selection" id="selection_open" value="open" checked='true'
+            | Open
+        .radio
+          label
+            input type="radio" name="selection" id="selection_waiting" value="waiting"
+            | Waiting
+        .radio
+          label
+            input type="radio" name="selection" id="selection_closed" value="closed"
+            | Closed
+            
+        #end-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :end_date, :end_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+            { disabled: true, class: 'input-date' }
+        #start-date.pull-right style='margin: 4px 15px 4px 0;'
+          = date_select :start_date, :start_date,
+            { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: @company.account_opportunities.minimum(:date_closed) },
+            { disabled: true, class: 'input-date' }
+            
+    = smart_listing_render(:opportunities)
+
+.row
+  .col-xs-12 
+    h4
+      strong.text-muted Lab Rental Portal
+    .container-muted
+      = link_to "#{request.base_url}/#{@company.slug}/lab-reservations/new", "#{request.base_url}/#{@company.slug}/lab-reservations/new"
+      
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Sales Rep
+    .container-muted
+      - if @company.user.present?
+        = link_to @company.user.full_name, user_path(@company.user)
+      - else
+        | N/A
+  
+.row
+  .col-xs-12 
+    .container-muted
+      = link_to 'Back', url_for(:back), class: 'btn btn-primary btn-sm', role: 'button', style: 'margin-right: 5px;'
+  
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .sales').addClass('active');
+  
+  $('.radio input').on('change', function(){
+    if($('#selection_closed').is(':checked')){
+      $('.input-date').prop('disabled', false);
+    }else{
+      $('.input-date').prop('disabled', true);
+    }
+  });

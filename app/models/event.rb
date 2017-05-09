@@ -37,19 +37,28 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
+<<<<<<< HEAD
 #  company                        :string
+=======
+#  origin_region                  :integer
+#  active_regions                 :text             default([]), is an Array
+>>>>>>> staging
 #
 
 class Event < ActiveRecord::Base
   include SearchCop
+  include Regions
 
-  enum language: { en: 0, es: 1 }
+  enum language: {
+    en: 0,
+    es: 1
+  }
 
   enum remind_period: {
     one_week: 0,
@@ -60,25 +69,30 @@ class Event < ActiveRecord::Base
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
 
+  has_many :opportunities
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
 
-  # before_save    :update_status
-  before_save :calculate_book_cost, if: Proc.new { |model| model.calculate_book_costs? }
-  before_save :calculate_instructor_cost, if: Proc.new { |model| model.autocalculate_instructor_costs? }
+  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
+  before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
-  after_save :confirm_with_instructor, if: Proc.new { |model| model.instructor_id_changed? && model.instructor.present? }
+
+  after_save :create_gtr_alert,        if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
+  after_save :destroy_gtr_alert,       if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
+  after_save :confirm_with_instructor, if: proc { |model| model.instructor_id_changed? && model.instructor.present? }
+
   before_destroy :ensure_not_purchased_or_in_cart
+
+  after_destroy :destroy_gtr_alert
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
+  scope :from_source,   -> (source) { joins(:orders).where(orders: { source: source }).distinct }
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
-  scope :from_source, ->(source) { joins(:orders).where(orders: { source: source }).distinct }
-
 
   search_scope :custom_search do
     attributes :id, :format, :start_date, :public, :guaranteed
@@ -86,6 +100,8 @@ class Event < ActiveRecord::Base
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
   end
+
+  delegate :platform, to: :course
 
   def self.upcoming_events
     where("start_date >= :start_date", { start_date: Date.today })
@@ -125,7 +141,7 @@ class Event < ActiveRecord::Base
   end
 
   def student_count
-    users.count
+    OrderItem.where(orderable_id: self.id, orderable_type: "Event", cart_id: nil).count
   end
 
   def invoiced_amount
@@ -181,6 +197,14 @@ class Event < ActiveRecord::Base
   end
 
   private
+
+  def create_gtr_alert
+    EventMailer.create_gtr_alert(self).deliver_now
+  end
+
+  def destroy_gtr_alert
+    EventMailer.destroy_gtr_alert(self).deliver_now
+  end
 
   def ensure_not_purchased_or_in_cart
     if users.empty?

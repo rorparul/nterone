@@ -7,13 +7,39 @@
   span.text-muted
     = t('admins.partial_breadcrumbs.my_account')
 
+= render 'layouts/tabs'
+          
 .row
   .col-xs-12
-    = render 'tabs'
-
-.page-header
-  h3 
-    = t('my_account.plan.purchased_classes_subscriptions')
+    .page-header style="margin: 0 0 10px 0;"
+      h1 style="margin-bottom: 0;"
+        small style="font-size: 15px;" = t('my_account.plan.purchased_classes_subscriptions')
+        
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        strong.text-muted = t('my_account.plan.pod_rentals')
+      .table-responsive
+        .panel-table
+          table.table.table-condensed.fixed-table
+            - if @time_blocks.any?
+              thead
+                tr.text-muted
+                  th colspan="2" = t('my_account.plan.lab_course')
+                  th = t('my_account.plan.date')
+                  th = t('my_account.plan.time')
+                  th = t('my_account.plan.time_zone')
+              - @time_blocks.each do |time_block|
+                tbody
+                  tr
+                    td colspan="2" = time_block.lab_course.title
+                    td = time_block.first_day.strftime("%B %_d, %Y")
+                    td = "#{time_block.start_time.strftime("%l:%M%p")} - #{time_block.end_time.strftime("%l:%M%p")}"
+                    td = time_block.time_zone
+            - else 
+              tr
+                td.text-center = t('my_account.plan.no_pod_rentals')
 
 .row
   .col-xs-12
@@ -27,24 +53,15 @@
             - if current_user.upcoming_events.any?
               thead
                 tr.text-muted
-                  th
-                    = t('my_account.plan.course')
-                  th
-                    = t('my_account.plan.start_date')
-                  th
-                    = t('my_account.plan.end_date')
-                  th
-                    = t('my_account.plan.start_time')
-                  th
-                    = t('my_account.plan.end_time')
-                  th 
-                    = t('my_account.plan.duration')
-                  th
-                    = t('my_account.plan.format')
-                  th
-                    = t('my_account.plan.countdown')
-                  th 
-                    = t('my_account.plan.details')
+                  th = t('my_account.plan.course')
+                  th = t('my_account.plan.start_date')
+                  th = t('my_account.plan.end_date')
+                  th = t('my_account.plan.start_time')
+                  th = t('my_account.plan.end_time')
+                  th = t('my_account.plan.duration')
+                  th = t('my_account.plan.format')
+                  th = t('my_account.plan.countdown')
+                  th = t('my_account.plan.details')
             tbody
               - if current_user.upcoming_events.any?
                 - current_user.upcoming_events.each do |event|
@@ -81,7 +98,7 @@
                 tr
                   th
                     = t('my_account.plan.course')
-                  th 
+                  th
                     = t('my_account.plan.days_access_left')
             tbody
               - if current_user.active_video_on_demands.any?
@@ -123,9 +140,12 @@
                 tr
                   td.text-center 
                     = t('my_account.plan.no_completed')
-.page-header
-  h3 
-    = t('my_account.plan.certification_planning_tracking')
+                    
+.row
+  .col-xs-12
+    .page-header style="margin: 0 0 10px 0;"
+      h1 style="margin-bottom: 0;"
+        small style="font-size: 15px;" = t('my_account.plan.certification_planning_tracking')
 
 - unless @planned_subjects.any?
   .row
@@ -175,15 +195,15 @@
         span
           = "#{t('my_account.plan.estimated_total')} #{formatted_price_or_range_of_my_plan_for(current_user)}"
 
-.row
-  .col-xs-12
-    #activity-history
-      .page-header
-        h3 
-          = t('my_account.plan.activity_history')
-      ul
-        = render_activities(@activities, fallback: 'default')
+/ .row
+/   .col-xs-12
+/     #activity-history
+/       .page-header
+/         h3 
+/           = t('my_account.plan.activity_history')
+/       ul
+/         = render_activities(@activities, fallback: 'default')
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .plan').addClass('active-category');
+  $('.permissions .plan').addClass('active');

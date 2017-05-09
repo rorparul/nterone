@@ -9,6 +9,8 @@
           - page.errors.full_messages.each do |msg|
             li = msg
             
+    = render partial: 'shared/region_inputs', locals: { model: Page, f: f }
+    
     .form-group
       = f.label :page_title, t('pages.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'

@@ -12,15 +12,12 @@ wb.styles do |style|
 
     sheet.add_row headers, style: Array.new(headers.size, color)
 
-    @platforms.each do |platform|
-      platform.upcoming_events.with_students.each do |event|
-
-        sheet.add_row [
-          event.start_date,
-          event.course.title,
-          event.student_count
-        ]
-      end
+    @events.each do |event|
+      sheet.add_row [
+        event.start_date,
+        event.course.title,
+        event.student_count
+      ]
     end
   end
 end

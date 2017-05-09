@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025205731) do
+ActiveRecord::Schema.define(version: 20170428025248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,10 +62,12 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.text     "page_description"
     t.text     "content"
     t.string   "slug"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "kind"
     t.string   "title"
+    t.integer  "origin_region"
+    t.text     "active_regions",   default: [],              array: true
   end
 
   create_table "assigned_items", force: :cascade do |t|
@@ -80,8 +82,14 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
 
   create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "source_name"
+    t.string   "source_user_id"
+    t.string   "source_hash"
+    t.integer  "user_id"
+    t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -97,6 +105,8 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.text     "description"
     t.string   "page_title"
     t.string   "heading"
+    t.text     "meta_description"
+    t.text     "video"
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -106,6 +116,13 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   create_table "category_courses", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "category_packages", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "package_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -136,11 +153,22 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
+    t.integer  "user_id"
+    t.string   "kind"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip_code"
+    t.string   "phone"
+    t.string   "website"
+    t.integer  "parent_id"
+    t.string   "industry_code"
+    t.boolean  "partner",       default: false
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -152,10 +180,10 @@ ActiveRecord::Schema.define(version: 20161025205731) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.integer  "platform_id"
-    t.boolean  "active",                                    default: true
+    t.boolean  "active",                                     default: true
     t.string   "abbreviation"
     t.text     "intro"
     t.text     "overview"
@@ -163,12 +191,13 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.text     "intended_audience"
     t.string   "pdf"
     t.text     "video_preview"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",              precision: 8, scale: 2, default: 0.0
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "partner_led",                               default: false
+    t.boolean  "partner_led",                                default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                         default: true
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -252,12 +281,14 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.text     "note"
     t.boolean  "count_weekends",                                         default: false
     t.text     "in_house_note"
-    t.integer  "language",                                               default: 0
     t.string   "street"
+    t.integer  "language",                                               default: 0
     t.boolean  "calculate_book_costs",                                   default: true
     t.boolean  "autocalculate_instructor_costs",                         default: true
     t.boolean  "resell",                                                 default: false
     t.string   "zipcode"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                         default: [],                     array: true
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
@@ -409,6 +440,14 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.integer  "platform_id"
   end
 
+  create_table "hacp_requests", force: :cascade do |t|
+    t.string   "aicc_sid"
+    t.boolean  "used",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "user_id"
+  end
+
   create_table "image_store_units", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -449,11 +488,27 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "lab_course_time_blocks", force: :cascade do |t|
+    t.integer "lab_course_id"
+    t.decimal "unit_size",     precision: 4, scale: 2, default: 1.0
+    t.integer "unit_quantity"
+    t.integer "ratio",                                 default: 1
+    t.decimal "price",         precision: 8, scale: 2, default: 0.0
+    t.string  "level"
+  end
+
   create_table "lab_courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "company_id"
+    t.text     "description"
+    t.string   "slug"
+    t.string   "abbreviation"
+    t.text     "card_description"
+    t.string   "level",            default: "both"
+    t.integer  "pods_individual",  default: 0
+    t.integer  "pods_partner",     default: 0
   end
 
   create_table "lab_rentals", force: :cascade do |t|
@@ -472,12 +527,13 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.boolean  "canceled"
-    t.integer  "lab_course_id"
     t.time     "end_time"
+    t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
     t.boolean  "twenty_four_hours"
     t.date     "last_day"
+    t.string   "level"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
@@ -586,6 +642,31 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.datetime "updated_at",                      null: false
   end
 
+  create_table "opportunities", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "customer_id"
+    t.integer  "account_id"
+    t.string   "title"
+    t.integer  "stage"
+    t.decimal  "amount",           precision: 8, scale: 2, default: 0.0
+    t.string   "kind"
+    t.string   "reason_for_loss"
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.boolean  "waiting",                                  default: false
+    t.string   "payment_kind"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip_code"
+    t.integer  "partner_id"
+    t.date     "date_closed"
+    t.integer  "course_id"
+    t.integer  "event_id"
+    t.string   "email_optional"
+    t.text     "notes"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
@@ -653,10 +734,35 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.integer  "source",                                          default: 0
     t.string   "other_source"
     t.integer  "discount_id"
+    t.integer  "opportunity_id"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                  default: [],                        array: true
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
+
+  create_table "package_items", force: :cascade do |t|
+    t.integer  "package_id"
+    t.string   "packageable_type"
+    t.integer  "packageable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "platform_id"
+    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.text     "description"
+    t.string   "abbreviation"
+    t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
+    t.boolean  "partner_led",                              default: false
+  end
 
   create_table "pages", force: :cascade do |t|
     t.string   "title"
@@ -667,6 +773,8 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.string   "slug"
     t.boolean  "static",           default: false
     t.text     "page_description"
+    t.integer  "origin_region"
+    t.text     "active_regions",   default: [],                 array: true
   end
 
   create_table "passed_exams", force: :cascade do |t|
@@ -696,6 +804,7 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
+    t.boolean  "satellite_viewable", default: true
   end
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
@@ -705,6 +814,29 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "public_featured_events", force: :cascade do |t|
+    t.string   "full_title"
+    t.string   "platform_course_url"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "length"
+    t.string   "format"
+    t.string   "language"
+    t.string   "city"
+    t.string   "state"
+    t.string   "street"
+    t.decimal  "price",               precision: 8, scale: 2, default: 0.0
+    t.text     "video_preview"
+    t.string   "link_to_cart"
+    t.string   "pdf_url"
+    t.integer  "platform_id"
+    t.string   "platform_title"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.string   "host"
+    t.integer  "event_id"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -797,6 +929,18 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   add_index "taken_exams", ["lms_exam_id"], name: "index_taken_exams_on_lms_exam_id", using: :btree
   add_index "taken_exams", ["user_id"], name: "index_taken_exams_on_user_id", using: :btree
 
+  create_table "tasks", force: :cascade do |t|
+    t.datetime "activity_date"
+    t.text     "description"
+    t.integer  "rep_id"
+    t.integer  "priority",      default: 2
+    t.string   "subject"
+    t.integer  "user_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "complete",      default: false
+  end
+
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -888,6 +1032,19 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.integer  "status",                                          default: 0
     t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
     t.text     "video_bio"
+    t.string   "source_name"
+    t.string   "source_user_id"
+    t.integer  "parent_id"
+    t.string   "salutation"
+    t.string   "business_title"
+    t.boolean  "do_not_call"
+    t.boolean  "do_not_email"
+    t.string   "email_alternative"
+    t.string   "phone_alternative"
+    t.text     "notes"
+    t.string   "aasm_state"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                  default: [],                            array: true
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
@@ -900,18 +1057,20 @@ ActiveRecord::Schema.define(version: 20161025205731) do
   create_table "video_modules", force: :cascade do |t|
     t.integer  "video_on_demand_id"
     t.string   "title"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "position",           default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "position",               default: 0
+    t.boolean  "cisco_digital_learning", default: false
+    t.string   "cdl_course_code"
   end
 
   create_table "video_on_demands", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.decimal  "price",                  precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
@@ -922,10 +1081,13 @@ ActiveRecord::Schema.define(version: 20161025205731) do
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
-    t.boolean  "partner_led",                               default: false
-    t.boolean  "active",                                    default: true
-    t.boolean  "lms",                                       default: false
+    t.boolean  "partner_led",                                    default: false
+    t.boolean  "active",                                         default: true
+    t.boolean  "lms",                                            default: false
     t.string   "heading"
+    t.boolean  "satellite_viewable",                             default: true
+    t.boolean  "cisco_digital_learning",                         default: false
+    t.string   "cdl_course_code"
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

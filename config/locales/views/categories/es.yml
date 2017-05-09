@@ -3,8 +3,9 @@ es:
     partial_form:
       add_category: "Add Category"
       description: "Descripción"
+      meta_description: "Meta Descripción"
       heading: "Encabezado (H1)"
-      page_title: "Pagina Titulo"
+      page_title: "Meta Titulo"
       parent: "Pariente"
       position: "Posición"
     partial_select:

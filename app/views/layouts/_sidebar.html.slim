@@ -9,6 +9,7 @@
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-gear
             span.text = t('admins.partial_breadcrumbs.admin')
+<<<<<<< HEAD
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.partner?
@@ -17,24 +18,20 @@
             span.text Partner
             - if @total_alert_count > 0
               span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+=======
+>>>>>>> staging
         - if current_user.sales?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-coffee
             span.text= t 'breadcrumbs.my_sales'
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.instructor?
           li = link_to main_app.instructor_classes_path, class: "role-tab" do
             span.fa.fa-users
             span.text= t 'breadcrumbs.instructor'
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
         - if current_user.member?
           li = link_to main_app.my_account_plan_path, class: "role-tab" do
             span.fa.fa-user
             span.text My Account
-            - if @total_alert_count > 0
-              span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
       - else
         li = link_to main_app.new_user_session_path, class: "login-tab" do
           span.fa.fa-sign-in
@@ -48,10 +45,10 @@
       li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
         span.fa.fa-thumbs-o-up
         span.text = t('layouts.partial_sidebar.testimonials')
-      - unless I18n.locale == :es
-        li = link_to forem.root_path, class: "forums-tab" do
-          span.fa.fa-comments-o
-          span.text = t('layouts.partial_sidebar.forums')
+      / - unless I18n.locale == :es
+      /   li = link_to forem.root_path, class: "forums-tab" do
+      /     span.fa.fa-comments-o
+      /     span.text = t('layouts.partial_sidebar.forums')
       li = link_to main_app.consulting_path, class: "consulting-tab" do
         span.fa.fa-puzzle-piece
         span.text = t('layouts.partial_sidebar.consulting')
@@ -66,9 +63,12 @@
           span.fa.fa-envelope-o
           span.text = t('layouts.partial_sidebar.contact_us')
       - if user_signed_in?
-        li = link_to main_app.destroy_user_session_path, method: :delete do
+        li = link_to main_app.logout_path do
           span.fa.fa-sign-out
           span.text = t('layouts.partial_sidebar.logout')
+  
+    / - if controller_name == 'courses' && action_name == 'show'
+    /   = render partial: 'shared/credits'
 
 .sidebar-mobile.visible-xs
   .sidebar-content

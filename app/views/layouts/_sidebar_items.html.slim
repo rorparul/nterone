@@ -4,6 +4,7 @@
       span.fa.fa-gear
       span
       = t('admins.partial_breadcrumbs.admin')
+<<<<<<< HEAD
       - if @total_alert_count > 0
         span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
   - if current_user.partner?
@@ -12,18 +13,16 @@
       span.text Partner
       - if @total_alert_count > 0
         span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
+=======
+>>>>>>> staging
   - if current_user.sales?
     li = link_to main_app.admin_classes_path, class: "role-tab" do
       span.fa.fa-coffee
       span My Sales
-      - if @total_alert_count > 0
-        span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
   - if current_user.member?
     li = link_to main_app.my_account_plan_path, class: "role-tab" do
       span.fa.fa-user
       span My Account
-      - if @total_alert_count > 0
-        span.badge.badge-alert.badge-alert-sidebar = @total_alert_count
 - else
   li = link_to main_app.new_user_session_path, class: "login-tab" do
     span.fa.fa-sign-in
@@ -37,10 +36,10 @@ li = link_to main_app.platforms_path, class: 'training-tab' do
 li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
   span.fa.fa-thumbs-o-up
   span = t('layouts.partial_side_items.testimonials')
-- unless I18n.locale == :es
-  li = link_to forem.root_path, class: "forums-tab" do
-    span.fa.fa-comments-o
-    span = t('layouts.partial_side_items.forums')
+/ - unless I18n.locale == :es
+/   li = link_to forem.root_path, class: "forums-tab" do
+/     span.fa.fa-comments-o
+/     span = t('layouts.partial_side_items.forums')
 li = link_to main_app.consulting_path, class: "consulting-tab" do
   span.fa.fa-puzzle-piece
   span = t('layouts.partial_side_items.consulting')
@@ -55,6 +54,6 @@ li = link_to main_app.labs_path, class: "labs-tab" do
     span.fa.fa-envelope-o
     span = t('layouts.partial_side_items.contact_us')
 - if user_signed_in?
-  li = link_to main_app.destroy_user_session_path, method: :delete do
+  li = link_to main_app.logout_path do
     span.fa.fa-sign-out
     span = t('layouts.partial_side_items.logout')

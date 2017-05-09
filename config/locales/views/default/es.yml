@@ -23,9 +23,10 @@ es:
       submit: "enviar"
       toggle: "Palanca"
       upload: "Cargar"
+      export: "Exportar"
     contact:
       email: "@nterone.la"
-      phone: "703.972.2288"
+      phone: "703-991-5185"
     label:
       content: "Contenido"
       current_password: "Clave Actual"
@@ -44,6 +45,8 @@ es:
       no_records: "No registros encontrados."
       search_form: "Buscar por Certificaciones, cursos o exámenes"
       select: "Por Favor Seleccionar"
+      start_date: "Comienzo Fecha"
+      end_date: "Fin Fecha"
     prompt:
       confirm_delete: "Estas Seguro?"
       none_select: "Ninguno"

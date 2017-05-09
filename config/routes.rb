@@ -6,15 +6,24 @@ NterOne::Application.routes.draw do
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
+    get  'logout'             => 'devise/sessions#destroy'
+    get  'users/leads/new'    => 'users/invitations#new', as: :new_lead
+    get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
-  mount Forem::Engine, :at => '/forums'
+  # mount Forem::Engine, :at => '/forums'
 
   resources :users  do
     post :toggle_archived, on: :member
     collection do
-      get '/users/:id/edit_from_my_queue' => 'users#edit_from_my_queue', as: :edit_from_my_queue
-      get 'page'
+      get ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
+      get 'leads'               => 'users#leads',           as: :leads
+      get 'contacts'            => 'users#contacts',        as: :contacts
+      get 'members'             => 'users#members',         as: :members
+      get 'sales_reps'          => 'users#sales_reps',      as: :sales_reps
+      get 'leads/:id'           => 'users#show_as_lead',    as: :lead
+      get 'contacts/:id'        => 'users#show_as_contact', as: :contact
+      get ':id/assign'          => 'users#assign',          as: :assign
     end
   end
 
@@ -26,15 +35,20 @@ NterOne::Application.routes.draw do
 
   resources :image_store_units
 
-  get 'cart'                 => 'carts#show',            as: :cart
+  resources :carts
   get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
   get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
+<<<<<<< HEAD
+=======
+  get 'admin/insights/carts' => 'insights#carts',        as: :insights_carts
+>>>>>>> staging
 
   resources :discounts
   resources :order_items
   resources :orders do
     collection do
-      get '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+      get  '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+      post '/e-xact/create'    => 'orders#exact_create', as: :exact_create
     end
   end
 
@@ -57,7 +71,11 @@ NterOne::Application.routes.draw do
     end
   end
 
-  resources :leads, only: [:index, :edit, :update, :show], path: 'my-queue' do
+  resources :tasks do
+    patch 'task/complete' => 'tasks#complete', as: :complete
+  end
+
+  resources :leads, only: [:edit, :update, :show], path: 'my-queue' do
     collection do
       get 'leads/:id/download_quote' => 'leads#download_quote', as: :download_quote
       get 'leads/:id/email_quote'    => 'leads#email_quote',    as: :email_quote
@@ -73,9 +91,28 @@ NterOne::Application.routes.draw do
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
   post 'upload_path' => 'lab_rentals#upload'
+  post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
-  resources :companies
-  resources :lab_courses
+  resources :opportunities do
+    collection do
+      get  ':id/copy' => 'opportunities#copy', as: :copy
+      get  'export_popup'
+      post 'export'
+    end
+  end
+  resources :companies do
+    collection do
+      get 'pluck' => 'companies#pluck'
+    end
+  end
+
+  get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
+  get 'events/pluck'  => 'events#pluck',  as: :pluck_events
+
+  resources :lab_courses do
+    resources :lab_course_time_blocks
+  end
+  post 'time_select/lab_course_time_blocks' => 'lab_courses#time_select', as: :time_select_lab_course_time_block
 
   resources :platforms, path: 'training' do
     collection do
@@ -91,6 +128,7 @@ NterOne::Application.routes.draw do
         post 'select_to_edit'
       end
     end
+
     resources :subjects, path: 'certifications' do
       collection do
         get  'select'
@@ -98,24 +136,28 @@ NterOne::Application.routes.draw do
       end
       resources :groups, except: [:index, :show]
     end
+
     resources :dividers, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exam_and_course_dynamics, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :exams, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :courses, except: [:index] do
       collection do
         get  'page'
@@ -135,19 +177,27 @@ NterOne::Application.routes.draw do
         end
       end
     end
+
     resources :video_on_demands, path: 'video-on-demand' do
       collection do
         get  'select'
         post 'select_to_edit'
         get  'play_video/:id' => 'video_on_demands#play_video', as: :play_video
+        get  '/:video_id/quiz/:id' => 'video_on_demands#init_quiz', as: :init_quiz
+        post '/:video_id/quiz/:id/begin' => 'video_on_demands#begin_quiz', as: :begin_quiz
+        post '/:video_id/quiz/:id/next-question' => 'video_on_demands#next_quiz_question', as: :next_quiz_question
+        post '/:video_id/quiz/:id/exit' => 'video_on_demands#exit_quiz', as: :exit_quiz
+        get  '/:video_id/quiz/:id/scores' => 'video_on_demands#show_scores', as: :show_scores
       end
     end
+
     resources :custom_items, except: [:index, :edit, :show] do
       collection do
         get  'select'
         post 'select_to_edit'
       end
     end
+
     resources :instructors do
       collection do
         get  'select'
@@ -156,10 +206,32 @@ NterOne::Application.routes.draw do
     end
   end
 
+  resources :videos
+  resources :lms_exams
+
+  namespace :lms do
+    get '/manager',         to: 'students#index'
+    get '/assign/:item_id', to: 'student_assignments#assign'
+
+    resources :students, only: [:index, :show] do
+      resources :courses,     only: [:show],                     controller: 'student_courses'
+      resources :assignments, only: [:index, :create, :destroy], controller: 'student_assignments'
+    end
+
+    namespace :export do
+      get 'grades'
+      get 'progress'
+    end
+
+    resources :business,       only: :index
+    resources :assign_manager, only: [:index, :create]
+  end
+
   namespace :reports do
-    resources :commissions, only: [:new, :create]
-    resources :profit_sheets, only: [:new, :create]
+    resources :commissions,             only: [:new, :create]
+    resources :profit_sheets,           only: [:new, :create]
     resources :instructor_utilizations, only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
   end
 
   controller :admin do
@@ -171,14 +243,10 @@ NterOne::Application.routes.draw do
     get 'admin/courses',                             as: :admin_courses
     get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
-    get 'admin/people',                              as: :admin_people
     get 'admin/website',                             as: :admin_website
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
   end
-
-  resources :carts
-  get 'admin/insights/carts' => 'insights#carts',          as: :insights_carts
 
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
@@ -186,6 +254,7 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
+  get  'admin/people'                                => 'users#index',                       as: :admin_people
   get  'instructor/classes'                          => 'instructors#classes',               as: :instructor_classes
   get  'instructor/classes/:id'                      => 'instructors#classes_show',          as: :instructor_classes_show
   get  'welcome'                                     => 'general#sign_up_confirmation',      as: :welcome
@@ -211,7 +280,9 @@ NterOne::Application.routes.draw do
   get  'search'                                      => 'general#search'
   get  'contact_us'                                  => 'general#contact_us_new',            as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
-  get  'contact_us_confirmation'                     => 'general#contact_us_confirmation',   as: :contact_us_confirmation
+  get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
+  get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
+  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',   as: :learning_credits_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
@@ -229,10 +300,19 @@ NterOne::Application.routes.draw do
   get  'sims/versastack'                             => 'general#sims',                      as: :sims
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
+
+    namespace :v1 do
+      get '/events/upcoming_public_featured_events' => 'events#upcoming_public_featured_events'
+    end
   end
+
+  get  'cdl/:module_id' => 'cisco_digital_learning#show',     as: :cdl_show
+  post 'cdl/callback'   => 'cisco_digital_learning#callback', as: :cdl_callback
 
   # Redirects:
   get '/training/cisco'  => redirect('/training')
@@ -257,4 +337,9 @@ NterOne::Application.routes.draw do
   get "/cisco-learning-credits/"               => redirect("/training")
 
   post "public/uploads/editor"                 => 'general#editor_upload_photo'
+  get 'sales_force/form_for_tasks'             => 'sales_force#form_for_tasks',               as: :sales_force_form_for_tasks
+  post 'sales_force/upload_tasks'              => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
+  get 'sales_force/form_for_other'             => 'sales_force#form_for_other',               as: :sales_force_form_for_other
+  post 'sales_force/upload_other'              => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
+  post 'fly_forms/update'                      => 'fly_forms#update',                         as: :fly_form
 end

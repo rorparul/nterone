@@ -1,0 +1,33 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th Opportunity Owner
+          th Account Name
+          th Opportunity Name
+          th Course Catalog
+          th = smart_listing.sortable 'Probability (%)', :stage
+          th = smart_listing.sortable "Close Date", :date_closed
+          th = smart_listing.sortable "Amount", :amount
+          th colspan='3'
+      tbody
+        - smart_listing.collection.each do |opportunity|
+          tr
+            td = opportunity.employee.full_name if opportunity.employee
+            td = opportunity.account.try(:title) || "N/A"
+            td = opportunity.customer.full_name if opportunity.customer
+            td = opportunity.course.try(:title) || "N/A"
+            td = "#{opportunity.stage}%"
+            td = opportunity.date_closed.strftime("%-m/%-d/%y") if opportunity.date_closed
+            td = number_to_currency(opportunity.amount) || "N/A"
+            td.fit = link_to t('default.action.edit'), edit_opportunity_path(opportunity), remote: true, class: 'text-warning'
+            td.fit = link_to 'Copy', copy_opportunities_path(opportunity), remote: true, class: 'text-success'
+            td.fit = link_to t('default.action.delete'), opportunity_path(opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted.text-center
+    = t('default.placeholder.no_records')

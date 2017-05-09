@@ -9,6 +9,7 @@ es:
     export:
       abbreviation: 'Abreviación'
       vendor: 'Fabricante'
+      price: "Precio"
       slug: 'Slug'
       title: 'Titulo'
       url: 'URL'
@@ -16,6 +17,7 @@ es:
       overview: "Visión de Conjunto"
       outline: "Contorno"
       intended_audience: "Público Destinatario"
+      categories: "Categorías"
     new:
       add_course: "Agregar Curso"
     new_js:
@@ -25,7 +27,7 @@ es:
     partial_form:
       abbr: "Abreviatura"
       active: "Activo"
-      add_course: "Agregar Curso"
+      title: "Titulo"
       attend: "Quienes Deberían Asistir"
       catgories: "Categorias"
       heading: "Encabezado (H1)"
@@ -39,6 +41,7 @@ es:
       pdf: "PDF"
       slug: "Slug"
       video_preview: "Video Previo"
+      satellite_viewable: "Visible por satélite"
     partial_index:
       courses: "Cursos"
       course_id: "Curso ID"

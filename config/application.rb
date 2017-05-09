@@ -11,6 +11,8 @@ Bundler.require(*Rails.groups)
 
 module NterOne
   class Application < Rails::Application
+    config.tld = `hostname`.match(/\w+$/).to_s
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -27,9 +29,18 @@ module NterOne
     config.active_job.queue_adapter = :sidekiq
 
     config.autoload_paths += %W(#{config.root}/app/workers)
+    config.autoload_paths += %W(#{config.root}/app/services)
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
+
+    config.react.jsx_transform_options = {
+      optional: ['es7.classProperties']
+    }
+
+    config.react.server_renderer_options = {
+      files: ["server_rendering.js"], # files to load for prerendering
+    }
   end
 end

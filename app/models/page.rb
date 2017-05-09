@@ -11,12 +11,16 @@
 #  slug             :string
 #  static           :boolean          default(FALSE)
 #  page_description :text
+#  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class Page < ActiveRecord::Base
   extend FriendlyId
 
-  # validates :title, :content, presence: true
+  include Regions
+
+  scope :default, -> { where(origin_region: current_region_as_value) }
 
   friendly_id :title, use: [:slugged, :finders]
 end

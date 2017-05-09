@@ -51,6 +51,9 @@
 #  source                  :integer          default(0)
 #  other_source            :string
 #  discount_id             :integer
+#  opportunity_id          :integer
+#  origin_region           :integer
+#  active_regions          :text             default([]), is an Array
 #
 # Indexes
 #
@@ -59,8 +62,10 @@
 #
 
 class Order < ActiveRecord::Base
-  include SearchCop
   extend Enumerize
+
+  include SearchCop
+  include Regions
 
   enum source: {
     cisco_locator: 1,
@@ -78,6 +83,7 @@ class Order < ActiveRecord::Base
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
   belongs_to :discount
+  belongs_to :opportunity
 
   has_many :order_items, dependent: :destroy
 
@@ -96,10 +102,6 @@ class Order < ActiveRecord::Base
   search_scope :custom_search do
     attributes buyer: ['buyer.first_name', 'buyer.email']
   end
-
-  # def self.sources
-  #   Order.source.values.map!{ |source| source.humanize }
-  # end
 
   def set_total
     if no_charge?
@@ -185,7 +187,6 @@ class Order < ActiveRecord::Base
   end
 
 
-
   def define_clc_quantity
     self.clc_quantity ||= 0
   end
@@ -205,7 +206,7 @@ class Order < ActiveRecord::Base
   def self.items_in_range_for(seller_id, start_date, end_date)
     order_ids   = Order.where(seller_id: seller_id).distinct
     order_items = OrderItem.where(order_id: order_ids, orderable_type: 'Event').distinct.select do |order_item|
-      (start_date..end_date).include?(order_item.orderable.start_date)
+      (start_date..end_date).include?(order_item.orderable.try(:start_date))
     end
 
     order_items.sort_by do |order_item|

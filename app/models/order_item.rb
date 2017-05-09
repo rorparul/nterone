@@ -28,15 +28,16 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :orderable, polymorphic: true
 
-  before_create :copy_current_orderable_price
+  before_create :copy_current_orderable_price, unless: Proc.new {|model| model.orderable_type == "LabRental"}
   before_save   :update_status
   after_save    :update_event_status
-  after_save    :calculate_event_book_cost
+  after_save    :calculate_event_book_cost, if: Proc.new { |model| model.cart_id.nil? }
+  after_destroy :calculate_event_book_cost
 
   # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
   # validates :order, presence: true
   # validates_associated :order
-  # validates :price, numericality: { greater_than_or_equal_to: 0.01 }
+  validates :price, numericality: { greater_than_or_equal_to: 0.00 }
 
   def paid
     sum = price - order.paid
@@ -69,7 +70,7 @@ class OrderItem < ActiveRecord::Base
   end
 
   def update_event_status
-    if orderable_type == "Event"
+    if orderable_type == "Event" && self.orderable.present?
       if self.orderable.order_items.where(cart_id: nil).all? { |order_item| order_item.status == "complete" }
         orderable.update_attributes(status: "Confirmed")
       else
@@ -84,6 +85,12 @@ class OrderItem < ActiveRecord::Base
 
   def commission
     self.price * self.orderable.commission_percent
+  end
+
+  def clc_applicable
+    return true if orderable_type == 'Event' && orderable.course.platform.title == 'Cisco'
+    return true if orderable_type == 'VideoOnDemand' && orderable.cisco_digital_learning == true
+    return false
   end
 
   private

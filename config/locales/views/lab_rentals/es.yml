@@ -1,9 +1,18 @@
 es:
   lab_rentals:
     edit:
+      back_to_lab_reservations: "Volver a las reservas de laboratorio"
       edit_lab_rental: "Editar Reservación de Laboratorio"
+      lab_reservations: "Reservas de laboratorio"
+    edit_pods_js:
+      pod_settings: "Configuración del pod"
     index:
       lab_rentals: "Reservaciones de Laboratorio"
+      date_range: "Fecha"
+      pod_settings: "Configuración del pod"
+      search_by_date_start: "Fecha Comienzo"
+      search_by_date_end: "Fecha Fin"
+      upload_file: "Cargar archivo de reserva de laboratorio"
     mailers:
       reservation:
         copy1: "Gracias!"
@@ -25,14 +34,21 @@ es:
         copy17: "El Equipo de NterOne"
     new:
       add_lab_rental: "Solicitar Reservación de Laboratorio"
+      back_to_lab_reservations: "Volver a las reservas de laboratorio"
+      lab_reservations: "Reservas de laboratorio"
+      new: "Nuevo"
     new_js:
       add_lab_rental: "Solicitar Reservación de Laboratorio"
+    partial_edit_pods:
+      number_for_individuals: "Número de cápsulas para individuos"
+      number_for_partners: "Número de vainas para los socios"
     partial_listing:
       canceled: "Cancelado"
       company: "Aliado"
       confirmed: "Confirmado"
       course: "Curso"
       email: "Correo Electronico"
+      individual_level: "Nivel Individual"
       instructor: "Instructores"
       location: "Localidad"
       no_of_students: "Estudiantes"
@@ -40,6 +56,7 @@ es:
       phone: "Teléfono"
       start_date: "Fecha de Inicio"
       start_time: "Hora de Inicio"
+      time_zone: "Zona Horaria"
     partial_form:
       company: "Compañias"
       confirmed: "Confirmado"

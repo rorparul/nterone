@@ -14,12 +14,11 @@
         = link_to new_reports_instructor_utilization_path, remote: true do
           = t('admins.classes.utilization_report')
 
-.row
-  .col-xs-12
-    = render 'tabs'
+= render 'layouts/tabs'
 
 .row
   .col-xs-12
+<<<<<<< HEAD
     .panel.panel-default
       .panel-heading.panel-heading-with-search
         .row
@@ -54,6 +53,34 @@
                     span.glyphicon.glyphicon-search
 
       = smart_listing_render(:events)
+=======
+    h4
+      strong.text-muted Classes
+    .container-muted style="height: 60px;"
+      = link_to t('default.action.upload'), events_upload_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+        i.fa.fa-file-excel-o aria-hidden="true"
+      = smart_listing_controls_for(:events, {class: "input-search"}) do
+        .input-group.input-group-sm.filter style='margin-right: 15px;'
+          = text_field_tag :filter, cookies[:filter], class: "search form-control input-sm",
+                                        placeholder: t('admins.classes.search'),
+                                        autocomplete: :off
+          span class="input-group-btn"
+            button class="btn btn-default btn-sm disabled" type="submit"
+              span.glyphicon.glyphicon-search
+      
+        .checkbox.inline
+          = hidden_field_tag :only_registered, "0"
+          = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered", style: "margin-right: 5px;"
+          = t('admins.classes.registered')
+              
+        .checkbox.inline style="margin-right: 35px;"
+          = hidden_field_tag :including_past, "0"
+          = check_box_tag :including_past, "1", cookies[:including_past] == "1", style: "margin-right: 5px;"
+          = t('admins.classes.past')
+
+    = smart_listing_render(:events)
+>>>>>>> staging
 
 .row
   .col-xs-12.text-center
@@ -61,5 +88,5 @@
       = link_to t('admins.classes.xlsx'), student_registered_classes_path(format: 'xlsx')
 
 javascript:
-    $('.role-tab').addClass('active');
-    $('.categories .classes').addClass('active-category');
+  $('.role-tab').addClass('active');
+  $('.permissions .classes').addClass('active');

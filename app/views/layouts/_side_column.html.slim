@@ -1,21 +1,31 @@
-.side-column-graphics
-  = link_to featured_classes_path do
-    = image_tag "promos/promo-1.jpg"
-    
-.side-column-graphics
-  = link_to main_app.nterone_gives_back_path do
-    = image_tag "nterone-gives-back.png"
-    
-.panel.panel-default.panel-red
-  .panel-heading.text-center
-    strong = t('layouts.partial_side_column.title')
-  .panel-body
-    span
-      = t('layouts.partial_side_column.paragraph')
-      .text-center
-        = image_tag 'credits-cisco.png',  class: 'credits-image'
-        = image_tag 'credits-vmware.png', class: 'credits-image'
-    span
-      a href="mailto:sales#{t('email')}"
-        = t('layouts.partial_side_column.contact_us_link')
-      = t('layouts.partial_side_column.contact_us_body')
+- if ["courses"].include?(controller_name) && action_name == 'show'
+  .panel.panel-default.panel-contact-us
+    .panel-body.panel-contact-us
+      = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
+        label Request Information
+        
+        = f.hidden_field :recipient, value: "sales@nterone.#{Setting.tld}"
+        = f.hidden_field :subject, value: "Please contact me in regards to #{@course.full_title}."
+          
+        .form-group
+          = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if current_user)
+          
+        .form-group
+          = f.text_field :email, class: 'form-control input-sm', placeholder: 'Email', value: (current_user.email if current_user)
+          
+        .form-group
+          = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if current_user)
+          
+        .form-group
+          = f.text_area :inquiry, value: "Please contact me in regards to #{@course.full_title}.", rows: 8, class: 'form-control'
+          
+        .form-buttons
+          button.btn.btn-success type="submit" style='width: 100%;'
+            = t('default.action.send')
+      
+= render partial: 'shared/credits'
+
+- unless controller_name == 'courses' && action_name == 'show'
+  .side-column-graphics
+    = link_to main_app.nterone_gives_back_path do
+      = image_tag 'nterone-gives-back.png'

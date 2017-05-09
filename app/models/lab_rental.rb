@@ -18,12 +18,13 @@
 #  user_id           :integer
 #  company_id        :integer
 #  canceled          :boolean
-#  lab_course_id     :integer
 #  end_time          :time
+#  lab_course_id     :integer
 #  kind              :integer
 #  time_zone         :string
 #  twenty_four_hours :boolean
 #  last_day          :date
+#  level             :string
 #
 # Indexes
 #
@@ -45,10 +46,12 @@ class LabRental < ActiveRecord::Base
 
 	accepts_nested_attributes_for :lab_students, reject_if: :all_blank, allow_destroy: true
 
-	validates :company_id, :lab_course_id, :kind, presence: true
-	validates_format_of :instructor_email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/, unless: Proc.new { |model| model.instructor_email.blank? }
+	validates :lab_course_id, presence: true
+	validates :level, inclusion: { in: %w(individual partner), message: "%{value} is not a valid level" }
+	validates :company_id, :kind, presence: true, if: Proc.new {|model| model.level == "partner"}
+	validates_format_of :instructor_email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/, if: Proc.new { |model| !(model.instructor_email.blank?) && model.level == "partner"}
 
-	after_save :count_students, if: Proc.new { |model| model.kind == 2 }
+	after_save :count_students, if: Proc.new { |model| model.kind == 2 && model.level == "partner" }
 
 	search_scope :custom_search do
     attributes :course, :instructor, :instructor_email, :location

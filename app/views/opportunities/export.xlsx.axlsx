@@ -1,0 +1,45 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Opportunities") do |sheet|
+  sheet.add_row [
+    "#",
+    "Title",
+    "Stage (%)",
+    "Date Closed",
+    "Amount",
+    "Kind",
+    "Employee",
+    "Customer",
+    "Account",
+    "Partner",
+    "Course",
+    "Event Location",
+    "Reason for Loss"
+  ]
+  sum_amount = 0
+  @opportunities.each_with_index do |opportunity, i|
+    sheet.add_row [
+      i + 1,
+      opportunity.title,
+      opportunity.stage.to_i,
+      opportunity.closed? ? l(opportunity.date_closed, format: :long) : "",
+      opportunity.amount,
+      opportunity.kind,
+      opportunity.employee.try(:full_name),
+      opportunity.customer.try(:full_name),
+      opportunity.account.try(:title),
+      opportunity.partner.try(:title),
+      opportunity.course.try(:full_title),
+      opportunity.event.try(:full_location),
+      opportunity.reason_for_loss
+    ]
+    sum_amount += opportunity.amount
+  end
+  sheet.add_row
+  sheet.add_row [
+    "",
+    "Total",
+    "",
+    "",
+    sum_amount
+  ]
+end

@@ -19,14 +19,20 @@ table
           = t('order_mailer.confirmation.copy5')
         td 
           = t('order_mailer.confirmation.copy6')
+      - if order_item.orderable_type == 'LabRental'
+        td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
+        td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
+        td = t('order_mailer.confirmation.pod_rental')
       - if order_item.price > 0.00
         td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
       - else
         td 
           = t('order_mailer.confirmation.copy7')
 
-p = "#{t('order_mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-p = "#{t('order_mailer.confirmation.copy9')} #{@order.clc_quantity}"
+- if @order.payment_type == "Credit Card"
+  p = "#{t('order_mailer.confirmation.copy8')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+- if @order.payment_type == "Cisco Learning Credits"
+  p = "#{t('order_mailer.confirmation.copy9')} #{@order.clc_quantity}"
 
 p
   = t('order_mailer.confirmation.copy10')

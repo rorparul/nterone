@@ -1,15 +1,15 @@
 = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
   .radio
     label
-      = f.radio_button :recipient, "helpdesk#{t('email')}", checked: true
+      = f.radio_button :recipient, "helpdesk@nterone.#{Setting.tld}", checked: true
       = t('general.partial_contact_us_form.help_desk')
   .radio
     label
-      = f.radio_button :recipient, "sales#{t('email')}"
+      = f.radio_button :recipient, "sales@nterone.#{Setting.tld}"
       = t('general.partial_contact_us_form.sales')
   .radio
     label
-      = f.radio_button :recipient, "billing#{t('email')}"
+      = f.radio_button :recipient, "billing@nterone.#{Setting.tld}"
       = t('general.partial_contact_us_form.billing')
   
   .form-group
@@ -38,6 +38,7 @@
     button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
   hr
+  
   .row
     .col-xs-12.col-md-6
       address
@@ -48,7 +49,7 @@
         br
         | Reston, VA 20191
         br
-        | (703) 972-2288
+        | 703-991-5185
     .col-xs-12.col-md-6
       address
         strong 
@@ -58,7 +59,8 @@
         br
         | Tyner, NC 27980
         br
-        | (703) 972-2288, Option 2
+        | 703-991-5185
+        
   .row
     .col-xs-12.col-md-6
       address
@@ -84,6 +86,7 @@
         | Caracas - Venezuela, 1060
         br
         | 58-212-9930634
+        
   .row
     .col-xs-12.col-md-6
       address
@@ -97,3 +100,29 @@
         | Ciudad de Panamá – Panamá
         br
         | 507-833-6419
+    .col-xs-12.col-md-6
+      address
+        strong
+          | Colombia
+        br
+        | Carrera 9 N°115-06/30, Piso 17
+        br
+        | Tierra Firme Complex
+        br
+        | Bogotá, Colombia
+        br
+        | +57 1 6398444
+        
+  .row
+    .col-xs-12.col-md-6
+      address
+        strong 
+          | Canada
+        br
+        | 2953 Tenth Line Road
+        br
+        | Navan, Ontario
+        br
+        | K4B 1H8
+        br
+        | 613-317-2480

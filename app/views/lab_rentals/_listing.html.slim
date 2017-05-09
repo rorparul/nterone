@@ -32,7 +32,7 @@
             tr
               td = rental.lab_course.title
               - if current_user.admin?
-                td = rental.company.try(:title)
+                td = rental.level == 'partner' ? rental.company.try(:title) : t('lab_rentals.partial_listing.individual_level')
               - if rental.kind == 2
                 td.fit
                   = link_to lab_rental_path(rental, show: 'students'), remote: true do

@@ -1,15 +1,7 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
-- content_for :actions do
-  li
-    = link_to new_user_invitation_path(origin: "orders"), remote: true do
-      i.fa.fa-plus
-      = t('admins.orders.add_user')
-
-.row
-  .col-xs-12
-    = render 'tabs'
+= render 'layouts/tabs'
 
 .row
   .col-xs-12
@@ -42,7 +34,7 @@
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.categories .orders').addClass('active-category');
+  $('.permissions .orders').addClass('active');
 
   $(".panel").on('change', ".check-select", function() {
     $(this).closest('form').submit();

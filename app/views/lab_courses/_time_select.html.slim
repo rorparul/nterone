@@ -1,0 +1,78 @@
+= form_for :reservation, url: checkout_lab_rental_path do
+  = hidden_field_tag :time_zone, time_zone
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs role="tablist"
+        - time_blocks.each do |key, value|
+          - if time_blocks.keys.first == key
+            li.active role="tab"
+              a href="##{number_in_words(key.unit_quantity).gsub(" ", "-")}" aria-controls="tab" role="tab" data-toggle="tab"
+                | #{key.unit_quantity.to_s + " Hour Block"}
+          - else
+            li role="tab"
+              a href="##{number_in_words(key.unit_quantity).gsub(" ", "-")}" aria-controls="tab" role="tab" data-toggle="tab"
+                | #{key.unit_quantity.to_s + " Hour Block"}
+  .row
+    .col-xs-12
+      .well style="background-color: white; border-top: 0px; border-top-left-radius: 0; border-top-right-radius: 0;"
+        .row
+          .col-xs-12
+            .tab-content style="margin-top: 15px;"
+              - time_blocks.each do |key, value|
+                - if time_blocks.keys.first == key
+                  .tab-pane.active role="tabpanel" id="#{number_in_words(key.unit_quantity).gsub(" ", "-")}"
+                      .panel.panel-default
+                        table.table.table-compact.labrental-time-select
+                          - unless value.nil? || value.empty?
+                            thead
+                              tr
+                                th = t('lab_course_time_blocks.partial_time_select.start_time')
+                                th = t('lab_course_time_blocks.partial_time_select.end_time')
+                                th Time Zone
+                                th Price
+                                th.fit style="text-align: right;"
+                                  - if user_signed_in? && current_user.admin?
+                                    = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
+                            tbody
+                              - value.each do |time|
+                                tr 
+                                  td = "#{time.strftime("%l:%M%p")}"
+                                  td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
+                                  td = time.zone
+                                  td = dollar_value(key.price)
+                                  td.fit
+                                    .btn.btn-success style="background-color: #f8f8f8; border: none; color: #5cb85c; float: right; position: absolute;" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                                    button.btn.btn-success style="opacity: 0;" type="submit" name="time_start" value="#{key.id} #{time}" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                          - else 
+                            tbody
+                              tr
+                                h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+                - else
+                  .tab-pane role="tabpanel" id="#{number_in_words(key.unit_quantity).gsub(" ", "-")}"
+                    .panel.panel-default
+                      table.table.table-compact.labrental-time-select
+                        - unless value.nil? || value.empty?
+                          thead
+                            tr
+                              th = t('lab_course_time_blocks.partial_time_select.start_time')
+                              th = t('lab_course_time_blocks.partial_time_select.end_time')
+                              th Time Zone
+                              th Price
+                              th
+                                - if user_signed_in? && current_user.admin?
+                                  = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
+                          tbody
+                            - value.each do |time|
+                              tr 
+                                td = "#{time.strftime("%l:%M%p")}"
+                                td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
+                                td = time.zone
+                                td = dollar_value(key.price)
+                                td.fit
+                                  .btn.btn-success style="background-color: #f8f8f8; border: none; color: #5cb85c; float: right; position: absolute;" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                                  button.btn.btn-success style="opacity: 0;" type="submit" name="time_start" value="#{key.id} #{time}" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
+                        - else
+                          tbody
+                            tr
+                              h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
+                                

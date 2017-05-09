@@ -30,6 +30,7 @@ es:
       image: "locales/es/instructors.png"
     labs:
       image1: "locales/es/labs.png"
+      new_lab_course: "Nuevo curso de laboratorio"
     partial_contact_us_form:
       billing: "Facturación"
       billing_address: "NterOne Dirección de Facturación"
@@ -78,7 +79,7 @@ es:
     welcome:
       classes: "Clases Destacadas"
       classes_paragraph: "Ver lista de cursos más populares por fabricante"
-      image1: "locales/es/welcome-banner-3.png"
+      banner: "locales/es/welcome-banner-3.png"
       labs: "Laboratorios"
       labs_paragraph: "Acceso Global 24x7 al Laboratorio"
       vendor: "Cursos por Fabricantes"

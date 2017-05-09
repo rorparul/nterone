@@ -30,6 +30,7 @@ en:
       image: "locales/en/instructors.png"
     labs:
       image1: "locales/en/labs.png"
+      new_lab_course: "New Lab Course"
     partial_contact_us_form:
       billing: "Billing"
       billing_address: "NterOne Billing Address"
@@ -78,7 +79,7 @@ en:
     welcome:
       classes: "Featured Classes"
       classes_paragraph: "View a list of our most popular courses broken down by vendor."
-      image1: "locales/en/welcome-banner-3.png"
+      banner: "welcome-banners/en/feeding-america.jpg"
       labs: "Labs"
       labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
       vendor: "Courses by Vendor"

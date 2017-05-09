@@ -7,6 +7,6 @@
     = t('layouts.partial_about_us_nav_bar.instructor')
   a.btn.category.btn-category.press href="#{press_path}"
     = t('layouts.partial_about_us_nav_bar.press')
-  - unless I18n.locale == :es
+  - if Setting.tld == "com"
     a.btn.category.btn-category.industry href="#{industry_path}"
       = t('layouts.partial_about_us_nav_bar.industry')

@@ -1,0 +1,11 @@
+<% if @company.present? %>
+  $('#opportunity_billing_street').val('<%= @company.street %>');
+  $('#opportunity_billing_city').val('<%= @company.city %>');
+  $('#opportunity_billing_state').val('<%= @company.state %>');
+  $('#opportunity_billing_zip_code').val('<%= @company.zip_code %>');
+<% else %>
+  $('#opportunity_billing_street').val('');
+  $('#opportunity_billing_city').val('');
+  $('#opportunity_billing_state').val('');
+  $('#opportunity_billing_zip_code').val('');
+<% end %>

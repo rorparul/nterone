@@ -1,0 +1,27 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    | Home
+  span.seperator
+    | /
+  a href="#{platforms_path}"
+    | Training
+  span.seperator
+    | /
+  a href="#"
+    = @exam.title
+  span.seperator
+    | /
+  a href="#"
+    | New
+
+.panel.panel-default
+  .panel-heading
+    strong.text-muted Add New Exam
+  .panel-body
+    = render partial: "form", locals: { exam: @exam }
+
+javascript:
+  $('.form-buttons button.btn.btn-default').on('click', function() {
+    location.replace(document.referrer);
+  });

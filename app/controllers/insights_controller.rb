@@ -6,15 +6,7 @@ class InsightsController < ApplicationController
 
   def carts
     authorize :insight, :carts?
-    carts_scope = params[:including_empty] == "1" ? Cart.includes(:order_items) : Cart.joins(:order_items)
-    # carts_scope = carts_scope.search_without_items(params[:filter]) if params[:filter]
-    # if params[:including_empty] == "1"
-    #   carts_scope = Cart.includes(:order_items)
-    #   carts_scope = carts_scope.search_without_items(params[:filter]) if params[:filter]
-    # else
-    #   carts_scope = Cart.joins(:order_items)
-    #   carts_scope = carts_scope.search_with_items(params[:filter]) if params[:filter]
-    # end
+    carts_scope = Cart.includes(:order_items)
 
     @carts = smart_listing_create(:carts,
                                   carts_scope,

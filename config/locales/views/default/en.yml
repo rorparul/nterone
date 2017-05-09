@@ -15,7 +15,7 @@ en:
       login: "Login"
       register: "Register"
       save: "Save"
-      save_invite: "Save & Invite"
+      save_invite: "Create & Invite"
       search: "Search"
       select: "Please select"
       show: "Show"
@@ -23,9 +23,10 @@ en:
       submit: "Submit"
       toggle: "Toggle"
       upload: "Upload"
+      export: "Export"
     contact:
       email: "@nterone.com"
-      phone: "703.972.2288"
+      phone: "703-991-5185"
     label:
       content: 'Content'
       current_password: "Current Password"
@@ -44,6 +45,8 @@ en:
       no_records: "No records found."
       search_form: "Search by certification, course, or exam"
       select: "Please select"
+      start_date: "Start Date"
+      end_date: "End Date"
     prompt:
       confirm_delete: "Are you sure?"
       none_select: "None"

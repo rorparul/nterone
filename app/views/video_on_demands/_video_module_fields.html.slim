@@ -1,17 +1,22 @@
-.nested-fields
-  .form-group
+.nested-fields.video-on-demand-fields
+  .form-group.title
+    = f.label :title, t('video_on_demands.partial_video_module_fields.title')
+    = f.text_field :title, class: 'form-control input-sm'
+  .form-group.position
     = f.label :position, t('video_on_demands.partial_video_module_fields.position')
     = f.text_field :position, class: 'form-control input-sm'
   .form-group
-    = f.label :title, t('video_on_demands.partial_video_module_fields.title')
-    = f.text_field :title, class: 'form-control input-sm'
-  h4
-    = t('video_on_demands.partial_video_module_fields.module_videos')
-  hr.hr-sub
-  #videos
-    = f.fields_for :videos do |ff|
-      = render 'video_fields', f: ff
-    .links
-      = link_to_add_association t('video_on_demands.partial_video_module_fields.add'), f, :videos
+    = f.label :cdl_course_code, "CDL Course Code"
+    = f.text_field :cdl_course_code, class: 'form-control input-sm'
+
+  h4 = t('video_on_demands.partial_video_module_fields.module_videos')
+  .row
+    .col-xs-10.col-md-10
+      #videos
+        = f.fields_for :videos do |ff|
+          = render 'video_fields', f: ff
+        .links
+          = link_to_add_association t('video_on_demands.partial_video_module_fields.add'), f, :videos
+
   = link_to_remove_association t('video_on_demands.partial_video_module_fields.remove'), f
   hr

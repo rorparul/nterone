@@ -15,6 +15,8 @@
 #  description        :text
 #  page_title         :string
 #  heading            :string
+#  meta_description   :text
+#  video              :text
 #
 # Indexes
 #

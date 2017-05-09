@@ -1,0 +1,17 @@
+
+= form_for [@platform, video_on_demand], remote: false do |f|
+
+  h4 Modules
+
+  .row
+    .col-xs-10.col-md-8
+      hr
+      #modules
+        = f.fields_for :video_modules do |ff|
+          = render 'video_module_fields', f: ff
+        .links
+          = link_to_add_association 'Add module', f, :video_modules
+
+  .form-buttons
+    button.btn.btn-success type="submit" Save
+    button.btn.btn-default type="button" data-dismiss="modal" Cancel

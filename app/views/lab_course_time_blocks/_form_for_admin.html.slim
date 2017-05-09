@@ -1,0 +1,43 @@
+.form-container
+  = form_for [lab_course, time_block] do |f|
+    = f.hidden_field :lab_course_id, value: lab_course.id
+    = f.hidden_field :level, value: "individual"
+
+      
+      
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :unit_quantity, t('lab_course_time_blocks.partial_form_for_admin.number_of_hours')
+          = f.number_field :unit_quantity, options: {min: 0, max: 24, step: 1}, class: 'form-control input-sm'
+      / .col-xs-12.col-sm-4
+      /   .form-group
+      /     = f.label :ratio, t('lab_course_time_blocks.partial_form_for_admin.number_of_students')
+      /     = f.number_field :ratio, options: {min: 0, step: 1}, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :price, t('lab_course_time_blocks.partial_form_for_admin.price')
+          .input-group.input-group-sm
+            span.input-group-addon $
+            = f.number_field :price, options: {min: 0, step: 0.01}, class: 'form-control input-sm'
+          
+      
+    / .row
+    /   .col-xs-12.col-sm-4
+    /     .form-group
+    /       = f.label :level, t('lab_course_time_blocks.partial_form_for_admin.individual_level'), style: "margin-right: 5px;"
+    /       = f.radio_button :level, "individual"
+    /   .col-xs-12.col-sm-4
+    /     .form-group
+    /         = f.label :level, t('lab_course_time_blocks.partial_form_for_admin.partner_level'), style: "margin-right: 5px;"
+    /         = f.radio_button :level, "partner"
+      
+      
+    .form-buttons
+      button.btn.btn-success type="submit" = t('default.action.save')
+      button.btn.btn-default type="button" data-dismiss="modal" = t('default.action.cancel')
+      - if time_block.id
+        = link_to t('default.action.delete'), lab_course_lab_course_time_block_path(lab_course, time_block),
+          method: :delete,
+          data: { confirm: t('default.prompt.confirm_delete') },
+          class: 'text-danger'

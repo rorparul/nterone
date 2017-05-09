@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "nci#{I18n.t('email')}"
+  config.mailer_sender = "email@nterone.#{Rails.application.config.tld}"
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'CustomMailer'
@@ -119,9 +119,11 @@ Devise.setup do |config|
   # and the regexp used to test it when validate_on_invite is not set.
   # config.invite_key = {:email => /\A[^@]+@[^@]+\z/}
   # config.invite_key = {:email => /\A[^@]+@[^@]+\z/, :username => nil}
-  config.invite_key = { :first_name => /[a-zA-Z]+/,
-                        :last_name  => /[a-zA-Z]+/,
-                        :email      => /\A[^@]+@[^@]+\z/ }
+  config.invite_key = {
+    first_name: /[a-zA-Z]+/,
+    last_name:  /[a-zA-Z]+/,
+    email:      /\A[^@]+@[^@]+\z/
+  }
 
   # Flag that force a record to be valid before being actually invited
   # Default: false

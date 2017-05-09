@@ -23,6 +23,11 @@
       = link_to new_vendor_import_platforms_path, remote: true do
         i.fa.fa-upload
         = t('platforms.index.import_platform')
+        
+- if @page.content.present?
+  .row
+    .col-xs-12.category-description
+      = @page.content.html_safe
 
 .row
   - if @platforms

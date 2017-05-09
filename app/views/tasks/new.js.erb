@@ -1,0 +1,3 @@
+$('.modal-title').html("<%= Time.now.strftime("The time is now %l:%M%p on %A, %B %d") %>");
+$('.modal-body').html("<%= escape_javascript(render partial: 'form', locals: { task: @task, priorities: @priorities, user: @user }) %>");
+$('#myModal').modal('show');

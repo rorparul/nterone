@@ -1,0 +1,3 @@
+$('.modal-title').html('<%= t("lab_rentals.edit_pods_js.pod_settings") %>');
+$('.modal-body').html("<%= escape_javascript(render partial: 'edit_pods', locals: { pod_settings: @pod_settings }) %>");
+$('#myModal').modal('show');

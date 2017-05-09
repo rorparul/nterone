@@ -2,13 +2,22 @@
 #
 # Table name: carts
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  source_name    :string
+#  source_user_id :string
+#  source_hash    :string
+#  user_id        :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Cart < ActiveRecord::Base
   include SearchCop
+  include Regions
+
+  belongs_to :user
 
   has_many :order_items, dependent: :destroy
 
@@ -72,7 +81,7 @@ class Cart < ActiveRecord::Base
 
   def total_applicable_for_credits
     order_items.inject(BigDecimal.new(0)) do |total, order_item|
-      if order_item.orderable_type == 'Event' && order_item.orderable.course.platform.title == "Cisco"
+      if order_item.clc_applicable
         total + order_item.price
       else
         total + BigDecimal.new(0)

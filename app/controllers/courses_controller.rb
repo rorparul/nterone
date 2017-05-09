@@ -136,7 +136,14 @@ class CoursesController < ApplicationController
       format.xlsx do
         render xlsx: 'export', filename: 'nterone-courses.xlsx'
       end
+      format.csv do
+        send_data CSV::ExportCourseService.new(@courses).to_csv, filename: 'nterone-courses.csv'
+      end
     end
+  end
+
+  def pluck
+    @course = Course.find_by(id: params[:course_id])
   end
 
   private
@@ -159,6 +166,7 @@ class CoursesController < ApplicationController
                                    :pdf,
                                    :video_preview,
                                    :partner_led,
+                                   :satellite_viewable,
                                    category_ids: [])
   end
 

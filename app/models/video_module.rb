@@ -2,17 +2,21 @@
 #
 # Table name: video_modules
 #
-#  id                 :integer          not null, primary key
-#  video_on_demand_id :integer
-#  title              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  position           :integer          default(0)
+#  id                     :integer          not null, primary key
+#  video_on_demand_id     :integer
+#  title                  :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  position               :integer          default(0)
+#  cisco_digital_learning :boolean          default(FALSE)
+#  cdl_course_code        :string
 #
 
 class VideoModule < ActiveRecord::Base
   belongs_to :video_on_demand
   has_many   :videos, dependent: :destroy
+
+  has_many :lms_exams
 
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
 
@@ -27,5 +31,15 @@ class VideoModule < ActiveRecord::Base
       end
     end
     count
+  end
+
+  def exams_count
+    self.lms_exams.count
+  end
+
+  def completed_exams_count_for(user)
+    self.lms_exams.inject(0) do |sum, quiz|
+      quiz.completed_by?(user) ? sum + 1 : sum
+    end
   end
 end
