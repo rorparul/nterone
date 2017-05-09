@@ -2,20 +2,20 @@ class OrderMailer < ApplicationMailer
   def confirmation(user, order)
     @user  = user
     @order = order
-    tld    = Rails.application.config.tld
+    @tld   = Rails.application.config.tld
 
     mail(
       to: @user.email,
       bcc: [
-        "sales@nterone.#{tld}",
-        "helpdesk@nterone.#{tld}",
-        "billing@nterone.#{tld}",
+        "sales@nterone.#{@tld}",
+        "helpdesk@nterone.#{@tld}",
+        "billing@nterone.#{@tld}",
         'stephanie.pouse@madwiremedia.com',
         'marketing360+m9874@bcc.mad360.net',
         'marketing360+M10780@bcc.mad360.net',
         'marketing360+M10794@bcc.mad360.net'
       ],
-      subject: "NterOne.#{tld} Order Confirmation"
+      subject: "NterOne.#{@tld} Order Confirmation"
     )
   end
 
