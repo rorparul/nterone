@@ -11,20 +11,19 @@
 
 class Role < ActiveRecord::Base
   extend Enumerize
-  enumerize :role, in: { admin: 1,
-                         sales_manager: 2,
-                         sales_rep: 3,
-                         member: 4,
-                         lms_manager: 5,
-                         lms_student: 6,
-                         instructor: 7,
-<<<<<<< HEAD
-                         partner_admin: 8 },
-=======
-                         lms_business: 8 },
->>>>>>> staging
-                         default: :member,
-                         predicates: true
+  enumerize :role, in: {
+    admin:         1,
+    sales_manager: 2,
+    sales_rep:     3,
+    member:        4,
+    lms_manager:   5,
+    lms_student:   6,
+    instructor:    7,
+    lms_business:  8,
+    partner_admin: 9
+  },
+    default: :member,
+    predicates: true
 
   belongs_to :user
 
@@ -38,13 +37,9 @@ class Role < ActiveRecord::Base
       member:        "Member",
       lms_manager:   "LMS Manager",
       lms_student:   "LMS Student",
-<<<<<<< HEAD
       instructor:    "Instructor",
-      partner_admin: "Partner"
-=======
       lms_business:  "LMS Business",
-      instructor:    "Instructor"
->>>>>>> staging
+      partner_admin: "Partner"
     }
 
     normalized_roles[self.role.to_sym]
@@ -58,13 +53,9 @@ class Role < ActiveRecord::Base
       ["Member", "member"],
       ["LMS Manager", "lms_manager"],
       ["LMS Student", "lms_student"],
-<<<<<<< HEAD
       ["Instructor", "instructor"],
-      ["Partner", "partner_admin"]
-=======
       ['LMS Business', 'lms_business'],
-      ["Instructor", "instructor"]
->>>>>>> staging
+      ["Partner", "partner_admin"]
     ]
   end
 

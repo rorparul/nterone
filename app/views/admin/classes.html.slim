@@ -18,42 +18,6 @@
 
 .row
   .col-xs-12
-<<<<<<< HEAD
-    .panel.panel-default
-      .panel-heading.panel-heading-with-search
-        .row
-          .col-xs-6
-            strong.text-muted
-              = t('admins.classes.title')
-          .col-xs-6
-            - if policy(:admin).save?
-              = link_to t('default.action.upload'), events_upload_path, remote: true, class: "table-header-action"
-
-            = smart_listing_controls_for(:events, {class: "form-inline"}) do
-
-              .checkbox
-                label.checkbox.inline
-                  = hidden_field_tag :only_registered, "0"
-                  = check_box_tag :only_registered, 1, true, class: "only-registered"
-                  = t('admins.classes.registered')
-              
-              - unless current_user.partner?
-                .checkbox
-                  label.checkbox.inline
-                    = hidden_field_tag :including_past, "0"
-                    = check_box_tag :including_past
-                    = t('admins.classes.past')
-
-              .input-group.input-group-sm.filter.input-append
-                = text_field_tag :filter, '', class: "search form-control input-sm",
-                                              placeholder: t('admins.classes.search'),
-                                              autocomplete: :off
-                span class="input-group-btn"
-                  button class="btn btn-default btn-sm disabled" type="submit"
-                    span.glyphicon.glyphicon-search
-
-      = smart_listing_render(:events)
-=======
     h4
       strong.text-muted Classes
     .container-muted style="height: 60px;"
@@ -74,13 +38,13 @@
           = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered", style: "margin-right: 5px;"
           = t('admins.classes.registered')
               
-        .checkbox.inline style="margin-right: 35px;"
-          = hidden_field_tag :including_past, "0"
-          = check_box_tag :including_past, "1", cookies[:including_past] == "1", style: "margin-right: 5px;"
-          = t('admins.classes.past')
+        - unless current_user.partner?
+          .checkbox.inline style="margin-right: 35px;"
+            = hidden_field_tag :including_past, "0"
+            = check_box_tag :including_past, "1", cookies[:including_past] == "1", style: "margin-right: 5px;"
+            = t('admins.classes.past')
 
     = smart_listing_render(:events)
->>>>>>> staging
 
 .row
   .col-xs-12.text-center

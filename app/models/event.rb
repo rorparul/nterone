@@ -43,12 +43,9 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-<<<<<<< HEAD
 #  company                        :string
-=======
 #  origin_region                  :integer
 #  active_regions                 :text             default([]), is an Array
->>>>>>> staging
 #
 
 class Event < ActiveRecord::Base

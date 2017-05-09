@@ -11,8 +11,6 @@ NterOne::Application.routes.draw do
     get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
-  # mount Forem::Engine, :at => '/forums'
-
   resources :users  do
     post :toggle_archived, on: :member
     collection do
@@ -38,10 +36,7 @@ NterOne::Application.routes.draw do
   resources :carts
   get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
   get 'cart/render_discount' => 'carts#render_discount', as: :render_discount
-<<<<<<< HEAD
-=======
   get 'admin/insights/carts' => 'insights#carts',        as: :insights_carts
->>>>>>> staging
 
   resources :discounts
   resources :order_items

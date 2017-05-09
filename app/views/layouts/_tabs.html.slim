@@ -69,7 +69,7 @@
               li
                 a href='#{lms_student_path(current_user)}'
                   | Assignments
-      - if current_user.admin?
+      - if current_user.admin? || current_user.partner?
         li.people role="presentation"
           a.nav-pill href="#{users_path}"
             = t('layouts.partial_tabs.people')

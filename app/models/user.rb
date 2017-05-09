@@ -373,10 +373,10 @@ class User < ActiveRecord::Base
     has_role? :admin
   end
 
-<<<<<<< HEAD
   def partner?
     has_role? :partner_admin
-=======
+  end
+
   def lms_manager?
     has_role? :lms_manager
   end
@@ -391,7 +391,6 @@ class User < ActiveRecord::Base
 
   def lms?
     lms_student? || lms_manager? || lms_business?
->>>>>>> staging
   end
 
   def sales_manager?

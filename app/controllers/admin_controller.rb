@@ -107,13 +107,8 @@ class AdminController < ApplicationController
   end
 
   def people
-    users_scope = User.all
-<<<<<<< HEAD
-    users_scope = users_scope.where(company: current_user.company) if current_user.partner?
-    users_scope = users_scope.search(params[:filter])              if params[:filter]
-=======
+    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
->>>>>>> staging
 
     @users = smart_listing_create(:users, users_scope,
       partial: "users/listing",

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   layout 'admin'
 
   def index
-    users_scope = User.all
+    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
     prepare_smart_listing(users_scope)
   end
@@ -47,9 +47,6 @@ class UsersController < ApplicationController
   def assign
     @owners = User.all_sales
   end
-
-  # def edit_from_my_queue
-  # end
 
   def update
     respond_to do |format|
