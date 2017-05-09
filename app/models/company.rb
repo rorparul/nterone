@@ -18,7 +18,7 @@
 #  website       :string
 #  parent_id     :integer
 #  industry_code :string
-#  partner       :boolean          default(FALSE)
+#  origin_region :integer
 #
 
 class Company < ActiveRecord::Base
@@ -26,6 +26,7 @@ class Company < ActiveRecord::Base
   extend ActsAsTree::TreeWalker
 
   include SearchCop
+  include Regions
 
   acts_as_tree order: 'title'
 

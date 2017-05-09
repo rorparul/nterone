@@ -9,9 +9,12 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  event_id             :integer
+#  origin_region        :integer
 #
 
 class Registration < ActiveRecord::Base
+  include Regions
+
   belongs_to :event
 
   has_one :order_item, as: :orderable

@@ -9,6 +9,7 @@
 #  active               :boolean
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  origin_region        :integer
 #
 # Indexes
 #
@@ -22,6 +23,8 @@
 #
 
 class LmsExamQuestionJoin < ActiveRecord::Base
+  include Regions
+
   belongs_to :lms_exam
   belongs_to :lms_exam_question
 end

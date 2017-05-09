@@ -25,6 +25,7 @@
 #  twenty_four_hours :boolean
 #  last_day          :date
 #  level             :string
+#  origin_region     :integer
 #
 # Indexes
 #
@@ -37,6 +38,7 @@
 
 class LabRental < ActiveRecord::Base
 	include SearchCop
+include Regions
 
 	belongs_to :user
 	belongs_to :company

@@ -16,6 +16,7 @@
 #  partner_led      :boolean          default(FALSE)
 #  active           :boolean          default(TRUE)
 #  heading          :string
+#  origin_region    :integer
 #
 # Indexes
 #
@@ -25,6 +26,7 @@
 class Subject < ActiveRecord::Base
   extend FriendlyId
   include Imageable
+  include Regions
 
   friendly_id :slug_candidates, use: [:slugged, :finders]
 

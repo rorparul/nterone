@@ -12,10 +12,12 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  complete      :boolean          default(FALSE)
+#  origin_region :integer
 #
 
 class Task < ActiveRecord::Base
   include SearchCop
+  include Regions
 
   belongs_to :user
   belongs_to :rep, class_name: "User", foreign_key: :rep_id

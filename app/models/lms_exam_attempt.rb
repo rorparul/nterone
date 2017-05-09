@@ -2,13 +2,14 @@
 #
 # Table name: lms_exam_attempts
 #
-#  id           :integer          not null, primary key
-#  lms_exam_id  :integer
-#  user_id      :integer
-#  started_at   :datetime
-#  completed_at :datetime
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :integer          not null, primary key
+#  lms_exam_id   :integer
+#  user_id       :integer
+#  started_at    :datetime
+#  completed_at  :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  origin_region :integer
 #
 # Indexes
 #
@@ -22,6 +23,8 @@
 #
 
 class LmsExamAttempt < ActiveRecord::Base
+  include Regions
+
   belongs_to :lms_exam
   belongs_to :user
 

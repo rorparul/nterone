@@ -2,14 +2,17 @@
 #
 # Table name: category_subjects
 #
-#  id          :integer          not null, primary key
-#  category_id :integer
-#  subject_id  :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer          not null, primary key
+#  category_id   :integer
+#  subject_id    :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  origin_region :integer
 #
 
 class CategorySubject < ActiveRecord::Base
+  include Regions
+
   belongs_to :category
   belongs_to :subject
 

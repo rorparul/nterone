@@ -25,10 +25,12 @@
 #  event_id         :integer
 #  email_optional   :string
 #  notes            :text
+#  origin_region    :integer
 #
 
 class Opportunity < ActiveRecord::Base
   include SearchCop
+  include Regions
 
   belongs_to :account,  class_name: 'Company'
   belongs_to :course

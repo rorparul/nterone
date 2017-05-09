@@ -9,6 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  correct              :boolean          default(FALSE)
+#  origin_region        :integer
 #
 # Indexes
 #
@@ -20,5 +21,7 @@
 #
 
 class LmsExamAnswer < ActiveRecord::Base
+  include Regions
+
   belongs_to :lms_exam_question
 end

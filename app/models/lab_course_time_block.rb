@@ -9,9 +9,12 @@
 #  ratio         :integer          default(1)
 #  price         :decimal(8, 2)    default(0.0)
 #  level         :string
+#  origin_region :integer
 #
 
 class LabCourseTimeBlock < ActiveRecord::Base
+  include Regions
+
   belongs_to :lab_course
 
   validates :lab_course_id, :unit_size, :unit_quantity, :ratio, presence: true

@@ -2,19 +2,22 @@
 #
 # Table name: instructors
 #
-#  id          :integer          not null, primary key
-#  first_name  :string
-#  last_name   :string
-#  biography   :string
-#  email       :string
-#  phone       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  platform_id :integer
-#  status      :integer          default(0)
+#  id            :integer          not null, primary key
+#  first_name    :string
+#  last_name     :string
+#  biography     :string
+#  email         :string
+#  phone         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  platform_id   :integer
+#  status        :integer          default(0)
+#  origin_region :integer
 #
 
 class Instructor < ActiveRecord::Base
+  include Regions
+
   enum status: { employee: 0, contractor: 1 }
 
   belongs_to :platform

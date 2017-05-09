@@ -2,14 +2,17 @@
 #
 # Table name: groups
 #
-#  id          :integer          not null, primary key
-#  header      :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  platform_id :integer
+#  id            :integer          not null, primary key
+#  header        :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  platform_id   :integer
+#  origin_region :integer
 #
 
 class Group < ActiveRecord::Base
+  include Regions
+
   # belongs_to :platform
 
   has_many :subject_groups, dependent: :destroy

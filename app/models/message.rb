@@ -8,9 +8,12 @@
 #  read            :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  origin_region   :integer
 #
 
 class Message < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
   belongs_to :announcement
 

@@ -26,6 +26,7 @@
 #  satellite_viewable     :boolean          default(TRUE)
 #  cisco_digital_learning :boolean          default(FALSE)
 #  cdl_course_code        :string
+#  origin_region          :integer
 #
 # Indexes
 #
@@ -35,6 +36,7 @@
 class VideoOnDemand < ActiveRecord::Base
   extend FriendlyId
   include Imageable
+  include Regions
 
   friendly_id :slug_candidates, use: [:slugged, :finders]
 

@@ -2,15 +2,18 @@
 #
 # Table name: roles
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  role       :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  role          :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  origin_region :integer
 #
 
 class Role < ActiveRecord::Base
   extend Enumerize
+  include Regions
+
   enumerize :role, in: {
     admin:         1,
     sales_manager: 2,

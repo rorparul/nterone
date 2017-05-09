@@ -14,8 +14,11 @@
 #  other                            :string
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  origin_region                    :integer
 #
 
 class Interest < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
 end

@@ -16,6 +16,7 @@
 #  sent_lab_credentials :boolean          default(FALSE)
 #  status               :string
 #  note                 :text
+#  origin_region        :integer
 #
 # Indexes
 #
@@ -23,6 +24,8 @@
 #
 
 class OrderItem < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
   belongs_to :cart
   belongs_to :order

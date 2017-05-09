@@ -17,6 +17,7 @@
 #  heading            :string
 #  meta_description   :text
 #  video              :text
+#  origin_region      :integer
 #
 # Indexes
 #
@@ -26,6 +27,7 @@
 #
 
 class Category < ActiveRecord::Base
+  include Regions
   extend FriendlyId
   scope :parent_categories, -> { where(parent_id: nil) }
 

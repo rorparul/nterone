@@ -2,15 +2,18 @@
 #
 # Table name: dividers
 #
-#  id          :integer          not null, primary key
-#  platform_id :integer
-#  content     :string
-#  shortname   :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  platform_id   :integer
+#  content       :string
+#  shortname     :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  origin_region :integer
 #
 
 class Divider < ActiveRecord::Base
+  include Regions
+
   belongs_to :platform
 
   has_many :group_items, as: :groupable, dependent: :destroy

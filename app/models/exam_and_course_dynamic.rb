@@ -2,14 +2,17 @@
 #
 # Table name: exam_and_course_dynamics
 #
-#  id          :integer          not null, primary key
-#  label       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  platform_id :integer
+#  id            :integer          not null, primary key
+#  label         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  platform_id   :integer
+#  origin_region :integer
 #
 
 class ExamAndCourseDynamic < ActiveRecord::Base
+  include Regions
+
   belongs_to :platform
 
   has_many :group_items,     as:        :groupable, dependent: :destroy

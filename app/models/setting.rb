@@ -2,13 +2,14 @@
 #
 # Table name: settings
 #
-#  id         :integer          not null, primary key
-#  var        :string           not null
-#  value      :text
-#  thing_id   :integer
-#  thing_type :string(30)
-#  created_at :datetime
-#  updated_at :datetime
+#  id            :integer          not null, primary key
+#  var           :string           not null
+#  value         :text
+#  thing_id      :integer
+#  thing_type    :string(30)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  origin_region :integer
 #
 # Indexes
 #
@@ -17,6 +18,8 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
+  include Regions
+
   source Rails.root.join("config/app.yml")
   namespace Rails.env
 end

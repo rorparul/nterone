@@ -10,6 +10,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  position             :integer
+#  origin_region        :integer
 #
 # Indexes
 #
@@ -25,6 +26,8 @@
 #
 
 class LmsExamAttemptAnswer < ActiveRecord::Base
+  include Regions
+
   belongs_to :lms_exam_attempt
   belongs_to :lms_exam_question
   belongs_to :lms_exam_answer

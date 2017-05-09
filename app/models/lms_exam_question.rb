@@ -7,9 +7,12 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  question_type :integer          default(0)
+#  origin_region :integer
 #
 
 class LmsExamQuestion < ActiveRecord::Base
+  include Regions
+
   enum question_type: {
     multiple_choice: 0,
     free_form: 1,

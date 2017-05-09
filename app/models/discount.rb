@@ -2,17 +2,20 @@
 #
 # Table name: discounts
 #
-#  id         :integer          not null, primary key
-#  active     :boolean          default(TRUE)
-#  date_end   :date
-#  date_start :date
-#  limit      :integer
-#  code       :string
-#  kind       :string
-#  value      :decimal(8, 2)    default(0.0)
+#  id            :integer          not null, primary key
+#  active        :boolean          default(TRUE)
+#  date_end      :date
+#  date_start    :date
+#  limit         :integer
+#  code          :string
+#  kind          :string
+#  value         :decimal(8, 2)    default(0.0)
+#  origin_region :integer
 #
 
 class Discount < ActiveRecord::Base
+  include Regions
+
   has_many :orders
   has_many :order_items, through: :orders
 
