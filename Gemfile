@@ -78,6 +78,7 @@ group :development do
   gem 'meta_request', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
+  gem 'awesome_print'
 end
 
 group :development, :test do
