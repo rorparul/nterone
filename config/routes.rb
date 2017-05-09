@@ -11,8 +11,6 @@ NterOne::Application.routes.draw do
     get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
 
-  # mount Forem::Engine, :at => '/forums'
-
   resources :users  do
     post :toggle_archived, on: :member
     collection do

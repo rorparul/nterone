@@ -1,17 +1,18 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
-- content_for :actions do
-  li
-    = link_to new_reports_commission_path, remote: true do
-      = t('admins.classes.commissions_report')
-  - if current_user.admin?
+- if policy(:class).report?
+  - content_for :actions do
     li
-      = link_to new_reports_profit_sheet_path, remote: true do
-        = t('admins.classes.profits_report')
-    li
-      = link_to new_reports_instructor_utilization_path, remote: true do
-        = t('admins.classes.utilization_report')
+      = link_to new_reports_commission_path, remote: true do
+        = t('admins.classes.commissions_report')
+    - if current_user.admin?
+      li
+        = link_to new_reports_profit_sheet_path, remote: true do
+          = t('admins.classes.profits_report')
+      li
+        = link_to new_reports_instructor_utilization_path, remote: true do
+          = t('admins.classes.utilization_report')
 
 = render 'layouts/tabs'
 
@@ -37,10 +38,11 @@
           = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered", style: "margin-right: 5px;"
           = t('admins.classes.registered')
               
-        .checkbox.inline style="margin-right: 35px;"
-          = hidden_field_tag :including_past, "0"
-          = check_box_tag :including_past, "1", cookies[:including_past] == "1", style: "margin-right: 5px;"
-          = t('admins.classes.past')
+        - unless current_user.partner?
+          .checkbox.inline style="margin-right: 35px;"
+            = hidden_field_tag :including_past, "0"
+            = check_box_tag :including_past, "1", cookies[:including_past] == "1", style: "margin-right: 5px;"
+            = t('admins.classes.past')
 
     = smart_listing_render(:events)
 

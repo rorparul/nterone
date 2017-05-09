@@ -289,6 +289,7 @@ ActiveRecord::Schema.define(version: 20170428025248) do
     t.string   "zipcode"
     t.integer  "origin_region"
     t.text     "active_regions",                                         default: [],                     array: true
+    t.string   "company"
   end
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|

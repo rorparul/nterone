@@ -107,7 +107,7 @@ class AdminController < ApplicationController
   end
 
   def people
-    users_scope = User.all
+    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
 
     @users = smart_listing_create(:users, users_scope,
@@ -137,7 +137,7 @@ class AdminController < ApplicationController
   private
 
   def validate_authorization
-    unless current_user.admin? || current_user.sales?
+    unless current_user.admin? || current_user.sales? || current_user.partner?
       redirect_to root_path
     end
   end

@@ -37,11 +37,13 @@ es:
     partial_breadcrumbs:
       admin: "Mi cuenta"
       blog: "Blog"
+      classes: "Clases"
       edit: "Editar"
       home: "Inicio"
       industry: "Industria"
       my_sales: "Mis Ventas"
       nci: "NCI"
+      partner: "Compañero"
       press: "Prensa"
       support: "Apoyo"
       training: "Entrenamientos"

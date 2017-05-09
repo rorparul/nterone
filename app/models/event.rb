@@ -43,6 +43,7 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
+#  company                        :string
 #  origin_region                  :integer
 #  active_regions                 :text             default([]), is an Array
 #
@@ -188,6 +189,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def event_platform
+    course.platform.title
+  end
+
   private
 
   def create_gtr_alert
@@ -207,8 +212,9 @@ class Event < ActiveRecord::Base
     end
   end
 
+
   def calculate_book_cost
-    platform_title = course.platform.title
+    platform_title = event_platform
     case platform_title
     when "Cisco"
       self.cost_books = 350.00 * student_count
