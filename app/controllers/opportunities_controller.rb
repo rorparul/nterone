@@ -14,7 +14,7 @@ class OpportunitiesController < ApplicationController
     date_end   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
     if current_user.admin? || current_user.sales_manager?
-      @owners = User.all_sales
+      @owners = User.active_sales
 
       unless params[:filter_user].present?
         opportunities_scope = Opportunity
@@ -25,7 +25,6 @@ class OpportunitiesController < ApplicationController
 
     else
       opportunities_scope = current_user.opportunities
-
     end
 
     @amount_open           = opportunities_scope.amount_open

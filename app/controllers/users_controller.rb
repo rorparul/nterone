@@ -110,7 +110,7 @@ class UsersController < ApplicationController
   end
 
   def sales_reps
-    render json: { items: User.all_sales.custom_search(params[:q]).order(:last_name) }
+    render json: { items: User.active_sales.custom_search(params[:q]).order(:last_name) }
   end
 
   private
@@ -126,6 +126,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
+      :archive,
       :about,
       :archived,
       :billing_city,

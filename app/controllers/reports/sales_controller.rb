@@ -4,7 +4,7 @@ class Reports::SalesController < ApplicationController
 
   def new
     if current_user.admin? || current_user.sales_manager?
-      @owners = User.all_sales
+      @owners = User.active_sales
     end
   end
 
