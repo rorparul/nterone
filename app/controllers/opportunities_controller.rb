@@ -22,13 +22,11 @@ class OpportunitiesController < ApplicationController
         sales_rep = User.find(params[:filter_user])
         opportunities_scope = sales_rep.opportunities
       end
-
     else
       opportunities_scope = current_user.opportunities
     end
 
     @amount_open           = opportunities_scope.amount_open
-    @amount_waiting        = opportunities_scope.amount_waiting
     @amount_won_mtd        = opportunities_scope.amount_won_mtd
     @amount_won_last_month = opportunities_scope.amount_won_last_month
     @amount_won_ytd        = opportunities_scope.amount_won_ytd

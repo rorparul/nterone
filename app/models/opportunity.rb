@@ -54,7 +54,6 @@ class Opportunity < ActiveRecord::Base
   end
 
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
-  # before_save :update_date_closed, if: proc { |model| model.stage_changed? }
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
   after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.stage == 100 && model.order.present? }
@@ -85,7 +84,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def closed?
-    [0, 100].include? stage
+    [0, 100].include?(stage)
   end
 
   private
@@ -93,14 +92,6 @@ class Opportunity < ActiveRecord::Base
   def update_title
     self.title = course.full_title
   end
-
-  # def update_date_closed
-  #   if stage == 0 || stage == 100
-  #     self.date_closed = Date.today
-  #   else
-  #     self.date_closed = nil
-  #   end
-  # end
 
   def create_order
     order = Order.new(
@@ -110,36 +101,6 @@ class Opportunity < ActiveRecord::Base
       first_name: customer.try(:first_name),
       last_name: customer.try(:last_name),
       referring_partner_email: email_optional
-      # billing_street: nil,
-      # billing_city: nil,
-      # billing_state: nil,
-      # billing_zip_code: nil,
-      # billing_country: nil,
-      # email: nil,
-      # clc_number: nil,
-      # paid: #<BigDecimal:7fe6b758d900,'0.1E5',9(18)>,
-      # status: "Paid in Full",
-      # total: #<BigDecimal:7fe6b756a2c0,'0.1E5',9(18)>,
-      # billing_country: nil,
-      # payment_type: "Credit Card",
-      # clc_quantity: 0,
-      # billing_first_name: "sD",
-      # billing_last_name: "FSADFSDF",
-      # shipping_company: nil,
-      # billing_company: "",
-      # same_addresses: true,
-      # po_number: nil,
-      # po_paid: #<BigDecimal:7fe6b99bddc0,'0.0',9(18)>,
-      # verified: false,
-      # invoiced: false,
-      # invoice_number: nil,
-      # status_position: 3,
-      # reviewed: false,
-      # balance: #<BigDecimal:7fe6ba827668,'0.0',9(18)>,
-      # closed_date: nil,
-      # source: 0,
-      # other_source: nil,
-      # discount_id: nil
     )
 
     order_item = order.order_items.new(
