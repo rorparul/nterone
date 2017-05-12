@@ -168,7 +168,7 @@ javascript:
           results: $.map(data.items, function(item) {
             return {
               id: item.id,
-              text: item.last_name + ", " + item.first_name
+              text: item.last_name + ", " + item.first_name + " (" + item.email + ")"
             }
           })
         };
