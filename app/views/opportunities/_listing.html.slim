@@ -13,7 +13,7 @@
           th colspan='3'
       tbody#opportunities
         - smart_listing.collection.each do |opportunity|
-          = render partial: 'opportunity', locals: { opportunity: opportunity }
+          = render partial: 'opportunities/opportunity', locals: { opportunity: opportunity }
     .table-end
   .container-muted
     = smart_listing.paginate

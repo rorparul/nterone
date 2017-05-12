@@ -12,7 +12,7 @@ class Reports::SalesController < ApplicationController
     start_date = parse_date_select(report_params, :start_date)
     end_date   = parse_date_select(report_params, :end_date)
 
-    @opportunities = Opportunity.where(date_closed: start_date..end_date)
+    @opportunities = report_params[:status] == "open" ? Opportunity.all : Opportunity.where(date_closed: start_date..end_date)
     @opportunities = @opportunities.pending if report_params[:status] == "open"
     @opportunities = @opportunities.waiting if report_params[:status] == "waiting"
     @opportunities = @opportunities.won     if report_params[:status] == "won"
