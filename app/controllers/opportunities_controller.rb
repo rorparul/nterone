@@ -7,6 +7,8 @@ class OpportunitiesController < ApplicationController
   before_action :set_associations,      only: [:new, :edit, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
+  # after_filter { flash.discard if request.xhr? }
+
   layout 'admin'
 
   def index
@@ -77,10 +79,11 @@ class OpportunitiesController < ApplicationController
 
   def create
     @opportunity = Opportunity.new(opportunity_params)
-    if  @opportunity.save
+
+    if @opportunity.save
       fly_form('destroy')
-      flash[:success] = 'Opportunity successfully created.'
-      redirect_to :back
+      # flash[:success] = 'Opportunity successfully created.'
+      # redirect_to :back
     else
       fly_form('post')
       render 'shared/new'
@@ -89,8 +92,8 @@ class OpportunitiesController < ApplicationController
 
   def update
     if @opportunity.update(opportunity_params)
-      flash[:success] = 'Opportunity successfully updated.'
-      redirect_to :back
+      # flash[:success] = 'Opportunity successfully updated.'
+      # redirect_to :back
     else
       render 'shared/edit'
     end

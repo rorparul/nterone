@@ -8,7 +8,7 @@ wb.styles do |style|
       headers = [
         "Opportunity Owner",
         "Account Name",
-        "Opportunity Name",
+        "Customer",
         "Course Catalog",
         'Close Date',
         "Amount"
@@ -21,7 +21,7 @@ wb.styles do |style|
           "#{sale.employee.try(:full_name)}",
           "#{sale.account.try(:title)}",
           "#{sale.customer.try(:full_name)}",
-          "#{sale.course.try(:title)}",
+          "#{sale.course.try(:title) || sale.title}",
           "#{sale.date_closed}",
           "$#{number_with_delimiter(sale.amount)}"
         ]
@@ -43,7 +43,7 @@ wb.styles do |style|
       headers = [
         "Opportunity Owner",
         "Account Name",
-        "Opportunity Name",
+        "Customer",
         "Course Catalog",
         "Probability (%)",
         'Close Date',
@@ -57,7 +57,7 @@ wb.styles do |style|
           "#{sale.employee.try(:full_name)}",
           "#{sale.account.try(:title)}",
           "#{sale.customer.try(:full_name)}",
-          "#{sale.course.try(:title)}",
+          "#{sale.course.try(:title) || sale.title}",
           "#{sale.stage}%",
           "#{sale.date_closed}",
           "$#{number_with_delimiter(sale.amount)}"

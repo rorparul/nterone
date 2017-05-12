@@ -1,5 +1,5 @@
 .fly-form
-  = form_for @opportunity do |f|
+  = form_for @opportunity, remote: true do |f|
     - if @opportunity.errors.any?
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"

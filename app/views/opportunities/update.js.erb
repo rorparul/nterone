@@ -1,0 +1,11 @@
+$("#opportunity-<%= @opportunity.id %>").addClass('warning');
+
+$("#opportunity-<%= @opportunity.id %> #employee").text("<%= @opportunity.employee.full_name if @opportunity.employee %>");
+$("#opportunity-<%= @opportunity.id %> #company").text("<%= @opportunity.account.try(:title) || 'N/A' %>");
+$("#opportunity-<%= @opportunity.id %> #customer").text("<%= @opportunity.customer.full_name if @opportunity.customer %>");
+$("#opportunity-<%= @opportunity.id %> #course").text("<%= @opportunity.course.try(:title) || 'N/A' %>");
+$("#opportunity-<%= @opportunity.id %> #stage").text("<%= @opportunity.stage %>%");
+$("#opportunity-<%= @opportunity.id %> #date_closed").text("<%= @opportunity.date_closed.strftime('%-m/%-d/%y') if @opportunity.date_closed %>");
+$("#opportunity-<%= @opportunity.id %> #amount").text("<%= number_to_currency(@opportunity.amount) || 'N/A' %>");
+
+$('#myModal').modal('hide');

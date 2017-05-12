@@ -1,0 +1,11 @@
+tr id="opportunity-#{opportunity.id}"
+  td#employee = opportunity.employee.full_name if opportunity.employee
+  td#company = opportunity.account.try(:title) || "N/A"
+  td#customer = opportunity.customer.full_name if opportunity.customer
+  td#course = opportunity.course.try(:title) || "N/A"
+  td#stage = "#{opportunity.stage}%"
+  td#date_closed = opportunity.date_closed.strftime("%-m/%-d/%y") if opportunity.date_closed
+  td#amount = number_to_currency(opportunity.amount) || "N/A"
+  td.fit = link_to t('default.action.edit'), edit_opportunity_path(opportunity), remote: true, class: 'text-warning'
+  td.fit = link_to 'Copy', copy_opportunities_path(opportunity), remote: true, class: 'text-success'
+  td.fit = link_to t('default.action.delete'), opportunity_path(opportunity), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

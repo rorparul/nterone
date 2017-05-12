@@ -1,0 +1,5 @@
+$('tbody#opportunities').prepend("<%= escape_javascript(render partial: 'opportunity', locals: { opportunity: @opportunity }) %>");
+
+$("#opportunity-<%= @opportunity.id %>").addClass('success');
+
+$('#myModal').modal('hide');
