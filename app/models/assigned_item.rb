@@ -2,14 +2,15 @@
 #
 # Table name: assigned_items
 #
-#  id            :integer          not null, primary key
-#  assigner_id   :integer
-#  student_id    :integer
-#  item_id       :integer
-#  item_type     :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  assigner_id    :integer
+#  student_id     :integer
+#  item_id        :integer
+#  item_type      :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #

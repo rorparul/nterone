@@ -2,15 +2,16 @@
 #
 # Table name: custom_items
 #
-#  id            :integer          not null, primary key
-#  content       :text
-#  shortname     :string
-#  url           :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  platform_id   :integer
-#  is_header     :boolean          default(FALSE)
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  content        :text
+#  shortname      :string
+#  url            :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  platform_id    :integer
+#  is_header      :boolean          default(FALSE)
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class CustomItem < ActiveRecord::Base

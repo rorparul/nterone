@@ -2,12 +2,13 @@
 #
 # Table name: lms_exam_questions
 #
-#  id            :integer          not null, primary key
-#  question_text :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  question_type :integer          default(0)
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  question_text  :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  question_type  :integer          default(0)
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class LmsExamQuestion < ActiveRecord::Base

@@ -2,12 +2,13 @@
 #
 # Table name: category_subjects
 #
-#  id            :integer          not null, primary key
-#  category_id   :integer
-#  subject_id    :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  category_id    :integer
+#  subject_id     :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class CategorySubject < ActiveRecord::Base

@@ -12,6 +12,7 @@
 #  page_description   :text
 #  satellite_viewable :boolean          default(TRUE)
 #  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #

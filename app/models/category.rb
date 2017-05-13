@@ -18,6 +18,7 @@
 #  meta_description   :text
 #  video              :text
 #  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #

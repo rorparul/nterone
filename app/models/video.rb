@@ -13,6 +13,7 @@
 #  position        :integer          default(0)
 #  slug            :string
 #  origin_region   :integer
+#  active_regions  :text             default([]), is an Array
 #
 
 class Video < ActiveRecord::Base

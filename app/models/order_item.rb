@@ -17,6 +17,7 @@
 #  status               :string
 #  note                 :text
 #  origin_region        :integer
+#  active_regions       :text             default([]), is an Array
 #
 # Indexes
 #

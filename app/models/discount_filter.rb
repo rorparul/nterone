@@ -17,6 +17,7 @@
 #  vod_partner_led   :boolean
 #  vod_lms           :boolean
 #  origin_region     :integer
+#  active_regions    :text             default([]), is an Array
 #
 
 class DiscountFilter < ActiveRecord::Base

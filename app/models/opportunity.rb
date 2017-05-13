@@ -26,6 +26,7 @@
 #  email_optional   :string
 #  notes            :text
 #  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class Opportunity < ActiveRecord::Base

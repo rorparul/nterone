@@ -10,6 +10,7 @@
 #  updated_at         :datetime         not null
 #  user_id            :integer
 #  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 
 class PassedExam < ActiveRecord::Base

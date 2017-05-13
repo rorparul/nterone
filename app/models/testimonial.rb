@@ -2,14 +2,15 @@
 #
 # Table name: testimonials
 #
-#  id            :integer          not null, primary key
-#  quotation     :string
-#  author        :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  company       :string
-#  course_id     :integer
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  quotation      :string
+#  author         :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  company        :string
+#  course_id      :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Testimonial < ActiveRecord::Base

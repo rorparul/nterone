@@ -24,6 +24,7 @@
 #  host                :string
 #  event_id            :integer
 #  origin_region       :integer
+#  active_regions      :text             default([]), is an Array
 #
 
 class PublicFeaturedEvent < ActiveRecord::Base

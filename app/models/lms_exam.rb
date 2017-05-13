@@ -13,6 +13,7 @@
 #  slug               :string
 #  video_on_demand_id :integer
 #  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #

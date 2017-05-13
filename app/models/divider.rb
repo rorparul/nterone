@@ -2,13 +2,14 @@
 #
 # Table name: dividers
 #
-#  id            :integer          not null, primary key
-#  platform_id   :integer
-#  content       :string
-#  shortname     :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  platform_id    :integer
+#  content        :string
+#  shortname      :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Divider < ActiveRecord::Base

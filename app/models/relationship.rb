@@ -2,13 +2,14 @@
 #
 # Table name: relationships
 #
-#  id            :integer          not null, primary key
-#  seller_id     :integer
-#  buyer_id      :integer
-#  status        :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  seller_id      :integer
+#  buyer_id       :integer
+#  status         :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #

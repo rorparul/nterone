@@ -11,6 +11,7 @@
 #  updated_at           :datetime         not null
 #  position             :integer
 #  origin_region        :integer
+#  active_regions       :text             default([]), is an Array
 #
 # Indexes
 #

@@ -10,6 +10,7 @@
 #  group_id       :integer
 #  position       :integer
 #  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #

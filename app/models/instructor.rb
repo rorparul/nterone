@@ -2,17 +2,18 @@
 #
 # Table name: instructors
 #
-#  id            :integer          not null, primary key
-#  first_name    :string
-#  last_name     :string
-#  biography     :string
-#  email         :string
-#  phone         :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  platform_id   :integer
-#  status        :integer          default(0)
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  first_name     :string
+#  last_name      :string
+#  biography      :string
+#  email          :string
+#  phone          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  platform_id    :integer
+#  status         :integer          default(0)
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Instructor < ActiveRecord::Base

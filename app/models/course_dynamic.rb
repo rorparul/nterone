@@ -8,6 +8,7 @@
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  origin_region              :integer
+#  active_regions             :text             default([]), is an Array
 #
 
 class CourseDynamic < ActiveRecord::Base

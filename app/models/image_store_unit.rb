@@ -2,11 +2,12 @@
 #
 # Table name: image_store_units
 #
-#  id            :integer          not null, primary key
-#  title         :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class ImageStoreUnit < ActiveRecord::Base

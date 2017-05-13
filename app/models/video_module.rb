@@ -11,6 +11,7 @@
 #  cisco_digital_learning :boolean          default(FALSE)
 #  cdl_course_code        :string
 #  origin_region          :integer
+#  active_regions         :text             default([]), is an Array
 #
 
 class VideoModule < ActiveRecord::Base

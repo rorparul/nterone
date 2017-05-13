@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< 9ccb2d3493d97e52d64b14504dc83a11c77084d2
-ActiveRecord::Schema.define(version: 20170511163610) do
-=======
-ActiveRecord::Schema.define(version: 20170509150245) do
->>>>>>> Add column origin_region to all tables
+ActiveRecord::Schema.define(version: 20170513201432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,11 +51,12 @@ ActiveRecord::Schema.define(version: 20170509150245) do
   create_table "announcements", force: :cascade do |t|
     t.text     "content"
     t.string   "audience"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "status",        default: "open"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "status",         default: "open"
     t.string   "poster"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                  array: true
   end
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
@@ -86,9 +83,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "student_id"
     t.integer  "item_id"
     t.string   "item_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
@@ -152,6 +150,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.text     "meta_description"
     t.text     "video"
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [], array: true
   end
 
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
@@ -161,9 +160,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
   create_table "category_courses", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "course_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "category_subjects", force: :cascade do |t|
@@ -172,31 +172,34 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [], array: true
   end
 
   create_table "category_video_on_demands", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "video_on_demand_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [],              array: true
   end
 
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "status"
-    t.boolean  "planned",       default: false
-    t.boolean  "attended",      default: false
-    t.boolean  "passed",        default: false
+    t.boolean  "planned",        default: false
+    t.boolean  "attended",       default: false
+    t.boolean  "passed",         default: false
     t.integer  "user_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                 array: true
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -211,14 +214,16 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "parent_id"
     t.string   "industry_code"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "course_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
     t.integer  "course_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "origin_region"
+    t.text     "active_regions",             default: [],              array: true
   end
 
   create_table "courses", force: :cascade do |t|
@@ -242,6 +247,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "heading"
     t.boolean  "satellite_viewable",                         default: true
     t.integer  "origin_region"
+    t.text     "active_regions",                             default: [],                 array: true
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
@@ -250,11 +256,12 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.text     "content"
     t.string   "shortname"
     t.string   "url"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "platform_id"
-    t.boolean  "is_header",     default: false
+    t.boolean  "is_header",      default: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                 array: true
   end
 
   create_table "discount_filters", force: :cascade do |t|
@@ -272,26 +279,29 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.boolean "vod_partner_led"
     t.boolean "vod_lms"
     t.integer "origin_region"
+    t.text    "active_regions",    default: [], array: true
   end
 
   create_table "discounts", force: :cascade do |t|
-    t.boolean "active",                                default: true
+    t.boolean "active",                                 default: true
     t.date    "date_end"
     t.date    "date_start"
     t.integer "limit"
     t.string  "code"
     t.string  "kind"
-    t.decimal "value",         precision: 8, scale: 2, default: 0.0
+    t.decimal "value",          precision: 8, scale: 2, default: 0.0
     t.integer "origin_region"
+    t.text    "active_regions",                         default: [],   array: true
   end
 
   create_table "dividers", force: :cascade do |t|
     t.integer  "platform_id"
     t.string   "content"
     t.string   "shortname"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "events", force: :cascade do |t|
@@ -342,26 +352,29 @@ ActiveRecord::Schema.define(version: 20170509150245) do
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
     t.string   "label"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "platform_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "exam_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
     t.integer  "exam_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "origin_region"
+    t.text     "active_regions",             default: [],              array: true
   end
 
   create_table "exams", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "platform_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "forem_categories", force: :cascade do |t|
@@ -484,37 +497,41 @@ ActiveRecord::Schema.define(version: 20170509150245) do
   create_table "group_items", force: :cascade do |t|
     t.integer  "groupable_id"
     t.string   "groupable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "group_id"
     t.integer  "position"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_index "group_items", ["groupable_type", "groupable_id"], name: "index_group_items_on_groupable_type_and_groupable_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "header"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "platform_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "hacp_requests", force: :cascade do |t|
     t.string   "aicc_sid"
-    t.boolean  "used",          default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.boolean  "used",           default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "user_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                 array: true
   end
 
   create_table "image_store_units", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "images", force: :cascade do |t|
@@ -522,6 +539,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer "imageable_id"
     t.string  "imageable_type"
     t.integer "origin_region"
+    t.text    "active_regions", default: [], array: true
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
@@ -542,11 +560,12 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "biography"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "platform_id"
-    t.integer  "status",        default: 0
+    t.integer  "status",         default: 0
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "interests", force: :cascade do |t|
@@ -559,19 +578,21 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.boolean  "professional_level_certification"
     t.boolean  "expert_level_certification"
     t.string   "other"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "origin_region"
+    t.text     "active_regions",                   default: [],              array: true
   end
 
   create_table "lab_course_time_blocks", force: :cascade do |t|
     t.integer "lab_course_id"
-    t.decimal "unit_size",     precision: 4, scale: 2, default: 1.0
+    t.decimal "unit_size",      precision: 4, scale: 2, default: 1.0
     t.integer "unit_quantity"
-    t.integer "ratio",                                 default: 1
-    t.decimal "price",         precision: 8, scale: 2, default: 0.0
+    t.integer "ratio",                                  default: 1
+    t.decimal "price",          precision: 8, scale: 2, default: 0.0
     t.string  "level"
     t.integer "origin_region"
+    t.text    "active_regions",                         default: [],  array: true
   end
 
   create_table "lab_courses", force: :cascade do |t|
@@ -587,6 +608,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "pods_individual",  default: 0
     t.integer  "pods_partner",     default: 0
     t.integer  "origin_region"
+    t.text     "active_regions",   default: [],                  array: true
   end
 
   create_table "lab_rentals", force: :cascade do |t|
@@ -599,8 +621,8 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.text     "notes"
     t.string   "location"
     t.boolean  "confirmed"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "course"
     t.integer  "user_id"
     t.integer  "company_id"
@@ -613,6 +635,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.date     "last_day"
     t.string   "level"
     t.integer  "origin_region"
+    t.text     "active_regions",    default: [],              array: true
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
@@ -621,19 +644,21 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "lab_rental_id"
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "leads", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "status",        default: "unassigned"
-    t.string   "discount",      default: "0"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "status",         default: "unassigned"
+    t.string   "discount",       default: "0"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                        array: true
   end
 
   create_table "lms_exam_answers", force: :cascade do |t|
@@ -644,6 +669,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "updated_at",                           null: false
     t.boolean  "correct",              default: false
     t.integer  "origin_region"
+    t.text     "active_regions",       default: [],                 array: true
   end
 
   add_index "lms_exam_answers", ["lms_exam_question_id"], name: "index_lms_exam_answers_on_lms_exam_question_id", using: :btree
@@ -653,10 +679,11 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "lms_exam_question_id"
     t.integer  "lms_exam_answer_id"
     t.text     "answer_text"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "position"
     t.integer  "origin_region"
+    t.text     "active_regions",       default: [],              array: true
   end
 
   add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree
@@ -668,9 +695,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "user_id"
     t.datetime "started_at"
     t.datetime "completed_at"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_index "lms_exam_attempts", ["lms_exam_id"], name: "index_lms_exam_attempts_on_lms_exam_id", using: :btree
@@ -681,9 +709,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.integer  "lms_exam_question_id"
     t.integer  "position"
     t.boolean  "active"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "origin_region"
+    t.text     "active_regions",       default: [],              array: true
   end
 
   add_index "lms_exam_question_joins", ["lms_exam_id"], name: "index_lms_exam_question_joins_on_lms_exam_id", using: :btree
@@ -691,23 +720,25 @@ ActiveRecord::Schema.define(version: 20170509150245) do
 
   create_table "lms_exam_questions", force: :cascade do |t|
     t.text     "question_text"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "question_type", default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "question_type",  default: 0
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "lms_exams", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "exam_type"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "video_module_id"
     t.integer  "video_id"
     t.string   "slug"
     t.integer  "video_on_demand_id"
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [],              array: true
   end
 
   add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
@@ -717,9 +748,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
   create_table "lms_managed_students", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "manager_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "messages", force: :cascade do |t|
@@ -729,6 +761,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "origin_region"
+    t.text     "active_regions",  default: [],                 array: true
   end
 
   create_table "opportunities", force: :cascade do |t|
@@ -755,6 +788,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "email_optional"
     t.text     "notes"
     t.integer  "origin_region"
+    t.text     "active_regions",                           default: [],                 array: true
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -772,6 +806,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "status"
     t.text     "note"
     t.integer  "origin_region"
+    t.text     "active_regions",                               default: [],                 array: true
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
@@ -854,17 +889,19 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "updated_at",                         null: false
     t.integer  "user_id"
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [],                 array: true
   end
 
   create_table "planned_subjects", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "subject_id"
     t.string   "status"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "active",        default: true
-    t.boolean  "read",          default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "active",         default: true
+    t.boolean  "read",           default: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                 array: true
   end
 
   create_table "platforms", force: :cascade do |t|
@@ -877,6 +914,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.text     "page_description"
     t.boolean  "satellite_viewable", default: true
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [],   array: true
   end
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
@@ -928,6 +966,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "host"
     t.integer  "event_id"
     t.integer  "origin_region"
+    t.text     "active_regions",                              default: [],               array: true
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -946,15 +985,17 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "updated_at",                           null: false
     t.integer  "event_id"
     t.integer  "origin_region"
+    t.text     "active_regions",       default: [],                 array: true
   end
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
     t.string   "status"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_index "relationships", ["buyer_id"], name: "index_relationships_on_buyer_id", using: :btree
@@ -967,16 +1008,18 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [], array: true
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",                      null: false
+    t.string   "var",                                    null: false
     t.text     "value"
     t.integer  "thing_id"
-    t.string   "thing_type",    limit: 30
+    t.string   "thing_type",     limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "origin_region"
+    t.text     "active_regions",            default: [],              array: true
   end
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
@@ -984,9 +1027,10 @@ ActiveRecord::Schema.define(version: 20170509150245) do
   create_table "subject_groups", force: :cascade do |t|
     t.integer  "subject_id"
     t.integer  "group_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -1004,16 +1048,18 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.boolean  "active",           default: true
     t.string   "heading"
     t.integer  "origin_region"
+    t.text     "active_regions",   default: [],    array: true
   end
 
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.date     "date_exp"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "video_on_demand_id"
     t.integer  "origin_region"
+    t.text     "active_regions",     default: [],              array: true
   end
 
   create_table "taken_exams", force: :cascade do |t|
@@ -1031,23 +1077,25 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.datetime "activity_date"
     t.text     "description"
     t.integer  "rep_id"
-    t.integer  "priority",      default: 2
+    t.integer  "priority",       default: 2
     t.string   "subject"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "complete",      default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "complete",       default: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],                 array: true
   end
 
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "company"
     t.integer  "course_id"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   create_table "thredded_user_topic_reads", force: :cascade do |t|
@@ -1172,6 +1220,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.boolean  "cisco_digital_learning", default: false
     t.string   "cdl_course_code"
     t.integer  "origin_region"
+    t.text     "active_regions",         default: [],                 array: true
   end
 
   create_table "video_on_demands", force: :cascade do |t|
@@ -1199,6 +1248,7 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.boolean  "cisco_digital_learning",                         default: false
     t.string   "cdl_course_code"
     t.integer  "origin_region"
+    t.text     "active_regions",                                 default: [],                 array: true
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree
@@ -1209,20 +1259,22 @@ ActiveRecord::Schema.define(version: 20170509150245) do
     t.string   "url"
     t.text     "embed_code"
     t.boolean  "free"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "position",        default: 0
     t.string   "slug"
     t.integer  "origin_region"
+    t.text     "active_regions",  default: [],              array: true
   end
 
   create_table "watched_videos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "video_id"
     t.string   "status"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_foreign_key "lab_rentals", "lab_courses"

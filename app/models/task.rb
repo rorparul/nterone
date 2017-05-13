@@ -2,17 +2,18 @@
 #
 # Table name: tasks
 #
-#  id            :integer          not null, primary key
-#  activity_date :datetime
-#  description   :text
-#  rep_id        :integer
-#  priority      :integer          default(2)
-#  subject       :string
-#  user_id       :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  complete      :boolean          default(FALSE)
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  activity_date  :datetime
+#  description    :text
+#  rep_id         :integer
+#  priority       :integer          default(2)
+#  subject        :string
+#  user_id        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  complete       :boolean          default(FALSE)
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Task < ActiveRecord::Base

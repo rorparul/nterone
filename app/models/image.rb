@@ -7,6 +7,7 @@
 #  imageable_id   :integer
 #  imageable_type :string
 #  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #

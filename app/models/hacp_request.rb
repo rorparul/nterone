@@ -2,13 +2,14 @@
 #
 # Table name: hacp_requests
 #
-#  id            :integer          not null, primary key
-#  aicc_sid      :string
-#  used          :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :integer
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  aicc_sid       :string
+#  used           :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  user_id        :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class HacpRequest < ActiveRecord::Base
