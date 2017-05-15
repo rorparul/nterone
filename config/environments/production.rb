@@ -94,10 +94,11 @@ NterOne::Application.configure do
     :enable_starttls_auto => true
   }
 
-  # Rails.application.config.middleware.use ExceptionNotification::Rack,
-  #   :email => {
-  #     :email_prefix         => "[NterOne/Company Website] ",
-  #     :sender_address       => "'Exception Notification' <email@nterone.com>",
-  #     :exception_recipients => ['ryan@storberg.net']
-  #   }
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix         => "[NterOne/Company Website] ",
+      :sender_address       => "'Exception Notification' <email@nterone.com>",
+      :exception_recipients => ['ryan@storberg.net']
+    },
+    :error_grouping => true
 end
