@@ -27,7 +27,6 @@ gem 'exception_notification', github: 'smartinez87/exception_notification', bran
 gem 'figaro'
 gem 'font-awesome-rails'
 gem 'friendly_id'
-gem 'honeybadger', '~> 3.1'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails', '~> 4.0.3'
 gem 'jquery-turbolinks'
