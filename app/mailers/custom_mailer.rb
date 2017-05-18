@@ -10,9 +10,9 @@ class CustomMailer < Devise::Mailer
       to: @user.email,
       bcc: [
         "bob@nterone.com",
-        "sales#{I18n.t('email')}",
-        "helpdesk#{I18n.t('email')}",
-        "billing#{I18n.t('email')}",
+        "sales@nterone.#{Rails.application.config.tld}",
+        "helpdesk@nterone.#{Rails.application.config.tld}",
+        "billing@nterone.#{Rails.application.config.tld}",
         'stephanie.pouse@madwiremedia.com',
         'marketing360+m9874@bcc.mad360.net',
         'marketing360+M10780@bcc.mad360.net',
@@ -27,9 +27,9 @@ class CustomMailer < Devise::Mailer
     mail(
       to: @user.email,
       bcc: [
-        "sales#{I18n.t('email')}",
-        "helpdesk#{I18n.t('email')}",
-        "billing#{I18n.t('email')}",
+        "sales@nterone.#{Rails.application.config.tld}",
+        "helpdesk@nterone.#{Rails.application.config.tld}",
+        "billing@nterone.#{Rails.application.config.tld}",
         'stephanie.pouse@madwiremedia.com',
         'marketing360+m9874@bcc.mad360.net',
         'marketing360+M10780@bcc.mad360.net',

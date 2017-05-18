@@ -9,10 +9,12 @@ class ContactUsMailer < ApplicationMailer
 
     mail(
       to: params[:recipient],
-      bcc: ['stephanie.pouse@madwiremedia.com',
-            'marketing360+m9874@bcc.mad360.net',
-            'marketing360+M10780@bcc.mad360.net',
-            'marketing360+M10794@bcc.mad360.net'],
+      bcc: [
+        'stephanie.pouse@madwiremedia.com',
+        'marketing360+m9874@bcc.mad360.net',
+        'marketing360+M10780@bcc.mad360.net',
+        'marketing360+M10794@bcc.mad360.net'
+      ],
       subject: subject
     )
   end
