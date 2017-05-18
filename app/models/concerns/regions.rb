@@ -39,6 +39,6 @@ module Regions
   private
 
   def set_origin_region
-    self.origin_region ||= current_region_as_value
+    self.origin_region ||= current_region_as_value  if self.class.column_names.include?("origin_region")
   end
 end
