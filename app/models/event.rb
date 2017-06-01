@@ -190,7 +190,7 @@ class Event < ActiveRecord::Base
   end
 
   def event_platform
-    course.platform.title
+    course.try(:platform).try(:title)
   end
 
   private

@@ -78,7 +78,6 @@ group :development do
   gem 'meta_request', '~> 0.3.4'
   gem 'rails-erd'
   gem 'traceroute'
-  gem 'awesome_print'
 end
 
 group :development, :test do
@@ -99,6 +98,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'spring-commands-rspec'
   gem 'spring'
+  gem 'awesome_print'
 end
 
 group :doc do
