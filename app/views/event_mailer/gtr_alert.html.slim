@@ -2,7 +2,7 @@ table
   tbody
     tr
       td Course
-      td = @event.course.full_title
+      td = @event.course.try(:full_title)
     tr
       td Format
       td = @event.format

@@ -2,14 +2,18 @@
 #
 # Table name: exams
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  platform_id :integer
+#  id             :integer          not null, primary key
+#  title          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  platform_id    :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Exam < ActiveRecord::Base
+  include Regions
+
   belongs_to :platform
 
   has_many :exam_dynamics,            dependent: :destroy

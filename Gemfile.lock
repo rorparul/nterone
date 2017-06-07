@@ -73,6 +73,7 @@ GEM
       jquery-rails (>= 2.0.2)
     autoprefixer-rails (6.5.3)
       execjs
+    awesome_print (1.7.0)
     aws-sdk-core (2.6.29)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
@@ -533,6 +534,7 @@ DEPENDENCIES
   annotate
   authorizenet
   autonumeric-rails
+  awesome_print
   aws-sdk-rails
   axlsx
   axlsx_rails

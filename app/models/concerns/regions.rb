@@ -2,7 +2,7 @@ module Regions
   extend ActiveSupport::Concern
 
   included do
-    scope :active_in_current_region, -> { where("active_regions @> ?", "{#{self.new.current_region_as_key}}") }
+    default_scope -> { where("active_regions @> ?", "{#{self.new.current_region_as_key}}") }
 
     enum origin_region: {
       united_states: 0,
@@ -39,6 +39,6 @@ module Regions
   private
 
   def set_origin_region
-    self.origin_region ||= current_region_as_value
+    self.origin_region ||= current_region_as_value  if self.class.column_names.include?("origin_region")
   end
 end

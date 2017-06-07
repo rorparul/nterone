@@ -2,16 +2,20 @@
 #
 # Table name: lab_course_time_blocks
 #
-#  id            :integer          not null, primary key
-#  lab_course_id :integer
-#  unit_size     :decimal(4, 2)    default(1.0)
-#  unit_quantity :integer
-#  ratio         :integer          default(1)
-#  price         :decimal(8, 2)    default(0.0)
-#  level         :string
+#  id             :integer          not null, primary key
+#  lab_course_id  :integer
+#  unit_size      :decimal(4, 2)    default(1.0)
+#  unit_quantity  :integer
+#  ratio          :integer          default(1)
+#  price          :decimal(8, 2)    default(0.0)
+#  level          :string
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class LabCourseTimeBlock < ActiveRecord::Base
+  include Regions
+
   belongs_to :lab_course
 
   validates :lab_course_id, :unit_size, :unit_quantity, :ratio, presence: true

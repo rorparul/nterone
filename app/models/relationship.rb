@@ -2,12 +2,14 @@
 #
 # Table name: relationships
 #
-#  id         :integer          not null, primary key
-#  seller_id  :integer
-#  buyer_id   :integer
-#  status     :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  seller_id      :integer
+#  buyer_id       :integer
+#  status         :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #
@@ -17,6 +19,8 @@
 #
 
 class Relationship < ActiveRecord::Base
+  include Regions
+
   belongs_to :seller, class_name: "User"
   belongs_to :buyer,  class_name: "User"
 end

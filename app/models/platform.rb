@@ -11,6 +11,8 @@
 #  page_title         :string
 #  page_description   :text
 #  satellite_viewable :boolean          default(TRUE)
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #
@@ -20,6 +22,7 @@
 class Platform < ActiveRecord::Base
   extend FriendlyId
   include Imageable
+  include Regions
 
   friendly_id :title, use: [:slugged, :finders]
 

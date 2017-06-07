@@ -25,6 +25,8 @@
 #  twenty_four_hours :boolean
 #  last_day          :date
 #  level             :string
+#  origin_region     :integer
+#  active_regions    :text             default([]), is an Array
 #
 # Indexes
 #
@@ -37,6 +39,7 @@
 
 class LabRental < ActiveRecord::Base
 	include SearchCop
+include Regions
 
 	belongs_to :user
 	belongs_to :company
