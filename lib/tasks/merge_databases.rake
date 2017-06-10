@@ -78,8 +78,6 @@ namespace "merge" do
           end
 
         rescue Exception => e
-          ap e.message
-          ap attributes
           puts e.backtrace.join("\t\n")
         end
       end
