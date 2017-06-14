@@ -43,3 +43,5 @@
         ul.dropdown-menu aria-labelledby="dLabel"
           li = link_to t('default.action.edit'), edit_platform_path(platform), remote: true
           li = link_to "Export", platform_vendor_export_path(platform)
+          li = link_to t('platforms.show.add_category'), new_platform_category_path(platform), remote: true
+          li = link_to t('platforms.show.edit_category'), select_platform_categories_path(platform), remote: true
