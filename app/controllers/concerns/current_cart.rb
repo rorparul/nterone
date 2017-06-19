@@ -15,8 +15,12 @@ module CurrentCart
           @cart = Cart.create(user_id: current_user.id)
         end
       elsif !(@cart.nil?) && @cart.id != cookies[:cart_id].to_i
-        combine_carts(@cart, Cart.find(cookies[:cart_id]))
-        cookies[:cart_id] = @cart.id
+        begin
+          combine_carts(@cart, Cart.find(cookies[:cart_id]))
+          cookies[:cart_id] = @cart.id
+        rescue ActiveRecord::RecordNotFound
+          @cart = Cart.create(user_id: current_user.id)
+        end
       end
     else
       begin
