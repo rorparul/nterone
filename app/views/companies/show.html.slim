@@ -110,7 +110,7 @@
               
         - if current_user.admin? || current_user.sales_manager?
           .input-group.input-group-sm.filter style='margin-right: 15px; padding: 1px 0;'
-            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select',
+            = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm search-select-non-modal',
                                           placeholder: t('admins.classes.search'),
                                           autocomplete: :off
 
