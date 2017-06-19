@@ -146,11 +146,11 @@ class CompaniesController < ApplicationController
 		opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
 		opportunities_scope = opportunities_scope.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 
-		@amount_open           = opportunities_scope.amount_open
-		@amount_won_mtd        = opportunities_scope.amount_won_mtd
-		@amount_won_last_month = opportunities_scope.amount_won_last_month
-		@amount_won_ytd        = opportunities_scope.amount_won_ytd
-		@amount_won_last_year  = opportunities_scope.amount_won_last_year
+		# @amount_open           = opportunities_scope.amount_open
+		# @amount_won_mtd        = opportunities_scope.amount_won_mtd
+		# @amount_won_last_month = opportunities_scope.amount_won_last_month
+		# @amount_won_ytd        = opportunities_scope.amount_won_ytd
+		# @amount_won_last_year  = opportunities_scope.amount_won_last_year
 
 		opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
