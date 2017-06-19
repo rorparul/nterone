@@ -130,7 +130,7 @@
                             td.text-center
                               = t('courses.show.contact')
                               = ' '
-                              = link_to "sales#{t('email')}", "mailto:sales#{t('email')}"
+                              = link_to "sales@nterone.#{TopLevelDomain}", "mailto:sales@nterone.#{TopLevelDomain}"
                               = ' '
                               = t('courses.show.for_training')
 
@@ -179,7 +179,7 @@
         p = t('courses.show.nterone_message')
         p
           = "#{t('default.label.email') + ": "}"
-          a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
+          a href="mailto:sales@nterone.#{TopLevelDomain}" = "sales@nterone.#{TopLevelDomain}"
 
         p
           = "#{t('default.label.phone')}: #{RegionalPhoneNumber}"
