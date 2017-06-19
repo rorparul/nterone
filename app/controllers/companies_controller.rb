@@ -138,7 +138,7 @@ class CompaniesController < ApplicationController
 	def list_opportunities
 		start_date = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
 		end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
-		sales_rep  = (current_user.admin? || current_user.sales_manager?) ? User.find_by(params[:filter_user]) if params[:filter_user] : current_user
+		sales_rep  = (current_user.admin? || current_user.sales_manager?) ? User.find_by(id: params[:filter_user]) : current_user
 
 		opportunities_scope = Opportunity.where(account_id: @company.id)
 		opportunities_scope = opportunities_scope.where(employee_id: sales_rep.id) if sales_rep.present?
