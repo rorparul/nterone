@@ -178,6 +178,7 @@ class CompaniesController < ApplicationController
 			opportunities_scope = current_user.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 		end
 
+		opportunities_scope = opportunities_scope.where(account_id: @company.id)
 		opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
 		@opportunities = smart_listing_create(
