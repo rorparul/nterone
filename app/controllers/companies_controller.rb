@@ -134,51 +134,54 @@ class CompaniesController < ApplicationController
 	end
 
 	def list_opportunities
-		start_date = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
-		end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
+		start_date          = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
+		end_date            = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
+		opportunities_scope = opportunities_scope.where(account_id: @company.id)
 
 		if current_user.admin? || current_user.sales_manager?
 			@owners = User.all_sales
 
 			unless params[:filter_user].present?
-				@amount_open           = Opportunity.amount_open
-				@amount_waiting        = Opportunity.amount_waiting
-				@amount_won_mtd        = Opportunity.amount_won_mtd
-				@amount_won_last_month = Opportunity.amount_won_last_month
-				@amount_won_ytd        = Opportunity.amount_won_ytd
-				@amount_won_last_year  = Opportunity.amount_won_last_year
+				@amount_open           = opportunities_scope.amount_open
+				@amount_waiting        = opportunities_scope.amount_waiting
+				@amount_won_mtd        = opportunities_scope.amount_won_mtd
+				@amount_won_last_month = opportunities_scope.amount_won_last_month
+				@amount_won_ytd        = opportunities_scope.amount_won_ytd
+				@amount_won_last_year  = opportunities_scope.amount_won_last_year
 
-				opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
-				opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-				opportunities_scope = Opportunity.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+				opportunities_scope = opportunities_scope.pending if params[:selection] == 'open' || params[:selection].nil?
+				opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
+				opportunities_scope = opportunities_scope.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 			else
-				sales_rep = User.find(params[:filter_user])
+				sales_rep           = User.find(params[:filter_user])
+				opportunities_scope = opportunities_scope.where(employee_id: sales_rep.id)
 
-				@amount_open           = sales_rep.opportunities.amount_open
-				@amount_waiting        = sales_rep.opportunities.amount_waiting
-				@amount_won_mtd        = sales_rep.opportunities.amount_won_mtd
-				@amount_won_last_month = sales_rep.opportunities.amount_won_last_month
-				@amount_won_ytd        = sales_rep.opportunities.amount_won_ytd
-				@amount_won_last_year  = sales_rep.opportunities.amount_won_last_year
+				@amount_open           = opportunities_scope.amount_open
+				@amount_waiting        = opportunities_scope.amount_waiting
+				@amount_won_mtd        = opportunities_scope.amount_won_mtd
+				@amount_won_last_month = opportunities_scope.amount_won_last_month
+				@amount_won_ytd        = opportunities_scope.amount_won_ytd
+				@amount_won_last_year  = opportunities_scope.amount_won_last_year
 
-				opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
-				opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
-				opportunities_scope = sales_rep.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+				opportunities_scope = opportunities_scope.pending if params[:selection] == 'open'
+				opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
+				opportunities_scope = opportunities_scope.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 			end
 		else
-			@amount_open           = current_user.opportunities.amount_open
-			@amount_waiting        = current_user.opportunities.amount_waiting
-			@amount_won_mtd        = current_user.opportunities.amount_won_mtd
-			@amount_won_last_month = current_user.opportunities.amount_won_last_month
-			@amount_won_ytd        = current_user.opportunities.amount_won_ytd
-			@amount_won_last_year  = current_user.opportunities.amount_won_last_year
+			opportunities_scope = opportunities_scope.where(employee_id: current_user.id)
 
-			opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
-			opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
-			opportunities_scope = current_user.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
+			@amount_open           = opportunities_scope.amount_open
+			@amount_waiting        = opportunities_scope.amount_waiting
+			@amount_won_mtd        = opportunities_scope.amount_won_mtd
+			@amount_won_last_month = opportunities_scope.amount_won_last_month
+			@amount_won_ytd        = opportunities_scope.amount_won_ytd
+			@amount_won_last_year  = opportunities_scope.amount_won_last_year
+
+			opportunities_scope = opportunities_scope.pending if params[:selection] == 'open' || params[:selection].nil?
+			opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
+			opportunities_scope = opportunities_scope.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 		end
 
-		opportunities_scope = opportunities_scope.where(account_id: @company.id)
 		opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
 		@opportunities = smart_listing_create(
