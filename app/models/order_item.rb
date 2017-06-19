@@ -16,6 +16,8 @@
 #  sent_lab_credentials :boolean          default(FALSE)
 #  status               :string
 #  note                 :text
+#  origin_region        :integer
+#  active_regions       :text             default([]), is an Array
 #
 # Indexes
 #
@@ -23,6 +25,8 @@
 #
 
 class OrderItem < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
   belongs_to :cart
   belongs_to :order
@@ -97,23 +101,23 @@ class OrderItem < ActiveRecord::Base
 
   def copy_current_orderable_price
     if self.cart_id
-       self.price = self.orderable.price
+       self.price = self.orderable.try(:price)
     end
   end
 
   def calculate_event_book_cost
-    if orderable_type == "Event"
-      event = Event.find(self.orderable_id)
-      if event.calculate_book_costs?
-        platform_title = event.course.platform.title
-        case platform_title
-        when "Cisco"
-          event.cost_books = 350.00 * event.student_count
-        when "VMware"
-          event.cost_books = 725.00 * event.student_count
-        end
-        event.save
-      end
-    end
+    # if orderable_type == "Event"
+    #   event = Event.find(self.orderable_id)
+    #   if event.calculate_book_costs?
+    #     platform_title = event.course.platform.title
+    #     case platform_title
+    #     when "Cisco"
+    #       event.cost_books = 350.00 * event.student_count
+    #     when "VMware"
+    #       event.cost_books = 725.00 * event.student_count
+    #     end
+    #     event.save
+    #   end
+    # end
   end
 end

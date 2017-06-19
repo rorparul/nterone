@@ -12,10 +12,13 @@
 #  updated_at      :datetime         not null
 #  position        :integer          default(0)
 #  slug            :string
+#  origin_region   :integer
+#  active_regions  :text             default([]), is an Array
 #
 
 class Video < ActiveRecord::Base
   extend FriendlyId
+  include Regions
 
   belongs_to :video_module
 

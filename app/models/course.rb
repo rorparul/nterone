@@ -22,6 +22,8 @@
 #  partner_led        :boolean          default(FALSE)
 #  heading            :string
 #  satellite_viewable :boolean          default(TRUE)
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #
@@ -33,6 +35,7 @@ class Course < ActiveRecord::Base
 
   include Imageable
   include SlugValidation
+  include Regions
 
   mount_uploader :pdf, PdfUploader
 

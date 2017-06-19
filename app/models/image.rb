@@ -6,6 +6,8 @@
 #  file           :string
 #  imageable_id   :integer
 #  imageable_type :string
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #
@@ -13,6 +15,8 @@
 #
 
 class Image < ActiveRecord::Base
+  include Regions
+
   mount_uploader :file, ImageUploader
 
   belongs_to :imageable, polymorphic: true

@@ -98,6 +98,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'spring-commands-rspec'
   gem 'spring'
+  gem 'awesome_print'
 end
 
 group :doc do

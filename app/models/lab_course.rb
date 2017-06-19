@@ -14,12 +14,15 @@
 #  level            :string           default("both")
 #  pods_individual  :integer          default(0)
 #  pods_partner     :integer          default(0)
+#  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class LabCourse < ActiveRecord::Base
   extend FriendlyId
 
   include Imageable
+  include Regions
 
   friendly_id :slug_candidates, use: :slugged
 

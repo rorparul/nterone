@@ -10,6 +10,8 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  position             :integer
+#  origin_region        :integer
+#  active_regions       :text             default([]), is an Array
 #
 # Indexes
 #
@@ -25,6 +27,8 @@
 #
 
 class LmsExamAttemptAnswer < ActiveRecord::Base
+  include Regions
+
   belongs_to :lms_exam_attempt
   belongs_to :lms_exam_question
   belongs_to :lms_exam_answer
