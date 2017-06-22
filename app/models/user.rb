@@ -347,20 +347,23 @@ class User < ActiveRecord::Base
 
   def role
     roles_collection = ""
+
     normalized_roles = {
       admin:         "Admin",
       sales_manager: "Sales Manager",
-      sales_rep:     "Sales Rep",
+      sales_rep:     "Sales",
       member:        "Member",
-      instructor:    "Instructor",
       lms_manager:   "LMS Manager",
       lms_student:   "LMS Student",
+      instructor:    "Instructor",
+      lms_business:  "LMS Business",
       partner_admin: "Partner"
-
     }
+
     roles.each do |role|
       roles_collection += "#{normalized_roles[role.role.to_sym]}, "
     end
+    
     roles_collection[0...-2]
   end
 
