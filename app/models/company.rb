@@ -18,8 +18,10 @@
 #  website        :string
 #  parent_id      :integer
 #  industry_code  :string
+#  partner        :boolean          default(FALSE)
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
+#  sales_force_id :string
 #
 
 class Company < ActiveRecord::Base

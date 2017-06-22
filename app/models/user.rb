@@ -78,6 +78,7 @@
 #  active_regions          :text             default([]), is an Array
 #  active                  :boolean          default(TRUE)
 #  archive                 :boolean          default(FALSE)
+#  sales_force_id          :string
 #
 # Indexes
 #

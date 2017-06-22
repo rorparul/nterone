@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610075148) do
+ActiveRecord::Schema.define(version: 20170621234513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,12 +59,6 @@ ActiveRecord::Schema.define(version: 20170610075148) do
     t.text     "active_regions", default: [],                  array: true
   end
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "articles", force: :cascade do |t|
     t.string   "page_title"
     t.text     "page_description"
@@ -90,38 +84,6 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   end
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
-
-  create_table "blog_posts", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
-
-  create_table "bootsy_image_galleries", force: :cascade do |t|
-    t.integer  "bootsy_resource_id"
-    t.string   "bootsy_resource_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bootsy_images", force: :cascade do |t|
-    t.string   "image_file"
-    t.integer  "image_gallery_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "carousel_items", force: :cascade do |t|
-    t.string   "caption"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "active",     default: true
-    t.string   "url"
-  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",                  null: false
@@ -166,6 +128,13 @@ ActiveRecord::Schema.define(version: 20170610075148) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  create_table "category_packages", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "package_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "category_subjects", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "subject_id"
@@ -198,8 +167,8 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "title"
     t.integer  "form_type"
     t.string   "slug"
@@ -213,8 +182,10 @@ ActiveRecord::Schema.define(version: 20170610075148) do
     t.string   "website"
     t.integer  "parent_id"
     t.string   "industry_code"
+    t.boolean  "partner",        default: false
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
+    t.text     "active_regions", default: [],                 array: true
+    t.string   "sales_force_id"
   end
 
   create_table "course_dynamics", force: :cascade do |t|
@@ -474,13 +445,6 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   add_index "forem_views", ["user_id"], name: "index_forem_views_on_user_id", using: :btree
   add_index "forem_views", ["viewable_id"], name: "index_forem_views_on_viewable_id", using: :btree
 
-  create_table "forums", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -543,16 +507,6 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
-
-  create_table "industry_articles", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
 
   create_table "instructors", force: :cascade do |t|
     t.string   "first_name"
@@ -868,6 +822,28 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
 
+  create_table "package_items", force: :cascade do |t|
+    t.integer  "package_id"
+    t.string   "packageable_type"
+    t.integer  "packageable_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "platform_id"
+    t.decimal  "price",            precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.text     "description"
+    t.string   "abbreviation"
+    t.string   "slug"
+    t.string   "page_title"
+    t.text     "page_description"
+    t.boolean  "partner_led",                              default: false
+  end
+
   create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -919,29 +895,11 @@ ActiveRecord::Schema.define(version: 20170610075148) do
 
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
 
-  create_table "posts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.string   "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "prep_items", force: :cascade do |t|
     t.integer  "exam_id"
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "press_releases", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
   end
 
   create_table "public_featured_events", force: :cascade do |t|
@@ -1111,13 +1069,6 @@ ActiveRecord::Schema.define(version: 20170610075148) do
   add_index "thredded_user_topic_reads", ["topic_id"], name: "index_thredded_user_topic_reads_on_topic_id", using: :btree
   add_index "thredded_user_topic_reads", ["user_id", "topic_id"], name: "index_thredded_user_topic_reads_on_user_id_and_topic_id", unique: true, using: :btree
 
-  create_table "topics", force: :cascade do |t|
-    t.integer  "forum_id"
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "user_companies", force: :cascade do |t|
     t.integer "user_id"
     t.integer "company_id"
@@ -1202,6 +1153,7 @@ ActiveRecord::Schema.define(version: 20170610075148) do
     t.text     "active_regions",                                  default: [],                            array: true
     t.boolean  "active",                                          default: true
     t.boolean  "archive",                                         default: false
+    t.string   "sales_force_id"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
