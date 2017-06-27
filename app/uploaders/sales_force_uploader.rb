@@ -217,6 +217,15 @@ class SalesForceUploader
         else
           :DELETE
         end
+      elsif type == "Reps"
+        case title
+        when "Id"
+          :sales_force_id
+        when "Email"
+          :email
+        else
+          :DELETE
+        end
       end
     end
   end
@@ -385,6 +394,10 @@ class SalesForceUploader
           opportunity = Opportunity.create(row_original)
           opportunity.update_attribute(:date_closed, row_original[:date_closed])
         end
+      when "Reps"
+        # NOTE: ADD SALESFORCE IDS
+        user = User.find_by(email: row_original[:email]) if row_original[:email].present?
+        user.update(sales_force_id: row_original[:sales_force_id]) if user.present?
       else
         # flash[:alert] = "Something went horribly wrong!"
         # return redirect_to :back

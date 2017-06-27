@@ -2,7 +2,7 @@ class SalesForceController < ApplicationController
   before_action :authorize_user
 
   def form_for_other
-    @types = ["Companies", "Contacts", "Leads", "Opportunities"]
+    @types = ["Companies", "Contacts", "Leads", "Opportunities", "Reps"]
   end
 
   def upload_other
@@ -12,7 +12,7 @@ class SalesForceController < ApplicationController
     end
     @file = params[:upload][:file]
     @type = params[:upload][:type]
-    if @type == "Companies" || "Contacts"|| "Leads" || "Opportunities"
+    if @type == "Companies" || "Contacts"|| "Leads" || "Opportunities" || "Reps"
       upload = SalesForceUploader.upload_other(@file, @type)
     else
       flash[:alert] = "File type not valid!"
