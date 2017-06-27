@@ -4,7 +4,7 @@ class PlatformsController < ApplicationController
 
   def index
     @page      = Page.find_by(title: 'Vendor Index')
-    @platforms = Platform.order(:title).eager_load(:image)
+    @platforms = Platform.order(:title)
   end
 
   def show
