@@ -166,6 +166,8 @@ class User < ActiveRecord::Base
   has_many :companies
   has_many :opportunities,        class_name:  'Opportunity',
                                   foreign_key: 'employee_id'
+  has_many :tasks
+  has_many :rep_tasks,           class_name: 'Task',         foreign_key: 'rep_id'
   # has_many :buyer_orders,         class_name:  'Opportunity',
   #                                 foreign_key: 'customer_id'
   # has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
@@ -363,7 +365,7 @@ class User < ActiveRecord::Base
     roles.each do |role|
       roles_collection += "#{normalized_roles[role.role.to_sym]}, "
     end
-    
+
     roles_collection[0...-2]
   end
 
