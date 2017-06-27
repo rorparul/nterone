@@ -12,6 +12,11 @@
   
   - unless resource.status == 'qualified'
     .form-group
+      = f.label :source_name, 'Source'
+      = f.select :source_name, Rails.application.config.lead_sources,
+        options = { include_blank: true },
+        html_options = { class: 'form-control search-select' }
+    .form-group
       = f.label :status, t('users.partial_form.status')
       = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
         options = {},

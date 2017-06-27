@@ -74,7 +74,8 @@ class Users::InvitationsController < Devise::InvitationsController
       :parent_id,
       :phone_alternative,
       :salutation,
-      :status
+      :status,
+      :source_name
     )
   end
 

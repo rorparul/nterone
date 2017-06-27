@@ -157,6 +157,7 @@ class UsersController < ApplicationController
       :shipping_zip_code,
       :state,
       :status,
+      :source_name,
       :street,
       :video_bio,
       :zipcode,
