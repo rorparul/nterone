@@ -7,33 +7,70 @@ class SalesForceUploader
     format_rows(spreadsheet, header, type)
   end
 
-  def self.upload_tasks(contacts, leads, users, tasks)
-    @contacts           = Roo::CSV.new(contacts.path, csv_options: {encoding: 'windows-1251:utf-8'})
-    @leads              = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
-    @users              = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
-    @tasks              = Roo::CSV.new(tasks.path, csv_options: {encoding: 'windows-1251:utf-8'})
-    @tasks_header     = format_header(@tasks.row(1), "Tasks")
+  def self.upload_tasks(tasks)
+    # @contacts     = Roo::CSV.new(contacts.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    # @leads        = Roo::CSV.new(leads.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    # @users        = Roo::CSV.new(users.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    # @tasks        = Roo::CSV.new(tasks.path, csv_options: {encoding: 'windows-1251:utf-8'})
+    # @tasks_header = format_header(@tasks.row(1), "Tasks")
+    # save_tasks
+
+    @tasks        = Roo::CSV.new(tasks.path, csv_options: { encoding: 'windows-1251:utf-8' })
+    @tasks_header = format_header(@tasks.row(1), 'Tasks')
     save_tasks
   end
 
   def self.save_tasks
+    # (2..@tasks.last_row).each do |i|
+    #   row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
+    #   row_tasks.delete(:DELETE)
+    #   @user = nil
+    #   @rep = nil
+    #   find_user(@contacts, row_tasks[:user_id])
+    #   find_user(@leads, row_tasks[:user_id]) unless @user
+    #   find_user(@users, row_tasks[:rep_id])
+    #   next if @user.nil? || @rep.nil?
+    #   row_tasks[:user_id] = @user.id
+    #   row_tasks[:rep_id]  = @rep.id
+    #   if row_tasks[:priority]
+    #     row_tasks[:priority] == 'Normal' ? row_tasks[:priority] = 2 : row_tasks[:priority] = 3
+    #   end
+    #   if row_tasks[:complete]
+    #     row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
+    #   end
+    #   Task.create(row_tasks)
+    # end
+
     (2..@tasks.last_row).each do |i|
       row_tasks = Hash[[@tasks_header, @tasks.row(i)].transpose]
       row_tasks.delete(:DELETE)
-      @user = nil
-      @rep = nil
-      find_user(@contacts, row_tasks[:user_id])
-      find_user(@leads, row_tasks[:user_id]) unless @user
-      find_user(@users, row_tasks[:rep_id])
-      next if @user.nil? || @rep.nil?
-      row_tasks[:user_id] = @user.id
-      row_tasks[:rep_id]  = @rep.id
+
+      user = User.find_by(sales_force_id: row_tasks[:user_id])
+      rep  = User.find_by(sales_force_id: row_tasks[:rep_id])
+      # find_user(@contacts, row_tasks[:user_id])
+      # find_user(@leads, row_tasks[:user_id]) unless @user
+      # find_user(@users, row_tasks[:rep_id])
+
+      p
+      p "user (#{row_tasks[:user_id]}):"
+      p user
+      p "rep (#{row_tasks[:rep_id]}):"
+      p rep
+      p
+
+      # next if user.nil? || rep.nil?
+
+      row_tasks[:user_id] = user.try(:id)
+      row_tasks[:rep_id]  = rep.try(:id)
+
       if row_tasks[:priority]
         row_tasks[:priority] == 'Normal' ? row_tasks[:priority] = 2 : row_tasks[:priority] = 3
       end
+
       if row_tasks[:complete]
         row_tasks[:complete] == 'Completed' ? row_tasks[:complete] = true : row_tasks[:complete] = false
       end
+
       Task.create(row_tasks)
     end
   end
@@ -49,7 +86,7 @@ class SalesForceUploader
 
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
-    when ".csv" then Roo::Csv.new(file.path)
+    when ".csv" then Roo::CSV.new(file.path, csv_options: { encoding: 'windows-1251:utf-8' })
     when ".xls" then Roo::Excel.new(file.path)
     when ".xlsx" then Roo::Excelx.new(file.path)
     else raise "Unknown file type: #{file.original_filename}"

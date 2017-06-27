@@ -21,20 +21,23 @@ class SalesForceController < ApplicationController
   end
 
   def form_for_tasks
-    "/giphy"
+    # "/giphy"
   end
 
   def upload_tasks
-    return redirect_to :back unless params[:upload]
-    @contacts = params[:upload][:contacts]
-    @leads    = params[:upload][:leads]
-    @users    = params[:upload][:users]
-    @tasks    = params[:upload][:tasks]
-    if @contacts.nil? || @leads.nil? || @users.nil? || @tasks.nil?
-      flash[:alert] = "One or more files missing!!!"
-    else
-      upload = SalesForceUploader.upload_tasks(@contacts, @leads, @users, @tasks)
-    end
+    # return redirect_to :back unless params[:upload]
+    # @contacts = params[:upload][:contacts]
+    # @leads    = params[:upload][:leads]
+    # @users    = params[:upload][:users]
+    # @tasks    = params[:upload][:tasks]
+    # if @contacts.nil? || @leads.nil? || @users.nil? || @tasks.nil?
+    #   flash[:alert] = "One or more files missing!!!"
+    # else
+    #   upload = SalesForceUploader.upload_tasks(@contacts, @leads, @users, @tasks)
+    # end
+    # redirect_to :back
+
+    SalesForceUploader.upload_tasks(params[:upload][:file])
     redirect_to :back
   end
 
@@ -43,5 +46,4 @@ class SalesForceController < ApplicationController
   def authorize_user
     return redirect_to root_path unless current_user.admin?
   end
-
 end

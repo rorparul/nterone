@@ -183,11 +183,11 @@ class UsersController < ApplicationController
   def list_tasks
 
     if params[:selection] == "complete"
-      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: true)
+      tasks_scope = Task.where(rep_id: [nil, current_user.id], user_id: @user.id, complete: true)
     elsif params[:selection] == "due"
-      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id, complete: false)
+      tasks_scope = Task.where(rep_id: [nil, current_user.id], user_id: @user.id, complete: false)
     else
-      tasks_scope = Task.where(rep_id: current_user.id, user_id: @user.id)
+      tasks_scope = Task.where(rep_id: [nil, current_user.id], user_id: @user.id)
     end
 
     tasks_scope = tasks_scope.custom_search(params[:filter]) if params[:filter]

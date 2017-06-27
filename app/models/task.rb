@@ -23,7 +23,7 @@ class Task < ActiveRecord::Base
   belongs_to :user
   belongs_to :rep, class_name: "User", foreign_key: :rep_id
 
-  validates :activity_date, :rep_id, :priority, :subject, presence: true
+  validates :activity_date, :priority, :subject, presence: true
 
   search_scope :custom_search do
     attributes :subject, :description
