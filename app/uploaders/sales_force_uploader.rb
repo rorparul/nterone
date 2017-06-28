@@ -51,12 +51,12 @@ class SalesForceUploader
       # find_user(@leads, row_tasks[:user_id]) unless @user
       # find_user(@users, row_tasks[:rep_id])
 
-      p
-      p "user (#{row_tasks[:user_id]}):"
-      p user
-      p "rep (#{row_tasks[:rep_id]}):"
-      p rep
-      p
+      Rails.logger.info
+      Rails.logger.info "user (#{row_tasks[:user_id]}):"
+      Rails.logger.info user
+      Rails.logger.info "rep (#{row_tasks[:rep_id]}):"
+      Rails.logger.info rep
+      Rails.logger.info
 
       # next if user.nil? || rep.nil?
 
