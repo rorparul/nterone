@@ -1,6 +1,6 @@
 module FlyForm
   extend ActiveSupport::Concern
-  
+
   private
 
   def fly_form(action)

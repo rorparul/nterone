@@ -2,7 +2,7 @@ class FlyFormsController < ApplicationController
   include FlyForm
 
   def update
-    object_name      = params.keys.third
+    object_name      = params.keys.second
     form_name        = "form_for_#{object_name.to_s.downcase}"
     form_name_symbol = form_name.to_sym
     unlocked_params  = ActiveSupport::HashWithIndifferentAccess.new(params[object_name.to_sym])
