@@ -33,7 +33,7 @@
         .form-group
           = f.label :end_date, t('reports.profit_sheets.partial_form.end')
           br
-          = f.date_select :end_date, { disabled: true }, { class: 'input-date' }
+          = f.date_select :end_date, { }, { class: 'input-date' }
           
     button.btn.btn-success
       = t('reports.profit_sheets.partial_form.generate')
