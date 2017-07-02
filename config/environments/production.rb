@@ -95,6 +95,7 @@ NterOne::Application.configure do
   }
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
+    :ignore_crawlers => %w{Googlebot bingbot},
     :error_grouping => true,
     :email => {
       :email_prefix         => "[NterOne/Company Website] ",

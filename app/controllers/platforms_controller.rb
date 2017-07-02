@@ -8,7 +8,7 @@ class PlatformsController < ApplicationController
   end
 
   def show
-    redirect_to session[:last_category_url]
+    redirect_to session[:last_category_url] || root_path
   end
 
   def new
