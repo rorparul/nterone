@@ -1,3 +1,4 @@
+SitemapGenerator::Sitemap.create_index = true
 SitemapGenerator::Sitemap.default_host = "https://#{Setting.current_hostname}"
 SitemapGenerator::Sitemap.compress     = false
 
