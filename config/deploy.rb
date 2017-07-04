@@ -21,7 +21,9 @@ set :ssh_options, {
 namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      execute :rake, "sitemap:production_refresh"
+      within release_path do
+        execute :rake, "sitemap:production_refresh"
+      end
     end
   end
 
