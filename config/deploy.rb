@@ -22,7 +22,7 @@ namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
-        execute :rake, "sitemap:production_refresh"
+        execute :rake, "sitemap:production_refresh", "RAILS_ENV=#{fetch :rails_env}"
       end
     end
   end
