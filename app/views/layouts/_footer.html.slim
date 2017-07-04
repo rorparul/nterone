@@ -8,6 +8,17 @@ footer.general-footer.text-muted style="text-align: center;"
       span.fa.fa-linkedin-square
     = link_to 'https://plus.google.com/+Nterone', target: '_blank', class: 'google' do
       span.fa.fa-google-plus-square
+  #regions style="margin-bottom: 10px;"
+    .btn-group.dropup
+      button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        | Change Region
+      ul.dropdown-menu
+        li
+          a href="https://nterone.ca" Canada
+        li
+          a href="https://nterone.la" Latin America
+        li
+          a href="https://nterone.com" United States
   #legal-docs
     a href="#{main_app.page_path(Page.find_by(title: "NterOne Privacy Policy"))}" = t 'footer.privacy'
     span  | 

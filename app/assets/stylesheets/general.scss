@@ -1983,9 +1983,11 @@ footer {
   }
   #social-icons {
     margin-bottom: 10px;
-    span {
-      margin: 0 5px;
-      font-size: 30px;
+    a {
+      span {
+        margin: 0 5px;
+        font-size: 30px;
+      }
     }
     .facebook {
       color: rgb(59, 89, 152);
