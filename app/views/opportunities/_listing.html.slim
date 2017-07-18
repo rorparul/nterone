@@ -14,6 +14,17 @@
       tbody#opportunities
         - smart_listing.collection.each do |opportunity|
           = render partial: 'opportunities/opportunity', locals: { opportunity: opportunity }
+
+      tfoot
+        tr.background-muted
+          td
+          td
+          td
+          td
+          td
+          th Total
+          th[colspan=4]= number_to_currency(@amount_current)
+
     .table-end
   .container-muted
     = smart_listing.paginate
