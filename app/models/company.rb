@@ -52,6 +52,10 @@ class Company < ActiveRecord::Base
     attributes :user => ['user.first_name', 'user.last_name', 'user.email']
   end
 
+  def full_address
+    [street, city, state, zip_code].compact.join(", ")
+  end
+
   private
 
   def create_slug

@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
 	helper  SmartListing::Helper
 
-	before_action :set_company,       only: [:show, :edit, :update, :destroy]
+	before_action :set_company,       only: [:show, :edit, :update, :destroy, :merge]
 	before_action :set_companies,     only: [:index, :new, :edit]
 	before_action :set_owners,        only: [:new, :edit]
 	before_action :authorize_company, except: [:pluck]
@@ -58,6 +58,33 @@ class CompaniesController < ApplicationController
 
 	def edit
 		render 'shared/edit'
+	end
+
+	def merge
+
+	end
+
+	def merge_companies
+	  if params[:ids].any?
+	    main_company = Company.find(params[:id])
+	    merge_companies = Company.find(params[:ids].select {|id| id != params[:id]})
+
+	    merge_companies.each do |company|
+	      company_id = company.id
+
+	      ActiveRecord::Base.transaction do
+		User.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabRental.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabCourse.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		company.destroy
+	      end
+	    end
+
+	    flash[:success] = "Companies successfully merged."
+	  else
+	    flash[:alert] = "Companies failed to merge!"
+	  end
+	  redirect_to action: :index
 	end
 
 	def create

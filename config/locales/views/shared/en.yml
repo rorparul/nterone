@@ -5,5 +5,8 @@ en:
     new_js:
       companies: "New Company"
 
+    merge_js:
+      companies: "Merge Companies"
+
     opportunities:
       export_popup: "Export Opportunities"
