@@ -92,7 +92,11 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_create
-    success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+    if params["g-recaptcha-response"].nil? || (!params["g-recaptcha-response"].nil? && verify_recaptcha)
+      success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+    else
+      success = false
+    end
 
     respond_to do |format|
       format.html do

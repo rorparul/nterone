@@ -35,6 +35,9 @@
           .form-group
             = f.text_area :inquiry, value: "Please contact me to discuss using Cisco Learning Credits to sign-up for training.", rows: 8, class: 'form-control'
             
+          #recapcha
+            = recaptcha_tags
+            
           .form-buttons
             button.btn.btn-success type="submit" style='width: 100%;'
               | Request Information
