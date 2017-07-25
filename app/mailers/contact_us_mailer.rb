@@ -16,6 +16,7 @@ class ContactUsMailer < ApplicationMailer
 
     mail(
       to: params[:recipient],
+      cc: params[:email],
       bcc: [
         'stephanie.pouse@madwiremedia.com',
         mad360_emails[@tld.to_sym]
