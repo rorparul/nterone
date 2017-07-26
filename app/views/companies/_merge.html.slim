@@ -1,0 +1,117 @@
+= form_for :companies, html: { class: "companies_merge" } do |f|
+  .row
+    .col-md-6
+      p : strong Company that will replace others
+      hr
+      p[style="background:#eee;"]
+        dl
+          dt Title
+          dd= @company.title
+
+        - if @company.website
+          dl
+            dt Website
+            dd= @company.website
+
+        - if @company.parent
+          dl
+            dt Parent Company
+            dd= @company.parent.try(:title)
+
+        - if @company.kind
+          dl
+            dt Kind
+            dd= @company.kind
+
+        - if @company.industry_code
+          dl
+            dt Industry Code
+            dd= @company.industry_code
+
+        - if @company.user
+          dl
+            dt Sales Rep
+            dd= @company.user.try(:full_name)
+
+        - address = @company.full_address
+        - if address.present?
+          dl
+            dt Address
+            dd= address
+
+        - if @company.phone
+          dl
+            dt Phone
+            dd= @company.phone
+
+    .col-md-6
+      p : strong Select companies to merge
+      hr
+
+
+      table.table.table-hover.companies_merge
+      br
+      br
+      .form-group
+        = f.label :id, "Select company"
+        = f.select :id, existing_select2_ajax_company(@company),
+          { include_blank: t('companies.partial_form.dropdown') },
+          { class: 'search-companies-select form-control', style: "width: 100%;" }
+
+        / hr
+        / .form-group
+        /   button.btn.btn-default[type="submit" disabled] Merge
+
+  .form-buttons
+    button.btn.btn-success.pull-right type="submit"
+      = t('default.action.merge')
+    button.btn.btn-default.pull-right type="button" data-dismiss="modal"
+      = t('default.action.cancel')
+
+
+javascript:
+
+  var disableButton = function() {
+    $('form.companies_merge button.btn-success').prop("disabled", ! $('table.companies_merge tr').length > 0);
+  }
+  disableButton();
+
+  // On select value from dropdown
+  $('.search-companies-select').change(function(e){
+    var elem = $("<tr><td>"+e.target.selectedOptions[0].label+"</td><td><a href='#'><i class='fa fa-remove'></i></a><input type='hidden' name='ids[]' value='"+e.target.value+"' /></td></tr>");
+    $('table.companies_merge').append(elem);
+    elem.find('a').on('click', function(){
+      $(this).parents("tr:first").remove();
+      disableButton();
+    });
+    $(this).prop("selectedIndex", -1);
+    disableButton();
+  });
+
+  // Search company
+  $('.search-companies-select').select2({
+    dropdownParent: $(".modal-body.panel-body"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
+  });

@@ -18,6 +18,14 @@ class CompanyPolicy < ApplicationPolicy
     @user.admin? || (@user.sales? && @user.companies.find_by(id: @record.id))
   end
 
+  def merge?
+    @user.admin? || (@user.sales? && @user.companies.find_by(id: @record.id))
+  end
+
+  def merge_companies?
+    @user.admin? || (@user.sales? && @user.companies.find_by(id: @record.id))
+  end
+
   def destroy?
     @user.admin? || (@user.sales? && @user.companies.find_by(id: @record.id))
   end
