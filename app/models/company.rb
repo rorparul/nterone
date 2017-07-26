@@ -52,6 +52,11 @@ class Company < ActiveRecord::Base
     attributes :user => ['user.first_name', 'user.last_name', 'user.email']
   end
 
+  def children_and_self
+    ids = children.map(&:id) + [id]
+    Company.where(id: ids)
+  end
+
   private
 
   def create_slug
