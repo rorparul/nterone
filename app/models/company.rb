@@ -55,6 +55,11 @@ class Company < ActiveRecord::Base
   def full_address
     [street, city, state, zip_code].compact.join(", ")
   end
+  
+  def children_and_self
+    ids = children.map(&:id) + [id]
+    Company.where(id: ids)
+  end
 
   private
 
