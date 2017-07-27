@@ -15,18 +15,12 @@
         - smart_listing.collection.each do |opportunity|
           = render partial: 'opportunities/opportunity', locals: { opportunity: opportunity }
 
-      tfoot
-        tr.background-muted
-          td
-          td
-          td
-          td
-          td
-          th Total
-          th[colspan=4]= number_to_currency(@amount_current)
-
-    .table-end
-  .container-muted
+      tfoot style="border-top: 2px solid rgb(221, 221, 221); background-color: rgb(245, 245, 245);"
+        tr
+          td colspan="6"
+          th colspan="4" = number_to_currency(smart_listing.collection.to_a.inject(0) { |sum, opportunity| sum + opportunity.amount } )
+          
+  .container-muted style="margin-top: 10px;"
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
 - else

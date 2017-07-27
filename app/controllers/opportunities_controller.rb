@@ -50,8 +50,6 @@ class OpportunitiesController < ApplicationController
 
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
-    @amount_current        = opportunities_scope.sum(:amount)
-
     smart_listing_create(
       :opportunities,
       opportunities_scope,
