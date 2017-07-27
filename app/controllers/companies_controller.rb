@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
 	helper  SmartListing::Helper
 
-	before_action :set_company,       only: [:show, :edit, :update, :destroy]
+	before_action :set_company,       only: [:show, :edit, :update, :destroy, :merge]
 	before_action :set_companies,     only: [:index, :new, :edit]
 	before_action :set_owners,        only: [:new, :edit]
 	before_action :authorize_company, except: [:pluck]
@@ -60,6 +60,33 @@ class CompaniesController < ApplicationController
 		render 'shared/edit'
 	end
 
+	def merge
+
+	end
+
+	def merge_companies
+	  if params[:ids].any?
+	    main_company = Company.find(params[:id])
+	    merge_companies = Company.find(params[:ids].select {|id| id != params[:id]})
+
+	    merge_companies.each do |company|
+	      company_id = company.id
+
+	      ActiveRecord::Base.transaction do
+		User.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabRental.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabCourse.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		company.destroy
+	      end
+	    end
+
+	    flash[:success] = "Companies successfully merged."
+	  else
+	    flash[:alert] = "Companies failed to merge!"
+	  end
+	  redirect_to action: :index
+	end
+
 	def create
 		@company = Company.new(company_params)
 		if @company.save
@@ -112,7 +139,12 @@ class CompaniesController < ApplicationController
 	end
 
 	def list_leads
-		leads_scope = @company.users.leads
+	  user_ids = @company.children_and_self
+	    .inject([]) {|res, company| res + company.users }
+	    .map(&:id)
+	  users = User.where(id: user_ids)
+
+	  leads_scope = users.leads
 		leads_scope = leads_scope.custom_search(params[:filter]) if params[:filter]
 
 		@leads = smart_listing_create(
@@ -124,7 +156,12 @@ class CompaniesController < ApplicationController
 	end
 
 	def list_contacts
-		contacts_scope = @company.users.contacts
+	  user_ids = @company.children_and_self
+	    .inject([]) {|res, company| res + company.users }
+	    .map(&:id)
+	  users = User.where(id: user_ids)
+
+		contacts_scope = users.contacts
 		contacts_scope = contacts_scope.custom_search(params[:filter]) if params[:filter]
 
 		@contacts = smart_listing_create(
@@ -140,7 +177,8 @@ class CompaniesController < ApplicationController
 		end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
 		sales_rep  = (current_user.admin? || current_user.sales_manager?) ? User.find_by(id: params[:filter_user]) : current_user
 
-		opportunities_scope = Opportunity.where(account_id: @company.id)
+		company_ids = @company.children_and_self.map(&:id)
+		opportunities_scope = Opportunity.where(account_id: company_ids)
 		opportunities_scope = opportunities_scope.where(employee_id: sales_rep.id) if sales_rep.present?
 		opportunities_scope = opportunities_scope.pending if params[:selection] == 'open' || params[:selection].nil?
 		opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'

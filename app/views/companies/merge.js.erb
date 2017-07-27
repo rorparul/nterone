@@ -1,0 +1,3 @@
+$('.modal-title').html('<%= t("shared.merge_js.#{controller_name}") %>');
+$('.modal-body').html('<%= escape_javascript(render partial: "#{controller_name}/merge") %>');
+$('#myModal').modal('show');

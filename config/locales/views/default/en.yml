@@ -24,6 +24,7 @@ en:
       toggle: "Toggle"
       upload: "Upload"
       export: "Export"
+      merge: "Merge"
     contact:
       email: "@nterone.com"
       phone: "703-991-5185"

@@ -96,6 +96,10 @@ NterOne::Application.routes.draw do
     end
   end
   resources :companies do
+    member do
+      get 'merge'
+      post 'merge' => 'companies#merge_companies'
+    end
     collection do
       get 'pluck' => 'companies#pluck'
     end
