@@ -57,6 +57,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
+  before_save :confirm_amount_equals_integer
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
   after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.stage == 100 && model.order.present? }
@@ -91,6 +92,10 @@ class Opportunity < ActiveRecord::Base
   end
 
   private
+
+  def confirm_amount_equals_integer
+    self.amount = 0.00 if amount.nil?
+  end
 
   def update_title
     self.title = course.full_title
