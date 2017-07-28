@@ -18,7 +18,8 @@
       tfoot style="border-top: 2px solid rgb(221, 221, 221); background-color: rgb(245, 245, 245);"
         tr
           td colspan="6"
-          th colspan="4" = number_to_currency(smart_listing.collection.to_a.inject(0) { |sum, opportunity| sum + opportunity.amount } )
+          th colspan="4"
+            / = number_to_currency(smart_listing.collection.to_a.inject(0) { |sum, opportunity| sum + opportunity.amount } )
           
   .container-muted style="margin-top: 10px;"
     = smart_listing.paginate
