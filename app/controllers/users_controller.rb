@@ -141,6 +141,7 @@ class UsersController < ApplicationController
       :contact_number,
       :country,
       :daily_rate,
+      :email,
       :email_alternative,
       :first_name,
       :last_name,
