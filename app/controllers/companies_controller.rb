@@ -192,6 +192,8 @@ class CompaniesController < ApplicationController
 
 		opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
 
+		@opportunities_filtered_sum = opportunities_scope.sum(:amount)
+
 		@opportunities = smart_listing_create(
 			:opportunities,
 			opportunities_scope,
