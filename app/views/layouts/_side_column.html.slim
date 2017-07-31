@@ -25,7 +25,7 @@
       
 = render partial: 'shared/credits'
 
-- unless controller_name == 'courses' && action_name == 'show'
+- unless (controller_name == 'courses' && action_name == 'show') || (controller_name == 'general' && action_name == 'labs')
   .side-column-graphics
     = link_to main_app.nterone_gives_back_path do
       = image_tag 'nterone-gives-back.png'
