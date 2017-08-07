@@ -32,6 +32,9 @@
     = f.label :feedback, t('general.partial_contact_us_form.feedback')
     = f.text_area :feedback, class: 'form-control'
     
+  #recapcha
+    = recaptcha_tags
+    
   .form-buttons
     button.btn.btn-success type="submit"
       = t('default.action.send')
@@ -140,3 +143,6 @@
         | 613-317-2480
         br
         a href="https://nterone.ca" NterOne.ca
+        
+javascript:
+  grecaptcha.reset();
