@@ -19,6 +19,8 @@ wb.styles do |style|
     total = @opportunities.group('origin_region').sum('amount')
     sum = 0
     Opportunity.origin_regions.each do |origin_region_name, origin_region|
+      total[origin_region] ||= 0
+
       sheet.add_row [
         "",
         origin_region_name.humanize.gsub(/[A-Za-z']+/,&:capitalize),
