@@ -16,5 +16,8 @@
   .visible-xs
     = link_to root_path, class: 'logo-with-tagline-small' do
       = image_tag t('layouts.partial_header.image1')
+    p style='color: rgb(180, 180, 180);'
+      | Contact us at 
+      a href="tel: +#{RegionalPhoneNumberForOnlineMarketing}" = RegionalPhoneNumberForOnlineMarketing
   a.iTop title=''
   .clear
