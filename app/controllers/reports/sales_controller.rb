@@ -20,15 +20,14 @@ class Reports::SalesController < ApplicationController
     @remove_percent_column = report_params[:status] == "won"
 
     if current_user.admin? || current_user.sales_manager?
+
       if params[:filter_user] == ''
         @company_sales = @opportunities.where(employee_id: nil)
-        employee_sales = @opportunities.where.not(employee_id: nil)
+        @employee_sales = @opportunities.where.not(employee_id: nil)
       else
         @company_sales = @opportunities.where(employee_id: 0)
-        employee_sales = @opportunities.where(employee_id: params[:filter_user])
+        @employee_sales = @opportunities.where(employee_id: params[:filter_user])
       end
-
-      @grouped_sales = employee_sales.group_by { |opportunity| opportunity.employee }
 
       respond_to do |format|
         format.xlsx do
