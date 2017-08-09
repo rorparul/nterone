@@ -15,7 +15,7 @@ en:
       press: "Press"
     partial_header:
       contact_us: "Contact Us at 703-991-5185"
-      image1: "locales/en/logo-with-tagline-small"
+      image1: "locales/en/logo-with-tagline-small.png"
       partner: "A Veteran-Owned Business"
     partial_sidebar:
       about_us: "About Us"
