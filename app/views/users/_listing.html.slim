@@ -5,6 +5,7 @@
         tr.background-muted
           th.fit
             i.fa.fa-globe aria-hidden="true" title='Origin Region'
+          th ID
           th = smart_listing.sortable t('default.label.first_name'), :first_name
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
@@ -23,6 +24,7 @@
                 i.fa.fa-circle.text-info aria-hidden="true" title="#{user.origin_region.titleize}"
               - else
                 i.fa.fa-circle-thin aria-hidden="true" title="N/A"
+            td = user.id
             - if action_name == 'leads'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)

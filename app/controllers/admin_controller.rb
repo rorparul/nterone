@@ -9,6 +9,12 @@ class AdminController < ApplicationController
 
   layout 'admin'
 
+  def become
+    return unless current_user.admin?
+    sign_in(:user, User.find(params[:id]), { bypass: true })
+    redirect_to root_url # or user_root_url
+  end
+
   def queue
     if current_user.sales_manager? || current_user.admin?
       @sales_force      = Role.where(role: [2, 3])
