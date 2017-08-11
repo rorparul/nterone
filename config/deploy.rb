@@ -1,5 +1,7 @@
 lock '3.5.0'
 
+require 'capistrano-db-tasks'
+
 set :repo_url, 'git@github.com:ryanstorberg/nterone.git'
 set :rails_env, "production"
 set :application, 'nterone'
@@ -12,6 +14,10 @@ set :deploy_via, :remote_cache
 set :sidekiq_processes, 2
 set :sidekiq_user, fetch(:user)
 set :sidekiq_options_per_process, ["--queue default", "--queue mailer"]
+
+# dbtasks
+set :db_remote_clean, true
+set :db_local_clean, true
 
 set :ssh_options, {
   forward_agent: true,

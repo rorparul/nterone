@@ -82,6 +82,7 @@ end
 
 group :development, :test do
   gem 'bullet'
+  gem "capistrano-db-tasks", require: false, path: "./vendor/gems/capistrano-db-tasks"
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
