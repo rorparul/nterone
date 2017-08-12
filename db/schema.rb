@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621234513) do
+ActiveRecord::Schema.define(version: 20170812125243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,21 @@ ActiveRecord::Schema.define(version: 20170621234513) do
     t.datetime "updated_at",                      null: false
     t.integer  "origin_region"
     t.text     "active_regions",     default: [],              array: true
+  end
+
+  create_table "checklist_items", force: :cascade do |t|
+    t.integer  "checklist_id"
+    t.text     "content"
+    t.datetime "completed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
+
+  create_table "checklists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chosen_courses", force: :cascade do |t|
@@ -1285,6 +1300,7 @@ ActiveRecord::Schema.define(version: 20170621234513) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_foreign_key "checklist_items", "checklists"
   add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
