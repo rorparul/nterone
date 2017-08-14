@@ -17,6 +17,12 @@ GIT
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
 
+PATH
+  remote: vendor/gems/capistrano-db-tasks
+  specs:
+    capistrano-db-tasks (0.6)
+      capistrano (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -548,6 +554,7 @@ DEPENDENCIES
   bullet
   canonical-rails
   capistrano (~> 3.5.0)
+  capistrano-db-tasks!
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
