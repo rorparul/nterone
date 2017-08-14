@@ -17,12 +17,6 @@ GIT
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
 
-PATH
-  remote: vendor/gems/capistrano-db-tasks
-  specs:
-    capistrano-db-tasks (0.6)
-      capistrano (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -122,8 +116,6 @@ GEM
     bullet (5.4.2)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
-    byebug (4.0.5)
-      columnize (= 0.9.0)
     callsite (0.0.11)
     canonical-rails (0.1.1)
       rails (>= 4.1, < 5.1)
@@ -136,6 +128,8 @@ GEM
     capistrano-bundler (1.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-db-tasks (0.6)
+      capistrano (>= 3.0.0)
     capistrano-harrow (0.5.3)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
@@ -172,7 +166,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    columnize (0.9.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     countries (1.2.5)
@@ -329,9 +322,6 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.1.0)
-      byebug (~> 4.0)
-      pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_activity (1.5.0)
@@ -554,7 +544,7 @@ DEPENDENCIES
   bullet
   canonical-rails
   capistrano (~> 3.5.0)
-  capistrano-db-tasks!
+  capistrano-db-tasks
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
@@ -596,7 +586,6 @@ DEPENDENCIES
   parsley-rails
   passenger
   pg
-  pry-byebug (~> 3.1.0)
   pry-rails (~> 0.3.4)
   public_activity
   pundit (~> 1.0.1)

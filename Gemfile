@@ -82,7 +82,7 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem "capistrano-db-tasks", require: false, path: "./vendor/gems/capistrano-db-tasks"
+  gem "capistrano-db-tasks", require: false
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
@@ -94,7 +94,7 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
   gem 'guard'
-  gem 'pry-byebug', '~> 3.1.0'
+  # gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
   gem 'quiet_assets'
   gem 'spring-commands-rspec'
