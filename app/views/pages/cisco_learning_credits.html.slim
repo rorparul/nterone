@@ -1,3 +1,5 @@
+script src='https://www.google.com/recaptcha/api.js'
+
 - content_for :page_title do
   = @page.page_title
   
@@ -36,7 +38,8 @@
             = f.text_area :inquiry, value: "Please contact me to discuss using Cisco Learning Credits to sign-up for training.", rows: 8, class: 'form-control'
             
           #recapcha
-            = recaptcha_tags
+            / = recaptcha_tags
+            .g-recaptcha align='center' style='margin-bottom: 14px;' data-sitekey='6LdvNR0TAAAAAO07jFEA34PfeUUslqn3Q3CtCWDk'
             
           .form-buttons
             button.btn.btn-success type="submit" style='width: 100%;'
