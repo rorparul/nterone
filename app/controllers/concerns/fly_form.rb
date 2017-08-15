@@ -16,10 +16,10 @@ module FlyForm
   end
 
   def get_form_settings
-    if current_user.settings.send(@form_name_symbol)
-      return current_user.settings.send(@form_name_symbol)
-    else
-      return @class_name.constantize.new
+    begin
+      current_user.settings.send(@form_name_symbol) || @class_name.constantize.new
+    rescue ActiveModel::MissingAttributeError => e
+      @class_name.constantize.new
     end
   end
 
@@ -30,8 +30,8 @@ module FlyForm
   end
 
   def instantiate_variables
-    @class_name          = self.controller_name.classify
-    @form_name           = "form_for_#{@class_name.to_s.downcase}"
-    @form_name_symbol    = @form_name.to_sym
+    @class_name       = self.controller_name.classify
+    @form_name        = "form_for_#{@class_name.to_s.downcase}"
+    @form_name_symbol = @form_name.to_sym
   end
 end
