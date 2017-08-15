@@ -7,17 +7,16 @@ class EventsController < ApplicationController
   end
 
   def feed
-    @events = Event.upcoming_public_events
+    @events = Event.upcoming_public_events.active_in_current_region
     respond_to do |format|
       format.rss { render :layout => false }
     end
   end
 
   def new
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @event       = @course.events.build
-    # @instructors = @platform.instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @event    = @course.events.build
   end
 
   def create
@@ -34,31 +33,28 @@ class EventsController < ApplicationController
   end
 
   def select
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @events      = @course.events
-    @event       = @course.events.build
-    # @instructors = User.only_instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @events   = @course.events
+    @event    = @course.events.build
   end
 
-  def  select_to_edit
+  def select_to_edit
     if event_params[:id] == 'none'
       platform = Platform.find(params[:platform_id])
       course   = Course.find(params[:course_id])
       redirect_to select_platform_course_events_path(platform, course)
     else
-      @platform    = Platform.find(params[:platform_id])
-      @course      = Course.find(params[:course_id])
-      @event       = Event.find(event_params[:id])
-      # @instructors = @platform.instructors
+      @platform = Platform.find(params[:platform_id])
+      @course   = Course.find(params[:course_id])
+      @event    = Event.find(event_params[:id])
     end
   end
 
   def edit
-    @platform    = Platform.find(params[:platform_id])
-    @course      = Course.find(params[:course_id])
-    @event       = Event.find(params[:id])
-    # @instructors = @platform.instructors
+    @platform = Platform.find(params[:platform_id])
+    @course   = Course.find(params[:course_id])
+    @event    = Event.find(params[:id])
   end
 
   def update
@@ -72,7 +68,6 @@ class EventsController < ApplicationController
       flash[:success] = 'Event successfully updated!'
       render js: "window.location = '#{request.referrer}';"
     else
-      # @instructors  = @platform.instructors
       render 'select_to_edit'
     end
   end
@@ -88,7 +83,6 @@ class EventsController < ApplicationController
   end
 
   def student_registered_classes
-    # @platforms = Platform.order(:title)
     @events = Event.joins(:course).upcoming_events.with_students
 
     respond_to do |format|
@@ -135,9 +129,9 @@ class EventsController < ApplicationController
     @event.update_attributes(in_house_note_params)
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render json: {
-        success: true, in_house_note: @event.in_house_note
-      }}
+      format.js do
+        render json: { success: true, in_house_note: @event.in_house_note }
+      end
     end
   end
 
@@ -148,45 +142,48 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:id,
-                                  :start_date,
-                                  :start_time,
-                                  :end_date,
-                                  :end_time,
-                                  :format,
-                                  :guaranteed,
-                                  :instructor_id,
-                                  :active,
-                                  :price,
-                                  :city,
-                                  :state,
-                                  :street,
-                                  :file,
-                                  :public,
-                                  :status,
-                                  :lab_source,
-                                  :cost_instructor,
-                                  :cost_lab,
-                                  :cost_te,
-                                  :cost_facility,
-                                  :cost_books,
-                                  :cost_shipping,
-                                  :partner_led,
-                                  :time_zone,
-                                  :should_remind,
-                                  :remind_period,
-                                  :sent_all_webex_invite,
-                                  :sent_all_course_material,
-                                  :sent_all_lab_credentials,
-                                  :note,
-                                  :in_house_note,
-                                  :count_weekends,
-                                  :autocalculate_instructor_costs,
-                                  :calculate_book_costs,
-                                  :language,
-                                  :resell,
-                                  :theater,
-                                  :zipcode)
+    params.require(:event).permit(
+      :active,
+      :autocalculate_instructor_costs,
+      :calculate_book_costs,
+      :city,
+      :cost_books,
+      :cost_facility,
+      :cost_instructor,
+      :cost_lab,
+      :cost_shipping,
+      :cost_te,
+      :count_weekends,
+      :end_date,
+      :end_time,
+      :file,
+      :format,
+      :guaranteed,
+      :id,
+      :in_house_note,
+      :instructor_id,
+      :lab_source,
+      :language,
+      :note,
+      :origin_region,
+      :partner_led,
+      :price,
+      :public,
+      :remind_period,
+      :resell,
+      :sent_all_course_material,
+      :sent_all_lab_credentials,
+      :sent_all_webex_invite,
+      :should_remind,
+      :start_date,
+      :start_time,
+      :state,
+      :status,
+      :street,
+      :time_zone,
+      :zipcode,
+      active_regions: []
+    )
   end
 
   def in_house_note_params

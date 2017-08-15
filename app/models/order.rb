@@ -52,6 +52,8 @@
 #  other_source            :string
 #  discount_id             :integer
 #  opportunity_id          :integer
+#  origin_region           :integer
+#  active_regions          :text             default([]), is an Array
 #
 # Indexes
 #
@@ -60,8 +62,10 @@
 #
 
 class Order < ActiveRecord::Base
-  include SearchCop
   extend Enumerize
+
+  include SearchCop
+  include Regions
 
   enum source: {
     cisco_locator: 1,

@@ -74,6 +74,11 @@
 #  phone_alternative       :string
 #  notes                   :text
 #  aasm_state              :string
+#  origin_region           :integer
+#  active_regions          :text             default([]), is an Array
+#  active                  :boolean          default(TRUE)
+#  archive                 :boolean          default(FALSE)
+#  sales_force_id          :string
 #
 # Indexes
 #
@@ -95,10 +100,20 @@ class User < ActiveRecord::Base
 
   include RailsSettings::Extend
   include SearchCop
+  include Regions
+
+  # default_scope { all }
 
   acts_as_tree order: 'last_name'
 
-  enum status: { open: 0, contacted: 1, pending_class: 2, qualified: 3, closed: 4 }
+  enum status: {
+    open: 0,
+    contacted: 1,
+    pending_class: 2,
+    qualified: 3,
+    closed: 4
+  }
+
   # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
@@ -151,6 +166,8 @@ class User < ActiveRecord::Base
   has_many :companies
   has_many :opportunities,        class_name:  'Opportunity',
                                   foreign_key: 'employee_id'
+  has_many :tasks
+  has_many :rep_tasks,           class_name: 'Task',         foreign_key: 'rep_id'
   # has_many :buyer_orders,         class_name:  'Opportunity',
   #                                 foreign_key: 'customer_id'
   # has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
@@ -161,8 +178,9 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
 
-  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).distinct }
-  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }) }
+  scope :active_sales,     -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
+  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
+  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
   # scope :leads,            -> { joins(:roles).where(roles: { role: 4 }).where.not(status: 3) }
   # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
   scope :leads,            -> { where.not(status: 3) }
@@ -331,18 +349,23 @@ class User < ActiveRecord::Base
 
   def role
     roles_collection = ""
+
     normalized_roles = {
       admin:         "Admin",
       sales_manager: "Sales Manager",
-      sales_rep:     "Sales Rep",
+      sales_rep:     "Sales",
       member:        "Member",
-      instructor:    "Instructor",
       lms_manager:   "LMS Manager",
-      lms_student:   "LMS Student"
+      lms_student:   "LMS Student",
+      instructor:    "Instructor",
+      lms_business:  "LMS Business",
+      partner_admin: "Partner"
     }
+
     roles.each do |role|
       roles_collection += "#{normalized_roles[role.role.to_sym]}, "
     end
+
     roles_collection[0...-2]
   end
 
@@ -357,6 +380,10 @@ class User < ActiveRecord::Base
 
   def admin?
     has_role? :admin
+  end
+
+  def partner?
+    has_role? :partner_admin
   end
 
   def lms_manager?
@@ -402,10 +429,6 @@ class User < ActiveRecord::Base
   def has_role?(role_param)
     roles.any? { |role| role.role.to_sym == role_param }
   end
-
-  # def can_resend_invitation?
-  #   admin? || sales_rep?
-  # end
 
   private
 

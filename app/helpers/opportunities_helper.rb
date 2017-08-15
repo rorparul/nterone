@@ -1,12 +1,12 @@
 module OpportunitiesHelper
   def opportunity_stages_options
     [
-      ['Prospecting/Qualification (10%)', 10],
-      ['Needs analysis (50%)', 50],
-      ['Proposal/Quote (75%)', 75],
-      ['Negotiation/Review (90%)', 90],
+      ['Closed/Lost (0%)', 0],
       ['Closed/Won (100%)', 100],
-      ['Closed/Lost (0%)', 0]
+      ['Negotiation/Review (90%)', 90],
+      ['Proposal/Quote (75%)', 75],
+      ['Needs analysis (50%)', 50],
+      ['Prospecting/Qualification (10%)', 10]
     ]
   end
 

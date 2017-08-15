@@ -1,14 +1,20 @@
 tr
-  td.fit = event.id
   td.fit style="cursor: help;"
-    - if event.theater == 'united_states'
-      i.fa.fa-circle.text-danger aria-hidden="true" title="#{event.theater.titleize}"
-    - elsif event.theater == 'latin_america'
-      i.fa.fa-circle.text-warning aria-hidden="true" title="#{event.theater.titleize}"
-    - elsif event.theater == 'canada'
-      i.fa.fa-circle.text-info aria-hidden="true" title="#{event.theater.titleize}"
-    - else
-      i.fa.fa-circle-thin aria-hidden="true" title="N/A"
+    - if event.origin_region == 'united_states'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" US
+    - elsif event.origin_region == 'latin_america'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" LA
+    - elsif event.origin_region == 'canada'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" CA
+  td.fit
+    - event.active_regions.each do |active_region|
+      - if active_region == 'united_states'
+        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" US
+      - elsif active_region == 'latin_america'
+        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
+      - elsif active_region == 'canada'
+        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
+  td.fit = event.id
   td.fit
     = link_to edit_in_house_note_path(event), remote: true do
       - if event.in_house_note.present?

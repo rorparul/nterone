@@ -27,12 +27,24 @@
                   = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
                                       options = {},
                                     html_options = { class: "form-control input-sm" }
+                                    
+              .col-xs-12.col-md-6
+                .form-group
+                  label Archive
+                  br
+                  = f.check_box :archive
+                                    
+            hr
+            
+            .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :daily_rate, t('users.partial_form.daily_rate')
                   .input-group
                     span.input-group-addon $
                     = f.text_field :daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
+                    
+            hr
                 
           .row
             .col-xs-12.col-md-6
@@ -69,11 +81,6 @@
           fieldset
             label 
               = t('users.partial_form.billing_address')
-            / .row
-            /   .col-xs-12.col-sm-6
-            /     .form-group
-            /       = f.label :billing_company, t('users.partial.form.label.billing_company')
-            /       = f.text_field :billing_company, class: 'form-control input-sm'
             .row
               .col-xs-12.col-md-6
                 .form-group
@@ -112,11 +119,6 @@
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box'
                   = t('users.partial_form.same_as')
-            / .row
-            /   .col-xs-12.col-sm-6
-            /     .form-group
-            /       = f.label :shipping_company, t('users.partial.form.label.shipping_company')
-            /       = f.text_field :shipping_company, class: 'form-control input-sm input-shipping-address'
             .row
               .col-xs-12.col-md-6
                 .form-group

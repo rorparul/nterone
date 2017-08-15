@@ -19,7 +19,7 @@ wb.styles do |style|
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @platforms.each do |platform|
-      platform.upcoming_public_featured_events.each do |event|
+      platform.upcoming_public_featured_events.active_in_current_region.each do |event|
         event_price = event.price > 0.00 ? number_with_delimiter(number_with_precision(event.price, precision: 2)) : 'Free'
 
         sheet.add_row [

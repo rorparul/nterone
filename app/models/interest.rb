@@ -14,8 +14,12 @@
 #  other                            :string
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  origin_region                    :integer
+#  active_regions                   :text             default([]), is an Array
 #
 
 class Interest < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
 end

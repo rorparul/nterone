@@ -1,16 +1,35 @@
 class OrderMailer < ApplicationMailer
   def confirmation(user, order)
+    @tld   = Rails.application.config.tld
     @user  = user
     @order = order
-    mail(to: @user.email,
-         bcc: ["sales#{I18n.t('email')}", "helpdesk#{I18n.t('email')}", "billing#{I18n.t('email')}", 'stephanie.pouse@madwiremedia.com', 'marketing360+m9874@bcc.mad360.net'],
-         subject: 'NterOne.com Order Confirmation')
+
+    mad360_emails = {
+      ca: 'marketing360+m10780@bcc.mad360.net',
+      com: 'marketing360+m9874@bcc.mad360.net',
+      la: 'marketing360+m10794@bcc.mad360.net'
+    }
+
+    mail(
+      to: @user.email,
+      bcc: [
+        "sales@nterone.#{@tld}",
+        "helpdesk@nterone.#{@tld}",
+        "billing@nterone.#{@tld}",
+        'stephanie.pouse@madwiremedia.com',
+        mad360_emails[@tld.to_sym]
+      ],
+      subject: "NterOne.#{@tld} Order Confirmation"
+    )
   end
 
   def lab_rental_notification(user, order_pods)
-    @user       = user
-    @pods       = order_pods
-    mail(to: ['helpdesk@nterone.com', 'techsupport@nterone.com'],
-         subject: 'POD Rental')
+    @user = user
+    @pods = order_pods
+
+    mail(
+      to: ['helpdesk@nterone.com', 'techsupport@nterone.com'],
+      subject: 'POD Rental'
+    )
   end
 end

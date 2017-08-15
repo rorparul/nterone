@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "'NterOne Web' <nci#{I18n.t('email')}>"
+  default from: "'NterOne' <email@nterone.com>"
   layout 'mailer'
 end

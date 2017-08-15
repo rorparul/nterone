@@ -1,0 +1,3 @@
+$('.modal-title').html('Upload Tasks');
+$('.modal-body').html("<%= escape_javascript(render partial: 'form_for_tasks') %>");
+$('#myModal').modal('show');

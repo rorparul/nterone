@@ -23,8 +23,12 @@
 #  updated_at          :datetime         not null
 #  host                :string
 #  event_id            :integer
+#  origin_region       :integer
+#  active_regions      :text             default([]), is an Array
 #
 
 class PublicFeaturedEvent < ActiveRecord::Base
+  include Regions
+
   belongs_to :cloned_event, class_name: "Event", foreign_key: "event_id"
 end

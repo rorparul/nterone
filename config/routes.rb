@@ -2,8 +2,9 @@ NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
              controllers: { registrations: 'users/registrations',
-                            sessions: 'users/sessions',
                             invitations:   'users/invitations' }
+
+  get 'admin/become' => 'admin#become'
 
   devise_scope :user do
     post 'users/:id/resend-invitation', as: :resend_invite, to: 'users/invitations#resend'
@@ -11,8 +12,6 @@ NterOne::Application.routes.draw do
     get  'users/leads/new'    => 'users/invitations#new', as: :new_lead
     get  'users/contacts/new' => 'users/invitations#new', as: :new_contact
   end
-
-  # mount Forem::Engine, :at => '/forums'
 
   resources :users  do
     post :toggle_archived, on: :member
@@ -45,7 +44,8 @@ NterOne::Application.routes.draw do
   resources :order_items
   resources :orders do
     collection do
-      get '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+      get  '/:id/confirmation' => 'orders#confirmation', as: :confirmation
+      post '/e-xact/create'    => 'orders#exact_create', as: :exact_create
     end
   end
 
@@ -66,6 +66,10 @@ NterOne::Application.routes.draw do
     collection do
       get 'page'
     end
+  end
+
+  resources :tasks do
+    patch 'task/complete' => 'tasks#complete', as: :complete
   end
 
   resources :leads, only: [:edit, :update, :show], path: 'my-queue' do
@@ -94,6 +98,10 @@ NterOne::Application.routes.draw do
     end
   end
   resources :companies do
+    member do
+      get 'merge'
+      post 'merge' => 'companies#merge_companies'
+    end
     collection do
       get 'pluck' => 'companies#pluck'
     end
@@ -275,6 +283,7 @@ NterOne::Application.routes.draw do
   post 'contact_us'                                  => 'general#contact_us_create'
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
   get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
+  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',   as: :learning_credits_inquiry_confirmation
   get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
   get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
   post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
@@ -292,6 +301,8 @@ NterOne::Application.routes.draw do
   get  'sims/versastack'                             => 'general#sims',                      as: :sims
   get  '/nci'                                        => 'general#nci',                       as: :nci
   get  '/support'                                    => 'general#support',                   as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
@@ -327,6 +338,9 @@ NterOne::Application.routes.draw do
   get "/cisco-learning-credits/"               => redirect("/training")
 
   post "public/uploads/editor"                 => 'general#editor_upload_photo'
-  get 'sales_force/form'                 => 'sales_force#form',                   as: :sales_force_form
-  post 'sales_force/upload'              => 'sales_force#upload',                 as: :sales_force_upload
+  get 'sales_force/form_for_tasks'             => 'sales_force#form_for_tasks',               as: :sales_force_form_for_tasks
+  post 'sales_force/upload_tasks'              => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
+  get 'sales_force/form_for_other'             => 'sales_force#form_for_other',               as: :sales_force_form_for_other
+  post 'sales_force/upload_other'              => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
+  post 'fly_forms/update'                      => 'fly_forms#update',                         as: :fly_form
 end

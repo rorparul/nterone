@@ -8,6 +8,35 @@
         ul
           - video_on_demand.errors.full_messages.each do |msg|
             li = msg
+            
+    .row
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :active, t('video_on_demands.partial_form.active')
+          br
+          = f.check_box :active
+      .col-xs-12.col-md-2
+       .form-group
+         = f.label :satellite_viewable, "Satellite"
+         br
+         = f.check_box :satellite_viewable
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :partner_led, t('video_on_demands.partial_form.partner')
+          br
+          = f.check_box :partner_led
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :cisco_digital_learning, "CDL"
+          br
+          = f.check_box :cisco_digital_learning
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :lms, "LMS"
+          br
+          = f.check_box :lms
+          
+    hr
 
     .form-group
       = f.label :page_title, t('video_on_demands.partial_form.page_title')
@@ -59,7 +88,7 @@
                  { class: "form-control input-sm" }
 
     .row
-      .col-xs-12.col-md-6
+      .col-xs-12
         .form-group
           - if video_on_demand.image.present? && video_on_demand.image.file.present?
             = image_tag video_on_demand.image.file_url(:subject_icon)
@@ -68,26 +97,6 @@
             = icon.label :file, t('video_on_demands.partial_form.icon')
             = icon.file_field :file, class: 'form-control input-sm'
             = icon.hidden_field :file_cache
-      .col-xs-12.col-md-3
-        .form-group
-          = f.label :partner_led, t('video_on_demands.partial_form.partner')
-          br
-          = f.check_box :partner_led
-      .col-xs-12.col-md-3
-        .form-group
-          = f.label :active, t('video_on_demands.partial_form.active')
-          br
-          = f.check_box :active
-      .col-xs-12.col-md-3
-       .form-group
-         = f.label :satellite_viewable, t('video_on_demands.partial_form.satellite_viewable')
-         br
-         = f.check_box :satellite_viewable
-      .col-xs-12.col-md-3
-        .form-group
-          = f.label :cisco_digital_learning, "CDL"
-          br
-          = f.check_box :cisco_digital_learning
 
     .form-group
       = f.label :heading, t('video_on_demands.partial_form.heading')

@@ -16,6 +16,9 @@
 #  page_title         :string
 #  heading            :string
 #  meta_description   :text
+#  video              :text
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #
@@ -25,6 +28,7 @@
 #
 
 class Category < ActiveRecord::Base
+  include Regions
   extend FriendlyId
   scope :parent_categories, -> { where(parent_id: nil) }
 

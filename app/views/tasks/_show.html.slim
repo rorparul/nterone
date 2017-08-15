@@ -1,0 +1,16 @@
+.row
+  .col-xs-12
+    ul.list-group
+      li.list-group-item
+        h4 = task.subject
+      li.list-group-item
+        h5 = task.description
+      li.list-group-item
+        .row
+          .col-xs-6
+            h5 = "Due #{task.activity_date.strftime("%-m/%-d/%y")} at #{task.activity_date.strftime("%l:%M%p")}"
+          .col-xs-6
+            h5 = "Priority: #{task.priority_in_words}"
+    .row
+      .col-xs-12
+        = link_to "Back", tasks_path, remote: true, class: "btn bootstrapify-link", style: "background-color: #5cb85c; border-color: #4cae4c; color: white;"

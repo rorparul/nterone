@@ -2,22 +2,25 @@
 #
 # Table name: companies
 #
-#  id            :integer          not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  title         :string
-#  form_type     :integer
-#  slug          :string
-#  user_id       :integer
-#  kind          :string
-#  street        :string
-#  city          :string
-#  state         :string
-#  zip_code      :string
-#  phone         :string
-#  website       :string
-#  parent_id     :integer
-#  industry_code :string
+#  id             :integer          not null, primary key
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  title          :string
+#  form_type      :integer
+#  slug           :string
+#  user_id        :integer
+#  kind           :string
+#  street         :string
+#  city           :string
+#  state          :string
+#  zip_code       :string
+#  phone          :string
+#  website        :string
+#  parent_id      :integer
+#  industry_code  :string
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
+#  sales_force_id :string
 #
 
 class Company < ActiveRecord::Base
@@ -25,6 +28,7 @@ class Company < ActiveRecord::Base
   extend ActsAsTree::TreeWalker
 
   include SearchCop
+  include Regions
 
   acts_as_tree order: 'title'
 
@@ -45,6 +49,15 @@ class Company < ActiveRecord::Base
   search_scope :custom_search do
     attributes :title, :industry_code
     attributes :user => ['user.first_name', 'user.last_name', 'user.email']
+  end
+
+  def full_address
+    [street, city, state, zip_code].compact.join(", ")
+  end
+  
+  def children_and_self
+    ids = children.map(&:id) + [id]
+    Company.where(id: ids)
   end
 
   private

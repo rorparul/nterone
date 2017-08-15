@@ -1,49 +1,44 @@
 - unless smart_listing.empty?
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        thead
-          tr
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
-            th.fit
-              i.fa.fa-globe aria-hidden="true"
-            th.fit = "#{t('events.partial_listing.note')}"
-            th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
-            th.fit title="#{t('events.partial_listing.length')}" = t('events.partial_listing.abbr_length')
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.start_time')}", :start_time
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
-            th.fit = t('events.partial_lmisting.instructor')
-            th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.r')
-            th.fit = t('events.partial_listing.revenue')
-            th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
-            th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
-            th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
-            th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
-            th.fit colspan="4" = t('events.partial_listing.actions')
-            
-        tbody
-          - if @grouped_events.present?
-            - @grouped_events.each do |date_str, events|
-              tr
-                td(style="background-color: #D5DDF2;" colspan=11)
-                  strong = date_str
-                td(style="background-color: #D5DDF2;" colspan=11)
-                    strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
-              - events.each do |event|
-                = render partial: 'events/listing_event', locals: { event: event }
-          - else
-            - smart_listing.collection.each do |event|
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th.fit Origin
+          th.fit Active
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
+          th.fit = "#{t('events.partial_listing.note')}"
+          th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
+          th.fit title="#{t('events.partial_listing.length')}" = t('events.partial_listing.abbr_length')
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.start_time')}", :start_time
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
+          th.fit = t('events.partial_lmisting.instructor')
+          th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.r')
+          th.fit = t('events.partial_listing.revenue')
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
+          th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
+          th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
+          th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
+          th.fit colspan="4" = t('events.partial_listing.actions')
+          
+      tbody
+        - if @grouped_events.present?
+          - @grouped_events.each do |date_str, events|
+            tr
+              td(style="background-color: #D5DDF2;" colspan=12)
+                strong = date_str
+              td(style="background-color: #D5DDF2;" colspan=12)
+                  strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
+            - events.each do |event|
               = render partial: 'events/listing_event', locals: { event: event }
-  .panel-footer
+        - else
+          - smart_listing.collection.each do |event|
+            = render partial: 'events/listing_event', locals: { event: event }
+    .table-end
+  .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
 - else
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        tbody
-          tr
-            td.text-center
-              = t('default.placeholder.no_records')
+  .container-muted.text-center
+    = t('default.placeholder.no_records')

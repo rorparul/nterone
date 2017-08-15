@@ -14,7 +14,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 gem 'bower-rails'
 gem 'canonical-rails'
 gem 'carrierwave', '~> 0.10.0'
-gem "celluloid", github: "celluloid/celluloid", submodules: true
+gem "celluloid", github: 'celluloid/celluloid', submodules: true
 gem 'cocoon'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'country_select'
@@ -23,7 +23,7 @@ gem 'devise_invitable'
 gem 'devise', '~> 3.5.6'
 gem 'dumper'
 gem 'enumerize', '~> 0.11.0'
-gem 'exception_notification'
+gem 'exception_notification', github: 'smartinez87/exception_notification', branch: 'master'
 gem 'figaro'
 gem 'font-awesome-rails'
 gem 'friendly_id'
@@ -34,6 +34,7 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'momentjs-rails', '>= 2.9.0'
+gem 'non-stupid-digest-assets'
 gem 'parsley-rails'
 gem 'passenger'
 gem 'pg'
@@ -43,7 +44,7 @@ gem 'rack-rewrite', '~> 1.5.0'
 gem 'rails', '4.2.6'
 gem 'rails-i18n'
 gem 'rails-settings-cached'
-gem 'react-rails'
+gem 'react-rails', '2.2.1'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'remotipart'
 gem 'roo'
@@ -66,7 +67,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'wysiwyg-rails', '2.4.1'
+gem 'wysiwyg-rails', '2.6.2'
 gem 'zip-zip'
 
 group :development do
@@ -81,23 +82,24 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem 'capistrano', '~> 3.5.0'
-  gem 'capistrano-rvm'
-  gem 'capistrano-rails'
+  gem "capistrano-db-tasks", require: false
   gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano-ssh-doctor'
+  gem 'capistrano', '~> 3.5.0'
   gem 'dotenv-rails'
-  gem 'pry-byebug', '~> 3.1.0'
-  gem 'pry-rails', '~> 0.3.4'
-  gem 'quiet_assets'
-
-  gem 'spring'
-  gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
+  gem 'guard'
+  # gem 'pry-byebug', '~> 3.1.0'
+  gem 'pry-rails', '~> 0.3.4'
+  gem 'quiet_assets'
   gem 'spring-commands-rspec'
+  gem 'spring'
+  gem 'awesome_print'
 end
 
 group :doc do
@@ -105,11 +107,11 @@ group :doc do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'ffaker', '~> 2.1'
   gem 'rspec-rails', '= 3.5.0.beta3'
   gem 'rspec', '= 3.5.0.beta3'
-  gem 'factory_girl_rails'
-  gem 'ffaker', '~> 2.1'
-  gem 'faker'
-  gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
 end

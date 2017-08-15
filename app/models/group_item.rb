@@ -9,6 +9,8 @@
 #  updated_at     :datetime         not null
 #  group_id       :integer
 #  position       :integer
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 # Indexes
 #
@@ -16,6 +18,8 @@
 #
 
 class GroupItem < ActiveRecord::Base
+  include Regions
+
   belongs_to :group
   belongs_to :groupable, polymorphic: true
 

@@ -2,13 +2,15 @@
 #
 # Table name: leads
 #
-#  id         :integer          not null, primary key
-#  seller_id  :integer
-#  buyer_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  status     :string           default("unassigned")
-#  discount   :string           default("0")
+#  id             :integer          not null, primary key
+#  seller_id      :integer
+#  buyer_id       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  status         :string           default("unassigned")
+#  discount       :string           default("0")
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Lead < ActiveRecord::Base
@@ -16,6 +18,7 @@ class Lead < ActiveRecord::Base
   belongs_to :seller, class_name: "User"
 
   include PublicActivity::Common
+  include Regions
 
   validates :buyer_id, presence: true
 

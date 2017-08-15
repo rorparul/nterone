@@ -9,9 +9,13 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 
 class PassedExam < ActiveRecord::Base
+  include Regions
+
   belongs_to :user
   belongs_to :exam
 end

@@ -1,7 +1,7 @@
 class EventMailer < ApplicationMailer
   def reminder(event, user)
     @event = event
-    @user = user
+    @user  = user
 
     mail(
       to: user.email,

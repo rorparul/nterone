@@ -9,3 +9,6 @@ span.seperator
 - if current_user.try(:sales?)
   span.text-muted
   = t('admins.partial_breadcrumbs.my_sales')
+- if current_user.partner?
+  span.text-muted
+  = t('admins.partial_breadcrumbs.partner')

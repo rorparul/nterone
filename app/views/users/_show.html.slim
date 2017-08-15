@@ -195,11 +195,8 @@
         = link_to @user.parent.full_name, user_path(@user.parent)
       - else
         | N/A
+        
       
-.row
-  .col-xs-12 
-    .container-muted
-      = link_to 'Back', url_for(:back), class: 'btn btn-primary btn-sm', role: 'button', style: 'margin-right: 5px;'
 
 javascript:
   $('.role-tab').addClass('active');

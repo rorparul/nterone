@@ -2,10 +2,14 @@ class GeneralController < ApplicationController
   protect_from_forgery :except => [:upload_photo]
 
   def new_search
+    respond_to do |format|
+      format.js
+      format.html { redirect_to root_path }
+    end
   end
 
   def search
-    @items = Subject.search(params[:query]) + Course.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%") + VideoOnDemand.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].downcase}%")
+    @items = Subject.search(params[:query]) + Course.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%") + VideoOnDemand.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
   end
 
   def welcome
@@ -30,17 +34,18 @@ class GeneralController < ApplicationController
 
   def press
     @page           = Page.find_by(title: 'Press Index')
-    @press_releases = Article.where(kind: "Press Release").order(created_at: :desc)
+    @press_releases = Article.active_in_current_region.where(kind: "Press Release").order(created_at: :desc)
   end
 
   def blog
     @page       = Page.find_by(title: 'Blog Index')
-    @blog_posts = Article.where(kind: "Blog Post").order(created_at: :desc)
+    @blog_posts = Article.active_in_current_region.where(kind: "Blog Post").order(created_at: :desc)
   end
 
   def industry
+    redirect_to root_path unless Setting.tld == "com"
     @page              = Page.find_by(title: 'Industry Index')
-    @industry_articles = Article.where(kind: "Industry Article").order(created_at: :desc)
+    @industry_articles = Article.active_in_current_region.where(kind: "Industry Article").order(created_at: :desc)
   end
 
   def consulting
@@ -52,8 +57,8 @@ class GeneralController < ApplicationController
   end
 
   def labs
-    @page         = Page.find_by(title: 'Labs')
-    @lab_courses  = LabCourse.where.not(level: 'partner').order(:title)
+    @page        = Page.find_by(title: 'Labs')
+    @lab_courses = LabCourse.where.not(level: 'partner').order(:title)
   end
 
   def nterone_gives_back
@@ -87,7 +92,11 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_create
-    success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+    if params["g-recaptcha-response"].nil? || (!params["g-recaptcha-response"].nil? && verify_recaptcha)
+      success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+    else
+      success = false
+    end
 
     respond_to do |format|
       format.html do
@@ -95,6 +104,8 @@ class GeneralController < ApplicationController
           flash[:success] = 'Message successfully sent.'
           if params[:origin] == "course"
             redirect_to course_inquiry_confirmation_path
+          elsif params[:origin] == "learning_credits"
+            redirect_to learning_credits_inquiry_confirmation_path
           else
             redirect_to general_inquiry_confirmation_path
           end

@@ -12,6 +12,8 @@
 #  video_id           :integer
 #  slug               :string
 #  video_on_demand_id :integer
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 # Indexes
 #
@@ -28,6 +30,7 @@
 
 class LmsExam < ActiveRecord::Base
 	extend FriendlyId
+  include Regions
 
   enum exam_type: [:quiz, :test]
 

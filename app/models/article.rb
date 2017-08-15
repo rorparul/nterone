@@ -11,10 +11,14 @@
 #  updated_at       :datetime         not null
 #  kind             :string
 #  title            :string
+#  origin_region    :integer
+#  active_regions   :text             default([]), is an Array
 #
 
 class Article < ActiveRecord::Base
   extend FriendlyId
+
+  include Regions
 
   validates :kind, :title, :content, presence: true
 

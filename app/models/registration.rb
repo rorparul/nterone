@@ -9,9 +9,13 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  event_id             :integer
+#  origin_region        :integer
+#  active_regions       :text             default([]), is an Array
 #
 
 class Registration < ActiveRecord::Base
+  include Regions
+
   belongs_to :event
 
   has_one :order_item, as: :orderable

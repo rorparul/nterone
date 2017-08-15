@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
 	helper  SmartListing::Helper
 
-	before_action :set_company,       only: [:show, :edit, :update, :destroy]
+	before_action :set_company,       only: [:show, :edit, :update, :destroy, :merge]
 	before_action :set_companies,     only: [:index, :new, :edit]
 	before_action :set_owners,        only: [:new, :edit]
 	before_action :authorize_company, except: [:pluck]
@@ -30,6 +30,8 @@ class CompaniesController < ApplicationController
 	end
 
 	def show
+		@owners = User.all_sales
+
 		respond_to do |format|
 			format.html do
 				list_leads
@@ -56,6 +58,33 @@ class CompaniesController < ApplicationController
 
 	def edit
 		render 'shared/edit'
+	end
+
+	def merge
+
+	end
+
+	def merge_companies
+	  if params[:ids].any?
+	    main_company = Company.find(params[:id])
+	    merge_companies = Company.find(params[:ids].select {|id| id != params[:id]})
+
+	    merge_companies.each do |company|
+	      company_id = company.id
+
+	      ActiveRecord::Base.transaction do
+		User.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabRental.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		LabCourse.unscoped.where(company_id: company_id).update_all(company_id: main_company.id)
+		company.destroy
+	      end
+	    end
+
+	    flash[:success] = "Companies successfully merged."
+	  else
+	    flash[:alert] = "Companies failed to merge!"
+	  end
+	  redirect_to action: :index
 	end
 
 	def create
@@ -110,7 +139,12 @@ class CompaniesController < ApplicationController
 	end
 
 	def list_leads
-		leads_scope = @company.users.leads
+	  user_ids = @company.children_and_self
+	    .inject([]) {|res, company| res + company.users }
+	    .map(&:id)
+	  users = User.where(id: user_ids)
+
+	  leads_scope = users.leads
 		leads_scope = leads_scope.custom_search(params[:filter]) if params[:filter]
 
 		@leads = smart_listing_create(
@@ -122,7 +156,12 @@ class CompaniesController < ApplicationController
 	end
 
 	def list_contacts
-		contacts_scope = @company.users.contacts
+	  user_ids = @company.children_and_self
+	    .inject([]) {|res, company| res + company.users }
+	    .map(&:id)
+	  users = User.where(id: user_ids)
+
+		contacts_scope = users.contacts
 		contacts_scope = contacts_scope.custom_search(params[:filter]) if params[:filter]
 
 		@contacts = smart_listing_create(
@@ -136,49 +175,24 @@ class CompaniesController < ApplicationController
 	def list_opportunities
 		start_date = parse_date_select(params[:start_date], :start_date) if params[:start_date].present?
 		end_date   = parse_date_select(params[:end_date], :end_date) if params[:end_date].present?
+		sales_rep  = (current_user.admin? || current_user.sales_manager?) ? User.find_by(id: params[:filter_user]) : current_user
 
-		if current_user.admin? || current_user.sales_manager?
-			@owners = User.all_sales
+		company_ids = @company.children_and_self.map(&:id)
+		opportunities_scope = Opportunity.where(account_id: company_ids)
+		opportunities_scope = opportunities_scope.where(employee_id: sales_rep.id) if sales_rep.present?
+		opportunities_scope = opportunities_scope.pending if params[:selection] == 'open' || params[:selection].nil?
+		opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
+		opportunities_scope = opportunities_scope.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
 
-			unless params[:filter_user].present?
-				@amount_open           = Opportunity.amount_open
-				@amount_waiting        = Opportunity.amount_waiting
-				@amount_won_mtd        = Opportunity.amount_won_mtd
-				@amount_won_last_month = Opportunity.amount_won_last_month
-				@amount_won_ytd        = Opportunity.amount_won_ytd
-				@amount_won_last_year  = Opportunity.amount_won_last_year
-
-				opportunities_scope = Opportunity.pending if params[:selection] == 'open' || params[:selection].nil?
-				opportunities_scope = Opportunity.waiting if params[:selection] == 'waiting'
-				opportunities_scope = Opportunity.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
-			else
-				sales_rep = User.find(params[:filter_user])
-
-				@amount_open           = sales_rep.opportunities.amount_open
-				@amount_waiting        = sales_rep.opportunities.amount_waiting
-				@amount_won_mtd        = sales_rep.opportunities.amount_won_mtd
-				@amount_won_last_month = sales_rep.opportunities.amount_won_last_month
-				@amount_won_ytd        = sales_rep.opportunities.amount_won_ytd
-				@amount_won_last_year  = sales_rep.opportunities.amount_won_last_year
-
-				opportunities_scope = sales_rep.opportunities.pending if params[:selection] == 'open'
-				opportunities_scope = sales_rep.opportunities.waiting if params[:selection] == 'waiting'
-				opportunities_scope = sales_rep.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
-			end
-		else
-			@amount_open           = current_user.opportunities.amount_open
-			@amount_waiting        = current_user.opportunities.amount_waiting
-			@amount_won_mtd        = current_user.opportunities.amount_won_mtd
-			@amount_won_last_month = current_user.opportunities.amount_won_last_month
-			@amount_won_ytd        = current_user.opportunities.amount_won_ytd
-			@amount_won_last_year  = current_user.opportunities.amount_won_last_year
-
-			opportunities_scope = current_user.opportunities.pending if params[:selection] == 'open' || params[:selection].nil?
-			opportunities_scope = current_user.opportunities.waiting if params[:selection] == 'waiting'
-			opportunities_scope = current_user.opportunities.closed.where(date_closed: start_date..end_date) if params[:selection] == 'closed'
-		end
+		# @amount_open           = opportunities_scope.amount_open
+		# @amount_won_mtd        = opportunities_scope.amount_won_mtd
+		# @amount_won_last_month = opportunities_scope.amount_won_last_month
+		# @amount_won_ytd        = opportunities_scope.amount_won_ytd
+		# @amount_won_last_year  = opportunities_scope.amount_won_last_year
 
 		opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
+
+		@opportunities_filtered_sum = opportunities_scope.sum(:amount)
 
 		@opportunities = smart_listing_create(
 			:opportunities,

@@ -9,8 +9,12 @@ class InstructorMailer < ApplicationMailer
 
     mail(
       to: @email,
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "operations#{I18n.t('email')}"],
-      subject: "Welcome to NterOne!",
+      bcc: [
+        "ashlie@nterone.#{Rails.application.config.tld}",
+        "leslie@nterone.#{Rails.application.config.tld}",
+        "operations@nterone.#{Rails.application.config.tld}"
+      ],
+      subject: "Your NterOne Training Class",
       template_path: "mailers",
       template_name: template
     )

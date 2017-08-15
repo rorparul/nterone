@@ -5,6 +5,7 @@ class Users::InvitationsController < Devise::InvitationsController
     self.resource = resource_class.new
     resource.assign_attributes(parent_id: current_user.id)
     resource.assign_attributes(status: 3) if request.path == '/users/contacts/new'
+    resource.assign_attributes(email: "#{SecureRandom.hex(10)}@placeholder.email")
     render :new
   end
 
@@ -59,19 +60,23 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def invite_params
-    params.require(:user).permit(:business_title,
-                                 :company_id,
-                                 :contact_number,
-                                 :do_not_call,
-                                 :do_not_email,
-                                 :email_alternative,
-                                 :email,
-                                 :first_name,
-                                 :last_name,
-                                 :parent_id,
-                                 :phone_alternative,
-                                 :salutation,
-                                 :status)
+    params.require(:user).permit(
+      :business_title,
+      :company_id,
+      :contact_number,
+      :do_not_call,
+      :do_not_email,
+      :email_alternative,
+      :email,
+      :first_name,
+      :last_name,
+      :notes,
+      :parent_id,
+      :phone_alternative,
+      :salutation,
+      :status,
+      :source_name
+    )
   end
 
   def referring_partner_email_params

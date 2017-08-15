@@ -36,13 +36,13 @@ table
 
 p
   = t('order_mailer.confirmation.copy10')
-  = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
+  = mail_to "sales@nterone.#{@tld}", "sales@nterone.#{@tld}"
   = t('order_mailer.confirmation.copy11')
-  = mail_to "billing#{t('default.contact.email')}", "billing#{t('default.contact.email')}"
+  = mail_to "billing@nterone.#{@tld}", "billing@nterone.#{@tld}"
   = t('order_mailer.confirmation.copy12')
-  = mail_to "helpdesk#{t('default.contact.email')}", "helpdesk#{t('default.contact.email')}"
+  = mail_to "helpdesk@nterone.#{@tld}", "helpdesk@nterone.#{@tld}"
   = t('order_mailer.confirmation.copy13')
-  strong 703-972-2288 
+  strong = "#{RegionalPhoneNumber} "
   = t('order_mailer.confirmation.copy14')
   
 p 

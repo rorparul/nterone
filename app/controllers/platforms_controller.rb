@@ -4,11 +4,11 @@ class PlatformsController < ApplicationController
 
   def index
     @page      = Page.find_by(title: 'Vendor Index')
-    @platforms = Platform.order(:title).eager_load(:image)
+    @platforms = Platform.order(:title)
   end
 
   def show
-    redirect_to session[:last_category_url]
+    redirect_to session[:last_category_url] || root_path
   end
 
   def new

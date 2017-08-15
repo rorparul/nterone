@@ -1,19 +1,22 @@
 class OpportunitiesController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include FlyForm
 
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
   before_action :set_associations,      only: [:new, :edit, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
+  # after_filter { flash.discard if request.xhr? }
+
   layout 'admin'
 
   def index
-    start_date = params[:start_date]
-    end_date   = params[:end_date]
+    date_start = Date.parse params[:date_start].values.join("-") if params[:date_start]
+    date_end   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
     if current_user.admin? || current_user.sales_manager?
-      @owners = User.all_sales
+      @owners = User.active_sales
 
       unless params[:filter_user].present?
         opportunities_scope = Opportunity
@@ -21,14 +24,11 @@ class OpportunitiesController < ApplicationController
         sales_rep = User.find(params[:filter_user])
         opportunities_scope = sales_rep.opportunities
       end
-
     else
       opportunities_scope = current_user.opportunities
-
     end
 
     @amount_open           = opportunities_scope.amount_open
-    @amount_waiting        = opportunities_scope.amount_waiting
     @amount_won_mtd        = opportunities_scope.amount_won_mtd
     @amount_won_last_month = opportunities_scope.amount_won_last_month
     @amount_won_ytd        = opportunities_scope.amount_won_ytd
@@ -40,15 +40,17 @@ class OpportunitiesController < ApplicationController
 
     if params[:selection] == 'closed'
       if params[:date_start].present? && params[:date_end].present?
-        opportunities_scope  = opportunities_scope.where(date_closed: params[:date_start]..params[:date_end])
+        opportunities_scope  = opportunities_scope.where(date_closed: date_start..date_end)
       elsif params[:date_start].present?
-        opportunities_scope  = opportunities_scope.where("date_closed >= '#{params[:date_start]}'")
+        opportunities_scope  = opportunities_scope.where("date_closed >= '#{date_start}'")
       elsif params[:date_end].present?
-        opportunities_scope  = opportunities_scope.where("date_closed <= '#{params[:date_end]}'")
+        opportunities_scope  = opportunities_scope.where("date_closed <= '#{date_end}'")
       end
     end
 
     opportunities_scope = opportunities_scope.custom_search(params[:filter]) if params[:filter]
+
+    @opportunities_filtered_sum = opportunities_scope.sum(:amount)
 
     smart_listing_create(
       :opportunities,
@@ -57,9 +59,11 @@ class OpportunitiesController < ApplicationController
       sort_attributes: [
         [:created_at, 'opportunities.created_at'],
         [:stage, 'stage'],
-        [:waiting, 'waiting']
+        [:waiting, 'waiting'],
+        [:date_closed, 'date_closed'],
+        [:amount, 'amount']
       ],
-      default_sort: { created_at: 'desc' }
+      default_sort: { date_closed: 'desc' }
     )
   end
 
@@ -67,7 +71,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def new
-    @opportunity = Opportunity.new
+    @opportunity = fly_form('get')
     render 'shared/new'
   end
 
@@ -77,18 +81,21 @@ class OpportunitiesController < ApplicationController
 
   def create
     @opportunity = Opportunity.new(opportunity_params)
+
     if @opportunity.save
-      flash[:success] = 'Opportunity successfully created.'
-      redirect_to :back
+      fly_form('destroy')
+      # flash[:success] = 'Opportunity successfully created.'
+      # redirect_to :back
     else
+      fly_form('post')
       render 'shared/new'
     end
   end
 
   def update
     if @opportunity.update(opportunity_params)
-      flash[:success] = 'Opportunity successfully updated.'
-      redirect_to :back
+      # flash[:success] = 'Opportunity successfully updated.'
+      # redirect_to :back
     else
       render 'shared/edit'
     end
@@ -144,11 +151,11 @@ class OpportunitiesController < ApplicationController
       end
     end
 
-    opportunities_scope = opportunities_scope.where(account_id: params[:filter][:account])  if params[:filter][:account].present?
-    opportunities_scope = opportunities_scope.where(partner_id: params[:filter][:partner])  if params[:filter][:partner].present?
-    opportunities_scope = opportunities_scope.where(employee_id: params[:filter][:employee])  if params[:filter][:employee].present?
-    opportunities_scope = opportunities_scope.where(customer_id: params[:filter][:customer])  if params[:filter][:customer].present?
-    opportunities_scope = opportunities_scope.where(course_id: params[:filter][:course])  if params[:filter][:course].present?
+    opportunities_scope = opportunities_scope.where(account_id: params[:filter][:account])   if params[:filter][:account].present?
+    opportunities_scope = opportunities_scope.where(partner_id: params[:filter][:partner])   if params[:filter][:partner].present?
+    opportunities_scope = opportunities_scope.where(employee_id: params[:filter][:employee]) if params[:filter][:employee].present?
+    opportunities_scope = opportunities_scope.where(customer_id: params[:filter][:customer]) if params[:filter][:customer].present?
+    opportunities_scope = opportunities_scope.where(course_id: params[:filter][:course])     if params[:filter][:course].present?
 
     @opportunities = opportunities_scope.all
   end
@@ -160,11 +167,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def set_associations
-    # @companies = Company.order('lower(title)')
-    @courses   = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
-    # @partners  = Company.partners.order('lower(title)')
-    # @owners    = User.all_sales
-    # @contacts  = User.contacts
+    @courses = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
 
   def authorize_opportunity

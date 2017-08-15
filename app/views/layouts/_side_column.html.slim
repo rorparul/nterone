@@ -4,7 +4,7 @@
       = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
         label Request Information
         
-        = f.hidden_field :recipient, value: "sales#{t('email')}"
+        = f.hidden_field :recipient, value: "sales@nterone.#{Setting.tld}"
         = f.hidden_field :subject, value: "Please contact me in regards to #{@course.full_title}."
           
         .form-group
@@ -22,15 +22,10 @@
         .form-buttons
           button.btn.btn-success type="submit" style='width: 100%;'
             = t('default.action.send')
-
-- if I18n.locale == :en
-  .side-column-graphics
-    = link_to featured_classes_path do
-      = image_tag 'promos/promo-1.jpg'
       
-- unless controller_name == 'courses' && action_name == 'show'
+= render partial: 'shared/credits'
+
+- unless (controller_name == 'courses' && action_name == 'show') || (controller_name == 'general' && action_name == 'labs')
   .side-column-graphics
     = link_to main_app.nterone_gives_back_path do
       = image_tag 'nterone-gives-back.png'
-      
-= render partial: 'shared/credits'

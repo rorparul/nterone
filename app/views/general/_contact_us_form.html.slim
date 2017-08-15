@@ -1,15 +1,15 @@
 = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
   .radio
     label
-      = f.radio_button :recipient, "helpdesk@nterone.#{Setting.tld}", checked: true
+      = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", checked: true
       = t('general.partial_contact_us_form.help_desk')
   .radio
     label
-      = f.radio_button :recipient, "sales@nterone.#{Setting.tld}"
+      = f.radio_button :recipient, "sales@nterone.#{Rails.application.config.tld}"
       = t('general.partial_contact_us_form.sales')
   .radio
     label
-      = f.radio_button :recipient, "billing@nterone.#{Setting.tld}"
+      = f.radio_button :recipient, "billing@nterone.#{Rails.application.config.tld}"
       = t('general.partial_contact_us_form.billing')
   
   .form-group
@@ -32,12 +32,16 @@
     = f.label :feedback, t('general.partial_contact_us_form.feedback')
     = f.text_area :feedback, class: 'form-control'
     
+  #recapcha
+    = recaptcha_tags
+    
   .form-buttons
     button.btn.btn-success type="submit"
       = t('default.action.send')
     button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
   hr
+  
   .row
     .col-xs-12.col-md-6
       address
@@ -48,7 +52,9 @@
         br
         | Reston, VA 20191
         br
-        | (703) 972-2288
+        | 703-991-5185
+        br
+        a href="https://nterone.com" NterOne.com
     .col-xs-12.col-md-6
       address
         strong 
@@ -58,7 +64,10 @@
         br
         | Tyner, NC 27980
         br
-        | (703) 972-2288, Option 2
+        | 703-991-5185
+        br
+        a href="https://nterone.com" NterOne.com
+        
   .row
     .col-xs-12.col-md-6
       address
@@ -72,6 +81,8 @@
         | República Dominicana
         br
         | 809-542-2476
+        br
+        a href="https://nterone.la" NterOne.la
     .col-xs-12.col-md-6
       address
         strong 
@@ -84,6 +95,9 @@
         | Caracas - Venezuela, 1060
         br
         | 58-212-9930634
+        br
+        a href="https://nterone.la" NterOne.la
+        
   .row
     .col-xs-12.col-md-6
       address
@@ -97,6 +111,24 @@
         | Ciudad de Panamá – Panamá
         br
         | 507-833-6419
+        br
+        a href="https://nterone.la" NterOne.la
+    .col-xs-12.col-md-6
+      address
+        strong
+          | Colombia
+        br
+        | Carrera 9 N°115-06/30, Piso 17
+        br
+        | Tierra Firme Complex
+        br
+        | Bogotá, Colombia
+        br
+        | +57 1 6398444
+        br
+        a href="https://nterone.la" NterOne.la
+        
+  .row
     .col-xs-12.col-md-6
       address
         strong 
@@ -108,4 +140,9 @@
         br
         | K4B 1H8
         br
-        | 613-656-4225
+        | 613-317-2480
+        br
+        a href="https://nterone.ca" NterOne.ca
+        
+javascript:
+  grecaptcha.reset();

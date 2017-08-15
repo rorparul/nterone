@@ -1,0 +1,33 @@
+.form-container
+  = form_for :upload, url: sales_force_upload_for_tasks_url, method: :post do |f|
+      
+
+    / .row
+    /   .col-xs-12.col-sm-6
+    /     .form-group
+    /       = f.label :contacts, "Contacts"
+    /       = f.file_field :contacts, class: 'form-control input-sm'
+    /   .col-xs-12.col-sm-6
+    /     .form-group
+    /       = f.label :leads, "Leads"
+    /       = f.file_field :leads, class: 'form-control input-sm'
+    /       
+    / .row
+    /   .col-xs-12.col-sm-6
+    /     .form-group
+    /       = f.label :users, "Users"
+    /       = f.file_field :users, class: 'form-control input-sm'
+    /   .col-xs-12.col-sm-4
+    /     .form-group
+    /       = f.label :tasks, "Tasks"
+    /       = f.file_field :tasks, class: 'form-control input-sm'
+          
+    .form-group
+      = f.label :file, "File"
+      = f.file_field :file, class: 'form-control input-sm'
+      
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t 'generic.button.upload'
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t 'generic.button.cancel'

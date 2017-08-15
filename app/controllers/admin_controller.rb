@@ -1,12 +1,19 @@
 class AdminController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include SmartListingConcerns
   include MessageManager
 
   before_action :authenticate_user!
   before_action :validate_authorization
 
   layout 'admin'
+
+  def become
+    return unless current_user.admin?
+    sign_in(:user, User.find(params[:id]), { bypass: true })
+    redirect_to root_url # or user_root_url
+  end
 
   def queue
     if current_user.sales_manager? || current_user.admin?
@@ -106,7 +113,7 @@ class AdminController < ApplicationController
   end
 
   def people
-    users_scope = User.all
+    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
 
     @users = smart_listing_create(:users, users_scope,
@@ -121,29 +128,22 @@ class AdminController < ApplicationController
   end
 
   def website
-    respond_to do |format|
-      format.html do
-        list_articles
-        list_lab_courses
-        list_pages_dynamic
-        list_pages_static
-        list_testimonials
-        list_promotions
-      end
-
-      format.js do
-        name = params.keys.first.chomp("_smart_listing")
-        symbol = "list_#{name}".to_sym
-        self.send(symbol)
-        @list = name.to_sym
-      end
-    end
+    manage_smart_listing(
+      [
+        'list_articles',
+        'list_lab_courses',
+        'list_pages_dynamic',
+        'list_pages_static',
+        'list_testimonials',
+        'list_promotions'
+      ]
+    )
   end
 
   private
 
   def validate_authorization
-    unless current_user.admin? || current_user.sales?
+    unless current_user.admin? || current_user.sales? || current_user.partner?
       redirect_to root_path
     end
   end
@@ -156,7 +156,7 @@ class AdminController < ApplicationController
 
   def list_articles
     @articles = smart_listing_create(:articles,
-                                     Article.all,
+                                     Article.unscoped.all,
                                      partial: "articles/listing",
                                      sort_attributes: [[:created_at, "created_at"],
                                                        [:kind, "kind"],
@@ -173,7 +173,7 @@ class AdminController < ApplicationController
 
   def list_pages_static
     @static_pages = smart_listing_create(:pages_static,
-                                         Page.where(static: true),
+                                         Page.unscoped.where(static: true),
                                          partial: "pages/listing_static",
                                          sort_attributes: [[:title, "title"]],
                                          default_sort: { title: "asc" })
@@ -181,7 +181,7 @@ class AdminController < ApplicationController
 
   def list_pages_dynamic
     @dynamic_pages = smart_listing_create(:pages_dynamic,
-                                          Page.where(static: false),
+                                          Page.unscoped.where(static: false),
                                           partial: "pages/listing_dynamic",
                                           sort_attributes: [[:title, "title"]],
                                           default_sort: { title: "asc" })

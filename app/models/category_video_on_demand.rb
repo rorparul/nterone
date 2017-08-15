@@ -7,9 +7,13 @@
 #  video_on_demand_id :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
 #
 
 class CategoryVideoOnDemand < ActiveRecord::Base
+  include Regions
+
   belongs_to :category
   belongs_to :video_on_demand
 

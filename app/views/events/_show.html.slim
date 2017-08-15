@@ -197,6 +197,7 @@
                 th
                   = t('events.partial_show.po_number')
                 th
+                th
             tbody
               - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
                 tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
@@ -214,9 +215,9 @@
                       = f.text_field :invoice_number, class: "form-control form-async"
                   td = order_item.user.full_name if order_item.user
                   td = contact_info(order_item.user) if order_item.user
-                  td = order_item.user.company_name if order_item.user
+                  td = order_item.user.try(:company).try(:title)
                   td = order_item.try(:order).shipping_address
-                  td = order_item.user.referring_partner_email if order_item.user
+                  td = order_item.order.try(:referring_partner_email)
                   td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
                   - if order_item.order
                     td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
@@ -260,6 +261,8 @@
                       = f.text_field :po_number, class: "form-control form-async"
 
                   td = link_to 'Add to Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
+                  
+                  td = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
   
 javascript:
   $('.table-select, .check-select').on('change', function() {

@@ -37,24 +37,20 @@
 #  note                           :text
 #  count_weekends                 :boolean          default(FALSE)
 #  in_house_note                  :text
-#  language                       :integer          default(0)
 #  street                         :string
+#  language                       :integer          default(0)
 #  calculate_book_costs           :boolean          default(TRUE)
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
 #  company                        :string
-#  theater                        :integer
+#  origin_region                  :integer
+#  active_regions                 :text             default([]), is an Array
 #
 
 class Event < ActiveRecord::Base
   include SearchCop
-
-  enum theater: {
-    united_states: 0,
-    latin_america: 1,
-    canada: 2
-  }
+  include Regions
 
   enum language: {
     en: 0,
@@ -76,12 +72,12 @@ class Event < ActiveRecord::Base
   has_many :users,       through: :order_items
   has_many :registrations
 
-  before_save :calculate_book_cost, if: proc { |model| model.calculate_book_costs? }
+  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :mark_non_public
 
-  after_save :create_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
-  after_save :destroy_gtr_alert, if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
+  after_save :create_gtr_alert,        if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
+  after_save :destroy_gtr_alert,       if: proc { |model| model.guaranteed_changed? && model.guaranteed_was == true }
   after_save :confirm_with_instructor, if: proc { |model| model.instructor_id_changed? && model.instructor.present? }
 
   before_destroy :ensure_not_purchased_or_in_cart
@@ -92,8 +88,8 @@ class Event < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
+  scope :from_source,   -> (source) { joins(:orders).where(orders: { source: source }).distinct }
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
-  scope :from_source, -> (source) { joins(:orders).where(orders: { source: source }).distinct }
 
   search_scope :custom_search do
     attributes :id, :format, :start_date, :public, :guaranteed
@@ -193,6 +189,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def event_platform
+    course.try(:platform).try(:title)
+  end
+
   private
 
   def create_gtr_alert
@@ -212,8 +212,9 @@ class Event < ActiveRecord::Base
     end
   end
 
+
   def calculate_book_cost
-    platform_title = course.platform.title
+    platform_title = event_platform
     case platform_title
     when "Cisco"
       self.cost_books = 350.00 * student_count

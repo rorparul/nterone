@@ -2,25 +2,32 @@
 #
 # Table name: roles
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  role       :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  role           :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Role < ActiveRecord::Base
   extend Enumerize
-  enumerize :role, in: { admin: 1,
-                         sales_manager: 2,
-                         sales_rep: 3,
-                         member: 4,
-                         lms_manager: 5,
-                         lms_student: 6,
-                         instructor: 7,
-                         lms_business: 8 },
-                         default: :member,
-                         predicates: true
+  include Regions
+
+  enumerize :role, in: {
+    admin:         1,
+    sales_manager: 2,
+    sales_rep:     3,
+    member:        4,
+    lms_manager:   5,
+    lms_student:   6,
+    instructor:    7,
+    lms_business:  8,
+    partner_admin: 9
+  },
+    default: :member,
+    predicates: true
 
   belongs_to :user
 
@@ -34,8 +41,9 @@ class Role < ActiveRecord::Base
       member:        "Member",
       lms_manager:   "LMS Manager",
       lms_student:   "LMS Student",
+      instructor:    "Instructor",
       lms_business:  "LMS Business",
-      instructor:    "Instructor"
+      partner_admin: "Partner"
     }
 
     normalized_roles[self.role.to_sym]
@@ -49,8 +57,9 @@ class Role < ActiveRecord::Base
       ["Member", "member"],
       ["LMS Manager", "lms_manager"],
       ["LMS Student", "lms_student"],
+      ["Instructor", "instructor"],
       ['LMS Business', 'lms_business'],
-      ["Instructor", "instructor"]
+      ["Partner", "partner_admin"]
     ]
   end
 

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
+  include SmartListingConcerns
 
   before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
   layout 'admin'
 
   def index
-    users_scope = User.all
+    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
     prepare_smart_listing(users_scope)
   end
@@ -21,9 +22,15 @@ class UsersController < ApplicationController
   end
 
   def show_as_lead
+    manage_smart_listing(
+      ['list_tasks']
+    )
   end
 
   def show_as_contact
+    manage_smart_listing(
+      ['list_tasks']
+    )
   end
 
   def show_as_sales_rep
@@ -40,9 +47,6 @@ class UsersController < ApplicationController
   def assign
     @owners = User.all_sales
   end
-
-  # def edit_from_my_queue
-  # end
 
   def update
     respond_to do |format|
@@ -106,7 +110,7 @@ class UsersController < ApplicationController
   end
 
   def sales_reps
-    render json: { items: User.all_sales.custom_search(params[:q]).order(:last_name) }
+    render json: { items: User.active_sales.custom_search(params[:q]).order(:last_name) }
   end
 
   private
@@ -122,6 +126,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
+      :archive,
       :about,
       :archived,
       :billing_city,
@@ -136,6 +141,7 @@ class UsersController < ApplicationController
       :contact_number,
       :country,
       :daily_rate,
+      :email,
       :email_alternative,
       :first_name,
       :last_name,
@@ -152,6 +158,7 @@ class UsersController < ApplicationController
       :shipping_zip_code,
       :state,
       :status,
+      :source_name,
       :street,
       :video_bio,
       :zipcode,
@@ -173,5 +180,27 @@ class UsersController < ApplicationController
                         [:email, "email"]],
       default_sort: { created_at: 'desc' }
     )
+  end
+
+  def list_tasks
+
+    if params[:selection] == "complete"
+      tasks_scope = Task.where(user_id: @user.id, complete: true)
+    elsif params[:selection] == "due"
+      tasks_scope = Task.where(user_id: @user.id, complete: false)
+    else
+      tasks_scope = Task.where(user_id: @user.id)
+    end
+
+    tasks_scope = tasks_scope.custom_search(params[:filter]) if params[:filter]
+    @tasks      = smart_listing_create(:tasks,
+                                       tasks_scope,
+                                       partial: 'tasks/listing',
+                                       sort_attributes: [[:activity_date, "activity_date"],
+                                                         [:description, "description"],
+                                                         [:priority, "priority"],
+                                                         [:subject, "subject"],
+                                                         [:complete, "complete"]],
+                                                         default_sort: { activity_date: "asc" })
   end
 end

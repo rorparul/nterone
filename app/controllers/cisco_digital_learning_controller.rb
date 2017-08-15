@@ -8,11 +8,15 @@ class CiscoDigitalLearningController < ApplicationController
     if course.present? && current_user.active_video_on_demands.include?(course)
       course_slug = video_module.cdl_course_code
       aicc_sid    = SecureRandom.uuid
-      aicc_url    = "https://www.nterone.com/cdl/callback"
+      aicc_url    = "https://www.nterone.#{Setting.tld}/cdl/callback"
 
       current_user.hacp_requests.create(aicc_sid: aicc_sid)
-      # redirect_to "https://staging.certdev.net/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
-      redirect_to "https://ondemandelearning.cisco.com/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+
+      if Rails.application.config.tld == 'com'
+        redirect_to "https://ondemandelearning.cisco.com/nterone/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      else
+        redirect_to "https://ondemandelearning.cisco.com/nterone-#{Rails.application.config.tld}/#{course_slug}/users/auth/hacp/callback?aicc_sid=#{aicc_sid}&aicc_url=#{aicc_url}"
+      end
     else
       flash[:alert] = "You are not authorized to perform this action."
       redirect_to :back

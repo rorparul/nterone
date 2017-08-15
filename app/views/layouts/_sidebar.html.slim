@@ -9,6 +9,10 @@
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-gear
             span.text = t('admins.partial_breadcrumbs.admin')
+        - if current_user.partner?
+          li = link_to main_app.admin_classes_path, class: 'role-tab' do
+            span.fa.fa-gear
+            span.text Partner
         - if current_user.sales?
           li = link_to main_app.admin_classes_path, class: "role-tab" do
             span.fa.fa-coffee
@@ -34,10 +38,6 @@
       li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
         span.fa.fa-thumbs-o-up
         span.text = t('layouts.partial_sidebar.testimonials')
-      / - unless I18n.locale == :es
-      /   li = link_to forem.root_path, class: "forums-tab" do
-      /     span.fa.fa-comments-o
-      /     span.text = t('layouts.partial_sidebar.forums')
       li = link_to main_app.consulting_path, class: "consulting-tab" do
         span.fa.fa-puzzle-piece
         span.text = t('layouts.partial_sidebar.consulting')
@@ -55,9 +55,6 @@
         li = link_to main_app.logout_path do
           span.fa.fa-sign-out
           span.text = t('layouts.partial_sidebar.logout')
-  
-    / - if controller_name == 'courses' && action_name == 'show'
-    /   = render partial: 'shared/credits'
 
 .sidebar-mobile.visible-xs
   .sidebar-content

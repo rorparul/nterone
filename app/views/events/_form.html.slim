@@ -8,6 +8,10 @@
         ul
           - event.errors.full_messages.each do |msg|
             li = msg
+            
+    = render partial: 'shared/region_inputs', locals: { model: Event, f: f }
+                    
+    hr
 
     .row
       .col-xs-12.col-sm-6
@@ -65,16 +69,10 @@
           = f.label :should_remind, t('events.partial_form.should_remind')
           br
           = f.check_box :should_remind
+          
     hr
 
     .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :theater, t('events.partial_form.theater')
-          = f.select :theater,
-                    [["United States", "united_states"], ["Latin America", "latin_america"], ["Canada", "canada"]],
-                    { prompt: true },
-                    { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
         .form-group
           = f.label :language, t('events.partial_form.language')
@@ -83,23 +81,23 @@
                       [t('events.partial_form.spanish'), 'es']],
                      { prompt: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :format, t('events.partial_form.format')
+          = f.select :format,
+                    [['ClearConnect', 'ClearConnect'],
+                     ['Live Online', 'Live Online'],
+                     ['On-site', 'On-site']],
+                    { prompt: t('default.prompt.please_select') },
+                    { class: 'form-control input-sm' }
     .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    User.only_instructors.collect { |user| [user.full_name, user.id] },
-                    { prompt: true, include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control input-sm' }
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :format, t('events.partial_form.format')
-          = f.select :format,
-                     [['ClearConnect', 'ClearConnect'],
-                      ['Live Online', 'Live Online'],
-                      ['On-site', 'On-site']],
-                     { prompt: t('default.prompt.please_select') },
-                     { class: 'form-control input-sm' }       
+                    User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control input-sm' }     
 
             
     .row

@@ -1,0 +1,195 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '000066', fg_color: 'ffffff', b: true, :border => { :style => :thin, :color =>"ffffff" })
+  h1 = style.add_style(sz: 16)
+  currency = style.add_style(alignment: { horizontal: :right })
+
+  # Summary
+  #
+  wb.add_worksheet(name: "NterOne Pipeline Summary") do |sheet|
+    sheet.add_row
+    sheet.add_row
+    sheet.add_row [
+      "",
+      "NterOne Company Pipeline"
+    ], style: h1
+    sheet.add_row
+    sheet.add_row
+    total = @opportunities.group('origin_region').sum('amount')
+    sum = 0
+    Opportunity.origin_regions.each do |origin_region_name, origin_region|
+      total[origin_region] ||= 0
+
+      sheet.add_row [
+        "",
+        origin_region_name.humanize.gsub(/[A-Za-z']+/,&:capitalize),
+        "",
+        number_to_currency(total[origin_region])
+      ], style: [nil, nil, nil, currency]
+      sheet.add_row
+      sum += total[origin_region]
+    end
+    sheet.add_row [
+      "",
+      "Total pipeline:",
+      "",
+      number_to_currency(sum)
+    ], style: [nil, nil, nil, currency]
+  end
+
+  # By Regions
+  #
+  Opportunity.origin_regions.each do |origin_region_name, origin_region|
+
+    wb.add_worksheet(name: "NterOne - #{origin_region_name.humanize.gsub(/[A-Za-z']+/,&:capitalize)}") do |sheet|
+
+      if @remove_percent_column
+
+        headers = [
+          "Opportunity Owner",
+          "Account Name",
+          "Customer",
+          "Course Catalog",
+          'Close Date',
+          "Amount"
+        ]
+
+        sheet.add_row headers, style: Array.new(headers.size, color)
+
+        @employee_sales.where(origin_region: origin_region).group_by { |opportunity| opportunity.employee }.each do |employee, sales|
+          sales.each do |sale|
+            sheet.add_row [
+              "#{employee.try(:full_name)}",
+              "#{sale.account.try(:title)}",
+              "#{sale.customer.try(:full_name)}",
+              "#{sale.course.try(:title) || sale.title}",
+              "#{sale.date_closed}",
+              "$#{number_with_delimiter(sale.amount)}"
+            ]
+          end
+
+          sum_of_group_sales = [
+            "",
+            "",
+            "",
+            "",
+            "Total",
+            "$#{number_with_delimiter( sum_of(sales, 'amount') - sum_of(array_to_records(sales, Opportunity).lost, 'amount') )}"
+          ]
+
+          sheet.add_row sum_of_group_sales, style: Array.new(sum_of_group_sales.size, color)
+        end
+
+        @company_sales.where(origin_region: origin_region).each do |sale|
+          sheet.add_row [
+            "Company Sales",
+            "#{sale.account.try(:title)}",
+            "#{sale.customer.try(:full_name)}",
+            "#{sale.course.try(:title) || sale.title}",
+            "#{sale.date_closed}",
+            "$#{number_with_delimiter(sale.amount)}"
+          ]
+        end
+
+        sum_of_company_sales = [
+          "",
+          "",
+          "",
+          "",
+          "Total Company Sales",
+          "$#{number_with_delimiter( sum_of(@company_sales.where(origin_region: origin_region), 'amount') - sum_of(@company_sales.where(origin_region: origin_region).lost, 'amount') )}"
+        ]
+
+        sheet.add_row sum_of_company_sales, style: Array.new(sum_of_company_sales.size, color)
+
+        sum_of_all_sales = [
+          "",
+          "",
+          "",
+          "",
+          "Total NterOne Sales",
+          "$#{number_with_delimiter( sum_of(@opportunities.where(origin_region: origin_region), 'amount') - sum_of(@opportunities.where(origin_region: origin_region).lost, 'amount') )}"
+        ]
+
+        sheet.add_row sum_of_all_sales, style: Array.new(sum_of_all_sales.size, color)
+
+      else
+
+        headers = [
+          "Opportunity Owner",
+          "Account Name",
+          "Customer",
+          "Course Catalog",
+          "Probability (%)",
+          'Close Date',
+          "Amount"
+        ]
+
+        sheet.add_row headers, style: Array.new(headers.size, color)
+
+        @employee_sales.where(origin_region: origin_region).group_by { |opportunity| opportunity.employee }.each do |employee, sales|
+          sales.each do |sale|
+            sheet.add_row [
+              "#{employee.try(:full_name)}",
+              "#{sale.account.try(:title)}",
+              "#{sale.customer.try(:full_name)}",
+              "#{sale.course.try(:title) || sale.title}",
+              "#{sale.stage}%",
+              "#{sale.date_closed}",
+              "$#{number_with_delimiter(sale.amount)}"
+            ]
+          end
+
+          sum_of_group_sales = [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Total",
+            "$#{number_with_delimiter( sum_of(sales, 'amount') - sum_of(array_to_records(sales, Opportunity).lost, 'amount') )}"
+          ]
+
+          sheet.add_row sum_of_group_sales, style: Array.new(sum_of_group_sales.size, color)
+        end
+
+        @company_sales.where(origin_region: origin_region).each do |sale|
+          sheet.add_row [
+            "Company Sales",
+            "#{sale.account.try(:title)}",
+            "#{sale.customer.try(:full_name)}",
+            "#{sale.course.try(:title) || sale.title}",
+            "#{sale.stage}%",
+            "#{sale.date_closed}",
+            "$#{number_with_delimiter(sale.amount)}"
+          ]
+        end
+
+        sum_of_company_sales = [
+          "",
+          "",
+          "",
+          "",
+          "Total Company Sales",
+          "",
+          "$#{number_with_delimiter( sum_of(@company_sales.where(origin_region: origin_region), 'amount') - sum_of(@company_sales.where(origin_region: origin_region).lost, 'amount') )}"
+        ]
+
+        sheet.add_row sum_of_company_sales, style: Array.new(sum_of_company_sales.size, color)
+
+        sum_of_all_sales = [
+          "",
+          "",
+          "",
+          "",
+          "Total NterOne Sales",
+          "",
+          "$#{number_with_delimiter( sum_of(@opportunities.where(origin_region: origin_region), 'amount') - sum_of(@opportunities.where(origin_region: origin_region).lost, 'amount') )}"
+        ]
+
+        sheet.add_row sum_of_all_sales, style: Array.new(sum_of_all_sales.size, color)
+      end
+    end
+  end
+end
