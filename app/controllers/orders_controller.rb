@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
       @order = Order.new
     end
 
-    if Setting.tld == 'ca' && params[:form] != 'default'
+    if TopLevelDomain == 'ca' && params[:form] != 'default'
       @x_amount        = view_context.number_with_precision(@cart.total_price, precision: 2)
       @x_login         = 'WSP-NTERO-QyTV6QATZA'
       @transaction_key = 'L2Q9MfxD9GtkthkT7cs~'

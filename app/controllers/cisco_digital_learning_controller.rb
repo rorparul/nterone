@@ -8,7 +8,7 @@ class CiscoDigitalLearningController < ApplicationController
     if course.present? && current_user.active_video_on_demands.include?(course)
       course_slug = video_module.cdl_course_code
       aicc_sid    = SecureRandom.uuid
-      aicc_url    = "https://www.nterone.#{Setting.tld}/cdl/callback"
+      aicc_url    = "https://www.nterone.#{TopLevelDomain}/cdl/callback"
 
       current_user.hacp_requests.create(aicc_sid: aicc_sid)
 

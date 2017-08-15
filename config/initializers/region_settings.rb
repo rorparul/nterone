@@ -1,4 +1,4 @@
-::TopLevelDomain      = `hostname`.match(/\w+$/).to_s
+::TopLevelDomain = `hostname`.match(/\w+$/).to_s
 
 ::RegionalPhoneNumberForOnlineMarketing = case TopLevelDomain
                                           when 'ca'

@@ -87,7 +87,7 @@
             .form-group
               label = t('orders.new.payment_method')
               br
-              - if Setting.tld == 'ca'
+              - if TopLevelDomain == 'ca'
                 = link_to new_order_path, style: "color: black; text-decoration: none;" do
                   = f.radio_button :payment_type, t('orders.new.credit_card'), class: 'payment-type-radio-button'
                   = " #{t('orders.new.credit_card')}"

@@ -1,5 +1,5 @@
 - if Rails.env.production?
-  - if Setting.tld == "com"
+  - if TopLevelDomain == "com"
     - if !user_signed_in? || current_user.try(:member?)
       meta name="msvalidate.01" content="581235DC300C850870F5BA01773F0285"
       meta name="google-site-verification" content="GbDxJ38Z6K04pZnExu3LAXqLuQZArvTHdZPCvqFq9QM"
@@ -45,7 +45,7 @@
     noscript
       img src="//bat.bing.com/action/0?ti=5440860&Ver=2" height="0" width="0" style="display:none; visibility: hidden;"
       
-  - if Setting.tld == "la"
+  - if TopLevelDomain == "la"
     - if !user_signed_in? || current_user.try(:member?)
       meta name="google-site-verification" content="lYfuNW1EbFJRtAT2qBQkQrygnwvUtTM4dSX2AcwUjJY"
       
@@ -76,7 +76,7 @@
     noscript
       img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=409175342769513&ev=PageView&noscript=1"
   
-  - if Setting.tld == "ca"
+  - if TopLevelDomain == "ca"
     - if !user_signed_in? || current_user.try(:member?)
       meta name="google-site-verification" content="HgEf3Yk12TlT7ZI-54wXQbAw96MC6JPTiZWgOb4N0tw"
         

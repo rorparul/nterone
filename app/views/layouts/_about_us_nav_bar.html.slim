@@ -7,6 +7,6 @@
     = t('layouts.partial_about_us_nav_bar.instructor')
   a.btn.category.btn-category.press href="#{press_path}"
     = t('layouts.partial_about_us_nav_bar.press')
-  - if Setting.tld == "com"
+  - if TopLevelDomain == "com"
     a.btn.category.btn-category.industry href="#{industry_path}"
       = t('layouts.partial_about_us_nav_bar.industry')
