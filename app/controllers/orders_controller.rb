@@ -317,7 +317,7 @@ class OrdersController < ApplicationController
 
   def log_payment_error(response)
     transaction_res = response.transactionResponse
-    should_log = response && transaction_res && transaction_res.errors && first_error
+    should_log = response && transaction_res && transaction_res.errors && transaction_res.errors.errors[0]
 
     return unless should_log
 
@@ -332,7 +332,7 @@ class OrdersController < ApplicationController
 
   def get_error_msg(response)
     transaction_res = response.transactionResponse
-    error_exists = response && transaction_res && transaction_res.errors && first_error
+    error_exists = response && transaction_res && transaction_res.errors && transaction_res.errors.errors[0]
 
     error_exists ? transaction_res.errors.errors[0].errorText : nil
   end
