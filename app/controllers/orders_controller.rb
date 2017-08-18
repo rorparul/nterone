@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if current_user.try(:admin?) || current_user.try(:sales?)
+    if current_user && current_user.employee?
       @order = Order.new(permitted_params.order_admin)
 
       @order.order_items.each do |order_item|
@@ -203,24 +203,8 @@ class OrdersController < ApplicationController
 
       return ResultObjects::Success.new(response)
     else
-      log_payment_error(response)
       return ResultObjects::Failure.new(response)
     end
-  end
-
-  def log_payment_error(response)
-    transaction_res = response.transactionResponse
-    should_log = response && transaction_res && transaction_res.errors && transaction_res.errors.errors[0]
-
-    return unless should_log
-
-    first_error = transaction_res.errors.errors[0]
-
-    logger.info response.messages.messages[0].text
-    logger.info response
-
-    logger.info first_error.errorCode
-    logger.info first_error.errorText
   end
 
   def get_error_msg(response)

@@ -25,9 +25,15 @@ describe Payment::CreateService do
       stub_class_incorrect
     end
 
+    subject { described_class.new(order_params, cc_params).call }
+
     it 'should return failure result' do
-      service_result = described_class.new(order_params, cc_params).call
-      expect(service_result.failure?).to be_truthy
+      expect(subject).to be_truthy
+    end
+
+    it 'should send logs' do
+      expect_any_instance_of(described_class).to receive(:log_payment_error)
+      subject
     end
   end
 
@@ -61,7 +67,11 @@ private
   end
 
   def stub_class_incorrect
-    allow_any_instance_of(described_class).to receive(:call)
-      .and_return(ResultObjects::Failure.new({}))
+    response = double("response")
+    allow(response).to receive_message_chain(:messages, resultCode: false)
+    allow(response).to receive_message_chain(transactionResponse: nil)
+
+    allow_any_instance_of(AuthorizeNet::API::Transaction).to receive(:create_transaction)
+      .and_return(response)
   end
 end
