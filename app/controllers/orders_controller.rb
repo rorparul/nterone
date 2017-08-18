@@ -36,34 +36,39 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if current_user && current_user.employee?
+    if current_user.try(:employee?)
+      # Create order
+      #
       @order = Order.new(permitted_params.order_admin)
-
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
 
-      if permitted_params.order[:payment_type] == "Credit Card"
+      payment_type = permitted_params.order[:payment_type]
+      if payment_type == "Credit Card"
         result = handle_credit_card_payment()
 
         if result.failure?
-          error = get_error_msg(result.data) || "Failed to charge card."
-          @order.errors[:base] << error
+          @order.errors[:base] << get_error_msg(result.data)
+
           return render 'create_admin'
         end
-      elsif permitted_params.order[:payment_type] == "Cisco Learning Credits"
+
+      elsif payment_type == "Cisco Learning Credits"
         @order.assign_attributes(permitted_params.cisco_learning_credits)
+
       end
 
       if @order.save
         @order.confirm_with_rep if confirm_with_rep?
+
         flash[:success] = "Purchase successfully created."
+
         render js: "window.location = '#{request.referrer}';"
       else
         return render 'create_admin'
       end
 
-      # redirect_to :back
     else
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
@@ -71,10 +76,16 @@ class OrdersController < ApplicationController
       end
 
       # Update user information
+      #
       current_user.update_attributes(permitted_params.user)
 
+      # Create order
+      #
+      @order = current_user.buyer_orders.build(permitted_params.order)
+      @order.add_order_items_from_cart(@cart)
+
       # Create transaction
-      @order = current_user.buyer_orders.build
+      #
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -86,20 +97,24 @@ class OrdersController < ApplicationController
         @order.assign_attributes(permitted_params.cisco_learning_credits)
       end
 
-      # Create order
-      @order.assign_attributes(permitted_params.order)
-      @order.add_order_items_from_cart(@cart)
+      # Save order
+      #
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
-          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+          pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
+
         flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
+
         OrderMailer.confirmation(current_user, @order).deliver_now
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+
         return redirect_to confirmation_orders_path(@order)
+
       else
         render 'new'
+
       end
     end
   end
@@ -150,7 +165,7 @@ class OrdersController < ApplicationController
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
-          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+          pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
         flash[:success] = 'You\'ve successfully completed your order. Please check your email for a confirmation.'
         OrderMailer.confirmation(current_user, @order).deliver_now
@@ -211,7 +226,8 @@ class OrdersController < ApplicationController
     transaction_res = response.transactionResponse
     error_exists = response && transaction_res && transaction_res.errors && transaction_res.errors.errors[0]
 
-    error_exists ? transaction_res.errors.errors[0].errorText : nil
+    error = error_exists ? transaction_res.errors.errors[0].errorText : nil
+    error || "Failed to charge card."
   end
 
   def confirm_with_rep?

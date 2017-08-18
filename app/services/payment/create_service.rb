@@ -83,11 +83,10 @@ class Payment::CreateService
 
   def log_payment_error(response)
     if response.try(:transactionResponse).try(:errors).try(:errors).try(:first)
-      first_error = response.transactionResponse.errors.errors[0]
-
       Rails.logger.info response.messages.messages[0].text
       Rails.logger.info response
 
+      first_error = response.transactionResponse.errors.errors[0]
       Rails.logger.info first_error.errorCode
       Rails.logger.info first_error.errorText
     end
