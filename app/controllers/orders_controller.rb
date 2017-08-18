@@ -37,13 +37,13 @@ class OrdersController < ApplicationController
 
   def create
     if current_user.try(:admin?) || current_user.try(:sales?)
-      @order = Order.new(order_params_admin)
+      @order = Order.new(permitted_params.order_admin)
 
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
 
-      if order_params[:payment_type] == "Credit Card"
+      if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
         if result.failure?
@@ -51,8 +51,8 @@ class OrdersController < ApplicationController
           @order.errors[:base] << error
           return render 'create_admin'
         end
-      elsif order_params[:payment_type] == "Cisco Learning Credits"
-        @order.assign_attributes(clc_params)
+      elsif permitted_params.order[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(permitted_params.cisco_learning_credits)
       end
 
       if @order.save
@@ -71,23 +71,23 @@ class OrdersController < ApplicationController
       end
 
       # Update user information
-      current_user.update_attributes(user_params)
+      current_user.update_attributes(permitted_params.user)
 
       # Create transaction
       @order = current_user.buyer_orders.build
-      if order_params[:payment_type] == "Credit Card"
+      if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
         if result.failure?
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
-      elsif order_params[:payment_type] == "Cisco Learning Credits"
-        @order.assign_attributes(clc_params)
+      elsif permitted_params.order[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(permitted_params.cisco_learning_credits)
       end
 
       # Create order
-      @order.assign_attributes(order_params)
+      @order.assign_attributes(permitted_params.order)
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|
@@ -113,7 +113,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    if @order.update_attributes(order_params_admin)
+    if @order.update_attributes(permitted_params.order_admin)
       if params[:order].keys.count > 1
         flash[:success] = "Order was successfully updated."
         render js: "window.location = '#{request.referrer}';"
@@ -174,119 +174,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  def user_params
-    params.require(:order).permit(
-      :same_addresses,
-      :billing_first_name,
-      :billing_last_name,
-      :billing_street,
-      :billing_city,
-      :billing_state,
-      :billing_zip_code,
-      :shipping_first_name,
-      :shipping_last_name,
-      :shipping_street,
-      :shipping_city,
-      :shipping_state,
-      :shipping_zip_code,
-      :referring_partner_email
-    )
-  end
-
-  def order_params
-    params.require(:order).permit(
-      :seller_id,
-      :buyer_id,
-      :status,
-      :payment_type,
-      :same_addresses,
-      :billing_company,
-      :billing_first_name,
-      :billing_last_name,
-      :billing_street,
-      :billing_city,
-      :billing_state,
-      :billing_zip_code,
-      :discount_id,
-      :shipping_company,
-      :shipping_first_name,
-      :shipping_last_name,
-      :shipping_street,
-      :shipping_city,
-      :shipping_state,
-      :shipping_zip_code,
-      :origin_region
-    )
-  end
-
-  def cc_params
-    params.require(:order).permit(
-      :credit_card_number,
-      :expiration_month,
-      :expiration_year,
-      :security_code,
-      :paid
-    )
-  end
-
-  def clc_params
-    params.require(:order).permit(
-      :clc_number,
-      :clc_quantity
-    )
-  end
-
-  def order_params_admin
-    params.require(:order).permit(
-      :seller_id,
-      :buyer_id,
-      :clc_number,
-      :clc_quantity,
-      :payment_type,
-      :paid,
-      :po_paid,
-      :invoice_number,
-      :reviewed,
-      :gilmore_order_number,
-      :gilmore_invoice,
-      :royalty_id,
-      :po_number,
-      :closed_date,
-      :referring_partner_email,
-      :same_addresses,
-      :billing_company,
-      :billing_first_name,
-      :billing_last_name,
-      :billing_street,
-      :billing_city,
-      :billing_state,
-      :billing_zip_code,
-      :shipping_company,
-      :shipping_first_name,
-      :shipping_last_name,
-      :shipping_street,
-      :shipping_city,
-      :shipping_state,
-      :shipping_zip_code,
-      :source,
-      :other_source,
-      :origin_region,
-      order_items_attributes: [
-        :id,
-        :user_id,
-        :orderable_id,
-        :orderable_type,
-        :price,
-        :_destroy
-      ]
-    )
-  end
-
   def valid_input_values?
     price = nil
 
-    if order_params[:discount_id].present?
-      discount = Discount.find(order_params[:discount_id])
+    if permitted_params.order[:discount_id].present?
+      discount = Discount.find(permitted_params.order[:discount_id])
       discount = discount.try(:active_and_within_bounds?) ? discount : nil
 
       price = discounted_total(@cart, discount) if discount
@@ -295,11 +187,12 @@ class OrdersController < ApplicationController
       price = @cart.total_price
     end
 
-    price.to_s == cc_params[:paid] && @cart.credits_required_for_total_applicable_for_credits.to_s == clc_params[:clc_quantity]
+    price.to_s == permitted_params.credit_card[:paid] \
+      && @cart.credits_required_for_total_applicable_for_credits.to_s == permitted_params.cisco_learning_credits[:clc_quantity]
   end
 
   def handle_credit_card_payment
-    payment_result = Payment::CreateService.new(order_params, cc_params).call
+    payment_result = Payment::CreateService.new(permitted_params.order, permitted_params.credit_card).call
     response = payment_result.data
 
     if payment_result.success?

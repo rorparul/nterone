@@ -147,4 +147,9 @@ class ApplicationController < ActionController::Base
   def true?(string)
     string == 'true'
   end
+
+  def permitted_params
+    @permitted_params ||= PermittedParams.new(params)
+  end
+
 end
