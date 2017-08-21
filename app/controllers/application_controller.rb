@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   include CurrentCart
 
+  before_action :set_region
   before_action :prepare_exception_notifier
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
@@ -98,13 +99,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    case request.host
-    when 'www.nterone.com'
-      I18n.locale = :en
-    when 'www.nterone.la'
-      I18n.locale = :es
-    else
-      I18n.locale = :en
+    if session[:region].nil?
+      case request.host
+      when 'www.nterone.com'
+        I18n.locale = :en
+      when 'www.nterone.la'
+        I18n.locale = :es
+      else
+        I18n.locale = :en
+      end
     end
   end
 
@@ -146,5 +149,18 @@ class ApplicationController < ActionController::Base
 
   def true?(string)
     string == 'true'
+  end
+
+  def set_region
+    if params[:region]
+      session[:region] = params[:region].to_i
+
+      case session[:region]
+      when 0, 2
+        I18n.locale = :en
+      else
+        I18n.locale = :es
+      end
+    end
   end
 end

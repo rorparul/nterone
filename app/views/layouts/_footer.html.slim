@@ -13,19 +13,16 @@ footer.general-footer.text-muted style="text-align: center;"
       button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
         | Choose Region
       ul.dropdown-menu
-        li
-          a href="https://nterone.ca" Canada
-        li
-          a href="https://nterone.la" Latin America
-        li
-          a href="https://nterone.com" United States
+        - User.origin_regions.each do |name, region|
+          li
+            a href="?region=#{region}"= name.humanize.titleize
   #legal-docs
     a href="#{main_app.page_path(Page.find_by(title: "NterOne Privacy Policy"))}" = t 'footer.privacy'
-    span  | 
+    span  |
     a href="#{main_app.page_path(Page.find_by(title: "NterOne Terms and Conditions"))}" = t 'footer.terms'
-    span  | 
+    span  |
     a href="#{main_app.sitemap_path}" = t 'footer.sitemap'
   #copyright
-    = t 'footer.copyright' 
-    |  &copy; 
+    = t 'footer.copyright'
+    |  &copy;
     = "#{Date.today.year} #{t 'footer.copyright_company'}"
