@@ -1,5 +1,5 @@
 doctype html
-html
+html[ng-app="nterone"]
   head
     title
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
@@ -12,7 +12,7 @@ html
     = favicon_link_tag 'favicon.png'
     = csrf_meta_tags
     = render 'layouts/scripts_head'
-    
+
   body
     = render 'layouts/modal'
     = render 'layouts/header'
@@ -46,3 +46,6 @@ html
         = yield
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
+    - cache do
+      == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
+
