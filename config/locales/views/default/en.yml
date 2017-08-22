@@ -42,6 +42,13 @@ en:
       title: "Title"
       url: "URL"
       phone: "Phone"
+      name: "Name"
+      job_title: "Job Title"
+      company_name: "Company Name"
+      website: "Website"
+      address: "Address"
+      photo_url: "Photo Url"
+      footer_text: "Footer text"
     placeholder:
       no_records: "No records found."
       search_form: "Search by certification, course, or exam"

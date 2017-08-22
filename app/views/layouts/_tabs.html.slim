@@ -81,4 +81,8 @@
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"
             = t('my_account.partial_tabs.settings')
+      - if current_user.has_any_role? %i(admin sales_manager sales_rep partner_admin)
+        li.tools role="presentation"
+          a.nav-pill href="#{admin_tools_path}"
+            = t('admins.partial_tabs.tools')
     hr

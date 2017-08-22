@@ -430,6 +430,14 @@ class User < ActiveRecord::Base
     roles.any? { |role| role.role.to_sym == role_param }
   end
 
+  def has_any_role?(roles_param)
+    roles_param.any? {|role_param| roles.any? { |role| role.role.to_sym == role_param } }
+  end
+
+  def full_address
+    [street, city, state, zipcode, country].compact.join(", ")
+  end
+
   private
 
   def update_instructor_costs

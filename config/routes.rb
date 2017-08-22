@@ -247,6 +247,7 @@ NterOne::Application.routes.draw do
     get 'admin/website',                             as: :admin_website
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
+    get 'admin/tools',                               as: :admin_tools
   end
 
   controller :my_account do
