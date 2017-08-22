@@ -3,3 +3,5 @@
 
 # asset 'bootstrap'
 
+asset 'angular'
+asset 'lodash'
