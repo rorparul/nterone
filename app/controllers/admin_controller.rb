@@ -140,6 +140,10 @@ class AdminController < ApplicationController
     )
   end
 
+  def tools
+
+  end
+
   private
 
   def validate_authorization
