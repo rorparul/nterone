@@ -114,4 +114,6 @@ group :test do
   gem 'rspec-rails', '= 3.5.0.beta3'
   gem 'rspec', '= 3.5.0.beta3'
   gem 'shoulda-matchers', require: false
+  gem 'vcr'
+  gem 'webmock'
 end
