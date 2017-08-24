@@ -4,6 +4,11 @@ angular
     templateUrl: 'directives/signature.html'
     link: (scope, element, attrs)->
 
+      scope.logos = [
+        { value: gon.logo_10_years, label: "<img src='"+gon.logo_10_years+"'/>" }
+        { value: gon.logo_base, label: "<img src='"+gon.logo_base+"'/>" }
+      ]
+
       scope.embed = element.find("div.signature").html()
 
       observer = new MutationObserver (mutations)->
