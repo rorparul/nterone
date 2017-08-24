@@ -150,7 +150,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_gon
-    gon.logo_10_years = image_path("locales/#{I18n.locale}/logo-with-tagline-small.png")
-    gon.logo_base = image_path("locales/#{I18n.locale}/archive/logo-with-tagline-small.png")
+    gon.logo_10_years = ActionController::Base.helpers.image_url("locales/#{I18n.locale}/logo-with-tagline-small.png")
+    gon.logo_base = ActionController::Base.helpers.image_url("locales/#{I18n.locale}/archive/logo-with-tagline-small.png")
   end
 end

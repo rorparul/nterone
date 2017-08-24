@@ -307,6 +307,9 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
+    ngannotate-rails (1.2.2)
+      execjs
+      rails (>= 3.1)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     non-stupid-digest-assets (1.0.9)
@@ -593,6 +596,7 @@ DEPENDENCIES
   meta_request (~> 0.3.4)
   mini_magick
   momentjs-rails (>= 2.9.0)
+  ngannotate-rails
   non-stupid-digest-assets
   parsley-rails
   passenger
