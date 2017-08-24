@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :set_cart
   before_action :get_alert_counts
   before_action :update_request_urls
+  before_action :set_gon
 
   after_action  :store_location
 
@@ -146,5 +147,10 @@ class ApplicationController < ActionController::Base
 
   def true?(string)
     string == 'true'
+  end
+
+  def set_gon
+    gon.logo_10_years = image_path("locales/#{I18n.locale}/logo-with-tagline-small.png")
+    gon.logo_base = image_path("locales/#{I18n.locale}/archive/logo-with-tagline-small.png")
   end
 end
