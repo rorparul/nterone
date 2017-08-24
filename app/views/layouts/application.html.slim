@@ -3,6 +3,7 @@ html[ng-app="nterone"]
   head
     title
       = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
+    = Gon::Base.render_data
     = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
     link rel="alternate" type="application/rss+xml" title="#{t('layouts.application.upcoming_classes')}" href="https://www.nterone.com/feed?format=rss"
     = canonical_tag
