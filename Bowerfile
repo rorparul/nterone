@@ -3,3 +3,4 @@
 
 # asset 'bootstrap'
 
+asset 'country-region-selector'
