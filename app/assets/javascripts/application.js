@@ -16,6 +16,7 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require country-region-selector
 //= require froala_editor.min.js
 //= require plugins/font_family.min.js
 //= require plugins/font_size.min.js

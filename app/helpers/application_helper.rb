@@ -92,4 +92,8 @@ module ApplicationHelper
       ["Canada", canadian_provinces]
     ]
   end
+
+  def current_country
+    "US"
+  end
 end
