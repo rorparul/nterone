@@ -43,9 +43,18 @@
 #  autocalculate_instructor_costs :boolean          default(TRUE)
 #  resell                         :boolean          default(FALSE)
 #  zipcode                        :string
-#  company                        :string
 #  origin_region                  :integer
 #  active_regions                 :text             default([]), is an Array
+#  company                        :string
+#  checklist_id                   :integer
+#
+# Indexes
+#
+#  index_events_on_checklist_id  (checklist_id)
+#
+# Foreign Keys
+#
+#  fk_rails_b9058a8bd3  (checklist_id => checklists.id)
 #
 
 class Event < ActiveRecord::Base
@@ -65,6 +74,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
+  belongs_to :checklist
 
   has_many :opportunities
   has_many :order_items, as: :orderable
