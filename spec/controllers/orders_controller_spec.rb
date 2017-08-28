@@ -12,28 +12,18 @@ describe OrdersController do
 
     let(:credit_card) { {
       payment_type: "Credit Card",
-      credit_card_number: "4111111111111111",
-      expiration_month: "06",
-      expiration_year: "21",
-      security_code: "123"
+      credit_card_number: '4007000000027',
+      security_code: '123',
+      expiration_month: '11',
+      expiration_year: '2020',
+      paid: price
     } }
-
-    let(:billing) {{
-      billing_company: "",
-      billing_first_name: "Test",
-      billing_last_name: "Test",
-      billing_street: "Test",
-      billing_city: "Test",
-      billing_state: "Test",
-      billing_zip_code: "190190",
-    }}
 
     let(:params) {
       attributes_for(:user)
         .merge(paid: price.to_s)
         .merge(clc_quantity: "0")
         .merge(credit_card)
-        .merge(billing)
     }
 
     before(:each) do
@@ -58,7 +48,7 @@ describe OrdersController do
     end
 
     it "redirects to confirmation" do
-      expect(response).to redirect_to(confirmation_orders_path(assigns(:order)))
+      expect(response).to redirect_to(confirmation_orders_path(assigns(:order).id))
     end
 
   end

@@ -11,14 +11,13 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @order = Order.new
+
     if current_user.try(:admin?) || current_user.try(:sales?)
-      @order = Order.new
       @user  = params[:user] ? User.find(params[:user]) : nil
       @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
 
       return render 'new_admin'
-    else
-      @order = Order.new
     end
 
     if TopLevelDomain == 'ca' && params[:form] != 'default'
@@ -202,8 +201,8 @@ class OrdersController < ApplicationController
       price = @cart.total_price
     end
 
-    price.to_s == permitted_params.credit_card[:paid] \
-      && @cart.credits_required_for_total_applicable_for_credits.to_s == permitted_params.cisco_learning_credits[:clc_quantity]
+    price.to_s == permitted_params.credit_card[:paid] && \
+      @cart.credits_required_for_total_applicable_for_credits.to_s == permitted_params.cisco_learning_credits[:clc_quantity]
   end
 
   def handle_credit_card_payment
