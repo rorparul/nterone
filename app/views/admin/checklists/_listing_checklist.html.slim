@@ -1,0 +1,8 @@
+tr
+  td = checklist.name
+  td.fit
+    = link_to edit_admin_checklist_path(checklist), title: t('default.action.edit'), remote: true do
+      i class="fa fa-pencil-square-o" aria-hidden="true"
+  td.fit
+    = link_to admin_checklist_path(checklist), title: t('default.action.edit'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
+      i.text-danger class="fa fa-trash-o" aria-hidden="true"

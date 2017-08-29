@@ -1,0 +1,15 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th = smart_listing.sortable "#{t('default.label.description')}", :name
+          th.fit[colspan="2"] = t('default.label.actions')
+
+      tbody
+        - smart_listing.collection.each do |checklist|
+          = render partial: 'admin/checklists/listing_checklist', locals: { checklist: checklist }
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links

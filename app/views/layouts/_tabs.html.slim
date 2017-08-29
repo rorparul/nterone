@@ -31,14 +31,25 @@
         li.orders role="presentation"
           a.nav-pill href="#{admin_orders_path}"
             = t('admins.partial_tabs.orders')
+
       - if current_user.instructor?
         li.my-classes role="presentation"
           a.nav-pill href="#{instructor_classes_path}"
             = t 'admins.partial_tabs.my_classes'
+
       - if current_user.admin? || current_user.sales?
-        li.classes role="presentation"
-          a.nav-pill href="#{admin_classes_path}"
-            = t 'admins.partial_tabs.classes'
+        li.dropdown.classes role="presentation"
+          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            | Classes
+            span.caret
+          ul.dropdown-menu
+            li
+              a href="#{admin_classes_path}"
+                = t 'admins.partial_tabs.classes'
+            li
+              a href="#{admin_checklists_path}"
+                = t 'admins.partial_tabs.checklists'
+
       - if current_user.admin?
         li.courses role="presentation"
           a.nav-pill href="#{admin_courses_path}"

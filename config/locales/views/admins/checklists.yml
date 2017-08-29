@@ -1,0 +1,19 @@
+en:
+  admin:
+    checklists:
+      new:
+        title: "New checklist"
+      edit:
+        title: "Edit checklist"
+      form:
+        new_item: "New Item"
+
+es:
+  admin:
+    checklists:
+      new:
+        title: "Nueva lista de verificación"
+      edit:
+        title: "Editar lista de verificación"
+      form:
+        new_item: "Nuevo Artículo"

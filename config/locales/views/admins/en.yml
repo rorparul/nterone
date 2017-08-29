@@ -57,6 +57,7 @@ en:
       messages: "Messages"
       orders: "Orders"
       settings: "Settings"
+      checklists: "Checklists"
     website:
       active: "Active"
       articles: "Articles"

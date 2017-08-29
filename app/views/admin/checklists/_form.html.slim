@@ -1,0 +1,30 @@
+.form-container
+  = form_for [:admin, checklist], remote: true  do |f|
+    - if f.object.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(f.object.errors.count, 'error')}:"
+        ul
+          - f.object.errors.full_messages.each do |msg|
+            li = msg
+    .form-group
+      = f.label :name, t('default.label.description')
+      br
+      = f.text_field :name, class: "form-control", autofocus: true
+
+    fieldset
+      legend= t("default.label.items")
+      = f.fields_for :items do |f_item|
+        == render "item_fields", f: f_item
+
+      = link_to_add_fields t(".new_item"), f, :items, "btn btn-sm btn-default"
+
+    br
+    br
+
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t('default.action.submit')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')

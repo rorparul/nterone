@@ -235,6 +235,10 @@ NterOne::Application.routes.draw do
     resources :sales,                   only: [:new, :create]
   end
 
+  namespace :admin do
+    resources :checklists
+  end
+
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders
