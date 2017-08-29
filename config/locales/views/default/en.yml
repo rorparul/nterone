@@ -25,6 +25,7 @@ en:
       upload: "Upload"
       export: "Export"
       merge: "Merge"
+      new: "New"
     contact:
       email: "@nterone.com"
       phone: "703-991-5185"
@@ -42,6 +43,10 @@ en:
       title: "Title"
       url: "URL"
       phone: "Phone"
+      name: "Name"
+      description: "Description"
+      actions: "Actions"
+      items: "Items"
     placeholder:
       no_records: "No records found."
       search_form: "Search by certification, course, or exam"
