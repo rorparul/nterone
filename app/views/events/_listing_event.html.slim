@@ -21,7 +21,7 @@ tr
         span.fa.fa-sticky-note  class="in-house-note-icon-#{event.id}"
       - else
         span.fa.fa-sticky-note-o class="in-house-note-icon-#{event.id}"
-  td.fit 
+  td.fit
     - if event.resell
       span.label.label-success = t('events.partial_listing.y')
     - else
@@ -30,7 +30,7 @@ tr
   td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
   td.fit = event.length
   td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
-  td.fit 
+  td.fit
     - if event.format == 'On-site'
       = [event.city, event.state].reject(&:blank?).join(', ')
     - else
@@ -66,3 +66,7 @@ tr
   td.fit
     = link_to platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.delete'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
       i.text-danger class="fa fa-trash-o" aria-hidden="true"
+  td.fit
+    - if event.checklist
+      = link_to admin_checklist_path(event.checklist, event_id: event.id), title: t('events.partial_listing.checklist'), remote: true do
+        i class="fa fa-list" aria-hidden="true"

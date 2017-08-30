@@ -1,0 +1,31 @@
+ul.list-group
+  - checklist.items.each do |item|
+    li.list-group-item
+      .form-inline
+        - checked = event.checklist_items.find_by_id(item.id).present?
+        input.checklist_item.form-control[type="checkbox" value="0" checked=(checked) data-id=(item.id) data-event_id=(event.id)]
+        '
+        = item.content
+
+javascript:
+
+  $("input.checklist_item").on('click', function() {
+    var $this = $(this);
+
+    if (this.checked) {
+      this.checked = false;
+      $.post("/admin/checklists/" + $this.data('id') + '/complete_item/events/' + $this.data('event_id'))
+        .success(function(){
+            $this.prop('checked', true)
+          })
+
+    } else {
+      this.checked = true;
+      $.post("/admin/checklists/" + $this.data('id') + '/uncomplete_item/events/' + $this.data('event_id'))
+        .success(function(){
+            $this.prop('checked', false)
+          })
+    }
+
+  });
+

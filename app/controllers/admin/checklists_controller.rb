@@ -60,6 +60,26 @@ class Admin::ChecklistsController < Admin::BaseController
     redirect_to :back
   end
 
+  def show
+    @checklist = Checklist.find(params[:id])
+    @event = Event.find(params[:event_id])
+  end
+
+  def complete_item
+    @event = Event.find(params[:event_id])
+    @checklist_item = ChecklistItem.find(params[:id])
+    @event.checklist_items << @checklist_item
+    success = @event.checklist_items.exists? @checklist_item.id
+    render json: { success: success }, status: success ? 200 : 404
+  end
+
+  def uncomplete_item
+    @event = Event.find(params[:event_id])
+    @checklist_item = ChecklistItem.find(params[:id])
+    success = @event.checklist_items.destroy(@checklist_item)
+    render json: { success: success }, status: success ? 200 : 404
+  end
+
   private
 
   def checklist_params
