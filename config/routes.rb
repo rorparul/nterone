@@ -236,7 +236,13 @@ NterOne::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :checklists
+    resources :checklists do
+      member do
+        get "events/:event_id", to: :show
+        post "complete_item/events/:event_id", action: :complete_item
+        post "uncomplete_item/events/:event_id", action: :uncomplete_item
+      end
+    end
   end
 
   controller :admin do

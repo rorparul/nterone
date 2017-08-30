@@ -1,0 +1,3 @@
+$('.modal-title').html('Checklist: <%= @checklist.try(:name) %>');
+$('.modal-body').html("<%= escape_javascript(render partial: 'show', locals: { checklist: @checklist, event: @event }) %>");
+$('#myModal').modal('show');

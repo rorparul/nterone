@@ -52,6 +52,7 @@ en:
       time_zone: "Time Zone"
       two_weeks: "Two Weeks"
       zipcode: "Zip Code"
+      checklist: "Checklist"
     partial_index:
       classes: "Classes"
       course: "Course"
@@ -97,6 +98,7 @@ en:
       start_date: "Start Date"
       start_time: "Start Time"
       view: "View"
+      checklist: "Checklist"
     partial_show:
       active: "Active:"
       add_student: "Add Student"
