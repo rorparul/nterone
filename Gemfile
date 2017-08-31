@@ -111,9 +111,10 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'ffaker', '~> 2.1'
-  gem 'rspec-rails', '= 3.5.0.beta3'
-  gem 'rspec', '= 3.5.0.beta3'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec', '~> 3.5'
   gem 'shoulda-matchers', require: false
   gem 'vcr'
   gem 'webmock'
+  gem 'capybara'
 end
