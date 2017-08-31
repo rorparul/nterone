@@ -6,6 +6,12 @@ RSpec.configure do |config|
 
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
+
+      FactoryGirl.create :platform
+      FactoryGirl.create :page, title: 'Welcome'
+      FactoryGirl.create :page, title: 'NterOne Privacy Policy'
+      FactoryGirl.create :page, title: 'NterOne Terms and Conditions'
+
       example.run
     end
   end

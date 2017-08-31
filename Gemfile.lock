@@ -255,6 +255,9 @@ GEM
     guard-rails (0.8.0)
       guard (~> 2.11)
       guard-compat (~> 1.0)
+    guard-rake (1.0.0)
+      guard
+      rake
     guard-rspec (4.7.3)
       guard (~> 2.1)
       guard-compat (~> 1.1)
@@ -596,9 +599,9 @@ DEPENDENCIES
   figaro
   font-awesome-rails
   friendly_id
-  guard
   guard-bundler
   guard-rails
+  guard-rake
   guard-rspec (= 4.7.3)
   jbuilder (~> 1.2)
   jquery-rails (~> 4.0.3)

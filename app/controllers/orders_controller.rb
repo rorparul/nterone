@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
-        flash[:success] = "You've successfully completed your order. Please check your email for a confirmation."
+        flash[:success] = t(".success")
 
         OrderMailer.confirmation(current_user, @order).deliver_now
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?

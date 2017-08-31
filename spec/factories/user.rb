@@ -3,12 +3,13 @@ FactoryGirl.define do
         email { FFaker::Internet.free_email }
         password { "qweQwe123" }
 
-        billing_company ""
-        billing_first_name "Test"
-        billing_last_name "Test"
-        billing_street "Test"
-        billing_city "Test"
-        billing_state "Test"
-        billing_zip_code "190190"
+        first_name { FFaker::Name.first_name }
+        last_name { FFaker::Name.last_name }
+
+        billing_company { FFaker::Company.name }
+        billing_street { FFaker::AddressUS.street_address }
+        billing_city { FFaker::AddressUS.city }
+        billing_state { FFaker::AddressUS.state }
+        billing_zip_code { FFaker::AddressUS.zip_code }
     end
 end

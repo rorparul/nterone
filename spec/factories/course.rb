@@ -3,5 +3,6 @@ FactoryGirl.define do
     title { FFaker::Lorem.sentence }
     abbreviation { FFaker::Lorem.word }
     categories { [create(:category)] }
+    platform { Platform.first }
   end
 end

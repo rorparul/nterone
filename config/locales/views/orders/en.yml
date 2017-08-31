@@ -1,5 +1,7 @@
 en:
   orders:
+    create:
+      success: "You've successfully completed your order. Please check your email for a confirmation."
     confirmation:
       confirmation: "Confirmation"
       copy1: "If you have any questions please reach out to your sales representative, or contact the sales team at "

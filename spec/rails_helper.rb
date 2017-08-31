@@ -8,7 +8,13 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
 require 'shoulda/matchers'
+require 'capybara/rails'
 require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/vcr_cassettes"
+  config.hook_into :webmock
+end
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__),"support","**","*.rb"))].each {|f| require f}
 

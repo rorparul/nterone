@@ -6,5 +6,6 @@ FactoryGirl.define do
         end_date { 3.days.from_now }
         start_time { "8:00" }
         end_time { "9:00" }
+        price { Faker::Number.between 1000, 2000 }
     end
 end

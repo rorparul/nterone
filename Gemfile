@@ -93,7 +93,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
-  gem 'guard'
+  gem 'guard-rake'
   # gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
   gem 'quiet_assets'
@@ -117,4 +117,6 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'capybara'
+  gem 'vcr'
+  gem 'webmock'
 end

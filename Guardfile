@@ -101,3 +101,7 @@ guard :rspec, cmd: "bin/rspec" do
     Dir[File.join("**/#{m[1]}.feature")][0] || "spec/acceptance"
   end
 end
+
+guard :rake, task: 'factory_girl:lint' do
+  watch(%r{^spec/factories/(.+).rb$}) { |m| "#{m[1]}" }
+end
