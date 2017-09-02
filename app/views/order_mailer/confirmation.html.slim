@@ -1,7 +1,7 @@
-p 
+p
   = t('order_mailer.confirmation.copy1')
 
-p 
+p
   = t('order_mailer.confirmation.copy2')
 
 p = "#{t('order_mailer.confirmation.copy3')} ##{@order.id} #{t('order_mailer.confirmation.copy4')}"
@@ -11,13 +11,13 @@ table
     tr
       - if order_item.orderable_type == 'Event'
         td = link_to order_item.orderable.course.full_title, platform_course_url(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
-        td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+        td = [t('order_mailer.confirmation.from'), order_item.orderable.start_date.strftime("%-m/%-d/%y"), t('order_mailer.confirmation.to'), order_item.orderable.end_date.strftime("%-m/%-d/%y")].join(' ')
         td = order_item.orderable.format
       - if order_item.orderable_type == 'VideoOnDemand'
         td = link_to order_item.orderable.full_title, platform_video_on_demand_url(order_item.orderable.platform, order_item.orderable), target: "_blank"
         td
           = t('order_mailer.confirmation.copy5')
-        td 
+        td
           = t('order_mailer.confirmation.copy6')
       - if order_item.orderable_type == 'LabRental'
         td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
@@ -26,7 +26,7 @@ table
       - if order_item.price > 0.00
         td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
       - else
-        td 
+        td
           = t('order_mailer.confirmation.copy7')
 
 - if @order.payment_type == "Credit Card"
@@ -37,19 +37,22 @@ table
 p
   = t('order_mailer.confirmation.copy10')
   = mail_to "sales@nterone.#{@tld}", "sales@nterone.#{@tld}"
+  = '. '
   = t('order_mailer.confirmation.copy11')
   = mail_to "billing@nterone.#{@tld}", "billing@nterone.#{@tld}"
+  = '. '
   = t('order_mailer.confirmation.copy12')
   = mail_to "helpdesk@nterone.#{@tld}", "helpdesk@nterone.#{@tld}"
+  = '. '
   = t('order_mailer.confirmation.copy13')
   strong = "#{RegionalPhoneNumber} "
   = t('order_mailer.confirmation.copy14')
-  
-p 
+
+p
   = t('order_mailer.confirmation.copy15')
 
-p 
+p
   = t('order_mailer.confirmation.copy16')
 
-p 
+p
   = t('order_mailer.confirmation.copy17')
