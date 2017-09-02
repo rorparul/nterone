@@ -64,7 +64,7 @@ wb.styles do |style|
               "#{sale.account.try(:title)}",
               "#{sale.customer.try(:full_name)}",
               "#{sale.course.try(:title) || sale.title}",
-              "#{sale.date_closed}",
+              "#{sale.date_closed.strftime("%d-%m-%Y")}",
               "$#{number_with_delimiter(sale.amount)}"
             ]
           end
@@ -87,7 +87,7 @@ wb.styles do |style|
             "#{sale.account.try(:title)}",
             "#{sale.customer.try(:full_name)}",
             "#{sale.course.try(:title) || sale.title}",
-            "#{sale.date_closed}",
+            "#{sale.date_closed.strftime("%d-%m-%Y")}",
             "$#{number_with_delimiter(sale.amount)}"
           ]
         end
@@ -136,7 +136,7 @@ wb.styles do |style|
               "#{sale.customer.try(:full_name)}",
               "#{sale.course.try(:title) || sale.title}",
               "#{sale.stage}%",
-              "#{sale.date_closed}",
+              "#{sale.date_closed.strftime("%d-%m-%Y")}",
               "$#{number_with_delimiter(sale.amount)}"
             ]
           end
@@ -161,7 +161,7 @@ wb.styles do |style|
             "#{sale.customer.try(:full_name)}",
             "#{sale.course.try(:title) || sale.title}",
             "#{sale.stage}%",
-            "#{sale.date_closed}",
+            "#{sale.date_closed.strftime("%d-%m-%Y")}",
             "$#{number_with_delimiter(sale.amount)}"
           ]
         end
