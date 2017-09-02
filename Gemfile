@@ -84,7 +84,7 @@ end
 
 group :development, :test do
   gem 'bullet'
-  gem "capistrano-db-tasks", require: false
+  gem "capistrano-db-tasks", require: false, github: 'csolg/capistrano-db-tasks'
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
