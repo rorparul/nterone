@@ -7,7 +7,7 @@ class RegistrationMailer < ApplicationMailer
 
     mail(
       to: @seller_email,
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "JCallaghan@arptechnologies.com"],
+      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "jackie#{I18n.t('email')}"],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
@@ -25,7 +25,7 @@ class RegistrationMailer < ApplicationMailer
 
     mail(
       to: [sales_rep_email],
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "JCallaghan@arptechnologies.com"],
+      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "jackie#{I18n.t('email')}"],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
