@@ -9,6 +9,13 @@ GIT
       timers (~> 4)
 
 GIT
+  remote: git://github.com/csolg/capistrano-db-tasks.git
+  revision: ee47909269879e69cf10ac24bc368f5f3bc76e1d
+  specs:
+    capistrano-db-tasks (0.6)
+      capistrano (>= 3.0.0)
+
+GIT
   remote: git://github.com/smartinez87/exception_notification.git
   revision: 85a1ae90be438e5a465316e7a02813de9198a29b
   branch: master
@@ -128,8 +135,6 @@ GEM
     capistrano-bundler (1.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-db-tasks (0.6)
-      capistrano (>= 3.0.0)
     capistrano-harrow (0.5.3)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
@@ -548,7 +553,7 @@ DEPENDENCIES
   bullet
   canonical-rails
   capistrano (~> 3.5.0)
-  capistrano-db-tasks
+  capistrano-db-tasks!
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
