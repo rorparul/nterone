@@ -11,6 +11,11 @@
 #  user_id        :integer
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
+#  token          :string
+#
+# Indexes
+#
+#  index_carts_on_token  (token)
 #
 
 class Cart < ActiveRecord::Base
@@ -87,5 +92,13 @@ class Cart < ActiveRecord::Base
         total + BigDecimal.new(0)
       end
     end
+  end
+
+  before_create :add_token
+  private
+  def add_token
+    begin
+      self.token = SecureRandom.hex[0,10].upcase
+    end while self.class.exists?(token: token)
   end
 end

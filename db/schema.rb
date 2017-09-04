@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621234513) do
+ActiveRecord::Schema.define(version: 20170904063506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,7 +132,10 @@ ActiveRecord::Schema.define(version: 20170621234513) do
     t.integer  "user_id"
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+    t.string   "token"
   end
+
+  add_index "carts", ["token"], name: "index_carts_on_token", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.integer  "platform_id"
