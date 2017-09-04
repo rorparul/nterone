@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904063506) do
+ActiveRecord::Schema.define(version: 20170904232412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,31 @@ ActiveRecord::Schema.define(version: 20170904063506) do
     t.text     "active_regions",     default: [],              array: true
   end
 
+  create_table "checklist_items", force: :cascade do |t|
+    t.integer  "checklist_id"
+    t.text     "content"
+    t.datetime "completed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
+
+  create_table "checklist_items_events", id: false, force: :cascade do |t|
+    t.integer "checklist_item_id", null: false
+    t.integer "event_id",          null: false
+  end
+
+  add_index "checklist_items_events", ["checklist_item_id", "event_id"], name: "index_checklist_items_events_on_checklist_item_id_and_event_id", using: :btree
+
+  create_table "checklists", force: :cascade do |t|
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "name"
+    t.text     "active_regions", default: [],              array: true
+    t.integer  "origin_region"
+  end
+
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
     t.datetime "created_at",                     null: false
@@ -352,7 +377,10 @@ ActiveRecord::Schema.define(version: 20170904063506) do
     t.integer  "origin_region"
     t.text     "active_regions",                                         default: [],                     array: true
     t.string   "company"
+    t.integer  "checklist_id"
   end
+
+  add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
     t.string   "label"
@@ -518,6 +546,67 @@ ActiveRecord::Schema.define(version: 20170904063506) do
     t.integer  "platform_id"
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.string   "email",                                           default: "",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "company_name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "contact_number"
+    t.string   "country"
+    t.string   "website"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.boolean  "archived",                                        default: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "billing_street"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zip_code"
+    t.boolean  "same_addresses",                                  default: false
+    t.boolean  "forem_admin",                                     default: false
+    t.string   "forem_state",                                     default: "pending_review"
+    t.boolean  "forem_auto_subscribe",                            default: false
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
+    t.string   "shipping_first_name"
+    t.string   "shipping_last_name"
+    t.string   "shipping_street"
+    t.string   "shipping_city"
+    t.string   "shipping_state"
+    t.string   "shipping_zip_code"
+    t.string   "shipping_company"
+    t.string   "billing_company"
+    t.string   "referring_partner_email"
+    t.integer  "company_id"
+    t.text     "about"
+    t.integer  "status",                                          default: 0
+    t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
+    t.text     "video_bio"
+    t.string   "source_name"
+    t.string   "source_user_id"
+    t.integer  "parent_id"
+    t.string   "salutation"
+    t.string   "business_title"
+    t.boolean  "do_not_call"
+    t.boolean  "do_not_email"
+    t.string   "email_alternative"
+    t.string   "phone_alternative"
+    t.text     "notes"
+    t.string   "aasm_state"
+    t.integer  "origin_region"
+    t.text     "active_regions",                                  default: [],                            array: true
+    t.boolean  "active",                                          default: true
+    t.boolean  "archive",                                         default: false
+    t.string   "sales_force_id"
   end
 
   create_table "hacp_requests", force: :cascade do |t|
@@ -1288,6 +1377,8 @@ ActiveRecord::Schema.define(version: 20170904063506) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_foreign_key "checklist_items", "checklists"
+  add_foreign_key "events", "checklists"
   add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
