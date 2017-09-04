@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   include DiscountApplicator
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:new, :create, :confirmation]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   skip_before_action :verify_authenticity_token, only: :exact_create
@@ -68,7 +68,10 @@ class OrdersController < ApplicationController
         return render 'create_admin'
       end
 
-    else
+      # redirect_to :back
+
+    elsif user_signed_in?
+
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
         return redirect_to :back
@@ -117,6 +120,44 @@ class OrdersController < ApplicationController
         render 'new'
 
       end
+
+    # Guest
+    #
+
+    else
+
+      unless valid_input_values?
+        flash[:alert] = "Order submission failed. Form was tampered with."
+        return redirect_to :back
+      end
+
+      # Create transaction
+      @order = Order.new
+      if order_params[:payment_type] == "Credit Card"
+        result = handle_credit_card_payment()
+
+        if result.failure?
+          flash[:alert] = "Failed to charge card."
+          return redirect_to :back
+        end
+      elsif order_params[:payment_type] == "Cisco Learning Credits"
+        @order.assign_attributes(clc_params)
+      end
+
+      # Create order
+      @order.assign_attributes(order_params)
+      @order.add_order_items_from_cart(@cart)
+      if @order.save
+        @order.order_items.each do |order_item|
+          pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
+        end
+        flash[:success] = t(".success")
+        # OrderMailer.confirmation(current_user, @order).deliver_now
+        # OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+        return redirect_to confirmation_orders_path(@order)
+      else
+        render 'new'
+      end
     end
   end
 
@@ -125,7 +166,6 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
-    render "edit_admin"
   end
 
   def update
@@ -155,7 +195,7 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = Order.find(params[:id])
-    return redirect_to root_path unless current_user.buyer_orders.pluck(:id).include?(@order.id)
+    return redirect_to root_path unless current_user && current_user.buyer_orders.pluck(:id).include?(@order.id)
   end
 
   def exact_create

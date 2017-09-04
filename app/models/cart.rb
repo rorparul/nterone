@@ -98,7 +98,7 @@ class Cart < ActiveRecord::Base
   private
   def add_token
     begin
-      self.token = SecureRandom.hex[0,10].upcase
+      self.token = SecureRandom.urlsafe_base64(nil, false)
     end while self.class.exists?(token: token)
   end
 end

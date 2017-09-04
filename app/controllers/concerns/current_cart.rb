@@ -4,30 +4,38 @@ module CurrentCart
   private
 
   def set_cart
-    if user_signed_in?
-      @cart = current_user.cart
+    if params[:cart_token]
+      @cart = Cart.find_by_token(params[:cart_token])
+    elsif params[:order] && params[:order][:cart_token]
+      @cart = Cart.find_by_token(params[:order][:cart_token])
+    end
 
-      if @cart.nil?
+    if @cart.nil?
+      if user_signed_in?
+        @cart = current_user.cart
+
+        if @cart.nil?
+          begin
+            @cart = Cart.find(cookies[:cart_id])
+            @cart.update(user_id: current_user.id)
+          rescue ActiveRecord::RecordNotFound
+            @cart = Cart.create(user_id: current_user.id)
+          end
+        elsif params[:cart_token].nil? && @cart.id != cookies[:cart_id].to_i
+          begin
+            combine_carts(@cart, Cart.find(cookies[:cart_id]))
+            cookies[:cart_id] = @cart.id
+          rescue ActiveRecord::RecordNotFound
+            @cart = Cart.create(user_id: current_user.id)
+          end
+        end
+      else
         begin
           @cart = Cart.find(cookies[:cart_id])
-          @cart.update(user_id: current_user.id)
         rescue ActiveRecord::RecordNotFound
-          @cart = Cart.create(user_id: current_user.id)
-        end
-      elsif !(@cart.nil?) && @cart.id != cookies[:cart_id].to_i
-        begin
-          combine_carts(@cart, Cart.find(cookies[:cart_id]))
+          @cart = Cart.create
           cookies[:cart_id] = @cart.id
-        rescue ActiveRecord::RecordNotFound
-          @cart = Cart.create(user_id: current_user.id)
         end
-      end
-    else
-      begin
-        @cart = Cart.find(cookies[:cart_id])
-      rescue ActiveRecord::RecordNotFound
-        @cart = Cart.create
-        cookies[:cart_id] = @cart.id
       end
     end
   end

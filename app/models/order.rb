@@ -89,7 +89,7 @@ class Order < ActiveRecord::Base
 
   attr_accessor :credit_card_number, :expiration_month, :expiration_year, :security_code
 
-  validates :buyer, presence: true
+  # validates :buyer, presence: true
   validates_associated :buyer
   validates_presence_of :clc_number, unless: lambda { self.payment_type != "Cisco Learning Credits" }
   # validates :total, numericality: { greater_than_or_equal_to: 0.01 }
