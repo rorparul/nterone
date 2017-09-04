@@ -2,13 +2,15 @@ module Regions
   extend ActiveSupport::Concern
 
   included do
-    scope :active_in_current_region, -> { where("#{self.name.downcase}s.active_regions @> ?", "{#{self.new.current_region_as_key}}") }
+    scope :active_in_current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(session[:region])}}") }
 
     enum origin_region: {
       united_states: 0,
       latin_america: 1,
       canada: 2
     }
+
+    default_scope -> { where(origin_region: session[:region]) unless %w(User).include?(self.name) }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
@@ -24,16 +26,7 @@ module Regions
   end
 
   def current_region_as_value
-    case Rails.application.config.tld
-    when 'com'
-      0
-    when 'la'
-      1
-    when 'ca'
-      2
-    else
-      0
-    end
+    session[:region]
   end
 
   private
