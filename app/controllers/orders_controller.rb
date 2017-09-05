@@ -88,8 +88,9 @@ class OrdersController < ApplicationController
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
+        Rails.logger.info result.inspect
+
         if result.failure?
-          Rails.logger.info result.inspect
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
