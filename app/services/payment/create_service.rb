@@ -39,7 +39,7 @@ class Payment::CreateService
 
   def set_payment(request)
     credit_card = CreditCardType.new(
-      @cc_params[:credit_card_number],
+      @cc_params[:credit_card_number].gsub(' ', ''),
       exparation_date,
       @cc_params[:security_code]
     )
