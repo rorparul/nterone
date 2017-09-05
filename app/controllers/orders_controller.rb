@@ -89,6 +89,7 @@ class OrdersController < ApplicationController
         result = handle_credit_card_payment()
 
         if result.failure?
+          Rails.logger.info result.inspect
           flash[:alert] = "Failed to charge card."
           return redirect_to :back
         end
