@@ -2,7 +2,7 @@ module Regions
   extend ActiveSupport::Concern
 
   included do
-    scope :active_in_current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(session[:region])}}") }
+    scope :active_in_current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(get_session_region)}}") }
 
     enum origin_region: {
       united_states: 0,
@@ -10,7 +10,7 @@ module Regions
       canada: 2
     }
 
-    default_scope -> { where(origin_region: session[:region]) unless %w(User).include?(self.name) }
+    default_scope -> { where(origin_region: get_session_region) unless %w(User).include?(self.name) }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
@@ -19,6 +19,10 @@ module Regions
     def options_for_regions
       origin_regions.keys.sort.map { |region| [region.titleize, region] }
     end
+
+    def get_session_region
+      try(:session) && session[:region] || 0
+    end
   end
 
   def current_region_as_key
@@ -26,7 +30,11 @@ module Regions
   end
 
   def current_region_as_value
-    session[:region]
+    get_session_region
+  end
+
+  def get_session_region
+    try(:session) && session[:region] || 0
   end
 
   private
