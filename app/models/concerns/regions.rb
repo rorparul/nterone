@@ -10,7 +10,7 @@ module Regions
       canada: 2
     }
 
-    default_scope -> { where(origin_region: get_session_region) unless %w(User).include?(self.name) }
+    # default_scope -> { where(origin_region: get_session_region) unless %w(User).include?(self.name) }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
