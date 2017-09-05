@@ -1,4 +1,4 @@
-lock '3.5.0'
+lock '3.9.0'
 
 require 'capistrano-db-tasks'
 

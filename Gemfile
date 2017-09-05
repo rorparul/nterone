@@ -88,7 +88,7 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano-ssh-doctor'
-  gem 'capistrano', '~> 3.5.0'
+  gem 'capistrano', '~> 3.9.0'
   gem 'dotenv-rails', require: "dotenv/rails-now"
   gem 'guard-bundler'
   gem 'guard-rails'
