@@ -131,6 +131,8 @@ class OrdersController < ApplicationController
         return redirect_to :back
       end
 
+      @guest = Guest.create(user_params)
+
       # Create transaction
       @order = Order.new
       if order_params[:payment_type] == "Credit Card"
@@ -152,7 +154,7 @@ class OrdersController < ApplicationController
           pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
         flash[:success] = t(".success")
-        # OrderMailer.confirmation(current_user, @order).deliver_now
+        OrderMailer.confirmation(@guest, @order).deliver_now
         # OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
         return redirect_to confirmation_orders_path(@order)
       else

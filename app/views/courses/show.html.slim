@@ -46,7 +46,7 @@
               #upcoming-classes
                 .panel.panel-default
                   .panel-heading
-                    strong 
+                    strong
                       = t('courses.show.upcoming_classes')
                     - if user_signed_in? && current_user.admin?
                       = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
@@ -67,6 +67,8 @@
                             th = t('courses.show.status')
                             th = t('courses.show.price')
                             - if !user_signed_in? || (user_signed_in? && current_user.member?)
+                              th
+                            - elsif user_signed_in? && current_user.sales?
                               th
                             - elsif user_signed_in? && current_user.admin?
                               th
@@ -98,7 +100,7 @@
                                       i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                                 - else
                                   - if event.format == "Live Online"
-                                    td 
+                                    td
                                       = t('general.featured_classes.webex')
                                   - else
                                     td
@@ -120,6 +122,11 @@
                                     = form_for :order_item, url: order_items_path do |f|
                                       = f.hidden_field :event_id, value: event.id
                                       = link_to_cart(event)
+                                - elsif user_signed_in? && current_user.sales?
+                                  td.fit.text-right
+                                    = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
+                                      = f.hidden_field :event_id, value: event.id
+                                      = link_to_cart(event, link: true)
                                 - elsif user_signed_in? && current_user.admin?
                                   td.fit
                                     = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true

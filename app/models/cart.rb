@@ -95,7 +95,9 @@ class Cart < ActiveRecord::Base
   end
 
   before_create :add_token
+
   private
+
   def add_token
     begin
       self.token = SecureRandom.urlsafe_base64(nil, false)

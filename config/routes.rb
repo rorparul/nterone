@@ -41,7 +41,11 @@ NterOne::Application.routes.draw do
   get 'admin/insights/carts' => 'insights#carts',        as: :insights_carts
 
   resources :discounts
-  resources :order_items
+  resources :order_items do
+    collection do
+      post '/get_link' => 'order_items#get_link'
+    end
+  end
   resources :orders do
     collection do
       get  '/:id/confirmation'  => 'orders#confirmation', as: :confirmation

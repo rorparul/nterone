@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'devise'
 require 'shoulda/matchers'
 require 'capybara/rails'
+require 'devise'
 require 'vcr'
 
 VCR.configure do |config|

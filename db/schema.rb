@@ -187,31 +187,6 @@ ActiveRecord::Schema.define(version: 20170904232412) do
     t.text     "active_regions",     default: [],              array: true
   end
 
-  create_table "checklist_items", force: :cascade do |t|
-    t.integer  "checklist_id"
-    t.text     "content"
-    t.datetime "completed_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
-
-  create_table "checklist_items_events", id: false, force: :cascade do |t|
-    t.integer "checklist_item_id", null: false
-    t.integer "event_id",          null: false
-  end
-
-  add_index "checklist_items_events", ["checklist_item_id", "event_id"], name: "index_checklist_items_events_on_checklist_item_id_and_event_id", using: :btree
-
-  create_table "checklists", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "name"
-    t.text     "active_regions", default: [],              array: true
-    t.integer  "origin_region"
-  end
-
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
     t.datetime "created_at",                     null: false
@@ -377,10 +352,7 @@ ActiveRecord::Schema.define(version: 20170904232412) do
     t.integer  "origin_region"
     t.text     "active_regions",                                         default: [],                     array: true
     t.string   "company"
-    t.integer  "checklist_id"
   end
-
-  add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
     t.string   "label"
@@ -1377,8 +1349,6 @@ ActiveRecord::Schema.define(version: 20170904232412) do
     t.text     "active_regions", default: [],              array: true
   end
 
-  add_foreign_key "checklist_items", "checklists"
-  add_foreign_key "events", "checklists"
   add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"

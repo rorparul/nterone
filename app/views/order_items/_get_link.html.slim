@@ -1,0 +1,8 @@
+p
+  - if @cart.errors.empty?
+    = "The link to purchase: "
+    - link = new_orders_url(cart_token: @cart.token)
+    = link_to link, link
+  - else
+    = "Sorry, there are errors: #{@cart.errors.messages.join(', ')}"
+

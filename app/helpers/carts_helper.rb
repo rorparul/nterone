@@ -23,10 +23,12 @@ module CartsHelper
     ['01','02','03','04','05','06','07','08','09','10','11','12']
   end
 
-  def link_to_cart(item)
+  def link_to_cart(item, link=false)
     carted_items    = @cart.order_items.map(&:orderable)
     purchased_items = user_signed_in? ? current_user.purchased_items(orderables: true) : []
-    messages        = if item.class == Event
+    messages        = if link
+                        ['Item in cart', 'Purchased', 'Get link']
+                      elsif item.class == Event
                         ['Registration in cart', 'Registered', 'Register']
                       elsif item.class == VideoOnDemand
                         ['Subscription in cart', 'Subscribed', 'Subscribe']

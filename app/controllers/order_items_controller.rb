@@ -1,4 +1,6 @@
 class OrderItemsController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_order_item, only: [:edit, :update, :destroy]
 
   def create
@@ -141,6 +143,12 @@ class OrderItemsController < ApplicationController
     end
 
     redirect_to :back
+  end
+
+  def get_link
+    @cart = Cart.new
+    @cart.order_items << find_orderable.order_items.build
+    @cart.save
   end
 
   private

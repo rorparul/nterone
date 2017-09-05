@@ -151,7 +151,10 @@
                 label
                   = t('orders.new.student_name')
                 br
-                = current_user.try(:full_name)
+                - if current_user
+                  = current_user.try(:full_name)
+                - else
+                  = f.text_field :first_name, class: 'form-control input-sm'
             .col-xs-12.col-md-6
               .form-group
                 label
