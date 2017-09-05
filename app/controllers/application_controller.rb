@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_region
-    session[:region] = params[:region].to_i  if params[:region]
+    session[:region] = params[:region].to_i if params[:region]
 
     if session[:region].nil?
       session[:region] = case request.host
