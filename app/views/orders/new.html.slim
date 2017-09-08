@@ -146,21 +146,22 @@
           hr
 
           .row
-            .col-xs-12.col-md-6
-              .form-group
-                label
-                  = t('orders.new.student_name')
-                br
-                - if current_user
+            - if current_user
+              .col-xs-12.col-md-6
+                .form-group
+                  label
+                    = t('orders.new.student_name')
+                  br
                   = current_user.try(:full_name)
-                - else
-                  = f.text_field :first_name, class: 'form-control input-sm'
             .col-xs-12.col-md-6
               .form-group
                 label
                   = t('orders.new.student_email')
                 br
-                = current_user.try(:email)
+                - if user_signed_in?
+                  = current_user.try(:email)
+                - else
+                  = f.text_field :email, class: 'form-control input-sm'
 
           fieldset
             label

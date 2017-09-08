@@ -55,6 +55,26 @@ class PermittedParams < Struct.new(:params)
     )
   end
 
+  def guest
+    params.require(:order).permit(
+      :email,
+      :same_addresses,
+      :billing_first_name,
+      :billing_last_name,
+      :billing_street,
+      :billing_city,
+      :billing_state,
+      :billing_zip_code,
+      :shipping_first_name,
+      :shipping_last_name,
+      :shipping_street,
+      :shipping_city,
+      :shipping_state,
+      :shipping_zip_code,
+      :referring_partner_email
+    )
+  end
+
   def cisco_learning_credits
     params.require(:order).permit(
       :clc_number,

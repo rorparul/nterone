@@ -4,6 +4,7 @@ feature 'Purchase Order Item With Link As Guest' do
 
   let!(:cart) { create :cart }
   let!(:order_item) { create :order_item, cart: cart }
+  let(:email) { FFaker::Internet.free_email }
 
   scenario 'with valid card' do
     expect {
@@ -17,6 +18,7 @@ feature 'Purchase Order Item With Link As Guest' do
       select '01', from: 'Exp. M.'
       select '20', from: 'Exp. Y.'
       fill_in 'Code', with: '123'
+      find('#order_email').set email
 
       check('Shipping address is the same')
 
@@ -25,6 +27,8 @@ feature 'Purchase Order Item With Link As Guest' do
     }.to change { Guest.count }.by(1)
 
     expect(page.body).to have_content I18n.t('orders.create.success')
+
+    expect(Guest.last.email).to eq email
 
   end
 
