@@ -27,11 +27,6 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
-VCR.configure do |config|
-  config.cassette_library_dir = Rails.root.join("spec/vcr")
-  config.hook_into :webmock # or :fakeweb
-end
-
 # Automatically record all remote calls (with RSpec)
 RSpec.configure do |config|
   # Add VCR to all tests
