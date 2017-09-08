@@ -15,20 +15,19 @@ http_interactions:
           <clientId>sdk-ruby-1.9.0.2</clientId>
           <transactionRequest>
             <transactionType>authCaptureTransaction</transactionType>
-            <amount>1150.0</amount>
+            <amount>100.0</amount>
             <payment>
               <creditCard>
-                <cardNumber>4111111111111111</cardNumber>
-                <expirationDate>0120</expirationDate>
+                <cardNumber>4007000000027</cardNumber>
+                <expirationDate>112020</expirationDate>
                 <cardCode>123</cardCode>
               </creditCard>
             </payment>
             <billTo>
-              <firstName>Jaida</firstName>
-              <lastName>Block</lastName>
-              <address>131 Lakin Manor</address>
-              <city>Lake Mariahchester</city>
-              <zip>70285-2836</zip>
+              <address>95625 Gardner Coves</address>
+              <city>West Evaborough</city>
+              <state>Missouri</state>
+              <zip>48849</zip>
             </billTo>
           </transactionRequest>
         </createTransactionRequest>
@@ -65,7 +64,7 @@ http_interactions:
       Content-Length:
       - '881'
       Date:
-      - Fri, 08 Sep 2017 07:54:15 GMT
+      - Fri, 08 Sep 2017 07:54:09 GMT
       Connection:
       - keep-alive
     body:
@@ -79,18 +78,18 @@ http_interactions:
         PHJlc3VsdENvZGU+T2s8L3Jlc3VsdENvZGU+PG1lc3NhZ2U+PGNvZGU+STAw
         MDAxPC9jb2RlPjx0ZXh0PlN1Y2Nlc3NmdWwuPC90ZXh0PjwvbWVzc2FnZT48
         L21lc3NhZ2VzPjx0cmFuc2FjdGlvblJlc3BvbnNlPjxyZXNwb25zZUNvZGU+
-        MTwvcmVzcG9uc2VDb2RlPjxhdXRoQ29kZT5aVlhFWlU8L2F1dGhDb2RlPjxh
+        MTwvcmVzcG9uc2VDb2RlPjxhdXRoQ29kZT43TkZaWk88L2F1dGhDb2RlPjxh
         dnNSZXN1bHRDb2RlPlk8L2F2c1Jlc3VsdENvZGU+PGN2dlJlc3VsdENvZGU+
         UDwvY3Z2UmVzdWx0Q29kZT48Y2F2dlJlc3VsdENvZGU+MjwvY2F2dlJlc3Vs
-        dENvZGU+PHRyYW5zSWQ+NDAwMDY1ODEyNzM8L3RyYW5zSWQ+PHJlZlRyYW5z
-        SUQgLz48dHJhbnNIYXNoPjE5QkMzRjQ3OTNCMjNEOTM3MURFRjZFQUJFMTNC
-        NDE4PC90cmFuc0hhc2g+PHRlc3RSZXF1ZXN0PjA8L3Rlc3RSZXF1ZXN0Pjxh
-        Y2NvdW50TnVtYmVyPlhYWFgxMTExPC9hY2NvdW50TnVtYmVyPjxhY2NvdW50
+        dENvZGU+PHRyYW5zSWQ+NDAwMDY1ODEyNjk8L3RyYW5zSWQ+PHJlZlRyYW5z
+        SUQgLz48dHJhbnNIYXNoPjA3M0QxQjgxRkFDQzEyMjE4OTAzNzYzRUM5RkZE
+        RjNCPC90cmFuc0hhc2g+PHRlc3RSZXF1ZXN0PjA8L3Rlc3RSZXF1ZXN0Pjxh
+        Y2NvdW50TnVtYmVyPlhYWFgwMDI3PC9hY2NvdW50TnVtYmVyPjxhY2NvdW50
         VHlwZT5WaXNhPC9hY2NvdW50VHlwZT48bWVzc2FnZXM+PG1lc3NhZ2U+PGNv
         ZGU+MTwvY29kZT48ZGVzY3JpcHRpb24+VGhpcyB0cmFuc2FjdGlvbiBoYXMg
         YmVlbiBhcHByb3ZlZC48L2Rlc2NyaXB0aW9uPjwvbWVzc2FnZT48L21lc3Nh
         Z2VzPjx0cmFuc0hhc2hTaGEyIC8+PC90cmFuc2FjdGlvblJlc3BvbnNlPjwv
         Y3JlYXRlVHJhbnNhY3Rpb25SZXNwb25zZT4=
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 07:49:29 GMT
+  recorded_at: Fri, 08 Sep 2017 07:49:23 GMT
 recorded_with: VCR 3.0.3

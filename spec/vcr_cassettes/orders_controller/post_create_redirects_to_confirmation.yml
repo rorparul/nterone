@@ -15,21 +15,19 @@ http_interactions:
           <clientId>sdk-ruby-1.9.0.2</clientId>
           <transactionRequest>
             <transactionType>authCaptureTransaction</transactionType>
-            <amount>1442.0</amount>
+            <amount>100.0</amount>
             <payment>
               <creditCard>
-                <cardNumber>4111111111111111</cardNumber>
-                <expirationDate>0120</expirationDate>
+                <cardNumber>4007000000027</cardNumber>
+                <expirationDate>112020</expirationDate>
                 <cardCode>123</cardCode>
               </creditCard>
             </payment>
             <billTo>
-              <firstName>Jacynthe</firstName>
-              <lastName>Cartwright</lastName>
-              <address>7485 Clare Run</address>
-              <city>Lake Zanderview</city>
-              <state/>
-              <zip>57492-3849</zip>
+              <address>757 Swift Track</address>
+              <city>Elyssaborough</city>
+              <state>Indiana</state>
+              <zip>15002-8925</zip>
             </billTo>
           </transactionRequest>
         </createTransactionRequest>
@@ -66,7 +64,7 @@ http_interactions:
       Content-Length:
       - '881'
       Date:
-      - Mon, 04 Sep 2017 09:44:07 GMT
+      - Fri, 08 Sep 2017 07:54:12 GMT
       Connection:
       - keep-alive
     body:
@@ -80,18 +78,18 @@ http_interactions:
         PHJlc3VsdENvZGU+T2s8L3Jlc3VsdENvZGU+PG1lc3NhZ2U+PGNvZGU+STAw
         MDAxPC9jb2RlPjx0ZXh0PlN1Y2Nlc3NmdWwuPC90ZXh0PjwvbWVzc2FnZT48
         L21lc3NhZ2VzPjx0cmFuc2FjdGlvblJlc3BvbnNlPjxyZXNwb25zZUNvZGU+
-        MTwvcmVzcG9uc2VDb2RlPjxhdXRoQ29kZT5QQzMzT0c8L2F1dGhDb2RlPjxh
+        MTwvcmVzcG9uc2VDb2RlPjxhdXRoQ29kZT5MUlU4Q1I8L2F1dGhDb2RlPjxh
         dnNSZXN1bHRDb2RlPlk8L2F2c1Jlc3VsdENvZGU+PGN2dlJlc3VsdENvZGU+
         UDwvY3Z2UmVzdWx0Q29kZT48Y2F2dlJlc3VsdENvZGU+MjwvY2F2dlJlc3Vs
-        dENvZGU+PHRyYW5zSWQ+NDAwMDYyMjgyMTE8L3RyYW5zSWQ+PHJlZlRyYW5z
-        SUQgLz48dHJhbnNIYXNoPjEwRUREODIwNDQ3ODg0RjdBMTNCQjNGOTMwMkNG
-        MzZGPC90cmFuc0hhc2g+PHRlc3RSZXF1ZXN0PjA8L3Rlc3RSZXF1ZXN0Pjxh
-        Y2NvdW50TnVtYmVyPlhYWFgxMTExPC9hY2NvdW50TnVtYmVyPjxhY2NvdW50
+        dENvZGU+PHRyYW5zSWQ+NDAwMDY1ODEyNzI8L3RyYW5zSWQ+PHJlZlRyYW5z
+        SUQgLz48dHJhbnNIYXNoPjI3OTk4RjlBQkZCNUU0RTg3MDVBQzlCRkY3Q0Y0
+        NUJCPC90cmFuc0hhc2g+PHRlc3RSZXF1ZXN0PjA8L3Rlc3RSZXF1ZXN0Pjxh
+        Y2NvdW50TnVtYmVyPlhYWFgwMDI3PC9hY2NvdW50TnVtYmVyPjxhY2NvdW50
         VHlwZT5WaXNhPC9hY2NvdW50VHlwZT48bWVzc2FnZXM+PG1lc3NhZ2U+PGNv
         ZGU+MTwvY29kZT48ZGVzY3JpcHRpb24+VGhpcyB0cmFuc2FjdGlvbiBoYXMg
         YmVlbiBhcHByb3ZlZC48L2Rlc2NyaXB0aW9uPjwvbWVzc2FnZT48L21lc3Nh
         Z2VzPjx0cmFuc0hhc2hTaGEyIC8+PC90cmFuc2FjdGlvblJlc3BvbnNlPjwv
         Y3JlYXRlVHJhbnNhY3Rpb25SZXNwb25zZT4=
     http_version: 
-  recorded_at: Mon, 04 Sep 2017 09:44:07 GMT
+  recorded_at: Fri, 08 Sep 2017 07:49:26 GMT
 recorded_with: VCR 3.0.3
