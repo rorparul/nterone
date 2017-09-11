@@ -205,6 +205,14 @@ class Event < ActiveRecord::Base
     course.try(:platform).try(:title)
   end
 
+  def checklist_completed?
+    if checklist
+      (checklist.items.map(&:id) - checklist_items.map(&:id)).empty?
+    else
+      false
+    end
+  end
+
   private
 
   def create_gtr_alert
