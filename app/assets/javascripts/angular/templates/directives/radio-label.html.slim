@@ -3,5 +3,5 @@
     | {{ label }}
   .radio[ng-repeat="radio in radios"]
     label
-      input[type="radio" name="radio-primary" ng-model="model" ng-value="radio.value" ng-change="setCurrent(radio)"]
+      input[type="radio" name="radio-primary" ng-model="model" ng-value="radio.value" ng-click="setCurrent(radio)"]
       span[ng-bind-html="radio.label"]
