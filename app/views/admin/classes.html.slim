@@ -22,6 +22,9 @@
       strong.text-muted Classes
     .container-muted style="height: 60px;"
       = link_to t('default.action.upload'), events_upload_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      '
+      = link_to t('default.partial_tabs.checklists'), admin_checklists_path, class: 'btn btn-default btn-sm', role: 'button'
+
       = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:events, {class: "input-search"}) do
@@ -32,12 +35,12 @@
           span class="input-group-btn"
             button class="btn btn-default btn-sm disabled" type="submit"
               span.glyphicon.glyphicon-search
-      
+
         .checkbox.inline
           = hidden_field_tag :only_registered, "0"
           = check_box_tag :only_registered, "1", cookies[:only_registered] == "1", class: "only-registered", style: "margin-right: 5px;"
           = t('admins.classes.registered')
-              
+
         - unless current_user.partner?
           .checkbox.inline style="margin-right: 35px;"
             = hidden_field_tag :including_past, "0"

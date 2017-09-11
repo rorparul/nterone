@@ -22,6 +22,8 @@
       strong.text-muted= t('admin.partial_tabs.checklists')
     .container-muted style="height: 60px;"
       = link_to t('default.action.new'), new_admin_checklist_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      '
+      = link_to t('default.partial_tabs.classes'), admin_classes_path, class: 'btn btn-default btn-sm', role: 'button'
 
     = smart_listing_render(:checklists)
 

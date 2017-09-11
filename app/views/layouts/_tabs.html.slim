@@ -38,17 +38,9 @@
             = t 'admins.partial_tabs.my_classes'
 
       - if current_user.admin? || current_user.sales?
-        li.dropdown.classes role="presentation"
-          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-            | Classes
-            span.caret
-          ul.dropdown-menu
-            li
-              a href="#{admin_classes_path}"
-                = t 'admins.partial_tabs.classes'
-            li
-              a href="#{admin_checklists_path}"
-                = t 'admins.partial_tabs.checklists'
+        li.classes role="presentation"
+          a href="#{admin_classes_path}"
+            = t 'admins.partial_tabs.classes'
 
       - if current_user.admin?
         li.courses role="presentation"
