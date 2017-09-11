@@ -98,7 +98,7 @@ en:
       start_date: "Start Date"
       start_time: "Start Time"
       view: "View"
-      checklist: "Checklist"
+      checklist: "L"
     partial_show:
       active: "Active:"
       add_student: "Add Student"

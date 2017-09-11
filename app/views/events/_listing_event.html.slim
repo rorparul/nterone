@@ -16,6 +16,10 @@ tr
         span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
   td.fit = event.id
   td.fit
+    - if event.checklist
+      = link_to admin_checklist_path(event.checklist, event_id: event.id), title: t('events.partial_listing.checklist'), remote: true do
+        i class="fa fa-list" aria-hidden="true"
+  td.fit
     = link_to edit_in_house_note_path(event), remote: true do
       - if event.in_house_note.present?
         span.fa.fa-sticky-note  class="in-house-note-icon-#{event.id}"
@@ -66,7 +70,3 @@ tr
   td.fit
     = link_to platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.delete'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
       i.text-danger class="fa fa-trash-o" aria-hidden="true"
-  td.fit
-    - if event.checklist
-      = link_to admin_checklist_path(event.checklist, event_id: event.id), title: t('events.partial_listing.checklist'), remote: true do
-        i class="fa fa-list" aria-hidden="true"

@@ -98,7 +98,7 @@ es:
       start_date: "Fecha de Inicio"
       start_time: "Hora de Inicio"
       view: "Vista"
-      checklist: "Lista de verificación"
+      checklist: "L"
     partial_show:
       active: "Activo:"
       add_student: "Agregar Estudiante"
