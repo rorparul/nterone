@@ -32,4 +32,16 @@ class OrderMailer < ApplicationMailer
       subject: 'POD Rental'
     )
   end
+
+  def you_have_left_order_items cart
+    @cart = cart
+    @user = cart.try(:user)
+
+    if @cart && @user
+      mail(
+        to: @user.email,
+        subject: t('.subject')
+      )
+    end
+  end
 end

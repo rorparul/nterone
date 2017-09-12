@@ -1,0 +1,31 @@
+p== t('.hello', name: @user.full_name)
+
+
+p== t('.you_have_left_order_items')
+
+hr
+table
+  - @cart.order_items.each do |order_item|
+    tr
+      - if order_item.orderable_type == 'Event'
+        td = link_to order_item.orderable.course.full_title, platform_course_url(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
+        td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+        td = order_item.orderable.format
+      - if order_item.orderable_type == 'VideoOnDemand'
+        td = link_to order_item.orderable.full_title, platform_video_on_demand_url(order_item.orderable.platform, order_item.orderable), target: "_blank"
+        td
+          = t('order_mailer.confirmation.copy5')
+        td
+          = t('order_mailer.confirmation.copy6')
+      - if order_item.orderable_type == 'LabRental'
+        td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
+        td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
+        td = t('order_mailer.confirmation.pod_rental')
+      - if order_item.price > 0.00
+        td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+      - else
+        td
+          = t('order_mailer.confirmation.copy7')
+hr
+
+p== t('.thanks')
