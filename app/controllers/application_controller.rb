@@ -3,9 +3,10 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   include CurrentCart
 
+  before_filter :_set_current_session
+  before_action :set_region
   before_action :prepare_exception_notifier
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_locale
   before_action :record_user_activity
   before_action :get_external_source_values
   before_action :set_cart
@@ -98,17 +99,6 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def set_locale
-    case request.host
-    when 'www.nterone.com'
-      I18n.locale = :en
-    when 'www.nterone.la'
-      I18n.locale = :es
-    else
-      I18n.locale = :en
-    end
-  end
-
   def store_location
     session[:previous_url] = request.fullpath unless skip_path_store?
   end
@@ -147,6 +137,45 @@ class ApplicationController < ActionController::Base
 
   def true?(string)
     string == 'true'
+  end
+
+  def permitted_params
+    @permitted_params ||= PermittedParams.new(params)
+  end
+
+  def set_region
+    session[:region] = params[:region].to_i if params[:region]
+
+    if session[:region].nil?
+      session[:region] = case request.host
+        when 'www.nterone.com'
+          0
+        when 'www.nterone.la'
+          1
+        else
+          2
+        end
+    end
+
+    case session[:region]
+    when 0, 2
+      I18n.locale = :en
+    else
+      I18n.locale = :es
+    end
+  end
+
+  def _set_current_session
+    # Define an accessor. The session is always in the current controller
+    # instance in @_request.session. So we need a way to access this in
+    # our model
+    accessor = instance_variable_get(:@_request)
+
+    # This defines a method session in ActiveRecord::Base. If your model
+    # inherits from another Base Class (when using MongoMapper or similar),
+    # insert the class here.
+    ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})
+    ActiveRecord::Base.send(:define_singleton_method, "session", proc {accessor.session})
   end
 
   def set_gon

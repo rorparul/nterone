@@ -4,9 +4,12 @@
       li.active role="presentation"
         a[aria-controls="signature-basic" data-toggle="tab" href="#signature-basic" role="tab"]
           = t("admins.tools.basic")
-      / li role="presentation"
-      /   a[aria-controls="signature-social" data-toggle="tab" href="#signature-social" role="tab"]
-      /     = t("admins.tools.social")
+      li role="presentation"
+        a[aria-controls="signature-social" data-toggle="tab" href="#signature-social" role="tab"]
+          = t("admins.tools.social")
+      li role="presentation"
+        a[aria-controls="signature-links" data-toggle="tab" href="#signature-links" role="tab"]
+          = t("admins.tools.links")
 
     br
     form[name="signatureForm"]
@@ -30,14 +33,24 @@
 
         #signature-social.tab-pane.fade role="tabpanel"
           .row
-            .col-xs-6
-              input-label[model="twitter" label="Twitter"]
-              input-label[model="facebook" label="Facebook"]
+            .col-xs-12
+              input-label[model="facebook" label="Facebook" value="https://www.facebook.com/pages/NterOne-Corporation/214212902033061"]
+              input-label[model="twitter" label="Twitter" value="https://twitter.com/NterOne"]
+              input-label[model="linkedin" label="LinkedIn" value="http://www.linkedin.com/company/nterone"]
               input-label[model="google_plus" label="Google+"]
-            .col-xs-6
-              input-label[model="linkedin" label="LinkedIn"]
-              input-label[model="instagram" label="Instagram"]
               input-label[model="youtube" label="Youtube"]
+              input-label[model="vimeo" label="Vimeo"]
+              input-label[model="instagram" label="Instagram"]
+
+        #signature-links.tab-pane.fade role="tabpanel"
+          .row
+            .col-xs-12
+              input-label[model="link1" label="Link 1" value="http://www.prweb.com/releases/2015/NterOneWinsCiscoAward/prweb12459840.htm"]
+              input-label[model="link1_text" label="Link 1 Text" value="Cisco Innovation Award Winner - 1st Quarter, FY 2015"]
+              input-label[model="link2" label="Link 2" value="http://www.prweb.com/releases/2014/04/prweb11727489.htm"]
+              input-label[model="link2_text" label="Link 2 Text" value="Cisco Acceleration Learning Partner of the Year - 2014"]
+              input-label[model="link3" label="Link 3" value="https://www.nterone.com/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"]
+              input-label[model="link3_text" label="Link 3 Text" value="Cisco Americas Learning Partner of the Year – 2016"]
 
   .col-md-6
     .well.signature
@@ -103,45 +116,84 @@
             span style="font-size:14.0pt"
             p
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style=("font-family:&quot;Times New Roman&quot;")  Join us on Facebook, Twitter, and Linkedin:
+              span style=("font-family:&quot;Times New Roman&quot;")  Join us on
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              a href="https://www.facebook.com/pages/NterOne-Corporation/214212902033061" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                  img src=(image_path("signature/facebook.png")) style="width:25px"
-              span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
-              a href="https://twitter.com/NterOne" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                  img src=(image_path("signature/twitter.png")) style="width:25px"
-              span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
-              a href="http://www.linkedin.com/company/nterone?trk=hb_tab_compy_id_339800" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                  img src=(image_path("signature/linkedin.png")) style="width:25px"
-              span style=("font-family:&quot;Times New Roman&quot;")
+
+              span[ng-if="facebook"]
+                a href="{{facebook}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/facebook.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="twitter"]
+                a href="{{twitter}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/twitter.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="linkedin"]
+                a href="{{linkedin}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/linkedin.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="google_plus"]
+                a href="{{google_plus}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/google-plus.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="youtube"]
+                a href="{{youtube}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/youtube.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="vimeo"]
+                a href="{{vimeo}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/vimeo.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
+              span[ng-if="instagram"]
+                a href="{{instagram}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
+                    img src=(image_path("signature/instagram.png")) style="width:25px"
+                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+
             p
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+
+            p ng-if="link1" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style=("font-family:&quot;Times New Roman&quot;")
-                a href="http://www.prweb.com/releases/2015/NterOneWinsCiscoAward/prweb12459840.htm" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                a href="{{link1}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
                   span style="color:#0563c1"
-                    | Cisco Innovation Award Winner - 1
-                    sup st
-                    | Quarter, FY 2015
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+                    | {{ link1_text }}
+
+            p ng-if="link2" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style=("font-family:&quot;Times New Roman&quot;")
-                a href="http://www.prweb.com/releases/2014/04/prweb11727489.htm" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                a href="{{link2}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
                   span style="color:#0563c1"
-                    | Cisco Acceleration Learning Partner of the Year - 2014
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+                    | {{ link2_text }}
+
+            p ng-if="link3" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style=("font-family:&quot;Times New Roman&quot;")
-                a href="https://www.nterone.com/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+                a href="{{link3}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
                   span style="color:#0563c1"
-                    | Cisco Americas Learning Partner of the Year&nbsp;–&nbsp;2016
-                | &nbsp;&nbsp;&nbsp;
+                    | {{ link3_text }}
+
             .yj6qo
             .adL
           .adL
         .adL
+        br
+        p style=("margin:0in 0in 0.0001pt;font-size:10pt;font-family:Calibri")
+          span style=("font-family:&quot;Times New Roman&quot;")
+            a href=(admin_tools_path) style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
+              span style="color:#0563c1"
+                = t("admins.tools.link_to_tools")
+
 
     .form-group
       label
@@ -236,4 +288,3 @@
       /         td colspan="2" style="max-width: 500px; text-align: justify; padding-top: 15px; border-top: 1px solid rgb(169, 169, 169); font-size: 8pt; color: rgb(136, 136, 136);"
       /           font style="font-family: Arial; font-size: 8pt; color: rgb(136), 136, 136);"
       /             | {{ footer_text }}
-

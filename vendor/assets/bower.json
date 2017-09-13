@@ -1,6 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
+    "country-region-selector": "latest",
+    "payform": "latest",
     "angular": "latest",
     "lodash": "latest"
   }

@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <createTransactionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>2DV3kpq3h5s</name>
+            <transactionKey>7J4JW36N64sE9thh</transactionKey>
+          </merchantAuthentication>
+          <clientId>sdk-ruby-1.9.0.2</clientId>
+          <transactionRequest>
+            <transactionType>authCaptureTransaction</transactionType>
+            <amount>100.0</amount>
+            <payment>
+              <creditCard>
+                <cardNumber>4111111111111111</cardNumber>
+                <expirationDate>0621</expirationDate>
+                <cardCode>123</cardCode>
+              </creditCard>
+            </payment>
+            <billTo>
+              <firstName>Test</firstName>
+              <lastName>Test</lastName>
+              <address>Test</address>
+              <city>Test</city>
+              <state>Test</state>
+              <zip>190190</zip>
+            </billTo>
+          </transactionRequest>
+        </createTransactionRequest>
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - text/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/xml; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - PUT,OPTIONS,POST,GET
+      Access-Control-Allow-Headers:
+      - x-requested-with,cache-control,content-type,origin,method,SOAPAction
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '857'
+      Date:
+      - Fri, 25 Aug 2017 23:34:48 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48Y3Jl
+        YXRlVHJhbnNhY3Rpb25SZXNwb25zZSB4bWxuczp4c2k9Imh0dHA6Ly93d3cu
+        dzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxuczp4c2Q9Imh0
+        dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hIiB4bWxucz0iQW5ldEFw
+        aS94bWwvdjEvc2NoZW1hL0FuZXRBcGlTY2hlbWEueHNkIj48bWVzc2FnZXM+
+        PHJlc3VsdENvZGU+RXJyb3I8L3Jlc3VsdENvZGU+PG1lc3NhZ2U+PGNvZGU+
+        RTAwMDI3PC9jb2RlPjx0ZXh0PlRoZSB0cmFuc2FjdGlvbiB3YXMgdW5zdWNj
+        ZXNzZnVsLjwvdGV4dD48L21lc3NhZ2U+PC9tZXNzYWdlcz48dHJhbnNhY3Rp
+        b25SZXNwb25zZT48cmVzcG9uc2VDb2RlPjM8L3Jlc3BvbnNlQ29kZT48YXV0
+        aENvZGUgLz48YXZzUmVzdWx0Q29kZT5QPC9hdnNSZXN1bHRDb2RlPjxjdnZS
+        ZXN1bHRDb2RlIC8+PGNhdnZSZXN1bHRDb2RlIC8+PHRyYW5zSWQ+MDwvdHJh
+        bnNJZD48cmVmVHJhbnNJRCAvPjx0cmFuc0hhc2g+MjQ3QTc2QkIwOEM3OTJF
+        QTc2RDEzN0Q2Nzg1MzE3MkQ8L3RyYW5zSGFzaD48dGVzdFJlcXVlc3Q+MDwv
+        dGVzdFJlcXVlc3Q+PGFjY291bnROdW1iZXI+WFhYWDExMTE8L2FjY291bnRO
+        dW1iZXI+PGFjY291bnRUeXBlPlZpc2E8L2FjY291bnRUeXBlPjxlcnJvcnM+
+        PGVycm9yPjxlcnJvckNvZGU+MTE8L2Vycm9yQ29kZT48ZXJyb3JUZXh0PkEg
+        ZHVwbGljYXRlIHRyYW5zYWN0aW9uIGhhcyBiZWVuIHN1Ym1pdHRlZC48L2Vy
+        cm9yVGV4dD48L2Vycm9yPjwvZXJyb3JzPjx0cmFuc0hhc2hTaGEyIC8+PC90
+        cmFuc2FjdGlvblJlc3BvbnNlPjwvY3JlYXRlVHJhbnNhY3Rpb25SZXNwb25z
+        ZT4=
+    http_version: 
+  recorded_at: Fri, 25 Aug 2017 23:33:55 GMT
+recorded_with: VCR 3.0.3

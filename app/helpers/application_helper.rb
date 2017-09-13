@@ -93,6 +93,10 @@ module ApplicationHelper
     ]
   end
 
+  def current_country
+    "US"
+  end
+
   def angular_templates templates_path
     templates = Dir[templates_path + '**/*'].select { |f| File.file? f }
     templates.inject("") do |js, template|

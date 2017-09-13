@@ -1,0 +1,15 @@
+{
+  "name": "payform",
+  "main": "dist/payform.js",
+  "homepage": "https://github.com/jondavidjohn/payform",
+  "version": "1.2.1",
+  "_release": "1.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.1",
+    "commit": "775ae810a57d0f0fbeaa347330a9747f0c3278d9"
+  },
+  "_source": "https://github.com/jondavidjohn/payform.git",
+  "_target": "*",
+  "_originalSource": "payform"
+}

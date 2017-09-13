@@ -85,7 +85,7 @@ class Category < ActiveRecord::Base
       if a.abbreviation && b.abbreviation
         a.abbreviation.downcase <=> b.abbreviation.downcase
       else
-        a.title.downcase <=> b.title.abbreviation
+        a.title.downcase <=> b.abbreviation.try(:downcase)
       end
       a.partner_led.to_s <=> b.partner_led.to_s
     end
