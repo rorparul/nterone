@@ -88,8 +88,8 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-sidekiq'
   gem 'capistrano-ssh-doctor'
-  gem 'capistrano', '~> 3.5.0'
-  gem 'dotenv-rails'
+  gem 'capistrano', '~> 3.9.0'
+  gem 'dotenv-rails', require: "dotenv/rails-now"
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
@@ -114,4 +114,6 @@ group :test do
   gem 'rspec-rails', '= 3.5.0.beta3'
   gem 'rspec', '= 3.5.0.beta3'
   gem 'shoulda-matchers', require: false
+  gem 'vcr'
+  gem 'webmock'
 end

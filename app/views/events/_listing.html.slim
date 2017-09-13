@@ -6,6 +6,7 @@
           th.fit Origin
           th.fit Active
           th.fit = smart_listing.sortable "#{t('events.partial_listing.id')}", :id
+          th.fit = "#{t('events.partial_listing.checklist')}"
           th.fit = "#{t('events.partial_listing.note')}"
           th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
           th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
@@ -20,7 +21,7 @@
           th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
           th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
           th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
-          th.fit colspan="5" = t('events.partial_listing.actions')
+          th.fit colspan="4" = t('events.partial_listing.actions')
 
       tbody
         - if @grouped_events.present?

@@ -24,6 +24,7 @@ class Payment::CreateService
     if successfull_response?(response)
       ResultObjects::Success.new(response_data(request, response))
     else
+      log_payment_error(response)
       ResultObjects::Failure.new(response)
     end
   end
@@ -38,7 +39,7 @@ class Payment::CreateService
 
   def set_payment(request)
     credit_card = CreditCardType.new(
-      @cc_params[:credit_card_number],
+      @cc_params[:credit_card_number].gsub(' ', ''),
       exparation_date,
       @cc_params[:security_code]
     )
@@ -78,5 +79,16 @@ class Payment::CreateService
       auth_code: response.transactionResponse.authCode,
       amount: request.transactionRequest.amount
     }
+  end
+
+  def log_payment_error(response)
+    if response.try(:transactionResponse).try(:errors).try(:errors).try(:first)
+      Rails.logger.info response.messages.messages[0].text
+      Rails.logger.info response
+
+      first_error = response.transactionResponse.errors.errors[0]
+      Rails.logger.info first_error.errorCode
+      Rails.logger.info first_error.errorText
+    end
   end
 end

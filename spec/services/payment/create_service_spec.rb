@@ -1,34 +1,30 @@
 require 'rails_helper'
 
 describe Payment::CreateService do
+  let(:user) { create :user }
+  let(:order) { build(:order, buyer: user) }
+
+  before :each do
+    @order_params = order_params
+  end
+
+  subject { described_class.new(@order_params, cc_params).call }
+
   context 'with correct data' do
-    before :each do
-      stub_class_correct
-    end
-
-    it 'should create new payment' do
-      service_result = described_class.new(order_params, cc_params).call
-      expect(service_result.success?).to be_truthy
-    end
-
-    it 'should return response data' do
-      service_result = described_class.new(order_params, cc_params).call
-
-      expect(service_result.data).to be_kind_of(Hash)
-      expect(service_result.data[:auth_code]).not_to be(nil)
-      expect(service_result.data[:amount]).not_to be(nil)
-    end
+    it { expect(subject.success?).to be_truthy }
+    it { expect(subject.data).to be_kind_of(Hash) }
+    it { expect(subject.data[:auth_code]).not_to be(nil) }
+    it { expect(subject.data[:amount]).not_to be(nil) }
   end
 
   context 'with incorrect data' do
     before :each do
-      stub_class_incorrect
+      @order_params[:billing_zip_code] = "46203"
+
+      expect_any_instance_of(described_class).to receive(:log_payment_error)
     end
 
-    it 'should return failure result' do
-      service_result = described_class.new(order_params, cc_params).call
-      expect(service_result.failure?).to be_truthy
-    end
+    it { expect(subject).to be_truthy }
   end
 
 private
@@ -51,17 +47,5 @@ private
       billing_state: 'TX',
       billing_zip_code: '1344'
     }
-  end
-
-  def stub_class_correct
-    allow_any_instance_of(described_class).to receive(:create_transaction).and_return({})
-    allow_any_instance_of(described_class).to receive(:successfull_response?).and_return(true)
-    allow_any_instance_of(described_class).to receive(:response_data)
-      .and_return({ auth_code: '', amount: 10 })
-  end
-
-  def stub_class_incorrect
-    allow_any_instance_of(described_class).to receive(:call)
-      .and_return(ResultObjects::Failure.new({}))
   end
 end

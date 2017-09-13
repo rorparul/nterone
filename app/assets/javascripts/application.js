@@ -16,6 +16,8 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require country-region-selector
+//= require payform/dist/jquery.payform.min
 //= require froala_editor.min.js
 //= require plugins/font_family.min.js
 //= require plugins/font_size.min.js

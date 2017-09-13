@@ -3,3 +3,6 @@
 
 # asset 'bootstrap'
 
+asset 'country-region-selector'
+asset 'payform'
+
