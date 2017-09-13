@@ -18,18 +18,22 @@
           .row
             .col-xs-6
               input-label[type="text" model="name" value=(current_user.try(:full_name)) label=(t('default.label.name'))]
-              input-label[type="email" model="email" value=(current_user.try(:email)) label=(t('default.label.email'))]
-
+          .row
             .col-xs-6
-              input-label[type="text" model="phone" value=(current_user.try(:contact_number)) label=(t('default.label.phone'))]
-              input-label[type="text" model="skype" value="" label="Skype"]
               input-label[type="text" model="job_title" value=(current_user.try(:business_title)) label=(t('default.label.job_title'))]
           .row
+            .col-xs-4
+              input-label[type="text" model="office" value="" label="Office Phone"]
+            .col-xs-2
+              input-label[type="text" model="office_ext" value="" label="Ext"]
+            .col-xs-6
+              input-label[type="text" model="phone" value=(current_user.try(:contact_number)) label="Cell Phone"]
+          .row
+            .col-xs-6
+              input-label[type="text" model="skype" value="" label="Skype"]
+          .row
             .col-xs-12
-              / input-label[type="text" model="address" value=(current_user.try(:full_address)) label=(t('default.label.address'))]
               radio-label[type="text" radios="logos" model="logo_url" label="Logo"]
-
-              / textarea-label[model="footer_text" label=(t('default.label.footer_text'))]
 
         #signature-social.tab-pane.fade role="tabpanel"
           .row
@@ -45,24 +49,18 @@
         #signature-links.tab-pane.fade role="tabpanel"
           .row
             .col-xs-12
-              input-label[model="link1" label="Link 1" value="http://www.prweb.com/releases/2015/NterOneWinsCiscoAward/prweb12459840.htm"]
-              input-label[model="link1_text" label="Link 1 Text" value="Cisco Innovation Award Winner - 1st Quarter, FY 2015"]
-              input-label[model="link2" label="Link 2" value="http://www.prweb.com/releases/2014/04/prweb11727489.htm"]
-              input-label[model="link2_text" label="Link 2 Text" value="Cisco Acceleration Learning Partner of the Year - 2014"]
-              input-label[model="link3" label="Link 3" value="https://www.nterone.com/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"]
-              input-label[model="link3_text" label="Link 3 Text" value="Cisco Americas Learning Partner of the Year – 2016"]
+              input-label[model="link1" label="Link 1" value="https://www.nterone.com/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"]
+              input-label[model="link1_text" label="Link 1 Text" value="NterOne Awarded Cisco Americas Learning Partner of the Year - 2016"]
+              input-label[model="link2" label="Link 2" value="https://www.nterone.com/articles/nterone-corporation-wins-cisco-innovation-award"]
+              input-label[model="link2_text" label="Link 2 Text" value="NterOne Corporation Wins Cisco Innovation Award - 2015"]
+              input-label[model="link3" label="Link 3" value="https://www.nterone.com/articles/nterone-wins-acceleration-learning-partner-of-the-year"]
+              input-label[model="link3_text" label="Link 3 Text" value="NterOne Wins Acceleration Learning Partner of the Year - 2014"]
 
   .col-md-6
     .well.signature
       div style="color:rgb(0,0,0)"
         div
           div
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
-                br/
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              b
-                span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"  &nbsp;
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri") ng-if="name"
               b
                 span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
@@ -76,15 +74,23 @@
               br
               span style="font-size:14.0pt"
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office"
+                | Office:
+                '
+                a href="tel:{{ office }}" target="_blank" value="{{office}}"
+                  | {{ office }}
+                  span[style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office_ext"]
+                    |  ext. {{ office_ext }}
+              span[style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office && phone"]
+                '
+                | |
+                '
               span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="phone"
                 | Cell:
                 '
                 a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
                   | {{ phone }}
-              span[style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="phone && skype"]
-                '
-                | |
-                '
+            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="skype"
                 | Skype:
                 '
@@ -103,17 +109,7 @@
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
               span style="font-size:14.0pt"
             span style="font-size:14.0pt"
-              img src=(image_path("signature/vmware.png")) style="max-width:100%" /
-            span style="font-size:14.0pt"  &nbsp;
-            span style="font-size:14.0pt"
-              img src=(image_path("signature/microsoft.png")) style="max-width:100%" /
-            span style="font-size:14.0pt"  &nbsp;&nbsp;
-            span style="font-size:14.0pt"
-              img src=(image_path("signature/gsa.png")) style="max-width:100%" /
-            span style="font-size:14.0pt"  &nbsp;&nbsp;
-            span style="font-size:14.0pt"  &nbsp;
-            span style="font-size:14.0pt"
-              img src=(image_path("signature/cisco.png")) style="max-width:100%" /
+              img src=(image_path("signature/vendor-banner.png")) style="max-width:100%" /
             span style="font-size:14.0pt"
             p
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
@@ -184,18 +180,6 @@
                   span style="color:#0563c1"
                     | {{ link3_text }}
 
-            .yj6qo
-            .adL
-          .adL
-        .adL
-        br
-        p style=("margin:0in 0in 0.0001pt;font-size:10pt;font-family:Calibri")
-          span style=("font-family:&quot;Times New Roman&quot;")
-            a href=(admin_tools_path) style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-              span style="color:#0563c1"
-                = t("admins.tools.link_to_tools")
-
-
     .form-group
       label
         | Embed
@@ -203,89 +187,3 @@
       span.help-block
         a[href=(t("admins.tools.embed_to_outlook_how_to_link"))]
           = t("admins.tools.embed_to_outlook_how_to")
-
-      /   table border="0" cellpadding="0" cellspacing="0" style=""
-      /     tbody
-      /       tr
-      /         td style=("padding-bottom: 15px;")
-      /           table border="0" cellpadding="0" cellspacing="0"
-      /             tbody
-      /               tr
-      /                 td style=("padding-right: 15px; border-right: 2px solid #a9a9a9; vertical-align: top;")
-      /                   table border="0" cellpadding="0" cellspacing="0"
-      /                     tbody
-      /                       tr[ng-if="name"]
-      /                         td style="font-family: Arial; font-size: 12pt; color: rgb(51, 51, 51);"
-      /                           font style="font-family: Arial; font-size: 12pt; color: rgb(51, 51, 51);"
-      /                             strong
-      /                               | {{ name }}
-      /                       tr[ng-if="job_title"]
-      /                         td style="font-family: Arial; font-size: 10pt; color: rgb(51, 51, 51);"
-      /                           font style="font-family: Arial; font-size: 10pt; color: rgb(51, 51, 51);"
-      /                             | {{ job_title }}
-      /                 td style=("padding-left: 15px;")
-      /                   table border="0" cellpadding="0" cellspacing="0"
-      /                     tbody
-      /                       tr[ng-if="phone"]
-      /                         td style=("font-family: Arial; font-size: 10pt;")
-      /                           font style=("color: #333333; font-size: 10pt; font-family: Arial")
-      /                             strong> Mob:
-      /                             | &nbsp;
-      /                             a href="tel:{{ phone }}" style=("color: #06c")
-      /                               | {{ phone }}
-      /                       tr[ng-if="email"]
-      /                         td style=("font-family: Arial; font-size: 10pt;")
-      /                           font style=("color: #333333; font-size: 10pt; font-family: Arial")
-      /                             strong> Email:
-      /                             | &nbsp;
-      /                             a href="mailto:{{ email }}" style=("color: #06c")
-      /                               | {{ email }}
-      /                       tr[ng-if="website"]
-      /                         td style=("font-family: Arial; font-size: 10pt;")
-      /                           font style=("color: #333333; font-size: 10pt; font-family: Arial")
-      /                             strong> Web:
-      /                             | &nbsp;
-      /                             a href="{{ website }}" style=("color: #06c")
-      /                               | {{ website }}
-      /                       tr[ng-if="company_name"]
-      /                         td style=("font-family: Arial; font-size: 10pt;")
-      /                           font style=("color: #333333; font-size: 10pt; font-family: Arial")
-      /                             strong> Company:
-      /                             | &nbsp;
-      /                             | {{ company_name }}
-      /                       tr[ng-if="address"]
-      /                         td style=("font-family: Arial; font-size: 10pt;")
-      /                           font style=("color: #333333; font-size: 10pt; font-family: Arial")
-      /                             strong> Address:
-      /                             | &nbsp;
-      /                             | {{ address }}
-      /               tr
-      /                 td align="left" style="padding-top: 15px; padding-right: 15px; border-right: 2px solid #a9a9a9; vertical-align: middle" valign="middle"
-      /                   span
-      /                     img#TemplateLogo width="150px" src="{{ photo_url }}" style=("display: block")
-      /                 td align="left" style=("padding-top: 15px; padding-left: 15px; vertical-align: middle") valign="middle"
-      /                   table border="0" cellpadding="0" cellspacing="0"
-      /                     tbody
-      /                       tr
-      /                         td[ng-if="twitter"]
-      /                           a href="{{twitter}}"
-      /                             = image_tag image_url("signature/twitter.png"), width: "30px"
-      /                         td[ng-if="facebook"]
-      /                           a href="{{facebook}}"
-      /                             = image_tag image_url("signature/facebook.png"), width: "30px"
-      /                         td[ng-if="google_plus"]
-      /                           a href="{{google_plus}}"
-      /                             = image_tag image_url("signature/google-plus.png"), width: "30px"
-      /                         td[ng-if="linkedin"]
-      /                           a href="{{linkedin}}"
-      /                             = image_tag image_url("signature/linkedin.png"), width: "30px"
-      /                         td[ng-if="instagram"]
-      /                           a href="{{instagram}}"
-      /                             = image_tag image_url("signature/instagram.png"), width: "30px"
-      /                         td[ng-if="youtube"]
-      /                           a href="{{youtube}}"
-      /                             = image_tag image_url("signature/youtube.png"), width: "30px"
-      /       tr[ng-if="footer_text"]
-      /         td colspan="2" style="max-width: 500px; text-align: justify; padding-top: 15px; border-top: 1px solid rgb(169, 169, 169); font-size: 8pt; color: rgb(136, 136, 136);"
-      /           font style="font-family: Arial; font-size: 8pt; color: rgb(136), 136, 136);"
-      /             | {{ footer_text }}
