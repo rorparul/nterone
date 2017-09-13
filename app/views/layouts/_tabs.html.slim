@@ -80,6 +80,10 @@
         li.website role="presentation"
           a.nav-pill href="#{admin_website_path}"
             = t('layouts.partial_tabs.marketing')
+      - if current_user.has_any_role? %i(admin sales_manager sales_rep partner_admin)
+        li.tools role="presentation"
+          a.nav-pill href="#{admin_tools_path}"
+            = t('admins.partial_tabs.tools')
       - if current_user
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"

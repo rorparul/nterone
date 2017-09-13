@@ -46,6 +46,12 @@ es:
       description: "Descripción"
       actions: "Comportamiento"
       items: "Artículos"
+      job_title: "Título Profesional"
+      company_name: "Nombre de empresa"
+      website: "Sitio web"
+      address: "Dirección"
+      photo_url: "URL de la foto"
+      footer_text: "Texto de pie de página"
     placeholder:
       no_records: "No registros encontrados."
       search_form: "Buscar por Certificaciones, cursos o exámenes"
