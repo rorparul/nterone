@@ -24,6 +24,3 @@ angular
         setTimeout ()->
           textarea.select()
         , 10
-
-
-

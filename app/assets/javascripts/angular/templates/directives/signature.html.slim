@@ -71,7 +71,8 @@
               span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
                 | {{ job_title }} | NterOne Corporation&nbsp;|&nbsp;
                 a href="http://nterone.com/" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style="color:#0000e9"  NterOne.com
+                  span style="color:#0000e9"
+                    = "NterOne.#{Rails.application.config.tld}"
               br
               span style="font-size:14.0pt"
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
