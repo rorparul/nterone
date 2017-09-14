@@ -123,6 +123,8 @@ GEM
     bullet (5.4.2)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
+    byebug (4.0.5)
+      columnize (= 0.9.0)
     callsite (0.0.11)
     canonical-rails (0.1.1)
       rails (>= 4.1, < 5.1)
@@ -169,6 +171,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    columnize (0.9.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     countries (1.2.5)
@@ -336,6 +339,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.1.0)
+      byebug (~> 4.0)
+      pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_activity (1.5.0)
@@ -613,6 +619,7 @@ DEPENDENCIES
   parsley-rails
   passenger
   pg
+  pry-byebug (~> 3.1.0)
   pry-rails (~> 0.3.4)
   public_activity
   pundit (~> 1.0.1)
