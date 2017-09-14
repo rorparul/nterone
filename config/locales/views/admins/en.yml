@@ -57,6 +57,7 @@ en:
       messages: "Messages"
       orders: "Orders"
       settings: "Settings"
+      checklists: "Checklists"
     website:
       active: "Active"
       articles: "Articles"
@@ -86,3 +87,11 @@ en:
       title: "Title"
       url: "URL"
       value: "Value"
+    tools:
+      embed_to_outlook_how_to: "Create and add a signature to messages (Microsoft Outlook)"
+      embed_to_outlook_how_to_link: "https://support.office.com/en-us/article/Create-and-add-a-signature-to-messages-8ee5d4f4-68fd-464a-a1c1-0e1c80bb27f2"
+      generate_signature: "Generate E-Mail Signature"
+      basic: "Basic"
+      social: "Social"
+      links: "Links"
+      link_to_tools: "The email signature was generated here."

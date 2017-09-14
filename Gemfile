@@ -27,6 +27,7 @@ gem 'exception_notification', github: 'smartinez87/exception_notification', bran
 gem 'figaro'
 gem 'font-awesome-rails'
 gem 'friendly_id'
+gem 'gon'
 gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails', '~> 4.0.3'
 gem 'jquery-turbolinks'
@@ -34,6 +35,7 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'kaminari'
 gem 'mini_magick'
 gem 'momentjs-rails', '>= 2.9.0'
+gem 'ngannotate-rails'
 gem 'non-stupid-digest-assets'
 gem 'parsley-rails'
 gem 'passenger'
@@ -81,6 +83,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'bullet'
   gem "capistrano-db-tasks", require: false, github: 'csolg/capistrano-db-tasks'
   gem 'capistrano-passenger'
@@ -94,12 +97,11 @@ group :development, :test do
   gem 'guard-rails'
   gem 'guard-rspec', '4.7.3'
   gem 'guard-rake'
-  # gem 'pry-byebug', '~> 3.1.0'
+  gem 'pry-byebug', '~> 3.1.0'
   gem 'pry-rails', '~> 0.3.4'
   gem 'quiet_assets'
   gem 'spring-commands-rspec'
   gem 'spring'
-  gem 'awesome_print'
 end
 
 group :doc do

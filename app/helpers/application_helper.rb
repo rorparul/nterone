@@ -96,4 +96,22 @@ module ApplicationHelper
   def current_country
     "US"
   end
+
+  def link_to_add_fields(name, f, association, class_attribute="")
+    new_object = f.object.send(association).klass.new
+    id = new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: id) do |builder|
+      render(association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '#', class: "add_fields2 #{class_attribute}", data: {id: id, fields: fields.gsub("\n", "")})
+  end
+
+  def angular_templates templates_path
+    templates = Dir[templates_path + '**/*'].select { |f| File.file? f }
+    templates.inject("") do |js, template|
+      rendered = render file: template
+      template_id = Pathname.new(template.gsub(/\.(\w+)$/, '')).relative_path_from(Pathname.new(templates_path))
+      js += "<script type='text/ng-template' id='#{template_id.to_s}'>#{rendered}</script>"
+    end
+  end
 end

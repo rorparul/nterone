@@ -182,6 +182,7 @@ class EventsController < ApplicationController
       :street,
       :time_zone,
       :zipcode,
+      :checklist_id,
       active_regions: []
     )
   end

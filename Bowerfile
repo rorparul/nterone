@@ -5,4 +5,5 @@
 
 asset 'country-region-selector'
 asset 'payform'
-
+asset 'angular'
+asset 'lodash'

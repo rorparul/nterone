@@ -1,0 +1,32 @@
+- content_for :breadcrumbs do
+  = render "admin/breadcrumbs"
+
+/ - if policy(:class).report?
+/   - content_for :actions do
+/     li
+/       = link_to new_reports_commission_path, remote: true do
+/         = t('admins.classes.commissions_report')
+/     - if current_user.admin?
+/       li
+/         = link_to new_reports_profit_sheet_path, remote: true do
+/           = t('admins.classes.profits_report')
+/       li
+/         = link_to new_reports_instructor_utilization_path, remote: true do
+/           = t('admins.classes.utilization_report')
+
+= render 'layouts/tabs'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted= t('admin.partial_tabs.checklists')
+    .container-muted style="height: 60px;"
+      = link_to t('default.action.new'), new_admin_checklist_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      '
+      = link_to t('default.partial_tabs.classes'), admin_classes_path, class: 'btn btn-default btn-sm', role: 'button'
+
+    = smart_listing_render(:checklists)
+
+javascript:
+  $('.role-tab').addClass('active');
+  $('.permissions .classes').addClass('active');

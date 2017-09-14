@@ -1,0 +1,41 @@
+- content_for :breadcrumbs do
+  = render "breadcrumbs"
+
+- if policy(:class).report?
+  - content_for :actions do
+    li
+      = link_to new_reports_commission_path, remote: true do
+        = t('admins.classes.commissions_report')
+    - if current_user.admin?
+      li
+        = link_to new_reports_profit_sheet_path, remote: true do
+          = t('admins.classes.profits_report')
+      li
+        = link_to new_reports_instructor_utilization_path, remote: true do
+          = t('admins.classes.utilization_report')
+
+= render 'layouts/tabs'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted = t("admins.partial_tabs.tools")
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        = t("admins.tools.generate_signature")
+      .panel-body
+        signature
+
+.row
+  .col-xs-12
+    .panel.panel-default
+      .panel-heading
+        | Links
+      .panel-body
+        a href="https://www.avast.com/endpoint-protection" Avast Business Antivirus
+
+javascript:
+  $('.tools').addClass('active');

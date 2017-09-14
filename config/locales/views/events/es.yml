@@ -52,6 +52,7 @@ es:
       time_zone: "Zona Horaria"
       two_weeks: "Dos Semanas"
       zipcode: "Código Postal"
+      checklist: "Lista de verificación"
     partial_index:
       classes: "Clases"
       course: "Curso"
@@ -97,6 +98,7 @@ es:
       start_date: "Fecha de Inicio"
       start_time: "Hora de Inicio"
       view: "Vista"
+      checklist: "L"
     partial_show:
       active: "Activo:"
       add_student: "Agregar Estudiante"

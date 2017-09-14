@@ -240,6 +240,16 @@ NterOne::Application.routes.draw do
     resources :sales,                   only: [:new, :create]
   end
 
+  namespace :admin do
+    resources :checklists do
+      member do
+        get "events/:event_id", to: :show
+        post "complete_item/events/:event_id", action: :complete_item
+        post "uncomplete_item/events/:event_id", action: :uncomplete_item
+      end
+    end
+  end
+
   controller :admin do
     get 'admin/queue',                               as: :admin_queue
     get 'admin/orders',                              as: :admin_orders
@@ -252,6 +262,7 @@ NterOne::Application.routes.draw do
     get 'admin/website',                             as: :admin_website
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
+    get 'admin/tools',                               as: :admin_tools
   end
 
   controller :my_account do

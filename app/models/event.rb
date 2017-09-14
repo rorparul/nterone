@@ -74,12 +74,15 @@ class Event < ActiveRecord::Base
 
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
+  belongs_to :checklist
 
   has_many :opportunities
   has_many :order_items, as: :orderable
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
+
+  has_and_belongs_to_many :checklist_items
 
   before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
@@ -110,7 +113,7 @@ class Event < ActiveRecord::Base
   delegate :platform, to: :course
 
   def self.upcoming_events
-    where("start_date >= :start_date", { start_date: Date.today })
+    where("start_date >= :start_date", { start_date: 1.week.ago.beginning_of_week })
   end
 
   def self.guaranteed_events
@@ -200,6 +203,14 @@ class Event < ActiveRecord::Base
 
   def event_platform
     course.try(:platform).try(:title)
+  end
+
+  def checklist_completed?
+    if checklist
+      (checklist.items.map(&:id) - checklist_items.map(&:id)).empty?
+    else
+      false
+    end
   end
 
   private

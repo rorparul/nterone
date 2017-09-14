@@ -8,9 +8,9 @@
         ul
           - event.errors.full_messages.each do |msg|
             li = msg
-            
+
     = render partial: 'shared/region_inputs', locals: { model: Event, f: f }
-                    
+
     hr
 
     .row
@@ -69,7 +69,7 @@
           = f.label :should_remind, t('events.partial_form.should_remind')
           br
           = f.check_box :should_remind
-          
+
     hr
 
     .row
@@ -97,9 +97,17 @@
           = f.select :instructor_id,
                     User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                     { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control input-sm' }     
+                    { class: 'form-control input-sm' }
 
-            
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :checklist_id, t('events.partial_form.checklist')
+          = f.select :checklist_id,
+                    Checklist.order(:name).collect { |checklist| ["#{checklist.name}", checklist.id] },
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control input-sm' }
+
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -234,7 +242,7 @@
           method: :delete,
           data: { confirm: t('default.prompt.confirm_delete') },
           class: 'text-danger'
-  
+
 javascript:
   $('.auto-cost-checkbox').click(function() {
     if($(this).is(':checked') == true) {
