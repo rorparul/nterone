@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 
   include RailsSettings::Extend
   include SearchCop
-  include Regions
+  # include Regions
 
   # default_scope { all }
 

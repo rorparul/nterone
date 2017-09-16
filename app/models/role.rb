@@ -13,7 +13,7 @@
 
 class Role < ActiveRecord::Base
   extend Enumerize
-  include Regions
+  # include Regions
 
   enumerize :role, in: {
     admin:         1,
