@@ -61,6 +61,10 @@ tr
     - else
       span.label.label-default = t('events.partial_listing.n')
   td.fit
+    = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
+      = f.hidden_field :event_id, value: event.id
+      = link_to_cart(event, link: true)
+  td.fit
     = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
       i class="fa fa-plus" aria-hidden="true"
   td.fit
