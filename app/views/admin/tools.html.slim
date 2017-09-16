@@ -16,18 +16,39 @@
 
 = render 'layouts/tabs'
 
-.row
+.row#tabs_tools
   .col-xs-12
-    h4
-      strong.text-muted = t("admins.partial_tabs.tools")
+    ul.nav.nav-tabs role="tablist"
+      - if current_user.try(:admin?)
+        li role="presentation"
+          a aria-controls="admin_settings" data-toggle="tab" href="#admin_settings" role="tab"
+            = t('admins.tools.admin_settings')
+      li role="presentation"
+        a aria-controls="email_signature" data-toggle="tab" href="#email_signature" role="tab"
+          = t('admins.tools.generate_signature')
+    .tab-content
+      br
+      - if current_user.try(:admin?)
+        #admin_settings.tab-pane.fade role="tabpanel"
+          table.table.table-hover.table-striped
+            thead
+              tr
+                th Key
+                th Value
+                th Action
+            tbody
+              - Setting.get_all.each_key do |key|
+                tr
+                  td= key
+                  td= Setting.send(key)
+                  td= link_to edit_admin_param_path(key), remote: true do
+                    i.fa.fa-edit
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        = t("admins.tools.generate_signature")
-      .panel-body
+      #email_signature.tab-pane.fade role="tabpanel"
         signature
+
+br
+
 
 .row
   .col-xs-12
@@ -39,3 +60,6 @@
 
 javascript:
   $('.tools').addClass('active');
+  $('#tabs_tools .nav-tabs li:first').addClass('active');
+  $('#tabs_tools .tab-content .tab-pane:first').addClass('active').addClass("in");
+

@@ -243,6 +243,7 @@ NterOne::Application.routes.draw do
         post "uncomplete_item/events/:event_id", action: :uncomplete_item
       end
     end
+    resources :params, controller: 'settings'
   end
 
   controller :admin do
