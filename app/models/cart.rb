@@ -91,18 +91,20 @@ class Cart < ActiveRecord::Base
   end
 
   def self.notify_that_cart_not_empty
-    less = Setting.reminder_cart_not_empty_last_update_less.to_i.days.ago
+    if Setting.notify_that_cart_not_empty == 'on'
+      less = Setting.reminder_cart_not_empty_last_update_less.to_i.days.ago
 
-    carts = Cart.where(updated_at: less..24.hours.ago).where(notified_not_empty_cart_at: nil)
-    carts.each do |cart|
+      carts = Cart.where(updated_at: less..24.hours.ago).where(notified_not_empty_cart_at: nil)
+      carts.each do |cart|
 
-      # has items and hasn't notified yet
+        # has items and hasn't notified yet
 
-      if cart.order_items.count > 0
+        if cart.order_items.count > 0
 
-        cart.update(notified_not_empty_cart_at: Time.now)
+          cart.update(notified_not_empty_cart_at: Time.now)
 
-        OrderMailer.you_have_left_order_items(cart).deliver_now  if Rails.env.production?
+          OrderMailer.you_have_left_order_items(cart).deliver_now  if Rails.env.production?
+        end
       end
     end
   end
