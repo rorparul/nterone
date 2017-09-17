@@ -1,0 +1,9 @@
+.form-container
+  = form_for(@setting, url: admin_param_path(@setting.var), method: 'patch', remote: true) do |f|
+    .form-group
+      label[style="width: 100%"]
+        = @setting.var
+        = f.text_area :value, rows: 10, class: 'form-control', style: 'width: 100%'
+
+    = f.submit class: 'btn btn-default'
+

@@ -11,6 +11,10 @@ defaults: &defaults
   host: "<%= "nterone.#{`hostname`.match(/\w+$/).to_s}" %>"
   formatted_domain: "<%= "www.NterOne.#{`hostname`.match(/\w+$/).to_s}" %>"
 
+  # The last cart update should be more 24 hours and less:
+  notify_that_cart_not_empty: 'off'
+  reminder_cart_not_empty_last_update_less: 7
+
 development:
   <<: *defaults
 

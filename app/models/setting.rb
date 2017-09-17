@@ -19,7 +19,7 @@
 
 # RailsSettings Model
 class Setting < RailsSettings::Base
-  include Regions
+  # include Regions
 
   source Rails.root.join("config/app.yml")
   namespace Rails.env

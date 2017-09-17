@@ -2,16 +2,17 @@
 #
 # Table name: carts
 #
-#  id             :integer          not null, primary key
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  source_name    :string
-#  source_user_id :string
-#  source_hash    :string
-#  user_id        :integer
-#  origin_region  :integer
-#  active_regions :text             default([]), is an Array
-#  token          :string
+#  id                         :integer          not null, primary key
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  source_name                :string
+#  source_user_id             :string
+#  source_hash                :string
+#  user_id                    :integer
+#  origin_region              :integer
+#  active_regions             :text             default([]), is an Array
+#  token                      :string
+#  notified_not_empty_cart_at :datetime
 #
 # Indexes
 #
@@ -25,6 +26,8 @@ class Cart < ActiveRecord::Base
   belongs_to :user
 
   has_many :order_items, dependent: :destroy
+
+  before_create :add_token
 
   # search_scope :search_with_items do
   #   attributes :id, :created_at, :updated_at
@@ -94,13 +97,30 @@ class Cart < ActiveRecord::Base
     end
   end
 
-  before_create :add_token
-
   private
 
   def add_token
     begin
       self.token = SecureRandom.urlsafe_base64(nil, false)
     end while self.class.exists?(token: token)
+  end
+
+  def self.notify_that_cart_not_empty
+    if Setting.notify_that_cart_not_empty == 'on'
+      less = Setting.reminder_cart_not_empty_last_update_less.to_i.days.ago
+
+      carts = Cart.where(updated_at: less..24.hours.ago).where(notified_not_empty_cart_at: nil)
+      carts.each do |cart|
+
+        # has items and hasn't notified yet
+
+        if cart.order_items.count > 0
+
+          cart.update(notified_not_empty_cart_at: Time.now)
+
+          OrderMailer.you_have_left_order_items(cart).deliver_now  if Rails.env.production?
+        end
+      end
+    end
   end
 end

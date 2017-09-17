@@ -21,3 +21,9 @@ en:
       pod_rental: "Pod Rental"
       from: "from"
       to: "to"
+
+    you_have_left_order_items:
+      subject: "You have left order items in the cart."
+      hello: "Hello, %{name}!"
+      you_have_left_order_items: "You have left the order items in the cart:"
+      thanks: "Thanks, <br> NterOne Sales Team."
