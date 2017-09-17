@@ -27,7 +27,7 @@ module CartsHelper
     carted_items    = @cart.order_items.map(&:orderable)
     purchased_items = user_signed_in? ? current_user.purchased_items(orderables: true) : []
     messages        = if link
-                        ['Item in cart', 'Purchased', 'Get link']
+                        ['Item in cart', 'Purchased', 'Purchase link']
                       elsif item.class == Event
                         ['Registration in cart', 'Registered', 'Register']
                       elsif item.class == VideoOnDemand
