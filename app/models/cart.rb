@@ -11,7 +11,12 @@
 #  user_id                    :integer
 #  origin_region              :integer
 #  active_regions             :text             default([]), is an Array
+#  token                      :string
 #  notified_not_empty_cart_at :datetime
+#
+# Indexes
+#
+#  index_carts_on_token  (token)
 #
 
 class Cart < ActiveRecord::Base
