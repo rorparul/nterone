@@ -1,5 +1,6 @@
 class RegistrationMailer < ApplicationMailer
   def registration_made(seller, user, event)
+    @tld                           = Rails.application.config.tld
     @user                          = user
     @event                         = event
     @seller_email                  = seller.email
@@ -7,7 +8,7 @@ class RegistrationMailer < ApplicationMailer
 
     mail(
       to: @seller_email,
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "jackie#{I18n.t('email')}"],
+      bcc: ["leslie@nterone.#{@tld}", "jackie@nterone.#{@tld}"],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
@@ -15,17 +16,17 @@ class RegistrationMailer < ApplicationMailer
   end
 
   def create(order_item)
+    @tld   = Rails.application.config.tld
     @event = order_item.orderable
     @user  = order_item.order.buyer
 
     sales_rep_email = order_item.order.seller.try(:email)
-    # partner_email   = order_item.order.referring_partner_email
 
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
 
     mail(
       to: [sales_rep_email],
-      bcc: ["ashlie#{I18n.t('email')}", "leslie#{I18n.t('email')}", "jackie#{I18n.t('email')}"],
+      bcc: ["leslie@nterone.#{@tld}", "jackie@nterone.#{@tld}"],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'

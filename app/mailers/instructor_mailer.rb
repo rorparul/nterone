@@ -2,6 +2,7 @@ class InstructorMailer < ApplicationMailer
   add_template_helper(MailersHelper)
 
   def confirm_class(instructor, event)
+    @tld     = Rails.application.config.tld
     @name    = instructor.full_name
     @email   = instructor.email
     @event   = event
@@ -10,9 +11,8 @@ class InstructorMailer < ApplicationMailer
     mail(
       to: @email,
       bcc: [
-        "ashlie@nterone.#{Rails.application.config.tld}",
-        "leslie@nterone.#{Rails.application.config.tld}",
-        "operations@nterone.#{Rails.application.config.tld}"
+        "leslie@nterone.#{@tld}",
+        "operations@nterone.#{@tld}"
       ],
       subject: "Your NterOne Training Class",
       template_path: "mailers",
