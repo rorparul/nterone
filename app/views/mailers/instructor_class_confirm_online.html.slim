@@ -1,30 +1,26 @@
-
-p 
+p
   = t('mailers.instructor_class_confirm_online.greeting') + " #{@name},"
-p 
+p
   = t('mailers.instructor_class_confirm_online.copy1') + " #{@event.course.title} " + t('mailers.instructor_class_confirm_online.copy2') + " #{@event.start_date.strftime("#{Date::DAYNAMES[@event.start_date.wday]}, %m/%d/%y")}." + t('mailers.instructor_class_confirm_online.copy3')
 
 ul
-  li 
+  li
     = t('mailers.instructor_class_confirm_online.copy4') + " #{format_time_with_time_zone(@event.start_time, @event.time_zone)}. " + t('mailers.instructor_class_confirm_online.copy5')
-  li 
+  li
     = t('mailers.instructor_class_confirm_online.copy6')
-  li 
+  li
     = t('mailers.instructor_class_confirm_online.copy7')
-  li 
+  li
     = t('mailers.instructor_class_confirm_online.copy8')
-  li 
+  li
     = t('mailers.instructor_class_confirm_online.copy9')
 
-p 
+p
   = t('mailers.instructor_class_confirm_online.copy10')
-p 
-  = t('mailers.instructor_class_confirm_online.thanks')
 
-table
-  tr
-    td style="border: none; padding-bottom: 0px; margin-bottom: 0px;" Ashlie Monds
-  tr 
-    td style="border: none; padding-bottom: 0px; margin-bottom: 0px;" Operations Manager
-  tr 
-    td style="border: none;" (252) 392-0933
+p
+  = t('mailers.instructor_class_confirm_online.thanks')
+  br
+  | Jackie Callaghan, Operations Director
+  br
+  | NterOne Corporation
