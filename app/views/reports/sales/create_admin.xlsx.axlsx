@@ -7,7 +7,7 @@ wb.styles do |style|
 
   # Summary
   #
-  wb.add_worksheet(name: "NterOne Pipeline Summary") do |sheet|
+  wb.add_worksheet(name: "Revenue Summary") do |sheet|
     sheet.add_row
     sheet.add_row
     sheet.add_row [
