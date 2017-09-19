@@ -20,7 +20,7 @@
                     td = event.course.platform.title
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.course')
                     td = "#{event.course.abbreviation} #{event.course.title}"
                   tr
@@ -30,32 +30,32 @@
                     td = event.start_date.to_formatted_s(:rfc822) if event.start_date
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.end_date')
                     td = event.end_date.to_formatted_s(:rfc822) if event.end_date
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.duration')
                     td = pluralize(event.length, 'Day')
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.start_time')
                     td = event.start_time.strftime("%I:%M %p") if event.start_time
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.end_time')
                     td = event.end_time.strftime("%I:%M %p") if event.end_time
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.format')
                     td = event.format
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.location')
                     - if event.city.present? || event.state.present?
                       td = "#{event.city}, #{event.state}"
@@ -63,29 +63,29 @@
                       td
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.instructor')
                     td = event.instructor.full_name if event.instructor
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.enrollment_count')
                     td = event.student_count
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.public')
-                    td = event.public ? t('events.partial_show.affirmative') : t('events.partial_show.negatory') 
+                    td = event.public ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.guaranteed')
-                    td = event.guaranteed ? t('events.partial_show.affirmative') : t('events.partial_show.negatory') 
+                    td = event.guaranteed ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.active')
-                    td = event.active ? t('events.partial_show.affirmative') : t('events.partial_show.negatory') 
+                    td = event.active ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
 
         .col-xs-12.col-md-6.table-col
           .panel-table
@@ -94,7 +94,7 @@
                 tbody
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.instructor_cost')
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_instructor, precision: 2))}"
                   tr
@@ -114,7 +114,7 @@
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_facility, precision: 2))}"
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.books_material_cost')
                     td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_books, precision: 2))}"
                   tr
@@ -134,12 +134,12 @@
                     td = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.total_cost')
                     td.text-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
                   tr
                     td.text-right
-                      strong 
+                      strong
                         = t('events.partial_show.net_revenue')
                     td.text-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
 
@@ -147,11 +147,11 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted 
+        strong.text-muted
           = t('events.partial_show.class_registrations')
         .panel-actions-overlay
           = link_to new_order_path(event: event.id), remote: true do
-            span title="#{t('events.partial_show.add_student')}" 
+            span title="#{t('events.partial_show.add_student')}"
              = t('events.partial_show.add_student')
       .panel-table
         .responsive-table.table-scrollable
@@ -168,7 +168,7 @@
                   = t('events.partial_show.invoice')
                 th
                   = t('events.partial_show.student')
-                th 
+                th
                   = t('events.partial_show.contacts')
                 th
                   = t('events.partial_show.company')
@@ -261,9 +261,9 @@
                       = f.text_field :po_number, class: "form-control form-async"
 
                   td = link_to 'Add to Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
-                  
+
                   td = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
-  
+
 javascript:
   $('.table-select, .check-select').on('change', function() {
     $(this).closest('form').submit();

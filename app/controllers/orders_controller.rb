@@ -167,6 +167,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    p "Orders Edit"
     @order = Order.find(params[:id])
   end
 
