@@ -6,7 +6,7 @@
     | /
   span.text-muted
   = t('admins.partial_breadcrumbs.confirmation')
-    
+
 .row
   .col-xs-12
     .panel.panel-default
@@ -16,13 +16,13 @@
         table.table
           thead
             tr
-              th 
+              th
                 = t('orders.confirmation.item')
               th
                 = t('orders.confirmation.date')
               th
                 = t('orders.confirmation.format')
-              th 
+              th
                 = t('orders.confirmation.price')
           tbody
             - @order.order_items.each do |order_item|
@@ -33,7 +33,7 @@
                   td = order_item.orderable.format
                 - if order_item.orderable_type == 'VideoOnDemand'
                   td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
-                  td 
+                  td
                     = t('orders.confirmation.one_year_of_access')
                   td
                     = t('orders.confirmation.video_on_demand')
@@ -46,14 +46,14 @@
                 - else
                   td
                     = t('orders.confirmation.free')
-                
+
 .row
   .col-xs-12
     - if @order.payment_type == "Credit Card"
       p = "#{t('orders.confirmation.total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
     - if @order.payment_type == "Cisco Learning Credits"
       p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
-        
+
 .row
   .col-xs-12
     p
@@ -64,20 +64,20 @@
       = t('orders.confirmation.copy3')
       = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
       = t('orders.confirmation.copy4')
-      strong = "#{RegionalPhoneNumberForOnlineMarketing} "
+      strong = "#{RegionalPhoneNumber} "
       = t('orders.confirmation.copy5')
-    
-    p 
+
+    p
       = t('orders.confirmation.copy6')
-    
+
 .row
   .col-xs-12
     #degrees
       = image_tag '360-degrees.png', class: 'degrees'
-        
+
 javascript:
   $('.home-tab').addClass('active');
-  
+
 - if I18n.locale == :en
   - if Rails.env.production?
     javascript:
@@ -93,7 +93,7 @@ javascript:
     noscript
       div style="display:inline;"
         img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/871022053/?label=NY8yCLvf2WoQ5fuqnwM&amp;guid=ON&amp;script=0"
-    
+
     javascript:
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;

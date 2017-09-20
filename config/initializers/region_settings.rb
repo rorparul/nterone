@@ -1,5 +1,7 @@
 ::TopLevelDomain = `hostname`.match(/\w+$/).to_s
 
+# NOTE: Remove RegionalPhoneNumberForOnlineMarketing variable
+
 ::RegionalPhoneNumberForOnlineMarketing = case TopLevelDomain
                                           when 'ca'
                                             '613-317-2480'

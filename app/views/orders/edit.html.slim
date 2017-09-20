@@ -6,7 +6,7 @@
     | /
   span.text-muted
   = t('admins.partial_breadcrumbs.cart')
-  
+
 - if @order.errors.any?
   .alert.alert-danger.alert-dismissible
     button.close type="button" data-dismiss="alert" aria-label="Close"
@@ -15,12 +15,12 @@
     ul
       - @order.errors.full_messages.each do |msg|
         li = msg
-    
+
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted 
+        strong.text-muted
           = t('orders.new.my_cart')
       .table-responsive
         table.table
@@ -46,7 +46,7 @@
                     td = order_item.orderable.format
                   - if order_item.orderable_type == 'VideoOnDemand'
                     td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable)
-                    td 
+                    td
                       = t('orders.new.one_year_of_access')
                     td
                       = t('orders.new.video_on_demand')
@@ -63,7 +63,7 @@
   .col-xs-12
     = form_for @order do |f|
       = f.hidden_field :origin_region, value: @order.current_region_as_key
-      
+
       .panel.panel-default
         .panel-heading
           strong.text-muted
@@ -74,14 +74,14 @@
               .col-xs-12
                 .form-group
                   .text-warning
-                    strong  
+                    strong
                       = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
                     = t('orders.new.caption1')
                     = t('orders.new.caption2')
                     = "#{t('orders.new.caption3')} "
                     = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
                     = t('orders.new.caption4')
-                    strong = "#{RegionalPhoneNumberForOnlineMarketing}, "
+                    strong = "#{RegionalPhoneNumber}, "
                     = t('orders.new.caption5')
           fieldset
             .form-group
@@ -116,7 +116,7 @@
                 .form-group
                   = f.label :security_code, t('orders.new.cc_code')
                   = f.text_field :security_code, class: 'form-control input-sm input-cc', autocomplete: false
-                  
+
             .row.clc-method
               .col-xs-12.col-md-6
                 .form-group
@@ -141,9 +141,9 @@
               label = t('orders.new.clc_quantity')
               = f.hidden_field :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
               .total = @cart.credits_required_for_total_applicable_for_credits
-            
+
           hr
-            
+
           .row
             .col-xs-12.col-md-6
               .form-group
@@ -153,11 +153,11 @@
                 = current_user.full_name
             .col-xs-12.col-md-6
               .form-group
-                label 
+                label
                   = t('orders.new.student_email')
                 br
                 = current_user.email
-          
+
           fieldset
             label
               = t('orders.new.billing_address')
@@ -200,17 +200,17 @@
                 .form-group
                   = f.label :billing_zip_code, t('orders.new.zip')
                   = f.text_field :billing_zip_code, class: 'form-control input-sm', value: current_user.billing_zip_code
-                  
+
             .form-group
               .checkbox.checkbox-container
                 label
                   = f.check_box :same_addresses, class: 'shipping-address-box', checked: current_user.same_addresses
                   = t('orders.new.same_as')
-            
+
           fieldset
             .shipping-address
               hr
-              label 
+              label
                 = t('orders.new.shipping_address')
               .row
                 .col-xs-12.col-sm-6
@@ -222,12 +222,12 @@
                   .form-group
                     = f.label :shipping_first_name, t('default.label.first_name')
                     = f.text_field :shipping_first_name, class: 'form-control input-sm disableable', value: current_user.shipping_first_name.present? ? current_user.shipping_first_name : current_user.first_name
-                    
+
                 .col-xs-12.col-sm-6
                   .form-group
                     = f.label :shipping_last_name, t('default.label.last_name')
                     = f.text_field :shipping_last_name, class: 'form-control input-sm disableable', value: current_user.shipping_last_name.present? ? current_user.shipping_last_name : current_user.last_name
-                
+
               .form-group
                 = f.label :shipping_street, t('orders.new.street')
                 = f.text_field :shipping_street, class: 'form-control input-sm disableable', value: current_user.shipping_street
@@ -258,10 +258,10 @@
             button.btn.btn-success type="submit"
               = t('orders.new.place_order')
 
-        
+
 javascript:
   $('.home-tab').addClass('active');
-  
+
   function togglePaymentMethod(radioButton) {
     if($($('.payment-type-radio-button')[0]).is(':checked')) {
       $('.input-cc').prop('disabled', false);
@@ -275,7 +275,7 @@ javascript:
       $('.cc-method').hide();
     };
   }
-  
+
   function toggleShippingAddress(checkBox) {
     if(checkBox.is(':checked')) {
       $('.disableable').prop('disabled', true);
@@ -285,17 +285,17 @@ javascript:
       $('.shipping-address').show();
     };
   };
-  
+
   $('#apply-code').on('click', function(e) {
     e.preventDefault();
-    
+
     var discountCodeInputValue = $('.discount-code-input').val();
     var url = "#{render_discount_url}";
     var url_with_code = url + '?discount_code=' + discountCodeInputValue;
-    
+
     $.get(url_with_code);
   });
-  
+
   $('.payment-type-radio-button').on('change', function() {
     togglePaymentMethod();
   });
@@ -303,6 +303,6 @@ javascript:
   $('.shipping-address-box').on('change', function() {
     toggleShippingAddress($(this));
   });
-  
+
   togglePaymentMethod();
   toggleShippingAddress($('.shipping-address-box'));

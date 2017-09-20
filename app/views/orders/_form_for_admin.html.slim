@@ -8,7 +8,7 @@
         ul
           - order.errors.full_messages.each do |msg|
             li = msg
-            
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -17,9 +17,9 @@
                     Order.options_for_regions,
                     { prompt: true, default: order.current_region_as_key },
                     { class: 'form-control input-sm' }
-    
+
     hr
-            
+
     .row
       - if !current_user.sales_rep?
         .col-xs-12.col-sm-3
@@ -150,7 +150,7 @@
                   = t('orders.partial_form_for_admin.caption3')
                   = mail_to "sales#{t('email')}", "sales#{t('email')}"
                   = t('orders.partial_form_for_admin.caption4')
-                  strong = "#{RegionalPhoneNumberForOnlineMarketing}, "
+                  strong = "#{RegionalPhoneNumber}, "
                   = t('orders.partial_form_for_admin.caption5')
           - else
             .col-xs-12.col-sm-9
@@ -331,7 +331,7 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-  
+
   $('.search-sales-select').select2({
     dropdownParent: $(".search-sales-select").closest('.form-group'),
     ajax: {
@@ -357,7 +357,7 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-  
+
   $('.buyer-selector').on('change', function() {
     var userId = this.value
     var url = '/api/users/' + userId
@@ -390,7 +390,7 @@ javascript:
       $(this).closest('.row').find('.order-item-price').val(value);
     };
   });
-  
+
   $('.order-item-selector').trigger('change');
 
   $('.source-selector').on('change', function() {

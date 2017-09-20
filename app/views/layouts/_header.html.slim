@@ -12,12 +12,12 @@
       = image_tag 'gsa-partner.jpg'
     .partner.veteran
       p = t('layouts.partial_header.partner')
-      p = "Contact us at #{RegionalPhoneNumberForOnlineMarketing}"
+      p = "Contact us at #{RegionalPhoneNumber}"
   .visible-xs
     = link_to root_path, class: 'logo-with-tagline-small' do
       = image_tag t('layouts.partial_header.image1'), style: 'margin-top: 5px;'
     p style='color: rgb(180, 180, 180);'
-      | Contact us at 
-      a href="tel: +#{RegionalPhoneNumberForOnlineMarketing}" = RegionalPhoneNumberForOnlineMarketing
+      | Contact us at
+      a href="tel: +#{RegionalPhoneNumber}" = RegionalPhoneNumber
   a.iTop title=''
   .clear

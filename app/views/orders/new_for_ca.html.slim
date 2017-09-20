@@ -6,7 +6,7 @@
     | /
   span.text-muted
   = t('admins.partial_breadcrumbs.cart')
-  
+
 - if @order.errors.any?
   .alert.alert-danger.alert-dismissible
     button.close type="button" data-dismiss="alert" aria-label="Close"
@@ -15,12 +15,12 @@
     ul
       - @order.errors.full_messages.each do |msg|
         li = msg
-    
+
 .row
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted 
+        strong.text-muted
           = t('orders.new.my_cart')
       .table-responsive
         table.table
@@ -46,7 +46,7 @@
                     td = order_item.orderable.format
                   - if order_item.orderable_type == 'VideoOnDemand'
                     td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable)
-                    td 
+                    td
                       = t('orders.new.one_year_of_access')
                     td
                       = t('orders.new.video_on_demand')
@@ -64,10 +64,10 @@
   .col-xs-12
     = form_tag "https://checkout.e-xact.com/pay", method: :post
       = hidden_field_tag :origin_region, @order.current_region_as_key
-                    
+
       = hidden_field_tag :user_id, current_user.id
       = hidden_field_tag :cart_id, @cart.id
-      
+
       = hidden_field_tag :x_amount, @x_amount
       = hidden_field_tag :x_login, @x_login
       = hidden_field_tag :x_fp_sequence, @x_fp_sequence
@@ -82,7 +82,7 @@
           = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.full_title}<|>#{order_item.orderable.full_title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>YES"
         - if order_item.orderable_type == 'LabRental'
           = hidden_field_tag :x_line_item, "1<|>#{order_item.orderable.lab_course.title}<|>#{order_item.orderable.lab_course.title}<|>1<|>#{number_with_precision(order_item.price, precision: 2)}<|>YES"
-            
+
       .panel.panel-default
         .panel-heading
           strong.text-muted
@@ -93,18 +93,18 @@
               .col-xs-12
                 .form-group
                   .text-warning
-                    strong  
+                    strong
                       = "$#{number_with_delimiter(number_with_precision(@cart.total_not_applicable_for_credits, precision: 2))}"
                     = t('orders.new.caption1')
                     = t('orders.new.caption2')
                     = "#{t('orders.new.caption3')} "
                     = mail_to "sales#{t('default.contact.email')}", "sales#{t('default.contact.email')}"
                     = t('orders.new.caption4')
-                    strong = "#{RegionalPhoneNumberForOnlineMarketing}, "
+                    strong = "#{RegionalPhoneNumber}, "
                     = t('orders.new.caption5')
-                  
+
           .row
-            .col-xs-12  
+            .col-xs-12
               fieldset
                 .form-group
                   label = t('orders.new.payment_method')
@@ -128,9 +128,9 @@
                   .input-group-btn
                     button#apply-code.btn.btn-success type="button"
                       = t('orders.new.apply_code')
-                  
+
           .row
-            .col-xs-12     
+            .col-xs-12
               .well
                 = hidden_field_tag :discount_id
                 .cc-method
@@ -141,15 +141,15 @@
                   label = t('orders.new.clc_quantity')
                   = hidden_field_tag :clc_quantity, value: @cart.credits_required_for_total_applicable_for_credits
                   .total = @cart.credits_required_for_total_applicable_for_credits
-                    
+
         .panel-footer
           .form-buttons
             button.btn.btn-success type="submit"
              | Pay with E-xact Transactions
-             
+
 javascript:
   $('.home-tab').addClass('active');
- 
+
   function togglePaymentMethod(radioButton) {
     if($($('.payment-type-radio-button')[0]).is(':checked')) {
       $('.input-cc').prop('disabled', false);
@@ -163,7 +163,7 @@ javascript:
       $('.cc-method').hide();
     };
   }
- 
+
   function toggleShippingAddress(checkBox) {
     if(checkBox.is(':checked')) {
       $('.disableable').prop('disabled', true);
@@ -173,17 +173,17 @@ javascript:
       $('.shipping-address').show();
     };
   };
- 
+
   $('#apply-code').on('click', function(e) {
     e.preventDefault();
-   
+
     var discountCodeInputValue = $('.discount-code-input').val();
     var url = "#{render_discount_url}";
     var url_with_code = url + '?discount_code=' + discountCodeInputValue + '&form=ca';
-   
+
     $.get(url_with_code);
   });
- 
+
   $('.payment-type-radio-button').on('change', function() {
     togglePaymentMethod();
   });
@@ -191,6 +191,6 @@ javascript:
   $('.shipping-address-box').on('change', function() {
     toggleShippingAddress($(this));
   });
- 
+
   togglePaymentMethod();
   toggleShippingAddress($('.shipping-address-box'));
