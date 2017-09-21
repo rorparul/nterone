@@ -4,7 +4,8 @@ p
 p
   = t('order_mailer.confirmation.copy2')
 
-p = "#{t('order_mailer.confirmation.copy3')} ##{@order.id} #{t('order_mailer.confirmation.copy4')}"
+p
+  = "#{t('order_mailer.confirmation.copy3')} ##{@order.id} #{t('order_mailer.confirmation.copy4')}"
 
 table
   - @order.order_items.each do |order_item|
