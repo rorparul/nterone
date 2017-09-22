@@ -1,3 +1,6 @@
 $('.modal-title').html("<%= t('reports.profit_sheets.new_js.generate_profit_report') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'form') %>");
 $('#myModal').modal('show')
+$('#myModal input[data-provide="typeahead"][data-source-query]').each(function() {
+    autocomplete_query($(this));
+});

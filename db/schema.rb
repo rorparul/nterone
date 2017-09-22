@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 20170912023151) do
     t.integer  "user_id"
     t.integer  "origin_region"
     t.text     "active_regions",             default: [],              array: true
-    t.string   "token"
     t.datetime "notified_not_empty_cart_at"
+    t.string   "token"
   end
 
   add_index "carts", ["token"], name: "index_carts_on_token", using: :btree

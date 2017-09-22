@@ -50,5 +50,5 @@ html[ng-app="nterone"]
         = yield
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
-    - cache do
+    - cache do expires_in: 1.hour do
       == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
