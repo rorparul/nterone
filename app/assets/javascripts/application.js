@@ -29,5 +29,7 @@
 //= require plugins/link.min.js
 //= require moment
 //= require bootstrap-datetimepicker
+//= require bootstrap3-typeahead.min
+//= require bootstrap3-autocomplete-input.min
 //= require general
 //= require forms

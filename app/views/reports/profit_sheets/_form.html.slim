@@ -1,5 +1,5 @@
 .form-container
-  =form_for :report, url: reports_profit_sheets_path(format: :xlsx) do |f|
+  = simple_form_for :report, url: reports_profit_sheets_path(format: :xlsx) do |f|
     .row
       .col-xs-12.col-md-6
         .form-group
@@ -19,6 +19,8 @@
                  Order.sources.map{|k, v| [k.humanize, v]},
                  { prompt: t('default.placeholder.select') },
                  { class: "form-control input-sm" }
+      .col-xs-12.col-md-6
+        = f.input :course, as: :autocomplete, source_query: api_v1_courses_autocomplete_course_title_url
 
     button.btn.btn-success
       = t('reports.profit_sheets.partial_form.generate')

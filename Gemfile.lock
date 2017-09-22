@@ -118,6 +118,7 @@ GEM
     bootstrap-select-rails (1.6.3)
     bootstrap3-datetimepicker-rails (4.17.43)
       momentjs-rails (>= 2.8.1)
+    bootstrap3_autocomplete_input (0.2.1)
     bower-rails (0.9.2)
     builder (3.2.3)
     bullet (5.4.2)
@@ -584,6 +585,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.4)
   bootstrap-select-rails
   bootstrap3-datetimepicker-rails (~> 4.17.43)
+  bootstrap3_autocomplete_input
   bower-rails
   bullet
   canonical-rails

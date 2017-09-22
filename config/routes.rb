@@ -326,6 +326,8 @@ NterOne::Application.routes.draw do
 
     namespace :v1 do
       get '/events/upcoming_public_featured_events' => 'events#upcoming_public_featured_events'
+
+      get '/courses/autocomplete_course_title' => 'courses#autocomplete_course_title'
     end
   end
 
