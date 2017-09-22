@@ -15,7 +15,7 @@ en:
       login: "Login"
       register: "Register"
       save: "Save"
-      save_invite: "Create & Invite"
+      save_invite: "Create & Send Student Invite"
       search: "Search"
       select: "Please select"
       show: "Show"
