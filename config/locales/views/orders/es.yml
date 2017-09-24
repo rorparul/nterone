@@ -21,6 +21,10 @@ es:
       total_charged_card: "Total Cargado a la TDC:"
       total_credits_applied: "Total Creditos Aplicados:"
       video_on_demand: "Video Bajo Demanda"
+      regular_total: "Regular Total:"
+      discount: "Discount:"
+      discounted_total: "Discounted Total:"
+      discounted_total_charged_card: "Discounted Total Charged to Card:"
     edit_admin_js:
       edit_order: "Editar Orden"
     new:

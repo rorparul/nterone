@@ -3,9 +3,15 @@ module DiscountApplicator
 
   private
 
-  def discounted_total(cart, discount)
-    order_items                      = cart.order_items
-    order_items_total_price          = cart.total_price
+  def discounted_total(container, discount)
+    if container.class == Cart
+      order_items             = container.order_items
+      order_items_total_price = container.total_price
+    elsif container.class == Order
+      order_items             = container.order_items
+      order_items_total_price = container.regular_price
+    end
+
     eligible_order_items             = order_items.select { |order_item| eligible_order_item?(order_item, discount) }
     eligible_order_items_total_price = eligible_order_items.to_a.sum { |order_item| order_item.price }
 

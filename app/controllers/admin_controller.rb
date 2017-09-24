@@ -30,20 +30,20 @@ class AdminController < ApplicationController
 
   def orders
     orders_scope = Order.all
-    orders_scope = Order.custom_search(params[:filter]) if params[:filter]
-    @orders = smart_listing_create(:orders,
-                                   orders_scope,
-                                   partial: "orders/listing",
-                                   sort_attributes: [[:id, "id"],
-                                                     [:status_position, "status_position"],
-                                                     [:total, "total"],
-                                                     [:paid, "paid"],
-                                                     [:balance, "balance"],
-                                                     [:source, "source"],
-                                                     [:auth_code, "auth_code"],
-                                                     [:clc_quantity, "clc_quantity"],
-                                                     [:created_at, "orders.created_at"]],
-                                   default_sort: { "orders.created_at": "desc"})
+    orders_scope = orders_scope.custom_search(params[:filter]) if params[:filter]
+    smart_listing_create(:orders,
+                         orders_scope,
+                         partial: "orders/listing",
+                         sort_attributes: [[:id, "id"],
+                                           [:status_position, "status_position"],
+                                           [:total, "total"],
+                                           [:paid, "paid"],
+                                           [:balance, "balance"],
+                                           [:source, "source"],
+                                           [:auth_code, "auth_code"],
+                                           [:clc_quantity, "clc_quantity"],
+                                           [:created_at, "orders.created_at"]],
+                         default_sort: { "orders.id": "desc"})
 
     respond_to do |format|
       format.html
@@ -56,13 +56,18 @@ class AdminController < ApplicationController
   end
 
   def classes
-    cookies[:including_past]  = params[:including_past]  if params[:including_past]
     cookies[:only_registered] = params[:only_registered] if params[:only_registered]
     cookies[:filter]          = params[:filter]          if params[:filter]
 
-    events_scope = cookies[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
+    @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
+    @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
+
+    events_scope = (@start_date && @end_date) ? Event.joins(:course).where(start_date: [@start_date..@end_date]) : Event.joins(:course).upcoming_events
     events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
     events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
+
+    @start_date = events_scope.minimum("events.start_date")
+    @end_date   = events_scope.maximum("events.start_date")
 
     @queried_events = events_scope
 

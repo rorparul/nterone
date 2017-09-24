@@ -11,13 +11,14 @@
             th.fit = smart_listing.sortable t('orders.partial_listing.total'), :total
             th.fit = smart_listing.sortable t('orders.partial_listing.paid'), :paid
             th.fit = smart_listing.sortable t('orders.partial_listing.balance'), :balance
+            th.fit Discount
             th.fit = smart_listing.sortable t('orders.partial_listing.source'), :source
             th.fit = smart_listing.sortable t('orders.partial_listing.auth_code'), :auth_code
             th.fit = smart_listing.sortable t('orders.partial_listing.credits'), :clc_quantity
             th.fit = t('orders.partial_listing.so_num')
             th.fit = smart_listing.sortable t('orders.partial_listing.created'), :created_at
             th.fit = t('orders.partial_listing.member_email')
-            th.fit
+            th.fit colspan="3"
         tbody
           - smart_listing.collection.each do |order|
             tr
@@ -41,18 +42,22 @@
               td.fit.text-success = "$#{number_with_delimiter(number_with_precision(order.total, precision: 2))}"
               td.fit class="#{'text-success' if order.paid > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.paid, precision: 2))}"
               td.fit class="#{'text-danger' if order.balance > 0.00}" = "$#{number_with_delimiter(number_with_precision(order.balance, precision: 2))}"
+              td.fit = order.discount_amount
               td.fit = order.source
               td.fit = order.auth_code
               td.fit class="#{'text-success' if order.clc_quantity > 0}" = order.clc_quantity
               td.fit = order.clc_number
               td.fit = order.created_at.strftime("%b. %d, %Y %I:%M %p")
               td = order.buyer.email if order.buyer
-              td.fit.actions-column.text-right
-                = link_to t('default.action.actions'), edit_order_path(order), remote: true
-                |  | 
-                = link_to t('default.action.details'), admin_orders_show_path(order), remote: false
-                |  | 
-                = link_to t('default.action.delete'), order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
+              td.fit
+                = link_to admin_orders_show_path(order), remote: false do
+                  i class="fa fa-eye" aria-hidden="true"
+              td.fit
+                = link_to edit_order_path(order), remote: true do
+                  i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+              td.fit
+                = link_to order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do
+                  i.text-danger class="fa fa-trash-o" aria-hidden="true"
   .panel-footer
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

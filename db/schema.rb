@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912023151) do
+ActiveRecord::Schema.define(version: 20170924230550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 20170912023151) do
     t.integer  "user_id"
     t.integer  "origin_region"
     t.text     "active_regions",             default: [],              array: true
-    t.datetime "notified_not_empty_cart_at"
     t.string   "token"
+    t.datetime "notified_not_empty_cart_at"
   end
 
   add_index "carts", ["token"], name: "index_carts_on_token", using: :btree
@@ -245,6 +245,18 @@ ActiveRecord::Schema.define(version: 20170912023151) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
     t.string   "sales_force_id"
+  end
+
+  create_table "contact_us_submissions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "inquiry"
+    t.string   "feedback"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "recipient"
+    t.string   "subject"
   end
 
   create_table "course_dynamics", force: :cascade do |t|

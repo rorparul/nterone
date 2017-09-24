@@ -21,6 +21,10 @@ en:
       total_charged_card: "Total Charged to Card:"
       total_credits_applied: "Total Credits Applied:"
       video_on_demand: "Video On Demand"
+      regular_total: "Regular Total:"
+      discount: "Discount:"
+      discounted_total: "Discounted Total:"
+      discounted_total_charged_card: "Discounted Total Charged to Card:"
     edit_admin_js:
       edit_order: "Edit Order"
     new:

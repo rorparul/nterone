@@ -35,7 +35,7 @@ class Discount < ActiveRecord::Base
     if date_start.present? && date_end.present?
       Date.today >= date_start && Date.today <= date_end
     elsif date_start.nil? && date_end.nil?
-      true
+      return true
     else
       if date_start.present?
         return Date.today >= date_start

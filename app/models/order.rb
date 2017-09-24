@@ -64,6 +64,7 @@
 class Order < ActiveRecord::Base
   extend Enumerize
 
+  include DiscountApplicator
   include SearchCop
   include Regions
 
@@ -103,18 +104,27 @@ class Order < ActiveRecord::Base
     attributes buyer: ['buyer.first_name', 'buyer.email']
   end
 
+  def regular_price
+    order_items.to_a.sum do |item|
+      item.price || item.orderable.price
+    end
+  end
+
   def set_total
     if no_charge?
       self.total = 0
     else
-      self.total = self.order_items.to_a.sum do |item|
-        item.price || item.orderable.price
+      if discount
+        self.total = discounted_total(self, discount)
+      else
+        self.total = regular_price
       end
     end
   end
 
   def set_paid
     # TODO: Add logic here to account for combination payment methods
+
     if self.payment_type == 'Cisco Learning Credits'
       self.paid = self.clc_quantity * 100
     end
@@ -186,6 +196,13 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def discount_amount
+    if discount
+      "#{discount.value.to_i} #{discount.kind.titleize}"
+    else
+      "N/A"
+    end
+  end
 
   def define_clc_quantity
     self.clc_quantity ||= 0
