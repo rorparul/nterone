@@ -18,7 +18,7 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
 
-  include Regions
+  # include Regions
 
   scope :default, -> { where(origin_region: current_region_as_value) }
 
