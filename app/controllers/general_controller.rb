@@ -101,7 +101,10 @@ class GeneralController < ApplicationController
     respond_to do |format|
       format.html do
         if success
+          ContactUsSubmission.create(contact_us_params)
+
           flash[:success] = 'Message successfully sent.'
+
           if params[:origin] == "course"
             redirect_to course_inquiry_confirmation_path
           elsif params[:origin] == "learning_credits"
@@ -157,7 +160,15 @@ class GeneralController < ApplicationController
   private
 
   def contact_us_params
-    params.require(:contact_us).permit(:recipient, :name, :phone, :email, :inquiry, :subject, :feedback)
+    params.require(:contact_us).permit(
+      :recipient,
+      :name,
+      :phone,
+      :email,
+      :inquiry,
+      :subject,
+      :feedback
+    )
   end
 
   def lms_path?

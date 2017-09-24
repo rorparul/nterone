@@ -1,0 +1,35 @@
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Contact Us Submissions
+    - unless smart_listing.empty?
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr.background-muted
+              th.fit ID
+              th.fit Recipient
+              th.fit Name
+              th.fit Phone
+              th.fit Email
+              th.fit Created At
+              th.fit Actions
+          tbody
+            - smart_listing.collection.each do |contact_us_submission|
+              tr
+                td = contact_us_submission.id
+                td = contact_us_submission.recipient
+                td = contact_us_submission.name
+                td = contact_us_submission.phone
+                td = contact_us_submission.email
+                td = contact_us_submission.created_at
+                td
+                  = link_to contact_us_submission_path(contact_us_submission), target: '_blank' do
+                    i class="fa fa-eye" aria-hidden="true"
+        .table-end
+      .container-muted
+        = smart_listing.paginate
+        = smart_listing.pagination_per_page_links
+    - else
+      .container-muted.text-center
+        = t('default.placeholder.no_records')

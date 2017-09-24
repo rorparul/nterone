@@ -27,6 +27,11 @@
               li
                 a href="#{opportunities_path}"
                   = t('layouts.partial_tabs.opportunities')
+            hr
+            - if current_user.admin? || current_user.sales?
+              li
+                a href="#{contact_us_submissions_path}"
+                  = t('layouts.partial_tabs.contact_us_submissions')
       - if current_user.admin? || current_user.sales?
         li.orders role="presentation"
           a.nav-pill href="#{admin_orders_path}"
