@@ -56,13 +56,21 @@ class AdminController < ApplicationController
   end
 
   def classes
-    cookies[:including_past]  = params[:including_past]  if params[:including_past]
     cookies[:only_registered] = params[:only_registered] if params[:only_registered]
     cookies[:filter]          = params[:filter]          if params[:filter]
 
-    events_scope = cookies[:including_past] == "1" ? Event.joins(:course) : Event.joins(:course).upcoming_events
+    @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
+    @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
+
+    events_scope = Event.joins(:course)
+    events_scope = events_scope.where(start_date: [@start_date..@end_date])  if @start_date && @end_date
     events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
     events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
+
+    if !(@start_date && @end_date)
+      @start_date = events_scope.minimum("events.start_date")
+      @end_date = events_scope.maximum("events.start_date")
+    end
 
     @queried_events = events_scope
 
