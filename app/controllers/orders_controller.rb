@@ -233,6 +233,8 @@ class OrdersController < ApplicationController
   end
 
   def valid_input_values?
+    # TODO: Review mothod's accuracy as it relates to the clc evaluation
+
     price = nil
 
     if permitted_params.order[:discount_id].present?
@@ -245,8 +247,7 @@ class OrdersController < ApplicationController
       price = @cart.total_price
     end
 
-    price.to_s == permitted_params.credit_card[:paid] && \
-      @cart.credits_required_for_total_applicable_for_credits.to_s == permitted_params.cisco_learning_credits[:clc_quantity]
+    price.to_s == permitted_params.credit_card[:paid] || @cart.credits_required_for_total_applicable_for_credits.to_s == permitted_params.cisco_learning_credits[:clc_quantity]
   end
 
   def handle_credit_card_payment
