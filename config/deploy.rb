@@ -24,6 +24,18 @@ set :ssh_options, {
   auth_methods: %w(publickey)
 }
 
+namespace :log do
+  desc "Tail all application log files"
+  task :tail do
+    on roles(:app) do |server|
+      execute "tail -f #{current_path}/log/*.log" do |channel, stream, data|
+        puts "#{channel[:host]}: #{data}"
+        break if stream == :err
+      end
+    end
+  end
+end
+
 namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
