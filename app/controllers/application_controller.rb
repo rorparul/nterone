@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
+  include CurrentCart
   include Pundit
   include PublicActivity::StoreController
-  include CurrentCart
 
-  before_filter :_set_current_session
+  before_action :_set_current_session
   before_action :set_region
   before_action :prepare_exception_notifier
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   helper_method :forem_user, :resource_name, :resource, :devise_mapping
 
   protect_from_forgery with: :exception
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def access_denied(exception)

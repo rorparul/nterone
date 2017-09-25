@@ -360,7 +360,8 @@ class User < ActiveRecord::Base
       instructor:    "Instructor",
       lms_business:  "LMS Business",
       partner_admin: "Partner",
-      marketing:     "Marketing"
+      marketing:     "Marketing",
+      webmaster:     "Webmaster"
     }
 
     roles.each do |role|
