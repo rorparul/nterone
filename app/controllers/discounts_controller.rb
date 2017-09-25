@@ -1,5 +1,7 @@
 class DiscountsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_discount, only: [:edit, :update]
+  before_action :authorize_discount
 
   def new
     @discount = Discount.new
@@ -62,5 +64,10 @@ class DiscountsController < ApplicationController
 
   def set_discount
     @discount = Discount.find(params[:id])
+  end
+
+  def authorize_discount
+    @discount ||= Discount.new
+		authorize @discount
   end
 end

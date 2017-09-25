@@ -359,7 +359,8 @@ class User < ActiveRecord::Base
       lms_student:   "LMS Student",
       instructor:    "Instructor",
       lms_business:  "LMS Business",
-      partner_admin: "Partner"
+      partner_admin: "Partner",
+      marketing:     "Marketing"
     }
 
     roles.each do |role|
@@ -431,7 +432,7 @@ class User < ActiveRecord::Base
   end
 
   def has_any_role?(roles_param)
-    roles_param.any? {|role_param| roles.any? { |role| role.role.to_sym == role_param } }
+    roles_param.any? { |role_param| roles.any? { |role| role.role.to_sym == role_param } }
   end
 
   def full_address

@@ -81,7 +81,7 @@
         li.people role="presentation"
           a.nav-pill href="#{users_path}"
             = t('layouts.partial_tabs.people')
-      - if current_user.admin?
+      - if current_user.has_any_role? %i(admin marketing)
         li.website role="presentation"
           a.nav-pill href="#{admin_website_path}"
             = t('layouts.partial_tabs.marketing')

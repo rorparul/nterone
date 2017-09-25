@@ -1,9 +1,13 @@
 class PagePolicy < ApplicationPolicy
-  def new?
-    user.admin?
+  def create?
+    user.has_any_role?(%i(admin marketing))
   end
 
-  def edit?
-    user.admin?
+  def update?
+    user.has_any_role?(%i(admin marketing))
+  end
+
+  def destroy?
+    user.has_any_role?(%i(admin marketing))
   end
 end

@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_article, except: [:new, :create, :index]
+  before_action :set_article,        except: [:new, :create, :index]
+  before_action :authorize_article,  only: [:new, :create, :edit, :update, :destroy]
 
   def new
     authorize @article = Article.new
@@ -62,5 +63,8 @@ class ArticlesController < ApplicationController
     )
   end
 
-
+  def authorize_article
+    @article ||= Article.new
+		authorize @article
+  end
 end

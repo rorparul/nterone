@@ -1,28 +1,28 @@
-- if ["courses"].include?(controller_name) && action_name == 'show'
+- if ["courses", "subjects"].include?(controller_name) && action_name == 'show'
   .panel.panel-default.panel-contact-us
     .panel-body.panel-contact-us
       = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
         label Request Information
-        
+
         = f.hidden_field :recipient, value: "sales@nterone.#{TopLevelDomain}"
-        = f.hidden_field :subject, value: "Please contact me in regards to #{@course.full_title}."
-          
+        = f.hidden_field :subject, value: "Please contact me in regards to #{instance_variable_get("@#{controller_name.chomp('s')}").try(:full_title)}."
+
         .form-group
           = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if current_user)
-          
+
         .form-group
           = f.text_field :email, class: 'form-control input-sm', placeholder: 'Email', value: (current_user.email if current_user)
-          
+
         .form-group
           = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if current_user)
-          
+
         .form-group
-          = f.text_area :inquiry, value: "Please contact me in regards to #{@course.full_title}.", rows: 8, class: 'form-control'
-          
+          = f.text_area :inquiry, value: "Please contact me in regards to #{instance_variable_get("@#{controller_name.chomp('s')}").try(:full_title)}.", rows: 8, class: 'form-control'
+
         .form-buttons
           button.btn.btn-success type="submit" style='width: 100%;'
             = t('default.action.send')
-      
+
 = render partial: 'shared/credits'
 
 - unless (controller_name == 'courses' && action_name == 'show') || (controller_name == 'general' && action_name == 'labs')

@@ -1,9 +1,10 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
   before_action :set_page,           only: [:show, :edit, :update, :delete]
+  before_action :authorize_page,     only: [:new, :create, :edit, :update, :delete]
 
   def new
-    authorize @page = Page.new
+    @page = Page.new
   end
 
   def create
@@ -19,7 +20,7 @@ class PagesController < ApplicationController
   end
 
   def edit
-    authorize @page
+    @page
   end
 
   def update
@@ -53,5 +54,10 @@ class PagesController < ApplicationController
       :title,
       active_regions: []
     )
+  end
+
+  def authorize_page
+    @page ||= Page.new
+		authorize @page
   end
 end

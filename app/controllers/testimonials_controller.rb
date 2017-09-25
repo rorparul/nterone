@@ -1,6 +1,7 @@
 class TestimonialsController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :set_testimonial, except: [:index, :new, :create, :page]
+  before_action :authenticate_user!,    except: :index
+  before_action :set_testimonial,       except: [:index, :new, :create, :page]
+  before_action :authorize_testimonial, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @page         = Page.find_by(title: 'Testimonials')
@@ -58,5 +59,10 @@ class TestimonialsController < ApplicationController
 
   def set_testimonial
     @testimonial = Testimonial.find(params[:id])
+  end
+
+  def authorize_testimonial
+    @testimonial ||= Testimonial.new
+    authorize @testimonial
   end
 end

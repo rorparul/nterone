@@ -133,6 +133,8 @@ class AdminController < ApplicationController
   end
 
   def website
+    return redirect_to root_path unless current_user.has_any_role? %i(admin marketing)
+
     manage_smart_listing(
       [
         'list_articles',
@@ -146,7 +148,6 @@ class AdminController < ApplicationController
   end
 
   def tools
-
   end
 
   private
