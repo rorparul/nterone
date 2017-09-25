@@ -1,25 +1,59 @@
 class AdminPolicy < Struct.new(:user, :admin)
-  def admin?
-    user.admin?
+  # Tabs
+  def my_account?
+    user.has_any_role?(%i(member))
   end
 
-  def partner?
-    user.partner?
+  def sales?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
   end
 
-  def sales_manager?
-    user.sales_manager?
+  def my_classes?
+    user.has_any_role?(%i(instructor))
   end
 
-  def sales_rep?
-    user.sales_rep?
+  def labs?
+    user.has_any_role?(%i(admin)) || user.company.present?
   end
 
-  def show?
-    user.admin?  || user.partner? || user.sales_manager? || user.sales_rep?
+  def lms?
+    user.has_any_role?(%i(lms_business lms_manager lms_student))
   end
 
-  def save?
-    user.admin? || user.sales_manager? || user.sales_rep?
+  # Actions
+  def become?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def orders?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def orders_show?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def classes?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def classes_show?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def courses?
+    user.has_any_role?(%i(admin webmaster))
+  end
+
+  def people?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def website?
+    user.has_any_role?(%i(admin marketing webmaster))
+  end
+
+  def tools?
+    user.has_any_role?(%i(admin sales_rep sales_manager webmaster))
   end
 end

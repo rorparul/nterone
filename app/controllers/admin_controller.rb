@@ -5,27 +5,13 @@ class AdminController < ApplicationController
   include MessageManager
 
   before_action :authenticate_user!
-  before_action :validate_authorization
+  before_action :authorize_admin
 
   layout 'admin'
 
   def become
-    return unless current_user.admin?
     sign_in(:user, User.find(params[:id]), { bypass: true })
-    redirect_to root_url # or user_root_url
-  end
-
-  def queue
-    if current_user.sales_manager? || current_user.admin?
-      @sales_force      = Role.where(role: [2, 3])
-      @assigned_leads   = Lead.where(status: 'assigned').where.not(seller_id: [nil, 0], buyer_id: nil).order(created_at: :asc)
-      @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).where.not(buyer_id: nil).order(created_at: :asc)
-      @archived_leads   = Lead.where(status: 'archived').where.not(buyer_id: nil).order(created_at: :desc)
-    elsif current_user.sales_rep?
-      @assigned_leads   = Lead.where(status: 'assigned', seller_id: current_user.id).where.not(buyer_id: nil).order(created_at: :asc)
-      @unassigned_leads = Lead.where(status: 'unassigned', seller_id: [nil, 0]).where.not(buyer_id: nil).order(created_at: :asc)
-      @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').where.not(buyer_id: nil).order(created_at: :desc)
-    end
+    redirect_to root_url
   end
 
   def orders
@@ -107,16 +93,6 @@ class AdminController < ApplicationController
     @courses = Course.order(:title).page(params[:page])
   end
 
-  def messages
-    @messages = Message.active(current_user)
-    mark_messages_read(current_user)
-    get_alert_counts
-  end
-
-  def announcements
-    @announcements = Announcement.order('created_at DESC')
-  end
-
   def people
     users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
@@ -133,8 +109,6 @@ class AdminController < ApplicationController
   end
 
   def website
-    return redirect_to root_path unless current_user.has_any_role? %i(admin marketing)
-
     manage_smart_listing(
       [
         'list_articles',
@@ -152,10 +126,8 @@ class AdminController < ApplicationController
 
   private
 
-  def validate_authorization
-    unless current_user.admin? || current_user.sales? || current_user.partner?
-      redirect_to root_path
-    end
+  def authorize_admin
+    authorize :admin
   end
 
   def should_group_classes?
