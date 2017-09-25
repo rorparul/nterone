@@ -178,7 +178,7 @@ class Event < ActiveRecord::Base
   end
 
   def total_cost
-    cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping + commission
+    cost_instructor + cost_lab + cost_te + cost_facility + cost_books + cost_shipping + cost_commission
   end
 
   def net_revenue
