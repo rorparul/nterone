@@ -2,7 +2,7 @@ module Regions
   extend ActiveSupport::Concern
 
   included do
-    scope :active_in_current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(get_session_region)}}") }
+    scope :active_in_current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(self.get_session_region)}}") }
 
     enum origin_region: {
       united_states: 0,
@@ -10,7 +10,7 @@ module Regions
       canada: 2
     }
 
-    default_scope -> { where(origin_region: get_session_region) }
+    default_scope { where(origin_region: self.get_session_region) }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
@@ -21,7 +21,11 @@ module Regions
     end
 
     def get_session_region
-      try(:session) && session[:region] || 0
+      if Rails.env.test?
+        1
+      else
+        try(:session) && session[:region] || 0
+      end
     end
   end
 
@@ -34,7 +38,11 @@ module Regions
   end
 
   def get_session_region
-    try(:session) && session[:region] || 0
+    if Rails.env.test?
+      1
+    else
+      try(:session) && session[:region] || 0
+    end
   end
 
   private

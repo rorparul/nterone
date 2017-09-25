@@ -50,15 +50,21 @@ class Db::MergeService
         klass = table.singularize.camelize.constantize
       rescue => exception
       else
-        # set active_regions
-        if klass.column_names.include?("active_regions")
-          klass.unscoped
-            .where("active_regions = ? or active_regions = ?", '{}', '{""}')
-            .update_all("active_regions": "{#{klass.origin_regions.key(0)}}")
-        end
-        # set origin_region
-        if klass.column_names.include?("origin_region")
-          klass.unscoped.where("origin_region is null").update_all("origin_region": 0)
+        if klass.respond_to? :origin_regions
+          # set active_regions
+          if klass.column_names.include?("active_regions")
+            klass
+              .unscoped
+              .where("active_regions = ? or active_regions = ?", '{}', '{""}')
+              .update_all("active_regions": "{#{klass.origin_regions.key(0)}}")
+          end
+          # set origin_region
+          if klass.column_names.include?("origin_region")
+            klass
+              .unscoped
+              .where("origin_region is null")
+              .update_all("origin_region": 0)
+          end
         end
       end
     end
@@ -109,7 +115,6 @@ class Db::MergeService
 
     if model == User
       user_emails = User.all.inject({}) {|h, u| h[u.email] = u.id; h }
-      GC.start
     end
 
     while true do
@@ -132,7 +137,7 @@ class Db::MergeService
           print "%20s: %10d / %10d, old count: %10d \r" % [model.name, i, total_count, @old_counts[model.name].to_i]
         end
 
-        id = rec.delete("id")
+        old_id = rec.delete("id")
         attributes = rec
 
         begin
@@ -146,13 +151,14 @@ class Db::MergeService
 
           # User
           if model == User && user_emails[attributes["email"]]
-            ids[id] = user_emails[attributes["email"]]
+            ids[old_id] = user_emails[attributes["email"]]
 
           # Otherwise insert
           else
-            result = model.import [attributes], validate: false
+            result = model.import [attributes], validate: false, raise_error: true
+
             if result.num_inserts == 1
-              ids[id] = result.ids.first
+              ids[old_id] = result.ids.first
             else
               raise "Error inserting: "
               p attributes
@@ -221,7 +227,10 @@ class Db::MergeService
           @ids[model_name].each do |pair|
 
             old_id, new_id = pair
-            relation.where("#{foreign_field} = #{old_id}").update_all("#{foreign_field} = #{new_id}")
+            relation
+              .unscoped
+              .where("#{foreign_field} = #{old_id}")
+              .update_all("#{foreign_field} = #{new_id}")
 
             unless Rails.env.test?
               i += 1
@@ -245,6 +254,7 @@ class Db::MergeService
           @ids[relation_name].each do |pair|
             old_id, new_id = pair
             model
+              .unscoped
               .where("#{name + '_type'} = '#{relation_name}' and #{foreign_field} = #{old_id}")
               .update_all("#{foreign_field} = #{new_id}")
           end  if @ids[relation_name]
