@@ -102,6 +102,6 @@ guard :rspec, cmd: "bin/rspec" do
   end
 end
 
-guard :rake, task: 'factory_girl:lint' do
-  watch(%r{^spec/factories/(.+).rb$}) { |m| "#{m[1]}" }
-end
+# guard :rake, task: 'factory_girl:lint' do
+#   watch(%r{^spec/factories/(.+).rb$}) { |m| "#{m[1]}" }
+# end
