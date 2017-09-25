@@ -47,6 +47,8 @@
 #  active_regions                 :text             default([]), is an Array
 #  company                        :string
 #  checklist_id                   :integer
+#  cost_commission                :decimal(8, 2)    default(0.0)
+#  autocalculate_cost_commission  :boolean          default(TRUE)
 #
 # Indexes
 #
@@ -86,6 +88,7 @@ class Event < ActiveRecord::Base
 
   before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
+  before_save :calculate_cost_commission, if: proc { |model| model.autocalculate_cost_commission? }
   before_save :mark_non_public
 
   after_save :create_gtr_alert,        if: proc { |model| model.guaranteed_changed? && model.guaranteed? }
@@ -145,6 +148,7 @@ class Event < ActiveRecord::Base
 
   def self.with_students
     # TODO: Figure out a way to remove the double-query
+
     ids_with_students = joins(:order_items).where(order_items: { cart_id: nil }).distinct.pluck(:id)
     Event.where(id: ids_with_students)
   end
@@ -163,10 +167,6 @@ class Event < ActiveRecord::Base
     else
       0.05
     end
-  end
-
-  def commission
-    revenue * commission_percent
   end
 
   def revenue
@@ -232,7 +232,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-
   def calculate_book_cost
     platform_title = event_platform
     case platform_title
@@ -249,6 +248,10 @@ class Event < ActiveRecord::Base
     else
       self.cost_instructor = 0.0
     end
+  end
+
+  def calculate_cost_commission
+    self.cost_commission = revenue * commission_percent
   end
 
   def confirm_with_instructor

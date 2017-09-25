@@ -202,6 +202,18 @@
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cost_commission, t('events.partial_form.cost_commission')
+          .auto-cost-container
+            .auto-cost-checkbox-container
+              span.glyphicon.glyphicon-refresh
+              = f.check_box :autocalculate_cost_commission, class: 'auto-cost-checkbox'
+            .input-group
+              span.input-group-addon $
+              = f.text_field :cost_commission, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.autocalculate_cost_commission?
+
     hr
 
     .row

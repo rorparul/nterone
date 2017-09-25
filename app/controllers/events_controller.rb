@@ -183,6 +183,8 @@ class EventsController < ApplicationController
       :time_zone,
       :zipcode,
       :checklist_id,
+      :cost_commission,
+      :autocalculate_cost_commission,
       active_regions: []
     )
   end

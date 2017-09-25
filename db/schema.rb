@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924230550) do
+ActiveRecord::Schema.define(version: 20170925181451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -391,6 +391,8 @@ ActiveRecord::Schema.define(version: 20170924230550) do
     t.text     "active_regions",                                         default: [],                     array: true
     t.string   "company"
     t.integer  "checklist_id"
+    t.decimal  "cost_commission",                precision: 8, scale: 2, default: 0.0
+    t.boolean  "autocalculate_cost_commission",                          default: true
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
