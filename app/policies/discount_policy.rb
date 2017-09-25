@@ -1,4 +1,4 @@
-class PagePolicy < ApplicationPolicy
+class DiscountPolicy < ApplicationPolicy
   def create?
     user.has_any_role?(%i(admin marketing))
   end

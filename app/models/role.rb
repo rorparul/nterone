@@ -24,7 +24,8 @@ class Role < ActiveRecord::Base
     lms_student:   6,
     instructor:    7,
     lms_business:  8,
-    partner_admin: 9
+    partner_admin: 9,
+    marketing:     10
   },
     default: :member,
     predicates: true
@@ -43,7 +44,8 @@ class Role < ActiveRecord::Base
       lms_student:   "LMS Student",
       instructor:    "Instructor",
       lms_business:  "LMS Business",
-      partner_admin: "Partner"
+      partner_admin: "Partner",
+      marketing:     "Marketing"
     }
 
     normalized_roles[self.role.to_sym]
@@ -59,7 +61,8 @@ class Role < ActiveRecord::Base
       ["LMS Student", "lms_student"],
       ["Instructor", "instructor"],
       ['LMS Business', 'lms_business'],
-      ["Partner", "partner_admin"]
+      ["Partner", "partner_admin"],
+      ["Marketing", "marketing"]
     ]
   end
 
