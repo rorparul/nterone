@@ -28,7 +28,7 @@ wb.styles do |style|
       color = style.add_style(bg_color: 'EDEFEF', :border => { :style => :thin, :color =>"959595" })
       items = {
         'Instructor': event.cost_instructor,
-        'Commission': event.commission,
+        'Commission': event.cost_commission,
         'Lab': event.cost_lab,
         'T & E': event.cost_te,
         'Books': event.cost_books,

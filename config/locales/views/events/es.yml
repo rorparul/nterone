@@ -23,6 +23,7 @@ es:
       cost_lab: "Costo Laboratorio"
       cost_shipping: "Costo Envío"
       cost_te: "Costos T&L"
+      cost_commission: "Commission Cost"
       count_weekends: "Cuenta Fin de Semana"
       eastern_timezone: "Eastern Time (US & Canada)"
       end_date: "Fecha de Finalización"
