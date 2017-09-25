@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171014204442) do
+=======
+ActiveRecord::Schema.define(version: 20170925144202) do
+>>>>>>> Remove foreign key from events
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1403,7 +1407,6 @@ ActiveRecord::Schema.define(version: 20171014204442) do
   end
 
   add_foreign_key "checklist_items", "checklists"
-  add_foreign_key "events", "checklists"
   add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"

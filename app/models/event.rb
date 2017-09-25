@@ -62,10 +62,6 @@
 #
 #  index_events_on_checklist_id  (checklist_id)
 #
-# Foreign Keys
-#
-#  fk_rails_b9058a8bd3  (checklist_id => checklists.id)
-#
 
 class Event < ActiveRecord::Base
   include SearchCop
