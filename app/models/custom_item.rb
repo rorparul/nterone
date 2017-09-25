@@ -13,6 +13,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_custom_items_on_origin_region  (origin_region)
+#
 
 class CustomItem < ActiveRecord::Base
   include Regions

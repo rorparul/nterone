@@ -13,6 +13,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_planned_subjects_on_origin_region  (origin_region)
+#
 
 class PlannedSubject < ActiveRecord::Base
   include Regions

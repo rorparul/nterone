@@ -60,7 +60,8 @@
 #
 # Indexes
 #
-#  index_events_on_checklist_id  (checklist_id)
+#  index_events_on_checklist_id   (checklist_id)
+#  index_events_on_origin_region  (origin_region)
 #
 
 class Event < ActiveRecord::Base

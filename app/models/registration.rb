@@ -12,6 +12,10 @@
 #  origin_region        :integer
 #  active_regions       :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_registrations_on_origin_region  (origin_region)
+#
 
 class Registration < ActiveRecord::Base
   include Regions

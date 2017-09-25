@@ -15,6 +15,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_instructors_on_origin_region  (origin_region)
+#
 
 class Instructor < ActiveRecord::Base
   include Regions

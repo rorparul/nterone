@@ -12,6 +12,10 @@
 #  origin_region      :integer
 #  active_regions     :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_passed_exams_on_origin_region  (origin_region)
+#
 
 class PassedExam < ActiveRecord::Base
   include Regions

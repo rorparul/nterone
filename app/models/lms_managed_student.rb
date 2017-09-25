@@ -10,6 +10,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_lms_managed_students_on_origin_region  (origin_region)
+#
 
 class LmsManagedStudent < ActiveRecord::Base
   include Regions

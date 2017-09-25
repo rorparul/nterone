@@ -21,7 +21,8 @@
 #
 # Indexes
 #
-#  index_order_items_on_orderable_id  (orderable_id)
+#  index_order_items_on_orderable_id   (orderable_id)
+#  index_order_items_on_origin_region  (origin_region)
 #
 
 class OrderItem < ActiveRecord::Base

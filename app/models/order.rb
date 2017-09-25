@@ -57,8 +57,9 @@
 #
 # Indexes
 #
-#  index_orders_on_buyer_id   (buyer_id)
-#  index_orders_on_seller_id  (seller_id)
+#  index_orders_on_buyer_id       (buyer_id)
+#  index_orders_on_origin_region  (origin_region)
+#  index_orders_on_seller_id      (seller_id)
 #
 
 class Order < ActiveRecord::Base

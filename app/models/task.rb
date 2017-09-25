@@ -15,6 +15,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_tasks_on_origin_region  (origin_region)
+#
 
 class Task < ActiveRecord::Base
   include SearchCop

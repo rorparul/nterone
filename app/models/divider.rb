@@ -11,6 +11,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_dividers_on_origin_region  (origin_region)
+#
 
 class Divider < ActiveRecord::Base
   include Regions

@@ -21,7 +21,8 @@
 #
 # Indexes
 #
-#  index_subjects_on_slug  (slug)
+#  index_subjects_on_origin_region  (origin_region)
+#  index_subjects_on_slug           (slug)
 #
 
 class Subject < ActiveRecord::Base

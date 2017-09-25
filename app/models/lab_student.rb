@@ -11,6 +11,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_lab_students_on_origin_region  (origin_region)
+#
 
 class LabStudent < ActiveRecord::Base
   include Regions

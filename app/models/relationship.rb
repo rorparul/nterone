@@ -14,6 +14,7 @@
 # Indexes
 #
 #  index_relationships_on_buyer_id                (buyer_id)
+#  index_relationships_on_origin_region           (origin_region)
 #  index_relationships_on_seller_id               (seller_id)
 #  index_relationships_on_seller_id_and_buyer_id  (seller_id,buyer_id) UNIQUE
 #

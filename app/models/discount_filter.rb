@@ -19,6 +19,10 @@
 #  origin_region     :integer
 #  active_regions    :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_discount_filters_on_origin_region  (origin_region)
+#
 
 class DiscountFilter < ActiveRecord::Base
   include Regions

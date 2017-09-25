@@ -22,9 +22,10 @@
 #
 # Indexes
 #
-#  index_categories_on_parent_id    (parent_id)
-#  index_categories_on_platform_id  (platform_id)
-#  index_categories_on_slug         (slug)
+#  index_categories_on_origin_region  (origin_region)
+#  index_categories_on_parent_id      (parent_id)
+#  index_categories_on_platform_id    (platform_id)
+#  index_categories_on_slug           (slug)
 #
 
 class Category < ActiveRecord::Base

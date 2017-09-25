@@ -22,6 +22,10 @@
 #  active_regions :text             default([]), is an Array
 #  sales_force_id :string
 #
+# Indexes
+#
+#  index_companies_on_origin_region  (origin_region)
+#
 
 class Company < ActiveRecord::Base
   extend ActsAsTree::TreeView

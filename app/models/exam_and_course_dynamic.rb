@@ -10,6 +10,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_exam_and_course_dynamics_on_origin_region  (origin_region)
+#
 
 class ExamAndCourseDynamic < ActiveRecord::Base
   include Regions

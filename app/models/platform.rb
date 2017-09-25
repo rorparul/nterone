@@ -16,7 +16,8 @@
 #
 # Indexes
 #
-#  index_platforms_on_slug  (slug)
+#  index_platforms_on_origin_region  (origin_region)
+#  index_platforms_on_slug           (slug)
 #
 
 class Platform < ActiveRecord::Base

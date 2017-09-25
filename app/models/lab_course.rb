@@ -17,6 +17,10 @@
 #  origin_region    :integer
 #  active_regions   :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_lab_courses_on_origin_region  (origin_region)
+#
 
 class LabCourse < ActiveRecord::Base
   extend FriendlyId

@@ -14,6 +14,10 @@
 #  origin_region    :integer
 #  active_regions   :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_pages_on_origin_region  (origin_region)
+#
 
 class Page < ActiveRecord::Base
   extend FriendlyId

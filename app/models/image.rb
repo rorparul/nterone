@@ -12,6 +12,7 @@
 # Indexes
 #
 #  index_images_on_imageable_type_and_imageable_id  (imageable_type,imageable_id)
+#  index_images_on_origin_region                    (origin_region)
 #
 
 class Image < ActiveRecord::Base

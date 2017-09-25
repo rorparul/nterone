@@ -18,6 +18,7 @@
 #  index_lms_exam_attempt_answers_on_lms_exam_answer_id    (lms_exam_answer_id)
 #  index_lms_exam_attempt_answers_on_lms_exam_attempt_id   (lms_exam_attempt_id)
 #  index_lms_exam_attempt_answers_on_lms_exam_question_id  (lms_exam_question_id)
+#  index_lms_exam_attempt_answers_on_origin_region         (origin_region)
 #
 # Foreign Keys
 #

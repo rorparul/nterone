@@ -16,7 +16,8 @@
 #
 # Indexes
 #
-#  index_carts_on_token  (token)
+#  index_carts_on_origin_region  (origin_region)
+#  index_carts_on_token          (token)
 #
 
 class Cart < ActiveRecord::Base

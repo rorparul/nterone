@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_lms_exam_attempts_on_lms_exam_id  (lms_exam_id)
-#  index_lms_exam_attempts_on_user_id      (user_id)
+#  index_lms_exam_attempts_on_lms_exam_id    (lms_exam_id)
+#  index_lms_exam_attempts_on_origin_region  (origin_region)
+#  index_lms_exam_attempts_on_user_id        (user_id)
 #
 # Foreign Keys
 #
