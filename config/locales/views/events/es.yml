@@ -54,6 +54,7 @@ es:
       two_weeks: "Dos Semanas"
       zipcode: "Código Postal"
       checklist: "Lista de verificación"
+      do_not_email_instructor: "Do Not Email Instructor"
     partial_index:
       classes: "Clases"
       course: "Curso"
