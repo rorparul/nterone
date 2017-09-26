@@ -156,5 +156,6 @@ es:
       class_date: "Fecha de la Clase"
       class_name: "Nombre de la Clase"
       num_of_registrations: "Número de Registros"
+      revenue: "Revenue"
     upload_form:
       upload_classes: "Clases Cargadas"

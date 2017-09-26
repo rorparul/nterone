@@ -7,7 +7,8 @@ wb.styles do |style|
     headers = [
       t('events.student_registered_classes.class_date'),
       t('events.student_registered_classes.class_name'),
-      t('events.student_registered_classes.num_of_registrations')
+      t('events.student_registered_classes.num_of_registrations'),
+      t('events.student_registered_classes.revenue')
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)
@@ -16,7 +17,8 @@ wb.styles do |style|
       sheet.add_row [
         event.start_date,
         event.course.title,
-        event.student_count
+        event.student_count,
+        "$#{number_with_delimiter(number_with_precision(event.revenue, preceision: 2))}"
       ]
     end
   end
