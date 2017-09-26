@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926003105) do
+ActiveRecord::Schema.define(version: 20170926184647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20170926003105) do
     t.boolean  "satellite_viewable",                         default: true
     t.integer  "origin_region"
     t.text     "active_regions",                             default: [],                 array: true
+    t.string   "cisco_id"
   end
 
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree

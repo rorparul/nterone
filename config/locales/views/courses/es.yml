@@ -42,6 +42,7 @@ es:
       slug: "Slug"
       video_preview: "Video Previo"
       satellite_viewable: "Visible por satélite"
+      cisco_id: "Cisco ID"
     partial_index:
       courses: "Cursos"
       course_id: "Curso ID"

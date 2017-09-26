@@ -27,7 +27,7 @@ en:
     partial_form:
       abbr: "Abbreviation"
       active: "Active"
-      title: 'Add Course'
+      title: 'Title'
       attend: "Who Should Attend"
       catgories: "Categories"
       heading: "Heading (H1)"
@@ -42,6 +42,7 @@ en:
       slug: "Slug"
       video_preview: "Video Preview"
       satellite_viewable: "Satellite Viewable"
+      cisco_id: "Cisco ID"
     partial_index:
       courses: "Courses"
       course_id: "Course ID"

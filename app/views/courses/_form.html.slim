@@ -30,9 +30,15 @@
       = f.label :title, t('courses.partial_form.title')
       = f.text_field :title, class: 'form-control input-sm'
 
-    .form-group
-      = f.label :slug, t('courses.partial_form.slug')
-      = f.text_field :slug, class: 'form-control input-sm'
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :slug, t('courses.partial_form.slug')
+          = f.text_field :slug, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :cisco_id, t('courses.partial_form.cisco_id')
+          = f.text_field :cisco_id, class: 'form-control input-sm'
 
     .row
       .col-xs-12.col-sm-6

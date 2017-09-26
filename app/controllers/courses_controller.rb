@@ -167,6 +167,7 @@ class CoursesController < ApplicationController
                                    :video_preview,
                                    :partner_led,
                                    :satellite_viewable,
+                                   :cisco_id,
                                    category_ids: [])
   end
 
