@@ -61,6 +61,18 @@ class GeneralController < ApplicationController
     @lab_courses = LabCourse.where.not(level: 'partner').order(:title)
   end
 
+  def nci
+    @page = Page.find_by(title: 'NCI')
+  end
+
+  def nci_engineers
+    @page = Page.find_by(title: 'NCI Engineers')
+  end
+
+  def nci_cisco_program_administrators
+    @page = Page.find_by(title: 'NCI Cisco Program Administrators')
+  end
+
   def nterone_gives_back
     @page = Page.find_by(title: 'NterOne Gives Back')
   end
@@ -133,10 +145,6 @@ class GeneralController < ApplicationController
   end
 
   def sims
-  end
-
-  def nci
-    @page = Page.find_by(title: 'NCI')
   end
 
   def support

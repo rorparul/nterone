@@ -29,6 +29,7 @@ es:
       testimonials: "Testimonios"
       training: "Entrenamiento"
       welcome: "Bienvenidos"
+      nci: "NCI"
     partial_side_column:
       contact_us_body: " a nosotros por mas detalles."
       contact_us_link: "Contactos"
@@ -46,6 +47,7 @@ es:
       testimonials: "Testimonios"
       training: "Entrenamiento"
       welcome: "Bienvenidos"
+      nci: "NCI"
     partial_tabs:
       companies: "Compañías"
       contacts: "Contactos"

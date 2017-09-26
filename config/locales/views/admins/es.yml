@@ -47,6 +47,8 @@ es:
       press: "Prensa"
       support: "Apoyo"
       training: "Entrenamientos"
+      engineers: "Engineers"
+      cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
       announcements: "Anuncios"
       classes: "Clases"
