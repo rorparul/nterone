@@ -2,7 +2,7 @@ class LabCoursesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-	before_action :set_lab_course, except: [:new, :create]
+	before_action :set_lab_course,       except: [:new, :create]
 	before_action :authorize_lab_course, except: [:show, :time_select]
 
 	def show
