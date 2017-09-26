@@ -232,7 +232,7 @@
                   - if current_user.admin?
                     td
                       - if order_item.order
-                        = form_for order_item.order, url: order_path(order_item.order), method: :patch do |f|
+                        = form_for order_item.order, url: order_path(order_item.order), method: :patch, remote: true do |f|
                           = f.select :seller_id,
                                      Role.where(role: [2, 3]).collect { |role| [role.user.try(:full_name), role.user.try(:id)] },
                                      { prompt: true },
