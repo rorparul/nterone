@@ -47,6 +47,8 @@ en:
       press: "Press"
       support: "Support"
       training: "Training"
+      engineers: "Engineers"
+      cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
       announcements: "Announcements"
       my_classes: "My Classes"

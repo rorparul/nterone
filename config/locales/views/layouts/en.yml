@@ -29,6 +29,7 @@ en:
       testimonials: "Testimonials"
       training: "Training"
       welcome: "Welcome"
+      nci: "NCI"
     partial_side_column:
       contact_us_body: " us for more details."
       contact_us_link: "Email"
@@ -46,6 +47,7 @@ en:
       testimonials: "Testimonials"
       training: "Training"
       welcome: "Welcome"
+      nci: "NCI"
     partial_tabs:
       companies: "Companies"
       contacts: "Contacts"
