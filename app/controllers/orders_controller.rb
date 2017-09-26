@@ -176,7 +176,8 @@ class OrdersController < ApplicationController
         flash[:success] = "Order was successfully updated."
         render js: "window.location = '#{request.referrer}';"
       else
-        render json: { success: true }
+        # render json: { success: true }
+        render "layouts/async_status"
       end
     else
       if params[:order].keys.count > 1

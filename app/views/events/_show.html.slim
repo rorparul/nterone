@@ -270,6 +270,7 @@ javascript:
   });
 
   $('.form-async').on('keyup', function() {
+    $("#async-waiting").show();
     $(this).closest('form').submit();
   });
 
