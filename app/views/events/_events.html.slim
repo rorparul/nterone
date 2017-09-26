@@ -30,7 +30,7 @@
     td.fit = event.guaranteed ? 'Y' : 'N'
     td.fit.text-right
       = link_to t('default.action.show'), admin_classes_show_path(event)
-      |  | 
+      |  |
       = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-      |  | 
+      |  |
       = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

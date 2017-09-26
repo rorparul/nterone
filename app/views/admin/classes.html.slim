@@ -44,11 +44,11 @@
         - unless current_user.partner?
           #end-date.pull-right style='margin: 4px 35px 4px 0;'
             = date_select :date_end, :date_end,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @end_date.year, month: @end_date.month, day: @end_date.day } },
+              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @end_date.try(:year), month: @end_date.try(:month), day: @end_date.try(:day) } },
               { disabled: false, class: 'input-date' }
           #start-date.pull-right style='margin: 4px 15px 4px 0;'
             = date_select :date_start, :date_start,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.year, month: @start_date.month, day: @start_date.day } },
+              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
               { disabled: false, class: 'input-date' }
 
     = smart_listing_render(:events)
