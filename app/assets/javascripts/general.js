@@ -63,6 +63,10 @@ function prepareInputs() {
     });
   });
 
+  $('.form-async').on('keyup', function() {
+    $("#async-waiting").show();
+  )};
+
   $('.search-select').select2({
     dropdownParent: $(".modal-body.panel-body"),
     theme: "bootstrap"

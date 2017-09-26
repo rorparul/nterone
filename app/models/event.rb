@@ -49,6 +49,7 @@
 #  checklist_id                   :integer
 #  cost_commission                :decimal(8, 2)    default(0.0)
 #  autocalculate_cost_commission  :boolean          default(TRUE)
+#  do_not_send_instructor_email   :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -255,7 +256,7 @@ class Event < ActiveRecord::Base
   end
 
   def confirm_with_instructor
-    InstructorMailer.confirm_class(instructor, self).deliver_now
+    InstructorMailer.confirm_class(instructor, self).deliver_now unless do_not_send_instructor_email?
   end
 
   def mark_non_public

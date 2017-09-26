@@ -361,7 +361,8 @@ class User < ActiveRecord::Base
       lms_business:  "LMS Business",
       partner_admin: "Partner",
       marketing:     "Marketing",
-      webmaster:     "Webmaster"
+      webmaster:     "Webmaster",
+      lab_admin:     "Lab Admin"
     }
 
     roles.each do |role|

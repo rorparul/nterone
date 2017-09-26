@@ -13,7 +13,7 @@ class AdminPolicy < Struct.new(:user, :admin)
   end
 
   def labs?
-    user.has_any_role?(%i(admin)) || user.company.present?
+    user.has_any_role?(%i(admin lab_admin)) || user.company.present?
   end
 
   def lms?

@@ -98,14 +98,11 @@
                     User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
                     { include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm' }
-
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :checklist_id, t('events.partial_form.checklist')
-          = f.select :checklist_id,
-                    Checklist.order(:name).collect { |checklist| ["#{checklist.name}", checklist.id] },
-                    { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control input-sm' }
+          = f.label :do_not_send_instructor_email, t('events.partial_form.do_not_email_instructor')
+          br
+          = f.check_box :do_not_send_instructor_email
 
 
     .row
@@ -142,6 +139,15 @@
           .input-group.input-group-sm
             span.input-group-addon $
             = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :checklist_id, t('events.partial_form.checklist')
+          = f.select :checklist_id,
+                    Checklist.order(:name).collect { |checklist| ["#{checklist.name}", checklist.id] },
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control input-sm' }
 
     hr
 

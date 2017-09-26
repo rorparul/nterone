@@ -185,6 +185,7 @@ class EventsController < ApplicationController
       :checklist_id,
       :cost_commission,
       :autocalculate_cost_commission,
+      :do_not_send_instructor_email,
       active_regions: []
     )
   end

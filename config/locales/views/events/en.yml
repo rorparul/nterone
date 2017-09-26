@@ -54,6 +54,7 @@ en:
       two_weeks: "Two Weeks"
       zipcode: "Zip Code"
       checklist: "Checklist"
+      do_not_email_instructor: "Do Not Email Instructor"
     partial_index:
       classes: "Classes"
       course: "Course"

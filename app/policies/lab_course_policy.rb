@@ -1,9 +1,13 @@
 class LabCoursePolicy < ApplicationPolicy
-  def new?
-    user.admin?
+  def create?
+    user.has_any_role?(%i(admin lab_admin))
   end
 
-  def edit?
-    user.admin?
+  def update?
+    user.has_any_role?(%i(admin lab_admin))
+  end
+
+  def destroy?
+    user.has_any_role?(%i(admin lab_admin))
   end
 end
