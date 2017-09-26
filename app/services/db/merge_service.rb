@@ -234,7 +234,7 @@ class Db::MergeService
 
             unless Rails.env.test?
               i += 1
-              print "#{i} / #{total}\r"
+              print "#{model_name}:#{foreign_field}:#{relation_model_name} #{i} / #{total}\r"
             end
 
           end
@@ -249,7 +249,7 @@ class Db::MergeService
       polymorphics = model.reflections.select {|name, r| r.options[:polymorphic] }
 
       polymorphics.each do |name, reflection|
-        model.group(name + "_type").count.each do |relation_name, count|
+        model.unscoped.group(name + "_type").count.each do |relation_name, count|
           foreign_field = name + "_id"
           @ids[relation_name].each do |pair|
             old_id, new_id = pair
