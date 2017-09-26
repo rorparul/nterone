@@ -20,7 +20,7 @@ class AdminController < ApplicationController
     smart_listing_create(:orders,
                          orders_scope,
                          partial: "orders/listing",
-                         sort_attributes: [[:id, "id"],
+                         sort_attributes: [[:id, "orders.id"],
                                            [:status_position, "status_position"],
                                            [:total, "total"],
                                            [:paid, "paid"],
@@ -29,7 +29,7 @@ class AdminController < ApplicationController
                                            [:auth_code, "auth_code"],
                                            [:clc_quantity, "clc_quantity"],
                                            [:created_at, "orders.created_at"]],
-                         default_sort: { "orders.id": "desc"})
+                         default_sort: { id: "desc"})
 
     respond_to do |format|
       format.html
