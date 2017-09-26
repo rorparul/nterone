@@ -42,15 +42,15 @@ namespace :rails do
     on roles(:app) do |server|
       server_index = ARGV[2].to_i
 
-      return if server != roles(:app)[server_index]
+      if server == roles(:app)[server_index]
+        puts "Opening a console on: #{host}...."
 
-      puts "Opening a console on: #{host}...."
+        cmd = "ssh #{server.user}@#{host} -t 'cd #{fetch(:deploy_to)}/current && ~/.rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec rails console #{fetch(:rails_env)}'"
 
-      cmd = "ssh #{server.user}@#{host} -t 'cd #{fetch(:deploy_to)}/current && ~/.rvm/bin/rvm #{fetch(:rvm_ruby_version)} do bundle exec rails console #{fetch(:rails_env)}'"
+        puts cmd
 
-      puts cmd
-
-      exec cmd
+        exec cmd
+      end
     end
   end
 end
