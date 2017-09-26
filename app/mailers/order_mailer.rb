@@ -21,6 +21,15 @@ class OrderMailer < ApplicationMailer
       ],
       subject: "NterOne.#{@tld} Order Confirmation"
     )
+      .attachments['nterone_receipt.pdf'] = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          pdf: 'NterOne Receipt',
+          margin: { bottom: 32 },
+          template: 'orders/receipt.html.slim',
+          locals: { order: @order },
+          footer:  { html: { template: 'layouts/_footer.html.slim' } }
+        )
+      )
   end
 
   def lab_rental_notification(user, order_pods)

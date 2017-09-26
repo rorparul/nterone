@@ -1,0 +1,123 @@
+doctype html
+html
+  head
+    meta charset='utf-8'
+  body
+    div style='text-align: center;'
+      = wicked_pdf_image_tag 'logo.png'
+
+    div style="margin-bottom: 25px;"
+      | 747 Sandy Ridge Rd
+      br
+      | Tyner, NC 27980
+      br
+      | United States
+      br
+      | 703-972-2288
+
+    div style="margin-bottom: 25px;"
+      h3 Order Information
+      table
+        tbody
+          tr
+            td Description:
+            td
+              table
+                tbody
+                  - @order.order_items.each do |order_item|
+                    tr
+                      - if order_item.orderable_type == 'Event'
+                        td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
+                        td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+                        td = order_item.orderable.format
+                      - if order_item.orderable_type == 'VideoOnDemand'
+                        td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
+                        td
+                          = t('orders.confirmation.one_year_of_access')
+                        td
+                          = t('orders.confirmation.video_on_demand')
+                      - if order_item.orderable_type == 'LabRental'
+                        td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
+                        td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
+                        td = t('orders.confirmation.pod_rental')
+                      - if order_item.price > 0.00
+                        td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                      - else
+                        td
+                          = t('orders.confirmation.free')
+          tr
+            td Order Number:
+            td = @order.id
+          tr
+            td Customer ID:
+            td = @order.buyer.id
+
+    hr
+
+    div
+      table
+        thead
+          tr
+            th style="text-align: left;" Billing Information
+            th style="text-align: left;" Shipping Information
+        tbody
+          tr
+            td
+              = "#{@order.billing_first_name} #{@order.billing_last_name}"
+              br
+              = @order.billing_company
+              br
+              = @order.billing_street
+              br
+              = "#{@order.billing_city}, #{@order.billing_state} #{@order.billing_zip_code}"
+              br
+              = @order.billing_country
+            td
+              = "#{@order.shipping_first_name} #{@order.shipping_last_name}"
+              br
+              = @order.shipping_company
+              br
+              = @order.shipping_street
+              br
+              = "#{@order.shipping_city}, #{@order.shipping_state} #{@order.shipping_zip_code}"
+              br
+              = @order.shipping_country
+
+    hr style="margin-bottom: 25px;"
+
+    div style="margin-bottom: 25px;"
+      table
+        tbody
+          / tr
+          /   td Shipping:
+          /   td
+          / tr
+          /   td Tax:
+          /   td
+          tr
+            td style="text-align: right;"
+              strong Total:
+            td style="width: 1%; white-space: nowrap;"
+              strong = "$#{number_with_delimiter(number_with_precision(@order.total, precision: 2))}"
+
+    div style="margin-bottom: 25px;"
+      table
+        tbody
+          tr
+            td Date/Time:
+            td = @order.created_at
+          / tr
+          /   td Transaction ID:
+          /   td = @order.auth_code
+          / tr
+          /   td Transaction Type:
+          /   td
+          / tr
+          /   td Transaction Status:
+          /   td
+          tr
+            td Authorization Code:
+            td = @order.auth_code
+          tr
+            td Payment Method:
+            td = @order.payment_type
