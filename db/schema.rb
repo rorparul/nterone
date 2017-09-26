@@ -425,6 +425,7 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.decimal  "cost_commission",                precision: 8, scale: 2, default: 0.0
     t.boolean  "autocalculate_cost_commission",                          default: true
     t.boolean  "do_not_send_instructor_email",                           default: false
+<<<<<<< HEAD
     t.string   "country_code"
     t.string   "location"
     t.string   "registration_url"
@@ -432,6 +433,8 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.string   "registration_fax"
     t.string   "registration_email"
     t.string   "site_id"
+=======
+>>>>>>> Add origin_region to topologies
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
@@ -1338,6 +1341,7 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.integer  "lab_course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "origin_region"
   end
 
   create_table "user_companies", force: :cascade do |t|

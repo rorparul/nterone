@@ -6,6 +6,7 @@
 #  lab_course_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
+#  origin_region :integer
 #
 
 class Topology < ActiveRecord::Base

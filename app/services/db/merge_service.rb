@@ -16,7 +16,7 @@ class Db::MergeService
   end
 
   def call
-    # @models = [User, Role, Event, VideoOnDemand, OrderItem, Registration]  if Rails.env.development?
+    @models = [User, Role, Event, VideoOnDemand, OrderItem, Registration]  if Rails.env.development?
     @models.each do |model|
       merge_model model
     end
@@ -108,8 +108,6 @@ class Db::MergeService
     # BREAK
     return  if total_count == 0
 
-    i =  0
-
     ActiveRecord::Base.establish_connection(@main_database)
     ActiveRecord::Base.connection.execute("ALTER TABLE #{model.table_name} DISABLE TRIGGER ALL")
 
@@ -120,6 +118,7 @@ class Db::MergeService
     while true do
 
       records = []
+      old_ids = []
 
       ActiveRecord::Base.establish_connection(@database)
       records = model.unscoped.order(:id).offset(page * page_size).limit(page_size).to_a.map {|r| r.attributes }
@@ -130,44 +129,56 @@ class Db::MergeService
 
       ActiveRecord::Base.establish_connection(@main_database)
 
-      records.each do |rec|
-        i += 1
-
-        unless Rails.env.test?
-          print "%20s: %10d / %10d, old count: %10d \r" % [model.name, i, total_count, @old_counts[model.name].to_i]
+      # Order
+      if model == Order
+        records.map! do |attributes|
+          attributes["source"] = 10  if attributes["source"] == 0
         end
+      end
 
-        old_id = rec.delete("id")
-        attributes = rec
-
-        begin
-          attributes["origin_region"]  = @origin_region
-          attributes["active_regions"] = [Event.origin_regions.key(@origin_region)]
-
-          # Order
-          if model == Order
-            attributes["source"] = 10  if attributes["source"] == 0
-          end
-
-          # User
-          if model == User && user_emails[attributes["email"]]
-            ids[old_id] = user_emails[attributes["email"]]
-
-          # Otherwise insert
+      # User
+      if model == User
+        records.select! do |attributes|
+          if user_emails[attributes["email"]]
+            ids[attributes["id"]] = user_emails[attributes["email"]]
+            false
           else
-            result = model.import [attributes], validate: false, raise_error: true
-
-            if result.num_inserts == 1
-              ids[old_id] = result.ids.first
-            else
-              raise "Error inserting: "
-              p attributes
-            end
+            true
           end
-
-        rescue Exception => e
-          puts e.backtrace.join("\t\n")
         end
+      end
+
+      # sorting
+      records.sort! do |a, b|
+        a["id"].to_i <=> b["id"].to_i
+      end
+
+      # extract id
+      records.map! do |attributes|
+        old_ids << attributes.delete("id")
+        attributes["origin_region"]  = @origin_region
+        attributes["active_regions"] = [Event.origin_regions.key(@origin_region)]
+      end
+
+      unless Rails.env.test?
+        print "%20s: %10d / %10d, old count: %10d \r" % [model.name, page*page_size, total_count, @old_counts[model.name].to_i]
+      end
+
+      begin
+        result = model.import records, validate: false
+
+        if result.num_inserts == records.size
+          result.ids.each_with_index do |id, i|
+            ids[old_ids[i]] = id
+          end
+        else
+          raise "Error inserting: "
+          p attributes
+        end
+      rescue Exception => e
+        puts e.backtrace.join("\t\n")
+        p model.name
+        p attributes
       end
 
       @models.each do |klass|
@@ -223,6 +234,11 @@ class Db::MergeService
 
         relation_model_names.each do |relation_model_name|
           relation = relation_model_name.constantize
+          index_name = "merge_tmp_index_" + relation_model_name + foreign_field
+          begin
+            ActiveRecord::Base.connection.execute("CREATE INDEX #{index_name} ON #{model.table_name} #{foreign_field}")
+          rescue
+          end
 
           @ids[model_name].each do |pair|
 
@@ -235,6 +251,11 @@ class Db::MergeService
             unless Rails.env.test?
               i += 1
               print "#{model_name}:#{foreign_field}:#{relation_model_name} #{i} / #{total}\r"
+            end
+
+            begin
+              ActiveRecord::Base.connection.execute("DROP INDEX #{index_name}")
+            rescue
             end
 
           end
