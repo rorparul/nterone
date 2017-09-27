@@ -9,22 +9,45 @@ class Db::MergeService
     @post_updates  = {}
     @ids           = {}
     @polymorphics  = {}
+  end
+
+  def call
 
     init_origin_region
 
     init_models
-  end
 
-  def call
-    @models = [User, Role, Event, VideoOnDemand, OrderItem, Registration]  if Rails.env.development?
+    # @models = [User]  if Rails.env.development?
     @models.each do |model|
       merge_model model
     end
 
     post_update
 
+    set_origin_region
+
     rebuild_all_indexes
     remove_extra_roles
+  end
+
+  def set_origin_region
+    ActiveRecord::Base.establish_connection(@main_database)
+    ActiveRecord::Base.connection.tables.each do |table|
+      begin
+        klass = table.singularize.camelize.constantize
+      rescue => exception
+      else
+        if klass.respond_to? :origin_regions
+          # set origin_region
+          if klass.column_names.include?("origin_region")
+            klass
+              .unscoped
+              .where("origin_region = -1")
+              .update_all("origin_region": @origin_region)
+          end
+        end
+      end
+    end
   end
 
   def init_origin_region
@@ -112,12 +135,11 @@ class Db::MergeService
     ActiveRecord::Base.connection.execute("ALTER TABLE #{model.table_name} DISABLE TRIGGER ALL")
 
     if model == User
-      user_emails = User.all.inject({}) {|h, u| h[u.email] = u.id; h }
+      user_emails = User.unscoped.all.inject({}) {|h, u| h[u.email] = u.id; h }
     end
 
     while true do
 
-      records = []
       old_ids = []
 
       ActiveRecord::Base.establish_connection(@database)
@@ -133,6 +155,7 @@ class Db::MergeService
       if model == Order
         records.map! do |attributes|
           attributes["source"] = 10  if attributes["source"] == 0
+          attributes
         end
       end
 
@@ -156,29 +179,25 @@ class Db::MergeService
       # extract id
       records.map! do |attributes|
         old_ids << attributes.delete("id")
-        attributes["origin_region"]  = @origin_region
+        attributes["origin_region"]  = -1
         attributes["active_regions"] = [Event.origin_regions.key(@origin_region)]
-      end
-
-      unless Rails.env.test?
-        print "%20s: %10d / %10d, old count: %10d \r" % [model.name, page*page_size, total_count, @old_counts[model.name].to_i]
+        attributes
       end
 
       begin
         result = model.import records, validate: false
-
-        if result.num_inserts == records.size
-          result.ids.each_with_index do |id, i|
-            ids[old_ids[i]] = id
-          end
-        else
-          raise "Error inserting: "
-          p attributes
-        end
       rescue Exception => e
         puts e.backtrace.join("\t\n")
         p model.name
-        p attributes
+        raise
+      end
+
+      if result.ids.size == records.size
+        result.ids.each_with_index do |id, i|
+          ids[old_ids[i]] = id
+        end
+      else
+        raise "Error inserting: #{result.num_inserts} != #{records.size} "
       end
 
       @models.each do |klass|
@@ -203,7 +222,10 @@ class Db::MergeService
         end
       end
 
-      page += 1
+      unless Rails.env.test?
+        page += 1
+        print "%20s: %10d / %10d, old count: %10d \r" % [model.name, page*page_size, total_count, @old_counts[model.name].to_i]
+      end
 
     end
 
@@ -234,31 +256,34 @@ class Db::MergeService
 
         relation_model_names.each do |relation_model_name|
           relation = relation_model_name.constantize
-          index_name = "merge_tmp_index_" + relation_model_name + foreign_field
+          index_name = "tmp_" + relation_model_name.to_s + foreign_field.to_s
           begin
-            ActiveRecord::Base.connection.execute("CREATE INDEX #{index_name} ON #{model.table_name} #{foreign_field}")
-          rescue
+            ActiveRecord::Base.connection.execute("CREATE INDEX #{index_name} ON #{relation.table_name} (#{foreign_field})")
+          rescue => e
           end
 
-          @ids[model_name].each do |pair|
+          @ids[model_name].each_slice(1000) do |ids|
 
-            old_id, new_id = pair
-            relation
-              .unscoped
-              .where("#{foreign_field} = #{old_id}")
-              .update_all("#{foreign_field} = #{new_id}")
+            values = ids.map { |old_id, new_id| "(#{old_id}, #{new_id})" }.join(",")
+
+            ActiveRecord::Base.connection.execute(%(
+              UPDATE #{relation.table_name} AS p SET #{foreign_field} = v.value
+              FROM (values #{values}) AS v(id, value)
+              WHERE p.#{foreign_field} = v.id AND origin_region = -1
+            ))
 
             unless Rails.env.test?
-              i += 1
+              i += ids.size
               print "#{model_name}:#{foreign_field}:#{relation_model_name} #{i} / #{total}\r"
             end
 
-            begin
-              ActiveRecord::Base.connection.execute("DROP INDEX #{index_name}")
-            rescue
-            end
-
           end
+
+          begin
+            ActiveRecord::Base.connection.execute("DROP INDEX IF EXISTS #{index_name}")
+          rescue => e
+          end
+
         end
       end
     end
@@ -270,22 +295,51 @@ class Db::MergeService
       polymorphics = model.reflections.select {|name, r| r.options[:polymorphic] }
 
       polymorphics.each do |name, reflection|
+        foreign_field = name + "_id"
+
+        # create index
+        index_name = "tmp_" + model.name + foreign_field
+        begin
+          ActiveRecord::Base.connection.execute("CREATE INDEX #{index_name} ON #{model.table_name} (#{name + '_type'}, #{foreign_field})")
+        rescue => e
+        end
+
         model.unscoped.group(name + "_type").count.each do |relation_name, count|
-          foreign_field = name + "_id"
-          @ids[relation_name].each do |pair|
-            old_id, new_id = pair
-            model
-              .unscoped
-              .where("#{name + '_type'} = '#{relation_name}' and #{foreign_field} = #{old_id}")
-              .update_all("#{foreign_field} = #{new_id}")
-          end  if @ids[relation_name]
+
+          if @ids[relation_name]
+
+            i = 0
+            @ids[relation_name].each_slice(1000) do |ids|
+
+              values = ids.map { |old_id, new_id| "(#{old_id}, #{new_id})" }.join(",")
+
+              ActiveRecord::Base.connection.execute(%(
+                UPDATE #{model.table_name} AS p SET #{foreign_field} = v.value
+                FROM (values #{values}) AS v(id, value)
+                WHERE p.#{name + '_type'} = '#{relation_name}' AND p.#{foreign_field} = v.id AND origin_region = -1
+              ))
+
+              unless Rails.env.test?
+                print "#{model.name}:#{name}:#{relation_name} #{i + ids.size} / #{@ids[relation_name].size}  \r"
+              end
+            end
+          end
+        end
+
+        puts  unless Rails.env.test?
+
+        # drop index
+        begin
+          ActiveRecord::Base.connection.execute("DROP INDEX IF EXISTS #{index_name}")
+        rescue => e
         end
       end
-
     end
   end
 
   def rebuild_all_indexes
+    puts "Rebuilding indexes..." unless Rails.env.test?
+
     ActiveRecord::Base.establish_connection(@main_database)
     @models.each do |model|
       ActiveRecord::Base.connection.execute("REINDEX TABLE #{model.table_name}")
@@ -293,12 +347,22 @@ class Db::MergeService
   end
 
   def remove_extra_roles
+    puts "Removing extra roles..." unless Rails.env.test?
+
     ActiveRecord::Base.establish_connection(@main_database)
-    User.unscoped.all.each do |user|
+
+    total = User.unscoped.count
+    User.unscoped.all.each_with_index do |user, i|
       roles = user.roles.map(&:role).uniq
-      user.roles.delete_all
-      roles.each do |role|
-        user.roles.create(role: role, origin_region: user.origin_region)
+      if roles.size != user.roles.size
+        user.roles.delete_all
+        roles.each do |role|
+          user.roles.create(role: role)
+        end
+      end
+
+      unless Rails.env.test?
+        print "#{i + 1} / #{total} \r"
       end
     end
   end
