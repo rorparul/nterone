@@ -7,8 +7,6 @@ class OpportunitiesController < ApplicationController
   before_action :set_associations,      only: [:new, :edit, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
-  # after_filter { flash.discard if request.xhr? }
-
   layout 'admin'
 
   def index

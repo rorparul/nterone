@@ -32,15 +32,13 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :orderable, polymorphic: true, autosave: true
 
-  before_create :copy_current_orderable_price, unless: Proc.new {|model| model.orderable_type == "LabRental"}
-  before_save   :update_status
-  after_save    :update_event_status
-  after_save    :calculate_event_book_cost, if: Proc.new { |model| model.cart_id.nil? }
-  after_destroy :calculate_event_book_cost
+  before_create :copy_current_orderable_price, unless: proc { |model| model.orderable_type == "LabRental" }
 
-  # validates :cart_id, uniqueness: { scope: [:orderable_id, :orderable_type] }
-  # validates :order, presence: true
-  # validates_associated :order
+  before_save :update_status
+  before_save :create_opportunity, if: :opportunity_is_createable?
+
+  after_save :update_event_status
+
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
 
   def paid
@@ -105,19 +103,51 @@ class OrderItem < ActiveRecord::Base
     end
   end
 
-  def calculate_event_book_cost
-    # if orderable_type == "Event"
-    #   event = Event.find(self.orderable_id)
-    #   if event.calculate_book_costs?
-    #     platform_title = event.course.platform.title
-    #     case platform_title
-    #     when "Cisco"
-    #       event.cost_books = 350.00 * event.student_count
-    #     when "VMware"
-    #       event.cost_books = 725.00 * event.student_count
-    #     end
-    #     event.save
-    #   end
-    # end
+  def opportunity_is_createable?
+    existing_opportunity = Opportunity.find_by(
+      employee_id: order.seller_id,
+      customer_id: order.buyer_id,
+      event_id:    orderable_id
+    )
+
+    [
+      order.present?,
+      order.seller.present?,
+      orderable.class == Event,
+      existing_opportunity.nil?
+    ].all?
+  end
+
+  def create_opportunity
+    opportunity = Opportunity.new(
+      employee_id: order.seller_id,
+      customer_id: order.buyer_id,
+      # account_id: ,
+      # title: ,
+      stage: 100,
+      amount: price,
+      # kind: ,
+      # reason_for_loss: ,
+      # waiting: ,
+      # payment_kind: ,
+      # billing_street: ,
+      # billing_city: ,
+      # billing_state: ,
+      # billing_zip_code: ,
+      # partner_id: ,
+      date_closed: Date.today,
+      course_id: orderable.try(:course).id,
+      event_id: orderable_id,
+      # email_optional: ,
+      notes: note
+    )
+
+    Opportunity.skip_callback(:save, :after, :create_order)
+    Opportunity.skip_callback(:save, :after, :update_order)
+    Opportunity.skip_callback(:save, :after, :destroy_order)
+
+    opportunity.save
+
+    order.update_columns(opportunity_id: opportunity.id)
   end
 end

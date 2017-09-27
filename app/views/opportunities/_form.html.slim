@@ -8,66 +8,66 @@
         ul
           - @opportunity.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control'
-              
+
     hr
-              
+
     .form-group
       = f.label :stage, 'Stage'
       = f.select :stage, opportunity_stages_options,
         {},
         { class: 'search-select stage-select form-control' }
-        
+
     .form-group
       = f.label :date_closed, "Close Date"
       br
       = f.date_select :date_closed, class: 'form-control'
-        
+
     .form-group
       = f.label :reason_for_loss, 'Reason for Loss'
       = f.select :reason_for_loss, opportunity_reasons_for_loss_options,
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select reason-for-loss-select form-control', disabled: @opportunity.stage != 0 }
-        
+
     hr
-    
+
     .form-group
       = f.label :kind, 'Delivery Type'
       = f.select :kind, opportunity_kind_options,
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select form-control' }
-        
+
     .form-group
       = f.label :course_id, 'Course'
       = f.select :course_id, grouped_options_for_select(grouped_courses_options(@courses), f.object.course_id),
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select course-select form-control' }
-        
+
     .form-group
       = f.label :event_id, 'Event (Date)'
       = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select event-select form-control', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
-    
+
     .form-group
       = f.label :amount, 'Amount'
       .input-group
-        span.input-group-addon $  
+        span.input-group-addon $
         = f.text_field :amount, data: { autonumeric: true }, class: 'form-control input-amount form-control'
-    
+
     hr
-    
+
     .form-group
       = f.label :payment_kind, 'Payment Type'
       = f.select :payment_kind, opportunity_payment_kind_options,
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select form-control' }
-      
+
     hr
-    
+
     .form-group
       = f.label :customer_id, "Student"
       .input-group
@@ -77,7 +77,7 @@
         span.input-group-btn
           button.btn.btn-success type="button" style="padding: 0;"
             = link_to "New", new_contact_path, remote: true, style: "display: inline-block; color: white; padding: 6px 12px; text-decoration: none;"
-    
+
     .form-group
       = f.label :account_id, 'Company'
       .input-group
@@ -87,13 +87,13 @@
         span.input-group-btn
           button.btn.btn-success type="button" style="padding: 0;"
             = link_to "New", new_company_path, remote: true, style: "display: inline-block; color: white; padding: 6px 12px; text-decoration: none;"
-      
-        
+
+
     fieldset
       .form-group
         = f.label :billing_street, 'Billing Street'
         = f.text_field :billing_street, class: 'form-control'
-        
+
       .row
         .col-xs-12
           .form-group
@@ -107,31 +107,31 @@
           .form-group
             = f.label :billing_zip_code, 'Billing Zip Code'
             = f.text_field :billing_zip_code, class: 'form-control'
-            
+
     hr
-        
+
     .form-group
       = f.label :notes, 'Notes'
       = f.text_area :notes, rows: 10, class: 'form-control froala'
-    
+
     hr
-        
+
     .form-group
       = f.label :employee_id, "Sales Rep"
       = f.select :employee_id, existing_select2_ajax_user(@opportunity.employee),
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-sales-select form-control', style: "width: 100%;" }
-        
+
     .form-group
       = f.label :partner_id, 'Delivering Partner'
       = f.select :partner_id, existing_select2_ajax_company(@opportunity.partner),
         { include_blank: 'NterOne' },
         { class: 'search-companies-select form-control', style: "width: 100%;" }
-        
+
     .form-group
       = f.label :email_optional, 'Additional Email Recipient (Optional)'
       = f.text_field :email_optional, class: 'form-control'
-      
+
     .form-buttons
       button.btn.btn-success type="submit"
         - if @opportunity.new_record?
@@ -144,13 +144,13 @@
 javascript:
   $('.fly-form form :input').on('change input', function() {
     flyForm = $('.fly-form form').serialize();
-    
+
     $.post(
       "#{fly_form_path}",
       flyForm
     );
   });
-  
+
   $('.search-members-select').select2({
     dropdownParent: $(".modal-body.panel-body"),
     theme: "bootstrap",
@@ -177,7 +177,7 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-  
+
   $('.search-sales-select').select2({
     dropdownParent: $(".modal-body.panel-body"),
     theme: "bootstrap",
@@ -240,17 +240,17 @@ javascript:
       $('select.reason-for-loss-select').prop('disabled', true);
     }
   });
-  
+
   $('select.company-select').on('change', function(){
     var companyId = $(this).val();
     $.get("#{pluck_companies_path}", { company_id: companyId });
   });
-  
+
   $('select.course-select').on('change', function(){
     var courseId = $(this).val();
     $.get("#{pluck_courses_path}", { course_id: courseId });
   });
-  
+
   $('select.event-select').on('change', function(){
     var eventId = $(this).val();
     $.get("#{pluck_events_path}", { event_id: eventId });
