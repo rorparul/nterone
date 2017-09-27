@@ -97,7 +97,8 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
-  before_save   :set_total, :set_paid, :set_balance, :set_status
+  before_save :set_total, :set_paid, :set_balance, :set_status
+
   before_create :define_clc_quantity
 
   search_scope :custom_search do
