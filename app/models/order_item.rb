@@ -104,6 +104,8 @@ class OrderItem < ActiveRecord::Base
   end
 
   def opportunity_is_createable?
+    return false if order.nil?
+
     existing_opportunity = Opportunity.find_by(
       employee_id: order.seller_id,
       customer_id: order.buyer_id,
