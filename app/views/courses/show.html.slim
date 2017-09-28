@@ -127,7 +127,7 @@
                                     = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
                                       = f.hidden_field :event_id, value: event.id
                                       = link_to_cart(event, link: true)
-                                - elsif user_signed_in? && current_user.admin?
+                                - if user_signed_in? && current_user.admin?
                                   td.fit
                                     = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
                                   td.fit
