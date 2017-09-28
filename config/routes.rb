@@ -240,6 +240,8 @@ NterOne::Application.routes.draw do
     resources :profit_sheets,           only: [:new, :create]
     resources :instructor_utilizations, only: [:new, :create]
     resources :sales,                   only: [:new, :create]
+    resources :events,                  only: [:new, :create]
+    resources :users,                   only: [:new, :create]
   end
 
   namespace :admin do

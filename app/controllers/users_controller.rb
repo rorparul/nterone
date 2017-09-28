@@ -9,9 +9,21 @@ class UsersController < ApplicationController
   layout 'admin'
 
   def index
-    users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
-    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-    prepare_smart_listing(users_scope)
+    respond_to do |format|
+			format.any(:html, :js) do
+        users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
+        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+        prepare_smart_listing(users_scope)
+      end
+
+      format.json do
+        if params[:key] == 'state'
+				  render json: { items: User.where("lower(state) like lower('%#{params[:q]}%')").pluck(:state).uniq }
+        else
+          render nothing: true
+        end
+			end
+    end
   end
 
   def show

@@ -1,0 +1,27 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'All') do |sheet|
+    headers = [
+      "Sales Rep",
+      "First Name",
+      "Last Name",
+      "Email",
+      "State"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @users.each do |user|
+      sheet.add_row [
+        user.parent.try(:full_name)
+        user.first_name,
+        user.last_name,
+        user.email,
+        user.state
+      ]
+    end
+  end
+end
