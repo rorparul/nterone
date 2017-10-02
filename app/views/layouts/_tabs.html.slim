@@ -99,7 +99,18 @@
         li.tools role="presentation"
           a.nav-pill href="#{admin_tools_path}"
             = t('admins.partial_tabs.tools')
-
+      - if policy(:admin).sales?
+        li.dropdown.reports role="presentation"
+          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            | Reports
+            span.caret
+          ul.dropdown-menu
+              li
+                a href="#{admin_sales_overview_path}"
+                  = t('layouts.partial_tabs.sales_overview')
+              li
+                a href="#{admin_sales_details_path}"
+                  = t('layouts.partial_tabs.sales_details')
       - if user_signed_in?
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"
