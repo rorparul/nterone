@@ -4,6 +4,7 @@
     "country-region-selector": "latest",
     "payform": "latest",
     "angular": "latest",
-    "lodash": "latest"
+    "lodash": "latest",
+    "jquery-circle-progress": "latest"
   }
 }
