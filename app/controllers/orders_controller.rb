@@ -11,6 +11,11 @@ class OrdersController < ApplicationController
   end
 
   def new
+
+    if !user_signed_in? && params[:cart_token].nil?
+      redirect_to root_path
+    end
+
     @order = Order.new
 
     if current_user.try(:admin?) || current_user.try(:sales?)

@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],                  array: true
   end
 
+  add_index "announcements", ["origin_region"], name: "index_announcements_on_origin_region", using: :btree
+
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
     t.datetime "created_at", null: false
@@ -78,6 +80,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",   default: [],              array: true
   end
 
+  add_index "articles", ["origin_region"], name: "index_articles_on_origin_region", using: :btree
+
   create_table "assigned_items", force: :cascade do |t|
     t.integer  "assigner_id"
     t.integer  "student_id"
@@ -90,6 +94,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
+  add_index "assigned_items", ["origin_region"], name: "index_assigned_items_on_origin_region", using: :btree
 
   create_table "blog_posts", force: :cascade do |t|
     t.string   "page_title"
@@ -136,6 +141,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.datetime "notified_not_empty_cart_at"
   end
 
+  add_index "carts", ["origin_region"], name: "index_carts_on_origin_region", using: :btree
   add_index "carts", ["token"], name: "index_carts_on_token", using: :btree
 
   create_table "categories", force: :cascade do |t|
@@ -157,6 +163,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",     default: [], array: true
   end
 
+  add_index "categories", ["origin_region"], name: "index_categories_on_origin_region", using: :btree
   add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
   add_index "categories", ["platform_id"], name: "index_categories_on_platform_id", using: :btree
   add_index "categories", ["slug"], name: "index_categories_on_slug", using: :btree
@@ -170,6 +177,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "category_courses", ["origin_region"], name: "index_category_courses_on_origin_region", using: :btree
+
   create_table "category_subjects", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "subject_id"
@@ -179,6 +188,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [], array: true
   end
 
+  add_index "category_subjects", ["origin_region"], name: "index_category_subjects_on_origin_region", using: :btree
+
   create_table "category_video_on_demands", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "video_on_demand_id"
@@ -187,6 +198,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",     default: [],              array: true
   end
+
+  add_index "category_video_on_demands", ["origin_region"], name: "index_category_video_on_demands_on_origin_region", using: :btree
 
   create_table "checklist_items", force: :cascade do |t|
     t.integer  "checklist_id"
@@ -213,6 +226,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
   end
 
+  add_index "checklists", ["origin_region"], name: "index_checklists_on_origin_region", using: :btree
+
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
     t.datetime "created_at",                     null: false
@@ -225,6 +240,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],                 array: true
   end
+
+  add_index "chosen_courses", ["origin_region"], name: "index_chosen_courses_on_origin_region", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.datetime "created_at",                  null: false
@@ -247,6 +264,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.string   "sales_force_id"
   end
 
+  add_index "companies", ["origin_region"], name: "index_companies_on_origin_region", using: :btree
+
   create_table "contact_us_submissions", force: :cascade do |t|
     t.string   "name"
     t.string   "phone"
@@ -267,6 +286,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",             default: [],              array: true
   end
+
+  add_index "course_dynamics", ["origin_region"], name: "index_course_dynamics_on_origin_region", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -293,6 +314,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.string   "cisco_id"
   end
 
+  add_index "courses", ["origin_region"], name: "index_courses_on_origin_region", using: :btree
   add_index "courses", ["slug"], name: "index_courses_on_slug", using: :btree
 
   create_table "custom_items", force: :cascade do |t|
@@ -306,6 +328,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],                 array: true
   end
+
+  add_index "custom_items", ["origin_region"], name: "index_custom_items_on_origin_region", using: :btree
 
   create_table "discount_filters", force: :cascade do |t|
     t.integer "discount_id"
@@ -325,6 +349,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text    "active_regions",    default: [], array: true
   end
 
+  add_index "discount_filters", ["origin_region"], name: "index_discount_filters_on_origin_region", using: :btree
+
   create_table "discounts", force: :cascade do |t|
     t.boolean "active",                                 default: true
     t.date    "date_end"
@@ -337,6 +363,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text    "active_regions",                         default: [],   array: true
   end
 
+  add_index "discounts", ["origin_region"], name: "index_discounts_on_origin_region", using: :btree
+
   create_table "dividers", force: :cascade do |t|
     t.integer  "platform_id"
     t.string   "content"
@@ -346,6 +374,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "dividers", ["origin_region"], name: "index_dividers_on_origin_region", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.date     "start_date"
@@ -398,6 +428,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
+  add_index "events", ["origin_region"], name: "index_events_on_origin_region", using: :btree
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
     t.string   "label"
@@ -408,6 +439,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "exam_and_course_dynamics", ["origin_region"], name: "index_exam_and_course_dynamics_on_origin_region", using: :btree
+
   create_table "exam_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
     t.integer  "exam_id"
@@ -417,6 +450,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",             default: [],              array: true
   end
 
+  add_index "exam_dynamics", ["origin_region"], name: "index_exam_dynamics_on_origin_region", using: :btree
+
   create_table "exams", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",                  null: false
@@ -425,6 +460,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "exams", ["origin_region"], name: "index_exams_on_origin_region", using: :btree
 
   create_table "forem_categories", force: :cascade do |t|
     t.string   "name",                   null: false
@@ -555,6 +592,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "group_items", ["groupable_type", "groupable_id"], name: "index_group_items_on_groupable_type_and_groupable_id", using: :btree
+  add_index "group_items", ["origin_region"], name: "index_group_items_on_origin_region", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "header"
@@ -564,6 +602,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "groups", ["origin_region"], name: "index_groups_on_origin_region", using: :btree
 
   create_table "guests", force: :cascade do |t|
     t.string   "email",                                           default: "",               null: false
@@ -626,6 +666,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.string   "sales_force_id"
   end
 
+  add_index "guests", ["origin_region"], name: "index_guests_on_origin_region", using: :btree
+
   create_table "hacp_requests", force: :cascade do |t|
     t.string   "aicc_sid"
     t.boolean  "used",           default: false
@@ -636,6 +678,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],                 array: true
   end
 
+  add_index "hacp_requests", ["origin_region"], name: "index_hacp_requests_on_origin_region", using: :btree
+
   create_table "image_store_units", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",                  null: false
@@ -643,6 +687,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "image_store_units", ["origin_region"], name: "index_image_store_units_on_origin_region", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string  "file"
@@ -653,6 +699,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+  add_index "images", ["origin_region"], name: "index_images_on_origin_region", using: :btree
 
   create_table "industry_articles", force: :cascade do |t|
     t.string   "page_title"
@@ -678,6 +725,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "instructors", ["origin_region"], name: "index_instructors_on_origin_region", using: :btree
+
   create_table "interests", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "data_center"
@@ -694,6 +743,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",                   default: [],              array: true
   end
 
+  add_index "interests", ["origin_region"], name: "index_interests_on_origin_region", using: :btree
+
   create_table "lab_course_time_blocks", force: :cascade do |t|
     t.integer "lab_course_id"
     t.decimal "unit_size",      precision: 4, scale: 2, default: 1.0
@@ -704,6 +755,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer "origin_region"
     t.text    "active_regions",                         default: [],  array: true
   end
+
+  add_index "lab_course_time_blocks", ["origin_region"], name: "index_lab_course_time_blocks_on_origin_region", using: :btree
 
   create_table "lab_courses", force: :cascade do |t|
     t.string   "title"
@@ -720,6 +773,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",   default: [],                  array: true
   end
+
+  add_index "lab_courses", ["origin_region"], name: "index_lab_courses_on_origin_region", using: :btree
 
   create_table "lab_rentals", force: :cascade do |t|
     t.date     "first_day"
@@ -749,6 +804,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
+  add_index "lab_rentals", ["origin_region"], name: "index_lab_rentals_on_origin_region", using: :btree
 
   create_table "lab_students", force: :cascade do |t|
     t.integer  "lab_rental_id"
@@ -760,6 +816,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "lab_students", ["origin_region"], name: "index_lab_students_on_origin_region", using: :btree
+
   create_table "leads", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
@@ -770,6 +828,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],                        array: true
   end
+
+  add_index "leads", ["origin_region"], name: "index_leads_on_origin_region", using: :btree
 
   create_table "lms_exam_answers", force: :cascade do |t|
     t.text     "answer_text"
@@ -783,6 +843,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "lms_exam_answers", ["lms_exam_question_id"], name: "index_lms_exam_answers_on_lms_exam_question_id", using: :btree
+  add_index "lms_exam_answers", ["origin_region"], name: "index_lms_exam_answers_on_origin_region", using: :btree
 
   create_table "lms_exam_attempt_answers", force: :cascade do |t|
     t.integer  "lms_exam_attempt_id"
@@ -799,6 +860,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   add_index "lms_exam_attempt_answers", ["lms_exam_answer_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_answer_id", using: :btree
   add_index "lms_exam_attempt_answers", ["lms_exam_attempt_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_attempt_id", using: :btree
   add_index "lms_exam_attempt_answers", ["lms_exam_question_id"], name: "index_lms_exam_attempt_answers_on_lms_exam_question_id", using: :btree
+  add_index "lms_exam_attempt_answers", ["origin_region"], name: "index_lms_exam_attempt_answers_on_origin_region", using: :btree
 
   create_table "lms_exam_attempts", force: :cascade do |t|
     t.integer  "lms_exam_id"
@@ -812,6 +874,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "lms_exam_attempts", ["lms_exam_id"], name: "index_lms_exam_attempts_on_lms_exam_id", using: :btree
+  add_index "lms_exam_attempts", ["origin_region"], name: "index_lms_exam_attempts_on_origin_region", using: :btree
   add_index "lms_exam_attempts", ["user_id"], name: "index_lms_exam_attempts_on_user_id", using: :btree
 
   create_table "lms_exam_question_joins", force: :cascade do |t|
@@ -827,6 +890,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
 
   add_index "lms_exam_question_joins", ["lms_exam_id"], name: "index_lms_exam_question_joins_on_lms_exam_id", using: :btree
   add_index "lms_exam_question_joins", ["lms_exam_question_id"], name: "index_lms_exam_question_joins_on_lms_exam_question_id", using: :btree
+  add_index "lms_exam_question_joins", ["origin_region"], name: "index_lms_exam_question_joins_on_origin_region", using: :btree
 
   create_table "lms_exam_questions", force: :cascade do |t|
     t.text     "question_text"
@@ -836,6 +900,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "lms_exam_questions", ["origin_region"], name: "index_lms_exam_questions_on_origin_region", using: :btree
 
   create_table "lms_exams", force: :cascade do |t|
     t.string   "title"
@@ -851,6 +917,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",     default: [],              array: true
   end
 
+  add_index "lms_exams", ["origin_region"], name: "index_lms_exams_on_origin_region", using: :btree
   add_index "lms_exams", ["video_id"], name: "index_lms_exams_on_video_id", using: :btree
   add_index "lms_exams", ["video_module_id"], name: "index_lms_exams_on_video_module_id", using: :btree
   add_index "lms_exams", ["video_on_demand_id"], name: "index_lms_exams_on_video_on_demand_id", using: :btree
@@ -864,6 +931,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "lms_managed_students", ["origin_region"], name: "index_lms_managed_students_on_origin_region", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "announcement_id"
@@ -873,6 +942,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",  default: [],                 array: true
   end
+
+  add_index "messages", ["origin_region"], name: "index_messages_on_origin_region", using: :btree
 
   create_table "opportunities", force: :cascade do |t|
     t.integer  "employee_id"
@@ -901,6 +972,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",                           default: [],                 array: true
   end
 
+  add_index "opportunities", ["origin_region"], name: "index_opportunities_on_origin_region", using: :btree
+
   create_table "order_items", force: :cascade do |t|
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
@@ -920,6 +993,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "order_items", ["orderable_id"], name: "index_order_items_on_orderable_id", using: :btree
+  add_index "order_items", ["origin_region"], name: "index_order_items_on_origin_region", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at",                                                             null: false
@@ -976,6 +1050,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id", using: :btree
+  add_index "orders", ["origin_region"], name: "index_orders_on_origin_region", using: :btree
   add_index "orders", ["seller_id"], name: "index_orders_on_seller_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
@@ -991,6 +1066,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",   default: [],                 array: true
   end
 
+  add_index "pages", ["origin_region"], name: "index_pages_on_origin_region", using: :btree
+
   create_table "passed_exams", force: :cascade do |t|
     t.integer  "planned_subject_id"
     t.integer  "exam_id"
@@ -1001,6 +1078,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",     default: [],                 array: true
   end
+
+  add_index "passed_exams", ["origin_region"], name: "index_passed_exams_on_origin_region", using: :btree
 
   create_table "planned_subjects", force: :cascade do |t|
     t.integer  "user_id"
@@ -1013,6 +1092,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],                 array: true
   end
+
+  add_index "planned_subjects", ["origin_region"], name: "index_planned_subjects_on_origin_region", using: :btree
 
   create_table "platforms", force: :cascade do |t|
     t.string   "title"
@@ -1027,6 +1108,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",     default: [],   array: true
   end
 
+  add_index "platforms", ["origin_region"], name: "index_platforms_on_origin_region", using: :btree
   add_index "platforms", ["slug"], name: "index_platforms_on_slug", using: :btree
 
   create_table "posts", force: :cascade do |t|
@@ -1079,6 +1161,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",                              default: [],               array: true
   end
 
+  add_index "public_featured_events", ["origin_region"], name: "index_public_featured_events_on_origin_region", using: :btree
+
   create_table "quotes", force: :cascade do |t|
     t.integer  "lead_id"
     t.text     "content"
@@ -1098,6 +1182,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",       default: [],                 array: true
   end
 
+  add_index "registrations", ["origin_region"], name: "index_registrations_on_origin_region", using: :btree
+
   create_table "relationships", force: :cascade do |t|
     t.integer  "seller_id"
     t.integer  "buyer_id"
@@ -1109,6 +1195,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   end
 
   add_index "relationships", ["buyer_id"], name: "index_relationships_on_buyer_id", using: :btree
+  add_index "relationships", ["origin_region"], name: "index_relationships_on_origin_region", using: :btree
   add_index "relationships", ["seller_id", "buyer_id"], name: "index_relationships_on_seller_id_and_buyer_id", unique: true, using: :btree
   add_index "relationships", ["seller_id"], name: "index_relationships_on_seller_id", using: :btree
 
@@ -1121,6 +1208,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [], array: true
   end
 
+  add_index "roles", ["origin_region"], name: "index_roles_on_origin_region", using: :btree
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",                                    null: false
     t.text     "value"
@@ -1132,6 +1221,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",            default: [],              array: true
   end
 
+  add_index "settings", ["origin_region"], name: "index_settings_on_origin_region", using: :btree
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "subject_groups", force: :cascade do |t|
@@ -1142,6 +1232,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "subject_groups", ["origin_region"], name: "index_subject_groups_on_origin_region", using: :btree
 
   create_table "subjects", force: :cascade do |t|
     t.string   "title"
@@ -1161,6 +1253,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",   default: [],    array: true
   end
 
+  add_index "subjects", ["origin_region"], name: "index_subjects_on_origin_region", using: :btree
   add_index "subjects", ["slug"], name: "index_subjects_on_slug", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
@@ -1171,6 +1264,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",     default: [],              array: true
   end
+
+  add_index "subscriptions", ["origin_region"], name: "index_subscriptions_on_origin_region", using: :btree
 
   create_table "taken_exams", force: :cascade do |t|
     t.integer  "lms_exam_id"
@@ -1197,6 +1292,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],                 array: true
   end
 
+  add_index "tasks", ["origin_region"], name: "index_tasks_on_origin_region", using: :btree
+
   create_table "testimonials", force: :cascade do |t|
     t.string   "quotation"
     t.string   "author"
@@ -1207,6 +1304,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "testimonials", ["origin_region"], name: "index_testimonials_on_origin_region", using: :btree
 
   create_table "thredded_user_topic_reads", force: :cascade do |t|
     t.integer  "user_id",                 null: false
@@ -1326,6 +1425,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+  add_index "users", ["origin_region"], name: "index_users_on_origin_region", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "video_modules", force: :cascade do |t|
@@ -1339,6 +1439,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.integer  "origin_region"
     t.text     "active_regions",         default: [],                 array: true
   end
+
+  add_index "video_modules", ["origin_region"], name: "index_video_modules_on_origin_region", using: :btree
 
   create_table "video_on_demands", force: :cascade do |t|
     t.integer  "course_id"
@@ -1368,6 +1470,7 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",                                 default: [],                 array: true
   end
 
+  add_index "video_on_demands", ["origin_region"], name: "index_video_on_demands_on_origin_region", using: :btree
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree
 
   create_table "videos", force: :cascade do |t|
@@ -1384,6 +1487,8 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions",  default: [],              array: true
   end
 
+  add_index "videos", ["origin_region"], name: "index_videos_on_origin_region", using: :btree
+
   create_table "watched_videos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "video_id"
@@ -1394,8 +1499,9 @@ ActiveRecord::Schema.define(version: 20170926184647) do
     t.text     "active_regions", default: [],              array: true
   end
 
+  add_index "watched_videos", ["origin_region"], name: "index_watched_videos_on_origin_region", using: :btree
+
   add_foreign_key "checklist_items", "checklists"
-  add_foreign_key "events", "checklists"
   add_foreign_key "lab_rentals", "lab_courses"
   add_foreign_key "lms_exam_answers", "lms_exam_questions"
   add_foreign_key "lms_exam_attempt_answers", "lms_exam_answers"
