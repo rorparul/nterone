@@ -96,7 +96,7 @@
 
 javascript:
   $('.search-sales-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
@@ -123,7 +123,7 @@ javascript:
   });
 
   $('.search-companies-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",
