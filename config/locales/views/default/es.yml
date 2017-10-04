@@ -25,6 +25,8 @@ es:
       upload: "Cargar"
       export: "Exportar"
       new: "Nuevo"
+      mass_edit: "Mass Edit"
+      mass_update: "Mass Update"
     contact:
       email: "@nterone.la"
       phone: "703-991-5185"

@@ -6,21 +6,25 @@ wb.styles do |style|
   wb.add_worksheet(name: 'All') do |sheet|
     headers = [
       "Sales Rep",
+      "Company",
+      "State",
       "First Name",
       "Last Name",
       "Email",
-      "State"
+      "Phone"
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @users.each do |user|
       sheet.add_row [
-        user.parent.try(:full_name)
+        user.parent.try(:full_name),
+        user.company.try(:title),
+        user.state,
         user.first_name,
         user.last_name,
         user.email,
-        user.state
+        user.contact_number
       ]
     end
   end

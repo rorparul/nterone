@@ -1,3 +1,3 @@
-$('.modal-title').html("<%= t('devise.invitations.new_js.add_student') %>");
-$('.modal-body').html("<%= escape_javascript(render partial: 'form') %>");
+$('#myModal .modal-title').html("<%= t('devise.invitations.new_js.add_student') %>");
+$('#myModal .modal-body').html("<%= escape_javascript(render partial: 'form') %>");
 $('#myModal').modal('show');

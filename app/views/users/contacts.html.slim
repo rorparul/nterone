@@ -22,28 +22,45 @@
     h4
       strong.text-muted Contacts
     .container-muted
-      = link_to t('default.action.new'), new_contact_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = link_to new_reports_user_path, class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', remote: true do
+      = link_to t('default.action.new'), new_contact_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
+      - if policy(:user).mass_edit?
+        = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
         .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
+          = text_field_tag :search, '', class: 'search form-control input-sm',
                                         placeholder: t('admins.classes.search'),
                                         autocomplete: :off
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
 
-        .radio
-          label
-            input type="radio" name="selection" id="selection_all_contacts" value="all_contacts" checked='true'
-            | All Contacts
-        .radio
-          label
-            input type="radio" name="selection" id="selection_my_contacts" value="my_contacts" checked='true'
-            | My Contacts
+        = render partial: 'filters_modal'
+
+      = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
+        i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+        | Filters
+
     = smart_listing_render(:users)
 
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+
+  $('#export').on('click', function(e) {
+    e.preventDefault();
+
+    window.open(
+      "#{contacts_users_path(:format => :xlsx)}?" +
+      $.param({
+        "user[filters][parent_id]": $('#user_filters_parent_id').val(),
+        "user[filters][source_name]": $('#user_filters_source_name').val(),
+        "user[filters][status]": $('#user_filters_status').val(),
+        "user[filters][state]": $('#user_filters_state').val(),
+        "user[filters][company_id]": $('#user_filters_company_id').val(),
+
+        "search": $('#search').val()
+      })
+    );
+  });

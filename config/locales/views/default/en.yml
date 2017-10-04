@@ -26,6 +26,8 @@ en:
       export: "Export"
       merge: "Merge"
       new: "New"
+      mass_edit: "Mass Edit"
+      mass_update: "Mass Update"
     contact:
       email: "@nterone.com"
       phone: "703-991-5185"

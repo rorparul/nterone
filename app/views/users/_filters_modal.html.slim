@@ -1,0 +1,137 @@
+#filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
+  .modal-dialog
+    .panel.panel-default
+      .modal-body.panel-body
+        .form-group
+          = label_tag "user[filters][parent_id]", "Owner"
+          = select_tag "user[filters][parent_id]",
+                       options_for_select(existing_select2_ajax_user(current_user)),
+                       class: 'form-control search-sales-select-filter',
+                       style: "width: 100%;"
+
+        .form-group
+          = label_tag "user[filters][source_name]", 'Source'
+          = select_tag "user[filters][source_name]",
+                       options_for_select(Rails.application.config.lead_sources),
+                       include_blank: "All",
+                       class: 'form-control search-select-filter',
+                       style: "width: 100%;"
+
+        .form-group
+          = label_tag "user[filters][status]", t('users.partial_form.status')
+          = select_tag "user[filters][status]",
+                       options_for_select(User.statuses.keys.to_a.map { |w| [w.humanize, w] }),
+                       include_blank: "All",
+                       class: 'form-control search-select-filter',
+                       style: "width: 100%;"
+
+        .form-group
+          = label_tag "user[filters][state]", 'State/Province'
+          = select_tag "user[filters][state]",
+                     options_for_select([]),
+                     class: 'form-control search-states-select-filter',
+                     style: "width: 100%;"
+
+        .form-group
+          = label_tag "user[filters][company_id]", 'Company'
+          = select_tag "user[filters][company_id]",
+                     options_for_select([]),
+                     class: 'form-control search-companies-select-filter',
+                     style: "width: 100%;"
+
+        .form-buttons
+          button.btn.btn-default type="button" data-dismiss="modal"
+            = t('default.action.close')
+
+javascript:
+  $('.search-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap"
+  });
+
+  $('.search-sales-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-states-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{users_path(key: 'state')}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item,
+              text: item
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 1,
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-companies-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'All',
+    allowClear: true
+  });
