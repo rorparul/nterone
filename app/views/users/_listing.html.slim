@@ -56,7 +56,7 @@
             - else
               td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
             td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
-    .table-end  
+    .table-end
   .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links

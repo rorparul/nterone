@@ -1,8 +1,10 @@
 NterOne::Application.routes.draw do
   root to: 'general#welcome'
   devise_for :users,
-             controllers: { registrations: 'users/registrations',
-                            invitations:   'users/invitations' }
+             controllers: {
+               registrations: 'users/registrations',
+               invitations:   'users/invitations'
+             }
 
   get 'admin/become' => 'admin#become'
 
@@ -16,14 +18,16 @@ NterOne::Application.routes.draw do
   resources :users  do
     post :toggle_archived, on: :member
     collection do
-      get ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
-      get 'leads'               => 'users#leads',           as: :leads
-      get 'contacts'            => 'users#contacts',        as: :contacts
-      get 'members'             => 'users#members',         as: :members
-      get 'sales_reps'          => 'users#sales_reps',      as: :sales_reps
-      get 'leads/:id'           => 'users#show_as_lead',    as: :lead
-      get 'contacts/:id'        => 'users#show_as_contact', as: :contact
-      get ':id/assign'          => 'users#assign',          as: :assign
+      get  ':id/edit_from_sales' => 'users#edit_from_sales', as: :edit_from_sales
+      get  'leads'               => 'users#leads',           as: :leads
+      get  'contacts'            => 'users#contacts',        as: :contacts
+      get  'members'             => 'users#members',         as: :members
+      get  'sales_reps'          => 'users#sales_reps',      as: :sales_reps
+      get  'leads/:id'           => 'users#show_as_lead',    as: :lead
+      get  'contacts/:id'        => 'users#show_as_contact', as: :contact
+      get  ':id/assign'          => 'users#assign',          as: :assign
+      get  'mass_edit'           => 'users#mass_edit',       as: :mass_edit
+      post 'mass_update'         => 'users#mass_update',     as: :mass_update
     end
   end
 

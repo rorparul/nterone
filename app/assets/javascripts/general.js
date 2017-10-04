@@ -68,7 +68,7 @@ function prepareInputs() {
   });
 
   $('.search-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $("#myModal"),
     theme: "bootstrap"
   });
 

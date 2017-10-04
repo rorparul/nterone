@@ -1,0 +1,60 @@
+.form-group
+  = label_tag "user[parent_id]", "Owner"
+  = select_tag "user[parent_id]",
+               options_for_select([]),
+               class: 'form-control search-sales-select-3',
+               style: "width: 100%;"
+
+.form-buttons
+  button.btn.btn-success type="submit" value="true" id="mass-update"
+    = t('default.action.mass_update')
+  button.btn.btn-default type="button" data-dismiss="modal"
+    = t('default.action.cancel')
+
+javascript:
+  $('#mass-update').on('click', function() {
+    $.ajax({
+      type: "POST",
+      url: "#{mass_update_users_path(type: @type)}",
+      data: $.param({
+        "user[parent_id]": $('#user_parent_id').val(),
+
+        "user[filters][parent_id]": $('#user_filters_parent_id').val(),
+        "user[filters][source_name]": $('#user_filters_source_name').val(),
+        "user[filters][status]": $('#user_filters_status').val(),
+        "user[filters][state]": $('#user_filters_state').val(),
+        "user[filters][company_id]": $('#user_filters_company_id').val(),
+
+        "search": $('#search').val()
+      })
+    });
+  });
+
+  $('.search-sales-select-3').select2({
+    dropdownParent: $("#myModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'Please select',
+    allowClear: true
+  });

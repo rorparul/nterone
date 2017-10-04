@@ -48,6 +48,14 @@ class UserPolicy < ApplicationPolicy
     @user.admin? || @user.sales?
   end
 
+  def mass_edit?
+    mass_update?
+  end
+
+  def mass_update?
+    @user.admin? || @user.sales_manager?
+  end
+
   def destroy?
     @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))
   end

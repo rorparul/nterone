@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   helper  SmartListing::Helper
   include SmartListingConcerns
 
-  before_action :set_user, only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
+  before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
 
   layout 'admin'
@@ -98,21 +98,47 @@ class UsersController < ApplicationController
   end
 
   def leads
-    users_scope = params[:selection] == 'all_leads' ? User.leads : User.leads.where(parent_id: current_user.id)
-    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-    prepare_smart_listing(users_scope)
+    respond_to do |format|
+      format.html do
+        users_scope = User.leads.where(parent_id: current_user.id)
+        prepare_smart_listing(users_scope)
+      end
+
+      format.js do
+        users_scope = User.leads.where(clean_params(user_params[:filters]))
+        users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
+        prepare_smart_listing(users_scope)
+      end
+
+      format.xlsx do
+        @users = User.leads.where(clean_params(user_params[:filters]))
+        @users = @users.custom_search(params[:search]) if params[:search].present?
+        render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
+      end
+    end
   end
 
   def contacts
     respond_to do |format|
-      format.any(:html, :js) do
-        users_scope = params[:selection] == 'all_contacts' ? User.contacts : User.contacts.where(parent_id: current_user.id)
-        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+      format.html do
+        users_scope = User.contacts.where(parent_id: current_user.id)
+        prepare_smart_listing(users_scope)
+      end
+
+      format.js do
+        users_scope = User.contacts.where(clean_params(user_params[:filters]))
+        users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
         prepare_smart_listing(users_scope)
       end
 
       format.json do
         render json: { items: User.contacts.custom_search(params[:q]).order(:last_name) }
+      end
+
+      format.xlsx do
+        @users = User.contacts.where(clean_params(user_params[:filters]))
+        @users = @users.custom_search(params[:search]) if params[:search].present?
+        render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
       end
     end
   end
@@ -123,6 +149,31 @@ class UsersController < ApplicationController
 
   def sales_reps
     render json: { items: User.active_sales.custom_search(params[:q]).order(:last_name) }
+  end
+
+  def mass_edit
+    @type = params[:type]
+  end
+
+  def mass_update
+    if params[:type] == 'leads'
+      users = User.leads.where(clean_params(user_params[:filters]))
+    elsif params[:type] == 'contacts'
+      users = User.contacts.where(clean_params(user_params[:filters]))
+    else
+      return render js: "window.location = '#{request.referrer}';"
+    end
+
+    users       = users.custom_search(params[:search]) if params[:search].present?
+    users_count = users.count
+
+    if users.update_all(parent_id: user_params[:parent_id])
+      flash[:success] = "Successfully updated #{users_count} records."
+    else
+      flash[:alert] = "Failed to update #{users_count} records."
+    end
+
+    render js: "window.location = '#{request.referrer}';"
   end
 
   private
@@ -174,6 +225,13 @@ class UsersController < ApplicationController
       :street,
       :video_bio,
       :zipcode,
+      filters: [
+        :parent_id,
+        :source_name,
+        :status,
+        :state,
+        :company_id
+      ],
       roles_attributes: [
         :id,
         :role,
@@ -195,7 +253,6 @@ class UsersController < ApplicationController
   end
 
   def list_tasks
-
     if params[:selection] == "complete"
       tasks_scope = Task.where(user_id: @user.id, complete: true)
     elsif params[:selection] == "due"
