@@ -90,7 +90,7 @@ javascript:
 
   // Search company
   $('.search-companies-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",

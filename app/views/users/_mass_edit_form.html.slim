@@ -31,7 +31,7 @@ javascript:
   });
 
   $('.search-sales-select-3').select2({
-    dropdownParent: $("#myModal"),
+    dropdownParent: $(".search-sales-select-3").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",

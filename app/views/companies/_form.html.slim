@@ -7,36 +7,36 @@
       ul
         - @company.errors.full_messages.each do |msg|
           li = msg
-            
+
   .form-group
     = f.label :title, "Account Name"
     = f.text_field :title, class: 'form-control'
-    
+
   .form-group
     = f.label :parent_id, "Parent Company"
     = f.select :parent_id, existing_select2_ajax_company(@company.parent),
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'search-companies-select form-control', style: "width: 100%;" }
-    
+
   .form-group
     = f.label :kind, t('default.label.kind')
     = f.select :kind, kind_options,
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'form-control search-select' }
-      
+
   .form-group
     = f.label :industry_code, 'Industry Code'
     = f.select :industry_code, industry_code_options,
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'form-control search-select' }
-    
+
   hr
-          
+
   fieldset
     .form-group
       = f.label :street, "Street"
       = f.text_field :street, class: 'form-control'
-      
+
     .row
       .col-xs-12
         .form-group
@@ -50,31 +50,31 @@
         .form-group
           = f.label :zip_code, "Zip Code"
           = f.text_field :zip_code, class: 'form-control'
-    
+
   .form-group
     = f.label :phone, "Phone"
     = f.text_field :phone, class: 'form-control'
-    
+
   .form-group
     = f.label :website, "Website"
     = f.text_field :website, class: 'form-control'
-      
+
   hr
-    
+
   .form-group
     = f.label :form_type, t('companies.partial_form.form_type')
     = f.select :form_type, [[t('companies.partial_form.option_1'), 1], [t('companies.partial_form.option_2'), 2]],
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'form-control search-select' }
-      
+
   hr
-  
+
   .form-group
     = f.label :user_id, 'Sales Rep'
     = f.select :user_id, existing_select2_ajax_user(@company.user),
       { include_blank: t('companies.partial_form.dropdown') },
       { class: 'search-sales-select form-control', style: "width: 100%;" }
-    
+
   .form-buttons
     button.btn.btn-success type="submit"
       - if @company.new_record?
@@ -83,10 +83,10 @@
         = t('default.action.update')
     button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
-        
+
 javascript:
   $('.search-sales-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $(".search-sales-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
@@ -111,9 +111,9 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-  
+
   $('.search-companies-select').select2({
-    dropdownParent: $(".modal-body.panel-body"),
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",
