@@ -22,7 +22,9 @@
     h4
       strong.text-muted= t('layouts.partial_tabs.sales_overview')
     .container-muted
-      chart-circle
+      - Event.origin_regions.each do |region, id|
+        radialprogress-chart[value="50" caption=(region.humanize.split.map(&:capitalize).join(' '))]
+      .clearfix
 
 javascript:
   $('.role-tab').addClass('active');
