@@ -61,3 +61,7 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .classes').addClass('active');
+
+  $(document).on('click', '.event-link', function() {
+    $(this).closest('form').submit();
+  });

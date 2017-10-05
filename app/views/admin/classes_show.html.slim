@@ -1,19 +1,25 @@
+- content_for :page_title do
+  - if @event.start_date.present? && @event.end_date.present?
+    = "#{@event.course.abbreviation} for #{@event.start_date.to_formatted_s(:rfc822)} - #{@event.end_date.to_formatted_s(:rfc822)}"
+  - else
+    = @event.course.abbreviation
+
 - content_for :breadcrumbs do
   = render "breadcrumbs"
-    
+
 - content_for :actions do
   li
     = link_to events_upload_path, remote: true do
       i.fa.fa-upload
       = t('admin.admin_classes.action.upload_classes')
-    
+
 = render 'layouts/tabs'
-    
+
 .row
   .col-xs-12
     = render partial: 'events/show', locals: { event: @event }
-    
-    
+
+
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .classes').addClass('active');

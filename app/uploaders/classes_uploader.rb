@@ -52,21 +52,39 @@ class ClassesUploader
     header.map do |title|
       case title.strip
       when "Course ID"
-        :course_id
-      when "Course Title"
-        :course_title
-      when "Start Date"
+        :cisco_id
+      when "Language"
+        :language
+      when "Country Code"
+        :country_code # TODO: Add to events
+      when "Location Name"
+        :location # TODO: Add to events
+      when "Street Address"
+        :street # TODO: Add to events
+      when "City"
+        :city # TODO: Add to events
+      when "State/Province"
+        :state # TODO: Add to events
+      when "Zip Code"
+        :zipcode
+      when "Offering Start Date(DD-Mon-YYYY)"
         :start_date
-      when "End Date"
+      when "Offering End Date(DD-Mon-YYYY)"
         :end_date
-      when "Start Time"
-        :start_time
-      when "End Time"
-        :end_time
-      when "Format"
+      when "Delivery Type"
         :format
-      when "Price"
-        :price
+      when "Comments"
+        :note
+      when "Registration URL"
+
+      when "Registration Phone"
+
+      when "Registration Fax"
+
+      when "Registration Email"
+
+      when "Site ID"
+
       end
     end
   end
