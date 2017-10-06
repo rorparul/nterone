@@ -22,8 +22,14 @@
     h4
       strong.text-muted= t('layouts.partial_tabs.sales_overview')
     .container-muted
-      - Event.origin_regions.each do |region, id|
-        radialprogress-chart[value="50" caption=(region.humanize.split.map(&:capitalize).join(' '))]
+      .row
+        .col-xs-12.col-md-4
+          | For:
+          '
+          = select_date Date.today, discard_day: true, order: [:month, :year]
+    .container-muted
+      - Event.origin_regions.each do |region, region_number|
+        radialprogress-chart[value=(@region_amount[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' '))]
       .clearfix
 
 javascript:
