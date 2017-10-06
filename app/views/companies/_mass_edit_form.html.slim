@@ -1,0 +1,61 @@
+.form-group
+  = label_tag "company[user_id]", "Owner"
+  = select_tag "company[user_id]",
+               options_for_select([]),
+               class: 'form-control search-sales-select-3',
+               style: "width: 100%;"
+
+.form-buttons
+  button.btn.btn-success type="submit" value="true" id="mass-update"
+    = t('default.action.mass_update')
+  button.btn.btn-default type="button" data-dismiss="modal"
+    = t('default.action.cancel')
+
+javascript:
+  $('#mass-update').on('click', function() {
+    $.ajax({
+      type: "POST",
+      url: "#{mass_update_companies_path(type: @type)}",
+      data: $.param({
+        "company[user_id]": $('#company_user_id').val(),
+
+        "company[filters][user_id]": $('#company_filters_user_id').val(),
+        "company[filters][parent_id]": $('#company_filters_parent_id').val(),
+        "company[filters][kind]": $('#company_filters_kind').val(),
+        "company[filters][industry_code]": $('#company_filters_industry_code').val(),
+        "company[filters][state]": $('#company_filters_state').val(),
+        "company[filters][zip_code]": $('#company_filters_zip_code').val(),
+
+        "search": $('#search').val()
+      })
+    });
+  });
+
+  $('.search-sales-select-3').select2({
+    dropdownParent: $(".search-sales-select-3").closest('.form-group'),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'Please select',
+    allowClear: true
+  });

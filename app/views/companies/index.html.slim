@@ -14,7 +14,6 @@
     | /
   span.text-muted
     | Companies
-    
 
 = render 'layouts/tabs'
 
@@ -23,28 +22,219 @@
     h4
       strong.text-muted Companies
     .container-muted
-      = link_to t('default.action.new'), new_company_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+      = link_to t('default.action.new'), new_company_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
+      - if policy(:user).mass_edit?
+        = link_to t('default.action.mass_edit'), mass_edit_companies_path, class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
+      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:companies, { class: 'input-search' }) do
         .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
+          = text_field_tag :search, '', class: 'search form-control input-sm',
                                         placeholder: t('admins.classes.search'),
                                         autocomplete: :off
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
-              
-        .radio
-          label
-            input type="radio" name="selection" id="selection_all_companies" value="all_companies" checked='true'
-            | All Companies
-        .radio
-          label
-            input type="radio" name="selection" id="selection_my_contacts" value="my_companies" checked='true'
-            | My Companies
+
+        #filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
+          .modal-dialog
+            .panel.panel-default
+              .modal-body.panel-body
+                = hidden_field_tag "company[filters][escort]", value: 'escort'
+
+                .form-group
+                  = label_tag "company[filters][user_id]", "Owner"
+                  = select_tag "company[filters][user_id]",
+                               options_for_select(existing_select2_ajax_user(current_user)),
+                               class: 'form-control search-sales-select-filter',
+                               style: "width: 100%;"
+
+                .form-group
+                  = label_tag "company[filters][parent_id]", "Parent Company"
+                  = select_tag "company[filters][parent_id]",
+                               options_for_select([]),
+                               class: 'form-control search-companies-select-filter',
+                               style: "width: 100%;"
+
+                .form-group
+                  = label_tag "company[filters][kind]", "Kind"
+                  = select_tag "company[filters][kind]",
+                               options_for_select(kind_options),
+                               include_blank: "All",
+                               class: 'form-control search-select-filter',
+                               style: "width: 100%;"
+
+                .form-group
+                  = label_tag "company[filters][industry_code]", "Industry Code"
+                  = select_tag "company[filters][industry_code]",
+                               options_for_select(industry_code_options),
+                               include_blank: "All",
+                               class: 'form-control search-select-filter',
+                               style: "width: 100%;"
+
+                .form-group
+                  = label_tag "company[filters][state]", "State"
+                  = select_tag "company[filters][state]",
+                               options_for_select([]),
+                               class: 'form-control search-states-select-filter',
+                               style: "width: 100%;"
+
+                .form-group
+                  = label_tag "company[filters][zip_code]", "Zip Code"
+                  = select_tag "company[filters][zip_code]",
+                               options_for_select([]),
+                               class: 'form-control search-zip-codes-select-filter',
+                               style: "width: 100%;"
+
+                .form-buttons
+                  button.btn.btn-default type="button" data-dismiss="modal"
+                    = t('default.action.close')
+
+      = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
+        i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+        | Filters
+
     = smart_listing_render(:companies)
-      
+
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+
+  $('#export').on('click', function(e) {
+    e.preventDefault();
+
+    window.open(
+      "#{companies_path(:format => :xlsx)}?" +
+      $.param({
+        "company[filters][user_id]": $('#company_filters_user_id').val(),
+        "company[filters][parent_id]": $('#company_filters_parent_id').val(),
+        "company[filters][kind]": $('#company_filters_kind').val(),
+        "company[filters][industry_code]": $('#company_filters_industry_code').val(),
+        "company[filters][state]": $('#company_filters_state').val(),
+        "company[filters][zip_code]": $('#company_filters_zip_code').val(),
+
+        "search": $('#search').val()
+      })
+    );
+  });
+
+  $('.search-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap"
+  });
+
+  $('.search-sales-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{sales_reps_users_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.last_name + ", " + item.first_name
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-states-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path(key: 'state')}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item,
+              text: item
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 1,
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-zip-codes-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path(key: 'zip_code')}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item,
+              text: item
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 1,
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-companies-select-filter').select2({
+    dropdownParent: $("#filtersModal"),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3,
+    placeholder: 'All',
+    allowClear: true
+  });

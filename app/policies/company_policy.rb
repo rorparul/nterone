@@ -29,4 +29,12 @@ class CompanyPolicy < ApplicationPolicy
   def destroy?
     @user.admin? || (@user.sales? && @user.companies.find_by(id: @record.id))
   end
+
+  def mass_edit?
+    mass_update?
+  end
+
+  def mass_update?
+    @user.admin? || @user.sales_manager?
+  end
 end

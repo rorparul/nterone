@@ -52,10 +52,13 @@
                 - else
                   span.text-warning Unassigned
             - if action_name == 'leads' || action_name == 'contacts'
-              td.fit = link_to t('default.action.edit'), edit_from_sales_users_path(user), remote: true, class: 'text-warning'
+              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning', remote: true do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             - else
-              td.fit = link_to t('default.action.edit'), edit_user_path(user), class: 'text-warning'
-            td.fit = link_to t('default.action.delete'), user_path(user), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning' do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+            td.fit = link_to user_path(user), title: 'Delete', method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger' do
+              i.text-danger class="fa fa-trash-o" aria-hidden="true"
     .table-end
   .container-muted
     = smart_listing.paginate

@@ -63,7 +63,7 @@ tr
   td.fit
     = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
       = f.hidden_field :event_id, value: event.id
-      i.fa.fa-link.text-success aria-hidden="true"
+      i.fa.fa-link.text-success class="event-link" style="cursor: pointer;" aria-hidden="true"
   td.fit
     = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
       i.fa.fa-plus.text-success aria-hidden="true"

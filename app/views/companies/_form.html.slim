@@ -86,7 +86,8 @@
 
 javascript:
   $('.search-sales-select').select2({
-    dropdownParent: $(".search-sales-select").closest('.form-group'),
+    dropdownParent: $("#myModal .search-sales-select").closest('form'),
+    //dropdownParent: $("#myModal"),
     theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
@@ -113,7 +114,7 @@ javascript:
   });
 
   $('.search-companies-select').select2({
-    dropdownParent: $(".search-companies-select").closest('.form-group'),
+    dropdownParent: $("#myModal .search-companies-select").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",

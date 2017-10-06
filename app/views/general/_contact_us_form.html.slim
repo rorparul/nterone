@@ -11,68 +11,68 @@
     label
       = f.radio_button :recipient, "billing@nterone.#{Rails.application.config.tld}"
       = t('general.partial_contact_us_form.billing')
-  
+
   .form-group
     = f.label :name, t('general.partial_contact_us_form.name')
     = f.text_field :name, class: 'form-control input-sm', value: user.full_name
-    
+
   .form-group
     = f.label :phone, t('general.partial_contact_us_form.phone')
     = f.text_field :phone, class: 'form-control input-sm', value: user.contact_number
-    
+
   .form-group
     = f.label :email, t('general.partial_contact_us_form.email')
     = f.text_field :email, class: 'form-control input-sm', value: user.email
-    
+
   .form-group
     = f.label :inquiry, t('general.partial_contact_us_form.inquiry')
     = f.text_area :inquiry, class: 'form-control'
-    
+
   .form-group
     = f.label :feedback, t('general.partial_contact_us_form.feedback')
     = f.text_area :feedback, class: 'form-control'
-    
+
   #recapcha
     = recaptcha_tags
-    
+
   .form-buttons
     button.btn.btn-success type="submit"
       = t('default.action.send')
     button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
   hr
-  
+
   .row
     .col-xs-12.col-md-6
       address
-        strong 
+        strong
           = t('general.partial_contact_us_form.corporate_address')
         br
         | 1900 Campus Commons Drive, Suite 100
         br
         | Reston, VA 20191
         br
-        | 703-991-5185
+        | 703-972-2288
         br
         a href="https://nterone.com" NterOne.com
     .col-xs-12.col-md-6
       address
-        strong 
+        strong
           = t('general.partial_contact_us_form.billing_address')
         br
         | 747 Sandy Ridge Rd
         br
         | Tyner, NC 27980
         br
-        | 703-991-5185
+        | 703-972-2288
         br
         a href="https://nterone.com" NterOne.com
-        
+
   .row
     .col-xs-12.col-md-6
       address
-        strong 
-          | República Dominicana 
+        strong
+          | República Dominicana
         br
         | Av. Lope de Vega 29,
         br
@@ -85,7 +85,7 @@
         a href="https://nterone.la" NterOne.la
     .col-xs-12.col-md-6
       address
-        strong 
+        strong
           | Venezuela
         br
         | Torre UNO, Planta Comercial.
@@ -97,11 +97,11 @@
         | 58-212-9930634
         br
         a href="https://nterone.la" NterOne.la
-        
+
   .row
     .col-xs-12.col-md-6
       address
-        strong 
+        strong
           | Panamá
         br
         | Calle 58 Obarrio y Calle 50.
@@ -127,11 +127,11 @@
         | +57 1 6398444
         br
         a href="https://nterone.la" NterOne.la
-        
+
   .row
     .col-xs-12.col-md-6
       address
-        strong 
+        strong
           | Canada
         br
         | 2953 Tenth Line Road
@@ -143,6 +143,6 @@
         | 613-317-2480
         br
         a href="https://nterone.ca" NterOne.ca
-        
+
 javascript:
   grecaptcha.reset();
