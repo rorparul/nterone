@@ -2,6 +2,8 @@
   .modal-dialog
     .panel.panel-default
       .modal-body.panel-body
+        = hidden_field_tag "user[filters][escort]", value: 'escort'
+
         .form-group
           = label_tag "user[filters][parent_id]", "Owner"
           = select_tag "user[filters][parent_id]",

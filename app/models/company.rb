@@ -44,6 +44,8 @@ class Company < ActiveRecord::Base
 
   before_create :create_slug
 
+  after_save :reassign_company_users, if: proc { |model| model.user_id_changed? }
+
   scope :partners, -> { where(kind: 'Channel Partner') }
 
   search_scope :custom_search do
@@ -54,13 +56,17 @@ class Company < ActiveRecord::Base
   def full_address
     [street, city, state, zip_code].compact.join(", ")
   end
-  
+
   def children_and_self
     ids = children.map(&:id) + [id]
     Company.where(id: ids)
   end
 
   private
+
+  def reassign_company_users
+    users.update_all(parent_id: user.id)
+  end
 
   def create_slug
     self.slug = title.downcase.gsub(' ', '-')

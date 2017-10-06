@@ -664,7 +664,7 @@ DEPENDENCIES
   sitemap_generator
   slack-notifier
   slim (~> 3.0.3)
-  smart_listing
+  smart_listing (= 1.2.0)
   spring
   spring-commands-rspec
   sprockets-rails (~> 2.3.1)

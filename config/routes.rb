@@ -114,7 +114,9 @@ NterOne::Application.routes.draw do
       post 'merge' => 'companies#merge_companies'
     end
     collection do
-      get 'pluck' => 'companies#pluck'
+      get  'pluck'       => 'companies#pluck'
+      get  'mass_edit'   => 'companies#mass_edit',   as: :mass_edit
+      post 'mass_update' => 'companies#mass_update', as: :mass_update
     end
   end
 
