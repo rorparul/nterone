@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
 
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
+  def active_for_authentication?
+    super && active?
+  end
+
   def carted_items(args = {})
     items = order_items.includes(:orderable).where(order_id: nil).where.not(cart_id: nil)
     args[:orderables] ? items.map(&:orderable) : items

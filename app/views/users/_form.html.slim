@@ -2,7 +2,7 @@
   .col-xs-12
     .panel.panel-default
       .panel-heading
-        strong.text-muted 
+        strong.text-muted
           = t('users.partial_form.user_info')
       .panel-body
         = form_for @user, url: user_path(@user), html: { method: :put } do |f|
@@ -17,9 +17,9 @@
                       = render 'users/role_fields', f: ff
                     .links
                       = link_to_add_association t('users.partial_form.add_permission'), f, :roles
-                    
+
             hr
-            
+
             .row
               .col-xs-12.col-md-6
                 .form-group
@@ -27,15 +27,15 @@
                   = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
                                       options = {},
                                     html_options = { class: "form-control input-sm" }
-                                    
+
               .col-xs-12.col-md-6
                 .form-group
-                  label Archive
+                  label Active
                   br
-                  = f.check_box :archive
-                                    
+                  = f.check_box :active
+
             hr
-            
+
             .row
               .col-xs-12.col-md-6
                 .form-group
@@ -43,9 +43,9 @@
                   .input-group
                     span.input-group-addon $
                     = f.text_field :daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
-                    
+
             hr
-                
+
           .row
             .col-xs-12.col-md-6
               .form-group
@@ -55,7 +55,7 @@
               .form-group
                 = f.label :last_name, t('default.label.last_name')
                 = f.text_field :last_name, class: "form-control input-sm"
-          
+
           .row
             .col-xs-12.col-md-6
               .form-group
@@ -68,7 +68,7 @@
                   Company.all.collect {|c| [ c.title, c.id ] },
                   { prompt: t('default.placeholder.select') },
                   { class: "form-control input-sm" }
-          .row 
+          .row
             .col-xs-12.col-md-6
               .form-group
                 = f.label :about, t('users.partial_form.about')
@@ -79,7 +79,7 @@
                 = f.text_area :video_bio, class: "form-control input-sm"
           hr
           fieldset
-            label 
+            label
               = t('users.partial_form.billing_address')
             .row
               .col-xs-12.col-md-6
@@ -112,7 +112,7 @@
 
           hr
           fieldset.hideable
-            label 
+            label
               = t('users.partial_form.shipping_address')
             .form-group
               .checkbox
@@ -150,7 +150,7 @@
 
           .form-buttons
             = f.submit t('default.action.save'), class: 'btn btn-success'
-            
+
 javascript:
   function toggleShippingAddress(checkBox) {
     if (checkBox.is(':checked')) {
@@ -158,10 +158,10 @@ javascript:
     } else {
       $('.input-shipping-address').prop('disabled', false);
     }
-  } 
+  }
 
   $('.shipping-address-box').on('change', function() {
     toggleShippingAddress($(this));
   });
-  
+
   toggleShippingAddress($('.shipping-address-box'));
