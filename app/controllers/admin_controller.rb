@@ -39,6 +39,19 @@ class AdminController < ApplicationController
 
   def orders_show
     @order = Order.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render(
+          pdf: 'NterOne Receipt',
+          margin: { bottom: 32 },
+          template: 'orders/receipt.html.slim',
+          locals: { order: @order },
+          footer:  { html: { template: 'layouts/_footer.html.slim' } }
+        )
+      end
+    end
   end
 
   def classes

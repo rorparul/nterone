@@ -18,7 +18,7 @@
             th.fit = t('orders.partial_listing.so_num')
             th.fit = smart_listing.sortable t('orders.partial_listing.created'), :created_at
             th.fit = t('orders.partial_listing.member_email')
-            th.fit colspan="3"
+            th.fit colspan="4"
         tbody
           - smart_listing.collection.each do |order|
             tr
@@ -52,6 +52,9 @@
               td.fit
                 = link_to admin_orders_show_path(order), remote: false do
                   i class="fa fa-eye" aria-hidden="true"
+              td.fit
+                = link_to admin_orders_show_path(order, format: :pdf), title: 'PDF Download', remote: false do
+                  i class="fa fa-file-pdf-o" aria-hidden="true"
               td.fit
                 = link_to edit_order_path(order), remote: true do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
