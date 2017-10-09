@@ -82,10 +82,9 @@ class OpportunitiesController < ApplicationController
 
     if @opportunity.save
       fly_form('destroy')
-      # flash[:success] = 'Opportunity successfully created.'
-      # redirect_to :back
     else
       fly_form('post')
+      set_associations
       render 'shared/new'
     end
   end
