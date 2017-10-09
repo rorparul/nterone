@@ -56,6 +56,8 @@ class Opportunity < ActiveRecord::Base
     attributes partner:  ['partner.title', 'partner.industry_code']
   end
 
+  validates_presence_of :employee_id
+
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   before_save :confirm_amount_equals_integer
 
