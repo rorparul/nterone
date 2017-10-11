@@ -1,6 +1,32 @@
 = form_for :event, url: events_upload_path, method: :post do |f|
   .form-group
     = f.file_field :file, class: 'form-control input-sm'
+
+  .well
+    p This uploader expects the following column titles (capitalization and spacing matter):
+    .row
+      .col-xs-6
+        ul
+          li Course ID
+          li Language
+          li Country Code
+          li Location Name
+          li Street Address
+          li City
+          li State/Province
+          li Zip Code
+          li Offering Start Date(DD-Mon-YYYY)
+          li Offering End Date(DD-Mon-YYYY)
+      .col-xs-6
+        ul
+          li Delivery Type
+          li Comments
+          li Registration URL
+          li Registration Phone
+          li Registration Fax
+          li Registration Email
+          li Site ID
+
   .form-buttons
     button.btn.btn-success type="submit"
       = t('default.action.upload')

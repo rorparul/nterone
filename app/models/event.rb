@@ -50,6 +50,13 @@
 #  cost_commission                :decimal(8, 2)    default(0.0)
 #  autocalculate_cost_commission  :boolean          default(TRUE)
 #  do_not_send_instructor_email   :boolean          default(FALSE)
+#  country_code                   :string
+#  location                       :string
+#  registration_url               :string
+#  registration_phone             :string
+#  registration_fax               :string
+#  registration_email             :string
+#  site_id                        :string
 #
 # Indexes
 #
@@ -101,6 +108,7 @@ class Event < ActiveRecord::Base
   after_destroy :destroy_gtr_alert
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
+  validates :course_id, uniqueness: { scope: [:start_date, :end_date, :format] }
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 

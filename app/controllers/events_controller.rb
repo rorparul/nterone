@@ -96,7 +96,8 @@ class EventsController < ApplicationController
 
   def upload
     upload = ClassesUploader.upload(event_params[:file])
-    if upload[:success]
+
+    if upload[:failures].empty?
       flash[:success] = "Successfully uploaded all classes."
     else
       flash[:alert] = ("<strong>#{view_context.pluralize(upload[:failures].count, 'Failure')}:</strong>" +
@@ -105,13 +106,17 @@ class EventsController < ApplicationController
                         "<thead>" +
                           "<tr>" +
                             "<th>Course ID</th>" +
-                            "<th>Course Title</th>" +
-                            "<th>Start Date</th>" +
-                            "<th>End Date</th>" +
-                            "<th>Start Time</th>" +
-                            "<th>End Time</th>" +
-                            "<th>Format</th>" +
-                            "<th>Price</th>" +
+                            "<th>Language</th>" +
+                            "<th>Country Code</th>" +
+                            "<th>Location Name</th>" +
+                            "<th>Street Address</th>" +
+                            "<th>City</th>" +
+                            "<th>State/Province</th>" +
+                            "<th>Zip Code</th>" +
+                            "<th>Offering Start Date(DD-Mon-YYYY)</th>" +
+                            "<th>Offering End Date(DD-Mon-YYYY)</th>" +
+                            "<th>Delivery Type</th>" +
+                            "<th>Site ID</th>" +
                           "</tr>" +
                         "</thead>"+
                         "<tbody>" +
@@ -119,6 +124,7 @@ class EventsController < ApplicationController
                         "</tbody>"+
                       "</table>").html_safe
     end
+
     redirect_to :back
   end
 
@@ -186,6 +192,13 @@ class EventsController < ApplicationController
       :cost_commission,
       :autocalculate_cost_commission,
       :do_not_send_instructor_email,
+      :country_code,
+      :location,
+      :registration_url,
+      :registration_phone,
+      :registration_fax,
+      :registration_email,
+      :site_id,
       active_regions: []
     )
   end
@@ -196,18 +209,24 @@ class EventsController < ApplicationController
 
   def error_rows(events)
     rows = ""
+
     events.each do |event|
       rows += "<tr>" +
-                "<td>#{event[:course_id]}</td>" +
-                "<td>#{event[:course_title]}</td>" +
+                "<td>#{event[:cisco_id]}</td>" +
+                "<td>#{event[:language]}</td>" +
+                "<td>#{event[:country_code]}</td>" +
+                "<td>#{event[:location]}</td>" +
+                "<td>#{event[:street]}</td>" +
+                "<td>#{event[:city]}</td>" +
+                "<td>#{event[:state]}</td>" +
+                "<td>#{event[:zipcode]}</td>" +
                 "<td>#{event[:start_date]}</td>" +
                 "<td>#{event[:end_date]}</td>" +
-                "<td>#{event[:start_time]}</td>" +
-                "<td>#{event[:end_time]}</td>" +
                 "<td>#{event[:format]}</td>" +
-                "<td>#{event[:price]}</td>" +
+                "<td>#{event[:site_id]}</td>" +
               "</tr>"
     end
+    
     rows
   end
 

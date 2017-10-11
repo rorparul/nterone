@@ -17,17 +17,17 @@
         #signature-basic.tab-pane.fade.in.active role="tabpanel"
           .row
             .col-xs-6
-              input-label[type="text" model="name" value=(current_user.try(:full_name)) label=(t('default.label.name'))]
+              input-label[type="text" model="name" label=(t('default.label.name'))]
           .row
             .col-xs-6
-              input-label[type="text" model="job_title" value=(current_user.try(:business_title)) label=(t('default.label.job_title'))]
+              input-label[type="text" model="job_title" label=(t('default.label.job_title'))]
           .row
             .col-xs-4
               input-label[type="text" model="office" value="" label="Office Phone"]
             .col-xs-2
               input-label[type="text" model="office_ext" value="" label="Ext"]
             .col-xs-6
-              input-label[type="text" model="phone" value=(current_user.try(:contact_number)) label="Cell Phone"]
+              input-label[type="text" model="phone" label="Cell Phone"]
           .row
             .col-xs-6
               input-label[type="text" model="skype" value="" label="Skype"]
