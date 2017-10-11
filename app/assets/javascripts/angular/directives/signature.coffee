@@ -1,8 +1,14 @@
 angular
   .module 'nterone'
-  .directive 'signature', ()->
+  .directive 'signature', (User)->
     templateUrl: 'directives/signature.html'
     link: (scope, element, attrs)->
+
+      User.get(1)
+        .then (user)->
+          scope.name = [user.firstName, user.lastName].join(' ')
+          scope.job_title = user.business_title
+          scope.phone = user.contact_number
 
       scope.logos = [
         { value: gon.logo_10_years, label: "<img src='"+gon.logo_10_years+"'/>" }
