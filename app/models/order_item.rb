@@ -35,7 +35,7 @@ class OrderItem < ActiveRecord::Base
   before_create :copy_current_orderable_price, unless: proc { |model| model.orderable_type == "LabRental" }
 
   before_save :update_status
-  before_save :create_opportunity, if: :opportunity_is_createable?
+  # before_save :create_opportunity, if: :opportunity_is_createable?
 
   after_save :update_event_status
 
