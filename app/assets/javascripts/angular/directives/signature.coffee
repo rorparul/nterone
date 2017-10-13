@@ -15,6 +15,17 @@ angular
         { value: gon.logo_base, label: "<img src='"+gon.logo_base+"'/>" }
       ]
 
+      scope.facebook = "https://www.facebook.com/pages/NterOne-Corporation/214212902033061"
+      scope.twitter = "https://twitter.com/NterOne"
+      scope.linkedin = "http://www.linkedin.com/company/nterone"
+      scope.link1 = "https://www.nterone.com/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"
+      scope.link1_text = "NterOne Awarded Cisco Americas Learning Partner of the Year - 2016"
+      scope.link2 = "https://www.nterone.com/articles/nterone-corporation-wins-cisco-innovation-award"
+      scope.link2_text = "NterOne Corporation Wins Cisco Innovation Award - 2015"
+      scope.link3 = "https://www.nterone.com/articles/nterone-wins-acceleration-learning-partner-of-the-year"
+      scope.link3_text = "NterOne Wins Acceleration Learning Partner of the Year - 2014"
+
+
       scope.embed = element.find("div.signature").html()
 
       observer = new MutationObserver (mutations)->
