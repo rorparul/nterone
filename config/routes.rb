@@ -54,9 +54,10 @@ NterOne::Application.routes.draw do
   end
   resources :orders do
     collection do
-      get  '/:id/confirmation'  => 'orders#confirmation', as: :confirmation
-      post '/e-xact/create'     => 'orders#exact_create', as: :exact_create
-      get  '/new(/:cart_token)' => 'orders#new',          as: :new
+      get  '/:id/confirmation'   => 'orders#confirmation', as: :confirmation
+      post '/e-xact/create'      => 'orders#exact_create', as: :exact_create
+      get  '/new(/:cart_token)'  => 'orders#new',          as: :new
+      get  '/cplp/validation' => 'orders#cplp_validation', as: :cplp_validation
     end
   end
 

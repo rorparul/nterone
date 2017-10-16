@@ -8,7 +8,7 @@
         ul
           - video_on_demand.errors.full_messages.each do |msg|
             li = msg
-            
+
     .row
       .col-xs-12.col-md-2
         .form-group
@@ -27,15 +27,15 @@
           = f.check_box :partner_led
       .col-xs-12.col-md-2
         .form-group
-          = f.label :cisco_digital_learning, "CDL"
-          br
-          = f.check_box :cisco_digital_learning
-      .col-xs-12.col-md-2
-        .form-group
           = f.label :lms, "LMS"
           br
           = f.check_box :lms
-          
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :cisco_course_product_code, "CPL Course Product Code"
+          br
+          = f.text_field :cisco_course_product_code
+
     hr
 
     .form-group

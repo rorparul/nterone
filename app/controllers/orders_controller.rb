@@ -40,14 +40,14 @@ class OrdersController < ApplicationController
 
   def create
     if current_user.try(:employee?)
-      # Create order
-      #
+      # Create order:
       @order = Order.new(permitted_params.order_admin)
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
 
       payment_type = permitted_params.order[:payment_type]
+
       if payment_type == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -59,10 +59,11 @@ class OrdersController < ApplicationController
 
       elsif payment_type == "Cisco Learning Credits"
         @order.assign_attributes(permitted_params.cisco_learning_credits)
-
       end
 
       if @order.save
+        create_order_with_cisco(@order) if @order.any_cisco_private_label_products?
+
         @order.confirm_with_rep if confirm_with_rep?
 
         flash[:success] = "Purchase successfully created."
@@ -81,17 +82,14 @@ class OrdersController < ApplicationController
         return redirect_to :back
       end
 
-      # Update user information
-      #
+      # Update user information:
       current_user.update_attributes(permitted_params.user)
 
-      # Create order
-      #
+      # Create order:
       @order = current_user.buyer_orders.build(permitted_params.order)
       @order.add_order_items_from_cart(@cart)
 
-      # Create transaction
-      #
+      # Create transaction:
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -105,31 +103,26 @@ class OrdersController < ApplicationController
         @order.assign_attributes(permitted_params.cisco_learning_credits)
       end
 
-      # Save order
-      #
+      # Save order:
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
+        create_order_with_cisco(@order) if @order.any_cisco_private_label_products?
+
+        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+        OrderMailer.confirmation(current_user, @order).deliver_now
+
         flash[:success] = t(".success")
 
-        OrderMailer.confirmation(current_user, @order).deliver_now
-        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
-
         return redirect_to confirmation_orders_path(@order)
-
       else
         render 'new'
-
       end
-
-    # Guest
-    #
-
     else
-
+      # Guest:
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
         return redirect_to :back
@@ -139,6 +132,7 @@ class OrdersController < ApplicationController
 
       # Create transaction
       @order = Order.new
+
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -153,13 +147,16 @@ class OrdersController < ApplicationController
       # Create order
       @order.assign_attributes(permitted_params.order)
       @order.add_order_items_from_cart(@cart)
+
       if @order.save
         @order.order_items.each do |order_item|
           pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
-        flash[:success] = t(".success")
+
         OrderMailer.confirmation(@guest, @order).deliver_now
-        # OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+
+        flash[:success] = t(".success")
+
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
@@ -230,6 +227,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cplp_validation
+    response.headers["client_id"]     = "a1a1fc70e1e34c9291848cc17726c5e2"
+    response.headers["client_secret"] = "b308cFaC4Cb410Cad9D2B7711AD0446:"
+    response.headers["grant_type"]    = "client_credentials"
+    response.headers["scope"]         = "IDENTITY"
+
+    p response.headers
+
+    redirect_to "https://ckoauthuat.cloudhub.io/ckoauth/api/token"
+  end
+
   private
 
   def set_order
@@ -290,5 +298,20 @@ class OrdersController < ApplicationController
       end
     end
     return pods
+  end
+
+  def create_order_with_cisco(order)
+    request_order_object = {
+      "orderId": order.id,
+      "orderDate": order.created_at.to_datetime.rfc3339,
+      "orderItems": order.cisco_private_label_products.map do |cplp|
+        {
+          "productCode": cplp.cisco_course_product_code,
+          "quantity": 1
+        }
+      end
+    }
+
+
   end
 end
