@@ -226,7 +226,7 @@ class EventsController < ApplicationController
                 "<td>#{event[:site_id]}</td>" +
               "</tr>"
     end
-    
+
     rows
   end
 
