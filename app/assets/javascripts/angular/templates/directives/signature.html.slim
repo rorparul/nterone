@@ -30,6 +30,8 @@
               input-label[type="text" model="phone" label="Cell Phone"]
           .row
             .col-xs-6
+              input-label[type="text" model="direct" label="Direct"]
+            .col-xs-6
               input-label[type="text" model="skype" value="" label="Skype"]
           .row
             .col-xs-12
@@ -58,61 +60,70 @@
 
   .col-md-6
     .well.signature
-      div style="color:rgb(0,0,0)"
+      div style="color: rgb(0,0,0); margin-top: 25px;"
         div
           div
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri") ng-if="name"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;") ng-if="name"
               b
-                span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
+                span style="font-size: 13.0pt; font-family: Tahoma;"
                   | {{ name }}
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri") ng-if="job_title"
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;") ng-if="job_title"
+              span style="font-size: 13.0pt; font-family: Tahoma;"
                 | {{ job_title }} | NterOne Corporation&nbsp;|&nbsp;
-                a href="http://nterone.com/" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style="color:#0000e9"
+                a href="http://nterone.com/" style="color: rgb(5,99,193); text-decoration: underline;" target="_blank"
+                  span style="color: #0000e9;"
                     = "NterOne.#{Rails.application.config.tld}"
               br
-              span style="font-size:14.0pt"
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office"
+              span style="font-size: 14.0pt;"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
+              span style="font-size:13.0pt; font-family:Tahoma;" ng-if="office"
                 | Office:
                 '
                 a href="tel:{{ office }}" target="_blank" value="{{office}}"
                   | {{ office }}
-                  span[style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office_ext"]
+                  span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office_ext"]
                     |  ext. {{ office_ext }}
-              span[style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="office && phone"]
+              span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && phone"]
                 '
                 | |
                 '
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="phone"
+              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="phone"
                 | Cell:
                 '
                 a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
                   | {{ phone }}
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d" ng-if="skype"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family:Calibri;")
+              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && direct"
+                | Direct:
+                '
+                a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
+                  | {{ direct }}
+              span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && direct && skype"]
+                '
+                | |
+                '
+              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="skype"
                 | Skype:
                 '
                 a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
                   | {{ skype }}
-              span style="font-size:14.0pt"
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"  &nbsp;
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
+              span style="font-size: 14.0pt;"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
+              span style="font-size: 13.0pt; font-family: Tahoma;"  &nbsp;
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
+              span style="font-size: 13.0pt; font-family: Tahoma;"
             img.CToWUd alt="Logo" src="{{ logo_url }}" style="max-width:100%" ng-if="logo_url"
-            span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"
+            span style="font-size: 13.0pt; font-family: Tahoma;"
             p
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:13.0pt;font-family:Tahoma;color:#6d6d6d"  &nbsp;
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style="font-size:14.0pt"
-            span style="font-size:14.0pt"
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
+              span style="font-size: 13.0pt; font-family: Tahoma;"  &nbsp;
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
+              span style="font-size: 14.0pt;"
+            span style="font-size: 14.0pt;"
               img src=(image_path("signature/vendor-banner.png")) style="max-width:100%" /
-            span style="font-size:14.0pt"
+            span style="font-size: 14.0pt;"
             p
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
               span style=("font-family:&quot;Times New Roman&quot;")  Join us on
             p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
 
