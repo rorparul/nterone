@@ -61,15 +61,15 @@ tr
     - else
       span.label.label-default = t('events.partial_listing.n')
   td.fit
+    = link_to admin_classes_show_path(event), target: '_blank', title: t('events.partial_listing.view') do
+      i class="fa fa-eye" aria-hidden="true"
+  td.fit
     = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
       = f.hidden_field :event_id, value: event.id
       i.fa.fa-link.text-success class="event-link" style="cursor: pointer;" aria-hidden="true"
   td.fit
     = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
       i.fa.fa-plus.text-success aria-hidden="true"
-  td.fit
-    = link_to admin_classes_show_path(event), target: '_blank', title: t('events.partial_listing.view') do
-      i class="fa fa-eye" aria-hidden="true"
   td.fit
     = link_to edit_platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.edit'), remote: true do
       i.fa.fa-pencil-square-o.text-warning aria-hidden="true"

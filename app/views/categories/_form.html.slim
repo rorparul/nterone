@@ -8,15 +8,15 @@
         ul
           - category.errors.full_messages.each do |msg|
             li = msg
-            
+
     .form-group
       = f.label :page_title, t('categories.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :meta_description, t('categories.partial_form.meta_description')
       = f.text_area :meta_description, class: 'form-control input-sm'
-      
+
     hr
 
     .form-group
@@ -27,11 +27,11 @@
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :heading, t('categories.partial_form.heading')
       = f.text_field :heading, class: 'form-control input-sm'
-    
+
     .form-group
       = f.label :video, "Video Banner Script"
       = f.text_area :video, class: 'form-control input-sm'

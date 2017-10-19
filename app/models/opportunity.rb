@@ -104,8 +104,6 @@ class Opportunity < ActiveRecord::Base
   end
 
   def create_order
-    # after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
-
     order = Order.new(
       seller_id: employee.try(:id),
       buyer_id: customer.try(:id),
@@ -128,8 +126,6 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_order
-    # after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.stage == 100 && model.order.present? }
-
     if waiting
       order_item = order.order_items.create(
         user_id: customer.try(:id),
@@ -150,12 +146,12 @@ class Opportunity < ActiveRecord::Base
       )
     end
 
-    RegistrationMailer.create(order_item).deliver_now
+    if order_item.orderable_id.present?
+      RegistrationMailer.create(order_item).deliver_now
+    end
   end
 
   def destroy_order
-    # after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
-
     order.destroy
   end
 end
