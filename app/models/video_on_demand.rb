@@ -88,7 +88,7 @@ class VideoOnDemand < ActiveRecord::Base
     return false if ! user
 
     day = Date.today - 365.day
-    order_items.exists?(['user_id=? AND created_at>=?', user.id, day])
+    order_items.exists?(['user_id = ? AND created_at >= ?', user.id, day])
   end
 
   def video_count

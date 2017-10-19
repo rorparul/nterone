@@ -1,4 +1,6 @@
 class VideoOnDemandsController < ApplicationController
+  include CiscoPrivateLabel
+
   before_action :authenticate_user!, except: [:show, :play_video, :begin_quiz, :next_quiz_question, :exit_quiz, :show_scores]
   skip_before_action :verify_authenticity_token, only: [:exit_quiz]
 
@@ -134,7 +136,7 @@ class VideoOnDemandsController < ApplicationController
     @video = Video.find(params[:id])
 
     if user_signed_in? && @video.users.exclude?(current_user)
-       @video.watched_videos.create(user: current_user, status: 'started')
+      @video.watched_videos.create(user: current_user, status: 'started')
     end
   end
 
@@ -233,6 +235,23 @@ class VideoOnDemandsController < ApplicationController
       format.html { render :action => 'show' }
       format.js { render :action => 'show_scores' }
     end
+  end
+
+  def cpl_launch
+    vod        = VideoOnDemand.find(params[:id])
+    order_item = current_user.order_items.find_by(orderable_type: 'VideoOnDemand', orderable_id: vod.id)
+    order      = order_item.order
+
+    post_object = {
+      "orderId": order.id.to_s,
+      "productCode": vod.cisco_course_product_code,
+      "email": current_user.email
+    }
+
+    cpl_response = cpl_post_launch(post_object)
+
+    p cpl_response
+    p cpl_response.body
   end
 
   private

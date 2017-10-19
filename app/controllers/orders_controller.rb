@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  include CiscoPrivateLabel
   include DiscountApplicator
 
   before_action :authenticate_user!, except: [:new, :create, :confirmation]
@@ -62,7 +63,7 @@ class OrdersController < ApplicationController
       end
 
       if @order.save
-        create_order_with_cisco(@order) if @order.any_cisco_private_label_products?
+        cpl_post_orders(@order) if @order.any_cisco_private_label_products?
 
         @order.confirm_with_rep if confirm_with_rep?
 
@@ -110,7 +111,7 @@ class OrdersController < ApplicationController
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
-        create_order_with_cisco(@order) if @order.any_cisco_private_label_products?
+        cpl_post_orders(@order) if @order.any_cisco_private_label_products?
 
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
         OrderMailer.confirmation(current_user, @order).deliver_now
@@ -228,14 +229,10 @@ class OrdersController < ApplicationController
   end
 
   def cplp_validation
-    response.headers["client_id"]     = "a1a1fc70e1e34c9291848cc17726c5e2"
-    response.headers["client_secret"] = "b308cFaC4Cb410Cad9D2B7711AD0446:"
-    response.headers["grant_type"]    = "client_credentials"
-    response.headers["scope"]         = "IDENTITY"
+    response = cpl_get_log
 
-    p response.headers
-
-    redirect_to "https://ckoauthuat.cloudhub.io/ckoauth/api/token"
+    puts "RESPONSE:"
+    p response.body
   end
 
   private
@@ -298,20 +295,5 @@ class OrdersController < ApplicationController
       end
     end
     return pods
-  end
-
-  def create_order_with_cisco(order)
-    request_order_object = {
-      "orderId": order.id,
-      "orderDate": order.created_at.to_datetime.rfc3339,
-      "orderItems": order.cisco_private_label_products.map do |cplp|
-        {
-          "productCode": cplp.cisco_course_product_code,
-          "quantity": 1
-        }
-      end
-    }
-
-
   end
 end

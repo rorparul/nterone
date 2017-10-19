@@ -3,7 +3,7 @@
 
 - content_for :page_description do
   = @video_on_demand.page_description
-  
+
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
@@ -26,23 +26,24 @@
       .row
         .col-xs-12
           = image_tag t("courses.show.image"), class: "course-banner"
-            
+
           - if @video_on_demand.intro.present?
             .panel.panel-default
               .panel-body
                 = @video_on_demand.intro.html_safe
-                
+
           - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
             .course-progress
               .progress-bar-our
                 .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
                   | #{@video_on_demand.overal_progress_percent_for(current_user)}%
-          
+
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
                 - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
-                
+
+                  / NOTE: The code in this 'if' block is deprecated:
                   - if @video_on_demand.cisco_digital_learning?
                     .row
                       .col-xs-12
@@ -54,6 +55,7 @@
                               i.fa.fa-external-link style='margin-left: 10px;'
                             - else
                               = video_module.title
+
                   - else
                     .panel.panel-default
                       .panel-heading role="tab" id="heading#{index}"
@@ -108,8 +110,20 @@
                                       - if lms_exam.completed_by?(current_user)
                                         a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
                                           | Scores
-              
-          - unless @purchased                          
+
+                - if @video_on_demand.cisco_course_product_code.present?
+                  .row
+                    .col-xs-12
+                      .panel.panel-default
+                        .panel-body style="padding: 0 15px;"
+                          = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
+                          - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
+                            = link_to @video_on_demand.title, cpl_launch_path(@video_on_demand)
+                            i.fa.fa-external-link style='margin-left: 10px;'
+                          - else
+                            = video_module.title
+
+          - unless @purchased
             .row
               .col-xs-12
                 .panel.panel-default
@@ -167,7 +181,7 @@
                 #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                   .panel-body
                     = @video_on_demand.intended_audience.html_safe
-                  
+
           .row
             .col-xs-12
               #degrees
@@ -187,20 +201,20 @@
 
 .row
   .col-xs-12
-    button#back 
+    button#back
       = t('default.action.back')
 
 javascript:
   $('.training-tab').addClass('active');
-  
+
   $('#back').on('click', function() {
     location.replace(document.referrer);
   });
-  
+
   $('.collapse-module').click(function (e) {
     $(this).find('.collapse-module-icon').toggleClass('collapsed');
   });
-  
+
   var videoPlaying = false;
 
   document.addEventListener('visibilitychange', function () {
@@ -210,7 +224,7 @@ javascript:
   })
 
   window._wq = window._wq || [];
-  
+
   _wq.push({ '_all': function(video) {
     var first_video = video;
 
@@ -229,7 +243,7 @@ javascript:
       var element = $('.open-' + id).first();
 
       if (element) element.click();
-      
+
       $.ajax({
         type: 'PUT',
         url: '/videos/' + id,
