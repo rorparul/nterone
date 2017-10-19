@@ -332,6 +332,7 @@ NterOne::Application.routes.draw do
   get  '/support'                                    => 'general#support',                   as: :support
   get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
   get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
+  get  '/email_signature_tool'                       => 'general#email_signature_tool',      as: :email_signature_tool
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user

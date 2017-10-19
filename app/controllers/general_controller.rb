@@ -165,6 +165,10 @@ class GeneralController < ApplicationController
     render json: img_url_res
   end
 
+  def email_signature_tool
+    render layout: 'admin'
+  end
+
   private
 
   def contact_us_params
