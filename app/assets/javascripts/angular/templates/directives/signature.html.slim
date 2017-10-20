@@ -59,137 +59,90 @@
               input-label[model="link3_text" label="Link 3 Text" ]
 
   .col-md-6
-    .well.signature
-      div style="color: rgb(0,0,0); margin-top: 25px;"
-        div
-          div
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;") ng-if="name"
-              b
-                span style="font-size: 13.0pt; font-family: Tahoma;"
-                  | {{ name }}
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;") ng-if="job_title"
-              span style="font-size: 13.0pt; font-family: Tahoma;"
-                | {{ job_title }} | NterOne Corporation&nbsp;|&nbsp;
-                a href="http://nterone.com/" style="color: rgb(5,99,193); text-decoration: underline;" target="_blank"
-                  span style="color: #0000e9;"
-                    = "NterOne.#{Rails.application.config.tld}"
-              br
-              span style="font-size: 14.0pt;"
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style="font-size:13.0pt; font-family:Tahoma;" ng-if="office"
-                | Office:
-                '
-                a href="tel:{{ office }}" target="_blank" value="{{office}}"
-                  | {{ office }}
-                  span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office_ext"]
-                    |  ext. {{ office_ext }}
-              span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && phone"]
-                '
-                | |
-                '
-              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="phone"
-                | Cell:
-                '
-                a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
-                  | {{ phone }}
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family:Calibri;")
-              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && direct"
-                | Direct:
-                '
-                a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
-                  | {{ direct }}
-              span[style="font-size: 13.0pt; font-family: Tahoma;" ng-if="office && direct && skype"]
-                '
-                | |
-                '
-              span style="font-size: 13.0pt; font-family: Tahoma;" ng-if="skype"
-                | Skype:
-                '
-                a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
-                  | {{ skype }}
-              span style="font-size: 14.0pt;"
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style="font-size: 13.0pt; font-family: Tahoma;"  &nbsp;
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style="font-size: 13.0pt; font-family: Tahoma;"
-            img.CToWUd alt="Logo" src="{{ logo_url }}" style="max-width:100%" ng-if="logo_url"
-            span style="font-size: 13.0pt; font-family: Tahoma;"
-            p
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style="font-size: 13.0pt; font-family: Tahoma;"  &nbsp;
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style="font-size: 14.0pt;"
-            span style="font-size: 14.0pt;"
-              img src=(image_path("signature/vendor-banner.png")) style="max-width:100%" /
-            span style="font-size: 14.0pt;"
-            p
-            p style=("margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: Calibri;")
-              span style=("font-family:&quot;Times New Roman&quot;")  Join us on
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
+    .signature style='margin: 25px 0;'
+      p style='font-size: 12pt; font-family: Tahoma;' ng-if="name"
+        b
+          | {{ name }}
 
-              span[ng-if="facebook"]
-                a href="{{facebook}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/facebook.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      p style='font-size: 12pt; font-family: Tahoma;' ng-if="job_title"
+        | {{ job_title }} | NterOne Corporation&nbsp;|&nbsp;
+        a href="http://nterone.#{Rails.application.config.tld}/" style="color: rgb(5,99,193);" target="_blank"
+          = "NterOne.#{Rails.application.config.tld}"
 
-              span[ng-if="twitter"]
-                a href="{{twitter}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/twitter.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      p style='font-size: 12pt; font-family: Tahoma;'
+        span ng-if="office"
+          | Office:
+          '
+          a href="tel:{{ office }}" target="_blank" value="{{office}}"
+            | {{ office }}
+            span ng-if="office_ext"
+              |  ext. {{ office_ext }}
+        span ng-if="office && phone"
+          '
+          | |
+          '
+        span ng-if="phone"
+          | Cell:
+          '
+          a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
+            | {{ phone }}
 
-              span[ng-if="linkedin"]
-                a href="{{linkedin}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/linkedin.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      p style='font-size: 12pt; font-family: Tahoma;'
+        span ng-if="office && direct"
+          | Direct:
+          '
+          a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
+            | {{ direct }}
+        span ng-if="office && direct && skype"
+          '
+          | |
+          '
+        span ng-if="skype"
+          | Skype:
+          '
+          a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
+            | {{ skype }}
 
-              span[ng-if="google_plus"]
-                a href="{{google_plus}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/google-plus.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
 
-              span[ng-if="youtube"]
-                a href="{{youtube}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/youtube.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      br
 
-              span[ng-if="vimeo"]
-                a href="{{vimeo}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/vimeo.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
 
-              span[ng-if="instagram"]
-                a href="{{instagram}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style=("font-family:&quot;Times New Roman&quot;;color:windowtext;text-decoration:none")
-                    img src=(image_path("signature/instagram.png")) style="width:25px"
-                span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      p style='font-size: 10pt; font-family: Tahoma;' Join us on:
 
-            p
-            p style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style=("font-family:&quot;Times New Roman&quot;")  &nbsp;
+      p
+        span[ng-if="facebook"]
+          a href="{{facebook}}" target="_blank"
+            img src=(image_path("signature/facebook.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="twitter"]
+          a href="{{twitter}}" target="_blank"
+            img src=(image_path("signature/twitter.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="linkedin"]
+          a href="{{linkedin}}" target="_blank"
+            img src=(image_path("signature/linkedin.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="google_plus"]
+          a href="{{google_plus}}" target="_blank"
+            img src=(image_path("signature/google-plus.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="youtube"]
+          a href="{{youtube}}" target="_blank"
+            img src=(image_path("signature/youtube.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="vimeo"]
+          a href="{{vimeo}}" target="_blank"
+            img src=(image_path("signature/vimeo.png")) style="width: 25px; margin-right: 3px;"
+        span[ng-if="instagram"]
+          a href="{{instagram}}" target="_blank"
+            img src=(image_path("signature/instagram.png")) style="width: 25px; margin-right: 3px;"
 
-            p ng-if="link1" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style=("font-family:&quot;Times New Roman&quot;")
-                a href="{{link1}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style="color:#0563c1"
-                    | {{ link1_text }}
-
-            p ng-if="link2" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style=("font-family:&quot;Times New Roman&quot;")
-                a href="{{link2}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style="color:#0563c1"
-                    | {{ link2_text }}
-
-            p ng-if="link3" style=("margin:0in 0in 0.0001pt;font-size:12pt;font-family:Calibri")
-              span style=("font-family:&quot;Times New Roman&quot;")
-                a href="{{link3}}" style="color:rgb(5,99,193);text-decoration:underline" target="_blank"
-                  span style="color:#0563c1"
-                    | {{ link3_text }}
+      p ng-if="link1" style='font-size: 10pt; font-family: Tahoma'
+        a href="{{link1}}" style="color: rgb(5,99,193);" target="_blank"
+          | {{ link1_text }}
+      p ng-if="link2" style='font-size: 10pt; font-family: Tahoma'
+        a href="{{link2}}" style="color: rgb(5,99,193);" target="_blank"
+          | {{ link2_text }}
+      p ng-if="link3" style='font-size: 10pt; font-family: Tahoma'
+        a href="{{link3}}" style="color: rgb(5,99,193);" target="_blank"
+          | {{ link3_text }}
 
     .form-group
       label
