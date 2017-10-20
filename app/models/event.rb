@@ -108,7 +108,7 @@ class Event < ActiveRecord::Base
   after_destroy :destroy_gtr_alert
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
-  validates :course_id, uniqueness: { scope: [:start_date, :end_date, :format] }
+  # validates :course_id, uniqueness: { scope: [:start_date, :end_date, :format] }
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :course
 
