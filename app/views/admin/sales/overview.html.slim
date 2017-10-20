@@ -24,14 +24,22 @@
     .container-muted
       .row
         .col-xs-12.col-md-4
-          | For:
-          '
-          = select_date Date.today, discard_day: true, order: [:month, :year]
+          = form_for :report, method: :get do |f|
+            | For:
+            '
+            = select_date @selected_month, discard_day: true, order: [:month, :year]
+            button.btn.btn-default.btn-sm[type="submit"] Show
     .container-muted
       - Event.origin_regions.each do |region, region_number|
-        radialprogress-chart[value=(@region_amount[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' '))]
+        radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' '))]
       .clearfix
 
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .reports').addClass('active');
+
+/ coffee:
+/   $('#date_month, #date_year').change ()->
+/     month = $('#date_month').val()
+/     year = $('#date_year').val()
+/     window.location = '?month=' + month + '&year=' + year

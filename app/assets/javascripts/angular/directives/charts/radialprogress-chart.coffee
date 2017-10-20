@@ -7,6 +7,7 @@ angular
       chartElement = element.find('.chart')
       data = attrs.value
       scope.caption = attrs.caption
+      scope.amount = attrs.amount
 
       viz = vizuly.viz.radial_progress(chartElement[0])
       theme = vizuly.theme.radial_progress(viz).skin(vizuly.skin.RADIAL_PROGRESS_ALERT)
