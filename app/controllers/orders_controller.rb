@@ -63,7 +63,8 @@ class OrdersController < ApplicationController
       end
 
       if @order.save
-        cpl_post_orders(@order) if @order.any_cisco_private_label_products?
+        cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
+        cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
 
         @order.confirm_with_rep if confirm_with_rep?
 
@@ -111,7 +112,8 @@ class OrdersController < ApplicationController
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
-        cpl_post_orders(@order) if @order.any_cisco_private_label_products?
+        cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
+        cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
 
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
         OrderMailer.confirmation(current_user, @order).deliver_now

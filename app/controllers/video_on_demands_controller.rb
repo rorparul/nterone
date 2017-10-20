@@ -249,9 +249,9 @@ class VideoOnDemandsController < ApplicationController
     }
 
     cpl_response = cpl_post_launch(post_object)
+    json         = JSON.parse(cpl_response.body)
 
-    p cpl_response
-    p cpl_response.body
+    redirect_to json['launchUrl']
   end
 
   private

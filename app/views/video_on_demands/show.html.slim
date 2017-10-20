@@ -121,7 +121,7 @@
                             = link_to @video_on_demand.title, cpl_launch_path(@video_on_demand)
                             i.fa.fa-external-link style='margin-left: 10px;'
                           - else
-                            = video_module.title
+                            = @video_on_demand.title
 
           - unless @purchased
             .row

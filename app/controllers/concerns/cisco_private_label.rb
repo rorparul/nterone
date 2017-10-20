@@ -33,7 +33,24 @@ module CiscoPrivateLabel
   def cpl_post_orders_cancel()
   end
 
-  def cpl_post_enrollments()
+  def cpl_post_enrollments(order)
+    order.cisco_private_label_products.map do |cplp|
+      post_object = {
+        "orderId": order.id.to_s,
+        "productCode": cplp.orderable.cisco_course_product_code,
+        "enrollments": [
+          {
+            "email": order.buyer.email,
+            "firstName": order.buyer.first_name,
+            "lastName": order.buyer.last_name,
+            "startDate": DateTime.parse(order.created_at.utc.to_s).rfc3339(3)[0..22] + 'Z',
+            "endDate": DateTime.parse((order.created_at + 1.year).utc.to_s).rfc3339(3)[0..22] + 'Z'
+          }
+        ]
+      }
+
+      new_request('/enrollments', post_object)
+    end
   end
 
   def cpl_get_enrollments()
