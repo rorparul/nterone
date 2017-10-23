@@ -88,12 +88,6 @@ html
     div style="margin-bottom: 25px;"
       table
         tbody
-          / tr
-          /   td Shipping:
-          /   td
-          / tr
-          /   td Tax:
-          /   td
           tr
             td style="text-align: right;"
               strong Total:
@@ -105,19 +99,13 @@ html
         tbody
           tr
             td Date/Time:
-            td = @order.created_at
-          / tr
-          /   td Transaction ID:
-          /   td = @order.auth_code
-          / tr
-          /   td Transaction Type:
-          /   td
-          / tr
-          /   td Transaction Status:
-          /   td
+            td = @order.created_at.strftime('%F %H:%M')
           tr
             td Authorization Code:
             td = @order.auth_code
           tr
             td Payment Method:
             td = @order.payment_type
+
+    div style="margin-bottom: 25px;"
+      p style="text-align: center;" Thank you for your business!
