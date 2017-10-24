@@ -2,32 +2,33 @@
 #
 # Table name: video_on_demands
 #
-#  id                     :integer          not null, primary key
-#  course_id              :integer
-#  instructor_id          :integer
-#  level                  :string
-#  price                  :decimal(8, 2)    default(0.0)
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  platform_id            :integer
-#  title                  :string
-#  abbreviation           :string
-#  slug                   :string
-#  page_title             :string
-#  page_description       :text
-#  intro                  :text
-#  overview               :text
-#  outline                :text
-#  intended_audience      :text
-#  partner_led            :boolean          default(FALSE)
-#  active                 :boolean          default(TRUE)
-#  lms                    :boolean          default(FALSE)
-#  heading                :string
-#  satellite_viewable     :boolean          default(TRUE)
-#  cisco_digital_learning :boolean          default(FALSE)
-#  cdl_course_code        :string
-#  origin_region          :integer
-#  active_regions         :text             default([]), is an Array
+#  id                        :integer          not null, primary key
+#  course_id                 :integer
+#  instructor_id             :integer
+#  level                     :string
+#  price                     :decimal(8, 2)    default(0.0)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  platform_id               :integer
+#  title                     :string
+#  abbreviation              :string
+#  slug                      :string
+#  page_title                :string
+#  page_description          :text
+#  intro                     :text
+#  overview                  :text
+#  outline                   :text
+#  intended_audience         :text
+#  partner_led               :boolean          default(FALSE)
+#  active                    :boolean          default(TRUE)
+#  lms                       :boolean          default(FALSE)
+#  heading                   :string
+#  satellite_viewable        :boolean          default(TRUE)
+#  cisco_digital_learning    :boolean          default(FALSE)
+#  cdl_course_code           :string
+#  origin_region             :integer
+#  active_regions            :text             default([]), is an Array
+#  cisco_course_product_code :string
 #
 # Indexes
 #
@@ -87,7 +88,7 @@ class VideoOnDemand < ActiveRecord::Base
     return false if ! user
 
     day = Date.today - 365.day
-    order_items.exists?(['user_id=? AND created_at>=?', user.id, day])
+    order_items.exists?(['user_id = ? AND created_at >= ?', user.id, day])
   end
 
   def video_count

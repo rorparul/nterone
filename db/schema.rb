@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010002036) do
+ActiveRecord::Schema.define(version: 20171014204442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1351,9 +1351,9 @@ ActiveRecord::Schema.define(version: 20171010002036) do
     t.integer  "course_id"
     t.integer  "instructor_id"
     t.string   "level"
-    t.decimal  "price",                  precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.decimal  "price",                     precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.integer  "platform_id"
     t.string   "title"
     t.string   "abbreviation"
@@ -1364,15 +1364,16 @@ ActiveRecord::Schema.define(version: 20171010002036) do
     t.text     "overview"
     t.text     "outline"
     t.text     "intended_audience"
-    t.boolean  "partner_led",                                    default: false
-    t.boolean  "active",                                         default: true
-    t.boolean  "lms",                                            default: false
+    t.boolean  "partner_led",                                       default: false
+    t.boolean  "active",                                            default: true
+    t.boolean  "lms",                                               default: false
     t.string   "heading"
-    t.boolean  "satellite_viewable",                             default: true
-    t.boolean  "cisco_digital_learning",                         default: false
+    t.boolean  "satellite_viewable",                                default: true
+    t.boolean  "cisco_digital_learning",                            default: false
     t.string   "cdl_course_code"
     t.integer  "origin_region"
-    t.text     "active_regions",                                 default: [],                 array: true
+    t.text     "active_regions",                                    default: [],                 array: true
+    t.string   "cisco_course_product_code"
   end
 
   add_index "video_on_demands", ["slug"], name: "index_video_on_demands_on_slug", using: :btree

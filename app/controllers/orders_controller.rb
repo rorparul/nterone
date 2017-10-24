@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  include CiscoPrivateLabel
   include DiscountApplicator
 
   before_action :authenticate_user!, except: [:new, :create, :confirmation]
@@ -40,14 +41,14 @@ class OrdersController < ApplicationController
 
   def create
     if current_user.try(:employee?)
-      # Create order
-      #
+      # Create order:
       @order = Order.new(permitted_params.order_admin)
       @order.order_items.each do |order_item|
         order_item.user_id = @order.buyer_id
       end
 
       payment_type = permitted_params.order[:payment_type]
+
       if payment_type == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -59,10 +60,12 @@ class OrdersController < ApplicationController
 
       elsif payment_type == "Cisco Learning Credits"
         @order.assign_attributes(permitted_params.cisco_learning_credits)
-
       end
 
       if @order.save
+        cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
+        cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
+
         @order.confirm_with_rep if confirm_with_rep?
 
         flash[:success] = "Purchase successfully created."
@@ -81,17 +84,14 @@ class OrdersController < ApplicationController
         return redirect_to :back
       end
 
-      # Update user information
-      #
+      # Update user information:
       current_user.update_attributes(permitted_params.user)
 
-      # Create order
-      #
+      # Create order:
       @order = current_user.buyer_orders.build(permitted_params.order)
       @order.add_order_items_from_cart(@cart)
 
-      # Create transaction
-      #
+      # Create transaction:
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -105,31 +105,27 @@ class OrdersController < ApplicationController
         @order.assign_attributes(permitted_params.cisco_learning_credits)
       end
 
-      # Save order
-      #
+      # Save order:
       if @order.save
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
+        cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
+        cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
+
+        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+        OrderMailer.confirmation(current_user, @order).deliver_now
+
         flash[:success] = t(".success")
 
-        OrderMailer.confirmation(current_user, @order).deliver_now
-        OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
-
         return redirect_to confirmation_orders_path(@order)
-
       else
         render 'new'
-
       end
-
-    # Guest
-    #
-
     else
-
+      # Guest:
       unless valid_input_values?
         flash[:alert] = "Order submission failed. Form was tampered with."
         return redirect_to :back
@@ -139,6 +135,7 @@ class OrdersController < ApplicationController
 
       # Create transaction
       @order = Order.new
+
       if permitted_params.order[:payment_type] == "Credit Card"
         result = handle_credit_card_payment()
 
@@ -153,13 +150,16 @@ class OrdersController < ApplicationController
       # Create order
       @order.assign_attributes(permitted_params.order)
       @order.add_order_items_from_cart(@cart)
+
       if @order.save
         @order.order_items.each do |order_item|
           pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
-        flash[:success] = t(".success")
+
         OrderMailer.confirmation(@guest, @order).deliver_now
-        # OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+
+        flash[:success] = t(".success")
+
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
@@ -193,6 +193,9 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
+
+    cpl_post_orders_cancel(@order) if @order.any_cisco_private_label_products?
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }
@@ -228,6 +231,13 @@ class OrdersController < ApplicationController
       flash[:alert] = 'There was an error during the payment process.'
       return redirect_to new_order_path
     end
+  end
+
+  def cplp_validation
+    response = cpl_get_log
+
+    puts "RESPONSE:"
+    p response.body
   end
 
   private

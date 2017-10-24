@@ -231,4 +231,12 @@ class Order < ActiveRecord::Base
       [order_item.orderable.start_date, order_item.orderable.course.abbreviation]
     end
   end
+
+  def cisco_private_label_products
+    order_items.select { |order_item| order_item.cisco_private_label_product? }
+  end
+
+  def any_cisco_private_label_products?
+    cisco_private_label_products.any?
+  end
 end

@@ -54,9 +54,10 @@ NterOne::Application.routes.draw do
   end
   resources :orders do
     collection do
-      get  '/:id/confirmation'  => 'orders#confirmation', as: :confirmation
-      post '/e-xact/create'     => 'orders#exact_create', as: :exact_create
-      get  '/new(/:cart_token)' => 'orders#new',          as: :new
+      get  '/:id/confirmation'   => 'orders#confirmation', as: :confirmation
+      post '/e-xact/create'      => 'orders#exact_create', as: :exact_create
+      get  '/new(/:cart_token)'  => 'orders#new',          as: :new
+      get  '/cplp/validation' => 'orders#cplp_validation', as: :cplp_validation
     end
   end
 
@@ -282,23 +283,23 @@ NterOne::Application.routes.draw do
     get 'my-account/settings',                        as: :my_account_settings
   end
 
-  get  'admin/people'                                => 'users#index',                       as: :admin_people
-  get  'instructor/classes'                          => 'instructors#classes',               as: :instructor_classes
-  get  'instructor/classes/:id'                      => 'instructors#classes_show',          as: :instructor_classes_show
-  get  'welcome'                                     => 'general#sign_up_confirmation',      as: :welcome
+  get  'admin/people'                                => 'users#index',                              as: :admin_people
+  get  'instructor/classes'                          => 'instructors#classes',                      as: :instructor_classes
+  get  'instructor/classes/:id'                      => 'instructors#classes_show',                 as: :instructor_classes_show
+  get  'welcome'                                     => 'general#sign_up_confirmation',             as: :welcome
   get  'feed'                                        => 'events#feed'
-  get  'sitemap'                                     => 'general#sitemap',                   as: :sitemap
+  get  'sitemap'                                     => 'general#sitemap',                          as: :sitemap
   get  'page'                                        => 'events#page'
   get  'courses/page'                                => 'courses#page'
-  get  'student-registered-classes'                  => 'events#student_registered_classes', as: :student_registered_classes
-  get  'featured-classes'                            => 'general#featured_classes',          as: :featured_classes
-  get  'about-us/general'                            => 'general#about_us',                  as: :about_us
-  get  'about-us/executives'                         => 'general#executives',                as: :executives_bios
-  get  'about-us/instructors'                        => 'general#instructors',               as: :instructors_bios
-  get  'about-us/press'                              => 'general#press',                     as: :press
-  get  'about-us/blog'                               => 'general#blog',                      as: :blog
-  get  'about-us/industry'                           => 'general#industry',                  as: :industry
-  get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',        as: :nterone_gives_back
+  get  'student-registered-classes'                  => 'events#student_registered_classes',        as: :student_registered_classes
+  get  'featured-classes'                            => 'general#featured_classes',                 as: :featured_classes
+  get  'about-us/general'                            => 'general#about_us',                         as: :about_us
+  get  'about-us/executives'                         => 'general#executives',                       as: :executives_bios
+  get  'about-us/instructors'                        => 'general#instructors',                      as: :instructors_bios
+  get  'about-us/press'                              => 'general#press',                            as: :press
+  get  'about-us/blog'                               => 'general#blog',                             as: :blog
+  get  'about-us/industry'                           => 'general#industry',                         as: :industry
+  get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',               as: :nterone_gives_back
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
   get  'partners'                                    => 'general#partners'
@@ -306,33 +307,34 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new',            as: :contact_us
+  get  'contact_us'                                  => 'general#contact_us_new',                   as: :contact_us
   post 'contact_us'                                  => 'general#contact_us_create'
-  get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',   as: :general_inquiry_confirmation
-  get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',   as: :course_inquiry_confirmation
-  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',   as: :learning_credits_inquiry_confirmation
-  get  'exams/search/:query'                         => 'exams#search',                      as: :exam_search
-  get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',              as: :group_item_selector
-  post 'roles/change_role'                           => 'roles#change_role',                 as: :change_role
-  post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',      as: :toggle_chosen_course_active
-  post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended',    as: :toggle_chosen_course_attended
-  post 'passed_exams/toggle'                         => 'passed_exams#toggle',               as: :toggle_passed_exam
-  post 'request-quote'                               => 'leads#request_quote',               as: :request_quote
+  get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',          as: :general_inquiry_confirmation
+  get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',          as: :course_inquiry_confirmation
+  get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',          as: :learning_credits_inquiry_confirmation
+  get  'exams/search/:query'                         => 'exams#search',                             as: :exam_search
+  get  'platforms/:platform_id/group_items/selector' => 'group_items#selector',                     as: :group_item_selector
+  post 'roles/change_role'                           => 'roles#change_role',                        as: :change_role
+  post 'chosen_courses/toggle_active'                => 'chosen_courses#toggle_active',             as: :toggle_chosen_course_active
+  post 'chosen_courses/toggle_attended'              => 'chosen_courses#toggle_attended',           as: :toggle_chosen_course_attended
+  post 'passed_exams/toggle'                         => 'passed_exams#toggle',                      as: :toggle_passed_exam
+  post 'request-quote'                               => 'leads#request_quote',                      as: :request_quote
   get  'events-upload'                               => 'events#upload_form'
   post 'events-upload'                               => 'events#upload'
-  get  '/courses/export'                             => 'courses#export',                    as: :courses_export
-  get  '/events/:id/edit_in_house_note'              => 'events#edit_in_house_note',         as: :edit_in_house_note
-  put  '/events/:id/update_in_house_note'            => 'events#update_in_house_note',       as: :update_in_house_note
-  get  '/:company_slug/lab-reservations/new'         => 'lab_rentals#new',                   as: :new_company_lab_reservations
-  get  '/:company_slug/lab-reservations/:id/edit'    => 'lab_rentals#edit',                  as: :edit_company_lab_reservations
-  get  'sims/versastack'                             => 'general#sims',                      as: :sims
-  get  '/nci'                                        => 'general#nci',                       as: :nci
-  get  '/nci/engineers'                              => 'general#nci_engineers',             as: :nci_engineers
+  get  '/courses/export'                             => 'courses#export',                           as: :courses_export
+  get  '/events/:id/edit_in_house_note'              => 'events#edit_in_house_note',                as: :edit_in_house_note
+  put  '/events/:id/update_in_house_note'            => 'events#update_in_house_note',              as: :update_in_house_note
+  get  '/:company_slug/lab-reservations/new'         => 'lab_rentals#new',                          as: :new_company_lab_reservations
+  get  '/:company_slug/lab-reservations/:id/edit'    => 'lab_rentals#edit',                         as: :edit_company_lab_reservations
+  get  'sims/versastack'                             => 'general#sims',                             as: :sims
+  get  '/nci'                                        => 'general#nci',                              as: :nci
+  get  '/nci/engineers'                              => 'general#nci_engineers',                    as: :nci_engineers
   get  '/nci/cisco_program_administrators'           => 'general#nci_cisco_program_administrators', as: :nci_cisco_program_administrators
-  get  '/support'                                    => 'general#support',                   as: :support
-  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',      as: :cisco_learning_credits
-  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',       as: :cisco_self_paced
-  get  '/email_signature_tool'                       => 'general#email_signature_tool',      as: :email_signature_tool
+  get  '/support'                                    => 'general#support',                          as: :support
+  get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',             as: :cisco_learning_credits
+  get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',              as: :cisco_self_paced
+  get  '/email_signature_tool'                       => 'general#email_signature_tool',             as: :email_signature_tool
+  get  '/cpl_launch/:id'                             => 'video_on_demands#cpl_launch',              as: :cpl_launch
 
   namespace :api do
     get '/users/:id' => 'users#show', as: :user

@@ -27,18 +27,18 @@
         .col-xs-12
           - unless @purchased
             = image_tag "clearconnect-banners/#{@platform.title.downcase}.png", class: "course-banner"
-            
+
           - if @video_on_demand.intro.present?
             .panel.panel-default
               .panel-body
                 = @video_on_demand.intro.html_safe
-                
+
           - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
             .course-progress
               .progress-bar-our
                 .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
                   | #{@video_on_demand.overal_progress_percent_for(current_user)}%
-                
+
           .row
             .col-xs-12
               #accordion.panel-group role="tablist" aria-multiselectable="true"
@@ -145,7 +145,7 @@
                             = form_for :order_item, url: order_items_path do |f|
                               = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
                               = link_to_cart(@video_on_demand)
-                              
+
           #accordion.panel-group role="tablist" aria-multiselectable="true" class=(@purchased ? 'hide' : '')
             .panel.panel-default
               .panel-heading role="tab" id="headingOne"
@@ -171,7 +171,7 @@
               #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
                 .panel-body
                   = @video_on_demand.intended_audience.html_safe if @video_on_demand.intended_audience
-                                      
+
           .row class=(@purchased ? 'hide' : '')
             .col-xs-12
               #degrees
@@ -184,7 +184,7 @@
           strong Questions?
         p The NterOne team will be happy to answer your questions.
         p
-          | Email: 
+          | Email:
           a href="mailto:sales@nterone.com" sales@nterone.com
         p Phone: 703-991-5185
     = render partial: 'layouts/side_column'

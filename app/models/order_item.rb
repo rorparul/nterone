@@ -91,8 +91,12 @@ class OrderItem < ActiveRecord::Base
 
   def clc_applicable
     return true if orderable_type == 'Event' && orderable.course.platform.title == 'Cisco'
-    return true if orderable_type == 'VideoOnDemand' && orderable.cisco_digital_learning == true
+    return true if cisco_private_label_product?
     return false
+  end
+
+  def cisco_private_label_product?
+    orderable_type == 'VideoOnDemand' && orderable.cisco_course_product_code.present?
   end
 
   private
