@@ -30,7 +30,12 @@ module CiscoPrivateLabel
   def cpl_get_orders()
   end
 
-  def cpl_post_orders_cancel()
+  def cpl_post_orders_cancel(order)
+    post_object = {
+      "orderId": order.id.to_s
+    }
+
+    new_request('/orders/cancel', post_object)
   end
 
   def cpl_post_enrollments(order)

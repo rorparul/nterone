@@ -193,6 +193,9 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
+
+    cpl_post_orders_cancel(@order) if @order.any_cisco_private_label_products?
+
     respond_to do |format|
       format.html { redirect_to :back }
       format.json { head :no_content }
