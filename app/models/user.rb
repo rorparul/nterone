@@ -183,8 +183,8 @@ class User < ActiveRecord::Base
   scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
   # scope :leads,            -> { joins(:roles).where(roles: { role: 4 }).where.not(status: 3) }
   # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
-  scope :leads,            -> { where.not(status: 3) }
-  scope :contacts,         -> { where(status: 3) }
+  scope :leads,            -> { where.not(status: [3, 4]) }
+  scope :contacts,         -> { where(status: [3, 4]) }
   scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }
 
   search_scope :custom_search do
