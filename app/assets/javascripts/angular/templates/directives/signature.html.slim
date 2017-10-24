@@ -12,6 +12,7 @@
           = t("admins.tools.links")
 
     br
+
     form[name="signatureForm"]
       .tab-content
         #signature-basic.tab-pane.fade.in.active role="tabpanel"
@@ -103,11 +104,13 @@
           a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
             | {{ skype }}
 
-      img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
+      p
 
-      br
+      p
+        img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
 
-      img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
+      p
+        img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
 
       p style='font-size: 10pt; font-family: Tahoma;' Join us on:
 
