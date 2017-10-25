@@ -1,7 +1,7 @@
 - content_for :breadcrumbs do
   = render "breadcrumbs"
 
-- @log.reverse.each do |event|
+- @log.each do |event|
   - event.each do |k, v|
     p
       strong = "#{k}: "
