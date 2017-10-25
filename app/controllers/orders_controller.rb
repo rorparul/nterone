@@ -217,9 +217,15 @@ class OrdersController < ApplicationController
           current_user.order_items << order_item
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
-        flash[:success] = 'You\'ve successfully completed your order. Please check your email for a confirmation.'
+
+        cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
+        cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
+
         OrderMailer.confirmation(current_user, @order).deliver_now
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+
+        flash[:success] = 'You\'ve successfully completed your order. Please check your email for a confirmation.'
+
         return redirect_to confirmation_orders_path(@order)
       else
         render 'new'
