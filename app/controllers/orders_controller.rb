@@ -218,12 +218,6 @@ class OrdersController < ApplicationController
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
-        logger.info
-        logger.info params
-        logger.info @order.created_at
-        logger.info DateTime.parse(@order.created_at.utc.to_s).rfc3339(3)[0..22] + 'Z'
-        logger.info
-
         cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
         cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
 

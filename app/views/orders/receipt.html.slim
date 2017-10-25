@@ -6,14 +6,34 @@ html
     div style='text-align: center;'
       = wicked_pdf_image_tag 'logo.png'
 
-    div style="margin-bottom: 25px;"
-      | 747 Sandy Ridge Rd
-      br
-      | Tyner, NC 27980
-      br
-      | United States
-      br
-      | 703-972-2288
+    - if TopLevelDomain == "ca"
+      div style="margin-bottom: 25px;"
+        | 2953 Tenth Line Road
+        br
+        | Navan, Ontario
+        br
+        | K4B 1H8
+        br
+        | 613-317-2480
+    - if TopLevelDomain == "com"
+      div style="margin-bottom: 25px;"
+        | 747 Sandy Ridge Rd
+        br
+        | Tyner, NC 27980
+        br
+        | United States
+        br
+        | 703-972-2288
+    - if TopLevelDomain == "la"
+      div style="margin-bottom: 25px;"
+        | Av. Lope de Vega 29,
+        br
+        | Torre Novo-Centro. 3er Nivel, Local C-6. Santo Domingo -
+        br
+        | República Dominicana
+        br
+        | 809-542-2476
+
 
     div style="margin-bottom: 25px;"
       h3 Order Information
