@@ -56,4 +56,8 @@ class AdminPolicy < Struct.new(:user, :admin)
   def tools?
     user.has_any_role?(%i(admin sales_rep sales_manager webmaster))
   end
+
+  def cpl_log?
+    user.has_any_role?(%i(admin))
+  end
 end

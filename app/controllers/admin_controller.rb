@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  include CiscoPrivateLabel
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   include SmartListingConcerns
@@ -135,6 +136,10 @@ class AdminController < ApplicationController
   end
 
   def tools
+  end
+
+  def cpl_log
+    @log = JSON.parse(cpl_get_log.body)
   end
 
   private

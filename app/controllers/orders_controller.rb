@@ -239,13 +239,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def cplp_validation
-    response = cpl_get_log
-
-    puts "RESPONSE:"
-    p response.body
-  end
-
   private
 
   def set_order

@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
 
   after_save :update_instructor_costs, if: :daily_rate_changed?
 
+  def developer?
+    email == 'ryan@storberg.net'
+  end
+
   def active_for_authentication?
     super && active?
   end

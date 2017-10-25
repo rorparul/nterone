@@ -57,7 +57,6 @@ NterOne::Application.routes.draw do
       get  '/:id/confirmation'   => 'orders#confirmation', as: :confirmation
       post '/e-xact/create'      => 'orders#exact_create', as: :exact_create
       get  '/new(/:cart_token)'  => 'orders#new',          as: :new
-      get  '/cplp/validation' => 'orders#cplp_validation', as: :cplp_validation
     end
   end
 
@@ -275,6 +274,7 @@ NterOne::Application.routes.draw do
     get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
     get 'admin/tools',                               as: :admin_tools
+    get 'admin/cpl_log'     => 'admin#cpl_log',      as: :cpl_log
   end
 
   controller :my_account do

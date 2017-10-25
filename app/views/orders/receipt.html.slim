@@ -99,7 +99,7 @@ html
         tbody
           tr
             td Date/Time:
-            td = @order.created_at.strftime('%F %H:%M')
+            td = @order.created_at.strftime('%F %I:%M %p')
           tr
             td Authorization Code:
             td = @order.auth_code
