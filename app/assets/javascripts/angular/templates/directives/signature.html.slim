@@ -4,12 +4,13 @@
       li.active role="presentation"
         a[aria-controls="signature-basic" data-toggle="tab" href="#signature-basic" role="tab"]
           = t("admins.tools.basic")
-      li role="presentation"
-        a[aria-controls="signature-social" data-toggle="tab" href="#signature-social" role="tab"]
-          = t("admins.tools.social")
-      li role="presentation"
-        a[aria-controls="signature-links" data-toggle="tab" href="#signature-links" role="tab"]
-          = t("admins.tools.links")
+      - if user_signed_in? && current_user.admin?
+        li role="presentation"
+          a[aria-controls="signature-social" data-toggle="tab" href="#signature-social" role="tab"]
+            = t("admins.tools.social")
+        li role="presentation"
+          a[aria-controls="signature-links" data-toggle="tab" href="#signature-links" role="tab"]
+            = t("admins.tools.links")
 
     br
 
@@ -70,47 +71,79 @@
         a href="http://nterone.#{Rails.application.config.tld}/" style="color: rgb(5,99,193);" target="_blank"
           = "NterOne.#{Rails.application.config.tld}"
 
-      p style='font-size: 12pt; font-family: Tahoma;'
-        span ng-if="office"
-          | Office:
-          '
-          a href="tel:{{ office }}" target="_blank" value="{{office}}"
-            | {{ office }}
-            span ng-if="office_ext"
-              |  ext. {{ office_ext }}
-        span ng-if="office && phone"
-          '
-          | |
-          '
-        span ng-if="phone"
-          | Cell:
-          '
-          a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
-            | {{ phone }}
+      div ng-if="!skype"
+        p style='font-size: 12pt; font-family: Tahoma;'
+          span ng-if="office"
+            | Office:
+            '
+            a href="tel:{{ office }}" target="_blank" value="{{office}}"
+              | {{ office }}
+              span ng-if="office_ext"
+                |  ext. {{ office_ext }}
+          span ng-if="office && direct"
+            '
+            | |
+            '
+          span ng-if="direct"
+            | Direct:
+            '
+            a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
+              | {{ direct }}
+          span ng-if="direct && phone"
+            '
+            | |
+            '
+          span ng-if="office && phone && !direct"
+            '
+            | |
+            '
+          span ng-if="phone"
+            | Cell:
+            '
+            a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
+              | {{ phone }}
 
-      p style='font-size: 12pt; font-family: Tahoma;'
-        span ng-if="office && direct"
-          | Direct:
-          '
-          a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
-            | {{ direct }}
-        span ng-if="office && direct && skype"
-          '
-          | |
-          '
-        span ng-if="skype"
-          | Skype:
-          '
-          a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
-            | {{ skype }}
+      div ng-if="skype"
+        p style='font-size: 12pt; font-family: Tahoma;'
+          span ng-if="office"
+            | Office:
+            '
+            a href="tel:{{ office }}" target="_blank" value="{{office}}"
+              | {{ office }}
+              span ng-if="office_ext"
+                |  ext. {{ office_ext }}
+          span ng-if="office && phone"
+            '
+            | |
+            '
+          span ng-if="phone"
+            | Cell:
+            '
+            a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
+              | {{ phone }}
 
-      p
+        p style='font-size: 12pt; font-family: Tahoma;'
+          span ng-if="direct"
+            | Direct:
+            '
+            a href="tel:{{ direct }}" target="_blank" value="{{direct}}"
+              | {{ direct }}
+          span ng-if="direct && skype"
+            '
+            | |
+            '
+          span ng-if="skype"
+            | Skype:
+            '
+            a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
+              | {{ skype }}
 
-      p
-        img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
 
-      p
-        img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
+      img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
+
+      br
+
+      img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
 
       p style='font-size: 10pt; font-family: Tahoma;' Join us on:
 
@@ -137,13 +170,13 @@
           a href="{{instagram}}" target="_blank"
             img src=(image_path("signature/instagram.png")) style="width: 25px; margin-right: 3px;"
 
-      p ng-if="link1" style='font-size: 10pt; font-family: Tahoma'
+      p ng-if="link1" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
         a href="{{link1}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link1_text }}
-      p ng-if="link2" style='font-size: 10pt; font-family: Tahoma'
+      p ng-if="link2" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
         a href="{{link2}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link2_text }}
-      p ng-if="link3" style='font-size: 10pt; font-family: Tahoma'
+      p ng-if="link3" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
         a href="{{link3}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link3_text }}
 
