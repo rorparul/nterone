@@ -210,7 +210,7 @@ class OrdersController < ApplicationController
   def exact_create
     if params[:x_response_code] == '1'
       @order = current_user.buyer_orders.build
-      @order.assign_attributes(payment_type: 'Credit Card', paid: params[:x_amount], origin_region: params[:origin_region])
+      @order.assign_attributes(payment_type: 'Credit Card', auth_code: params[:x_auth_code], paid: params[:x_amount], origin_region: params[:origin_region])
       @order.add_order_items_from_cart(@cart)
       if @order.save
         @order.order_items.each do |order_item|

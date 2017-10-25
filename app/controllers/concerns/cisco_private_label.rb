@@ -14,7 +14,7 @@ module CiscoPrivateLabel
 
     post_object = {
       "orderId": order.id.to_s,
-      "orderDate": DateTime.parse(order.created_at.utc.to_s).rfc3339(3)[0..22] + 'Z',
+      "orderDate": DateTime.parse((order.created_at.utc - 10.seconds).to_s).rfc3339(3)[0..22] + 'Z',
       "paymentMethod": payment_type,
       "orderItems": order.cisco_private_label_products.map do |cplp|
         {
