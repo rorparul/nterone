@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
       @order.add_order_items_from_cart(@cart)
 
       # Create transaction:
-      if permitted_params.order[:payment_type] == "Credit Card"
+      if ['Credit Card', 'Tarjeta de Credito'].include?(permitted_params.order[:payment_type])
         result = handle_credit_card_payment()
 
         Rails.logger.info result.inspect
