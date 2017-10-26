@@ -61,18 +61,18 @@
               input-label[model="link3_text" label="Link 3 Text" ]
 
   .col-md-6
-    .signature style='margin: 25px 0;'
-      p style='font-size: 12pt; font-family: Tahoma;' ng-if="name"
+    .signature
+      p style='font-family: Tahoma;' ng-if="name"
         b
           | {{ name }}
 
-      p style='font-size: 12pt; font-family: Tahoma;' ng-if="job_title"
+      p style='font-family: Tahoma;' ng-if="job_title"
         | {{ job_title }} | NterOne Corporation&nbsp;|&nbsp;
         a href="http://nterone.#{Rails.application.config.tld}/" style="color: rgb(5,99,193);" target="_blank"
           = "NterOne.#{Rails.application.config.tld}"
 
       div ng-if="!skype"
-        p style='font-size: 12pt; font-family: Tahoma;'
+        p style='font-family: Tahoma;'
           span ng-if="office"
             | Office:
             '
@@ -104,7 +104,7 @@
               | {{ phone }}
 
       div ng-if="skype"
-        p style='font-size: 12pt; font-family: Tahoma;'
+        p style='font-family: Tahoma;'
           span ng-if="office"
             | Office:
             '
@@ -122,7 +122,7 @@
             a href="tel:{{ phone }}" target="_blank" value="{{phone}}"
               | {{ phone }}
 
-        p style='font-size: 12pt; font-family: Tahoma;'
+        p style='font-family: Tahoma;'
           span ng-if="direct"
             | Direct:
             '
@@ -138,12 +138,17 @@
             a href="skype:{{ skype }}" target="_blank" value="{{skype}}"
               | {{ skype }}
 
-
-      img.CToWUd alt="Logo" src="{{ logo_url }}" style="width: 350px; margin: 10px 0;" ng-if="logo_url"
-
       br
 
-      img src=(image_path("signature/vendor-banner.png")) style="width: 450px; margin: 10px 0;"
+      img alt="Logo" src="{{ logo_url }}" style="width: 350px;" ng-if="logo_url"
+
+      br
+      br
+
+      img src=(image_path("signature/vendor-banner.png")) style="width: 450px;"
+
+      br
+      br
 
       p style='font-size: 10pt; font-family: Tahoma;' Join us on:
 
@@ -170,13 +175,13 @@
           a href="{{instagram}}" target="_blank"
             img src=(image_path("signature/instagram.png")) style="width: 25px; margin-right: 3px;"
 
-      p ng-if="link1" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
+      p ng-if="link1" style='font-family: Tahoma; text-decoration: underline;'
         a href="{{link1}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link1_text }}
-      p ng-if="link2" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
+      p ng-if="link2" style='font-family: Tahoma; text-decoration: underline;'
         a href="{{link2}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link2_text }}
-      p ng-if="link3" style='font-size: 10pt; font-family: Tahoma; text-decoration: underline;'
+      p ng-if="link3" style='font-family: Tahoma; text-decoration: underline;'
         a href="{{link3}}" style="color: rgb(5,99,193);" target="_blank"
           | {{ link3_text }}
 
