@@ -9,13 +9,26 @@ class Db::MergeService
     @post_updates  = {}
     @ids           = {}
     @polymorphics  = {}
+
+    init_models
+
+    region = @database.to_s.split('-').last
+    Rails.application.config.tld = region
+    @origin_region = case region
+                    when 'com'
+                      0
+                    when 'la'
+                      1
+                    when 'ca'
+                      2
+                    else
+                      0
+                    end
   end
 
   def call
 
     init_origin_region
-
-    init_models
 
     # @models = [User]  if Rails.env.development?
     @models.each do |model|
@@ -52,19 +65,6 @@ class Db::MergeService
 
   def init_origin_region
     ActiveRecord::Base.establish_connection(@main_database)
-    region = @database.to_s.split('-').last
-
-    Rails.application.config.tld = region
-    @origin_region = case region
-                    when 'com'
-                      0
-                    when 'la'
-                      1
-                    when 'ca'
-                      2
-                    else
-                      0
-                    end
 
     # set origin_region to US by default
 
@@ -222,8 +222,9 @@ class Db::MergeService
         end
       end
 
+      page += 1
+
       unless Rails.env.test?
-        page += 1
         print "%20s: %10d / %10d, old count: %10d \r" % [model.name, page*page_size, total_count, @old_counts[model.name].to_i]
       end
 

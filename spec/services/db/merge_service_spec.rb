@@ -41,7 +41,9 @@ describe Db::MergeService do
 
       ActiveRecord::Base.establish_connection :test
       service1.merge_model(Event)
+      service1.set_origin_region
       service2.merge_model(Event)
+      service2.set_origin_region
     end
 
     it 'sets origin_region' do
@@ -75,6 +77,7 @@ describe Db::MergeService do
       service1.merge_model(OrderItem)
       service1.merge_model(VideoOnDemand)
       service1.post_update
+      service1.set_origin_region
     end
 
     it 'updates belongs_to relations' do
