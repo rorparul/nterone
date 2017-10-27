@@ -23,7 +23,7 @@
 class Platform < ActiveRecord::Base
   extend FriendlyId
   include Imageable
-  # include Regions
+  include Regions
 
   friendly_id :title, use: [:slugged, :finders]
 
