@@ -145,18 +145,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_region
-    session[:region] = params[:region].to_i if params[:region]
-
-    if session[:region].nil?
-      session[:region] = case request.host
-        when 'www.nterone.com'
-          0
-        when 'www.nterone.la'
-          1
-        else
-          2
-        end
-    end
+    session[:region] = case request.host
+      when 'www.nterone.ca'
+        2
+      when 'www.nterone.la'
+        1
+      else
+        0
+      end
 
     case session[:region]
     when 0, 2
