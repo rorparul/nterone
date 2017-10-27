@@ -4,7 +4,7 @@ class PlatformsController < ApplicationController
 
   def index
     @page      = Page.find_by(title: 'Vendor Index')
-    @platforms = Platform.order(:title).all
+    @platforms = Platform.where(origin_region: session[:region]).order(:title)
   end
 
   def show
