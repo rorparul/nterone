@@ -1,0 +1,49 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+  span.seperator
+    | /
+  span.text-muted
+    | My NterOne
+  span.seperator
+    | /
+  span.text-muted
+    | Reports
+  span.seperator
+    | /
+  span.text-muted
+    = t('layouts.partial_tabs.sales_details')
+
+= render 'layouts/tabs'
+
+.row
+  .col-xs-12
+    h4
+      strong.text-muted= t('layouts.partial_tabs.sales_details')
+    .container-muted
+      = form_for :report, method: :get do |f|
+        .row
+          .col-xs-12.col-md-12
+            .radio style="display: inline-block; margin-right: 15px;"
+              label
+                = f.radio_button :status, "open", checked: true
+                | Open
+            .radio style="display: inline-block; margin-right: 15px;"
+              label
+                = f.radio_button :status, "waiting"
+                | Waiting
+            .radio style="display: inline-block; margin-right: 15px;"
+              label
+                = f.radio_button :status, "won"
+                | Won
+            '
+            = f.date_select :started_at, default: { year: @started_at.year, month: @started_at.month, day: @started_at.day }
+            | -
+            '
+            = f.date_select :ended_at, default: { year: @ended_at.year, month: @ended_at.month, day: @ended_at.day }
+            '
+            button.btn.btn-default.btn-sm[type="submit"] Show
+
+    .container-muted
+      = smart_listing_render(:opportunities)
