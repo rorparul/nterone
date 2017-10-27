@@ -9,7 +9,11 @@ class GeneralController < ApplicationController
   end
 
   def search
-    @items = Subject.search(params[:query]) + Course.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%") + VideoOnDemand.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    subjects = Subject.active_in_current_region.search(params[:query])
+    courses  = Course.active_in_current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    vods     = VideoOnDemand.active_in_current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+
+    @items = subjects + courses + vods
   end
 
   def welcome
