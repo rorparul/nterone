@@ -22,9 +22,9 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
 
-  # include Regions
+  include Regions
 
-  scope :default, -> { where(origin_region: current_region_as_value) }
+  # scope :default, -> { where(origin_region: current_region_as_value) }
 
   friendly_id :title, use: [:slugged, :finders]
 end
