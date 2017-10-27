@@ -2,11 +2,12 @@
 #
 # Table name: topologies
 #
-#  id            :integer          not null, primary key
-#  lab_course_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#  origin_region :integer
+#  id             :integer          not null, primary key
+#  lab_course_id  :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  origin_region  :integer
+#  active_regions :text             default([]), is an Array
 #
 
 class Topology < ActiveRecord::Base

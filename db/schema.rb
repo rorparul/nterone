@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014204442) do
+ActiveRecord::Schema.define(version: 20171027165013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,11 +205,14 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.integer  "checklist_id"
     t.text     "content"
     t.datetime "completed_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
 
   add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
+  add_index "checklist_items", ["origin_region"], name: "index_checklist_items_on_origin_region", using: :btree
 
   create_table "checklist_items_events", id: false, force: :cascade do |t|
     t.integer "checklist_item_id", null: false
@@ -272,11 +275,15 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.string   "email"
     t.string   "inquiry"
     t.string   "feedback"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "recipient"
     t.string   "subject"
+    t.integer  "origin_region"
+    t.text     "active_regions", default: [],              array: true
   end
+
+  add_index "contact_us_submissions", ["origin_region"], name: "index_contact_us_submissions_on_origin_region", using: :btree
 
   create_table "course_dynamics", force: :cascade do |t|
     t.integer  "exam_and_course_dynamic_id"
@@ -425,7 +432,6 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.decimal  "cost_commission",                precision: 8, scale: 2, default: 0.0
     t.boolean  "autocalculate_cost_commission",                          default: true
     t.boolean  "do_not_send_instructor_email",                           default: false
-<<<<<<< HEAD
     t.string   "country_code"
     t.string   "location"
     t.string   "registration_url"
@@ -433,8 +439,6 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.string   "registration_fax"
     t.string   "registration_email"
     t.string   "site_id"
-=======
->>>>>>> Add origin_region to topologies
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
@@ -1342,6 +1346,7 @@ ActiveRecord::Schema.define(version: 20171014204442) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "origin_region"
+    t.text     "active_regions", default: [], array: true
   end
 
   create_table "user_companies", force: :cascade do |t|
