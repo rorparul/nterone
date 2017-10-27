@@ -16,6 +16,7 @@
 #
 #  index_lms_exam_question_joins_on_lms_exam_id           (lms_exam_id)
 #  index_lms_exam_question_joins_on_lms_exam_question_id  (lms_exam_question_id)
+#  index_lms_exam_question_joins_on_origin_region         (origin_region)
 #
 # Foreign Keys
 #

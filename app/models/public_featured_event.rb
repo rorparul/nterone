@@ -26,6 +26,10 @@
 #  origin_region       :integer
 #  active_regions      :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_public_featured_events_on_origin_region  (origin_region)
+#
 
 class PublicFeaturedEvent < ActiveRecord::Base
   include Regions

@@ -17,6 +17,7 @@
 #
 # Indexes
 #
+#  index_lms_exams_on_origin_region       (origin_region)
 #  index_lms_exams_on_video_id            (video_id)
 #  index_lms_exams_on_video_module_id     (video_module_id)
 #  index_lms_exams_on_video_on_demand_id  (video_on_demand_id)

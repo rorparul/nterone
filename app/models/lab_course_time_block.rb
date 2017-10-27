@@ -12,6 +12,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_lab_course_time_blocks_on_origin_region  (origin_region)
+#
 
 class LabCourseTimeBlock < ActiveRecord::Base
   include Regions

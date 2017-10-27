@@ -11,6 +11,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_hacp_requests_on_origin_region  (origin_region)
+#
 
 class HacpRequest < ActiveRecord::Base
   include Regions

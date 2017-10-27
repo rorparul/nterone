@@ -10,6 +10,10 @@
 #  origin_region      :integer
 #  active_regions     :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_category_video_on_demands_on_origin_region  (origin_region)
+#
 
 class CategoryVideoOnDemand < ActiveRecord::Base
   include Regions

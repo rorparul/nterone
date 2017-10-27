@@ -28,7 +28,8 @@
 #
 # Indexes
 #
-#  index_courses_on_slug  (slug)
+#  index_courses_on_origin_region  (origin_region)
+#  index_courses_on_slug           (slug)
 #
 
 class Course < ActiveRecord::Base

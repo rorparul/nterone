@@ -62,6 +62,10 @@
 #  archive                 :boolean          default(FALSE)
 #  sales_force_id          :string
 #
+# Indexes
+#
+#  index_guests_on_origin_region  (origin_region)
+#
 
 class Guest < ActiveRecord::Base
 end

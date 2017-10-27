@@ -15,6 +15,7 @@
 # Indexes
 #
 #  index_assigned_items_on_item_type_and_item_id  (item_type,item_id)
+#  index_assigned_items_on_origin_region          (origin_region)
 #
 
 class AssignedItem < ActiveRecord::Base

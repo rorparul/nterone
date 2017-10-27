@@ -31,6 +31,7 @@
 # Indexes
 #
 #  index_lab_rentals_on_lab_course_id  (lab_course_id)
+#  index_lab_rentals_on_origin_region  (origin_region)
 #
 # Foreign Keys
 #

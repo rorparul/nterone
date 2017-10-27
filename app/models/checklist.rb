@@ -9,6 +9,10 @@
 #  active_regions :text             default([]), is an Array
 #  origin_region  :integer
 #
+# Indexes
+#
+#  index_checklists_on_origin_region  (origin_region)
+#
 
 class Checklist < ActiveRecord::Base
   include SearchCop

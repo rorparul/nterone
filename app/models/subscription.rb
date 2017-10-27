@@ -10,6 +10,10 @@
 #  origin_region      :integer
 #  active_regions     :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_subscriptions_on_origin_region  (origin_region)
+#
 
 class Subscription < ActiveRecord::Base
   include Regions

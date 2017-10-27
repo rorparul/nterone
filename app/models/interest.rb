@@ -17,6 +17,10 @@
 #  origin_region                    :integer
 #  active_regions                   :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_interests_on_origin_region  (origin_region)
+#
 
 class Interest < ActiveRecord::Base
   include Regions

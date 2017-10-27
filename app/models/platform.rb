@@ -16,13 +16,14 @@
 #
 # Indexes
 #
-#  index_platforms_on_slug  (slug)
+#  index_platforms_on_origin_region  (origin_region)
+#  index_platforms_on_slug           (slug)
 #
 
 class Platform < ActiveRecord::Base
   extend FriendlyId
   include Imageable
-  include Regions
+  # include Regions
 
   friendly_id :title, use: [:slugged, :finders]
 

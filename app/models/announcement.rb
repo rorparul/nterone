@@ -12,6 +12,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_announcements_on_origin_region  (origin_region)
+#
 
 class Announcement < ActiveRecord::Base
   include Regions

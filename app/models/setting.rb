@@ -14,6 +14,7 @@
 #
 # Indexes
 #
+#  index_settings_on_origin_region                    (origin_region)
 #  index_settings_on_thing_type_and_thing_id_and_var  (thing_type,thing_id,var) UNIQUE
 #
 

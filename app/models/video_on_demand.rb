@@ -32,7 +32,8 @@
 #
 # Indexes
 #
-#  index_video_on_demands_on_slug  (slug)
+#  index_video_on_demands_on_origin_region  (origin_region)
+#  index_video_on_demands_on_slug           (slug)
 #
 
 class VideoOnDemand < ActiveRecord::Base

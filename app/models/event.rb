@@ -60,11 +60,8 @@
 #
 # Indexes
 #
-#  index_events_on_checklist_id  (checklist_id)
-#
-# Foreign Keys
-#
-#  fk_rails_b9058a8bd3  (checklist_id => checklists.id)
+#  index_events_on_checklist_id   (checklist_id)
+#  index_events_on_origin_region  (origin_region)
 #
 
 class Event < ActiveRecord::Base

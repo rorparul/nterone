@@ -15,6 +15,7 @@
 # Indexes
 #
 #  index_group_items_on_groupable_type_and_groupable_id  (groupable_type,groupable_id)
+#  index_group_items_on_origin_region                    (origin_region)
 #
 
 class GroupItem < ActiveRecord::Base

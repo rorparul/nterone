@@ -10,6 +10,10 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_category_courses_on_origin_region  (origin_region)
+#
 
 class CategoryCourse < ActiveRecord::Base
   include Regions

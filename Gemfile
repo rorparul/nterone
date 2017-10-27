@@ -4,6 +4,7 @@ ruby '2.3.0'
 
 gem 'acts_as_tree'
 gem 'angularjs-rails-resource'
+gem 'activerecord-import'
 gem 'authorizenet'
 gem 'autonumeric-rails'
 gem 'aws-sdk-rails'

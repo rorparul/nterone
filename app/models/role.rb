@@ -10,10 +10,14 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #
+# Indexes
+#
+#  index_roles_on_origin_region  (origin_region)
+#
 
 class Role < ActiveRecord::Base
   extend Enumerize
-  include Regions
+  # include Regions
 
   enumerize :role, in: {
     admin:         1,
