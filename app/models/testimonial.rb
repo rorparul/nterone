@@ -23,4 +23,6 @@ class Testimonial < ActiveRecord::Base
   belongs_to :course
 
   validates :quotation, presence: true
+
+  default_scope { where(origin_region: self.get_session_region) }
 end

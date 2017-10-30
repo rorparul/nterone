@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
 
   include Regions
 
-  # scope :default, -> { where(origin_region: current_region_as_value) }
+  default_scope { where(origin_region: self.get_session_region) }
 
   friendly_id :title, use: [:slugged, :finders]
 end

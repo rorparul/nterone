@@ -9,9 +9,9 @@ class GeneralController < ApplicationController
   end
 
   def search
-    subjects = Subject.active_in_current_region.search(params[:query])
-    courses  = Course.active_in_current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
-    vods     = VideoOnDemand.active_in_current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    subjects = Subject.current_region.search(params[:query])
+    courses  = Course.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    vods     = VideoOnDemand.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
 
     @items = subjects + courses + vods
   end
@@ -38,18 +38,18 @@ class GeneralController < ApplicationController
 
   def press
     @page           = Page.find_by(title: 'Press Index')
-    @press_releases = Article.active_in_current_region.where(kind: "Press Release").order(created_at: :desc)
+    @press_releases = Article.current_region.where(kind: "Press Release").order(created_at: :desc)
   end
 
   def blog
     @page       = Page.find_by(title: 'Blog Index')
-    @blog_posts = Article.active_in_current_region.where(kind: "Blog Post").order(created_at: :desc)
+    @blog_posts = Article.current_region.where(kind: "Blog Post").order(created_at: :desc)
   end
 
   def industry
     redirect_to root_path unless TopLevelDomain == "com"
     @page              = Page.find_by(title: 'Industry Index')
-    @industry_articles = Article.active_in_current_region.where(kind: "Industry Article").order(created_at: :desc)
+    @industry_articles = Article.current_region.where(kind: "Industry Article").order(created_at: :desc)
   end
 
   def consulting
