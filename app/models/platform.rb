@@ -22,6 +22,7 @@
 
 class Platform < ActiveRecord::Base
   extend FriendlyId
+  
   include Imageable
   include Regions
 
