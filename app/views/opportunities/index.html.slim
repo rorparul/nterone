@@ -48,7 +48,7 @@
       = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
       = link_to new_reports_sale_path, remote: true, class: 'pull-right', role: 'button', title: 'Export', style: 'margin: 5px 0;' do
         i.fa.fa-file-excel-o aria-hidden="true"
-      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do                
+      = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
         .input-group.input-group-sm.filter style='margin-right: 15px;'
           = text_field_tag :filter, '', class: 'search form-control input-sm',
                                         placeholder: t('admins.classes.search'),
@@ -56,13 +56,13 @@
           span.input-group-btn
             button.btn.btn-default.btn-sm.disabled type="submit"
               span.glyphicon.glyphicon-search
-              
+
         - if current_user.admin? || current_user.sales_manager?
           .input-group.input-group-sm.filter style='margin-right: 15px;'
             = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
                                           placeholder: t('admins.classes.search'),
                                           autocomplete: :off
-        
+
         .radio
           label
             input type="radio" name="selection" id="selection_open" value="open" checked='true'
@@ -75,7 +75,7 @@
           label
             input type="radio" name="selection" id="selection_closed" value="closed"
             | Closed
-            
+
         #end-date.pull-right style='margin: 4px 15px 4px 0;'
           = date_select :date_end, :date_end,
             { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
