@@ -93,6 +93,4 @@ describe Db::MergeService do
     end
   end
 
-  context '#'
-
 end

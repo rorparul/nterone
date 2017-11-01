@@ -1,6 +1,6 @@
 class Db::MergeService
 
-  attr_accessor :post_updates
+  attr_accessor :post_updates, :page_size
 
   def initialize database
     @database      = database.to_sym
@@ -9,6 +9,8 @@ class Db::MergeService
     @post_updates  = {}
     @ids           = {}
     @polymorphics  = {}
+
+    @page_size = Rails.env.test? ? 1000 : 10000
 
     init_models
 
@@ -116,7 +118,6 @@ class Db::MergeService
   end
 
   def merge_model model
-    page_size = 10000
     page = 0
     relations = {}
     ids = {}
@@ -221,6 +222,8 @@ class Db::MergeService
           end
         end
       end
+
+      break  if Rails.env.test?
 
       page += 1
 

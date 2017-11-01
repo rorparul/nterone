@@ -4,5 +4,6 @@ FactoryGirl.define do
     abbreviation { FFaker::Lorem.word }
     categories { [create(:category)] }
     platform { Platform.first }
+    image
   end
 end
