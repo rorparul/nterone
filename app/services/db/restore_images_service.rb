@@ -14,22 +14,27 @@ class Db::RestoreImagesService
 
   def call
     ActiveRecord::Base.establish_connection @database
-    [Subject, Course, VideoOnDemand].each do |model|
-      titles = {}
+    Image.unscoped.group("imageable_type").count.values.each do |model_name|
+      begin
+        model = model_name.constantize
+      rescue => exception
+      else
+        titles = {}
 
-      model.all.each do |object|
-        titles[object.title] = object.image  if object.image.present?
-      end
+        model.unscoped.all.each do |object|
+          titles[object.title] = object.image  if object.image.present?
+        end
 
-      ActiveRecord::Base.establish_connection @main_database
-      model.where(origin_region: @origin_region).each do |object|
-        image = titles[object.title]
-        if image.try(:file).try(:file).try(:path) 
-          filename = "#{@uploads_path}/#{@region}" + image.file.file.path.gsub(/#{Rails.root}\/public/, "")
-          if File.exists? filename
-            object.image = Image.new  unless object.image.present?
-            object.image.file = File.open(filename)
-            object.image.save
+        ActiveRecord::Base.establish_connection @main_database
+        model.unscoped.where(origin_region: @origin_region).each do |object|
+          image = titles[object.title]
+          if image.try(:file).try(:file).try(:path) 
+            filename = "#{@uploads_path}/#{@region}" + image.file.file.path.gsub(/#{Rails.root}\/public/, "")
+            if File.exists? filename
+              object.image = Image.new  unless object.image.present?
+              object.image.file = File.open(filename)
+              object.image.save
+            end
           end
         end
       end
