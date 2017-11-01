@@ -1,0 +1,7 @@
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t('admins.partial_breadcrumbs.home')
+
+div style="text-align: center; margin-top: 125px;"
+  = link_to "Launch Quiz", quiz_demo_init_quiz_path(@video_on_demand.platform, @video_on_demand, @video_on_demand.videos.first, @video_on_demand.videos.first.lms_exams.first), class: "btn btn-primary", role: "button", remote: true

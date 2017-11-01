@@ -1,5 +1,5 @@
 class LmsExamsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:quiz_demo]
   before_action :sanitize_page_params, only: [:create, :update]
 
   def new
@@ -46,6 +46,95 @@ class LmsExamsController < ApplicationController
     end
 
     redirect_to :back
+  end
+
+  def quiz_demo
+    @video_on_demand = VideoOnDemand.find_by(slug: 'quiz-demo-vod')
+    render 'quiz_demo', layout: 'admin'
+  end
+
+  def init_quiz
+    @video_on_demand = VideoOnDemand.find(params[:vod_id])
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+    render 'video_on_demands/init_quiz'
+  end
+
+  def begin_quiz
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+
+    @lms_exam_attempt = LmsExamAttempt.create(lms_exam: @quiz, user: current_user, started_at: Time.now)
+
+    all_questions = @quiz.lms_exam_questions.all
+    taken_questions = []
+
+    @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
+
+    available_questions = all_questions - taken_questions
+
+    @next_question = available_questions.sample
+
+    respond_to do |format|
+      format.html { render :action => 'show' }
+      format.js { render :action => 'begin_quiz' }
+    end
+  end
+
+  def next_quiz_question
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+    @video = Video.find(params[:video_id])
+    @quiz = LmsExam.find(params[:id])
+
+    save_answer
+
+    @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+
+    all_questions = @quiz.lms_exam_questions.all
+    taken_questions = []
+
+    @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
+
+    available_questions = all_questions - taken_questions
+
+    @next_question = available_questions.sample
+
+    unless @next_question == nil
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'next_quiz_question' }
+      end
+    else
+      @lms_exam_attempt.completed_at = Time.now
+      @lms_exam_attempt.save
+
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'exit_quiz' }
+      end
+    end
+  end
+
+  def exit_quiz
+    @video_on_demand = VideoOnDemand.find(params[:platform_id])
+    @platform = @video_on_demand.platform
+
+    lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
+    lms_exam_attempt.update(completed_at: Time.now)
+
+    if params[:next_video_id]
+      @video = Video.find(params[:next_video_id])
+
+      respond_to do |format|
+        format.html { render :action => 'show' }
+        format.js { render :action => 'play_video' }
+      end
+    else
+      redirect_to platform_video_on_demand_path(@platform, @video_on_demand)
+    end
   end
 
   private

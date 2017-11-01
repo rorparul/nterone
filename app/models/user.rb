@@ -103,8 +103,6 @@ class User < ActiveRecord::Base
   include SearchCop
   include Regions
 
-  # default_scope { all }
-
   acts_as_tree order: 'last_name'
 
   enum status: {
@@ -119,62 +117,53 @@ class User < ActiveRecord::Base
 
   belongs_to :company
 
-  has_one :interest,          dependent:  :destroy
-  has_one :cart,              dependent:  :destroy
+  has_one :interest,                 dependent:  :destroy
+  has_one :cart,                     dependent:  :destroy
   has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
 
-  has_many :planned_subjects, dependent:  :destroy
-  has_many :subjects,         through:    :planned_subjects
-  has_many :chosen_courses,   dependent:  :destroy
-  has_many :courses,          through:    :chosen_courses
-  has_many :passed_exams,     dependent:  :destroy
-  has_many :exams,            through:    :passed_exams
-
-  has_many :assigned_items,   foreign_key: 'student_id'
-  has_many :assigned_vods, through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
-
-  #TODO: track leads through relationships instead
-  has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
-  has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
-  has_many :lab_rentals # TODO: Consider the dependencies
-  has_many :individual_lab_rentals, through: :order_items, source: :orderable, source_type: 'LabRental'
-  has_many :messages,             dependent:   :destroy
+  has_many :planned_subjects,         dependent:  :destroy
+  has_many :subjects,                 through:    :planned_subjects
+  has_many :chosen_courses,           dependent:  :destroy
+  has_many :courses,                  through:    :chosen_courses
+  has_many :passed_exams,             dependent:  :destroy
+  has_many :exams,                    through:    :passed_exams
+  has_many :assigned_items,           foreign_key: 'student_id'
+  has_many :assigned_vods,            through: :assigned_items, source: :item, source_type: 'VideoOnDemand'
+  has_many :seller_leads,             class_name: "Lead", foreign_key: "seller_id"
+  has_many :buyer_leads,              class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
+  has_many :lab_rentals
+  has_many :individual_lab_rentals,   through: :order_items, source: :orderable, source_type: 'LabRental'
+  has_many :messages,                 dependent:   :destroy
   has_many :posts
-  has_many :roles,                dependent:   :destroy
-  has_many :seller_orders,        class_name:  'Order',
-                                  foreign_key: 'seller_id'
-  has_many :buyer_orders,         class_name:  'Order',
-                                  foreign_key: 'buyer_id'
+  has_many :roles,                    dependent:   :destroy
+  has_many :seller_orders,            class_name:  'Order',
+                                      foreign_key: 'seller_id'
+  has_many :buyer_orders,             class_name:  'Order',
+                                      foreign_key: 'buyer_id'
   has_many :order_items
-  has_many :events,               through:     :order_items,
-                                  source:      :orderable,
-                                  source_type: 'Event'
-  has_many :video_on_demands,     through:     :order_items,
-                                  source:      :orderable,
-                                  source_type: 'VideoOnDemand'
-  has_many :watched_videos,       dependent:   :destroy
-  has_many :videos,               through:     :watched_videos
-  has_many :seller_relationships, class_name:  'Relationship',
-                                  foreign_key: 'seller_id'
-  has_many :prospects,            through:     :seller_relationships,
-                                  source:      :buyer
-  has_one :lms_manager, through: :lms_managers_associacion, source: 'manager'
-  has_many :lms_students, through: :lms_students_associacion, source: 'user'
+  has_many :events,                   through:     :order_items,
+                                      source:      :orderable,
+                                      source_type: 'Event'
+  has_many :video_on_demands,         through:     :order_items,
+                                      source:      :orderable,
+                                      source_type: 'VideoOnDemand'
+  has_many :watched_videos,           dependent:   :destroy
+  has_many :videos,                   through:     :watched_videos
+  has_many :seller_relationships,     class_name:  'Relationship',
+                                      foreign_key: 'seller_id'
+  has_many :prospects,                through:     :seller_relationships,
+                                      source:      :buyer
+  has_one :lms_manager,               through: :lms_managers_associacion, source: 'manager'
+  has_many :lms_students,             through: :lms_students_associacion, source: 'user'
   has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
-  has_many :taught_events,           class_name: 'Event',         foreign_key: 'instructor_id'
-  has_many :taught_video_on_demands, class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
-  has_many :hacp_requests,             dependent:   :destroy
+  has_many :taught_events,            class_name: 'Event', foreign_key: 'instructor_id'
+  has_many :taught_video_on_demands,  class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
+  has_many :hacp_requests,            dependent:   :destroy
   has_many :companies
-  has_many :opportunities,        class_name:  'Opportunity',
-                                  foreign_key: 'employee_id'
+  has_many :opportunities,            class_name:  'Opportunity',
+                                      foreign_key: 'employee_id'
   has_many :tasks
-  has_many :rep_tasks,           class_name: 'Task',         foreign_key: 'rep_id'
-  # has_many :buyer_orders,         class_name:  'Opportunity',
-  #                                 foreign_key: 'customer_id'
-  # has_many :seller_leads,     class_name: "Lead", foreign_key: "seller_id"
-  # has_many :buyer_leads,      class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
-  # has_many :selling,        through: :seller_leads, source: :leads
-  # has_many :buying,         through: :buyer_leads,  source: :leads
+  has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
@@ -182,8 +171,6 @@ class User < ActiveRecord::Base
   scope :active_sales,     -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
   scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
-  # scope :leads,            -> { joins(:roles).where(roles: { role: 4 }).where.not(status: 3) }
-  # scope :contacts,         -> { joins(:roles).where(roles: { role: 4 }).where(status: 3) }
   scope :leads,            -> { where.not(status: [3, 4]) }
   scope :contacts,         -> { where(status: [3, 4]) }
   scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }

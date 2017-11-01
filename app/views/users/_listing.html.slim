@@ -10,6 +10,7 @@
           th = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
           th = t('default.label.company')
+          th Orders
           th Sales Rep
           th colspan='2'
       tbody
@@ -40,6 +41,7 @@
                 = link_to user.company.title, company_path(user.company)
               - else
                 | N/A
+            td = user.buyer_orders.count
             td id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
                 - if user.parent.present?

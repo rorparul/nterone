@@ -336,6 +336,13 @@ NterOne::Application.routes.draw do
   get  '/email_signature_tool'                       => 'general#email_signature_tool',             as: :email_signature_tool
   get  '/cpl_launch/:id'                             => 'video_on_demands#cpl_launch',              as: :cpl_launch
 
+  get  '/quiz_demo'                                                       => 'lms_exams#quiz_demo',                      as: :quiz_demo
+  get  '/quiz_demo/:platform_id/:vod_id/:video_id/quiz/:id'               => 'lms_exams#init_quiz',                      as: :quiz_demo_init_quiz
+  post '/quiz_demo/:platform_id/:vod_id/:video_id/quiz/:id/begin'         => 'lms_exams#begin_quiz',                     as: :quiz_demo_begin_quiz
+  post '/quiz_demo/:platform_id/:vod_id/:video_id/quiz/:id/next-question' => 'lms_exams#next_quiz_question',             as: :quiz_demo_next_quiz_question
+  post '/quiz_demo/:platform_id/:vod_id/:video_id/quiz/:id/exit'          => 'lms_exams#exit_quiz',                      as: :quiz_demo_exit_quiz
+  get  '/quiz_demo/:platform_id/:vod_id/:video_id/quiz/:id/scores'        => 'lms_exams#show_scores',                    as: :quiz_demo_show_scores
+
   namespace :api do
     get '/users/:id' => 'users#show', as: :user
 
