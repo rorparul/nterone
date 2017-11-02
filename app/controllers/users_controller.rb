@@ -34,15 +34,13 @@ class UsersController < ApplicationController
   end
 
   def show_as_lead
-    manage_smart_listing(
-      ['list_tasks']
-    )
+    list_tasks
+    list_orders
   end
 
   def show_as_contact
-    manage_smart_listing(
-      ['list_tasks']
-    )
+    list_tasks
+    list_orders
   end
 
   def show_as_sales_rep
@@ -251,6 +249,24 @@ class UsersController < ApplicationController
                         [:email, "email"]],
       default_sort: { created_at: 'desc' }
     )
+  end
+
+  def list_orders
+    orders_scope = @user.buyer_orders.all
+    orders_scope = orders_scope.custom_search(params[:filter]) if params[:filter]
+    @orders_scope = smart_listing_create(:orders,
+                         orders_scope,
+                         partial: "orders/listing",
+                         sort_attributes: [[:id, "orders.id"],
+                                           [:status_position, "status_position"],
+                                           [:total, "total"],
+                                           [:paid, "paid"],
+                                           [:balance, "balance"],
+                                           [:source, "source"],
+                                           [:auth_code, "auth_code"],
+                                           [:clc_quantity, "clc_quantity"],
+                                           [:created_at, "orders.created_at"]],
+                         default_sort: { id: "desc"})
   end
 
   def list_tasks
