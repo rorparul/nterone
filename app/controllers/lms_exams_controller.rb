@@ -1,5 +1,5 @@
 class LmsExamsController < ApplicationController
-  before_action :authenticate_user!, except: [:quiz_demo]
+  before_action :authenticate_user!, except: [:quiz_demo, :init_quiz]
   before_action :sanitize_page_params, only: [:create, :update]
 
   def new
