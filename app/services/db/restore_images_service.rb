@@ -13,9 +13,8 @@ class Db::RestoreImagesService
   end
 
   def call
-    Image.unscoped.group("imageable_type").count.values.each do |model_name|
+    Image.unscoped.group("imageable_type").count.keys.each do |model_name|
       ActiveRecord::Base.establish_connection @main_database
-      p model_name
       begin
         model = model_name.constantize
       rescue => exception
@@ -40,6 +39,26 @@ class Db::RestoreImagesService
               end
             end
           end
+        end
+      end
+    end
+
+    # Course
+    ActiveRecord::Base.establish_connection @database
+    titles = {}
+    Course.unscoped.all.each do |object|
+      titles[object.title] = object  if object.pdf.present?
+    end
+
+    ActiveRecord::Base.establish_connection @main_database
+    Course.unscoped.where(origin_region: @origin_region).each do |object|
+      pdf = titles[object.title]
+      if pdf.try(:pdf).try(:path)
+        filename = "#{@uploads_path}" + pdf.pdf.path.gsub(/^production/, "")
+        if File.exists? filename
+          p filename
+          object.pdf = File.open(filename)
+          object.save
         end
       end
     end
