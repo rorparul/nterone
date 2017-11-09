@@ -121,8 +121,6 @@ group :test do
   gem 'rspec', '~> 3.5'
   gem 'shoulda-matchers', require: false
   gem 'vcr'
-  gem 'webmock'
   gem 'capybara'
-  gem 'vcr'
   gem 'webmock'
 end
