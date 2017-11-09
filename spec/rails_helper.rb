@@ -13,8 +13,9 @@ require 'devise'
 require 'vcr'
 
 VCR.configure do |config|
-  config.cassette_library_dir = "spec/vcr_cassettes"
+  config.cassette_library_dir = 'spec/vcr_cassettes'
   config.hook_into :webmock
+  config.ignore_hosts 'nterone-assets.s3-us-west-2.amazonaws.com'
 end
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__),"support","**","*.rb"))].each {|f| require f}

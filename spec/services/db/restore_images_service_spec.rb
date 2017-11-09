@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe Db::RestoreImagesService do
+RSpec.describe Db::RestoreImagesService do
   before(:all) do
     database = 'nterone-test-la'.to_sym
-    uploads_path = '/media/sf_linux/nterone'
+    uploads_path = '/media/sf_linux/nterone/la'
 
     ActiveRecord::Base.establish_connection :test
     begin
@@ -17,6 +17,11 @@ describe Db::RestoreImagesService do
     create_list :course, 3
     create_list :video_on_demand, 3
 
+    ActiveRecord::Base.establish_connection :test
+    expect(Subject.unscoped.count).to eq 0
+    expect(Course.unscoped.count).to eq 0
+    expect(VideoOnDemand.unscoped.count).to eq 0
+
     merge_service = Db::MergeService.new database
 
     merge_service.merge_model(Subject)
@@ -26,7 +31,6 @@ describe Db::RestoreImagesService do
     merge_service.post_update
     merge_service.set_origin_region
 
-    ActiveRecord::Base.establish_connection :test
     @service = Db::RestoreImagesService.new database, uploads_path
     @service.call
   end
@@ -34,6 +38,7 @@ describe Db::RestoreImagesService do
   [Subject, Course, VideoOnDemand].each do |model|
     context "for #{model.name}" do
       before do
+        ActiveRecord::Base.establish_connection :test
         @object = Image.where(imageable_type: model.name).first.imageable
       end
 
