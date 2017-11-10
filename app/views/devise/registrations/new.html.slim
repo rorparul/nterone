@@ -1,9 +1,10 @@
 = form_for resource, as: resource_name, url: registration_path(resource), html: { "data-parsley-validate" => true } do |f|
   = devise_error_messages!
-  
+
+  input type="hidden" value="M360-Source" name="M360-Source"
   = f.hidden_field :source_name,    value: cookies[:source_name]
   = f.hidden_field :source_user_id, value: cookies[:source_user_id]
-  
+
   = f.text_field  :first_name, autofocus: true,  placeholder: t('default.label.first_name'),    class: 'form-control sign-in-field session-input',          required: true
   = f.text_field  :last_name,  autofocus: false, placeholder: t('default.label.last_name'),     class: 'form-control sign-in-field session-input',          required: true
   = f.email_field :email,      autofocus: false, placeholder: t('default.label.email'), class: 'form-control regEmail sign-in-field session-input', required: true
@@ -15,11 +16,11 @@
   = f.password_field :password_confirmation, autocomplete: "off", placeholder: t('default.label.password_confirmation'), class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
   #instructions
     = t('devise.registrations.new.instructions')
-  
+
   - if @special_event || resource.interest
     div style="margin-top: 12px;"
       = text_field_tag 'poker_chip_number', nil, placeholder: t('devise.registrations.new.poker_chip_number'), class: 'form-control sign-in-field session-input'
-    
+
     p style="margin-top: 12px;"
       = t 'devise.registrations.new.copy2'
     - resource.build_interest
@@ -56,7 +57,7 @@
         = t('devise.registrations.new.other')
       div style="margin-bottom: 14px;"
         = ff.text_field :other, class: 'form-control sign-in-field session-input'
-        
+
   #recapcha
     = recaptcha_tags
   = f.submit t('default.action.register'), class: 'btn btn-lg btn-primary btn-block', id: 'newUser'

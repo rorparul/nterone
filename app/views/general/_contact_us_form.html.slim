@@ -1,4 +1,6 @@
 = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
+  input type="hidden" value="M360-Source" name="M360-Source"
+
   .radio
     label
       = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", checked: true
