@@ -30,11 +30,16 @@
           = f.label :lms, "LMS"
           br
           = f.check_box :lms
-      .col-xs-12.col-md-4
+      .col-xs-12.col-md-2
         .form-group
-          = f.label :cisco_course_product_code, "CPL Course Product Code"
+          = f.label :cisco_digital_learning, "CDL (Deprecated)"
           br
-          = f.text_field :cisco_course_product_code
+          = f.check_box :cisco_digital_learning
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :cisco_course_product_code, "CPL Code"
+          br
+          = f.text_field :cisco_course_product_code, style: 'width: 125px;'
 
     hr
 

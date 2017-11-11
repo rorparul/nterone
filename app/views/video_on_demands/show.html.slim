@@ -56,6 +56,18 @@
                             - else
                               = video_module.title
 
+                  - elsif @video_on_demand.cisco_course_product_code.present?
+                    .row
+                      .col-xs-12
+                        .panel.panel-default
+                          .panel-body style="padding: 0 15px;"
+                            = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
+                            - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
+                              = link_to video_module.title, cpl_launch_path(video_module, child: true)
+                              i.fa.fa-external-link style='margin-left: 10px;'
+                            - else
+                              = video_module.title
+
                   - else
                     .panel.panel-default
                       .panel-heading role="tab" id="heading#{index}"
@@ -111,7 +123,7 @@
                                         a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
                                           | Scores
 
-                - if @video_on_demand.cisco_course_product_code.present?
+                - if @video_on_demand.cisco_course_product_code.present? && @video_on_demand.video_modules.empty?
                   .row
                     .col-xs-12
                       .panel.panel-default

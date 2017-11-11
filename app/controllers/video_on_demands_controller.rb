@@ -238,13 +238,21 @@ class VideoOnDemandsController < ApplicationController
   end
 
   def cpl_launch
-    vod        = VideoOnDemand.find(params[:id])
+    if true?(params[:child])
+      vod_module   = VideoModule.find(params[:id])
+      vod          = vod_module.video_on_demand
+      product_code = vod_module.cdl_course_code
+    else
+      vod          = VideoOnDemand.find(params[:id])
+      product_code = vod.cisco_course_product_code
+    end
+
     order_item = current_user.order_items.find_by(orderable_type: 'VideoOnDemand', orderable_id: vod.id)
     order      = order_item.order
 
     post_object = {
       "orderId": order.id.to_s,
-      "productCode": vod.cisco_course_product_code,
+      "productCode": product_code,
       "email": current_user.email
     }
 
