@@ -35,11 +35,14 @@ class Admin::SalesController < Admin::BaseController
     @ended_at ||= Date.today.end_of_month
 
     opportunities_scope = Opportunity.where(date_closed: @started_at..@ended_at)
+    
     if params[:report]
-      opportunities_scope = opportunities_scope.pending if params[:report][:status] == "open"
-      opportunities_scope = opportunities_scope.waiting if params[:report][:status] == "waiting"
-      opportunities_scope = opportunities_scope.won     if params[:report][:status] == "won"
+      @status = params[:report][:status]
+      opportunities_scope = opportunities_scope.pending if @status == "open"
+      opportunities_scope = opportunities_scope.waiting if @status == "waiting"
+      opportunities_scope = opportunities_scope.won     if @status == "won"
     end
+    @status ||= "open"
 
     @opportunities_filtered_sum = opportunities_scope.sum('amount')
 
