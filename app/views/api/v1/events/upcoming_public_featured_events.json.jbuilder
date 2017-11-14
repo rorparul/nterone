@@ -21,7 +21,7 @@ json.array! @events do |event|
     json.event_id            event.id
 
     if event.course.pdf.url.present?
-      json.pdf_url course_download_platform_courses_url(event.course.platform, event.course)
+      json.pdf_url event.course.pdf.url 
     end
   end
 end
