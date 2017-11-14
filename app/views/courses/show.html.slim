@@ -177,7 +177,7 @@
         = @course.video_preview.html_safe if @course.video_preview
       .panel-body
         - if @course.pdf.url
-          = link_to course_download_platform_courses_path(@platform, @course) do
+          = link_to @course.pdf.url do
             span.fa.fa-file-pdf-o.text-danger
             = t('courses.show.download_datasheet')
         h5

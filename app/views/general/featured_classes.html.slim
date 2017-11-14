@@ -88,7 +88,7 @@
                           div class="video-link-container" = event.course.video_preview.html_safe
                           = link_to 'Video', '#', class: 'video-trigger'
                         - elsif event.course.pdf.url.present?
-                          = link_to course_download_platform_courses_path(event.course.platform, event.course) do
+                          = link_to event.course.pdf.url do
                             | PDF
                       - if !user_signed_in? || (user_signed_in? && current_user.member?)
                         td.fit.text-right
