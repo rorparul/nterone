@@ -1,5 +1,5 @@
 = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
-  input type="hidden" value="M360-Source" name="M360-Source"
+  = f.hidden_field 'M360-Source', value: 'M360-Source'
 
   .radio
     label
@@ -148,3 +148,6 @@
 
 javascript:
   grecaptcha.reset();
+
+- if Rails.env.production?
+  script type="text/javascript" src="https://conversions.marketing360.com/uxi/contra.js"

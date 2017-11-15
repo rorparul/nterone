@@ -1,6 +1,7 @@
 class ContactUsMailer < ApplicationMailer
   def contact_us(params)
     @tld       = Rails.application.config.tld
+    @m360      = params['M360-Source']
     @name      = params[:name]
     @phone     = params[:phone]
     @email     = params[:email]

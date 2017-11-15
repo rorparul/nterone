@@ -4,7 +4,7 @@
       = form_for :contact_us, url: contact_us_path(origin: 'course'), method: :post, html: { class: 'contact-us-form' } do |f|
         label Request Information
 
-        input type="hidden" value="M360-Source" name="M360-Source"
+        = f.hidden_field 'M360-Source', value: 'M360-Source'
         = f.hidden_field :recipient, value: "sales@nterone.#{TopLevelDomain}"
         = f.hidden_field :subject, value: "Please contact me in regards to #{instance_variable_get("@#{controller_name.chomp('s')}").try(:full_title)}."
 
