@@ -20,7 +20,7 @@ class Admin::SalesController < Admin::BaseController
         where(origin_region: region_value).
         where(date_closed: @selected_month.beginning_of_month..@selected_month.end_of_month).
         sum('amount')
-      @region_percents[region_value] = (amount / @total_amount * 100).round
+      @region_percents[region_value] = if @total_amount.to_i > 0 : (amount / @total_amount * 100).round : 0
       @region_amounts[region_value] = amount
     end
   end
