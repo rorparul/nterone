@@ -117,7 +117,10 @@ class GeneralController < ApplicationController
     respond_to do |format|
       format.html do
         if success
-          ContactUsSubmission.create(contact_us_params)
+          submission_params = contact_us_params
+          submission_params.delete('M360-Source')
+
+          ContactUsSubmission.create(submission_params)
 
           flash[:success] = 'Message successfully sent.'
 
@@ -177,6 +180,7 @@ class GeneralController < ApplicationController
 
   def contact_us_params
     params.require(:contact_us).permit(
+      'M360-Source',
       :recipient,
       :name,
       :phone,

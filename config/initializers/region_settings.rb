@@ -1,3 +1,5 @@
+$tld = `hostname`.match(/\w+$/).to_s
+
 ::TopLevelDomain = `hostname`.match(/\w+$/).to_s
 
 # NOTE: Remove RegionalPhoneNumberForOnlineMarketing variable

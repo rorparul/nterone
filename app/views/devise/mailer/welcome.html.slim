@@ -1,3 +1,9 @@
+- if @destination == 'external'
+  h3 M360:
+  p = @m360
+
+  hr
+
 p
  = t('devise.mailer.welcome.greeting')
  = @user.first_name
@@ -15,13 +21,13 @@ p
   = t('devise.mailer.welcome.copy6')
   a href="mailto:helpdesk@nterone.#{TopLevelDomain}" = "helpdesk@nterone.#{TopLevelDomain}"
   = t('devise.mailer.welcome.copy7')
-  a href="mailto:sales@nterone#{TopLevelDomain}" 
+  a href="mailto:sales@nterone#{TopLevelDomain}"
     = "sales@nterone.#{TopLevelDomain}"
   = t('devise.mailer.welcome.copy8')
   = t('devise.mailer.welcome.copy9')
   = t('devise.mailer.welcome.copy10')
 
-p 
+p
 	= t('devise.mailer.welcome.salutation')
 
 p Anthony Hamilton
