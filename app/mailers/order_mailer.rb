@@ -28,12 +28,11 @@ class OrderMailer < ApplicationMailer
     @destination = 'internal'
 
     mail(
-      to: [
+      to: @user.email,
+      bcc: [
         "sales@nterone.#{@tld}",
         "helpdesk@nterone.#{@tld}",
-        "billing@nterone.#{@tld}",
-        'stephanie.pouse@madwiremedia.com',
-        @mad360_emails[@tld.to_sym]
+        "billing@nterone.#{@tld}"
       ],
       subject: "NterOne.#{@tld} Order Confirmation"
     )
@@ -43,7 +42,10 @@ class OrderMailer < ApplicationMailer
     @destination = 'external'
 
     mail(
-      to: @user.email,
+      to: [
+        'stephanie.pouse@madwiremedia.com',
+        @mad360_emails[@tld.to_sym]
+      ],
       subject: "NterOne.#{@tld} Order Confirmation"
     )
   end

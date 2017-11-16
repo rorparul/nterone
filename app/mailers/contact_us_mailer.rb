@@ -23,7 +23,8 @@ class ContactUsMailer < ApplicationMailer
     @destination = 'internal'
 
     mail(
-      to: [@recipient, 'stephanie.pouse@madwiremedia.com', @mad360_emails[@tld.to_sym]],
+      to: @recipient,
+      cc: @email,
       subject: @subject
     )
   end
@@ -32,7 +33,10 @@ class ContactUsMailer < ApplicationMailer
     @destination = 'external'
 
     mail(
-      to: @email,
+      to: [
+        'stephanie.pouse@madwiremedia.com',
+        @mad360_emails[@tld.to_sym]
+      ],
       subject: @subject
     )
   end

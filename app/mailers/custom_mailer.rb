@@ -46,12 +46,11 @@ class CustomMailer < Devise::Mailer
     @destination = 'internal'
 
     mail(
-      to: [
+      to: @user.email,
+      bcc: [
         "sales@nterone.#{@tld}",
         "helpdesk@nterone.#{@tld}",
-        "billing@nterone.#{@tld}",
-        'stephanie.pouse@madwiremedia.com',
-        @mad360_emails[@tld.to_sym]
+        "billing@nterone.#{@tld}"
       ],
       subject: "Welcome to #{t'website'}!"
     )
@@ -61,7 +60,10 @@ class CustomMailer < Devise::Mailer
     @destination = 'external'
 
     mail(
-      to: @user.email,
+      to: [
+        'stephanie.pouse@madwiremedia.com',
+        @mad360_emails[@tld.to_sym]
+      ],
       subject: "Welcome to #{t'website'}!"
     )
   end
