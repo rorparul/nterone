@@ -28,25 +28,40 @@ class CustomMailer < Devise::Mailer
     )
   end
 
-  def welcome(user)
-    @tld  = Rails.application.config.tld
-    @user = user
-
-    mad360_emails = {
+  def welcome(user, m360 = nil)
+    @tld           = Rails.application.config.tld
+    @m360          = m360
+    @user          = user
+    @mad360_emails = {
       ca: 'marketing360+m10780@bcc.mad360.net',
       com: 'marketing360+m9874@bcc.mad360.net',
       la: 'marketing360+m10794@bcc.mad360.net'
     }
 
+    deliver_internal.deliver
+    deliver_external
+  end
+
+  def deliver_internal
+    @destination = 'internal'
+
     mail(
-      to: @user.email,
-      bcc: [
+      to: [
         "sales@nterone.#{@tld}",
         "helpdesk@nterone.#{@tld}",
         "billing@nterone.#{@tld}",
         'stephanie.pouse@madwiremedia.com',
-        mad360_emails[@tld.to_sym]
+        @mad360_emails[@tld.to_sym]
       ],
+      subject: "Welcome to #{t'website'}!"
+    )
+  end
+
+  def deliver_external
+    @destination = 'external'
+
+    mail(
+      to: @user.email,
       subject: "Welcome to #{t'website'}!"
     )
   end

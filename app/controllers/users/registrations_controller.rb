@@ -19,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.source_name == "experts-exchange"
         CustomMailer.welcome_experts_exchange(@user).deliver_now
       else
-        CustomMailer.welcome(@user).deliver_now
+        CustomMailer.welcome(@user, params['M360-Source']).deliver_now
       end
 
       if params[:poker_chip_number]
