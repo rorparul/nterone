@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027165013) do
+ActiveRecord::Schema.define(version: 20171117132143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -965,12 +965,12 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.integer  "account_id"
     t.string   "title"
     t.integer  "stage"
-    t.decimal  "amount",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",             precision: 8, scale: 2, default: 0.0
     t.string   "kind"
     t.string   "reason_for_loss"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.boolean  "waiting",                                  default: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.boolean  "waiting",                                    default: false
     t.string   "payment_kind"
     t.string   "billing_street"
     t.string   "billing_city"
@@ -983,7 +983,8 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.string   "email_optional"
     t.text     "notes"
     t.integer  "origin_region"
-    t.text     "active_regions",                           default: [],                 array: true
+    t.text     "active_regions",                             default: [],                 array: true
+    t.integer  "video_on_demand_id"
   end
 
   add_index "opportunities", ["origin_region"], name: "index_opportunities_on_origin_region", using: :btree

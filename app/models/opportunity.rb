@@ -2,31 +2,32 @@
 #
 # Table name: opportunities
 #
-#  id               :integer          not null, primary key
-#  employee_id      :integer
-#  customer_id      :integer
-#  account_id       :integer
-#  title            :string
-#  stage            :integer
-#  amount           :decimal(8, 2)    default(0.0)
-#  kind             :string
-#  reason_for_loss  :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  waiting          :boolean          default(FALSE)
-#  payment_kind     :string
-#  billing_street   :string
-#  billing_city     :string
-#  billing_state    :string
-#  billing_zip_code :string
-#  partner_id       :integer
-#  date_closed      :date
-#  course_id        :integer
-#  event_id         :integer
-#  email_optional   :string
-#  notes            :text
-#  origin_region    :integer
-#  active_regions   :text             default([]), is an Array
+#  id                 :integer          not null, primary key
+#  employee_id        :integer
+#  customer_id        :integer
+#  account_id         :integer
+#  title              :string
+#  stage              :integer
+#  amount             :decimal(8, 2)    default(0.0)
+#  kind               :string
+#  reason_for_loss    :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  waiting            :boolean          default(FALSE)
+#  payment_kind       :string
+#  billing_street     :string
+#  billing_city       :string
+#  billing_state      :string
+#  billing_zip_code   :string
+#  partner_id         :integer
+#  date_closed        :date
+#  course_id          :integer
+#  event_id           :integer
+#  email_optional     :string
+#  notes              :text
+#  origin_region      :integer
+#  active_regions     :text             default([]), is an Array
+#  video_on_demand_id :integer
 #
 # Indexes
 #
@@ -42,6 +43,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :customer, class_name: 'User'
   belongs_to :employee, class_name: 'User'
   belongs_to :event
+  belongs_to :video_on_demand
   belongs_to :partner,  class_name: 'Company'
 
   has_one :order, dependent: :destroy
@@ -66,7 +68,7 @@ class Opportunity < ActiveRecord::Base
   before_save :confirm_amount_equals_integer
 
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
-  after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.stage == 100 && model.order.present? }
+  after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.video_on_demand_id_changed? && model.stage == 100 && model.order.present? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
 
   def self.amount_open
@@ -117,41 +119,78 @@ class Opportunity < ActiveRecord::Base
       referring_partner_email: email_optional
     )
 
-    order_item = order.order_items.new(
+    order_items = []
+    
+    order_items << order.order_items.new(
       user_id: customer.try(:id),
       orderable_type: 'Event',
       orderable_id: event.try(:id),
       price: amount
-    )
+    )  if event.present?
+
+    order_items << order.order_items.new(
+      user_id: customer.try(:id),
+      orderable_type: 'VideoOnDemand',
+      orderable_id: video_on_demand.try(:id),
+      price: 0
+    )  if video_on_demand.present?
 
     if order.save
-      RegistrationMailer.create(order_item).deliver_now
+      order_items.each do |order_item|
+        RegistrationMailer.create(order_item).deliver_now  if order_item.orderable_id.present?
+      end
     end
   end
 
   def update_order
+    order_items = []
+
     if waiting
-      order_item = order.order_items.create(
+      order_items << order.order_items.create(
         user_id: customer.try(:id),
         orderable_type: 'Event',
         orderable_id: event.try(:id),
         price: amount
-      )
+      )  if event.present?
+
+      order_items << order.order_items.create(
+        user_id: customer.try(:id),
+        orderable_type: 'VideoOnDemand',
+        orderable_id: video_on_demand.try(:id),
+        price: 0
+      )  if event.present?
 
       self.update_column(:waiting, false)
     else
-      order_item = order.order_items.find_by(
-        orderable_type: 'Event',
-        orderable_id: event_id_was
-      )
+      if event_id_changed?
+        order_item = order.order_items.find_by(
+          orderable_type: 'Event',
+          orderable_id: event_id_was
+        )
 
-      order_item.update(
-        orderable_id: event_id
-      )
+        order_item.update(
+          orderable_id: event_id
+        )
+
+        order_items << order_item
+      end
+
+      if video_on_demand_id_changed?
+        order_item = order.order_items.find_by(
+          orderable_type: 'VideoOnDemand',
+          orderable_id: video_on_demand_id_was
+        )
+
+        order_item.update(
+          orderable_id: video_on_demand_id
+        )
+
+        order_items << order_item
+      end
     end
 
-    if order_item.orderable_id.present?
-      RegistrationMailer.create(order_item).deliver_now
+    order_items.each do |order_item|
+      RegistrationMailer.create(order_item).deliver_now  if order_item.orderable_id.present?
     end
   end
 
