@@ -107,9 +107,11 @@ class CoursesController < ApplicationController
   def download
     course = Course.find(params[:id])
     pdf = course.pdf
-    send_file(pdf.current_path,
-              filename: "#{course.abbreviation}.pdf",
-              type: "application/pdf")
+    if pdf.url.present?
+      redirect_to pdf.url
+    else
+      redirect_to root_path
+    end
   end
 
   def clone_form
