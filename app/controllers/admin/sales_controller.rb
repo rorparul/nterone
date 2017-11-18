@@ -20,7 +20,7 @@ class Admin::SalesController < Admin::BaseController
         where(origin_region: region_value).
         where(date_closed: @selected_month.beginning_of_month..@selected_month.end_of_month).
         sum('amount')
-      @region_percents[region_value] = if @total_amount.to_i > 0 : (amount / @total_amount * 100).round : 0
+      @region_percents[region_value] = @total_amount.to_i > 0 ? (amount / @total_amount * 100).round : 0
       @region_amounts[region_value] = amount
     end
   end
@@ -35,7 +35,7 @@ class Admin::SalesController < Admin::BaseController
     @ended_at ||= Date.today.end_of_month
 
     opportunities_scope = Opportunity.where(date_closed: @started_at..@ended_at)
-    
+
     if params[:report]
       @status = params[:report][:status]
       opportunities_scope = opportunities_scope.pending if @status == "open"
