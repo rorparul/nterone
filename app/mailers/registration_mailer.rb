@@ -16,11 +16,11 @@ class RegistrationMailer < ApplicationMailer
     )
   end
 
-  def create(order_item)
+  def create(order)
     @tld            = Rails.application.config.tld
-    @event          = order_item.orderable
-    @user           = order_item.order.buyer
-    sales_rep_email = order_item.order.seller.try(:email)
+    @order          = order
+    @user           = order.buyer
+    sales_rep_email = order.seller.try(:email)
 
     attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/logo.png"))
 

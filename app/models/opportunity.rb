@@ -136,9 +136,7 @@ class Opportunity < ActiveRecord::Base
     )  if video_on_demand.present?
 
     if order.save
-      order_items.each do |order_item|
-        RegistrationMailer.create(order_item).deliver_now  if order_item.orderable_id.present?
-      end
+      RegistrationMailer.create(order).deliver_now
     end
   end
 
@@ -189,9 +187,7 @@ class Opportunity < ActiveRecord::Base
       end
     end
 
-    order_items.each do |order_item|
-      RegistrationMailer.create(order_item).deliver_now  if order_item.orderable_id.present?
-    end
+    RegistrationMailer.create(order).deliver_now
   end
 
   def destroy_order

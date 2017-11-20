@@ -23,35 +23,47 @@ p
 p
   = t('mailers.student_added.copy5')
 table
-  tr
-    td
-      = t('mailers.student_added.copy6')
-    td.text-red = @event.course.full_title
-  tr
-    td
-      = t('mailers.student_added.copy7')
-    td
-      = @user.try(:full_name)
-  tr
-    td
-      = t('mailers.student_added.copy8')
-    td
-      = @event.format
-  tr
-    td
-      = t('mailers.student_added.copy9')
-    td.text-red
-      = "#{@event.start_date} thru #{@event.end_date}"
-  tr
-    td
-      = t('mailers.student_added.copy10')
-    td.text-red
-      = "#{@event.start_time.strftime("%I:%M %p")} #{@event.time_zone.try :upcase}"
-  tr
-    td
-      = t('mailers.student_added.copy11')
-    td.text-red
-      = "#{@event.end_time.strftime("%I:%M %p")} #{@event.time_zone.try :upcase}"
+  - @order.order_items.each do |item|
+    - if item.orderable.is_a? Event
+      - event = item.orderable
+      tr
+        td
+          = t('mailers.student_added.copy6')
+        td.text-red = event.course.full_title
+      tr
+        td
+          = t('mailers.student_added.copy7')
+        td
+          = @user.try(:full_name)
+      tr
+        td
+          = t('mailers.student_added.copy8')
+        td
+          = event.format
+      tr
+        td
+          = t('mailers.student_added.copy9')
+        td.text-red
+          = "#{event.start_date} thru #{event.end_date}"
+      tr
+        td
+          = t('mailers.student_added.copy10')
+        td.text-red
+          = "#{event.start_time.strftime("%I:%M %p")} #{event.time_zone.try :upcase}"
+      tr
+        td
+          = t('mailers.student_added.copy11')
+        td.text-red
+          = "#{event.end_time.strftime("%I:%M %p")} #{event.time_zone.try :upcase}"
+
+    - if item.orderable.is_a? VideoOnDemand
+      - vod = item.orderable
+      tr
+        td
+          = t('mailers.student_added.copy28')
+        td
+          = vod.full_title
+
   tr
     td colspan="2"
       = t('mailers.student_added.copy12')

@@ -53,6 +53,12 @@
         { class: 'search-select event-select form-control', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
 
     .form-group
+      = f.label :video_on_demand_id, 'Video On Demand'
+      = f.select :video_on_demand_id, @opportunity.course.present? ? @opportunity.course.video_on_demands.collect { |vod| ["#{vod.title}", vod.id] } : [],
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'search-select video_on_demand-select form-control', disabled: @opportunity.course.nil? || @opportunity.course.video_on_demands.empty? }
+
+    .form-group
       = f.label :amount, 'Amount'
       .input-group
         span.input-group-addon $
