@@ -93,6 +93,15 @@ class PlatformsController < ApplicationController
   end
 
   def platform_params
-    params.require(:platform).permit(:title, :url, :page_title, :page_description, :file, :satellite_viewable)
+    params.require(:platform).permit(
+      :title,
+      :url,
+      :page_title,
+      :page_description,
+      :file,
+      :satellite_viewable,
+      :origin_region,
+      active_regions: []
+    )
   end
 end

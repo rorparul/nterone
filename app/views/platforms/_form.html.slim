@@ -7,25 +7,29 @@
       ul
         - platform.errors.full_messages.each do |msg|
           li = msg
-  
+
+  = render partial: 'shared/region_inputs', locals: { model: Platform, f: f }
+
+  hr
+
   .form-group
     = f.label :page_title, t('platforms.partial_form.page_title')
     = f.text_field :page_title, class: 'form-control input-sm'
-    
+
   .form-group
     = f.label :page_description, t('platforms.partial_form.page_description')
     = f.text_area :page_description, class: 'form-control input-sm'
-  
+
   hr
-  
+
   .form-group
     = f.label :title, t('platforms.partial_form.platform_title')
     = f.text_field :title, class: 'form-control input-sm'
-    
+
   .form-group
     = f.label :url, t('platforms.partial_form.test_center_url')
     = f.text_field :url, class: 'form-control input-sm'
-    
+
   .row
     .col-xs-6
       .form-group
@@ -41,11 +45,11 @@
         = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
         br
         = f.check_box :satellite_viewable
-      
+
   .form-buttons
     button.btn.btn-success type="submit"
       = t('default.action.save')
-    button.btn.btn-default type="button" data-dismiss="modal" 
+    button.btn.btn-default type="button" data-dismiss="modal"
       = t('default.action.cancel')
     - if @platform.id
       = link_to t('default.action.delete'), platform_path(@platform), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

@@ -3,6 +3,14 @@
     td.fit = course.id
     td.fit = course.full_title
     td.fit = course.upcoming_events.count
+    td.fit
+      ul style="padding: 0; margin: 0;"
+        - course.active_regions.each do |region|
+          li style="list-style: none;" = region.titleize
+    td.fit
+      ul style="padding: 0; margin: 0;"
+        - course.platform.active_regions.each do |region|
+          li style="list-style: none;" = region.titleize
     td.fit.text-right.course-actions
       = link_to t('default.action.show'), platform_course_path(course.platform, course)
       | |

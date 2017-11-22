@@ -9,6 +9,14 @@
           - course.errors.full_messages.each do |msg|
             li = msg
 
+    = link_to "Edit Parent Vendor", edit_platform_path(course.platform), remote: true
+
+    hr
+
+    = render partial: 'shared/region_inputs', locals: { model: Course, f: f }
+
+    hr
+
     .form-group
       = f.label :page_title, t('courses.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'

@@ -1,8 +1,7 @@
 .panel.panel-default
   .panel-heading
-    strong.text-muted 
+    strong.text-muted
       = t('courses.partial_index.courses')
-    / = link_to t('default.action.upload'), events_upload_path, remote: true, class: "panel-heading-controls"
   .panel-table
     .responsive-table
       table.table.table-condensed.table-hover
@@ -12,15 +11,19 @@
               = t('courses.partial_index.course_id')
             th.fit
               = t('courses.partial_index.course_title')
-            th.fit 
+            th.fit
               = t 'courses.partial_index.course_events'
+            th.fit
+              | Regions
+            th.fit
+              | Parent Regions
             th.fit
         tbody#courses
           = render partial: 'courses/courses', locals: { courses: @courses }
   div class="#{'panel-footer' if courses.total_count > 25}"
     #courses-page-control
       = render partial: 'courses/page_controls', locals: { courses: @courses }
-      
+
 javascript:
   $(document).on('change', '.table-select', function() {
     $(this).closest('form').submit();
