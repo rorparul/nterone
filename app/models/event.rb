@@ -57,6 +57,7 @@
 #  registration_fax               :string
 #  registration_email             :string
 #  site_id                        :string
+#  archived                       :boolean          default(FALSE)
 #
 # Indexes
 #

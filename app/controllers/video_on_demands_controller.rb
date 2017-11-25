@@ -291,6 +291,7 @@ class VideoOnDemandsController < ApplicationController
                                             :cisco_digital_learning,
                                             :cdl_course_code,
                                             :cisco_course_product_code,
+                                            :archived,
                                             category_ids: [],
                                             video_modules_attributes: [:id,
                                                                        :position,

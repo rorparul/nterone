@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027165013) do
+ActiveRecord::Schema.define(version: 20171123045343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,7 +160,8 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.text     "meta_description"
     t.text     "video"
     t.integer  "origin_region"
-    t.text     "active_regions",     default: [], array: true
+    t.text     "active_regions",     default: [],    array: true
+    t.boolean  "archived",           default: false
   end
 
   add_index "categories", ["origin_region"], name: "index_categories_on_origin_region", using: :btree
@@ -319,6 +320,7 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.integer  "origin_region"
     t.text     "active_regions",                             default: [],                 array: true
     t.string   "cisco_id"
+    t.boolean  "archived",                                   default: false
   end
 
   add_index "courses", ["origin_region"], name: "index_courses_on_origin_region", using: :btree
@@ -334,6 +336,7 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.boolean  "is_header",      default: false
     t.integer  "origin_region"
     t.text     "active_regions", default: [],                 array: true
+    t.boolean  "archived",       default: false
   end
 
   add_index "custom_items", ["origin_region"], name: "index_custom_items_on_origin_region", using: :btree
@@ -376,10 +379,11 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.integer  "platform_id"
     t.string   "content"
     t.string   "shortname"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
+    t.text     "active_regions", default: [],                 array: true
+    t.boolean  "archived",       default: false
   end
 
   add_index "dividers", ["origin_region"], name: "index_dividers_on_origin_region", using: :btree
@@ -439,6 +443,7 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.string   "registration_fax"
     t.string   "registration_email"
     t.string   "site_id"
+    t.boolean  "archived",                                               default: false
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree
@@ -446,11 +451,12 @@ ActiveRecord::Schema.define(version: 20171027165013) do
 
   create_table "exam_and_course_dynamics", force: :cascade do |t|
     t.string   "label"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "platform_id"
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
+    t.text     "active_regions", default: [],                 array: true
+    t.boolean  "archived",       default: false
   end
 
   add_index "exam_and_course_dynamics", ["origin_region"], name: "index_exam_and_course_dynamics_on_origin_region", using: :btree
@@ -468,11 +474,12 @@ ActiveRecord::Schema.define(version: 20171027165013) do
 
   create_table "exams", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "platform_id"
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
+    t.text     "active_regions", default: [],                 array: true
+    t.boolean  "archived",       default: false
   end
 
   add_index "exams", ["origin_region"], name: "index_exams_on_origin_region", using: :btree
@@ -731,12 +738,13 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.string   "biography"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "platform_id"
     t.integer  "status",         default: 0
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
+    t.text     "active_regions", default: [],                 array: true
+    t.boolean  "archived",       default: false
   end
 
   add_index "instructors", ["origin_region"], name: "index_instructors_on_origin_region", using: :btree
@@ -1119,7 +1127,8 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.text     "page_description"
     t.boolean  "satellite_viewable", default: true
     t.integer  "origin_region"
-    t.text     "active_regions",     default: [],   array: true
+    t.text     "active_regions",     default: [],    array: true
+    t.boolean  "archived",           default: false
   end
 
   add_index "platforms", ["origin_region"], name: "index_platforms_on_origin_region", using: :btree
@@ -1265,6 +1274,7 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.string   "heading"
     t.integer  "origin_region"
     t.text     "active_regions",   default: [],    array: true
+    t.boolean  "archived",         default: false
   end
 
   add_index "subjects", ["origin_region"], name: "index_subjects_on_origin_region", using: :btree
@@ -1485,6 +1495,7 @@ ActiveRecord::Schema.define(version: 20171027165013) do
     t.integer  "origin_region"
     t.text     "active_regions",                                    default: [],                 array: true
     t.string   "cisco_course_product_code"
+    t.boolean  "archived",                                          default: false
   end
 
   add_index "video_on_demands", ["origin_region"], name: "index_video_on_demands_on_origin_region", using: :btree

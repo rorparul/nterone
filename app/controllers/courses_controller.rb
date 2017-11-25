@@ -170,6 +170,7 @@ class CoursesController < ApplicationController
                                    :partner_led,
                                    :satellite_viewable,
                                    :cisco_id,
+                                   :archived,
                                    :origin_region,
                                    active_regions: [],
                                    category_ids: [])

@@ -12,6 +12,7 @@
 #  is_header      :boolean          default(FALSE)
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
+#  archived       :boolean          default(FALSE)
 #
 # Indexes
 #

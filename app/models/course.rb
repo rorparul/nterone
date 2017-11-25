@@ -25,6 +25,7 @@
 #  origin_region      :integer
 #  active_regions     :text             default([]), is an Array
 #  cisco_id           :string
+#  archived           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -73,6 +74,8 @@ class Course < ActiveRecord::Base
   validates_associated :categories
 
   before_save :format_slug
+
+  scope :active, -> { where(archived: false) }
 
   def active_events
     events.where(active: true).order(:start_date)

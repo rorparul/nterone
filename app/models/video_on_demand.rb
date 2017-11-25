@@ -29,6 +29,7 @@
 #  origin_region             :integer
 #  active_regions            :text             default([]), is an Array
 #  cisco_course_product_code :string
+#  archived                  :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -75,6 +76,7 @@ class VideoOnDemand < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :categories
 
+  scope :active, -> { where(archived: false) }
   scope :lms, -> { where(lms: true) }
 
   def full_title

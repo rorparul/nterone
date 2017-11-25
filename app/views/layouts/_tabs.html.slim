@@ -5,6 +5,7 @@
         li.plan role="presentation"
           a.nav-pill href="#{my_account_plan_path}"
             = t('my_account.partial_tabs.my_nterone')
+
       - if policy(:admin).sales?
         li.dropdown.sales role="presentation"
           a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -27,6 +28,7 @@
               li
                 a href="#{contact_us_submissions_path}"
                   = t('layouts.partial_tabs.contact_us_submissions')
+
       - if policy(:admin).orders?
         li.orders role="presentation"
           a.nav-pill href="#{admin_orders_path}"
@@ -42,14 +44,11 @@
           a href="#{admin_classes_path}"
             = t 'admins.partial_tabs.classes'
 
-      - if policy(:admin).courses?
-        li.courses role="presentation"
-          a.nav-pill href="#{admin_courses_path}"
-            = t('admins.partial_tabs.courses')
       - if policy(:admin).labs?
         li.lab-rentals role="presentation"
           a.nav-pill href="#{lab_rentals_path}"
             = t('my_account.partial_tabs.lab_rentals')
+
       - if policy(:admin).lms?
         li.dropdown.lms role="presentation"
           a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -72,18 +71,35 @@
               li
                 a href='#{lms_student_path(current_user)}'
                   | Assignments
+
       - if policy(:admin).people?
         li.people role="presentation"
           a.nav-pill href="#{users_path}"
             = t('layouts.partial_tabs.people')
+
       - if policy(:admin).website?
         li.website role="presentation"
           a.nav-pill href="#{admin_website_path}"
             = t('layouts.partial_tabs.marketing')
+
+      - if policy(:admin).resources?
+        li.dropdown.resources role="presentation"
+          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+            | Resources
+            span.caret
+          ul.dropdown-menu
+              li.vendors
+                a href="#{admin_platforms_path}"
+                  | Vendors
+              li.courses
+                a.nav-pill href="#{admin_courses_path}"
+                  = t('admins.partial_tabs.courses')
+
       - if policy(:admin).tools?
         li.tools role="presentation"
           a.nav-pill href="#{admin_tools_path}"
             = t('admins.partial_tabs.tools')
+
       - if user_signed_in?
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"

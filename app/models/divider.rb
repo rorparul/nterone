@@ -10,6 +10,7 @@
 #  updated_at     :datetime         not null
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
+#  archived       :boolean          default(FALSE)
 #
 # Indexes
 #

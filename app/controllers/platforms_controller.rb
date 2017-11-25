@@ -4,7 +4,7 @@ class PlatformsController < ApplicationController
 
   def index
     @page      = Page.find_by(title: 'Vendor Index')
-    @platforms = Platform.current_region.order(:title)
+    @platforms = Platform.active.current_region.order(:title)
   end
 
   def show
@@ -101,6 +101,7 @@ class PlatformsController < ApplicationController
       :file,
       :satellite_viewable,
       :origin_region,
+      :archived,
       active_regions: []
     )
   end

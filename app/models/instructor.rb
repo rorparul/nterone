@@ -14,6 +14,7 @@
 #  status         :integer          default(0)
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
+#  archived       :boolean          default(FALSE)
 #
 # Indexes
 #
