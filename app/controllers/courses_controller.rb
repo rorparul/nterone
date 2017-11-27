@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
 
   def new
     @platform   = Platform.find(params[:platform_id])
-    @course     = Course.new
+    @course     = @platform.courses.new
     @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
       category if category.parent
     end
