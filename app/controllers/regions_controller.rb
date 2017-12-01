@@ -1,5 +1,4 @@
 class RegionsController < ApplicationController
-
   def switch
     tld = params[:tld]
 
@@ -8,7 +7,7 @@ class RegionsController < ApplicationController
     end
 
     url = "nterone.#{tld}"
+    
     redirect_to url
   end
-
 end
