@@ -6,8 +6,8 @@ class RegionsController < ApplicationController
       current_user.settings.tld = tld
     end
 
-    url = "nterone.#{tld}"
-    
+    url = "https://nterone.#{tld}"
+
     redirect_to url
   end
 end

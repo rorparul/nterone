@@ -187,7 +187,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_user_tld
     if Rails.env.production? && user_signed_in? && Rails.application.config.tld != current_user.settings.tld
-      url = "nterone.#{current_user.settings.tld}"
+      url = "https://nterone.#{current_user.settings.tld}"
+
       redirect_to url
     end
   end
