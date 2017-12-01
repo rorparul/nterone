@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
 
+  before_action :redirect_to_user_tld
   before_action :_set_current_session
   before_action :set_region
   before_action :prepare_exception_notifier
@@ -182,5 +183,12 @@ class ApplicationController < ActionController::Base
 
   def clean_params(required_and_permitted_params)
     required_and_permitted_params.select { |key, value| value.present? }
+  end
+
+  def redirect_to_user_tld
+    if Rails.env.production? && user_signed_in? && Setting.tld != current_user.settings.tld
+      url = "nterone.#{current_user.settings.tld}"
+      redirect_to url
+    end
   end
 end
