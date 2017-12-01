@@ -386,6 +386,5 @@ NterOne::Application.routes.draw do
   get 'sales_force/form_for_other'             => 'sales_force#form_for_other',               as: :sales_force_form_for_other
   post 'sales_force/upload_other'              => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
   post 'fly_forms/update'                      => 'fly_forms#update',                         as: :fly_form
-
-  get 'regions/switch/:tld'                 => 'regions#switch', as: 'switch_tld'
+  get 'regions/switch/:tld'                    => 'regions#switch',                           as: 'switch_tld'
 end
