@@ -49,6 +49,8 @@ class Category < ActiveRecord::Base
 
   validates :title, presence: true
 
+  scope :active, -> { where(archived: false) }
+
   def items
     items = []
     self.subjects.where(active: true).each do |subject|
