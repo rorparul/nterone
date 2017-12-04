@@ -1,6 +1,6 @@
 - content_for :page_title do
   = @page.try(:page_title)
-  
+
 - content_for :page_description do
   = @page.try(:page_description)
 
@@ -12,13 +12,13 @@
     | /
   span.text-muted
   = t('admins.partial_breadcrumbs.sitemap')
-  
+
 .row
   .col-xs-12
     .page-header
       h3
         = t('general.sitemap.sitemap')
-      
+
 .row#sitemap
   .col-xs-12.col-sm-6
     h4
@@ -28,7 +28,7 @@
       li = link_to t('general.sitemap.consulting'), consulting_path
       li = link_to t('general.sitemap.partners'), partners_path
       li = link_to t('sgeneral.sitemap.labs'), labs_path
-      
+
     h4
       = t('general.sitemap.about_us')
     ul
@@ -37,25 +37,25 @@
       li = link_to t('general.sitemap.testimonials'), testimonials_path
       li = link_to t('general.sitemap.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
       li = link_to t('general.sitemap.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
-        
+
     h4
       = t('general.sitemap.articles')
     ul
       li = link_to t('general.sitemap.press'), press_path
       li = link_to t('general.sitemap.industry'), industry_path
-        
+
     h4
       = t('general.sitemap.other')
     ul
       - Page.where(static: false).each do |page|
         li = link_to page.title, page_path(page)
-  
+
   .col-xs-12.col-sm-6
     h4
       = t('general.sitemap.training')
     ul
       li = link_to t('general.sitemap.featured_classes'), featured_classes_path
-    - Platform.order(:title).each do |platform|
+    - Platform.active.order(:title).each do |platform|
       ul
         li
           span = platform.title
@@ -68,6 +68,3 @@
                   ul.training
                     - child_category.items.each do |item|
                       li = link_to item.full_title, send("platform_#{item.class.to_s.underscore}_path", item.platform, item)
-            
-            
-    
