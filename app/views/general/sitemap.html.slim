@@ -55,7 +55,7 @@
       = t('general.sitemap.training')
     ul
       li = link_to t('general.sitemap.featured_classes'), featured_classes_path
-    - Platform.active.order(:title).each do |platform|
+    - Platform.active.current_region.order(:title).each do |platform|
       ul
         li
           span = platform.title
