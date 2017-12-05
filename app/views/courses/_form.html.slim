@@ -9,6 +9,14 @@
           - course.errors.full_messages.each do |msg|
             li = msg
 
+    = link_to "Edit Parent Vendor", edit_platform_path(course.platform), remote: true
+
+    hr
+
+    = render partial: 'shared/region_inputs', locals: { model: Course, f: f }
+
+    hr
+
     .form-group
       = f.label :page_title, t('courses.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
@@ -85,6 +93,8 @@
       = f.label :intended_audience, t('courses.partial_form.attend')
       = f.text_area :intended_audience, class: 'form-control input-sm froala'
 
+    hr
+
     .row
       .col-xs-6.col-md-3
         .form-group
@@ -96,11 +106,16 @@
           = f.label :partner_led, t('courses.partial_form.partner')
           br
           = f.check_box :partner_led
-      .col-xs-6.col-md-4
+      .col-xs-6.col-md-3
         .form-group
           = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
           br
           = f.check_box :satellite_viewable
+      .col-xs-6.col-md-3
+        .form-group
+          = f.label :archived, "Archived"
+          br
+          = f.check_box :archived
 
     .form-buttons
       button.btn.btn-success type="submit"

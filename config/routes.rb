@@ -251,6 +251,7 @@ NterOne::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :platforms, only: [:index]
     resources :checklists do
       member do
         get "events/:event_id", action: :show
@@ -381,10 +382,11 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/editor"                 => 'general#editor_upload_photo'
-  get 'sales_force/form_for_tasks'             => 'sales_force#form_for_tasks',               as: :sales_force_form_for_tasks
-  post 'sales_force/upload_tasks'              => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
-  get 'sales_force/form_for_other'             => 'sales_force#form_for_other',               as: :sales_force_form_for_other
-  post 'sales_force/upload_other'              => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
-  post 'fly_forms/update'                      => 'fly_forms#update',                         as: :fly_form
+  post "public/uploads/editor"      => 'general#editor_upload_photo'
+  get  'sales_force/form_for_tasks' => 'sales_force#form_for_tasks', as: :sales_force_form_for_tasks
+  post 'sales_force/upload_tasks'   => 'sales_force#upload_tasks',   as: :sales_force_upload_for_tasks
+  get  'sales_force/form_for_other' => 'sales_force#form_for_other', as: :sales_force_form_for_other
+  post 'sales_force/upload_other'   => 'sales_force#upload_other',   as: :sales_force_upload_for_other
+  post 'fly_forms/update'           => 'fly_forms#update',           as: :fly_form
+  get  'regions/switch/:tld'        => 'regions#switch',             as: 'switch_tld'
 end

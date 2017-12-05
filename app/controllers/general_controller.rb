@@ -9,9 +9,9 @@ class GeneralController < ApplicationController
   end
 
   def search
-    subjects = Subject.current_region.search(params[:query])
-    courses  = Course.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
-    vods     = VideoOnDemand.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    courses  = Course.active.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    subjects = Subject.active.current_region.search(params[:query])
+    vods     = VideoOnDemand.active.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
 
     @items = subjects + courses + vods
   end
@@ -83,7 +83,7 @@ class GeneralController < ApplicationController
 
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
-    @platforms = Platform.order(:title)
+    @platforms = Platform.active.order(:title)
 
     respond_to do |format|
       format.xlsx

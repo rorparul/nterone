@@ -41,7 +41,10 @@
             .panel-heading
               span.fa.fa-calendar-check-o
               h3
-                = t('general.welcome.classes')
+                - if Rails.application.config.tld == 'ca'
+                  | Guranteed to Run
+                - else
+                  = t('general.welcome.classes')
             .panel-body
               strong
                 = t('general.welcome.classes_paragraph')

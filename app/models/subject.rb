@@ -18,6 +18,7 @@
 #  heading          :string
 #  origin_region    :integer
 #  active_regions   :text             default([]), is an Array
+#  archived         :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -54,6 +55,8 @@ class Subject < ActiveRecord::Base
 
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
+
+  scope :active, -> { where(archived: false) }
 
   def full_title
     if abbreviation.present?

@@ -4,7 +4,7 @@ class PlatformsController < ApplicationController
 
   def index
     @page      = Page.find_by(title: 'Vendor Index')
-    @platforms = Platform.current_region.order(:title)
+    @platforms = Platform.active.current_region.order(:title)
   end
 
   def show
@@ -93,6 +93,16 @@ class PlatformsController < ApplicationController
   end
 
   def platform_params
-    params.require(:platform).permit(:title, :url, :page_title, :page_description, :file, :satellite_viewable)
+    params.require(:platform).permit(
+      :title,
+      :url,
+      :page_title,
+      :page_description,
+      :file,
+      :satellite_viewable,
+      :origin_region,
+      :archived,
+      active_regions: []
+    )
   end
 end

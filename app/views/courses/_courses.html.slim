@@ -1,13 +1,26 @@
 - courses.each do |course|
   tr
-    td.fit = course.id
-    td.fit = course.full_title
-    td.fit = course.upcoming_events.count
-    td.fit.text-right.course-actions
-      = link_to t('default.action.show'), platform_course_path(course.platform, course)
-      | |
-      = link_to t('default.action.edit'), edit_platform_course_path(course.platform, course)
-      | |
-      = link_to t('default.action.clone'), clone_form_platform_course_path(course.platform, course), remote: true
-      | |
-      = link_to t('default.action.delete'), platform_course_path(course.platform, course), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+    td = course.id
+    td = course.full_title.gsub(/^(.{50,}?).*$/m,'\1...')
+    td = course.upcoming_events.count
+    td = course.archived.to_s.titleize
+    td
+      ul style="padding: 0; margin: 0;"
+        - course.active_regions.each do |region|
+          li style="list-style: none;" = region.titleize
+    td
+      ul style="padding: 0; margin: 0;"
+        - course.platform.active_regions.each do |region|
+          li style="list-style: none;" = region.titleize
+    td.fit
+      = link_to platform_course_path(course.platform, course) do
+        i class="fa fa-eye" aria-hidden="true"
+    td.fit
+      = link_to edit_platform_course_path(course.platform, course) do
+        i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+    td.fit
+      = link_to clone_form_platform_course_path(course.platform, course), remote: true do
+        i.fa.fa-clone.text-success aria-hidden="true"
+    td.fit
+      = link_to platform_course_path(course.platform, course), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger' do
+        i.text-danger class="fa fa-trash-o" aria-hidden="true"
