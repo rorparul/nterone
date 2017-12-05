@@ -111,6 +111,9 @@
               li
                 a href="#{admin_sales_details_path}"
                   = t('layouts.partial_tabs.sales_details')
+              li
+                a href="#{admin_sales_goals_path}"
+                  = t('layouts.partial_tabs.sales_goals')
       - if user_signed_in?
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"

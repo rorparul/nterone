@@ -1,0 +1,4 @@
+$('#sales_goal-<%= @sales_goal.id %>').replaceWith("<%= escape_javascript(render partial: 'goal', locals: { goal: @sales_goal }) %>");
+$("#sales_goal-<%= @sales_goal.id %>").addClass('warning');
+
+$('#myModal').modal('hide');

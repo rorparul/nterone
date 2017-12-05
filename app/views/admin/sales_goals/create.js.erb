@@ -1,0 +1,5 @@
+$('tbody#sales_goals').prepend("<%= escape_javascript(render partial: 'goal', locals: { goal: @sales_goal }) %>");
+
+$("#sales_goal-<%= @sales_goal.id %>").addClass('success');
+
+$('#myModal').modal('hide');

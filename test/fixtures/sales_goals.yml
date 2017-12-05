@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: 2017-12-05
+  goal: 1
+  description: MyText
+
+two:
+  month: 2017-12-05
+  goal: 1
+  description: MyText
