@@ -31,7 +31,8 @@
             button.btn.btn-default.btn-sm[type="submit"] Show
     .container-muted
       - Event.origin_regions.each do |region, region_number|
-        radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' '))]
+        radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' ')) goal=(number_to_currency @region_goals[region_number])]
+      radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) caption=("All regions") goal=(number_to_currency @total_goal)]
       .clearfix
 
 javascript:
