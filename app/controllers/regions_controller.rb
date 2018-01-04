@@ -10,4 +10,8 @@ class RegionsController < ApplicationController
 
     redirect_to url
   end
+
+  def redirect_to_user_tld
+    true
+  end
 end
