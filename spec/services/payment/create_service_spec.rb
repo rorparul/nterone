@@ -6,9 +6,10 @@ describe Payment::CreateService do
 
   before :each do
     @order_params = order_params
+    @cc_params = cc_params
   end
 
-  subject { described_class.new(@order_params, cc_params).call }
+  subject { described_class.new(@order_params, @cc_params).call }
 
   context 'with correct data' do
     it { expect(subject.success?).to be_truthy }
@@ -19,7 +20,7 @@ describe Payment::CreateService do
 
   context 'with incorrect data' do
     before :each do
-      @order_params[:billing_zip_code] = "46203"
+      @cc_params[:credit_card_number] = "462032"
 
       expect_any_instance_of(described_class).to receive(:log_payment_error)
     end
