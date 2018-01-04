@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  skip_before_action :redirect_to_user_tld
+  # skip_before_action :redirect_to_user_tld
 
   def switch
     tld = params[:tld]

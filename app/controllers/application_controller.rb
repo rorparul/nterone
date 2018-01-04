@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
 
-  before_action :redirect_to_user_tld
+  # before_action :redirect_to_user_tld
   before_action :_set_current_session
   before_action :set_region
   before_action :prepare_exception_notifier
