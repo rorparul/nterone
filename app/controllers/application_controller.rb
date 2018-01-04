@@ -186,11 +186,11 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_user_tld
-    if Rails.env.production? && 
-       user_signed_in? && 
-       current_user.settings.user_tld && 
-       Rails.application.config.tld != current_user.settings.user_tld
+    production = Rails.env.production?
+    user_tld   = current_user.settings.user_tld
+    different  = Rails.application.config.tld != current_user.settings.user_tld
 
+    if production? && user_signed_in? && user_tld && inconsistant
       redirect_to "https://nterone.#{current_user.settings.user_tld}"
     end
   end

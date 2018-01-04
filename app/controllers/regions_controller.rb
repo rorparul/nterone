@@ -1,4 +1,6 @@
 class RegionsController < ApplicationController
+  skip_before_action :redirect_to_user_tld
+
   def switch
     tld = params[:tld]
 
@@ -9,9 +11,5 @@ class RegionsController < ApplicationController
     url = "https://nterone.#{tld}"
 
     redirect_to url
-  end
-
-  def redirect_to_user_tld
-    true
   end
 end
