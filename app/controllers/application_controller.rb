@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
     user_tld   = current_user.settings.user_tld
     different  = Rails.application.config.tld != current_user.settings.user_tld
 
-    if production? && user_signed_in? && user_tld && inconsistant
+    if production && user_signed_in? && user_tld && different
       redirect_to "https://nterone.#{current_user.settings.user_tld}"
     end
   end
