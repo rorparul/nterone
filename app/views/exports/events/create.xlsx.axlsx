@@ -1,0 +1,39 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'All') do |sheet|
+    headers = [
+      "ID",
+      "Owner",
+      "Title",
+      "Kind",
+      "Industry Code",
+      "Website",
+      "Street",
+      "City",
+      "State",
+      "Zip Code",
+      "Phone"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @companies.each do |company|
+      sheet.add_row [
+        company.id,
+        company.user.try(:full_name),
+        company.title,
+        company.kind,
+        company.industry_code,
+        company.website,
+        company.street,
+        company.city,
+        company.state,
+        company.zip_code,
+        company.phone
+      ]
+    end
+  end
+end

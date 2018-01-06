@@ -241,15 +241,6 @@ NterOne::Application.routes.draw do
     resources :assign_manager, only: [:index, :create]
   end
 
-  namespace :reports do
-    resources :commissions,             only: [:new, :create]
-    resources :profit_sheets,           only: [:new, :create]
-    resources :instructor_utilizations, only: [:new, :create]
-    resources :sales,                   only: [:new, :create]
-    resources :events,                  only: [:new, :create]
-    resources :users,                   only: [:new, :create]
-  end
-
   namespace :admin do
     resources :platforms, only: [:index]
     resources :checklists do
@@ -260,6 +251,19 @@ NterOne::Application.routes.draw do
       end
     end
     resources :params, controller: 'settings'
+  end
+
+  namespace :exports do
+    resources :events, only: [:new, :create]
+  end
+
+  namespace :reports do
+    resources :commissions,             only: [:new, :create]
+    resources :profit_sheets,           only: [:new, :create]
+    resources :instructor_utilizations, only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
+    resources :events,                  only: [:new, :create]
+    resources :users,                   only: [:new, :create]
   end
 
   controller :admin do

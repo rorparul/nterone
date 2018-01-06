@@ -1,0 +1,29 @@
+.form-container
+  = form_for :export, remote: true do |f|
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          label Vendor
+          br
+          = select_tag :start_date, options_for_select(Platform.active.order(:title).collect { |platform| [platform.title, platform.id] }),
+            include_blank: 'All',
+            class: 'form-control input-sm'
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          label Start Date
+          br
+          = date_select :start_date, {}, {}
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          label Public
+          br
+          = check_box_tag :public
+
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t('default.action.submit')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
