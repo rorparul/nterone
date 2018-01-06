@@ -5,7 +5,7 @@
         .form-group
           label Vendor
           br
-          = select_tag :start_date, options_for_select(Platform.active.order(:title).collect { |platform| [platform.title, platform.id] }),
+          = select_tag :start_date, options_from_collection_for_select(@vendors, "id", "title"),
             include_blank: 'All',
             class: 'form-control input-sm'
 

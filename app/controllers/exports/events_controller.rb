@@ -2,6 +2,7 @@ class Exports::EventsController < ApplicationController
   # TODO: Add a policy for this controller
 
   def new
+    @vendors = Platform.active.order(:title)
   end
 
   def create
