@@ -6,6 +6,7 @@ wb.styles do |style|
   wb.add_worksheet(name: 'ILT_Sessions - New') do |sheet|
     headers = [
       "Training Locator #",
+      "Acronym",
       "#Name",
       "Location",
       "Start Date",
@@ -44,6 +45,7 @@ wb.styles do |style|
     @events.each do |event|
       sheet.add_row [
         "Training Locator #",
+        event.course.abbreviation,
         event.course.title,
         event.location,
         event.start_date.strftime('%m/%d/%Y'),
