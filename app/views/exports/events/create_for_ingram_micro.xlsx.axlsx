@@ -1,0 +1,115 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'ILT_Sessions - New') do |sheet|
+    headers = [
+      "Training Locator #",
+      "#Name",
+      "Location",
+      "Start Date",
+      "Start Time",
+      "End Date",
+      "End Time",
+      "Time Zone ID",
+      "Part Break",
+      "Frequency",
+      "Event ID",
+      "Session ID",
+      "Vendor/Provider",
+      "Language",
+      "Minimum Users",
+      "Maximum Users",
+      "Allow waitlist for sessions",
+      "Price Per Session",
+      "Emails",
+      "Duration",
+      "Duration Unit",
+      "Modality",
+      "Course Type",
+      "Apply Sales Tax",
+      "IRLP Required",
+      "Training Contact",
+      "Availability to All Users",
+      "Category",
+      "Technology",
+      "Region",
+      "Registration Deadline",
+      "Default Price Currency"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @events.each do |event|
+      sheet.add_row [
+        "Training Locator #",
+        event.course.title,
+        event.location,
+        event.start_date.strftime('%m/%d/%Y'),
+        event.start_time.strftime('%H:%M:%S'),
+        event.end_date.strftime('%m/%d/%Y'),
+        event.end_time.strftime('%H:%M:%S'),
+        formatted_time_zone(event.time_zone),
+        "Part Break",
+        "Frequency",
+        event.id,
+        "#{event.id}-#{event.start_date.strftime('%d %^b %Y')}-#{event.location}-$#{number_with_precision(event.price, precision: 0)}",
+        event.platform.title,
+        formatted_language(event.language),
+        "2",
+        "16",
+        "TRUE",
+        number_with_precision(event.price, precision: 2),
+        "Emails",
+        event.length,
+        "Days",
+        "VILT - Virtual Instructor Led Training",
+        "Public / Open Enrollment",
+        "FALSE",
+        "YES",
+        "fred@nterone.com",
+        "TRUE",
+        "Technical; Technical Sales",
+        "Cisco",
+        "North America; Latin America",
+        "2",
+        "USD"
+      ]
+    end
+  end
+end
+
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'ILT_Cost') do |sheet|
+    headers = [
+      "#Event ID",
+      "Session ID",
+      "OU ID",
+      "OU Type",
+      "Include Sub OU",
+      "Unit Price",
+      "Display",
+      "Rank"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @events.each do |event|
+      sheet.add_row [
+        event.id,
+        "#{event.id}-#{event.start_date.strftime('%d %^b %Y')}-#{event.location}-$#{number_with_precision(event.price, precision: 0)}",
+        "Cisco 50%",
+        "Group",
+        "1",
+        number_with_precision(event.price, precision: 2),
+        "Price and Discount ",
+        "1"
+      ]
+    end
+  end
+end

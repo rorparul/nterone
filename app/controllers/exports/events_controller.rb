@@ -15,13 +15,18 @@ class Exports::EventsController < ApplicationController
     events  = events.where('start_date >= ?', export_params_start_date)
     @events = events.where(public: export_params[:public])
 
-    render filename: "events-#{DateTime.now}.xlsx"
+    if true?(export_params[:for_ingram_micro])
+      render file: 'exports/events/create_for_ingram_micro.xlsx.axlsx', filename: "NterOne_Classes_#{DateTime.now}.xlsx"
+    else
+      render file: 'exports/events/create.xlsx.axlsx', filename: "NterOne_Classes_#{DateTime.now}.xlsx"
+    end
   end
 
   private
 
   def export_params
     params.require(:export).permit(
+      :for_ingram_micro,
       :platform_id,
       :public,
       :start_date
