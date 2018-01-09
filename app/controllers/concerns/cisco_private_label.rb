@@ -88,8 +88,10 @@ module CiscoPrivateLabel
   end
 
   def new_access_token
-    client_id      = 'a1a1fc70e1e34c9291848cc17726c5e2'
-    client_secret  = '9b308cFaC4Cb410Cad9D2B7711AD0446'
+    # client_id      = 'a1a1fc70e1e34c9291848cc17726c5e2'
+    # client_secret  = '9b308cFaC4Cb410Cad9D2B7711AD0446'
+    client_id      = '39450595357f4ad581184ccb5b1e67c0'
+    client_secret  = '5C2E19a038b84B2Da16eB47f73CbE4cDu'
     grant_type     = 'client_credentials'
     scope          = 'IDENTITY'
     url_base       = "https://ckoauth#{Rails.env.production? ? nil : 'uat'}.cloudhub.io/ckoauth/api/token"

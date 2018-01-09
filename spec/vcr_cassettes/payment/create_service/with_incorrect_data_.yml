@@ -12,13 +12,13 @@ http_interactions:
             <name>2DV3kpq3h5s</name>
             <transactionKey>7J4JW36N64sE9thh</transactionKey>
           </merchantAuthentication>
-          <clientId>sdk-ruby-1.9.0.2</clientId>
+          <clientId>sdk-ruby-1.9.4</clientId>
           <transactionRequest>
             <transactionType>authCaptureTransaction</transactionType>
             <amount>20</amount>
             <payment>
               <creditCard>
-                <cardNumber>4007000000027</cardNumber>
+                <cardNumber>462032</cardNumber>
                 <expirationDate>112020</expirationDate>
                 <cardCode>123</cardCode>
               </creditCard>
@@ -29,7 +29,7 @@ http_interactions:
               <address>random street</address>
               <city>NY</city>
               <state>TX</state>
-              <zip>46203</zip>
+              <zip>1344</zip>
             </billTo>
           </transactionRequest>
         </createTransactionRequest>
@@ -51,8 +51,8 @@ http_interactions:
       - private
       Content-Type:
       - application/xml; charset=utf-8
-      Server:
-      - Microsoft-IIS/7.5
+      X-Opnet-Transaction-Trace:
+      - a2_0fff092f-71b7-4e40-8583-f9f2cc3abdc8-7884-3730783
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -61,12 +61,10 @@ http_interactions:
       - x-requested-with,cache-control,content-type,origin,method,SOAPAction
       Access-Control-Allow-Credentials:
       - 'true'
-      X-Powered-By:
-      - ASP.NET
       Content-Length:
-      - '995'
+      - '831'
       Date:
-      - Fri, 08 Sep 2017 07:54:19 GMT
+      - Wed, 06 Dec 2017 07:59:45 GMT
       Connection:
       - keep-alive
     body:
@@ -77,24 +75,20 @@ http_interactions:
         dzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIiB4bWxuczp4c2Q9Imh0
         dHA6Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hIiB4bWxucz0iQW5ldEFw
         aS94bWwvdjEvc2NoZW1hL0FuZXRBcGlTY2hlbWEueHNkIj48bWVzc2FnZXM+
-        PHJlc3VsdENvZGU+T2s8L3Jlc3VsdENvZGU+PG1lc3NhZ2U+PGNvZGU+STAw
-        MDAxPC9jb2RlPjx0ZXh0PlN1Y2Nlc3NmdWwuPC90ZXh0PjwvbWVzc2FnZT48
-        L21lc3NhZ2VzPjx0cmFuc2FjdGlvblJlc3BvbnNlPjxyZXNwb25zZUNvZGU+
-        MjwvcmVzcG9uc2VDb2RlPjxhdXRoQ29kZT40VVVBN1g8L2F1dGhDb2RlPjxh
-        dnNSZXN1bHRDb2RlPkU8L2F2c1Jlc3VsdENvZGU+PGN2dlJlc3VsdENvZGU+
-        UDwvY3Z2UmVzdWx0Q29kZT48Y2F2dlJlc3VsdENvZGU+MjwvY2F2dlJlc3Vs
-        dENvZGU+PHRyYW5zSWQ+NDAwMDY1ODEyNzk8L3RyYW5zSWQ+PHJlZlRyYW5z
-        SUQ+NDAwMDY1ODEyNzk8L3JlZlRyYW5zSUQ+PHRyYW5zSGFzaD40N0ZGMEMx
-        QzEwMDJFNzRGRTE0Q0RCQ0M1Qjk2Mzk3MzwvdHJhbnNIYXNoPjx0ZXN0UmVx
-        dWVzdD4wPC90ZXN0UmVxdWVzdD48YWNjb3VudE51bWJlcj5YWFhYMDAyNzwv
-        YWNjb3VudE51bWJlcj48YWNjb3VudFR5cGU+VmlzYTwvYWNjb3VudFR5cGU+
-        PGVycm9ycz48ZXJyb3I+PGVycm9yQ29kZT4yNzwvZXJyb3JDb2RlPjxlcnJv
-        clRleHQ+VGhlIHRyYW5zYWN0aW9uIGhhcyBiZWVuIGRlY2xpbmVkIGJlY2F1
-        c2Ugb2YgYW4gQVZTIG1pc21hdGNoLiBUaGUgYWRkcmVzcyBwcm92aWRlZCBk
-        b2VzIG5vdCBtYXRjaCBiaWxsaW5nIGFkZHJlc3Mgb2YgY2FyZGhvbGRlci48
-        L2Vycm9yVGV4dD48L2Vycm9yPjwvZXJyb3JzPjx0cmFuc0hhc2hTaGEyIC8+
-        PC90cmFuc2FjdGlvblJlc3BvbnNlPjwvY3JlYXRlVHJhbnNhY3Rpb25SZXNw
-        b25zZT4=
+        PHJlc3VsdENvZGU+RXJyb3I8L3Jlc3VsdENvZGU+PG1lc3NhZ2U+PGNvZGU+
+        RTAwMDI3PC9jb2RlPjx0ZXh0PlRoZSB0cmFuc2FjdGlvbiB3YXMgdW5zdWNj
+        ZXNzZnVsLjwvdGV4dD48L21lc3NhZ2U+PC9tZXNzYWdlcz48dHJhbnNhY3Rp
+        b25SZXNwb25zZT48cmVzcG9uc2VDb2RlPjM8L3Jlc3BvbnNlQ29kZT48YXV0
+        aENvZGUgLz48YXZzUmVzdWx0Q29kZT5QPC9hdnNSZXN1bHRDb2RlPjxjdnZS
+        ZXN1bHRDb2RlIC8+PGNhdnZSZXN1bHRDb2RlIC8+PHRyYW5zSWQ+MDwvdHJh
+        bnNJZD48cmVmVHJhbnNJRCAvPjx0cmFuc0hhc2g+OUI4MzJDODZDQzc1MTUw
+        OUVCQzI2QkM1Qjc4MEFGMUY8L3RyYW5zSGFzaD48dGVzdFJlcXVlc3Q+MDwv
+        dGVzdFJlcXVlc3Q+PGFjY291bnROdW1iZXI+WFhYWDIwMzI8L2FjY291bnRO
+        dW1iZXI+PGFjY291bnRUeXBlIC8+PGVycm9ycz48ZXJyb3I+PGVycm9yQ29k
+        ZT42PC9lcnJvckNvZGU+PGVycm9yVGV4dD5UaGUgY3JlZGl0IGNhcmQgbnVt
+        YmVyIGlzIGludmFsaWQuPC9lcnJvclRleHQ+PC9lcnJvcj48L2Vycm9ycz48
+        dHJhbnNIYXNoU2hhMiAvPjwvdHJhbnNhY3Rpb25SZXNwb25zZT48L2NyZWF0
+        ZVRyYW5zYWN0aW9uUmVzcG9uc2U+
     http_version: 
-  recorded_at: Fri, 08 Sep 2017 07:49:33 GMT
+  recorded_at: Wed, 06 Dec 2017 07:59:45 GMT
 recorded_with: VCR 3.0.3
