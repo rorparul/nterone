@@ -19,6 +19,7 @@
 #  video              :text
 #  origin_region      :integer
 #  active_regions     :text             default([]), is an Array
+#  archived           :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -47,6 +48,8 @@ class Category < ActiveRecord::Base
   has_many :video_on_demands, through: :category_video_on_demands
 
   validates :title, presence: true
+
+  scope :active, -> { where(archived: false) }
 
   def items
     items = []

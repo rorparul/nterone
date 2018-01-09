@@ -70,8 +70,8 @@ class CategoriesController < ApplicationController
   def cisco_self_paced
     session[:last_category_url] = request.url
 
-    @platform   = Platform.find_by(title: "Cisco")
-    @category   = Category.find_by(title: "Self-Paced")
+    @platform   = Platform.active.find_by(title: "Cisco")
+    @category   = @platform.categories.find_by(title: "Self-Paced")
     @categories = @platform.parent_categories.order(:position).includes(:children)
     @items      = category_items(@category)
 
@@ -92,14 +92,16 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:id,
-                                     :parent_id,
-                                     :title,
-                                     :page_title,
-                                     :heading,
-                                     :description,
-                                     :meta_description,
-                                     :position,
-                                     :video)
+    params.require(:category).permit(
+      :id,
+      :parent_id,
+      :title,
+      :page_title,
+      :heading,
+      :description,
+      :meta_description,
+      :position,
+      :video
+    )
   end
 end

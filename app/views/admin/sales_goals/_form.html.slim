@@ -1,0 +1,36 @@
+.fly-form
+  = form_for [:admin, @sales_goal], remote: true do |f|
+    - if @sales_goal.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        h4 = "#{pluralize(@sales_goal.errors.count, 'error')}:"
+        ul
+          - @sales_goal.errors.full_messages.each do |msg|
+            li = msg
+
+    .form-group
+      = f.label :origin_region, t('default.label.origin_region')
+      br
+      = f.select :origin_region, Event.origin_regions.to_a.map {|a| a[0] = a[0].humanize.titleize; a}, class: 'form-control'
+
+    .form-group
+      = f.label :month, t('default.label.month')
+      = f.date_field :month, class: 'form-control'
+
+    .form-group
+      = f.label :amount, t('default.label.amount')
+      = f.number_field :amount, class: 'form-control'
+
+    .form-group
+      = f.label :description, t('default.label.description')
+      = f.text_area :description, class: 'form-control'
+
+    .form-buttons
+      button.btn.btn-success type="submit"
+        - if @sales_goal.new_record?
+          = t('default.action.create')
+        - else
+          = t('default.action.update')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')

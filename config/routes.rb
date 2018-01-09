@@ -241,16 +241,8 @@ NterOne::Application.routes.draw do
     resources :assign_manager, only: [:index, :create]
   end
 
-  namespace :reports do
-    resources :commissions,             only: [:new, :create]
-    resources :profit_sheets,           only: [:new, :create]
-    resources :instructor_utilizations, only: [:new, :create]
-    resources :sales,                   only: [:new, :create]
-    resources :events,                  only: [:new, :create]
-    resources :users,                   only: [:new, :create]
-  end
-
   namespace :admin do
+    resources :platforms, only: [:index]
     resources :checklists do
       member do
         get "events/:event_id", action: :show
@@ -259,6 +251,22 @@ NterOne::Application.routes.draw do
       end
     end
     resources :params, controller: 'settings'
+    resources :sales_goals
+    get '/sales/overview' => 'sales#overview'
+    get '/sales/details' => 'sales#details'
+  end
+
+  namespace :exports do
+    resources :events, only: [:new, :create]
+  end
+
+  namespace :reports do
+    resources :commissions,             only: [:new, :create]
+    resources :profit_sheets,           only: [:new, :create]
+    resources :instructor_utilizations, only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
+    resources :events,                  only: [:new, :create]
+    resources :users,                   only: [:new, :create]
   end
 
   controller :admin do
@@ -379,10 +387,11 @@ NterOne::Application.routes.draw do
   get "/terms-and-conditions/"                 => redirect("/pages/nterone-terms-and-conditions")
   get "/cisco-learning-credits/"               => redirect("/training")
 
-  post "public/uploads/editor"                 => 'general#editor_upload_photo'
-  get 'sales_force/form_for_tasks'             => 'sales_force#form_for_tasks',               as: :sales_force_form_for_tasks
-  post 'sales_force/upload_tasks'              => 'sales_force#upload_tasks',                 as: :sales_force_upload_for_tasks
-  get 'sales_force/form_for_other'             => 'sales_force#form_for_other',               as: :sales_force_form_for_other
-  post 'sales_force/upload_other'              => 'sales_force#upload_other',                 as: :sales_force_upload_for_other
-  post 'fly_forms/update'                      => 'fly_forms#update',                         as: :fly_form
+  post "public/uploads/editor"      => 'general#editor_upload_photo'
+  get  'sales_force/form_for_tasks' => 'sales_force#form_for_tasks', as: :sales_force_form_for_tasks
+  post 'sales_force/upload_tasks'   => 'sales_force#upload_tasks',   as: :sales_force_upload_for_tasks
+  get  'sales_force/form_for_other' => 'sales_force#form_for_other', as: :sales_force_form_for_other
+  post 'sales_force/upload_other'   => 'sales_force#upload_other',   as: :sales_force_upload_for_other
+  post 'fly_forms/update'           => 'fly_forms#update',           as: :fly_form
+  get  'regions/switch/:tld'        => 'regions#switch',             as: 'switch_tld'
 end

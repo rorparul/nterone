@@ -9,9 +9,9 @@ class GeneralController < ApplicationController
   end
 
   def search
-    subjects = Subject.current_region.search(params[:query])
-    courses  = Course.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
-    vods     = VideoOnDemand.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    courses  = Course.active.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
+    subjects = Subject.active.current_region.search(params[:query])
+    vods     = VideoOnDemand.active.current_region.where(active: true).where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
 
     @items = subjects + courses + vods
   end
@@ -83,7 +83,7 @@ class GeneralController < ApplicationController
 
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
-    @platforms = Platform.order(:title)
+    @platforms = Platform.active.order(:title)
 
     respond_to do |format|
       format.xlsx
@@ -108,40 +108,45 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_create
-    if params["g-recaptcha-response"].nil? || (!params["g-recaptcha-response"].nil? && verify_recaptcha)
-      success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+    if Rails.application.config.blacklisted_emails.include?(contact_us_params[:email])
+      flash[:alert] = 'The action you requested is not permitted.'
+      redirect_to :back
     else
-      success = false
-    end
-
-    respond_to do |format|
-      format.html do
-        if success
-          submission_params = contact_us_params
-          submission_params.delete('M360-Source')
-
-          ContactUsSubmission.create(submission_params)
-
-          flash[:success] = 'Message successfully sent.'
-
-          if params[:origin] == "course"
-            redirect_to course_inquiry_confirmation_path
-          elsif params[:origin] == "learning_credits"
-            redirect_to learning_credits_inquiry_confirmation_path
-          else
-            redirect_to general_inquiry_confirmation_path
-          end
-        else
-          flash[:notice] = 'Message failed to send.'
-          redirect_to :back
-        end
+      if params["g-recaptcha-response"].nil? || (!params["g-recaptcha-response"].nil? && verify_recaptcha)
+        success = ContactUsMailer.contact_us(contact_us_params).deliver_now
+      else
+        success = false
       end
 
-      format.js do
-        if success
-          render 'contact_success'
-        else
-          render nothing: true
+      respond_to do |format|
+        format.html do
+          if success
+            submission_params = contact_us_params
+            submission_params.delete('M360-Source')
+
+            ContactUsSubmission.create(submission_params)
+
+            flash[:success] = 'Message successfully sent.'
+
+            if params[:origin] == "course"
+              redirect_to course_inquiry_confirmation_path
+            elsif params[:origin] == "learning_credits"
+              redirect_to learning_credits_inquiry_confirmation_path
+            else
+              redirect_to general_inquiry_confirmation_path
+            end
+          else
+            flash[:notice] = 'Message failed to send.'
+            redirect_to :back
+          end
+        end
+
+        format.js do
+          if success
+            render 'contact_success'
+          else
+            render nothing: true
+          end
         end
       end
     end

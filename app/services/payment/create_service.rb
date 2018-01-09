@@ -67,7 +67,7 @@ class Payment::CreateService
   end
 
   def successfull_response?(response)
-    response.messages.resultCode == MessageTypeEnum::Ok
+    response.messages.resultCode == MessageTypeEnum::Ok && response.transactionResponse.authCode.present?
   end
 
   def exparation_date

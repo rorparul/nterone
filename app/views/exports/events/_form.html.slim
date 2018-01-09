@@ -1,0 +1,48 @@
+.form-container
+  = form_for :export, url: exports_events_path(format: 'xlsx') do |f|
+    .row
+      .col-xs-12
+        .form-group
+          label Vendor
+          = f.select :platform_id, options_from_collection_for_select(@vendors, 'id', 'title'),
+            { include_blank: 'All' },
+            { class: 'form-control input-sm' }
+
+    .row
+      .col-xs-12
+        .form-group
+          label Course
+          .well Coming Soon
+
+    .row
+      .col-xs-12
+        .form-group
+          label From Start Date
+          br
+          = f.date_select :start_date, {}, {}
+
+    .row
+      .col-xs-12
+        .form-group
+          label Public
+          br
+          = f.check_box :public
+
+    .row
+      .col-xs-12
+        .form-group
+          label Price Range
+          .well Coming Soon
+
+    .row
+      .col-xs-12
+        .form-group
+          label For Ingram Micro
+          br
+          = f.check_box :for_ingram_micro
+
+    .form-buttons
+      button.btn.btn-success type='submit'
+        = t 'default.action.submit'
+      button.btn.btn-default type='button' data-dismiss='modal'
+        = t 'default.action.cancel'

@@ -25,7 +25,7 @@
       '
       = link_to t('default.partial_tabs.checklists'), admin_checklists_path, class: 'btn btn-default btn-sm', role: 'button'
 
-      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;' do
+      = link_to new_exports_event_path, class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', remote: true do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:events, {class: "input-search"}) do
         .input-group.input-group-sm.filter style='margin-right: 15px;'
