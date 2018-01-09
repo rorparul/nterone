@@ -29,14 +29,20 @@
             '
             = select_date @selected_month, discard_day: true, order: [:month, :year]
             button.btn.btn-default.btn-sm[type="submit"] Show
+        - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
+          a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px;" = t('layouts.partial_tabs.sales_goals')
     .container-muted
-      - Event.origin_regions.each do |region, region_number|
-        radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' '))]
+      .row
+        - Event.origin_regions.each do |region, region_number|
+          .col-xs-12.col-md-4
+            radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' ')) goal=(number_to_currency @region_goals[region_number])]
+        .col-xs-12.col-md-4
+          radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) caption=("All Regions") goal=(number_to_currency @total_goal)]
       .clearfix
 
 javascript:
   $('.role-tab').addClass('active');
-  $('.permissions .reports').addClass('active');
+  $('.permissions .sales').addClass('active');
 
 / coffee:
 /   $('#date_month, #date_year').change ()->

@@ -12,22 +12,30 @@
             | Sales
             span.caret
           ul.dropdown-menu
+            - if policy(:admin).sales?
               li
-                a href="#{leads_users_path}"
-                  = t('layouts.partial_tabs.leads')
-              li
-                a href="#{contacts_users_path}"
-                  = t('layouts.partial_tabs.contacts')
-              li
-                a href="#{companies_path}"
-                  = t('layouts.partial_tabs.companies')
-              li
-                a href="#{opportunities_path}"
-                  = t('layouts.partial_tabs.opportunities')
+                a href="#{admin_sales_overview_path}"
+                  = t('layouts.partial_tabs.sales_overview')
+              / li
+              /   a href="#{admin_sales_details_path}"
+              /     = t('layouts.partial_tabs.sales_details')
               hr
-              li
-                a href="#{contact_us_submissions_path}"
-                  = t('layouts.partial_tabs.contact_us_submissions')
+            li
+              a href="#{leads_users_path}"
+                = t('layouts.partial_tabs.leads')
+            li
+              a href="#{contacts_users_path}"
+                = t('layouts.partial_tabs.contacts')
+            li
+              a href="#{companies_path}"
+                = t('layouts.partial_tabs.companies')
+            li
+              a href="#{opportunities_path}"
+                = t('layouts.partial_tabs.opportunities')
+            hr
+            li
+              a href="#{contact_us_submissions_path}"
+                = t('layouts.partial_tabs.contact_us_submissions')
 
       - if policy(:admin).orders?
         li.orders role="presentation"
@@ -99,18 +107,6 @@
         li.tools role="presentation"
           a.nav-pill href="#{admin_tools_path}"
             = t('admins.partial_tabs.tools')
-      - if policy(:admin).sales?
-        li.dropdown.reports role="presentation"
-          a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-            | Reports
-            span.caret
-          ul.dropdown-menu
-              li
-                a href="#{admin_sales_overview_path}"
-                  = t('layouts.partial_tabs.sales_overview')
-              li
-                a href="#{admin_sales_details_path}"
-                  = t('layouts.partial_tabs.sales_details')
       - if user_signed_in?
         li.settings role="presentation"
           a.nav-pill href="#{main_app.edit_user_registration_path}"

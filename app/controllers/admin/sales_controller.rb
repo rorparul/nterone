@@ -9,20 +9,26 @@ class Admin::SalesController < Admin::BaseController
       @selected_month = Date.today
     end
 
-    @total_amount = Opportunity.unscoped.
-      where(date_closed: @selected_month.beginning_of_month..@selected_month.end_of_month).
-      sum('amount')
-
     @region_amounts = {}
     @region_percents = {}
+    @region_goals = {}
     Event.origin_regions.each do |region, region_value|
-      amount = Opportunity.unscoped.
+      amount = Opportunity.unscoped.won.
         where(origin_region: region_value).
         where(date_closed: @selected_month.beginning_of_month..@selected_month.end_of_month).
         sum('amount')
-      @region_percents[region_value] = @total_amount.to_i > 0 ? (amount / @total_amount * 100).round : 0
+      goal = SalesGoal.
+        where(origin_region: region_value).
+        where(month: @selected_month.beginning_of_month..@selected_month.end_of_month).
+        first.try(:amount)
+      @region_percents[region_value] = goal.to_i > 0 ? (amount / goal * 100).round : 100
       @region_amounts[region_value] = amount
+      @region_goals[region_value] = goal.to_i
     end
+    @total_amount = @region_amounts.values.sum
+    @total_goal = @region_goals.values.sum
+    @total_percent = @total_goal.to_i > 0 ? (@total_amount / @total_goal * 100).round : 100
+    p @total_percent
   end
 
   def details

@@ -54,5 +54,6 @@ es:
       leads: "Lleva"
       marketing: "Márketing"
       opportunities: "Oportunidades"
-      sales_overview: "Visión general de ventas"
-      sales_details: "Detalles de ventas"
+      sales_overview: "Visión de Conjunto"
+      sales_details: "Detalles"
+      sales_goals: "Gestionar los Objetivos"

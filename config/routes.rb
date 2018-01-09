@@ -251,6 +251,7 @@ NterOne::Application.routes.draw do
       end
     end
     resources :params, controller: 'settings'
+    resources :sales_goals
     get '/sales/overview' => 'sales#overview'
     get '/sales/details' => 'sales#details'
   end

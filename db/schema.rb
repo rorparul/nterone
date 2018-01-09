@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123045343) do
+ActiveRecord::Schema.define(version: 20171205021916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1232,6 +1232,15 @@ ActiveRecord::Schema.define(version: 20171123045343) do
   end
 
   add_index "roles", ["origin_region"], name: "index_roles_on_origin_region", using: :btree
+
+  create_table "sales_goals", force: :cascade do |t|
+    t.date     "month"
+    t.integer  "amount"
+    t.text     "description"
+    t.integer  "origin_region"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",                                    null: false
