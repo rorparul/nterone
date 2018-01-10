@@ -35,16 +35,16 @@
     hr
 
     .form-group
-      = f.label :kind, 'Delivery Type'
-      = f.select :kind, opportunity_kind_options,
-        { include_blank: t('companies.partial_form.dropdown') },
-        { class: 'search-select form-control' }
-
-    .form-group
       = f.label :course_id, 'Course'
       = f.select :course_id, grouped_options_for_select(grouped_courses_options(@courses), f.object.course_id),
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select course-select form-control' }
+
+    .form-group
+      = f.label :kind, 'Delivery Type'
+      = f.select :kind, opportunity_kind_options,
+        { include_blank: t('companies.partial_form.dropdown') },
+        { class: 'search-select form-control' }
 
     .form-group
       = f.label :event_id, 'Event (Date)'

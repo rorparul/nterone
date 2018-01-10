@@ -9,7 +9,7 @@
   $('select.event-select').prop('disabled', false);
 <% else %>
   $('select.event-select').html("<%= escape_javascript(options.html_safe) %>");
-  $('select.event-select').select2().val('').trigger('change');;
+  $('select.event-select').select2().val('').trigger('change');
   $('select.event-select').prop('disabled', true);
 <% end %>
 
@@ -21,6 +21,6 @@
   $('select.video_on_demand-select').prop('disabled', false);
 <% else %>
   $('select.video_on_demand-select').html("<%= escape_javascript(vod_options.html_safe) %>");
-  $('select.video_on_demand-select').select2().val('').trigger('change');;
+  $('select.video_on_demand-select').select2().val('').trigger('change');
   $('select.video_on_demand-select').prop('disabled', true);
 <% end %>

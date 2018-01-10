@@ -67,8 +67,8 @@ class Opportunity < ActiveRecord::Base
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   before_save :confirm_amount_equals_integer
 
-  after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && model.event.present? }
-  after_save :update_order,  if: proc { |model| model.id_was.present? && model.event_id_changed? && model.video_on_demand_id_changed? && model.stage == 100 && model.order.present? }
+  after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && (model.event.present? || model.video_on_demand.present?) }
+  after_save :update_order,  if: proc { |model| model.id_was.present? && (model.event_id_changed? || model.video_on_demand_id_changed?) && model.stage == 100 && model.order.present? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
 
   def self.amount_open
@@ -120,7 +120,7 @@ class Opportunity < ActiveRecord::Base
     )
 
     order_items = []
-    
+
     order_items << order.order_items.new(
       user_id: customer.try(:id),
       orderable_type: 'Event',
@@ -132,7 +132,7 @@ class Opportunity < ActiveRecord::Base
       user_id: customer.try(:id),
       orderable_type: 'VideoOnDemand',
       orderable_id: video_on_demand.try(:id),
-      price: 0
+      price: amount
     )  if video_on_demand.present?
 
     if order.save
@@ -155,7 +155,7 @@ class Opportunity < ActiveRecord::Base
         user_id: customer.try(:id),
         orderable_type: 'VideoOnDemand',
         orderable_id: video_on_demand.try(:id),
-        price: 0
+        price: amount
       )  if event.present?
 
       self.update_column(:waiting, false)
