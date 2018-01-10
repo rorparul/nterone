@@ -126,14 +126,14 @@ class Opportunity < ActiveRecord::Base
       orderable_type: 'Event',
       orderable_id: event.try(:id),
       price: amount
-    )  if event.present?
+    ) if event.present?
 
     order_items << order.order_items.new(
       user_id: customer.try(:id),
       orderable_type: 'VideoOnDemand',
       orderable_id: video_on_demand.try(:id),
       price: amount
-    )  if video_on_demand.present?
+    ) if video_on_demand.present?
 
     if order.save
       RegistrationMailer.create(order).deliver_now
@@ -149,14 +149,14 @@ class Opportunity < ActiveRecord::Base
         orderable_type: 'Event',
         orderable_id: event.try(:id),
         price: amount
-      )  if event.present?
+      ) if event.present?
 
       order_items << order.order_items.create(
         user_id: customer.try(:id),
         orderable_type: 'VideoOnDemand',
         orderable_id: video_on_demand.try(:id),
         price: amount
-      )  if event.present?
+      ) if event.present?
 
       self.update_column(:waiting, false)
     else
