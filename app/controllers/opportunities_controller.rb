@@ -186,6 +186,7 @@ class OpportunitiesController < ApplicationController
       :employee_id,
       :email_optional,
       :event_id,
+      :origin_region,
       :video_on_demand_id,
       :kind,
       :notes,

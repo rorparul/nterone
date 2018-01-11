@@ -13,6 +13,7 @@ public/uploads/*
 .env
 *~
 erd.pdf
+.aprc
 
 # Ignore application configuration
 /config/application.yml

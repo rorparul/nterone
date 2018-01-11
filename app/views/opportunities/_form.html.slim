@@ -9,6 +9,17 @@
           - @opportunity.errors.full_messages.each do |msg|
             li = msg
 
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :origin_region, 'Origin Region'
+          = f.select :origin_region,
+                    Opportunity.options_for_regions,
+                    { prompt: true },
+                    { class: 'form-control input-sm' }
+
+    hr
+
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control'
