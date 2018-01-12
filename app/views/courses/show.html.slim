@@ -52,7 +52,7 @@
                       = link_to t('default.action.add'), new_platform_course_event_path(@platform, @course), remote: true, class: "panel-heading-controls"
                   - if @course.upcoming_public_events.current_region.any?
                     .panel-body.text-center.text-success
-                      strong Dates represented in green are guaranteed to run.
+                      strong Classes represented in green are guaranteed to run.
                   .table-responsive
                     table.table.table-compact
                       - if @course.upcoming_public_events.current_region.any?
@@ -76,9 +76,9 @@
                       tbody
                         - if @course.upcoming_public_events.current_region.any?
                           - @course.upcoming_public_events.current_region.each do |event|
-                            tr
+                            tr class="#{'text-success font-weight-bold' if event.guaranteed}"
                               div itemscope="true" itemtype="http://schema.org/EducationEvent"
-                                td class="#{'text-success font-weight-bold' if event.guaranteed}"
+                                td
                                   meta itemprop="startDate" content="#{event.start_date}"
                                     = "#{event.start_date.strftime("%-m/%-d/%y")} to "
                                   meta itemprop="endDate" content="#{event.end_date}"
@@ -128,9 +128,9 @@
                                       = f.hidden_field :event_id, value: event.id
                                       = link_to_cart(event, link: true)
                                 - if user_signed_in? && current_user.admin?
-                                  td.fit
+                                  td.fit style="font-weight: normal;"
                                     = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), remote: true
-                                  td.fit
+                                  td.fit style="font-weight: normal;"
                                     = link_to t('default.action.delete'), platform_course_event_path(event.course.platform, event.course, event), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
                         - else
                           tr
