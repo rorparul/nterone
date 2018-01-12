@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def number_to_currency(number, options = {})
+    options[:locale] ||= :en
+    super(number, options)
+  end
+
   def form_wraper
     content_tag(:div, class: 'col-xs-7 col-sm-5 col-md-4 col-lg-3 form-container' ) do
       yield
