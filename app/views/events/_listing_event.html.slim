@@ -9,9 +9,9 @@ tr
   td.fit
     - event.active_regions.each do |active_region|
       - if active_region == 'united_states'
-        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" US
+        span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
       - elsif active_region == 'latin_america'
-        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
+        span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
       - elsif active_region == 'canada'
         span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
   td.fit = event.id
