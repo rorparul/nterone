@@ -16,7 +16,8 @@
 
     .form-group
       = f.label :month, t('default.label.month')
-      = f.date_field :month, class: 'form-control'
+      br
+      = f.date_select :month, discard_day: true, class: 'form-control'
 
     .form-group
       = f.label :amount, t('default.label.amount')
