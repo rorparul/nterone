@@ -27,8 +27,8 @@
           = form_for :report, method: :get do |f|
             | For:
             '
-            = select_date @selected_month, discard_day: true, order: [:month, :year]
-            button.btn.btn-default.btn-sm[type="submit"] Show
+            = select_date @selected_year, discard_day: true, order: [:year]
+            / button.btn.btn-default.btn-sm[type="submit"] Show
         - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
           a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px;" = t('layouts.partial_tabs.sales_goals')
     .container-muted
@@ -44,8 +44,7 @@ javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
-/ coffee:
-/   $('#date_month, #date_year').change ()->
-/     month = $('#date_month').val()
-/     year = $('#date_year').val()
-/     window.location = '?month=' + month + '&year=' + year
+coffee:
+  $('#date_year').change ()->
+    year = $('#date_year').val()
+    window.location = '?date[year]=' + year
