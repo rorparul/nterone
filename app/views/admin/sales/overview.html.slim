@@ -25,10 +25,24 @@
       .row
         .col-xs-12.col-md-4
           = form_for :report, method: :get do |f|
-            | For:
-            '
-            = select_date @selected_month, discard_day: true, order: [:month, :year]
-            button.btn.btn-default.btn-sm[type="submit"] Show
+            - tab_active_class = "active"
+            ul.nav.nav-tabs
+              li class=(@yearly ? tab_active_class : "")
+                a href="#overview-yearly" data-toggle="tab" Yearly
+              li class=(!@yearly ? tab_active_class : "")
+                a href="#overview-monthly" data-toggle="tab" Monthly
+            br
+            .tab-content
+              - pane_active_class = 'in active'
+              #overview-yearly.tab-pane.fade role="tabpanel" class=(@yearly ? pane_active_class : "")
+                | For:
+                '
+                = select_date @selected_date, prefix: :yearly, discard_day: true, order: [:year]
+              #overview-monthly.tab-pane.fade role="tabpanel" class=(!@yearly ? pane_active_class : "")
+                | For:
+                '
+                = select_date @selected_date, prefix: :monthly, discard_day: true, order: [:year, :month]
+            / button.btn.btn-default.btn-sm[type="submit"] Show
         - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
           a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px;" = t('layouts.partial_tabs.sales_goals')
     .container-muted
@@ -44,8 +58,13 @@ javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
-/ coffee:
-/   $('#date_month, #date_year').change ()->
-/     month = $('#date_month').val()
-/     year = $('#date_year').val()
-/     window.location = '?month=' + month + '&year=' + year
+coffee:
+  $('#yearly_year').change ()->
+    year = $('#yearly_year').val()
+    window.location = '?date[year]=' + year
+
+  $('#monthly_year, #monthly_month').change ()->
+    year = $('#monthly_year').val()
+    month = $('#monthly_month').val()
+    window.location = '?date[year]=' + year + '&date[month]=' + month
+
