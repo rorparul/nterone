@@ -22,29 +22,24 @@
     h4
       strong.text-muted= t('layouts.partial_tabs.sales_overview')
     .container-muted
+      - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
+        a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px; position: absolute; right: 15px;" = t('layouts.partial_tabs.sales_goals')
       .row
-        .col-xs-12.col-md-4
+        .col-xs-12
           = form_for :report, method: :get do |f|
             - tab_active_class = "active"
             ul.nav.nav-tabs
               li class=(@yearly ? tab_active_class : "")
-                a href="#overview-yearly" data-toggle="tab" Yearly
+                a#overview-yearly href="#overview-yearly" data-toggle="tab" Yearly
               li class=(!@yearly ? tab_active_class : "")
-                a href="#overview-monthly" data-toggle="tab" Monthly
+                a#overview-monthly href="#overview-monthly" data-toggle="tab" Monthly
             br
             .tab-content
               - pane_active_class = 'in active'
               #overview-yearly.tab-pane.fade role="tabpanel" class=(@yearly ? pane_active_class : "")
-                | For:
-                '
                 = select_date @selected_date, prefix: :yearly, discard_day: true, order: [:year]
               #overview-monthly.tab-pane.fade role="tabpanel" class=(!@yearly ? pane_active_class : "")
-                | For:
-                '
                 = select_date @selected_date, prefix: :monthly, discard_day: true, order: [:year, :month]
-            / button.btn.btn-default.btn-sm[type="submit"] Show
-        - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
-          a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px;" = t('layouts.partial_tabs.sales_goals')
     .container-muted
       .row
         - Event.origin_regions.each do |region, region_number|
@@ -58,13 +53,29 @@ javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
-coffee:
-  $('#yearly_year').change ()->
-    year = $('#yearly_year').val()
-    window.location = '?date[year]=' + year
+  $('#overview-yearly').on('click', function() {
+    changeYearly();
+  });
 
-  $('#monthly_year, #monthly_month').change ()->
-    year = $('#monthly_year').val()
-    month = $('#monthly_month').val()
-    window.location = '?date[year]=' + year + '&date[month]=' + month
+  $('#overview-monthly').on('click', function() {
+    changeMonthly();
+  });
 
+  $('#yearly_year').on('change', function() {
+    changeYearly();
+  });
+
+  $('#monthly_year, #monthly_month').on('change', function() {
+    changeMonthly();
+  });
+
+  function changeYearly() {
+    var year = $('#yearly_year').val();
+    window.location = '?date[year]=' + year;
+  };
+
+  function changeMonthly() {
+    var year = $('#monthly_year').val();
+    var month = $('#monthly_month').val();
+    window.location = '?date[year]=' + year + '&date[month]=' + month;
+  };
