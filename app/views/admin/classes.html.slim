@@ -51,6 +51,12 @@
               { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
               { disabled: false, class: 'input-date' }
 
+<<<<<<< Updated upstream
+=======
+          #by_region.pull-right style='margin: 4px 15px 4px 0;'
+            = select_tag :region, options_for_select([["By region", nil]] + Event.options_for_regions, selected: @region)
+
+>>>>>>> Stashed changes
     = smart_listing_render(:events)
 
 .row
