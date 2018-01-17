@@ -119,4 +119,8 @@ module ApplicationHelper
       js += "<script type='text/ng-template' id='#{template_id.to_s}'>#{rendered}</script>"
     end
   end
+
+  def human_boolean(boolean)
+      boolean ? 'Yes' : 'No'
+  end
 end

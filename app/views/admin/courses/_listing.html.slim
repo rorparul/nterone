@@ -1,0 +1,24 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th = smart_listing.sortable "#{t('courses.partial_index.course_id')}", :course_id
+          th = smart_listing.sortable "#{t('courses.partial_index.course_title')}", :course_title
+          th
+            | Upcoming
+          th
+            | Archived
+          th
+            | Regions
+          th
+            | Parent Regions
+          th.fit[colspan="4"] = t('default.label.actions')
+
+      tbody
+        - smart_listing.collection.each do |course|
+          = render partial: 'admin/courses/listing_course', locals: { course: course }
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links

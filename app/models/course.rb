@@ -39,6 +39,7 @@ class Course < ActiveRecord::Base
   include Imageable
   include SlugValidation
   include Regions
+  include SearchCop
 
   mount_uploader :pdf, PdfUploader
 
@@ -65,6 +66,10 @@ class Course < ActiveRecord::Base
   has_many :testimonials
   has_many :events,                   dependent: :destroy
   has_many :video_on_demands,         dependent: :destroy
+
+  search_scope :custom_search do
+    attributes :id, :abbreviation, :title, :archived
+  end
 
   has_one  :image, as: :imageable, dependent: :destroy
 

@@ -252,6 +252,7 @@ NterOne::Application.routes.draw do
     end
     resources :params, controller: 'settings'
     resources :sales_goals
+    resources :courses
     get '/sales/overview' => 'sales#overview'
     get '/sales/details' => 'sales#details'
   end
@@ -275,7 +276,7 @@ NterOne::Application.routes.draw do
     get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
     get 'admin/classes',                             as: :admin_classes
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
-    get 'admin/courses',                             as: :admin_courses
+    # get 'admin/courses',                             as: :admin_courses
     get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
     get 'admin/announcements',                       as: :admin_announcements
     get 'admin/website',                             as: :admin_website
