@@ -52,7 +52,7 @@
               { disabled: false, class: 'input-date' }
 
           #by_region.pull-right style='margin: 4px 15px 4px 0;'
-            = select_tag :region, options_for_select([["By region", nil]] + Event.options_for_regions, selected: @region)
+            = select_tag :region, options_for_select([["All Regions", nil]] + Event.options_for_regions, selected: @region)
 
     = smart_listing_render(:events)
 
