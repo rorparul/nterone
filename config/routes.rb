@@ -253,8 +253,9 @@ NterOne::Application.routes.draw do
     resources :params, controller: 'settings'
     resources :sales_goals
     resources :courses
-    get '/sales/overview' => 'sales#overview'
-    get '/sales/details' => 'sales#details'
+    get '/sales/overview'         => 'sales#overview'
+    get '/sales/top_five_courses' => 'sales#top_five_courses'
+    get '/sales/details'          => 'sales#details'
   end
 
   namespace :exports do

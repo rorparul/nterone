@@ -1,14 +1,9 @@
-.div[style="position: relative; text-align: center; margin: auto;"]
-  .caption
-    h4
-      | {{ caption }}
-  .chart
-  .caption[style="position: absolute; bottom: 30px; width: 100%;"]
+div style="position: relative; margin: auto;"
+  .chart style="text-align: center;"
+  div style="position: absolute; bottom: 25px; left: 0; right: 0; text-align: center;"
     div
       b Current:
-      '
-      | {{ amount }}
+      |  {{ amount }}
     div
       b Target:
-      '
-      | {{ goal }}
+      |  {{ goal }}
