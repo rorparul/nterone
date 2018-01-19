@@ -1,0 +1,18 @@
+<% @top_five_courses_by_region.each do |region, courses| %>
+  $("#top_courses_by_revenue_<%= region.to_s %>").html(
+    "<table class='table'>" +
+      "<tbody>" +
+        <% courses.each do |course| %>
+          "<tr>" +
+            "<td>" +
+              "<%= escape_javascript(link_to course.abbreviation, platform_course_path(course.platform, course)) %>" +
+            "</td>" +
+            "<td>" +
+              "<%= escape_javascript(number_to_currency(course.temp_revenue)) %>" +
+            "</td>" +
+          "</tr>" +
+        <% end %>
+      "</tbody>" +
+    "</table>"
+  );
+<% end %>
