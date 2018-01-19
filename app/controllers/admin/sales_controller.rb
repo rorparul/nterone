@@ -1,5 +1,4 @@
 class Admin::SalesController < Admin::BaseController
-
   def overview
     @yearly = true
 
@@ -51,6 +50,31 @@ class Admin::SalesController < Admin::BaseController
     @total_percent = @total_goal.to_i > 0 ? (@total_amount / @total_goal * 100).round : 100
   end
 
+  def top_five_courses
+    dates = date_range(params[:yearly], params[:date])
+
+    @date_range_start = dates[:start]
+    @date_range_end   = dates[:end]
+
+    @top_five_courses_by_region = {}
+
+    @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
+      nil,
+      @date_range_start,
+      @date_range_end
+    ).first(5)
+
+    Event.origin_regions.each do |region, region_value|
+      @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
+        region,
+        @date_range_start,
+        @date_range_end
+      ).first(5)
+    end
+
+    @top_five_courses_by_region
+  end
+
   def details
     if params[:report]
       @started_at = parse_date_select(report_params, :started_at)
@@ -89,8 +113,21 @@ class Admin::SalesController < Admin::BaseController
 
   private
 
-    def report_params
-      params.require(:report)
-    end
+  def report_params
+    params.require(:report)
+  end
 
+  def date_range(yearly, date)
+    if true?(yearly)
+      {
+        start: Date.parse(date).beginning_of_year,
+        end:   Date.parse(date).end_of_year
+      }
+    else
+      {
+        start: Date.parse(date).beginning_of_month,
+        end:   Date.parse(date).end_of_month
+      }
+    end
+  end
 end

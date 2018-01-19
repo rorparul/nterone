@@ -34,6 +34,8 @@
 #
 
 class Course < ActiveRecord::Base
+  attr_accessor :temp_revenue
+
   extend FriendlyId
 
   include Imageable
@@ -76,6 +78,40 @@ class Course < ActiveRecord::Base
   before_save :format_slug
 
   scope :active, -> { where(archived: false) }
+
+  def self.top_courses_by_revenue(region = nil, date_range_start = nil, date_range_end = nil)
+    active.sort_by do |course|
+      course.temp_revenue = course.revenue(region, date_range_start, date_range_end)
+    end.reverse
+  end
+
+  def revenue(region = nil, date_range_start = nil, date_range_end = nil)
+    select_events = if region.nil? && date_range_start.nil? && date_range_end.nil?
+      events
+    else
+      if region.nil? && date_range_start.present? && date_range_end.present?
+        events.where(
+          'start_date >= ? and start_date <= ?',
+          date_range_start,
+          date_range_end
+        )
+      elsif date_range_start.nil? && date_range_end.nil?
+        events.where(
+          '? = any(active_regions)',
+          region
+        )
+      else
+        events.where(
+          '? = any(active_regions) and start_date >= ? and start_date <= ?',
+          region,
+          date_range_start,
+          date_range_end
+        )
+      end
+    end
+
+    select_events.inject(0) { |sum, event| sum += event.revenue }
+  end
 
   def active_events
     events.where(active: true).order(:start_date)

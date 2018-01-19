@@ -41,13 +41,37 @@
               #overview-monthly.tab-pane.fade role="tabpanel" class=(!@yearly ? pane_active_class : "")
                 = select_date @selected_date, prefix: :monthly, discard_day: true, order: [:year, :month]
     .container-muted
+      h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" All Regions
       .row
-        - Event.origin_regions.each do |region, region_number|
-          .col-xs-12.col-md-4
-            radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) caption=(region.humanize.split.map(&:capitalize).join(' ')) goal=(number_to_currency @region_goals[region_number])]
         .col-xs-12.col-md-4
-          radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) caption=("All Regions") goal=(number_to_currency @total_goal)]
-      .clearfix
+          radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) goal=(number_to_currency @total_goal)]
+        .col-xs-12.col-md-4
+          .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
+          div id="top_courses_by_revenue_all_regions"
+            div style="text-align: center; margin-top: 100px;"
+              i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+        / .col-xs-12.col-md-4
+        /   .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
+        /   div id="top_courses_by_margin_all_regions"
+        /     div style="text-align: center; margin-top: 100px;"
+        /       i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+    - Event.origin_regions.each do |region, region_number|
+      .container-muted
+        h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" = region.humanize.split.map(&:capitalize).join(' ')
+        .row
+          .col-xs-12.col-md-4
+            radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) goal=(number_to_currency @region_goals[region_number])]
+          .col-xs-12.col-md-4
+            .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
+            div id="top_courses_by_revenue_#{region}"
+              div style="text-align: center; margin-top: 100px;"
+                i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+          / .col-xs-12.col-md-4
+          /   .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
+          /   div id="top_courses_by_margin_#{region}"
+          /     div style="text-align: center; margin-top: 100px;"
+          /       i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+    .clearfix
 
 javascript:
   $('.role-tab').addClass('active');
@@ -79,3 +103,5 @@ javascript:
     var month = $('#monthly_month').val();
     window.location = '?date[year]=' + year + '&date[month]=' + month;
   };
+
+  $.get("#{admin_sales_top_five_courses_path + '?yearly=' + @yearly.to_s + '&date=' + @selected_date.to_s}");
