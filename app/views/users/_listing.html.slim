@@ -8,6 +8,7 @@
           th ID
           th = smart_listing.sortable t('default.label.first_name'), :first_name
           th = smart_listing.sortable t('default.label.last_name'), :last_name
+          th = "Phone Number"
           th = smart_listing.sortable t('default.label.email'), :email
           th = t('default.label.company')
           th Orders
@@ -35,6 +36,7 @@
             - else
               td = user.first_name
               td = user.last_name
+            td = user.contact_number
             td = user.email
             td
               - if user.company.present?

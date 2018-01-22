@@ -36,6 +36,9 @@
             li
               a href="#{contact_us_submissions_path}"
                 = t('layouts.partial_tabs.contact_us_submissions')
+            hr
+            li
+              = link_to t('layouts.partial_tabs.report'), new_reports_sale_path, remote: true
 
       - if policy(:admin).orders?
         li.orders role="presentation"

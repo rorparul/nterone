@@ -12,7 +12,7 @@ wb.styles do |style|
     sheet.add_row
     sheet.add_row [
       "",
-      "NterOne Company Pipeline"
+      "NterOne Company Sales Report"
     ], style: h1
     sheet.add_row
     sheet.add_row

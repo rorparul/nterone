@@ -109,9 +109,10 @@ class CompaniesController < ApplicationController
 
 	def create
 		@company = Company.new(company_params)
+
 		if @company.save
 			flash[:success] = "Company successfully created."
-      redirect_to :back
+      render js: "window.location = '#{request.referrer}';"
 		else
 			render 'shared/new'
 		end
@@ -122,7 +123,7 @@ class CompaniesController < ApplicationController
 			flash[:success] = "Company successfully updated."
 			redirect_to :back
 		else
-			render 'shared/edit'
+			render 'edit'
 		end
 	end
 

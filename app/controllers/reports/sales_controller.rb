@@ -31,7 +31,7 @@ class Reports::SalesController < ApplicationController
 
       respond_to do |format|
         format.xlsx do
-          render xlsx: 'sales_report', file: 'reports/sales/create_admin.xlsx.axlsx'
+          render xlsx: 'NterOne Company Sales Report', file: 'reports/sales/create_admin.xlsx.axlsx'
         end
       end
     else
@@ -39,7 +39,7 @@ class Reports::SalesController < ApplicationController
 
       respond_to do |format|
         format.xlsx do
-          render xlsx: 'sales_report', file: 'reports/sales/create_rep.xlsx.axlsx'
+          render xlsx: 'NterOne Company Sales Report', file: 'reports/sales/create_rep.xlsx.axlsx'
         end
       end
     end
