@@ -94,6 +94,7 @@ class OpportunitiesController < ApplicationController
       # flash[:success] = 'Opportunity successfully updated.'
       # redirect_to :back
     else
+      set_associations
       render 'shared/edit'
     end
   end
