@@ -150,6 +150,7 @@ es:
       te_cost: "Costo T&L:"
       total_cost: "Total Costo + Comisión:"
       vendor: "Fabricante:"
+      margin: "Margen"
     select_js:
       edit_event: "Editar Evento"
     student_registered_classes:

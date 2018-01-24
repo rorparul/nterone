@@ -180,6 +180,43 @@ class Event < ActiveRecord::Base
     order_items.where.not(order_id: nil).sum(:price)
   end
 
+  def margin
+    (net_revenue / revenue) * 100
+  end
+
+  def self.average_margin(region = nil, date_range_start = nil, date_range_end = nil)
+    select_events = if region.nil? && date_range_start.nil? && date_range_end.nil?
+      all
+    else
+      if region.nil? && date_range_start.present? && date_range_end.present?
+        where(
+          'start_date >= ? and start_date <= ?',
+          date_range_start,
+          date_range_end
+        )
+      elsif date_range_start.nil? && date_range_end.nil?
+        where(
+          'origin_region = ?',
+          region
+        )
+      else
+        where(
+          'origin_region = ? and start_date >= ? and start_date <= ?',
+          region,
+          date_range_start,
+          date_range_end
+        )
+      end
+    end
+
+    filtered_events = select_events.reject { |event| event.revenue == 0.0 }
+
+    number_of_events = filtered_events.count
+    margin_sum       = filtered_events.inject(0) { |sum, event| sum += event.margin }
+
+    margin_sum == 0 ? 0 : (number_of_events / margin_sum) * 100
+  end
+
   def revenue_by(user_id)
     order_items.where.not(order_id: nil).joins(:order).where(orders: { seller_id: user_id }).sum(:price)
   end

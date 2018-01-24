@@ -66,13 +66,27 @@ class Admin::SalesController < Admin::BaseController
 
     Event.origin_regions.each do |region, region_value|
       @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
-        region,
+        region_value,
         @date_range_start,
         @date_range_end
       ).first(5)
     end
 
-    @top_five_courses_by_region
+    @margin_by_region = {}
+
+    @margin_by_region['all_regions'] = Event.average_margin(
+      nil,
+      @date_range_start,
+      @date_range_end
+    )
+
+    Event.origin_regions.each do |region, region_value|
+      @margin_by_region[region] = Event.average_margin(
+        region_value,
+        @date_range_start,
+        @date_range_end
+      )
+    end
   end
 
   def details

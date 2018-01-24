@@ -150,6 +150,7 @@ en:
       te_cost: "T & E Cost:"
       total_cost: "Total Cost + Commission:"
       vendor: "Vendor:"
+      margin: "Margin"
     select_js:
       edit_event: "Edit Event"
     student_registered_classes:

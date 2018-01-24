@@ -96,52 +96,52 @@
                     td.text-right
                       strong
                         = t('events.partial_show.instructor_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_instructor, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_instructor, precision: 2)
                   tr
                     td.text-right
                       strong
                         = t('events.partial_show.lab_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_lab, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_lab, precision: 2)
                   tr
                     td.text-right
                       strong
                         = t('events.partial_show.te_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_te, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_te, precision: 2)
                   tr
                     td.text-right
                       strong
                         = t('events.partial_show.facility_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_facility, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_facility, precision: 2)
                   tr
                     td.text-right
                       strong
                         = t('events.partial_show.books_material_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_books, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_books, precision: 2)
                   tr
                     td.text-right
                       strong
                         = t('events.partial_show.shipping_cost')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_shipping, precision: 2))}"
+                    td.text-warning = number_to_currency(event.cost_shipping, precision: 2)
                   tr
                     td.text-right
-                      strong
-                        = t('events.partial_show.commission')
-                    td.text-warning = "$#{number_with_delimiter(number_with_precision(event.cost_commission, precision: 2))}"
+                      strong = t('events.partial_show.commission')
+                    td.text-warning = number_to_currency(event.cost_commission, precision: 2)
                   tr
                     td.text-right
-                      strong
-                        = t('events.partial_show.revenue')
-                    td = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
+                      strong = t('events.partial_show.revenue')
+                    td = number_to_currency(event.revenue, precision: 2)
                   tr
                     td.text-right
-                      strong
-                        = t('events.partial_show.total_cost')
-                    td.text-danger = "$#{number_with_delimiter(number_with_precision(event.total_cost, precision: 2))}"
+                      strong = t('events.partial_show.total_cost')
+                    td.text-danger = number_to_currency(event.total_cost, precision: 2)
                   tr
                     td.text-right
-                      strong
-                        = t('events.partial_show.net_revenue')
-                    td.text-success = "$#{number_with_delimiter(number_with_precision(event.net_revenue, precision: 2))}"
+                      strong = t('events.partial_show.net_revenue')
+                    td.text-success = number_to_currency(event.net_revenue, precision: 2)
+                  tr
+                    td.text-right
+                      strong = t('events.partial_show.margin')
+                    td.text-success = number_to_percentage(event.margin, precision: 2)
 
 .row
   .col-xs-12

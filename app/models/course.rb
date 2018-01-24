@@ -73,7 +73,7 @@ class Course < ActiveRecord::Base
     attributes :id, :abbreviation, :title, :archived
   end
 
-  has_one  :image, as: :imageable, dependent: :destroy
+  has_one :image, as: :imageable, dependent: :destroy
 
   accepts_nested_attributes_for :image
 
@@ -91,23 +91,23 @@ class Course < ActiveRecord::Base
   end
 
   def revenue(region = nil, date_range_start = nil, date_range_end = nil)
-    select_events = if region.nil? && date_range_start.nil? && date_range_end.nil?
-      events
+    select_opportunities = if region.nil? && date_range_start.nil? && date_range_end.nil?
+      opportunities.won
     else
       if region.nil? && date_range_start.present? && date_range_end.present?
-        events.where(
-          'start_date >= ? and start_date <= ?',
+        opportunities.won.where(
+          'date_closed >= ? and date_closed <= ?',
           date_range_start,
           date_range_end
         )
       elsif date_range_start.nil? && date_range_end.nil?
-        events.where(
-          '? = any(active_regions)',
+        opportunities.won.where(
+          'origin_region = ?',
           region
         )
       else
-        events.where(
-          '? = any(active_regions) and start_date >= ? and start_date <= ?',
+        opportunities.won.where(
+          'origin_region = ? and date_closed >= ? and date_closed <= ?',
           region,
           date_range_start,
           date_range_end
@@ -115,7 +115,7 @@ class Course < ActiveRecord::Base
       end
     end
 
-    select_events.inject(0) { |sum, event| sum += event.revenue }
+    select_opportunities.inject(0) { |sum, opportunitie| sum += opportunitie.amount }
   end
 
   def active_events
