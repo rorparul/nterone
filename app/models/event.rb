@@ -186,21 +186,21 @@ class Event < ActiveRecord::Base
 
   def self.average_margin(region = nil, date_range_start = nil, date_range_end = nil)
     select_events = if region.nil? && date_range_start.nil? && date_range_end.nil?
-      where(archive: false)
+      where(archived: false)
     else
       if region.nil? && date_range_start.present? && date_range_end.present?
-        where(archive: false).where(
+        where(archived: false).where(
           'start_date >= ? and start_date <= ?',
           date_range_start,
           date_range_end
         )
       elsif date_range_start.nil? && date_range_end.nil?
-        where(archive: false).where(
+        where(archived: false).where(
           'origin_region = ?',
           region
         )
       else
-        where(archive: false).where(
+        where(archived: false).where(
           'origin_region = ? and start_date >= ? and start_date <= ?',
           region,
           date_range_start,
