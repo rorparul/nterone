@@ -214,7 +214,7 @@ class Event < ActiveRecord::Base
     number_of_events = filtered_events.count
     margin_sum       = filtered_events.inject(0) { |sum, event| sum += event.margin }
 
-    margin_sum == 0 ? 0 : (number_of_events / margin_sum) * 100
+    margin_sum == 0 ? 0 : (number_of_events / margin_sum)
   end
 
   def revenue_by(user_id)
