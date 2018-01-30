@@ -191,7 +191,7 @@ class Event < ActiveRecord::Base
     else
       if region.nil? && date_range_start.present? && date_range_end.present?
         where(archived: false).where(
-          'start_date >= ? and start_date <= ?',
+          'end_date >= ? and end_date <= ?',
           date_range_start,
           date_range_end
         )
@@ -202,7 +202,7 @@ class Event < ActiveRecord::Base
         )
       else
         where(archived: false).where(
-          'origin_region = ? and start_date >= ? and start_date <= ?',
+          'origin_region = ? and end_date >= ? and end_date <= ?',
           region,
           date_range_start,
           date_range_end
