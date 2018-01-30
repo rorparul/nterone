@@ -58,6 +58,7 @@
 #  registration_email             :string
 #  site_id                        :string
 #  archived                       :boolean          default(FALSE)
+#  book_cost_per_student          :decimal(8, 2)    default(0.0)
 #
 # Indexes
 #
@@ -277,13 +278,14 @@ class Event < ActiveRecord::Base
   end
 
   def calculate_book_cost
-    platform_title = event_platform
-    case platform_title
+    case event_platform
     when "Cisco"
-      self.cost_books = 350.00 * student_count
+      book_cost = book_cost_per_student || 400.00
     when "VMware"
-      self.cost_books = 725.00 * student_count
+      book_cost = book_cost_per_student || 850.00
     end
+
+    self.cost_books = book_cost * student_count
   end
 
   def calculate_instructor_cost

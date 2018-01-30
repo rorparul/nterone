@@ -191,7 +191,14 @@
           .input-group
             span.input-group-addon $
             = f.text_field :cost_facility, data: { autonumeric: true }, class: 'form-control input-sm'
+
     .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :book_cost_per_student, t('events.partial_form.book_cost_per_student')
+          .input-group
+            span.input-group-addon $
+            = f.text_field :book_cost_per_student, data: { autonumeric: true }, class: 'form-control input-sm'
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_books, t('events.partial_form.cost_books')
@@ -202,13 +209,14 @@
             .input-group
               span.input-group-addon $
               = f.text_field :cost_books, data: { autonumeric: true }, class: 'auto-cost-textbox form-control input-sm', disabled: event.calculate_book_costs?
+
+    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_shipping, t('events.partial_form.cost_shipping')
           .input-group
             span.input-group-addon $
             = f.text_field :cost_shipping, data: { autonumeric: true }, class: 'form-control input-sm'
-    .row
       .col-xs-12.col-sm-6
         .form-group
           = f.label :cost_commission, t('events.partial_form.cost_commission')

@@ -151,6 +151,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(
       :active,
       :autocalculate_instructor_costs,
+      :book_cost_per_student,
       :calculate_book_costs,
       :city,
       :cost_books,

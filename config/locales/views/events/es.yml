@@ -17,7 +17,8 @@ es:
     partial_form:
       active: "Activo"
       city: "Ciudad"
-      cost_books: "Costo Kit de Estudiante"
+      book_cost_per_student: "Costo del Libro por Estudiante"
+      cost_books: "Costo Total de Libros"
       cost_facility: "Costo Instalaciones"
       cost_instructor: "Costo Instructor"
       cost_lab: "Costo Laboratorio"
