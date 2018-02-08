@@ -283,6 +283,8 @@ class Event < ActiveRecord::Base
       book_cost = book_cost_per_student || 400.00
     when "VMware"
       book_cost = book_cost_per_student || 850.00
+    else
+      book_cost = book_cost_per_student || 400.00
     end
 
     self.cost_books = book_cost * student_count
