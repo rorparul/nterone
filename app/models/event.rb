@@ -280,11 +280,11 @@ class Event < ActiveRecord::Base
   def calculate_book_cost
     case event_platform
     when "Cisco"
-      book_cost = book_cost_per_student || 400.00
+      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
     when "VMware"
-      book_cost = book_cost_per_student || 850.00
+      book_cost = book_cost_per_student == 0 ? 850.00 : book_cost_per_student
     else
-      book_cost = book_cost_per_student || 400.00
+      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
     end
 
     self.cost_books = book_cost * student_count
