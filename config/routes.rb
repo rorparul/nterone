@@ -337,9 +337,6 @@ NterOne::Application.routes.draw do
   get  '/:company_slug/lab-reservations/new'         => 'lab_rentals#new',                          as: :new_company_lab_reservations
   get  '/:company_slug/lab-reservations/:id/edit'    => 'lab_rentals#edit',                         as: :edit_company_lab_reservations
   get  'sims/versastack'                             => 'general#sims',                             as: :sims
-  get  '/nci'                                        => 'general#nci',                              as: :nci
-  get  '/nci/engineers'                              => 'general#nci_engineers',                    as: :nci_engineers
-  get  '/nci/cisco_program_administrators'           => 'general#nci_cisco_program_administrators', as: :nci_cisco_program_administrators
   get  '/support'                                    => 'general#support',                          as: :support
   get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',             as: :cisco_learning_credits
   get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',              as: :cisco_self_paced

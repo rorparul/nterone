@@ -12,7 +12,6 @@ SitemapGenerator::Sitemap.create do
   add partners_path
   add labs_path
   add platforms_path
-  add nci_path
 
   Article.current_region.find_each do |article|
     add article_path(article), lastmod: article.updated_at

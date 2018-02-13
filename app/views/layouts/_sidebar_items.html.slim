@@ -38,9 +38,6 @@ li = link_to main_app.partners_path, class: "partners-tab" do
 li = link_to main_app.labs_path, class: "labs-tab" do
   span.fa.fa-server
   span = t('layouts.partial_side_items.labs')
-li = link_to main_app.nci_path, class: "nci-tab" do
-  span.fa.fa-check-square-o
-  span.text = t('layouts.partial_sidebar.nci')
 - if !user_signed_in? || (user_signed_in? && current_user.member?)
   li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
     span.fa.fa-envelope-o
