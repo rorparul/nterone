@@ -26,5 +26,12 @@ class Article < ActiveRecord::Base
 
   validates :kind, :title, :content, presence: true
 
-  friendly_id :title, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :title,
+      [:origin_region, :title]
+    ]
+  end
 end
