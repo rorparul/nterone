@@ -33,7 +33,14 @@ class Video < ActiveRecord::Base
 
   validates :title, :embed_code, presence: true
 
-  friendly_id :title, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :title,
+      [:origin_region, :title]
+    ]
+  end
 
   def permit_user?(user)
     video_module.video_on_demand.purchased_by?(user) || video_module.video_on_demand.assigned_to?(user)

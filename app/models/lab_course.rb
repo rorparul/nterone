@@ -33,7 +33,8 @@ class LabCourse < ActiveRecord::Base
   def slug_candidates
     [
       :title,
-      [:title, :abbreviation]
+      [:title, :abbreviation],
+      [:origin_region, :title, :abbreviation]
     ]
   end
 

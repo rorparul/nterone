@@ -47,7 +47,14 @@ class LmsExam < ActiveRecord::Base
 
   accepts_nested_attributes_for :lms_exam_questions, reject_if: :all_blank, allow_destroy: true
 
-  friendly_id :title, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
+  def slug_candidates
+    [
+      :title,
+      [:origin_region, :title]
+    ]
+  end
 
   def completed_by?(user)
     completed = false

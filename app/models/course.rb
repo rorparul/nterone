@@ -50,7 +50,8 @@ class Course < ActiveRecord::Base
   def slug_candidates
     [
       :abbreviation,
-      [:abbreviation, :title]
+      [:abbreviation, :title],
+      [:origin_region, :abbreviation, :title]
     ]
   end
 
