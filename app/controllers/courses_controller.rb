@@ -172,6 +172,7 @@ class CoursesController < ApplicationController
                                    :cisco_id,
                                    :archived,
                                    :origin_region,
+                                   :book_cost_per_student,
                                    active_regions: [],
                                    category_ids: [])
   end
