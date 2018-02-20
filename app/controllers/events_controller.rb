@@ -17,6 +17,7 @@ class EventsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
     @event    = @course.events.build
+    @event.assign_attributes(book_cost_per_student: @course.book_cost_per_student)
   end
 
   def create
