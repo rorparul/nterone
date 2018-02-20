@@ -37,10 +37,7 @@ class Category < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
   def slug_candidates
-    [
-      :title,
-      [:origin_region, :title]
-    ]
+    [:title, [:title, :origin_region]]
   end
 
   belongs_to :platform

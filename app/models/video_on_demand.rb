@@ -48,7 +48,7 @@ class VideoOnDemand < ActiveRecord::Base
     [
       :abbreviation,
       [:abbreviation, :title],
-      [:origin_region, :abbreviation, :title]
+      [:abbreviation, :title, :origin_region]
     ]
   end
 

@@ -32,7 +32,7 @@ class Platform < ActiveRecord::Base
   def slug_candidates
     [
       :title,
-      [:origin_region, :title]
+      [:title, :origin_region]
     ]
   end
 

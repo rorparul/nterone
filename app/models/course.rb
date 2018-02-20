@@ -49,11 +49,7 @@ class Course < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
   def slug_candidates
-    [
-      :abbreviation,
-      [:abbreviation, :title],
-      [:origin_region, :abbreviation, :title]
-    ]
+    [:abbreviation, [:abbreviation, :title], [:abbreviation, :title, :origin_region]]
   end
 
   belongs_to :platform

@@ -34,7 +34,7 @@ class LabCourse < ActiveRecord::Base
     [
       :title,
       [:title, :abbreviation],
-      [:origin_region, :title, :abbreviation]
+      [:title, :abbreviation, :origin_region]
     ]
   end
 
