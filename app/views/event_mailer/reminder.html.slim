@@ -3,5 +3,5 @@ p
   = link_to @event.course.full_title, platform_course_url(@event.course.platform, @event.course), target: "_blank"
   = "#{t('event_mailer.reminder.copy2')} #{@event.start_date.strftime('%-m/%-d/%y')}."
 
-p 
+p
   = t('event_mailer.reminder.copy3')

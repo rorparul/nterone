@@ -31,7 +31,7 @@
 #  sent_all_webex_invite          :boolean          default(FALSE)
 #  sent_all_course_material       :boolean          default(FALSE)
 #  sent_all_lab_credentials       :boolean          default(FALSE)
-#  should_remind                  :boolean          default(TRUE)
+#  should_remind                  :boolean          default(FALSE)
 #  remind_period                  :integer          default(0)
 #  reminder_sent                  :boolean          default(FALSE)
 #  note                           :text

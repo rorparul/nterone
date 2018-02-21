@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220051331) do
+ActiveRecord::Schema.define(version: 20180221151320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,7 +418,7 @@ ActiveRecord::Schema.define(version: 20180220051331) do
     t.boolean  "sent_all_webex_invite",                                  default: false
     t.boolean  "sent_all_course_material",                               default: false
     t.boolean  "sent_all_lab_credentials",                               default: false
-    t.boolean  "should_remind",                                          default: true
+    t.boolean  "should_remind",                                          default: false
     t.integer  "remind_period",                                          default: 0
     t.boolean  "reminder_sent",                                          default: false
     t.text     "note"
