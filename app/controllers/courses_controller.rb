@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
 
   def show
     @platform = Platform.find(params[:platform_id])
-    @course   = Course.find(params[:id])
+    authorize @course = Course.find(params[:id])
   end
 
   def create

@@ -63,7 +63,7 @@ class EventsController < ApplicationController
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
 
-    # EventReminderWorker.new.perform
+    EventReminderWorker.new.perform
 
     if @event.update_attributes(event_params)
       flash[:success] = 'Event successfully updated!'

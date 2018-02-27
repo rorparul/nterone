@@ -6,6 +6,7 @@ class LabCoursesController < ApplicationController
 	before_action :authorize_lab_course, except: [:show, :time_select]
 
 	def show
+		authorize @lab_course
 		@time_blocks			= @lab_course.lab_course_time_blocks.where(level: 'individual').order(:price)
 		@time_zones				= [["United States Time Zones", ActiveSupport::TimeZone.us_zones.uniq],["All Time Zones", ActiveSupport::TimeZone.all.uniq]]
 		@time_zone 				= Time.zone.name

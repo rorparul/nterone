@@ -9,8 +9,8 @@ class CategoriesController < ApplicationController
 
   def show
     session[:last_category_url] = request.url
-
-    @platform   = Platform.find(params[:platform_id])
+    authorize @category
+    @platform = Platform.find(params[:platform_id])
     @categories = @platform.parent_categories.order(:position).includes(:children)
     @items = category_items(@category)
 

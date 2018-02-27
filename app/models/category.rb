@@ -57,13 +57,13 @@ class Category < ActiveRecord::Base
 
   def items
     items = []
-    self.subjects.where(active: true).each do |subject|
+    self.subjects.current_region.where(active: true, archived: false).each do |subject|
       items << subject if items.exclude?(subject)
     end
-    self.courses.where(active: true).each do |course|
+    self.courses.current_region.where(active: true, archived: false).each do |course|
       items << course if items.exclude?(course)
     end
-    self.video_on_demands.where(active: true).each do |video_on_demand|
+    self.video_on_demands.current_region.where(active: true, archived: false).each do |video_on_demand|
       items << video_on_demand if items.exclude?(video_on_demand)
     end
     sorted(items)
@@ -72,13 +72,13 @@ class Category < ActiveRecord::Base
   def children_items
     items = []
     self.children.each do |child|
-      child.subjects.where(active: true).each do |subject|
+      child.subjects.current_region.where(active: true, archived: false).each do |subject|
         items << subject if items.exclude?(subject)
       end
-      child.courses.where(active: true).each do |course|
+      child.courses.current_region.where(active: true, archived: false).each do |course|
         items << course if items.exclude?(course)
       end
-      child.video_on_demands.where(active: true).each do |video_on_demand|
+      child.video_on_demands.current_region.where(active: true, archived: false).each do |video_on_demand|
         items << video_on_demand if items.exclude?(video_on_demand)
       end
     end

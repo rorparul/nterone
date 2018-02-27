@@ -39,7 +39,7 @@ class VideoOnDemandsController < ApplicationController
 
   def show
     @platform        = Platform.find(params[:platform_id])
-    @video_on_demand = VideoOnDemand.find(params[:id])
+    authorize @video_on_demand = VideoOnDemand.find(params[:id])
     @purchased       = vod_purchased?
   end
 
