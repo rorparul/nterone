@@ -71,13 +71,17 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:header, :subject_ids,
-      group_items_attributes: [:id,
-                               :position,
-                               :groupable_type,
-                               :groupable_id,
-                               :updated_at,
-                               :_destroy]
-    )
+    params.require(:group).permit(
+      :header,
+      :origin_region,
+      :subject_ids,
+      active_regions: [],
+      group_items_attributes: [
+        :_destroy,
+        :groupable_id,
+        :groupable_type,
+        :id,
+        :position,
+        :updated_at])
   end
 end

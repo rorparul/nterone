@@ -49,3 +49,10 @@ html[ng-app="nterone"]
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
     == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
+
+javascript:
+  $(document).keydown(function(e) {
+    if (e.keyCode == 27) {
+      $(".alert").remove();
+    };
+  });

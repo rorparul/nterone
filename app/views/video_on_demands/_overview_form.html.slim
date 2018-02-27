@@ -9,6 +9,8 @@
           - video_on_demand.errors.full_messages.each do |msg|
             li = msg
 
+    = render partial: 'shared/region_inputs', locals: { model: VideoOnDemand, f: f }
+
     .row
       .col-xs-12.col-md-3
         .form-group

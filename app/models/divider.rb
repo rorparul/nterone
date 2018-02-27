@@ -24,9 +24,11 @@ class Divider < ActiveRecord::Base
 
   has_many :group_items, as: :groupable, dependent: :destroy
 
-  before_save :strip_content
-
   validates :content, presence: true
+
+  after_initialize :set_all_regions, if: :new_record?
+  
+  before_save :strip_content
 
   private
 

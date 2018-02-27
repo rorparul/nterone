@@ -8,15 +8,17 @@
         ul
           - custom_item.errors.full_messages.each do |msg|
             li = msg
-            
+
+    = render partial: 'shared/region_inputs', locals: { model: CustomItem, f: f }
+
     .form-group
       = f.label :shortname, t('custom_items.partial_form.label')
       = f.text_field :shortname, class: 'form-control input-sm'
-            
+
     .form-group
       = f.label :content, t('custom_items.partial_form.content')
       = f.text_area :content, class: 'form-control input-sm'
-      
+
     .form-buttons
       button.btn.btn-success type="submit"
         = t('default.action.save')

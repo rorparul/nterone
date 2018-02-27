@@ -28,4 +28,6 @@ class CustomItem < ActiveRecord::Base
 
   validates :shortname, presence: true
   validates :content,   presence: true
+
+  after_initialize :set_all_regions, if: :new_record?
 end

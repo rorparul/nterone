@@ -58,10 +58,13 @@ class CustomItemsController < ApplicationController
   private
 
   def custom_item_params
-    params.require(:custom_item).permit(:id,
-                                        :content,
-                                        :shortname,
-                                        :url,
-                                        :is_header)
+    params.require(:custom_item).permit(
+      :content,
+      :id,
+      :is_header,
+      :origin_region,
+      :shortname,
+      :url,
+      active_regions: [])
   end
 end

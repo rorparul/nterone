@@ -11,6 +11,8 @@
 
     = f.hidden_field :subject_ids, value: subject.id
 
+    = render partial: 'shared/region_inputs', locals: { model: Group, f: f }
+
     .form-group
       = f.label :header, t('groups.partial_form.header')
       = f.text_field :header, class: 'form-control input-sm'

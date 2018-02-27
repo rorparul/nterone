@@ -1,5 +1,6 @@
 .form-container
   = form_for discount do |f|
+    = render partial: 'shared/region_inputs', locals: { model: Discount, f: f }
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -17,7 +18,7 @@
       = t('discounts.partial_form.percent')
       = f.radio_button :kind, "nominal", style: 'margin-left: 10px; margin-right: 5px;'
       = t('discounts.partial_form.nominal')
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -29,7 +30,7 @@
           = f.label :date_end, t('discounts.partial_form.end_date')
           br
           = f.date_select :date_end, { include_blank: true }, { required: false }
-          
+
     .row
       .col-xs-12.col-sm-6
         .form-group
@@ -39,11 +40,11 @@
         .form-group
           = f.label :active, t('discounts.partial_form.active')
           = f.check_box :active, class: 'form-control input-sm'
-          
+
     hr
-    
+
     h4 = t('discounts.partial_form.applicable_items')
-    
+
     = f.fields_for :discount_filter, remote: true do |ff|
       .panel.panel-default
         .panel-heading

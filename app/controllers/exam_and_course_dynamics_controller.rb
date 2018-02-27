@@ -61,9 +61,12 @@ class ExamAndCourseDynamicsController < ApplicationController
   private
 
   def exam_and_course_dynamic_params
-    params.require(:exam_and_course_dynamic).permit(:id,
-                                                    :label,
-                                                    exam_ids: [],
-                                                    course_ids: [])
+    params.require(:exam_and_course_dynamic).permit(
+      :id,
+      :label,
+      :origin_region,
+      active_regions: [],
+      course_ids: [],
+      exam_ids: [])
   end
 end

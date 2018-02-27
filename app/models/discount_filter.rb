@@ -28,4 +28,6 @@ class DiscountFilter < ActiveRecord::Base
   include Regions
 
   belongs_to :discount
+
+  after_initialize :set_all_regions, if: :new_record?
 end

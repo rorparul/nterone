@@ -93,15 +93,17 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(
-      :id,
-      :parent_id,
-      :title,
-      :page_title,
-      :heading,
       :description,
+      :heading,
+      :id,
       :meta_description,
+      :origin_region,
+      :page_title,
+      :parent_id,
       :position,
-      :video
+      :title,
+      :video,
+      active_regions: []
     )
   end
 end

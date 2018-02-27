@@ -77,6 +77,8 @@ class VideoOnDemand < ActiveRecord::Base
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
   validates_associated :categories
 
+  after_initialize :set_all_regions, if: :new_record?
+
   scope :active, -> { where(archived: false) }
   scope :lms, -> { where(lms: true) }
 
