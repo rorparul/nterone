@@ -285,6 +285,11 @@ class User < ActiveRecord::Base
     count
   end
 
+  def show_tasks?
+    return false unless self.has_any_role? [:sales_manager, :sales_rep]
+    return true if settings.task_popup_time && settings.task_popup_time < (Time.now - 6.hours)
+  end
+
   def new_my_plan_count
     self.planned_subjects.where(active: true, read: false).count
   end
