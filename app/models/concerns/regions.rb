@@ -1,8 +1,5 @@
 module Regions
   extend ActiveSupport::Concern
-  # ============================================================================
-  # Class Methods ==============================================================
-  # ============================================================================
   included do
     scope :current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(self.get_session_region)}}") }
 
@@ -29,9 +26,6 @@ module Regions
     end
   end
 
-  # ============================================================================
-  # Instance Methods ===========================================================
-  # ============================================================================
   def current_region_as_key
     self.class.origin_regions.key(current_region_as_value)
   end
