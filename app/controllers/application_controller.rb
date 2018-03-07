@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :get_alert_counts
   before_action :update_request_urls
   before_action :set_gon
+  before_action :set_task_popup_time
 
   after_action  :store_location
 
@@ -46,6 +47,13 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     if current_user.blank? || !current_user.admin?
       redirect_to root_path, alert: 'you are not authorized'
+    end
+  end
+
+  def set_task_popup_time
+    if current_user
+      @show_task_popup = true if current_user.show_tasks?
+      current_user.settings.task_popup_time = Time.now
     end
   end
 
