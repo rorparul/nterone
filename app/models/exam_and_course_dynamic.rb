@@ -31,4 +31,6 @@ class ExamAndCourseDynamic < ActiveRecord::Base
   accepts_nested_attributes_for :courses, reject_if: :all_blank, allow_destroy: true
 
   validates :label, :course_dynamics, :exam_dynamics, presence: true
+
+  after_initialize :set_all_regions, if: :new_record?
 end

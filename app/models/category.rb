@@ -53,6 +53,8 @@ class Category < ActiveRecord::Base
 
   validates :title, presence: true
 
+  after_initialize :set_all_regions, if: :new_record?
+
   scope :active, -> { where(archived: false) }
 
   def items

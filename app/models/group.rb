@@ -28,4 +28,6 @@ class Group < ActiveRecord::Base
 
   validates            :header, presence: true
   validates_associated :group_items
+
+  after_initialize :set_all_regions, if: :new_record?
 end

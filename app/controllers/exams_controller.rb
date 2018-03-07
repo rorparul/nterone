@@ -57,6 +57,10 @@ class ExamsController < ApplicationController
   private
 
   def exam_params
-    params.require(:exam).permit(:id, :title)
+    params.require(:exam).permit(
+      :id,
+      :origin_region,
+      :title,
+      active_regions: [])
   end
 end

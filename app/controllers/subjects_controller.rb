@@ -107,16 +107,19 @@ class SubjectsController < ApplicationController
   end
 
   def subject_params
-    params.require(:subject).permit(:id,
-                                    :page_title,
-                                    :page_description,
-                                    :title,
-                                    :abbreviation,
-                                    :heading,
-                                    :description,
-                                    :type,
-                                    :partner_led,
-                                    :active,
-                                    category_ids: [])
+    params.require(:subject).permit(
+      :abbreviation,
+      :active,
+      :description,
+      :heading,
+      :id,
+      :origin_region,
+      :page_description,
+      :page_title,
+      :partner_led,
+      :title,
+      :type,
+      active_regions: [],
+      category_ids: [])
   end
 end

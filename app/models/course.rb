@@ -78,6 +78,8 @@ class Course < ActiveRecord::Base
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
 
+  after_initialize :set_all_regions, if: :new_record?
+
   before_save :format_slug
 
   scope :active, -> { where(archived: false) }

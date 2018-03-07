@@ -56,6 +56,8 @@ class Platform < ActiveRecord::Base
   validates :title, presence: true
   validates_associated :image
 
+  after_initialize :set_all_regions, if: :new_record?
+
   after_save :archive_associations,   if: proc { |model| model.archived_changed? && model.archived? == true }
   after_save :unarchive_associations, if: proc { |model| model.archived_changed? && model.archived? == false }
 

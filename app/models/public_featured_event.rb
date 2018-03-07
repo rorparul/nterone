@@ -35,4 +35,6 @@ class PublicFeaturedEvent < ActiveRecord::Base
   include Regions
 
   belongs_to :cloned_event, class_name: "Event", foreign_key: "event_id"
+
+  after_initialize :set_all_regions, if: :new_record?
 end

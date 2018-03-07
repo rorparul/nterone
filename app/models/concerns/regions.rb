@@ -2,7 +2,7 @@ module Regions
   extend ActiveSupport::Concern
 
   def current_region_available?
-    active_regions.include? Course.origin_regions.key(self.get_session_region)
+    active_regions.include? self.origin_regions.key(self.get_session_region)
   end
 
   included do
@@ -13,8 +13,6 @@ module Regions
       latin_america: 1,
       canada: 2
     }
-
-    # default_scope { where(origin_region: self.get_session_region) }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
   end
@@ -47,6 +45,10 @@ module Regions
     else
       try(:session) && session[:region] || 0
     end
+  end
+
+  def set_all_regions
+    self.active_regions = self.class.origin_regions.keys
   end
 
   private

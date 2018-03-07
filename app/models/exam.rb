@@ -27,4 +27,6 @@ class Exam < ActiveRecord::Base
   has_many :users,                    through: :passed_exams
 
   validates :title, presence: true
+
+  after_initialize :set_all_regions, if: :new_record?
 end
