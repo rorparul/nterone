@@ -10,8 +10,4 @@ module NilUsers
   def ensure_user_present
     raise Pundit::NotAuthorizedError, "User must be logged in" unless user.present?
   end
-
-  # def this_method_name
-  #   caller[5] =~ /`([^']*)'/ and $1
-  # end
 end

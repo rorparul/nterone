@@ -83,7 +83,7 @@ class GeneralController < ApplicationController
 
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
-    @platforms = Platform.active.current_region.where(archived: false).order(:title)
+    @platforms = Platform.active.current_region.order(:title)
 
     respond_to do |format|
       format.xlsx
