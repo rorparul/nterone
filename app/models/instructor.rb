@@ -33,6 +33,8 @@ class Instructor < ActiveRecord::Base
   validates_presence_of   :first_name, :last_name, :email
   validates_uniqueness_of :email
 
+  after_initialize :set_all_regions, if: :new_record?
+
   def full_name
     "#{first_name} #{last_name}"
   end

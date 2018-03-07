@@ -8,11 +8,13 @@
         ul
           - exam.errors.full_messages.each do |msg|
             li = msg
-            
+
+    = render partial: 'shared/region_inputs', locals: { model: Exam, f: f }
+
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
-      
+
     .form-buttons
       button.btn.btn-success type="submit"
         = t('default.action.save')

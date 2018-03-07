@@ -57,6 +57,8 @@ class Subject < ActiveRecord::Base
   validates :categories, :title, :abbreviation, presence: true
   validates_associated :categories
 
+  after_initialize :set_all_regions, if: :new_record?
+
   scope :active, -> { where(archived: false) }
 
   def full_title

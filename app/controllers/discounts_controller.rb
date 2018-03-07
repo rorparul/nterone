@@ -43,7 +43,9 @@ class DiscountsController < ApplicationController
       :date_start,
       :kind,
       :limit,
+      :origin_region,
       :value,
+      active_regions: [],
       discount_filter_attributes: [
         :discount_id,
         :event,

@@ -57,6 +57,10 @@ class DividersController < ApplicationController
   private
 
   def divider_params
-    params.require(:divider).permit(:id, :content)
+    params.require(:divider).permit(
+      :content,
+      :id,
+      :origin_region,
+      active_regions: [])
   end
 end

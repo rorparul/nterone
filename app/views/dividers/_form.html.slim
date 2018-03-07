@@ -8,11 +8,13 @@
         ul
           - divider.errors.full_messages.each do |msg|
             li = msg
-            
+
+    = render partial: 'shared/region_inputs', locals: { model: Divider, f: f }
+
     .form-group
       = f.label :content, t('default.label.content')
       = f.text_field :content, class: 'form-control'
-      
+
     .form-buttons
       button.btn.btn-success type="submit" Save
       button.btn.btn-default type="button" data-dismiss="modal"

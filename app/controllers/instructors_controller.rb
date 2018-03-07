@@ -86,11 +86,14 @@ class InstructorsController < ApplicationController
   private
 
   def instructor_params
-    params.require(:instructor).permit(:id,
-                                       :first_name,
-                                       :last_name,
-                                       :email,
-                                       :phone,
-                                       :biography)
+    params.require(:instructor).permit(
+      :biography,
+      :email,
+      :first_name,
+      :id,
+      :last_name,
+      :origin_region,
+      :phone,
+      active_regions: [])
   end
 end
