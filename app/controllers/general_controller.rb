@@ -62,7 +62,7 @@ class GeneralController < ApplicationController
 
   def labs
     @page        = Page.find_by(title: 'Labs')
-    @lab_courses = LabCourse.where.not(level: 'partner').order(:title)
+    @lab_courses = LabCourse.current_region.where.not(level: 'partner').order(:title)
   end
 
   def nci
@@ -83,7 +83,7 @@ class GeneralController < ApplicationController
 
   def featured_classes
     @page      = Page.find_by(title: 'Featured Classes')
-    @platforms = Platform.active.order(:title)
+    @platforms = Platform.active.current_region.order(:title)
 
     respond_to do |format|
       format.xlsx

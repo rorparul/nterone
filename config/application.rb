@@ -30,6 +30,7 @@ module NterOne
 
     config.autoload_paths += %W(#{config.root}/app/workers)
     config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/app/policies/concerns)
 
     config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'

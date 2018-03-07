@@ -43,7 +43,7 @@
                       th
                       th
                 tbody
-                  - platform.upcoming_public_featured_events.current_region.each do |event|
+                  - platform.upcoming_public_featured_events.current_region.where(archived: false).each do |event|
                     tr
                       td = link_to event.course.full_title, platform_course_path(event.course.platform, event.course)
                       td
