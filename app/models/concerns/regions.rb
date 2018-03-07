@@ -1,10 +1,6 @@
 module Regions
   extend ActiveSupport::Concern
 
-  def current_region_available?
-    active_regions.include? self.origin_regions.key(self.get_session_region)
-  end
-
   included do
     scope :current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(self.get_session_region)}}") }
 
@@ -49,6 +45,10 @@ module Regions
 
   def set_all_regions
     self.active_regions = self.class.origin_regions.keys
+  end
+
+  def current_region_available?
+    active_regions.include? self.class.origin_regions.key(self.get_session_region)
   end
 
   private
