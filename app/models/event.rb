@@ -104,7 +104,8 @@ class Event < ActiveRecord::Base
 
   before_destroy :ensure_not_purchased_or_in_cart
 
-  after_destroy :destroy_gtr_alert
+  # NOTE: Uncomment after the new events have been uploaded without problems
+  # after_destroy :destroy_gtr_alert
 
   validates :course, :price, :format, :start_date, :end_date, :start_time, :end_time, presence: true
   # validates :course_id, uniqueness: { scope: [:start_date, :end_date, :format] }

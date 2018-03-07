@@ -107,6 +107,7 @@ class EventsController < ApplicationController
                         "<thead>" +
                           "<tr>" +
                             "<th>Course ID</th>" +
+                            "<th>Abbreviation</th>" +
                             "<th>Language</th>" +
                             "<th>Country Code</th>" +
                             "<th>Location Name</th>" +
@@ -215,6 +216,7 @@ class EventsController < ApplicationController
     events.each do |event|
       rows += "<tr>" +
                 "<td>#{event[:cisco_id]}</td>" +
+                "<td>#{event[:abbreviation]}</td>" +
                 "<td>#{event[:language]}</td>" +
                 "<td>#{event[:country_code]}</td>" +
                 "<td>#{event[:location]}</td>" +

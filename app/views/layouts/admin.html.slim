@@ -52,3 +52,9 @@ html[ng-app="nterone"]
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
     == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
+
+- if @show_task_popup
+  javascript:
+    $(document).ready(function() {
+      $.get("/tasks", {});
+    });
