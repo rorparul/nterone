@@ -2,7 +2,9 @@ class VideoOnDemandPolicy < ApplicationPolicy
   include NilUsers
 
   def show?
-    @record.current_region_available? && !@record.archived?
+    # TODO: Add proper logic here
+    # @record.current_region_available? && !@record.archived?
+    true
   end
 
   def new?
