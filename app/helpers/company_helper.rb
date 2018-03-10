@@ -3,12 +3,10 @@ module CompanyHelper
     [
       ['Channel Partner'],
       ['Cisco'],
-      ['Direct Customer'],
+      ['Commercial / Enterprise'],
       ['Distributor'],
-      ['Service Provider'],
-      ['Training Resell Partner'],
-      ['Vendor'],
-      ['VMware']
+      ['Federal'],
+      ['SLED']
     ]
   end
 
