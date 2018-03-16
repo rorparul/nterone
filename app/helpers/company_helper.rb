@@ -1,6 +1,6 @@
 module CompanyHelper
   def kind_options
-    [
+    new_options = [
       ["Channel Partner"],
       ["Cisco"],
       ["Commercial / Enterprise"],
@@ -8,6 +8,22 @@ module CompanyHelper
       ["Federal"],
       ["SLED"]
     ]
+
+    old_options = [
+      ['Direct Customer'],
+      ['Service Provider'],
+      ['Training Resell Partner'],
+      ['Vendor'],
+      ['VMware']
+    ]
+
+    if @company && old_options.include?([@company.kind])
+      new_options = new_options.map {|e| [e[0] + ' (Active - SELECT ONE)', e[0]]}
+      old_options = old_options.map {|e| [e[0] + ' (Depreciated - DO NOT USE)', e[0]]}
+      return new_options + old_options
+    end
+
+    return new_options
   end
 
   def industry_code_options
