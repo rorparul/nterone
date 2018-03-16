@@ -44,6 +44,8 @@ class Company < ActiveRecord::Base
   has_many :account_opportunities, class_name: 'Opportunity', foreign_key: 'account_id'
   has_many :partner_opportunities, class_name: 'Opportunity', foreign_key: 'partner_id'
 
+  validates :title, :industry_code, presence: true
+
   before_create :create_slug
 
   after_save :reassign_company_users, if: proc { |model| model.user_id_changed? }
