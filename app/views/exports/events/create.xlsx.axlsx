@@ -5,30 +5,52 @@ wb.styles do |style|
 
   wb.add_worksheet(name: 'Default') do |sheet|
     headers = [
-      "Acronym",
-      "Title",
       "Start Date",
-      "End Date",
-      "Delivery",
       "Start Time",
+      "End Date",
       "End Time",
+      "Time Zone",
+      "Acronym",
+      "Vendor",
       "Price",
-      "Duration"
+      "Duration",
+      "Duration Unit",
+      "Course ID",
+      "Language",
+      "Country",
+      "Location Name",
+      "Street Address",
+      "City",
+      "State Prov",
+      "Zip Code",
+      "Delivery Type",
+      "Registration URL"
     ]
 
     sheet.add_row headers, style: Array.new(headers.size, color)
 
     @events.each do |event|
       sheet.add_row [
-        event.course.abbreviation,
-        event.course.title,
-        event.start_date.strftime('%m/%d/%Y'),
-        event.end_date.strftime('%m/%d/%Y'),
-        event.format,
+        event.start_date.strftime('%-m/%-d/%Y'),
         event.start_time.strftime('%H:%M:%S'),
+        event.end_date.strftime('%-m/%-d/%Y'),
         event.end_time.strftime('%H:%M:%S'),
-        number_with_precision(event.price, precision: 2),
-        event.length
+        formatted_time_zone(event.time_zone),
+        event.course.abbreviation,
+        event.platform.title,
+        event.price,
+        event.length,
+        "Days",
+        event.course.cisco_id,
+        formatted_language(event.language),
+        event.country_code,
+        event.format == 'Live Online' ? event.format : event.city,
+        event.street,
+        event.city,
+        event.state,
+        event.zipcode,
+        event.format,
+        platform_course_url(event.course.platform, event.course)
       ]
     end
   end
