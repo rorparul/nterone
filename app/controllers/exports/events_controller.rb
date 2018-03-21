@@ -7,9 +7,9 @@ class Exports::EventsController < ApplicationController
 
   def create
     if export_params[:platform_id].blank?
-      events = Event.all
+      events = Event.active
     else
-      events = Platform.find(export_params[:platform_id]).events
+      events = Platform.find(export_params[:platform_id]).events.active
     end
 
     events  = events.where('start_date >= ?', export_params_start_date)
