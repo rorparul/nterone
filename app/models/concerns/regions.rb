@@ -19,7 +19,7 @@ module Regions
     end
 
     def options_for_origin_region
-      origin_regions.map {|region, region_value| [region.titleize, region_value]}
+      origin_regions.map { |region, region_value| [region.titleize, region_value] }
     end
 
     def get_session_region
