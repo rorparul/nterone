@@ -138,6 +138,7 @@ es:
       po_number: "Número de ODC (PO)"
       public: "Publico:"
       revenue: "Ingresio:"
+      regions: "Regiones Activas:"
       royalty_id: "ID de Regalías"
       sales_rep: "Representante de Ventas"
       sent_course_material: "Material del Curso Enviado"

@@ -138,6 +138,7 @@ en:
       po_number: "Po number"
       public: "Public:"
       revenue: "Revenue:"
+      regions: "Active Regions:"
       royalty_id: "Royalty id"
       sales_rep: "Sales Rep"
       sent_course_material: "Sent course material"
