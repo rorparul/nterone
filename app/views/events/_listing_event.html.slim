@@ -1,11 +1,19 @@
 tr
-  / td.fit style="cursor: help;"
-  /   - if event.origin_region == 'united_states'
-  /     span.label.label-info title="#{event.origin_region.try(:titleize)}" US
-  /   - elsif event.origin_region == 'latin_america'
-  /     span.label.label-info title="#{event.origin_region.try(:titleize)}" LA
-  /   - elsif event.origin_region == 'canada'
-  /     span.label.label-info title="#{event.origin_region.try(:titleize)}" CA
+  td.fit style="cursor: help;"
+    - if event.origin_region == 'united_states'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" US
+    - elsif event.origin_region == 'latin_america'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" LA
+    - elsif event.origin_region == 'canada'
+      span.label.label-info title="#{event.origin_region.try(:titleize)}" CA
+  td.fit
+    - event.active_regions.each do |active_region|
+      - if active_region == 'united_states'
+        span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
+      - elsif active_region == 'latin_america'
+        span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
+      - elsif active_region == 'canada'
+        span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
   td.fit = event.id
   td.fit
     - if event.checklist
