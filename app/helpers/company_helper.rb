@@ -30,6 +30,7 @@ module CompanyHelper
     if @company && deprecated_options.include?([@company.kind])
       grouped_options["Deprecated (Do Not Use)"] = deprecated_options.map { |e| [e[0], e[0]] }
     end
+    
     selected_kind = @company.present? ? @company.kind : nil
     grouped_options_for_select(grouped_options, selected_kind)
   end
