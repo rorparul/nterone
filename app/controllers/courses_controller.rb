@@ -7,12 +7,9 @@ class CoursesController < ApplicationController
   end
 
   def new
-    @platform   = Platform.find(params[:platform_id])
-    @course     = @platform.courses.new
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
-
+    @platform = Platform.find(params[:platform_id])
+    @course   = @platform.courses.new
+    set_categories
     @course.build_image
   end
 
@@ -22,11 +19,9 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @platform   = Platform.find(params[:platform_id])
-    @course     = @platform.courses.build(course_params)
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+    @platform = Platform.find(params[:platform_id])
+    @course   = @platform.courses.build(course_params)
+    set_categories
 
     @course.set_image(url_param: params['course'], for: :image)
 
@@ -41,20 +36,15 @@ class CoursesController < ApplicationController
   def select
     @platform = Platform.find(params[:platform_id])
     @course   = @platform.courses.build
-
     @courses  = Course.where(platform_id: @platform.id)
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
 
     @course.build_image
   end
 
   def select_to_edit
     @platform   = Platform.find(params[:platform_id])
-    @categories = @platform.categories.order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
 
     if course_params[:id] == 'none'
       @course   = @platform.courses.build
@@ -68,10 +58,7 @@ class CoursesController < ApplicationController
 
   def edit
     @platform   = Platform.find(params[:platform_id])
-    @categories = @platform.categories.order(:title).select do |category|
-      category if category.parent
-    end
-
+    set_categories
     @course     = Course.find(params[:id])
     @course.build_image unless @course.image.present?
   end
@@ -86,9 +73,7 @@ class CoursesController < ApplicationController
       redirect_to edit_platform_course_path(@course.platform, @course)
     else
       @platform   = Platform.find(params[:platform_id])
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
+      set_categories
 
       render "edit"
     end
@@ -180,5 +165,10 @@ class CoursesController < ApplicationController
 
   def set_course
     @course = Course.friendly.find(params[:id])
+  end
+
+  def set_categories
+    categories  = Category.current_region.active.select { |category| category if category.parent }
+    @categories = categories.sort_by { |category| [category.platform.title, category.parent.title, category.title] }
   end
 end
