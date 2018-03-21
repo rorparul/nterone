@@ -53,9 +53,9 @@
 
           #by_region.pull-right style='margin: 4px 3px 4px 0;'
             = select_tag :region, options_for_select([["All Regions", nil]] + Event.options_for_regions, selected: @region)
-          
+
           #by_origin_region.pull-right style='margin: 4px 3px 4px 0;'
-            = select_tag :origin_region, options_for_select([["Select Region", nil]] + Event.options_for_origin_region, selected: @origin_region)  
+            = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region)  
 
     = smart_listing_render(:events)
 
