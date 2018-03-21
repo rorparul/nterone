@@ -15,18 +15,14 @@ class SubjectsController < ApplicationController
 
   def new
     @platform   = Platform.find(params[:platform_id])
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
     @subject    = Subject.new
     @subject.build_image
   end
 
   def select
     @platform   = Platform.find(params[:platform_id])
-    @categories = @platform.categories.order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
     @subjects   = @platform.subjects.where.not(id: nil)
     @subject    = @platform.subjects.build
     @subject.build_image
@@ -34,9 +30,7 @@ class SubjectsController < ApplicationController
 
   def  select_to_edit
     @platform = Platform.find(params[:platform_id])
-    @categories = @platform.categories.order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
     if subject_params[:id] == 'none'
       @subjects   = @platform.subjects.where.not(id: nil)
       @subject    = @platform.subjects.build
@@ -49,9 +43,7 @@ class SubjectsController < ApplicationController
 
   def edit
     @platform = Platform.find(params[:platform_id])
-    @categories = @platform.categories.order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
     @subject  = Subject.find(params[:id])
     @subject.build_image unless @subject.image.present?
   end
@@ -64,9 +56,7 @@ class SubjectsController < ApplicationController
       flash['success'] = 'Certification successfully created!'
       redirect_to session[:previous_request_url]
     else
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
+      set_categories
       render 'new'
     end
   end
@@ -80,9 +70,7 @@ class SubjectsController < ApplicationController
       redirect_to session[:previous_request_url]
     else
       @platform = Platform.find(params[:platform_id])
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
+      set_categories
       render "edit"
     end
   end
@@ -121,5 +109,10 @@ class SubjectsController < ApplicationController
       :type,
       active_regions: [],
       category_ids: [])
+  end
+
+  def set_categories
+    categories  = Category.current_region.active.select { |category| category if category.parent }
+    @categories = categories.sort_by { |category| [category.platform.title, category.parent.title, category.title] }
   end
 end

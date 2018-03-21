@@ -24,7 +24,7 @@
     .form-group
       = f.label :category_ids, t('subjects.partial_form.categories')
       = f.select :category_ids,
-                 categories.collect { |category| ["#{category.parent.title} > #{category.title}", category.id] },
+                 categories.collect { |category| ["#{category.platform.title} > #{category.parent.title} > #{category.title}", category.id] },
                  {},
                  { class: 'form-control input-sm', multiple: 'true' }
 
