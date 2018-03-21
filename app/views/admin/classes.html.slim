@@ -51,11 +51,8 @@
               { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
               { disabled: false, class: 'input-date' }
 
-          #by_region.pull-right style='margin: 4px 3px 4px 0;'
-            = select_tag :region, options_for_select([["All Regions", nil]] + Event.options_for_regions, selected: @region)
-
           #by_origin_region.pull-right style='margin: 4px 3px 4px 0;'
-            = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region)  
+            = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region)
 
     = smart_listing_render(:events)
 
