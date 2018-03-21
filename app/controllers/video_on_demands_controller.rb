@@ -7,11 +7,7 @@ class VideoOnDemandsController < ApplicationController
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
-    # @video_on_demand.video_modules.build.videos.build
-
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
 
     @instructors     = @platform.instructors
     @video_on_demand.build_image
@@ -47,10 +43,7 @@ class VideoOnDemandsController < ApplicationController
     @platform         = Platform.find(params[:platform_id])
     @video_on_demand  = @platform.video_on_demands.build
     @video_on_demands = @platform.video_on_demands.order('lower(title)')
-
-    @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-      category if category.parent
-    end
+    set_categories
 
     @instructors      = @platform.instructors
     @video_on_demand.build_image
@@ -77,10 +70,7 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand = VideoOnDemand.find(params[:id])
 
     authorize @video_on_demand
-
-    @categories = Category
-      .where(platform_id: @platform.id)
-      .order(:title).select { |category| category if category.parent }
+    set_categories
 
     @instructors     = @platform.instructors
     @exam = LmsExam.new
@@ -108,9 +98,7 @@ class VideoOnDemandsController < ApplicationController
       flash[:success] = 'Video On Demand successfully updated!'
       redirect_to session[:previous_request_url]
     else
-      @categories = Category.where(platform_id: @platform.id).order(:title).select do |category|
-        category if category.parent
-      end
+      set_categories
 
       @instructors = @platform.instructors
 
@@ -333,5 +321,10 @@ class VideoOnDemandsController < ApplicationController
   def vod_purchased?
     return false if !current_user
     @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)
+  end
+
+  def set_categories
+    categories  = Category.current_region.active.select { |category| category if category.parent }
+    @categories = categories.sort_by { |category| [category.platform.title, category.parent.title, category.title] }
   end
 end
