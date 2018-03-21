@@ -24,7 +24,7 @@ tr
       span.label.label-success = t('events.partial_listing.y')
     - else
       span.label.label-default = t('events.partial_listing.n')
-  td.fit = event.course.abbreviation
+  td.fit = link_to event.course.abbreviation, platform_course_path(event.course.platform, event.course)
   td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
   td.fit = event.length
   td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
