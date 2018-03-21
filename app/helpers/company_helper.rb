@@ -15,12 +15,13 @@ module CompanyHelper
       ['Training Resell Partner'],
       ['Vendor'],
       ['VMware']
-    ]
+    ]           
 
     if @company && old_options.include?([@company.kind])
-      new_options = new_options.map {|e| [e[0] + ' (Active - SELECT ONE)', e[0]]}
-      old_options = old_options.map {|e| [e[0] + ' (Depreciated - DO NOT USE)', e[0]]}
-      return new_options + old_options
+      grouped_options = {}
+      grouped_options["Active (Select One)"] = new_options.map {|e| [e[0] + ' (Active - SELECT ONE)', e[0]]}
+      grouped_options["Deprecated (Do Not Use)"] = old_options.map {|e| [e[0] + ' (Depreciated - DO NOT USE)', e[0]]}
+      return grouped_options_for_select(grouped_options)
     end
 
     return new_options
