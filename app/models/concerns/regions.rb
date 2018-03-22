@@ -18,6 +18,10 @@ module Regions
       origin_regions.keys.sort.map { |region| [region.titleize, region] }
     end
 
+    def options_for_origin_region
+      origin_regions.map { |region, region_value| [region.titleize, region_value] }
+    end
+
     def get_session_region
       if Rails.env.test?
         1

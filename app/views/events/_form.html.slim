@@ -131,6 +131,15 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
+          = f.label :country_code, t('events.partial_form.country_code')
+          = f.country_select :country_code,
+                     nil,
+                     { include_blank: t('default.prompt.please_select') },
+                     { class: 'form-control input-sm' }
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
           = f.label :lab_source, t('events.partial_form.lab_source')
           = f.text_field :lab_source, class: 'form-control input-sm'
       .col-xs-12.col-sm-6

@@ -1,15 +1,38 @@
 module CompanyHelper
   def kind_options
-    [
-      ['Channel Partner'],
-      ['Cisco'],
+    direct_business_options = [
+      ["Channel Partner"],
+      ["Cisco"],
+      ["Commercial / Enterprise"],
+      ["Distributor"],
+      ["Federal"],
+      ["SLED"]
+    ]
+
+    indirect_business_options = [
+      ["CLP (Cisco Learning Partner)"],
+      ["Seat Reseller"]
+    ]
+
+    deprecated_options = [
       ['Direct Customer'],
-      ['Distributor'],
       ['Service Provider'],
       ['Training Resell Partner'],
       ['Vendor'],
       ['VMware']
     ]
+
+    grouped_options = {}
+
+    grouped_options["Direct Business"]   = direct_business_options.map { |e| [e[0], e[0]] }
+    grouped_options["Indirect Business"] = indirect_business_options.map { |e| [e[0], e[0]] }
+
+    if @company && deprecated_options.include?([@company.kind])
+      grouped_options["Deprecated (Do Not Use)"] = deprecated_options.map { |e| [e[0], e[0]] }
+    end
+    
+    selected_kind = @company.present? ? @company.kind : nil
+    grouped_options_for_select(grouped_options, selected_kind)
   end
 
   def industry_code_options
