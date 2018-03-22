@@ -53,6 +53,7 @@ class Opportunity < ActiveRecord::Base
   scope :lost,    -> { where(stage: 0) }
   scope :closed,  -> { where(stage: [100, 0]) }
   scope :waiting, -> { where(waiting: true) }
+  scope :for_company_kind, ->(kind) { joins(:account).where(companies: {kind: kind})}
 
   search_scope :custom_search do
     attributes :title

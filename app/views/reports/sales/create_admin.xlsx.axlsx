@@ -192,4 +192,26 @@ wb.styles do |style|
       end
     end
   end
+  
+  #Add a Business Breakdown tab  
+  wb.add_worksheet(name: "Business Breakdown") do |sheet|
+    kinds = ["Channel Partner",
+             "Cisco",
+             "Commercial / Enterprise",
+             "Distributor",
+             "Federal",
+             "SLED",
+             "CLP (Cisco Learning Partner)",
+             "Seat Reseller",
+             "Direct Customer",
+             "Service Provider",
+             "Training Resell Partner",
+             "Vendor",
+             "VMware"
+            ]
+
+    sheet.add_row kinds
+    sheet.add_row kinds.map{|kind| @opportunities.for_company_kind(kind).amount_open }
+  end
+
 end
