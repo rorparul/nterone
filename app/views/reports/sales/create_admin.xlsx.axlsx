@@ -209,9 +209,27 @@ wb.styles do |style|
              "Vendor",
              "VMware"
             ]
+    companies = Company.where(id: @opportunities.map(&:account_id).reject(&:blank?).uniq)
+    headers = ["Month"] + kinds + companies.pluck(:title)
+    
+    sheet.add_row headers, style: Array.new(headers.size, color) 
+    sheet.add_row []
+    month_wise_opportunities = @opportunities.order("date_closed").group_by{ |u| u.date_closed.beginning_of_month }
+    
+    month_wise_opportunities.each do |month, opportunities|
 
-    sheet.add_row kinds
-    sheet.add_row kinds.map{|kind| @opportunities.for_company_kind(kind).amount_open }
+      opportunities_for_month = Opportunity.where(id: opportunities.map(&:id))
+      
+      amount_for_kinds = kinds.map{|kind| "$#{number_with_delimiter(opportunities_for_month.for_company_kind(kind).amount_open)}"}
+      
+      amount_for_companies =  companies.map do|company| 
+                                open_amount = Opportunity.get_company_open_amount(opportunities_for_month, company.id)
+                                "$#{number_with_delimiter(open_amount)}"
+                              end 
+ 
+      sheet.add_row ([month.strftime("%b")] + amount_for_kinds + amount_for_companies)
+      sheet.add_row
+    end
   end
 
 end

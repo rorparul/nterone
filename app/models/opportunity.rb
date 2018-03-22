@@ -76,6 +76,14 @@ class Opportunity < ActiveRecord::Base
     pending.sum(:amount)
   end
 
+  def self.get_company_open_amount opportunities, company_id
+    opportunities = opportunities.select do |opportunity| 
+                    (opportunity.account_id == company_id) && ([10, 50, 75, 90].include? opportunity.stage) 
+                  end
+                                              
+    opportunities.sum(&:amount)
+  end
+
   def self.amount_waiting
     waiting.sum(:amount)
   end
