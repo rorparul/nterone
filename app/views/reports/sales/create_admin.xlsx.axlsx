@@ -243,11 +243,11 @@ wb.styles do |style|
     
     total_for_all = total_amount_for_kinds + [total_amount_of_kinds] + amount_for_companies
     
-    sheet.add_row [""] + total_for_all.map{|total| "$#{number_with_delimiter(total)}"}
+    sheet.add_row ([""] + total_for_all.map{|total| "$#{number_with_delimiter(total)}"}), style: Array.new(total_for_all.size + 1, color)
     
     grand_total = (total_amount_for_kinds + amount_for_companies).inject(:+)
 
-    percentages_of_total = total_for_all.map{|total| "%#{(total*100)/grand_total}"}
+    percentages_of_total = total_for_all.map{|total| "#{((total*100)/grand_total).round(2)}%"}
     
     sheet.add_row [""] + percentages_of_total
 
