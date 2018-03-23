@@ -8,7 +8,7 @@ wb.styles do |style|
   # Summary
   #
   wb.add_worksheet(name: "Revenue Summary") do |sheet|
-    sheet.add_row
+    sheet.add_row 
     sheet.add_row
     sheet.add_row [
       "",
@@ -202,34 +202,54 @@ wb.styles do |style|
              "Federal",
              "SLED",
              "CLP (Cisco Learning Partner)",
-             "Seat Reseller",
-             "Direct Customer",
-             "Service Provider",
-             "Training Resell Partner",
-             "Vendor",
-             "VMware"
+             "Seat Reseller"
             ]
+
     companies = Company.where(id: @opportunities.map(&:account_id).reject(&:blank?).uniq)
-    headers = ["Month"] + kinds + companies.pluck(:title)
+    companies = companies.select{|company| 
+                                  Opportunity.get_company_open_amount(@opportunities, company.id) > 0
+                                }
+    headers = [""] + kinds + ["Total"] + companies.map(&:title)
     
     sheet.add_row headers, style: Array.new(headers.size, color) 
-    sheet.add_row []
+    sheet.add_row headers.map{|h| ""}, style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
     month_wise_opportunities = @opportunities.order("date_closed").group_by{ |u| u.date_closed.beginning_of_month }
     
     month_wise_opportunities.each do |month, opportunities|
 
       opportunities_for_month = Opportunity.where(id: opportunities.map(&:id))
       
-      amount_for_kinds = kinds.map{|kind| "$#{number_with_delimiter(opportunities_for_month.for_company_kind(kind).amount_open)}"}
+      amount_for_kinds = kinds.map{|kind| opportunities_for_month.for_company_kind(kind).amount_open}
+
+      total_for_kinds = "$#{number_with_delimiter(amount_for_kinds.inject(:+))}"
+      amount_for_kinds = amount_for_kinds.map{|amount| "$#{number_with_delimiter(amount)}" } 
       
       amount_for_companies =  companies.map do|company| 
                                 open_amount = Opportunity.get_company_open_amount(opportunities_for_month, company.id)
                                 "$#{number_with_delimiter(open_amount)}"
                               end 
- 
-      sheet.add_row ([month.strftime("%b")] + amount_for_kinds + amount_for_companies)
-      sheet.add_row
+      
+      sheet.add_row ([month.strftime("%b")] + amount_for_kinds + [total_for_kinds] + 
+      amount_for_companies), style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
+      
+      sheet.add_row headers.map{|h| ""}, style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
     end
-  end
+    total_amount_for_kinds = kinds.map{|kind| sum_of(@opportunities.for_company_kind(kind).pending, 'amount')}
+    
+    total_amount_of_kinds = kinds.map{|kind| sum_of(@opportunities.for_company_kind(kind).pending, 'amount')}.inject(:+)
+    amount_for_companies =  companies.map do|company| 
+                              Opportunity.get_company_open_amount(@opportunities, company.id)
+                            end
+    
+    total_for_all = total_amount_for_kinds + [total_amount_of_kinds] + amount_for_companies
+    
+    sheet.add_row [""] + total_for_all.map{|total| "$#{number_with_delimiter(total)}"}
+    
+    grand_total = (total_amount_for_kinds + amount_for_companies).inject(:+)
 
+    percentages_of_total = total_for_all.map{|total| "%#{(total*100)/grand_total}"}
+    
+    sheet.add_row [""] + percentages_of_total
+
+  end
 end
