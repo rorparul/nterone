@@ -1,5 +1,7 @@
 es:
   shared:
+    header:
+      logo: "locales/en/logo-with-tagline.png"
     edit_js:
       companies: "Editar Empresa"
     new_js:

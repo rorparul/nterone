@@ -2,8 +2,7 @@
   .sidebar-v2
     ul.nav
       li = link_to main_app.root_path, class: 'home-tab' do
-        span.fa.fa-home
-        = personal_greeting
+        span.fa.fa-home Home
       - if user_signed_in?
         - if current_user.admin?
           li = link_to main_app.admin_classes_path, class: "role-tab" do

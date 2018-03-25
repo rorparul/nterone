@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+@mixin set-all {
+  &, &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin set-all-pseudo {
+  &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
+header {
+  #logo {
+    padding: 17px 0;
+  }
+
+  #nav-1 {
+    float: right;
+    padding: 15px 0 5px 0;
+    #phone {
+      display: inline-block;
+      font-family: 'Raleway', Arial, sans-serif;
+      font-size: 16px;
+      a {
+        @include set-all {
+          text-decoration: none;
+        }
+      }
+    }
+    .btn-group {
+      margin-left: 20px;
+      text-align: center;
+      #sign-in-or-account {
+        padding: 6px 40px;
+      }
+      #cart {
+        #cart-count {
+          margin-left: 5px;
+        }
+      }
+      .btn {
+        font-size: 16px;
+        span {
+          vertical-align: -8%;
+        }
+      }
+    }
+  }
+
+  #nav-2 {
+    float: right;
+    padding: 5px 0 10px 0;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        list-style: none;
+        margin-left: 20px;
+        a {
+          @include set-all {
+            color: black;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn-blue-gradient {
+  @include set-all {
+    background-color: rgb(15, 115, 185);
+    @include value-prefix(background-image, linear-gradient(top, rgb(15, 115, 185) 0%, rgb(10, 80, 155) 100%));
+    border-color: rgb(15, 115, 185);
+    color: white;
+  }
+}

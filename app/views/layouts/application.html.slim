@@ -1,8 +1,7 @@
 doctype html
 html[ng-app="nterone"]
   head
-    title
-      = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
+    title = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = Gon::Base.render_data
     = content_tag("meta", nil, name: "description", content: content_for?(:page_description) ? yield(:page_description) : 'NterOne')
     link rel="alternate" type="application/rss+xml" title="#{t('layouts.application.upcoming_classes')}" href="https://www.nterone.com/feed?format=rss"
@@ -17,32 +16,26 @@ html[ng-app="nterone"]
   body
     = render 'layouts/async_status'
     = render 'layouts/modal'
-    = render 'layouts/header'
+    = render 'shared/header'
     .container-fluid
-      = render 'layouts/sidebar'
-      .content-top
-        #menu-toggle
-          i.fa.fa-bars
-        #header-nav
-          hr style='margin-bottom: 0;'
-          .page-title
-            = yield :breadcrumbs
-          - if content_for(:actions)
-            span.header-nav-actions type="button" data-toggle="dropdown"
-              i.fa.fa-cog
-              = t('layouts.admin.actions')
-            ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
-              = yield :actions
-          span.header-nav-actions
-            = link_to main_app.new_search_path, remote: true, rel: "nofollow" do
-              i.fa.fa-search
-              = t('layouts.admin.search')
-            - if !user_signed_in? || (user_signed_in? && current_user.member?)
-              = link_to main_app.new_order_path do
-                i.fa.fa-shopping-cart
-                = t('layouts.admin.my_cart')
-                span.badge = @cart.try(:order_items).try(:count)
-      hr
+
+
+      / .content-top
+      /   #menu-toggle
+      /     i.fa.fa-bars
+      /   #header-nav
+      /     hr style='margin-bottom: 0;'
+      /     .page-title
+      /       = yield :breadcrumbs
+      /     - if content_for(:actions)
+      /       span.header-nav-actions type="button" data-toggle="dropdown"
+      /         i.fa.fa-cog
+      /         = t('layouts.admin.actions')
+      /       ul.dropdown-menu.dropdown-menu-right.actions-menu aria-labelledby='actions'
+      /         = yield :actions
+      / hr
+
+
       .content
         = render 'layouts/notifications'
         = yield

@@ -15,7 +15,6 @@ es:
       press: "Prensa"
     partial_header:
       contact_us: "Contáctanos 703.972.2288"
-      image1: "locales/es/logo-with-tagline-small.png"
       partner: "Una Empresa Fundada por Veteranos"
     partial_sidebar:
       about_us: "Acerca de Nosotros"
