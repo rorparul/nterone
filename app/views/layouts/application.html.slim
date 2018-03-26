@@ -14,10 +14,9 @@ html[ng-app="nterone"]
     = render 'layouts/scripts_head'
 
   body
-    = render 'layouts/async_status'
-    = render 'layouts/modal'
     = render 'shared/header'
-    .container-fluid
+    main.container-fluid
+      = yield
 
 
       / .content-top
@@ -35,17 +34,7 @@ html[ng-app="nterone"]
       /         = yield :actions
       / hr
 
-
-      .content
-        = render 'layouts/notifications'
-        = yield
+    = render 'layouts/modal'
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
     == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
-
-javascript:
-  $(document).keydown(function(e) {
-    if (e.keyCode == 27) {
-      $(".alert").remove();
-    };
-  });

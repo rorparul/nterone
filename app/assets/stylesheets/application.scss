@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,700');
+
+@mixin set-all {
+  &, &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin set-all-pseudo {
+  &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'bootstrap-datetimepicker';

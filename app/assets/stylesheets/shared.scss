@@ -1,29 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-
-@mixin set-all {
-  &, &:active, &:hover, &:focus, &:visited, &:focus-within {
-    @content;
-  }
-}
-
-@mixin set-all-pseudo {
-  &:active, &:hover, &:focus, &:visited, &:focus-within {
-    @content;
-  }
-}
-
-@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
-  @if $vendors {
-    @each $vendor in $vendors {
-      #{$property}: #{"-" + $vendor + "-" + $value};
-    }
-  }
-  #{$property}: #{$value};
-}
-
 header {
+  background-color: white;
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1;
   #logo {
     padding: 17px 0;
+    img {
+      height: 55px;
+    }
   }
 
   #nav-1 {
@@ -32,7 +17,8 @@ header {
     #phone {
       display: inline-block;
       font-family: 'Raleway', Arial, sans-serif;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 700;
       a {
         @include set-all {
           text-decoration: none;
@@ -51,7 +37,6 @@ header {
         }
       }
       .btn {
-        font-size: 16px;
         span {
           vertical-align: -8%;
         }
@@ -76,6 +61,14 @@ header {
           }
         }
       }
+    }
+  }
+  .alert {
+    border-radius: 0;
+    margin: 0;
+    .glyphicon {
+      margin-right: 15px;
+      vertical-align: -8%;
     }
   }
 }

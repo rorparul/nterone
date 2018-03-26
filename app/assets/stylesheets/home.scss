@@ -1,0 +1,81 @@
+#welcome-banner {
+  background-image: image-url('welcome-banners/studying.jpg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding: 150px 0;
+  #welcome-banner-message {
+    color: white;
+    font-family: 'Raleway', Arial, sans-serif;
+    margin: 0 0 50px 0;
+    text-align: center;
+    h1 {
+      font-size: 64px;
+      font-weight: bold;
+      margin: 0;
+    }
+    h2 {
+      font-size: 28px;
+      margin: 0;
+    }
+  }
+  #welcome-banner-search {
+    margin: 0 0 40px 0;
+    text-align: center;
+    form {
+      display: inline-block;
+      width: 550px;
+      input {
+        background-color: transparent;
+        border-bottom: 2px solid white;
+        border-left: 2px solid white;
+        border-top: 2px solid white;
+        color: white;
+        z-index: 0;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.5);
+        }
+        &:focus {
+          background-color: rgba(255, 255, 255, 1.0);
+          color: black;
+          &::placeholder {
+            color: gray;
+            opacity: 1;
+          }
+
+          &:-ms-input-placeholder {
+            color: gray;
+          }
+
+          &::-ms-input-placeholder {
+            color: gray;
+          }
+        }
+        &::placeholder {
+          color: white;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          color: white;
+        }
+
+        &::-ms-input-placeholder {
+          color: white;
+        }
+      }
+      .btn {
+        padding: 6px 40px;
+        z-index: 0;
+      }
+    }
+  }
+  #welcome-banner-gtr-classes {
+    text-align: center;
+    a {
+      color: white;
+      text-decoration: underline;
+      font-size: 26px;
+      font-weight: 300;
+    }
+  }
+}

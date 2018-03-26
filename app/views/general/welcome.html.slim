@@ -7,59 +7,17 @@
 - content_for :breadcrumbs do
   a href="#{root_path}"
     span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
+    = t 'admins.partial_breadcrumbs.home'
 
-.row
-  .col-sm-12.text-align.col-central
-    #carousel
-      = link_to main_app.platforms_path do
-        = image_tag "welcome-banners/#{Rails.application.config.tld}/active-welcome-banner.jpg"
-
-    .row
-      .col-xs-12
-        = form_tag search_path, method: :get, "data-parsley-validate" => true do
-          .form-group style="margin-bottom: 20px;"
-            .input-group.input-group-lg
-              = text_field_tag :query, params[:query], class: 'form-control input-lg', style: "border: 1px solid rgb(7, 87, 9);", required: true, placeholder: t('default.placeholder.search_form')
-              span class="input-group-btn"
-                button class="btn btn-default" type="submit" style="border: 1px solid rgb(7, 87, 9); background-color: rgb(7, 87, 9); color: white;" Go
-
-    .row
-      .col-xs-12.col-lg-4
-        a.featured-container href="#{platforms_path}"
-          .panel.panel-default.text-center
-            .panel-heading
-              span.fa.fa-book
-              h3
-                = t('general.welcome.vendor')
-            .panel-body
-              strong
-                = t('general.welcome.vendor_paragraph')
-      .col-xs-12.col-lg-4
-        a.featured-container href="#{featured_classes_path}"
-          .panel.panel-default.text-center
-            .panel-heading
-              span.fa.fa-calendar-check-o
-              h3
-                - if Rails.application.config.tld == 'ca'
-                  | Guranteed to Run
-                - else
-                  = t('general.welcome.classes')
-            .panel-body
-              strong
-                = t('general.welcome.classes_paragraph')
-      .col-xs-12.col-lg-4
-        a.featured-container href="#{labs_path}"
-          .panel.panel-default.text-center
-            .panel-heading
-              span.fa.fa-server
-              h3
-                = t('general.welcome.labs')
-            .panel-body
-              strong
-                = t('general.welcome.labs_paragraph')
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-
-javascript:
-  $('.home-tab').addClass('active');
+#welcome-banner
+  #welcome-banner-message
+    h1 REINVENT YOURSELF.
+    h2 World-Class IT Training and Consulting Solutions
+  #welcome-banner-search
+    = form_tag search_path, method: :get, 'data-parsley-validate' => true do
+      .input-group
+        = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('default.placeholder.search_form')
+        span.input-group-btn
+          button.btn.btn-blue-gradient type='submit' Search
+  #welcome-banner-gtr-classes
+    = link_to 'GUARANTEED TO RUN CLASSES', featured_classes_path

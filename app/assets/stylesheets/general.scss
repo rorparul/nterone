@@ -1,18 +1,3 @@
-// -----------------------------------------------------------------------------
-// MIXINS
-// -----------------------------------------------------------------------------
-@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
-  @if $vendors {
-    @each $vendor in $vendors {
-      #{$property}: #{"-" + $vendor + "-" + $value};
-    }
-  }
-  #{$property}: #{$value};
-}
-
-// -----------------------------------------------------------------------------
-// GENERAL
-// -----------------------------------------------------------------------------
 html {
   height: 100%;
 }
@@ -20,9 +5,7 @@ html {
 body {
   position: relative;
   height: 100%;
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  max-width: 1275px;
-  margin: auto;
+  margin: 0;
 }
 
 .permissions {
@@ -56,19 +39,6 @@ body {
   img {
     margin-bottom: 0;
     padding: 0;
-  }
-}
-
-#carousel {
-  max-width: 1000px;
-  margin: 0 auto 20px auto;
-
-  img {
-    width: 100%;
-  }
-
-  .promotion {
-    margin-bottom: 20px;
   }
 }
 
@@ -123,26 +93,6 @@ span.required {
   input, textarea, select {
     background-color: rgb(242, 222, 222);
     border: 1px solid rgb(235, 204, 209);
-  }
-}
-
-.carousel-control {
-  background-color: none !important;
-  background-image: none !important;
-}
-
-#add-carousel-item-btn {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  @media (max-width: 767px) {
-    text-align: center;
-  }
-}
-
-.carousel-item-admin {
-  img {
-    width: 100%;
-    margin-bottom: 10px;
   }
 }
 
@@ -238,41 +188,6 @@ span.required {
 
 .margin-none {
   margin: 0 !important;
-}
-
-.featured-container {
-  &:hover {
-    text-decoration: none;
-  }
-  .panel {
-    padding: 10px;
-    min-height: 200px;
-    @media (max-width: 1200px) {
-      min-height: 150px;
-    }
-    .panel-heading {
-      @include value-prefix(background-image, linear-gradient(top, rgb(83, 158, 214) 0%, rgb(43, 134, 202) 100%));
-    }
-    .panel-body {
-      padding: 10px 15px;
-    }
-  }
-  span {
-    font-size: 45px;
-    margin-bottom: 8px;
-    color: white;
-    text-shadow: rgb(48, 48, 48) 0px 1px 0px;
-  }
-  h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-    color: white;
-  }
-  strong {
-    font-size: 15px;
-    color: rgb(51, 51, 51);
-  }
 }
 
 .category-description {
@@ -445,13 +360,6 @@ span.required {
 .testimonial {
   .quotation {
     color: rgb(96, 156, 61);
-  }
-}
-
-
-#carousel-items {
-  img {
-    height: 20px;
   }
 }
 
@@ -1330,10 +1238,6 @@ input[type='file'] {
 .sub-divider {
   margin-left: 15px;
   margin-right: 15px;
-}
-
-.carousel-item-for-form {
-  width: 100%;
 }
 
 hr {

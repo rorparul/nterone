@@ -2,14 +2,20 @@
   .alert.alert-success.alert-dismissible role="alert"
     button.close type="button" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" &times;
-    p = flash[:success]
+    p
+      span.glyphicon.glyphicon-ok-sign
+      = flash[:success]
 - if flash[:notice]
   .alert.alert-info.alert-dismissible role="alert"
     button.close type="button" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" &times;
-    p = flash[:notice]
+    p
+      span.glyphicon.glyphicon-info-sign
+      = flash[:notice]
 - if flash[:alert]
   .alert.alert-danger.alert-dismissible role="alert"
     button.close type="button" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" &times;
-    p = flash[:alert]
+    p
+      span.glyphicon.glyphicon-exclamation-sign
+      = flash[:alert]
