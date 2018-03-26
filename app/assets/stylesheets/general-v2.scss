@@ -17,6 +17,14 @@
   text-align: left;
 }
 
+li.select2-results__option{
+  ul {
+    li {
+      padding-left: 40px !important;
+    }
+  } 
+}  
+
 table {
   select {
     height: 20px !important;
