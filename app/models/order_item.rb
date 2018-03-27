@@ -40,7 +40,11 @@ class OrderItem < ActiveRecord::Base
 
   after_save :update_event_status
 
+  after_save :update_event_dates
+
   validates :price, numericality: { greater_than_or_equal_to: 0.00 }
+  
+  attr_accessor :start_date, :end_date 
 
   def paid
     sum = price - order.paid
@@ -79,6 +83,12 @@ class OrderItem < ActiveRecord::Base
       else
         orderable.update_attributes(status: "Pending")
       end
+    end
+  end
+  
+  def update_event_dates
+    if orderable_type == "Event" && self.orderable.present? && (self.start_date.present? || self.end_date.present?)
+      orderable.update_attributes(start_date: self.start_date, end_date: self.end_date)
     end
   end
 

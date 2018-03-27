@@ -171,3 +171,5 @@ en:
       price: "Price"
       remove: "Remove"
       video_on_demand: "VODs"
+      start_date: "Start Date"
+      end_date: "End Date"

@@ -123,6 +123,9 @@ class PermittedParams < Struct.new(:params)
         :orderable_id,
         :orderable_type,
         :price,
+        :start_date,
+        :end_date,
+        :updated_at,
         :_destroy
       ]
     )
