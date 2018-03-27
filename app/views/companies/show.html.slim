@@ -63,7 +63,7 @@
                   td
                 tr
                   th.text-right Customer Id
-                  td = @company.sales_force_id
+                  td = @company.id
                   th.text-right
                   td
       .row style="margin-bottom: 10px;"
@@ -103,7 +103,7 @@
                     th.text-right Industry
                     td = @company.industry_code
                     th.text-right Total Won Opportunities
-                    td = @company.account_opportunities.where(stage: 100).count
+                    td = "$#{number_with_delimiter(@company.account_opportunities.won.sum(:amount))}"
 
 .row
   .col-xs-12
