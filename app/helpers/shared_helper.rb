@@ -4,7 +4,7 @@ module SharedHelper
       text = 'Login'
       url  = new_user_session_path
     else
-      text = 'Account'
+      text = 'My NterOne'
       if current_user.admin? || current_user.partner? || current_user.sales?
         url = admin_classes_path
       elsif current_user.instructor?

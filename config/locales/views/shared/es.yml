@@ -2,6 +2,30 @@ es:
   shared:
     header:
       logo: "locales/en/logo-with-tagline.png"
+    footer:
+      about_us: 'Sobre Nosotros'
+      amazon: 'Amazon'
+      cisco: 'Cisco'
+      copyright: 'NterOne Corporation. Todos los derechos reservados.'
+      consulting: 'Consultoría'
+      contact_our_team_today: '¡Póngase en Contacto con Nuestro Equipo Hoy!'
+      contact: 'Contacto'
+      facebook: 'Facebook'
+      featured_classes: 'Clases Destacadas'
+      google_plus: 'Google Plus'
+      home: 'Inicio'
+      itil: 'ITIL'
+      labs: 'Labs'
+      linkedin: 'Linkedin'
+      microsoft: 'Microsoft'
+      partners: 'Fogonadura'
+      privacy_policy: 'Política de Privacidad'
+      sitemap: 'Mapa del Sitio'
+      terms_and_conditions: 'Términos y Condiciones'
+      testimonials: 'Testimonios'
+      training: 'Formación'
+      twitter: 'Twitter'
+      vmware: 'VMware'
     edit_js:
       companies: "Editar Empresa"
     new_js:

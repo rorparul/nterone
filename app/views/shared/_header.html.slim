@@ -59,3 +59,70 @@
               / Panamá pa
               / Colombia co
               / Canada ca
+
+
+              / .col-xs-12.side-column.hidden-xs
+              /   .sidebar-v2
+              /     ul.nav
+              /       li = link_to main_app.root_path, class: 'home-tab' do
+              /         span.fa.fa-home Home
+              /       - if user_signed_in?
+              /         - if current_user.admin?
+              /           li = link_to main_app.admin_classes_path, class: "role-tab" do
+              /             span.fa.fa-gear
+              /             span.text = t('admins.partial_breadcrumbs.admin')
+              /         - if current_user.partner?
+              /           li = link_to main_app.admin_classes_path, class: 'role-tab' do
+              /             span.fa.fa-gear
+              /             span.text Partner
+              /         - if current_user.sales?
+              /           li = link_to main_app.admin_classes_path, class: "role-tab" do
+              /             span.fa.fa-coffee
+              /             span.text= t 'breadcrumbs.my_sales'
+              /         - if current_user.instructor?
+              /           li = link_to main_app.instructor_classes_path, class: "role-tab" do
+              /             span.fa.fa-users
+              /             span.text= t 'breadcrumbs.instructor'
+              /         - if current_user.member?
+              /           li = link_to main_app.my_account_plan_path, class: "role-tab" do
+              /             span.fa.fa-user
+              /             span.text My Account
+              /       - else
+              /         li = link_to main_app.new_user_session_path, class: "login-tab" do
+              /           span.fa.fa-sign-in
+              /           span.text = t('layouts.partial_sidebar.login')
+              /       li = link_to main_app.about_us_path, class: 'about-us-tab' do
+              /         span.fa.fa-info-circle
+              /         span.text = t('layouts.partial_sidebar.about_us')
+              /       li = link_to main_app.platforms_path, class: 'training-tab' do
+              /         span.fa.fa-book
+              /         span.text = t('layouts.partial_sidebar.training')
+              /       li = link_to main_app.testimonials_path, class: 'testimonials-tab' do
+              /         span.fa.fa-thumbs-o-up
+              /         span.text = t('layouts.partial_sidebar.testimonials')
+              /       li = link_to main_app.consulting_path, class: "consulting-tab" do
+              /         span.fa.fa-puzzle-piece
+              /         span.text = t('layouts.partial_sidebar.consulting')
+              /       li = link_to main_app.partners_path, class: "partners-tab" do
+              /         span.fa.fa-users
+              /         span.text = t('layouts.partial_sidebar.partners')
+              /       li = link_to main_app.labs_path, class: "labs-tab" do
+              /         span.fa.fa-server
+              /         span.text = t('layouts.partial_sidebar.labs')
+              /       - if !user_signed_in? || (user_signed_in? && current_user.member?)
+              /         li = link_to main_app.contact_us_path, class: "contact-us-tab", remote: true, rel: "nofollow" do
+              /           span.fa.fa-envelope-o
+              /           span.text = t('layouts.partial_sidebar.contact_us')
+              /       - if user_signed_in?
+              /         li = link_to main_app.logout_path do
+              /           span.fa.fa-sign-out
+              /           span.text = t('layouts.partial_sidebar.logout')
+              /
+              / .sidebar-mobile.visible-xs
+              /   .sidebar-content
+              /     ul.nav
+              /       li
+              /       li = link_to main_app.root_path, class: 'home-tab' do
+              /         span.fa.fa-home
+              /         span = t('admins.partial_breadcrumbs.home')
+              /       = render 'layouts/sidebar_items'

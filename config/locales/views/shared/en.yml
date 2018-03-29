@@ -1,14 +1,36 @@
 en:
   shared:
     header:
-      logo: "locales/en/logo-with-tagline.png"
+      logo: 'locales/en/logo-with-tagline.png'
+    footer:
+      about_us: 'About Us'
+      amazon: 'Amazon'
+      cisco: 'Cisco'
+      copyright: 'NterOne Corporation. All rights reserved.'
+      consulting: 'Consulting'
+      contact_our_team_today: 'Contact Our Team Today!'
+      contact: 'Contact'
+      facebook: 'Facebook'
+      featured_classes: 'Featured Classes'
+      google_plus: 'Google Plus'
+      home: 'Home'
+      itil: 'ITIL'
+      labs: 'Labs'
+      linkedin: 'Linkedin'
+      microsoft: 'Microsoft'
+      partners: 'Partners'
+      privacy_policy: 'Privacy Policy'
+      sitemap: 'Sitemap'
+      terms_and_conditions: 'Terms and Conditions'
+      testimonials: 'Testimonials'
+      training: 'Training'
+      twitter: 'Twitter'
+      vmware: 'VMware'
     edit_js:
-      companies: "Edit Company"
+      companies: 'Edit Company'
     new_js:
-      companies: "New Company"
-
+      companies: 'New Company'
     merge_js:
-      companies: "Merge Companies"
-
+      companies: 'Merge Companies'
     opportunities:
-      export_popup: "Export Opportunities"
+      export_popup: 'Export Opportunities'
