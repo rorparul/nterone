@@ -5,10 +5,9 @@ class ContactUsMailer < ApplicationMailer
     @subject       = params[:subject].present? ? params[:subject] : "#{Setting.formatted_domain} Contact Us"
     @m360          = params['M360-Source']
     @name          = params[:name]
-    @phone         = params[:phone]
     @email         = params[:email]
-    @inquiry       = params[:inquiry]
-    @feedback      = params[:feedback]
+    @phone         = params[:phone]
+    @message       = params[:message]
     @mad360_emails = {
       ca: 'marketing360+m10780@bcc.mad360.net',
       com: 'marketing360+m9874@bcc.mad360.net',

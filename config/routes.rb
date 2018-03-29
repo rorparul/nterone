@@ -1,5 +1,6 @@
 NterOne::Application.routes.draw do
-  root to: 'general#welcome'
+  root to: 'welcome#index'
+  
   devise_for :users,
              controllers: {
                registrations: 'users/registrations',

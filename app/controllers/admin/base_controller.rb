@@ -7,7 +7,7 @@ class Admin::BaseController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
-  layout 'admin'
+  # layout 'admin'
 
   respond_to :json
 

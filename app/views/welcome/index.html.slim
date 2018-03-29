@@ -1,0 +1,72 @@
+- content_for :page_title do
+  = @page.page_title
+
+- content_for :page_description do
+  = @page.page_description
+
+- content_for :breadcrumbs do
+  a href="#{root_path}"
+    span.fa.fa-home
+    = t 'admins.partial_breadcrumbs.home'
+
+.container-fluid
+  #welcome-banner
+    #welcome-banner-message
+      h1 REINVENT YOURSELF.
+      h2 World-Class IT Training and Consulting Solutions
+    #welcome-banner-search
+      = form_tag search_path, method: :get, 'data-parsley-validate' => true do
+        .input-group
+          = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('default.placeholder.search_form')
+          span.input-group-btn
+            button.btn.btn-blue-gradient type='submit' Search
+    #welcome-banner-gtr-classes
+      = link_to 'GUARANTEED TO RUN CLASSES', featured_classes_path
+
+  #vendor-credits-redemption
+    #vendor-credits-redemption-logos
+      = image_tag 'vendor-logos/cisco.png'
+      = image_tag 'vendor-logos/itil.png'
+      = image_tag 'vendor-logos/microsoft.png'
+      = image_tag 'vendor-logos/microsoft-partner.jpg'
+      = image_tag 'vendor-logos/vmware.png'
+      = image_tag 'vendor-logos/amazon-web-services.png'
+    #vendor-credits-redemption-banner
+      = link_to cisco_learning_credits_path do
+        = image_tag 'redeem-your-credits.jpg'
+
+  #featured-courses
+    #featured-courses-row-1.featured-courses-row
+      .row
+        .col-xs-4.col-xs-offset-6
+          - if @featured_course_1.present?
+            .featured-course-heading = @featured_course_1.heading
+            .featured-course-summary = @featured_course_1.featured_course_summary.try(:html_safe)
+            = link_to 'Register Today!', platform_course_path(@featured_course_1.platform, @featured_course_1), class: 'btn btn-blue-gradient', role: 'button'
+    #featured-courses-row-2.featured-courses-row
+      .row
+        .col-xs-4.col-xs-offset-2 style='text-align: right;'
+          - if @featured_course_2.present?
+            .featured-course-heading = @featured_course_2.heading
+            .featured-course-summary = @featured_course_2.featured_course_summary.try(:html_safe)
+            = link_to 'Register Today!', platform_course_path(@featured_course_2.platform, @featured_course_2), class: 'btn btn-blue-gradient', role: 'button'
+    #featured-courses-row-3.featured-courses-row
+      .row
+        .col-xs-4.col-xs-offset-6
+          - if @featured_course_3.present?
+            .featured-course-heading = @featured_course_3.heading
+            .featured-course-summary = @featured_course_3.featured_course_summary.try(:html_safe)
+            = link_to 'Register Today!', platform_course_path(@featured_course_3.platform, @featured_course_3), class: 'btn btn-blue-gradient', role: 'button'
+    #featured-courses-row-4.featured-courses-row
+      .row
+        .col-xs-4.col-xs-offset-2 style='text-align: right;'
+          - if @featured_course_4.present?
+            .featured-course-heading = @featured_course_4.heading
+            .featured-course-summary = @featured_course_4.featured_course_summary.try(:html_safe)
+            = link_to 'Register Today!', platform_course_path(@featured_course_4.platform, @featured_course_4), class: 'btn btn-blue-gradient', role: 'button'
+
+  #mission
+    h1 OUR MISSION
+    = image_tag 'nterone-gives-back.png', id: 'nterone-gives-back'
+    = image_tag 'feeding-america.jpg', id: 'feeding-america'
+    = image_tag 'veteran-owned.png', id: 'veteran-owned'

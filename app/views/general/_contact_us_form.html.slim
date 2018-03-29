@@ -1,153 +1,151 @@
-= form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
-  = f.hidden_field 'M360-Source', value: 'M360-Source'
+#contact-form
+  p.text-danger Do not fill this out if you're a solicitor.
 
-  .radio
-    label
-      = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", checked: true
-      = t('general.partial_contact_us_form.help_desk')
-  .radio
-    label
-      = f.radio_button :recipient, "sales@nterone.#{Rails.application.config.tld}"
-      = t('general.partial_contact_us_form.sales')
-  .radio
-    label
-      = f.radio_button :recipient, "billing@nterone.#{Rails.application.config.tld}"
-      = t('general.partial_contact_us_form.billing')
+  = form_for :contact_us, html: { url: contact_us_path, method: :post, class: 'contact-us-form' } do |f|
+    = f.hidden_field 'M360-Source', value: 'M360-Source'
 
-  .form-group
-    = f.label :name, t('general.partial_contact_us_form.name')
-    = f.text_field :name, class: 'form-control input-sm', value: user.full_name
+    .form-group
+      .btn-group.btn-group-justified data-toggle='buttons'
+        label.btn.btn-blue-gradient.active
+          = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", id: 'option1', autocomplete: 'off', checked: true
+          = t('general.partial_contact_us_form.help_desk')
+        label.btn.btn-blue-gradient
+          = f.radio_button :recipient, "sales@nterone.#{Rails.application.config.tld}", id: 'option2', autocomplete: 'off'
+          = t('general.partial_contact_us_form.sales')
+        label.btn.btn-blue-gradient
+          = f.radio_button :recipient, "billing@nterone.#{Rails.application.config.tld}", id: 'option3', autocomplete: 'off'
+          = t('general.partial_contact_us_form.billing')
 
-  .form-group
-    = f.label :phone, t('general.partial_contact_us_form.phone')
-    = f.text_field :phone, class: 'form-control input-sm', value: user.contact_number
+    .form-group
+      = f.label :name, t('general.partial_contact_us_form.name')
+      = f.text_field :name, class: 'form-control input-sm'
 
-  .form-group
-    = f.label :email, t('general.partial_contact_us_form.email')
-    = f.text_field :email, class: 'form-control input-sm', value: user.email
+    .row
+      .col-xs-6
+        .form-group
+          = f.label :email, t('general.partial_contact_us_form.email')
+          = f.text_field :email, class: 'form-control input-sm'
+      .col-xs-6
+        .form-group
+          = f.label :phone, t('general.partial_contact_us_form.phone')
+          = f.text_field :phone, class: 'form-control input-sm'
 
-  .form-group
-    = f.label :inquiry, t('general.partial_contact_us_form.inquiry')
-    = f.text_area :inquiry, class: 'form-control'
+    .form-group
+      = f.label :message, t('general.partial_contact_us_form.questions_or_comments')
+      = f.text_area :message, rows: 5, class: 'form-control'
 
-  .form-group
-    = f.label :feedback, t('general.partial_contact_us_form.feedback')
-    = f.text_area :feedback, class: 'form-control'
+    #recapcha
+      = recaptcha_tags
 
-  #recapcha
-    = recaptcha_tags
-
-  .form-buttons
-    button.btn.btn-success type="submit"
-      = t('default.action.send')
-    button.btn.btn-default type="button" data-dismiss="modal"
-      = t('default.action.cancel')
-  hr
-
-  .row
-    .col-xs-12.col-md-6
-      address
-        strong
-          = t('general.partial_contact_us_form.corporate_address')
-        br
-        | 1900 Campus Commons Drive, Suite 100
-        br
-        | Reston, VA 20191
-        br
-        | 703-972-2288
-        br
-        a href="https://nterone.com" NterOne.com
-    .col-xs-12.col-md-6
-      address
-        strong
-          = t('general.partial_contact_us_form.billing_address')
-        br
-        | 747 Sandy Ridge Rd
-        br
-        | Tyner, NC 27980
-        br
-        | 703-972-2288
-        br
-        a href="https://nterone.com" NterOne.com
-
-  .row
-    .col-xs-12.col-md-6
-      address
-        strong
-          | República Dominicana
-        br
-        | Av. Lope de Vega 29,
-        br
-        | Torre Novo-Centro. 3er Nivel, Local C-6. Santo Domingo -
-        br
-        | República Dominicana
-        br
-        | 809-542-2476
-        br
-        a href="https://nterone.la" NterOne.la
-    .col-xs-12.col-md-6
-      address
-        strong
-          | Venezuela
-        br
-        | Torre UNO, Planta Comercial.
-        br
-        | Av. Orinoco, Las Mercedes,
-        br
-        | Caracas - Venezuela, 1060
-        br
-        | 58-212-9930634
-        br
-        a href="https://nterone.la" NterOne.la
-
-  .row
-    .col-xs-12.col-md-6
-      address
-        strong
-          | Panamá
-        br
-        | Calle 58 Obarrio y Calle 50.
-        br
-        | Torre Office One
-        br
-        | Ciudad de Panamá – Panamá
-        br
-        | 507-833-6419
-        br
-        a href="https://nterone.la" NterOne.la
-    .col-xs-12.col-md-6
-      address
-        strong
-          | Colombia
-        br
-        | Carrera 9 N°115-06/30, Piso 17
-        br
-        | Tierra Firme Complex
-        br
-        | Bogotá, Colombia
-        br
-        | +57 1 6398444
-        br
-        a href="https://nterone.la" NterOne.la
-
-  .row
-    .col-xs-12.col-md-6
-      address
-        strong
-          | Canada
-        br
-        | 2953 Tenth Line Road
-        br
-        | Navan, Ontario
-        br
-        | K4B 1H8
-        br
-        | 613-317-2480
-        br
-        a href="https://nterone.ca" NterOne.ca
+    .form-buttons
+      button.btn.btn-blue-gradient.btn-padded type='submit' = t('default.action.submit')
 
 javascript:
   grecaptcha.reset();
 
 - if Rails.env.production?
-  script type="text/javascript" src="https://conversions.marketing360.com/uxi/contra.js"
+  script type='text/javascript' src='https://conversions.marketing360.com/uxi/contra.js'
+
+    / hr
+    /
+    / .row
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         = t('general.partial_contact_us_form.corporate_address')
+    /       br
+    /       | 1900 Campus Commons Drive, Suite 100
+    /       br
+    /       | Reston, VA 20191
+    /       br
+    /       | 703-972-2288
+    /       br
+    /       a href="https://nterone.com" NterOne.com
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         = t('general.partial_contact_us_form.billing_address')
+    /       br
+    /       | 747 Sandy Ridge Rd
+    /       br
+    /       | Tyner, NC 27980
+    /       br
+    /       | 703-972-2288
+    /       br
+    /       a href="https://nterone.com" NterOne.com
+    /
+    / .row
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         | República Dominicana
+    /       br
+    /       | Av. Lope de Vega 29,
+    /       br
+    /       | Torre Novo-Centro. 3er Nivel, Local C-6. Santo Domingo -
+    /       br
+    /       | República Dominicana
+    /       br
+    /       | 809-542-2476
+    /       br
+    /       a href="https://nterone.la" NterOne.la
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         | Venezuela
+    /       br
+    /       | Torre UNO, Planta Comercial.
+    /       br
+    /       | Av. Orinoco, Las Mercedes,
+    /       br
+    /       | Caracas - Venezuela, 1060
+    /       br
+    /       | 58-212-9930634
+    /       br
+    /       a href="https://nterone.la" NterOne.la
+    /
+    / .row
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         | Panamá
+    /       br
+    /       | Calle 58 Obarrio y Calle 50.
+    /       br
+    /       | Torre Office One
+    /       br
+    /       | Ciudad de Panamá – Panamá
+    /       br
+    /       | 507-833-6419
+    /       br
+    /       a href="https://nterone.la" NterOne.la
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         | Colombia
+    /       br
+    /       | Carrera 9 N°115-06/30, Piso 17
+    /       br
+    /       | Tierra Firme Complex
+    /       br
+    /       | Bogotá, Colombia
+    /       br
+    /       | +57 1 6398444
+    /       br
+    /       a href="https://nterone.la" NterOne.la
+    /
+    / .row
+    /   .col-xs-12.col-md-6
+    /     address
+    /       strong
+    /         | Canada
+    /       br
+    /       | 2953 Tenth Line Road
+    /       br
+    /       | Navan, Ontario
+    /       br
+    /       | K4B 1H8
+    /       br
+    /       | 613-317-2480
+    /       br
+    /       a href="https://nterone.ca" NterOne.ca

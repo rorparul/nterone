@@ -1,0 +1,58 @@
+/   #regions style="margin-bottom: 12px;"
+/     .btn-group.dropup
+/       button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+/         | Choose Region (#{Event.origin_regions.index(session[:region]).humanize.titleize})
+/       ul.dropdown-menu
+/         li : a href=(switch_tld_path('com')) = "United States"
+/         li : a href=(switch_tld_path('la'))  = "Latin America"
+/         li : a href=(switch_tld_path('ca'))  = "Canada"
+/   #copyright
+/     = t 'footer.copyright'
+/     |  &copy;
+/     = "#{Date.today.year} #{t 'footer.copyright_company'}"
+
+#container-footer.container
+  .hr-blue
+  .row.row-level-1
+    .col-xs-6.col-level-1
+      #nav-footer.row.row-level-2
+        .col-xs-4.col-level-2
+          ul
+            li = link_to 'TRAINING', '#'
+            li = link_to 'CISCO', '#'
+            li = link_to 'ITIL', '#'
+            li = link_to 'MICROSOFT', '#'
+            li = link_to 'VMWARE', '#'
+            li = link_to 'AMAZON', '#'
+            li = link_to 'FEATURED CLASSES', '#'
+            li = link_to 'CONTACT', '#'
+        .col-xs-4.col-level-2
+          ul
+            li = link_to 'HOME', '#'
+            li = link_to 'CONSULTING', '#'
+            li = link_to 'LABS', '#'
+            li = link_to 'ABOUT US', '#'
+            li = link_to 'TESTIMONIALS', '#'
+            li = link_to 'PARTNERS', '#'
+            li = link_to 'SITEMAP', sitemap_path
+        .col-xs-4.col-level-2
+          ul
+            li = link_to 'FACEBOOK', 'https://www.facebook.com/NterOne', target: '_blank'
+            li = link_to 'TWITTER', 'https://twitter.com/NterOne', target: '_blank'
+            li = link_to 'LINKEDIN', 'https://www.linkedin.com/company/nterone', target: '_blank'
+            li = link_to 'GOOGLE PLUS', 'https://plus.google.com/+Nterone', target: '_blank'
+      #credentials.row.row-level-2
+        .col-xs-12.col-level-2
+          = image_tag 'gsa-partner.jpg'
+          = image_tag 'vmware-partner-new.png'
+          = image_tag 'cisco-business-partner.png'
+          = image_tag 'cisco-partner.jpg'
+      #legal-documents
+        #copyright
+          |  &copy;
+          = "#{Date.today.year} #{t 'footer.copyright_company'}"
+        = link_to 'Privacy Policy', page_path(Page.find_by(title: 'NterOne Privacy Policy'))
+        = link_to 'Terms and Conditions', page_path(Page.find_by(title: 'NterOne Terms and Conditions'))
+    .col-xs-6.col-level-1
+      h1 CONTACT OUR TEAM TODAY!
+      = render 'general/contact_us_form'

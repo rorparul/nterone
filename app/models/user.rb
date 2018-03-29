@@ -92,7 +92,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#  fk_rails_...  (company_id => companies.id)
 #
 
 class User < ActiveRecord::Base

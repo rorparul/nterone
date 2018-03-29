@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_task_popup_time
-    if current_user
+    if user_signed_in?
       @show_task_popup = true if current_user.show_tasks?
       current_user.settings.task_popup_time = Time.now
     end

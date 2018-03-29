@@ -73,11 +73,124 @@ header {
   }
 }
 
+
+#container-footer.container {
+  .row-level-1 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  #nav-footer {
+    margin-bottom: 30px;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style: none;
+        margin-bottom: 10px;
+        a {
+          @include set-all {
+            color: black;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+  #credentials {
+    margin-bottom: 40px;
+    img {
+      height: 80px;
+      margin-right: 15px;
+    }
+  }
+  #legal-documents {
+    #copyright {
+      font-weight: bold;
+    }
+    a {
+      color: black;
+      margin-right: 15px;
+    }
+  }
+  h1 {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+  }
+}
+
+#contact-form {
+  p {
+    margin-bottom: 15px;
+  }
+}
+
 .btn-blue-gradient {
   @include set-all {
     background-color: rgb(15, 115, 185);
     @include value-prefix(background-image, linear-gradient(top, rgb(15, 115, 185) 0%, rgb(10, 80, 155) 100%));
     border-color: rgb(15, 115, 185);
     color: white;
+    outline: none !important;
   }
+  &.active {
+    @include value-prefix(background-image, none);
+  }
+}
+
+.btn-padded {
+  padding: 6px 40px;
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+#myModal {
+  text-align: center;
+  &:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    .panel {
+      margin: 0;
+      .panel-heading {
+        padding-top: 15px;
+        button {
+          span {
+            font-size: 14px;
+            vertical-align: 2px;
+          }
+        }
+      }
+      .panel-body {
+        padding-top: 4px;
+      }
+    }
+  }
+}
+
+#recapcha {
+  margin-bottom: 14px;
+}
+
+.g-recaptcha {
+  // margin: 0 auto;
+  // width: 304px;
+}
+
+.hr-blue {
+  border-top: 2px solid rgb(10, 80, 155);
 }

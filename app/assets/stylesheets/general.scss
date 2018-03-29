@@ -231,74 +231,6 @@ span.required {
   right: 30px;
 }
 
-.top {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 100;
-  padding-top: 17px;
-
-  @media (min-width: 768px) {
-    margin: 0 30px;
-  }
-
-  @media (max-width: 767px) {
-    margin: 0 15px;
-    text-align: center;
-  }
-  .logo-with-tagline-large {
-    float: left;
-  }
-  .logo-with-tagline-small {
-    img {
-      margin-top: 30px;
-      width: 280px;
-    }
-  }
-  .partner {
-    float: right;
-    margin-left: 10px;
-    text-align: right;
-    &:nth-child(2) {
-      @media (max-width: 776px) {
-        display: none;
-      }
-    }
-    &:nth-child(3) {
-      @media (max-width: 865px) {
-        display: none;
-      }
-    }
-    &:nth-child(4) {
-      @media (max-width: 954px) {
-        display: none;
-      }
-    }
-    &:last-child {
-      padding: 20px 0;
-      @media (max-width: 1139px) {
-        display: none;
-      }
-    }
-    img {
-      height: 79px;
-      border-radius: 5px;
-    }
-    p {
-      color: rgb(180, 180, 180);
-      margin: 0;
-    }
-  }
-}
-
-.top {
-  .hidden-xs {
-    overflow: hidden;
-    text-overflow: clip;
-  }
-}
-
 .video-link-container {
   height: 0px !important;
   width: 0px !important;
@@ -365,34 +297,6 @@ span.required {
 
 #ice-team-summary, #instructor-bios-additional-info {
   font-weight: bold;
-}
-
-.sub-sidebar-container {
-  width: 230px;
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-}
-
-.sub-sidebar {
-  display: inline-block;
-  background: #bf9300;
-  background-color: lightgray;
-  background-image: asset-data-url("backgrounds/body.jpg");
-  z-index: 100;
-  height: 100%;
-  border-radius: 4px;
-  padding-bottom: 25px;
-  width: 100%;
-  margin-bottom: 20px;
-  box-shadow: 0px 0px 3px #888888;
-  h1.sub-sidebar-heading {
-    text-align: center;
-    font-size: 18px;
-    margin: 26px 0 26px 0;
-    font-weight: bold;
-    color: #5f5f5f;
-  }
 }
 
 .zopim {
@@ -923,10 +827,6 @@ span.required {
   }
 }
 
-#recapcha {
-  margin-top: 10px;
-}
-
 .green-btn {
   border-radius: 3px;
   color: white;
@@ -1309,26 +1209,26 @@ hr {
   }
 }
 
-#announcement-form {
-  textarea {
-    height: 100px;
-    border: 0;
-    &:focus {
-      outline: none;
-      box-shadow: none;
-      -webkit-box-shadow: none;
-    }
-  }
-}
-
-.announcement {
-  .content {
-    max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-}
+// #announcement-form {
+//   textarea {
+//     height: 100px;
+//     border: 0;
+//     &:focus {
+//       outline: none;
+//       box-shadow: none;
+//       -webkit-box-shadow: none;
+//     }
+//   }
+// }
+// 
+// .announcement {
+//   .content {
+//     max-width: 250px;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+//   }
+// }
 
 .table {
   margin: 0;
@@ -1371,13 +1271,13 @@ hr {
   }
 }
 
-#announcement-form {
-  .form-group {
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-bottom-width: 0;
-  }
-}
+// #announcement-form {
+//   .form-group {
+//     border-bottom-left-radius: 3px;
+//     border-bottom-right-radius: 3px;
+//     border-bottom-width: 0;
+//   }
+// }
 
 #lab_rentals_form .confirmed-radio-button {
   margin: 4px 5px 0 0;
@@ -1475,169 +1375,117 @@ hr {
   }
 }
 
-.post-form {
-  border: 1px solid rgb(213, 213, 213);
-  border-radius: 3px;
-  box-shadow: rgb(250, 250, 250) 0px 1px 1px 0px;
-  box-sizing: border-box;
-  color: rgb(64, 64, 64);
-  display: block;
-  font-size: 14px;
-  height: 34px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 120px;
-  padding-top: 10px;
-}
-
-.post-form-inputs-container {
-  display: block;
-  position: relative;
-  margin-bottom: 20px;
-  input {
-    &:focus {
-      border-color: rgb(213, 213, 213);
-      box-shadow: none;
-    }
-  }
-}
-
-.post-form-button-container {
-  display: block;
-  font-size: 14px;
-  height: 28px;
-  position: absolute;
-  right: 3px;
-  top: 3px;
-}
-
-.post-form-button {
-  background-color: rgba(0, 0, 0, 0);
-  @include value-prefix(background-image, linear-gradient(top, rgb(109, 181, 213) 0%, rgb(74, 145, 192) 100%));
-  background-origin: padding-box;
-  background-size: auto;
-  border: 1px solid rgb(88, 151, 195);
-  border-radius: 3px;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  display: block;
-  float: left;
-  font-size: 11px;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: bold;
-  height: 28px;
-  line-height: 15px;
-  margin: 0 0 0 12px;
-  padding: 6px 10px;
-  text-align: center;
-  width: 57px;
-  &:hover {
-    color: rgb(255, 255, 255);
-  }
-  &:active {
-    -webkit-box-shadow: rgb(128, 128, 128) 0px 0px 2px 0px inset, rgb(255, 255, 255) 0px 1px 0px 0px;
-    background-color: rgb(85, 156, 199);
-  }
-}
-
-.posts-back {
-  margin-top: 15px;
-}
-
-.divider {
-  border-bottom-color: rgb(255, 255, 255);
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-top-color: rgb(223, 223, 223);
-  border-top-style: solid;
-  border-top-width: 1px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  outline-color: rgb(95, 95, 95);
-  position: relative;
-  text-align: left;
-  vertical-align: baseline;
-  span {
-    -webkit-background-clip: border-box;
-    -webkit-background-origin: padding-box;
-    -webkit-background-size: auto;
-    background-attachment: scroll;
-    background-clip: border-box;
-    background-color: none;
-    background-image: image-url("divider.png");
-    background-origin: padding-box;
-    background-size: auto;
-    color: rgb(95, 95, 95);
-    display: block;
-    font-size: 14px;
-    left: 50%;
-    margin: 0 0 0 -21px;
-    outline-color: rgb(95, 95, 95);
-    outline-style: none;
-    outline-width: 0px;
-    padding: 0 3px;
-    position: absolute;
-    text-align: left;
-    top: -4px;
-    vertical-align: baseline;
-    background-repeat: no-repeat;
-    height: 8px;
-    width: 30px;
-  }
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  height: 120px;
-  position: relative;
-  @media (min-width: 768px) {
-    margin: 0 30px;
-  }
-  @media (max-width: 767px) {
-    margin: 0 15px;
-  }
-  #social-icons {
-    margin-bottom: 14px;
-    a {
-      span {
-        margin: 0 5px;
-        font-size: 30px;
-      }
-    }
-    .facebook {
-      color: rgb(59, 89, 152);
-    }
-    .twitter {
-      color: rgb(103, 201, 232);
-    }
-    .linkedin {
-      color: rgb(0, 122, 185);
-    }
-    .google {
-      color: rgb(210, 66, 56);
-    }
-  }
-
-  #legal-docs {
-    margin-bottom: 8px;
-    a {
-      display: inline-block;
-      margin: 0 5px;
-      @media (max-width: 767px) {
-        font-size: 10px;
-      }
-    }
-  }
-
-  #copyright {
-    padding-bottom: 12px;
-    @media (max-width: 767px) {
-      font-size: 10px;
-    }
-  }
-}
+// .post-form {
+//   border: 1px solid rgb(213, 213, 213);
+//   border-radius: 3px;
+//   box-shadow: rgb(250, 250, 250) 0px 1px 1px 0px;
+//   box-sizing: border-box;
+//   color: rgb(64, 64, 64);
+//   display: block;
+//   font-size: 14px;
+//   height: 34px;
+//   padding-bottom: 10px;
+//   padding-left: 10px;
+//   padding-right: 120px;
+//   padding-top: 10px;
+// }
+//
+// .post-form-inputs-container {
+//   display: block;
+//   position: relative;
+//   margin-bottom: 20px;
+//   input {
+//     &:focus {
+//       border-color: rgb(213, 213, 213);
+//       box-shadow: none;
+//     }
+//   }
+// }
+//
+// .post-form-button-container {
+//   display: block;
+//   font-size: 14px;
+//   height: 28px;
+//   position: absolute;
+//   right: 3px;
+//   top: 3px;
+// }
+//
+// .post-form-button {
+//   background-color: rgba(0, 0, 0, 0);
+//   @include value-prefix(background-image, linear-gradient(top, rgb(109, 181, 213) 0%, rgb(74, 145, 192) 100%));
+//   background-origin: padding-box;
+//   background-size: auto;
+//   border: 1px solid rgb(88, 151, 195);
+//   border-radius: 3px;
+//   color: rgb(255, 255, 255);
+//   cursor: pointer;
+//   display: block;
+//   float: left;
+//   font-size: 11px;
+//   font-style: normal;
+//   font-variant: normal;
+//   font-weight: bold;
+//   height: 28px;
+//   line-height: 15px;
+//   margin: 0 0 0 12px;
+//   padding: 6px 10px;
+//   text-align: center;
+//   width: 57px;
+//   &:hover {
+//     color: rgb(255, 255, 255);
+//   }
+//   &:active {
+//     -webkit-box-shadow: rgb(128, 128, 128) 0px 0px 2px 0px inset, rgb(255, 255, 255) 0px 1px 0px 0px;
+//     background-color: rgb(85, 156, 199);
+//   }
+// }
+//
+// .posts-back {
+//   margin-top: 15px;
+// }
+//
+// .divider {
+//   border-bottom-color: rgb(255, 255, 255);
+//   border-bottom-style: solid;
+//   border-bottom-width: 1px;
+//   border-top-color: rgb(223, 223, 223);
+//   border-top-style: solid;
+//   border-top-width: 1px;
+//   margin-bottom: 20px;
+//   margin-top: 20px;
+//   outline-color: rgb(95, 95, 95);
+//   position: relative;
+//   text-align: left;
+//   vertical-align: baseline;
+//   span {
+//     -webkit-background-clip: border-box;
+//     -webkit-background-origin: padding-box;
+//     -webkit-background-size: auto;
+//     background-attachment: scroll;
+//     background-clip: border-box;
+//     background-color: none;
+//     background-image: image-url("divider.png");
+//     background-origin: padding-box;
+//     background-size: auto;
+//     color: rgb(95, 95, 95);
+//     display: block;
+//     font-size: 14px;
+//     left: 50%;
+//     margin: 0 0 0 -21px;
+//     outline-color: rgb(95, 95, 95);
+//     outline-style: none;
+//     outline-width: 0px;
+//     padding: 0 3px;
+//     position: absolute;
+//     text-align: left;
+//     top: -4px;
+//     vertical-align: baseline;
+//     background-repeat: no-repeat;
+//     height: 8px;
+//     width: 30px;
+//   }
+// }
 
 #students {
   tbody a {
@@ -2141,8 +1989,4 @@ footer {
 
 .select2-search__field {
   width: 100% !important;
-}
-
-.g-recaptcha {
-  margin: 0 auto 15px auto;
 }

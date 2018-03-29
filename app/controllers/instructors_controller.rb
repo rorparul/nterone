@@ -73,14 +73,14 @@ class InstructorsController < ApplicationController
     )
 
     respond_to do |format|
-      format.html{ render 'instructors/classes', layout: 'admin' }
+      format.html{ render 'instructors/classes' }
       format.js
     end
   end
 
   def classes_show
     @event = Event.find(params[:id])
-    render 'instructors/classes_show', layout: 'admin'
+    render 'instructors/classes_show'
   end
 
   private

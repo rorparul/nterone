@@ -1,45 +1,43 @@
-header
-  #navigation.container
-    .row
-      .col-xs-4
-        #logo
-          = link_to root_path do
-            = image_tag t 'shared.header.logo'
-      .col-xs-8
-        .row
-          .col-xs-12
-            nav#nav-1
-              #phone
-                = "Call Today: #{link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"}".html_safe
-              .btn-group role='group'
-                = sign_in_or_account
-                = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
-                  span.glyphicon.glyphicon-shopping-cart
-                - if user_signed_in?
-                  = link_to logout_path, id: 'sign_out', class: 'btn btn-blue-gradient', role: 'button' do
-                    span.glyphicon.glyphicon-log-out
-        .row
-          .col-xs-12
-            nav#nav-2
-              ul
-                li = link_to root_path do
-                  span.text = t 'layouts.partial_sidebar.home'
-                li = link_to platforms_path do
-                  span.text = t 'layouts.partial_sidebar.training'
-                li = link_to consulting_path do
-                  span.text = t 'layouts.partial_sidebar.consulting'
-                li = link_to labs_path do
-                  span.text = t 'layouts.partial_sidebar.labs'
-                li = link_to about_us_path do
-                  span.text = t 'layouts.partial_sidebar.about_us'
-                li = link_to testimonials_path do
-                  span.text = t 'layouts.partial_sidebar.testimonials'
-                li = link_to partners_path do
-                  span.text = t 'layouts.partial_sidebar.partners'
-                li = link_to contact_us_path, remote: true, rel: 'nofollow' do
-                  span.text = t 'layouts.partial_sidebar.contact'
-                li = link_to new_search_path, remote: true, rel: 'nofollow' do
-                  span.text = t 'layouts.admin.search'
+= render 'shared/flash_messages'
 
-  #notifications
-    = render 'shared/notifications'
+.container
+  .row
+    .col-xs-4
+      #logo
+        = link_to root_path do
+          = image_tag t 'shared.header.logo'
+    .col-xs-8
+      .row
+        .col-xs-12
+          nav#nav-1
+            #phone
+              = "Call Today: #{link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"}".html_safe
+            .btn-group role='group'
+              = sign_in_or_account
+              = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
+                span.glyphicon.glyphicon-shopping-cart
+              - if user_signed_in?
+                = link_to logout_path, id: 'sign_out', class: 'btn btn-blue-gradient', role: 'button' do
+                  span.glyphicon.glyphicon-log-out
+      .row
+        .col-xs-12
+          nav#nav-2
+            ul
+              li = link_to root_path do
+                span.text = t 'layouts.partial_sidebar.home'
+              li = link_to platforms_path do
+                span.text = t 'layouts.partial_sidebar.training'
+              li = link_to consulting_path do
+                span.text = t 'layouts.partial_sidebar.consulting'
+              li = link_to labs_path do
+                span.text = t 'layouts.partial_sidebar.labs'
+              li = link_to about_us_path do
+                span.text = t 'layouts.partial_sidebar.about_us'
+              li = link_to testimonials_path do
+                span.text = t 'layouts.partial_sidebar.testimonials'
+              li = link_to partners_path do
+                span.text = t 'layouts.partial_sidebar.partners'
+              li = link_to contact_us_path, remote: true, rel: 'nofollow' do
+                span.text = t 'layouts.partial_sidebar.contact'
+              li = link_to new_search_path, remote: true, rel: 'nofollow' do
+                span.text = t 'layouts.admin.search'

@@ -16,10 +16,6 @@ class GeneralController < ApplicationController
     @items = subjects + courses + vods
   end
 
-  def welcome
-    @page = Page.find_by(title: 'Welcome')
-  end
-
   def sign_up_confirmation
     @page = Page.find_by(title: 'Sign Up Confirmation')
   end
@@ -178,7 +174,7 @@ class GeneralController < ApplicationController
   end
 
   def email_signature_tool
-    render layout: 'admin'
+    # render layout: 'admin'
   end
 
   private

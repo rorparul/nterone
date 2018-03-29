@@ -1,5 +1,5 @@
 = form_for resource, as: resource_name, url: session_path(resource) do |f|
-  = render 'shared/notifications'
+  = render 'shared/flash_messages'
 
   input type="hidden" value="M360-Source" name="M360-Source"
 
@@ -15,9 +15,3 @@
   .or
     = image_tag asset_path('or.png')
   = link_to t('default.action.register'), new_registration_path(resource_name), class: 'btn btn-lg btn-block', id: 'newUser'
-  / = link_to new_registration_path(resource_name, special_event: true), class: 'btn btn-lg btn-block btn-promotion', id: 'newUser' do
-  /   span
-  /   = t 'devise.sessions.copy1'
-  /   br
-  /   span
-  /   = t 'devise.sessions.copy2'

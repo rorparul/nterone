@@ -5,11 +5,12 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require autonumeric
-//= require parsley
+//= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-select
 //= require bootstrap/tab
+//= require autonumeric
+//= require parsley
 //= require cocoon
 //= require smart_listing
 //= require select2
@@ -39,4 +40,3 @@
 //= require radialprogress/radialprogress/lib/d3.min
 //= require radialprogress/radialprogress/lib/vizuly_core.min
 //= require radialprogress/radialprogress/lib/vizuly_radialprogress.min
-

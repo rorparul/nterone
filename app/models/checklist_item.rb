@@ -18,7 +18,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_3605ca8e4d  (checklist_id => checklists.id)
+#  fk_rails_...  (checklist_id => checklists.id)
 #
 
 class ChecklistItem < ActiveRecord::Base

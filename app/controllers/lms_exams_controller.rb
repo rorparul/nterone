@@ -50,7 +50,7 @@ class LmsExamsController < ApplicationController
 
   def quiz_demo
     @video_on_demand = VideoOnDemand.find_by(slug: 'quiz-demo-vod')
-    render 'quiz_demo', layout: 'admin'
+    render 'quiz_demo'
   end
 
   def init_quiz

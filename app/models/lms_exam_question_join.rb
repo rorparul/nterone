@@ -20,8 +20,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_6bd82c01fc  (lms_exam_id => lms_exams.id)
-#  fk_rails_7716feb102  (lms_exam_question_id => lms_exam_questions.id)
+#  fk_rails_...  (lms_exam_id => lms_exams.id)
+#  fk_rails_...  (lms_exam_question_id => lms_exam_questions.id)
 #
 
 class LmsExamQuestionJoin < ActiveRecord::Base

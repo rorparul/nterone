@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
 
-  layout 'admin'
+  # layout 'admin'
 
   def index
     respond_to do |format|

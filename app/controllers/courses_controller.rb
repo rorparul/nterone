@@ -142,6 +142,7 @@ class CoursesController < ApplicationController
       :archived,
       :book_cost_per_student,
       :cisco_id,
+      :featured_course_summary,
       :heading,
       :id,
       :intended_audience,

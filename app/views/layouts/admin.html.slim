@@ -15,9 +15,7 @@ html[ng-app="nterone"]
     = render 'layouts/scripts_head'
 
   body
-    = render 'layouts/async_status'
-    = render 'layouts/modal'
-    = render 'layouts/header'
+    = render 'shared/header'
     .container-fluid
       .content-top
         #menu-toggle
@@ -47,8 +45,9 @@ html[ng-app="nterone"]
                 | Tasks
       hr
       .content-admin
-        = render 'shared/notifications'
+        = render 'shared/flash_messages'
         = yield
+    = render 'layouts/modal'
     = render 'layouts/footer'
     = render 'layouts/scripts_body'
     == angular_templates Rails.root.join("app/assets/javascripts/angular/templates")
