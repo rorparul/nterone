@@ -84,6 +84,10 @@ class Opportunity < ActiveRecord::Base
     opportunities.sum(&:amount)
   end
 
+  def self.group_by_months
+    self.order("date_closed").group_by{ |opportunity| opportunity.date_closed.beginning_of_month }
+  end
+
   def self.amount_waiting
     waiting.sum(:amount)
   end

@@ -195,62 +195,34 @@ wb.styles do |style|
   
   #Add a Business Breakdown tab  
   wb.add_worksheet(name: "Business Breakdown") do |sheet|
-    kinds = ["Channel Partner",
-             "Cisco",
-             "Commercial / Enterprise",
-             "Distributor",
-             "Federal",
-             "SLED",
-             "CLP (Cisco Learning Partner)",
-             "Seat Reseller"
-            ]
-
-    companies = Company.where(id: @opportunities.map(&:account_id).reject(&:blank?).uniq)
-    companies = companies.select{|company| 
-                                  Opportunity.get_company_open_amount(@opportunities, company.id) > 0
-                                }
+    kinds = direct_indirect_kinds
+    companies = Company.companies_with_amount(@opportunities)                                
     headers = [""] + kinds + ["Total"] + companies.map(&:title)
-    
     sheet.add_row headers, style: Array.new(headers.size, color) 
     sheet.add_row headers.map{|h| ""}, style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
-    month_wise_opportunities = @opportunities.order("date_closed").group_by{ |u| u.date_closed.beginning_of_month }
-    
-    month_wise_opportunities.each do |month, opportunities|
 
+    @opportunities.group_by_months.each do |month, opportunities|
       opportunities_for_month = Opportunity.where(id: opportunities.map(&:id))
-      
+
       amount_for_kinds = kinds.map{|kind| opportunities_for_month.for_company_kind(kind).amount_open}
-      
-      total_for_kinds = "$#{number_with_delimiter(amount_for_kinds.inject(:+))}"
-      amount_for_kinds = amount_for_kinds.map{|amount| "$#{number_with_delimiter(amount)}" } 
-      
-      amount_for_companies =  companies.map do|company| 
-                                open_amount = Opportunity.get_company_open_amount(opportunities_for_month, company.id)
-                                "$#{number_with_delimiter(open_amount)}"
-                              end 
-      
-      sheet.add_row ([month.strftime("%b")] + amount_for_kinds + [total_for_kinds] + 
-      amount_for_companies), style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
+ 
+      sheet.add_row ( [month.strftime("%b")] + 
+                      array_to_numbers_with_delimiters(amount_for_kinds) +
+                      ["$#{number_with_delimiter(amount_for_kinds.inject(:+))}"] + 
+                      delimiter_companies_amount(companies, opportunities_for_month) 
+                    ), style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
       
       sheet.add_row headers.map{|h| ""}, style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
     end
-    total_amount_for_kinds = kinds.map{|kind| sum_of(@opportunities.for_company_kind(kind).pending, 'amount')}
     
-    total_amount_of_kinds = kinds.map{|kind| sum_of(@opportunities.for_company_kind(kind).pending, 'amount')}.inject(:+)
+    amount_for_kinds = opportunities_amount_for_kinds(@opportunities) 
+    amount_for_companies =  companies_amount(companies, @opportunities)
+    total_for_all = amount_for_kinds + [amount_for_kinds.inject(:+)] + amount_for_companies
     
-    amount_for_companies =  companies.map do|company| 
-                              Opportunity.get_company_open_amount(@opportunities, company.id)
-                            end
+    sheet.add_row ([""] + array_to_numbers_with_delimiters(total_for_all)), style: Array.new(total_for_all.size + 1, color)
     
-    total_for_all = total_amount_for_kinds+ [total_amount_of_kinds]  + amount_for_companies
+    grand_total = (amount_for_kinds + amount_for_companies).inject(:+)
     
-    sheet.add_row ([""] + total_for_all.map{|total| "$#{number_with_delimiter(total)}"}), style: Array.new(total_for_all.size + 1, color)
-    
-    grand_total = (total_amount_for_kinds + amount_for_companies).inject(:+)
-    
-    percentages_of_total = grand_total > 0 ? total_for_all.map{|total| "#{((total*100)/grand_total).round(2)}%"} : [0]
-    
-    sheet.add_row [""] + percentages_of_total
-
+    sheet.add_row [""] + array_percentages_of_total(grand_total, total_for_all)
   end
 end
