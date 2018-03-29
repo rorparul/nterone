@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328140656) do
+ActiveRecord::Schema.define(version: 20180329083115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 20180328140656) do
     t.string   "subject"
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+    t.text     "message",        default: ""
   end
 
   add_index "contact_us_submissions", ["origin_region"], name: "index_contact_us_submissions_on_origin_region", using: :btree

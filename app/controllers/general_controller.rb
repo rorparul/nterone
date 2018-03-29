@@ -181,14 +181,13 @@ class GeneralController < ApplicationController
 
   def contact_us_params
     params.require(:contact_us).permit(
-      'M360-Source',
-      :recipient,
+      :email,
+      :message,
       :name,
       :phone,
-      :email,
-      :inquiry,
+      :recipient,
       :subject,
-      :feedback
+      'M360-Source'
     )
   end
 

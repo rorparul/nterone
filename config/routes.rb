@@ -1,6 +1,6 @@
 NterOne::Application.routes.draw do
   root to: 'welcome#index'
-  
+
   devise_for :users,
              controllers: {
                registrations: 'users/registrations',
@@ -318,8 +318,8 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new',                   as: :contact_us
-  post 'contact_us'                                  => 'general#contact_us_create'
+  get  'contact_us'                                  => 'general#contact_us_new',                   as: :new_contact_us
+  post 'contact_us'                                  => 'general#contact_us_create',                as: :contact_us
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',          as: :general_inquiry_confirmation
   get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',          as: :course_inquiry_confirmation
   get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',          as: :learning_credits_inquiry_confirmation

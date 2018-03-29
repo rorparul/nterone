@@ -1,5 +1,5 @@
 doctype html
-html
+html[ng-app='nterone']
   head
     title = content_for?(:page_title) ? "#{yield(:page_title)} | NterOne" : 'NterOne'
     = Gon::Base.render_data
@@ -11,16 +11,16 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag 'favicon.png'
     = csrf_meta_tags
-    = render 'layouts/scripts_head'
+    = render 'shared/scripts_head'
 
   body
     header = render 'shared/header'
-    main   = yield
+    main = yield
     footer = render 'shared/footer'
 
-    = render 'layouts/modal'
-    = render 'layouts/scripts_body'
-    / == angular_templates Rails.root.join('app/assets/javascripts/angular/templates')
+    = render 'shared/modal'
+    = render 'shared/scripts_body'
+    == angular_templates Rails.root.join('app/assets/javascripts/angular/templates')
 
     - if @show_task_popup
       javascript:

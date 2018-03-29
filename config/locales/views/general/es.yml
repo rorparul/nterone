@@ -36,12 +36,11 @@ es:
       billing_address: "NterOne Dirección de Facturación"
       corporate_address: "NterOne Dirección Corporativa"
       email: "Email"
-      feedback: "Retroalimentación-Como podemos mejorar su experiencia?"
       help_desk: "Centro de Ayuda"
-      inquiry: "Consultas-Como podemos ayudarlos?"
       name: "Nombre"
-      phone: "Número de Teléfono"
+      phone: "Teléfono"
       sales: "Ventas"
+      questions_or_comments: "Preguntas o Comentarios"
     partial_search_form:
       placeholder: "Buscar por Certificaciones, cursos o exámenes"
     partners:

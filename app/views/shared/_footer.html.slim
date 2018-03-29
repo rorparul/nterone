@@ -1,16 +1,3 @@
-/   #regions style="margin-bottom: 12px;"
-/     .btn-group.dropup
-/       button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-/         | Choose Region (#{Event.origin_regions.index(session[:region]).humanize.titleize})
-/       ul.dropdown-menu
-/         li : a href=(switch_tld_path('com')) = "United States"
-/         li : a href=(switch_tld_path('la'))  = "Latin America"
-/         li : a href=(switch_tld_path('ca'))  = "Canada"
-/   #copyright
-/     = t 'footer.copyright'
-/     |  &copy;
-/     = "#{Date.today.year} #{t 'footer.copyright_company'}"
-
 #container-footer.container
   .hr-blue
   .row.row-level-1

@@ -37,7 +37,25 @@
                 span.text = t 'layouts.partial_sidebar.testimonials'
               li = link_to partners_path do
                 span.text = t 'layouts.partial_sidebar.partners'
-              li = link_to contact_us_path, remote: true, rel: 'nofollow' do
+              li = link_to new_contact_us_path, remote: true, rel: 'nofollow' do
                 span.text = t 'layouts.partial_sidebar.contact'
               li = link_to new_search_path, remote: true, rel: 'nofollow' do
                 span.text = t 'layouts.admin.search'
+              li = link_to new_search_path, remote: true, rel: 'nofollow' do
+                = flag_icon(:us, id: 'my-flag', class: 'strong')
+
+              /   #regions style="margin-bottom: 12px;"
+              /     .btn-group.dropup
+              /       button.btn.btn-default.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              /         | Choose Region (#{Event.origin_regions.index(session[:region]).humanize.titleize})
+              /       ul.dropdown-menu
+              /         li : a href=(switch_tld_path('com')) = "United States"
+              /         li : a href=(switch_tld_path('la'))  = "Latin America"
+              /         li : a href=(switch_tld_path('ca'))  = "Canada"
+              /
+              / United States us
+              / República Dominicana dm
+              / Venezuela ve
+              / Panamá pa
+              / Colombia co
+              / Canada ca
