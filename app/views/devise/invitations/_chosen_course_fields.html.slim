@@ -1,0 +1,11 @@
+.nested-fields
+  = f.select :course_id, Course.all.map { |course| [course.title, course.id] },
+        options = {},
+        html_options = { class: 'form-control search-select' }
+  = link_to_remove_association "Remove Course", f
+
+javascript:
+  $('.search-select').select2({
+    dropdownParent: $("#myModal .modal-body.panel-body"),
+    theme: "bootstrap"
+  });  

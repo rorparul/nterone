@@ -95,7 +95,7 @@
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                    @course.instructors,
                     { include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6

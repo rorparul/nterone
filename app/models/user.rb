@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
-
+  accepts_nested_attributes_for :chosen_courses, reject_if: :all_blank, allow_destroy: true
   scope :active_sales,     -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
   scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
   scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
