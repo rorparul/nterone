@@ -1,0 +1,1 @@
+$(function(){function e(){function e(){$("#subject_object_type").change(function(){"Exam"===$(this).find("option:selected").text()?(n.prop("disabled",!1),n.parent().removeClass("hidden")):(n.prop("disabled",!0),n.parent().addClass("hidden"))}).change()}var n=$("#subject_number");e()}new e});
