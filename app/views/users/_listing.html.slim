@@ -3,6 +3,7 @@
     table.table.table-condensed
       thead
         tr.background-muted
+          th
           th.fit
             i.fa.fa-globe aria-hidden="true" title='Origin Region'
           th ID
@@ -11,12 +12,14 @@
           th = "Phone Number"
           th = smart_listing.sortable t('default.label.email'), :email
           th = t('default.label.company')
-          th Orders
+          th Orders 
           th Sales Rep
           th colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
+            td
+              = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
             td.fit style="cursor: help;"
               - if user.origin_region == 'united_states'
                 i.fa.fa-circle.text-danger aria-hidden="true" title="#{user.origin_region.titleize}"

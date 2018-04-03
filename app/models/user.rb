@@ -79,6 +79,7 @@
 #  active                  :boolean          default(TRUE)
 #  archive                 :boolean          default(FALSE)
 #  sales_force_id          :string
+#  customer_type           :integer
 #
 # Indexes
 #
@@ -111,6 +112,11 @@ class User < ActiveRecord::Base
     pending_class: 2,
     qualified: 3,
     closed: 4
+  }
+
+  enum customer_type: {
+    direct_customer: 0,
+    partner_customer: 1
   }
 
   # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
