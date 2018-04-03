@@ -80,12 +80,13 @@
                { include_blank: t('companies.partial_form.dropdown') },
                { class: 'search-companies-select form-control', style: "width: 100%;" }
   
-  h4 Courses
-  #courses
-    = f.simple_fields_for :chosen_courses do |chosen_course|
-      = render 'chosen_course_fields', f: chosen_course
-    .links
-      = link_to_add_association 'Add Course', f, :chosen_courses
+  .form-group
+    = f.label nil, 'Courses'
+    #courses
+      = f.simple_fields_for :chosen_courses do |chosen_course|
+        = render 'chosen_course_fields', f: chosen_course
+      .links
+        = link_to_add_association 'Add Course', f, :chosen_courses
 
   hr
 

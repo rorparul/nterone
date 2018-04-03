@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
-
+  
   layout 'admin'
 
   def index
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
 
   def edit
   end
+
 
   def edit_from_sales
     @owners    = User.all_sales
@@ -226,7 +227,7 @@ class UsersController < ApplicationController
       :zipcode,
       filters: [
         :parent_id,
-        :source_name,
+        :source_name, 
         :status,
         :state,
         :company_id
@@ -235,7 +236,8 @@ class UsersController < ApplicationController
         :id,
         :role,
         :_destroy
-      ]
+      ],
+      chosen_courses_attributes: [:course_id]
     )
   end
 
