@@ -13,24 +13,27 @@ class Reports::SalesController < ApplicationController
     end_date   = parse_date_select(report_params, :end_date)
     
     @opportunities = Opportunity.where(date_closed: start_date..end_date)
-    @opportunities = @opportunities.pending if report_params[:status] == "open"
-    @opportunities = @opportunities.waiting if report_params[:status] == "waiting"
-    @opportunities = @opportunities.won     if report_params[:status] == "won"
-    
+
+    @opportunities = @opportunities.pending if report_params[:status] == 'open'
+    @opportunities = @opportunities.waiting if report_params[:status] == 'waiting'
+    @opportunities = @opportunities.won     if report_params[:status] == 'won'
+    @opportunities = @opportunities.lost    if report_params[:status] == 'lost'
+
     @companies = Company.pending if report_params[:status] == "open"
     @companies = Company.waiting if report_params[:status] == "waiting"
-    @companies = Company.won if report_params[:status] == "won"
+    @companies = Company.won     if report_params[:status] == "won"
+    @companies = Company.lost    if report_params[:status] == 'lost'
     @companies = @companies.where(opportunities: {date_closed: start_date..end_date})
 
-    @remove_percent_column = report_params[:status] == "won"
+
+    @remove_percent_column = report_params[:status] == 'won' || report_params[:status] == 'lost'
 
     if current_user.admin? || current_user.sales_manager?
-
-      if params[:filter_user] == ''
+      unless params[:filter_user].present?
         @company_sales = @opportunities.where(employee_id: nil)
         @employee_sales = @opportunities.where.not(employee_id: nil)
       else
-        @company_sales = @opportunities.where(employee_id: 0)
+        @company_sales = @opportunities.where(employee_id: nil)
         @employee_sales = @opportunities.where(employee_id: params[:filter_user])
       end
 

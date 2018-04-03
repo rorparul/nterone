@@ -53,6 +53,7 @@ class Company < ActiveRecord::Base
   scope :pending, -> { joins(:account_opportunities).where(opportunities: {stage: [10, 50, 75, 90]}) }
   scope :won,     -> { joins(:account_opportunities).where(opportunities: {stage: 100}) }
   scope :waiting, -> { joins(:account_opportunities).where(opportunities: {waiting: true}) }
+  scope :lost,    -> { joins(:account_opportunities).where(opportunities: {stage: 0}) }
 
   scope :partners, -> { where(kind: 'Channel Partner') }
 
