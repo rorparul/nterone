@@ -11,11 +11,16 @@ class Reports::SalesController < ApplicationController
   def create
     start_date = parse_date_select(report_params, :start_date)
     end_date   = parse_date_select(report_params, :end_date)
-
+    
     @opportunities = Opportunity.where(date_closed: start_date..end_date)
     @opportunities = @opportunities.pending if report_params[:status] == "open"
     @opportunities = @opportunities.waiting if report_params[:status] == "waiting"
     @opportunities = @opportunities.won     if report_params[:status] == "won"
+    
+    @companies = Company.pending if report_params[:status] == "open"
+    @companies = Company.waiting if report_params[:status] == "waiting"
+    @companies = Company.won if report_params[:status] == "won"
+    @companies = @companies.where(opportunities: {date_closed: start_date..end_date})
 
     @remove_percent_column = report_params[:status] == "won"
 
