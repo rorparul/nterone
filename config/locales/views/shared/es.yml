@@ -45,6 +45,7 @@ es:
       labs: 'Labs'
       login: 'Iniciar Sesión'
       logo: 'locales/es/logo-with-tagline.png'
+      menu: 'Menú'
       my_nterone: 'Mi NterOne'
       partners: 'Aliados'
       search: 'Buscar'

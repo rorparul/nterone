@@ -1,27 +1,29 @@
 = render 'shared/flash_messages'
 
-/ span.glyphicon.glyphicon-menu-hamburger
-
 .container
   .row
-    .col-xs-3
+    .col-xs-12.col-sm-3
       #logo
         = link_to root_path do
           .hidden-lg = image_tag 'logo.png'
           .hidden-xs.hidden-sm.hidden-md = image_tag t('shared.header.logo')
-    .col-xs-9
+    .col-xs-12.col-sm-9
       .row
         .col-xs-12
           nav#nav-1
             #phone
-              = "#{t('shared.header.call_today')}: #{link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"}".html_safe
-            .btn-group role='group'
-              = sign_in_or_account
-              = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
-                span.glyphicon.glyphicon-shopping-cart title="#{t('shared.header.shopping_cart')}"
-              - if user_signed_in?
-                = link_to logout_path, id: 'sign_out', class: 'btn btn-blue-gradient', role: 'button' do
-                  span.glyphicon.glyphicon-log-out title="#{t('shared.header.sign_out')}"
+              span.hidden-xs = "#{t('shared.header.call_today')}: "
+              = link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"
+            #container-for-sign_in_or_account
+              .btn-group role='group'
+                = sign_in_or_account
+                - if user_signed_in?
+                  = link_to logout_path, id: 'sign_out', class: 'btn btn-blue-gradient', role: 'button' do
+                    span.glyphicon.glyphicon-log-out title="#{t('shared.header.sign_out')}"
+                = link_to '#', id: 'btn-menu', class: 'btn btn-blue-gradient', role: 'button' do
+                  span.glyphicon.glyphicon-menu-hamburger title="#{t('shared.header.menu')}"
+                = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
+                  span.glyphicon.glyphicon-shopping-cart title="#{t('shared.header.shopping_cart')}"
       .row
         .col-xs-12
           nav#nav-2
@@ -46,3 +48,9 @@
                 span.text = t('shared.header.search')
               li = link_to change_region_path, remote: true, rel: 'nofollow' do
                 = flag_icon_of_current_region
+
+javascript:
+  $('#btn-menu').on('click', function(e) {
+    e.preventDefault();
+    $('#nav-2').toggle();
+  });
