@@ -1,5 +1,5 @@
 #contact-form
-  p.text-danger Do not fill this out if you're a solicitor.
+  p.text-danger = t('shared._contact_us_form.no_solicitors')
 
   = form_for :contact_us, url: contact_us_path do |f|
     = f.hidden_field 'M360-Source', value: 'M360-Source'
@@ -23,7 +23,7 @@
     .row
       .col-xs-6
         .form-group
-          = f.label :email, t('general.partial_contact_us_form.email')
+          = f.label :email, t('shared._contact_us_form.email')
           = f.text_field :email, class: 'form-control input-sm'
       .col-xs-6
         .form-group

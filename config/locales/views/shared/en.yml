@@ -1,7 +1,16 @@
 en:
   shared:
-    header:
-      logo: 'locales/en/logo-with-tagline.png'
+    _addresses:
+      billing_address: 'NterOne Billing Address'
+      corporate_address: 'NterOne Corporate Address'
+    _contact_us_form:
+      email: 'Email'
+      no_solicitors: "Do not fill this out if you're a solicitor."
+    _search_form:
+      placeholder: 'Search by certification, course, or exam'
+      search: 'Search'
+    change_region:
+      title: 'Change Region'
     footer:
       about_us: 'About Us'
       amazon: 'Amazon'
@@ -26,10 +35,29 @@ en:
       training: 'Training'
       twitter: 'Twitter'
       vmware: 'VMware'
+    header:
+      about_us: 'About Us'
+      call_today: 'Call Today'
+      change_region: 'Change Region'
+      consulting: 'Consulting'
+      contact: 'Contact'
+      home: 'Home'
+      labs: 'Labs'
+      login: 'Login'
+      logo: 'locales/en/logo-with-tagline.png'
+      my_nterone: 'My NterOne'
+      partners: 'Partners'
+      search: 'Search'
+      shopping_cart: 'Shopping Cart'
+      sign_out: 'Sign Out'
+      testimonials: 'Testimonials'
+      training: 'Training'
     edit_js:
       companies: 'Edit Company'
     new_js:
       companies: 'New Company'
+    new_search:
+      title: 'Search'
     merge_js:
       companies: 'Merge Companies'
     opportunities:

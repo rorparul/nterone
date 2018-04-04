@@ -3,7 +3,7 @@ class GeneralController < ApplicationController
 
   def new_search
     respond_to do |format|
-      format.js
+      format.js { render 'shared/new_search' }
       format.html { redirect_to root_path }
     end
   end
@@ -14,6 +14,13 @@ class GeneralController < ApplicationController
     vods     = VideoOnDemand.active.current_region.where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%")
 
     @items = subjects + courses + vods
+  end
+
+  def change_region
+    respond_to do |format|
+      format.js { render 'shared/change_region' }
+      format.html { redirect_to root_path }
+    end
   end
 
   def sign_up_confirmation

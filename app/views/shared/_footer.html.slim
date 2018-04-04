@@ -12,7 +12,7 @@
             li = link_to t('shared.footer.vmware'), '#'
             li = link_to t('shared.footer.amazon'), '#'
             li = link_to t('shared.footer.featured_classes'), featured_classes_path
-            li = link_to t('shared.footer.contact'), new_contact_us_path
+            li = link_to t('shared.footer.contact'), new_contact_us_path, remote:  true
         .col-xs-4.col-level-2
           ul
             li = link_to t('shared.footer.home'), root_path

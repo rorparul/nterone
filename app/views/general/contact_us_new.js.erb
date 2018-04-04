@@ -1,3 +1,5 @@
 $('.modal-title').html("<%= t('general.contact_us_new_js.contact_us') %>");
 $('.modal-body').html("<%= escape_javascript(render partial: 'contact_us_form', locals: { user: @user }) %>");
+$('.modal-body').append("<hr style='margin: 18px 0 10px 0;'>");
+$('.modal-body').append("<%= escape_javascript(render partial: 'shared/addresses') %>");
 $('#myModal').modal('show');

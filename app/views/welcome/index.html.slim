@@ -12,16 +12,16 @@
 .container-fluid
   #welcome-banner
     #welcome-banner-message
-      h1 REINVENT YOURSELF.
-      h2 World-Class IT Training and Consulting Solutions
+      h1 = t('welcome.index.reinvent_yourself')
+      h2 = t('welcome.index.world_class_solutions')
     #welcome-banner-search
       = form_tag search_path, method: :get, 'data-parsley-validate' => true do
         .input-group
-          = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('default.placeholder.search_form')
+          = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('welcome.index.search_by')
           span.input-group-btn
-            button.btn.btn-blue-gradient type='submit' Search
+            button.btn.btn-blue-gradient type='submit' = t('welcome.index.search')
     #welcome-banner-gtr-classes
-      = link_to 'GUARANTEED TO RUN CLASSES', featured_classes_path
+      = link_to t('welcome.index.guaranteed_to_run_classes'), featured_classes_path
 
   #vendor-credits-redemption
     #vendor-credits-redemption-logos
@@ -42,31 +42,31 @@
           - if @featured_course_1.present?
             .featured-course-heading = @featured_course_1.heading
             .featured-course-summary = @featured_course_1.featured_course_summary.try(:html_safe)
-            = link_to 'Register Today!', platform_course_path(@featured_course_1.platform, @featured_course_1), class: 'btn btn-blue-gradient', role: 'button'
+            = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_1.platform, @featured_course_1), class: 'btn btn-blue-gradient', role: 'button'
     #featured-courses-row-2.featured-courses-row
       .row
         .col-xs-4.col-xs-offset-2 style='text-align: right;'
           - if @featured_course_2.present?
             .featured-course-heading = @featured_course_2.heading
             .featured-course-summary = @featured_course_2.featured_course_summary.try(:html_safe)
-            = link_to 'Register Today!', platform_course_path(@featured_course_2.platform, @featured_course_2), class: 'btn btn-blue-gradient', role: 'button'
+            = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_2.platform, @featured_course_2), class: 'btn btn-blue-gradient', role: 'button'
     #featured-courses-row-3.featured-courses-row
       .row
         .col-xs-4.col-xs-offset-6
           - if @featured_course_3.present?
             .featured-course-heading = @featured_course_3.heading
             .featured-course-summary = @featured_course_3.featured_course_summary.try(:html_safe)
-            = link_to 'Register Today!', platform_course_path(@featured_course_3.platform, @featured_course_3), class: 'btn btn-blue-gradient', role: 'button'
+            = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_3.platform, @featured_course_3), class: 'btn btn-blue-gradient', role: 'button'
     #featured-courses-row-4.featured-courses-row
       .row
         .col-xs-4.col-xs-offset-2 style='text-align: right;'
           - if @featured_course_4.present?
             .featured-course-heading = @featured_course_4.heading
             .featured-course-summary = @featured_course_4.featured_course_summary.try(:html_safe)
-            = link_to 'Register Today!', platform_course_path(@featured_course_4.platform, @featured_course_4), class: 'btn btn-blue-gradient', role: 'button'
+            = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_4.platform, @featured_course_4), class: 'btn btn-blue-gradient', role: 'button'
 
   #mission
-    h1 OUR MISSION
+    h1 = t('welcome.index.our_mission')
     = image_tag 'nterone-gives-back.png', id: 'nterone-gives-back'
     = image_tag 'feeding-america.jpg', id: 'feeding-america'
     = image_tag 'veteran-owned.png', id: 'veteran-owned'

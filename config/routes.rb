@@ -318,6 +318,7 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
+  get  'change_region'                               => 'general#change_region'
   get  'contact_us'                                  => 'general#contact_us_new',                   as: :new_contact_us
   post 'contact_us'                                  => 'general#contact_us_create',                as: :contact_us
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',          as: :general_inquiry_confirmation

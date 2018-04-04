@@ -1,9 +1,18 @@
 es:
   shared:
-    header:
-      logo: "locales/en/logo-with-tagline.png"
+    _addresses:
+      billing_address: 'NterOne Dirección de Facturación'
+      corporate_address: 'NterOne Dirección Corporativa'
+    _contact_us_form:
+      email: 'Email'
+      no_solicitors: 'No llene esto si es un abogado.'
+    _search_form:
+      placeholder: 'Buscar por certificación, curso o examen'
+      search: 'Buscar'
+    change_region:
+      title: 'Cambia Región'
     footer:
-      about_us: 'Sobre Nosotros'
+      about_us: 'Nosotros'
       amazon: 'Amazon'
       cisco: 'Cisco'
       copyright: 'NterOne Corporation. Todos los derechos reservados.'
@@ -18,7 +27,7 @@ es:
       labs: 'Labs'
       linkedin: 'Linkedin'
       microsoft: 'Microsoft'
-      partners: 'Fogonadura'
+      partners: 'Aliados'
       privacy_policy: 'Política de Privacidad'
       sitemap: 'Mapa del Sitio'
       terms_and_conditions: 'Términos y Condiciones'
@@ -26,10 +35,30 @@ es:
       training: 'Formación'
       twitter: 'Twitter'
       vmware: 'VMware'
+    header:
+      about_us: 'Nosotros'
+      call_today: 'Llama Hoy'
+      change_region: 'Cambia Región'
+      consulting: 'Consultoría'
+      contact: 'Contacto'
+      home: 'Inicio'
+      labs: 'Labs'
+      login: 'Iniciar Sesión'
+      logo: 'locales/es/logo-with-tagline.png'
+      my_nterone: 'Mi NterOne'
+      partners: 'Aliados'
+      search: 'Buscar'
+      shopping_cart: 'Carrito de Compras'
+      sign_out: 'Desconectar'
+      testimonials: 'Testimonios'
+      training: 'Formación'
     edit_js:
       companies: "Editar Empresa"
     new_js:
       companies: "Agregar Empresa"
-
+    new_search:
+      title: 'Buscar'
+    merge_js:
+      companies: 'Merge Companies'
     opportunities:
-      export_popup: "Oportunidades de Exportación"
+      export_popup: 'Oportunidades de Exportación'

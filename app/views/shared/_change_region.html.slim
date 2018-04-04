@@ -1,0 +1,19 @@
+ul#regions-list
+  li
+    = link_to switch_tld_path('com') do
+      = "#{flag_icon(:us, id: 'my-flag', class: 'strong')} United States".html_safe
+  li
+    = link_to switch_tld_path('ca') do
+      = "#{flag_icon(:ca, id: 'my-flag', class: 'strong')} Canada".html_safe
+  li
+    = link_to switch_tld_path('la') do
+      = "#{flag_icon(:dm, id: 'my-flag', class: 'strong')} República Dominicana".html_safe
+  li
+    = link_to switch_tld_path('la') do
+      = "#{flag_icon(:ve, id: 'my-flag', class: 'strong')} Venezuela".html_safe
+  li
+    = link_to switch_tld_path('la') do
+      = "#{flag_icon(:pa, id: 'my-flag', class: 'strong')} Panamá".html_safe
+  li
+    = link_to switch_tld_path('la') do
+      = "#{flag_icon(:co, id: 'my-flag', class: 'strong')} Colombia".html_safe
