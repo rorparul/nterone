@@ -124,7 +124,7 @@ module ApplicationHelper
       boolean ? 'Yes' : 'No'
   end
 
-   
+
   def courses_for_select
     Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end

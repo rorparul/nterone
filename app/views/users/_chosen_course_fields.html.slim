@@ -1,12 +1,12 @@
 .nested-fields
   .form-group
-    = f.select :course_id, grouped_options_for_select(grouped_courses_options(courses_for_select), f.object.course_id), 
+    = f.select :course_id, grouped_options_for_select(grouped_courses_options(courses_for_select), f.object.course_id),
           { include_blank: t('companies.partial_form.dropdown') },
           { class: 'search-select course-select form-control' }
-    
+
   = link_to_remove_association "Remove Course", f
 
 javascript:
   $('.search-select').select2({
     theme: "bootstrap"
-  });  
+  });

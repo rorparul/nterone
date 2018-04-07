@@ -4,7 +4,6 @@ class OpportunitiesController < ApplicationController
   include FlyForm
 
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
-  before_action :set_associations,      only: [:new, :edit, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
   layout 'admin'
@@ -162,10 +161,6 @@ class OpportunitiesController < ApplicationController
 
   def set_opportunity
     @opportunity = Opportunity.find(params[:id])
-  end
-
-  def set_associations
-    @courses = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
 
   def authorize_opportunity

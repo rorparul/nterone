@@ -21,7 +21,7 @@ es:
       street: "Calle"
       video_bio: "Bio de Vídeo"
       zip: "Codigo Postal"
-      courses: "Courses"
+      teachable_courses: "Cursos Enseñables"
     partial_index:
       last_active: "Ultimo Activo"
       purchases: "Compras"
