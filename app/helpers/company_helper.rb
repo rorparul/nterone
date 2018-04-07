@@ -35,6 +35,18 @@ module CompanyHelper
     grouped_options_for_select(grouped_options, selected_kind)
   end
 
+  def direct_indirect_kinds
+    ["Channel Partner",
+     "Cisco",
+     "Commercial / Enterprise",
+     "Distributor",
+     "Federal",
+     "SLED",
+     "CLP (Cisco Learning Partner)",
+     "Seat Reseller"
+    ]
+  end
+
   def industry_code_options
     [
       ["10 Automotive"],
@@ -61,4 +73,22 @@ module CompanyHelper
       ["92 State, Local and Gov., Public Administration"]
     ]
   end
+  
+  def companies_amount companies, opportunities
+    companies.map do|company| 
+      Opportunity.get_company_open_amount(opportunities, company.id)
+    end
+  end
+
+  def delimiter_companies_amount companies, opportunities
+    companies.map do|company| 
+      open_amount = Opportunity.get_company_open_amount(opportunities, company.id)
+      "$#{number_with_delimiter(open_amount)}"
+    end
+  end
+
+  def opportunities_amount_for_kinds opportunities
+    direct_indirect_kinds.map{|kind| sum_of(opportunities.for_company_kind(kind).pending, 'amount')} 
+  end
+
 end
