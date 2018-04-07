@@ -79,9 +79,9 @@
                existing_select2_ajax_company(@user.company),
                { include_blank: t('companies.partial_form.dropdown') },
                { class: 'search-companies-select form-control', style: "width: 100%;" }
-  
+
   .form-group
-    = f.label nil, 'Courses'
+    = f.label nil, 'Teachable Courses'
     #courses
       = f.simple_fields_for :chosen_courses do |chosen_course|
         = render 'chosen_course_fields', f: chosen_course
