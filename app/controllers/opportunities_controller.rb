@@ -166,7 +166,7 @@ class OpportunitiesController < ApplicationController
   end
 
   def set_associations
-    @courses = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
+    @courses = Course.active.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
 
   def authorize_opportunity

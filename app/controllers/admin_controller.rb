@@ -58,14 +58,14 @@ class AdminController < ApplicationController
   def classes
     cookies[:only_registered] = params[:only_registered] if params[:only_registered]
     cookies[:filter]          = params[:filter]          if params[:filter]
-    
+
     @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
     @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
     if params[:region]
       @region = params[:region]
     end
-    
+
     if params[:origin_region].present?
       @origin_region = params[:origin_region]
     end
@@ -73,7 +73,7 @@ class AdminController < ApplicationController
     events_scope = (@start_date && @end_date) ? Event.unscoped.joins(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.joins(:course).upcoming_events
     events_scope = events_scope.where("events.active_regions @> ?", "{#{@region}}")  if @region
     events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
-    
+
     events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
     events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
     @start_date = events_scope.minimum("events.start_date")
@@ -102,7 +102,7 @@ class AdminController < ApplicationController
     if should_group_classes?
       @grouped_events = @events.group_by(&:week_range)
     end
-    
+
     respond_to do |format|
       format.html
       format.js
@@ -114,7 +114,7 @@ class AdminController < ApplicationController
   end
 
   def courses
-    @courses = Course.order(:title).page(params[:page])
+    @courses = Course.active.order(:title).page(params[:page])
   end
 
   def people
