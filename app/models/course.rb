@@ -140,7 +140,6 @@ class Course < ActiveRecord::Base
   
   def instructors
     instructors = User.order("daily_rate asc").only_instructors.joins(:courses).where("courses.id = ?", self.id)
-    instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] }
   end
 
 end

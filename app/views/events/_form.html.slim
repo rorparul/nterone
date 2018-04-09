@@ -4,10 +4,10 @@
       .alert.alert-danger.alert-dismissible
         button.close type="button" data-dismiss="alert" aria-label="Close"
           span aria-hidden="true" &times;
-        h4 = "#{pluralize(event.errors.count, 'error')}:"
+        h4 = "#{pluralize(event.errors.count, 'error')}:" 
         ul
           - event.errors.full_messages.each do |msg|
-            li = msg
+            li = msg 
 
     = render partial: 'shared/region_inputs', locals: { model: Event, f: f }
 
@@ -95,7 +95,7 @@
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    @course.instructors,
+                    instructors_with_rate(@course.instructors),
                     { include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm' }
       .col-xs-12.col-sm-6
