@@ -5,14 +5,10 @@
       #nav-footer.row.row-level-2
         .col-xs-4.col-level-2
           ul
-            li = link_to t('shared.footer.training'), platforms_path
-            li = link_to t('shared.footer.cisco'), '#'
-            li = link_to t('shared.footer.itil'), '#'
-            li = link_to t('shared.footer.microsoft'), '#'
-            li = link_to t('shared.footer.vmware'), '#'
-            li = link_to t('shared.footer.amazon'), '#'
-            li = link_to t('shared.footer.featured_classes'), featured_classes_path
-            li = link_to t('shared.footer.contact'), new_contact_us_path, remote:  true
+            li = link_to t('shared.footer.gtr_classes'), featured_classes_path
+            - active_vendors_in_region.each do |vendor|
+              - if vendor.welcome_category.present?
+                li = link_to vendor.title.upcase, platform_category_path(vendor, vendor.welcome_category)
         .col-xs-4.col-level-2
           ul
             li = link_to t('shared.footer.home'), root_path
@@ -21,6 +17,7 @@
             li = link_to t('shared.footer.about_us'), about_us_path
             li = link_to t('shared.footer.testimonials'), testimonials_path
             li = link_to t('shared.footer.partners'), partners_path
+            li = link_to t('shared.footer.contact'), new_contact_us_path, remote:  true
             li = link_to t('shared.footer.sitemap'), sitemap_path
         .col-xs-4.col-level-2
           ul

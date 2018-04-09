@@ -29,4 +29,8 @@ module SharedHelper
 
     flag_icon(flag_code, id: 'my-flag', class: 'strong', title: t('shared.header.change_region'))
   end
+
+  def active_vendors_in_region
+    Platform.active.current_region.order(:title)
+  end
 end

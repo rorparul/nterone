@@ -1,6 +1,4 @@
 #contact-form
-  p.text-danger = t('shared._contact_us_form.no_solicitors')
-
   = form_for :contact_us, url: contact_us_path do |f|
     = f.hidden_field 'M360-Source', value: 'M360-Source'
 
