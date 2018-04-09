@@ -74,7 +74,7 @@ class Company < ActiveRecord::Base
   def self.companies_with_amount(opportunities)
     companies = Company.where(id: opportunities.map(&:account_id).reject(&:blank?).uniq)
     companies.select{|company| 
-                      Opportunity.get_company_open_amount(opportunities, company.id) > 0
+                      Opportunity.get_company_total_amount(opportunities, company.id) > 0
                     }
   end
 

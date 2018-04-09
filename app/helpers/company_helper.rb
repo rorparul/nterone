@@ -76,19 +76,19 @@ module CompanyHelper
   
   def companies_amount companies, opportunities
     companies.map do|company| 
-      Opportunity.get_company_open_amount(opportunities, company.id)
+      Opportunity.get_company_total_amount(opportunities, company.id)
     end
   end
 
   def delimiter_companies_amount companies, opportunities
     companies.map do|company| 
-      open_amount = Opportunity.get_company_open_amount(opportunities, company.id)
-      "$#{number_with_delimiter(open_amount)}"
+      total_amount = Opportunity.get_company_total_amount(opportunities, company.id)
+      "$#{number_with_delimiter(total_amount)}"
     end
   end
 
   def opportunities_amount_for_kinds opportunities
-    direct_indirect_kinds.map{|kind| sum_of(opportunities.for_company_kind(kind).pending, 'amount')} 
+    direct_indirect_kinds.map{|kind| sum_of(opportunities.for_company_kind(kind), 'amount')} 
   end
 
 end

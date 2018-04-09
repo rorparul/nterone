@@ -199,12 +199,12 @@ wb.styles do |style|
     headers = [""] + kinds + ["Total"] + @companies.map(&:title)
     sheet.add_row headers, style: Array.new(headers.size, color) 
     sheet.add_row headers.map{|h| ""}, style: headers.each_with_index.map {|h,i| color if i==0 || i==9}
-
+    
     @opportunities.group_by_months.each do |month, opportunities|
       opportunities_for_month = Opportunity.where(id: opportunities.map(&:id))
 
-      amount_for_kinds = kinds.map{|kind| opportunities_for_month.for_company_kind(kind).amount_open}
- 
+      amount_for_kinds = kinds.map{|kind| opportunities_for_month.for_company_kind(kind).total_amount}
+      
       sheet.add_row ( [month.strftime("%b")] + 
                       array_to_numbers_with_delimiters(amount_for_kinds) +
                       ["$#{number_with_delimiter(amount_for_kinds.inject(:+))}"] + 
