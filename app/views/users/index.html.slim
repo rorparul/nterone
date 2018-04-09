@@ -26,9 +26,9 @@
     h4
       strong.text-muted People
     .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
-      = link_to "Mark As Direct Customer", "javascript:void(0)", class: "hidden classify_user_link mark_as_direct btn btn-default ml-3"
-      = link_to "Mark As Partner Customer", "javascript:void(0)", class: "hidden classify_user_link mark_as_partner btn btn-default"
+      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn  btn-success btn-sm', role: 'button'
+      span.toggle_customer_type_links
+        = render 'toggle_customer_type'
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',
@@ -43,42 +43,6 @@ javascript:
   $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
   
-  function toggle_mass_edit() {
-    if($(".users_mass_edit_checkbox:checked").length > 0) {
-      $(".classify_user_link").removeClass("hidden");        
-    }
-    else{
-      $(".classify_user_link").addClass("hidden");
-    }
-  }
-
-  $(".users_mass_edit_checkbox").change(function() {
-    toggle_mass_edit();
-  });
-  toggle_mass_edit();
   
-  function mass_edit_customer_type(customer_type) {
-    user_ids = []
-    $(".users_mass_edit_checkbox:checked").each(function(){
-        user_ids.push($(this).val());
-    });
-    
-    $.ajax({
-      url: "/users/mark_customers_type",
-      dataType: 'json',
-      method: "POST",
-      data: {user_ids: user_ids, mark_as: customer_type},
-      success:function(data) {
-        alert(data["message"])
-      }
-    })
-  }
-
-  $(".mark_as_direct").on('click', function(){
-    mass_edit_customer_type("direct_customer");
-  });
-
-  $(".mark_as_partner").on('click', function(){
-    mass_edit_customer_type("partner_customer");
-  });
+  
   
