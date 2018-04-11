@@ -95,15 +95,22 @@
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                    instructors_with_rate(@course.instructors),
                     { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control input-sm' }
+                    { class: 'form-control input-sm', id: "selected_instructor_option" }
+
+          = f.select :instructor_id,
+                    instructors_with_rate(User.all_instructors_by_rate),
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control all_instructor_option input-sm hide', id: "all_instructor_option", :disabled => true }
+
+          = link_to "View all instructor", "javascript:void(0)", class: "toggle_instructor_options"
+
       .col-xs-12.col-sm-6
         .form-group
           = f.label :do_not_send_instructor_email, t('events.partial_form.do_not_email_instructor')
           br
           = f.check_box :do_not_send_instructor_email
-
 
     .row
       .col-xs-12.col-sm-6
@@ -325,4 +332,22 @@ javascript:
 
     $("#event_cost_te").val(cost_te);
     $("#event_cost_te").trigger("blur");
+  });
+
+  $(".toggle_instructor_options").on('click', function(){
+    if($("#selected_instructor_option").hasClass('hide')){
+      $("#all_instructor_option").addClass('hide');
+      $("#selected_instructor_option").removeClass('hide');
+
+      $("#all_instructor_option").prop("disabled", true);
+      $("#selected_instructor_option").prop("disabled", false);
+      $(this).text("View all instructors");
+    }else{
+      $("#selected_instructor_option").addClass('hide');
+      $("#all_instructor_option").removeClass('hide');
+
+      $("#selected_instructor_option").prop("disabled", true);
+      $("#all_instructor_option").prop("disabled", false);
+      $(this).text("View qualified instructors");
+    }
   });
