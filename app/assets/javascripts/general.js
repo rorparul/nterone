@@ -8,11 +8,6 @@ $(function() {
     $sidebarContent.fadeToggle();
   });
 
-  // $(document).on('click', '.topic', function() {
-  //   $('.topic').removeClass('active-topic');
-  //   $(this).addClass('active-topic');
-  // });
-
   $('#myModal').on('shown.bs.modal', function(e) {
     $('#query').focus();
     $('input[autofocus]').focus();
@@ -27,19 +22,6 @@ $(function() {
     $('#accordion .in').collapse('hide');
     $('#mobile-accordion .in').collapse('hide');
   });
-
-  // $(document).on('scroll', function() {
-  //   if (!$('.content').offset()) return
-  //
-	// 	var windowScroll = $(window).scrollTop();
-	// 	var offerOffSet = $('.content').offset().top;
-	// 	var difference = windowScroll - offerOffSet;
-	// 	if(difference >= -30) {
-	// 		$('.sidebar-v2').addClass("fixed");
-	// 	} else {
-	// 		$('.sidebar-v2').removeClass("fixed");
-	// 	}
-	// });
 });
 
 function prepareInputs() {

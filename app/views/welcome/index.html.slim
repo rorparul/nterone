@@ -4,10 +4,10 @@
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t 'admins.partial_breadcrumbs.home'
+/ - content_for :breadcrumbs do
+/   a href="#{root_path}"
+/     span.fa.fa-home
+/     = t('admins.partial_breadcrumbs.home')
 
 .container-fluid
   #welcome-banner

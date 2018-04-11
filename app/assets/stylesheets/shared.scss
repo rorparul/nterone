@@ -3,7 +3,7 @@ header {
   left: 0;
   position: fixed;
   right: 0;
-  z-index: 1;
+  z-index: 100;
   #logo {
     padding: 15px 0 10px 0;
     text-align: center;
@@ -246,9 +246,6 @@ header {
 }
 
 #contact-form {
-  .btn-group {
-    z-index: 0;
-  }
   .form-buttons {
     text-align: center;
     @media (min-width: 992px) {
