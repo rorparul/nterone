@@ -126,6 +126,6 @@ module ApplicationHelper
 
 
   def courses_for_select
-    Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
+    Course.active.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
 end

@@ -137,9 +137,9 @@ class Course < ActiveRecord::Base
       title
     end
   end
-  
+
   def instructors
-    instructors = User.order("daily_rate asc").only_instructors.joins(:courses).where("courses.id = ?", self.id)
+    instructors = User.order("daily_rate asc").all_instructors.joins(:courses).where("courses.id = ?", self.id)
   end
 
 end
