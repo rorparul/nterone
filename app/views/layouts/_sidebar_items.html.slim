@@ -12,6 +12,10 @@
     li = link_to main_app.admin_classes_path, class: "role-tab" do
       span.fa.fa-coffee
       span My Sales
+  - if current_user.marketing?
+    li = link_to main_app.admin_website_path, class: "role-tab" do
+      span.fa.fa-coffee
+      span My Marketing
   - if current_user.member?
     li = link_to main_app.my_account_plan_path, class: "role-tab" do
       span.fa.fa-user

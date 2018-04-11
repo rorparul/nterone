@@ -118,7 +118,7 @@ class Event < ActiveRecord::Base
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
   search_scope :custom_search do
-    attributes :id, :format, :start_date, :public, :guaranteed
+    attributes :id, :format, :start_date, :public, :guaranteed, :street, :city, :state, :zipcode
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]

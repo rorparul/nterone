@@ -438,6 +438,10 @@ class User < ActiveRecord::Base
     has_role? :instructor
   end
 
+  def marketing?
+    has_role? :marketing
+  end
+
   def has_role?(role_param)
     roles.any? { |role| role.role.to_sym == role_param }
   end

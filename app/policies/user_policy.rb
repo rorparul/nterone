@@ -57,7 +57,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def mark_customers_type?
-    @user.admin?
+    @user.admin? || @user.sales_manager? || @user.sales?
   end
 
   def destroy?
