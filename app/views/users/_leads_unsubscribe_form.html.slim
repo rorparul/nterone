@@ -1,0 +1,10 @@
+.form-container
+  = form_tag leads_unsubscribe_users_path, multipart: true  do |f|
+    .row
+      .col-xs-12
+        .file style="display: inline-block; margin-right: 15px;"
+          label
+          = file_field_tag "user_file"
+          = hidden_field_tag :from, params[:from]              
+    button.btn.btn-success
+      = "Import"

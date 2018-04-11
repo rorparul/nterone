@@ -95,7 +95,7 @@
 #
 #  fk_rails_7682a3bdfe  (company_id => companies.id)
 #
-
+require 'roo'
 class User < ActiveRecord::Base
   extend ActsAsTree::TreeView
   extend ActsAsTree::TreeWalker
@@ -180,6 +180,8 @@ class User < ActiveRecord::Base
   scope :leads,            -> { where.not(status: [3, 4]) }
   scope :contacts,         -> { where(status: [3, 4]) }
   scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }
+  scope :direct_customer,   -> { where(customer_type: 0)}
+  scope :private_customer,  -> { where(customer_type: 1)}
 
   search_scope :custom_search do
     attributes :first_name, :last_name, :email
@@ -446,6 +448,25 @@ class User < ActiveRecord::Base
 
   def full_address
     [street, city, state, zipcode, country].compact.join(", ")
+  end
+
+  def self.unsubscribe_from_email(file)
+    spreadsheet = self.open_spreadsheet(file)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      user = find_by_email(row["Email"])
+      user.update_attributes(do_not_email: true) if user.present?
+    end
+  end
+  
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
+    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+    else raise "Unknown file type: #{file.original_filename}"
+    end
   end
 
   private

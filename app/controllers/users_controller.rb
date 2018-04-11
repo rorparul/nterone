@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
 
-  layout 'admin'
+  layout 'admin' 
 
   def index
     respond_to do |format|
@@ -109,10 +109,31 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        @users = User.leads.where(clean_params(user_params[:filters]))
+        if params[:customer_type].present?
+          @users = params[:customer_type] == "direct_customer" ? User.leads.direct_customer : User.leads.private_customer 
+          render xlsx: "customer_type_leads", filename: "leads-#{params[:customer_type]}.xlsx" and return
+        else
+          @users = User.leads.where(clean_params(user_params[:filters]))
+        end
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
       end
+    end
+  end
+
+  def leads_new
+  end
+
+  def leads_unsubscribe_new
+  end
+
+  def leads_unsubscribe
+    User.unsubscribe_from_email(params[:user_file])
+    flash[:success] = "List Unsubscribes successfully"
+    if params[:from] == "contacts"
+      redirect_to contacts_users_path
+    else
+      redirect_to leads_users_path
     end
   end
 
@@ -134,11 +155,20 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        @users = User.contacts.where(clean_params(user_params[:filters]))
+        if params[:customer_type].present?
+          @users = params[:customer_type] == "direct_customer" ? User.contacts.direct_customer : User.contacts.private_customer 
+          render xlsx: "customer_type_leads", filename: "contacts-#{params[:customer_type]}.xlsx" and return
+        else
+          @users = User.contacts.where(clean_params(user_params[:filters]))
+        end
+        
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
       end
     end
+  end
+
+  def contacts_new
   end
 
   def mark_customers_type
