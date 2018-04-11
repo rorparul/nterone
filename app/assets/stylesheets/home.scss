@@ -24,6 +24,7 @@
     form {
       display: inline-block;
       width: 550px;
+      max-width: 100%;
       input {
         background-color: transparent;
         border-bottom: 2px solid white;
@@ -116,6 +117,9 @@
   #vendor-credits-redemption-banner {
     text-align: center;
     margin-bottom: 30px;
+    img {
+      max-width: 100%;
+    }
   }
 }
 
@@ -159,13 +163,15 @@
     font-weight: 700;
     margin: 25px 0;
   }
-  img {
-    margin: 0 25px;
-  }
   #nterone-gives-back {
+    margin: 0 50px;
     width: 125px;
   }
+  #feeding-america {
+    max-width: 100%;
+  }
   #veteran-owned {
+    margin: 0 50px;
     width: 125px;
   }
 }

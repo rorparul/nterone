@@ -1,15 +1,9 @@
 #container-footer.container
   .hr-blue
   .row.row-level-1
-    .col-xs-6.col-level-1
+    .col-xs-12.col-md-6.col-level-1
       #nav-footer.row.row-level-2
-        .col-xs-4.col-level-2
-          ul
-            li = link_to t('shared.footer.gtr_classes'), featured_classes_path
-            - active_vendors_in_region.each do |vendor|
-              - if vendor.welcome_category.present?
-                li = link_to vendor.title.upcase, platform_category_path(vendor, vendor.welcome_category)
-        .col-xs-4.col-level-2
+        .col-xs-12.col-md-4.col-level-2
           ul
             li = link_to t('shared.footer.home'), root_path
             li = link_to t('shared.footer.consulting'), consulting_path
@@ -17,9 +11,14 @@
             li = link_to t('shared.footer.about_us'), about_us_path
             li = link_to t('shared.footer.testimonials'), testimonials_path
             li = link_to t('shared.footer.partners'), partners_path
-            li = link_to t('shared.footer.contact'), new_contact_us_path, remote:  true
             li = link_to t('shared.footer.sitemap'), sitemap_path
-        .col-xs-4.col-level-2
+        .col-xs-12.col-md-4.col-level-2
+          ul
+            li = link_to t('shared.footer.gtr_classes'), featured_classes_path
+            - active_vendors_in_region.each do |vendor|
+              - if vendor.welcome_category.present?
+                li = link_to vendor.title.upcase, platform_category_path(vendor, vendor.welcome_category)
+        .col-xs-12.col-md-4.col-level-2
           ul
             li = link_to t('shared.footer.facebook'), 'https://www.facebook.com/NterOne', target: '_blank'
             li = link_to t('shared.footer.twitter'), 'https://twitter.com/NterOne', target: '_blank'
@@ -31,12 +30,12 @@
           = image_tag 'vmware-partner-new.png'
           = image_tag 'cisco-business-partner.png'
           = image_tag 'cisco-partner.jpg'
-      #legal-documents
-        #copyright
+    .col-xs-12.col-md-6.col-level-1
+      h1 = t('shared.footer.contact_our_team_today')
+      = render 'general/contact_us_form'
+      .legal-content
+        .copyright
           |  &copy;
           = "#{Date.today.year} #{t('shared.footer.copyright')}"
         = link_to t('shared.footer.privacy_policy'), page_path(Page.find_by(title: 'NterOne Privacy Policy'))
         = link_to t('shared.footer.terms_and_conditions'), page_path(Page.find_by(title: 'NterOne Terms and Conditions'))
-    .col-xs-6.col-level-1
-      h1 = t('shared.footer.contact_our_team_today')
-      = render 'general/contact_us_form'
