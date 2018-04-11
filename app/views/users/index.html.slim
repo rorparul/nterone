@@ -26,7 +26,9 @@
     h4
       strong.text-muted People
     .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-success btn-sm', role: 'button'
+      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn  btn-success btn-sm', role: 'button'
+      span.toggle_customer_type_links
+        = render 'toggle_customer_type'
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',
@@ -40,3 +42,7 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
+  
+  
+  
+  

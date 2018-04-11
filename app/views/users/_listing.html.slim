@@ -3,6 +3,8 @@
     table.table.table-condensed
       thead
         tr.background-muted
+          th
+            = check_box_tag :select_all, nil, nil, class: "select_all_users"
           th.fit
             i.fa.fa-globe aria-hidden="true" title='Origin Region'
           th ID
@@ -11,12 +13,15 @@
           th = "Phone Number"
           th = smart_listing.sortable t('default.label.email'), :email
           th = t('default.label.company')
-          th Orders
+          th CT
+          th Orders 
           th Sales Rep
           th colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
+            td
+              = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
             td.fit style="cursor: help;"
               - if user.origin_region == 'united_states'
                 i.fa.fa-circle.text-danger aria-hidden="true" title="#{user.origin_region.titleize}"
@@ -43,6 +48,7 @@
                 = link_to user.company.title, company_path(user.company)
               - else
                 | N/A
+            td class="customer_type_#{user.id}" = user.customer_type == "direct_customer" ? "D" : "P"    
             td = user.buyer_orders.count
             td id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
@@ -70,3 +76,40 @@
 - else
   .container-muted.text-center
     = t('default.placeholder.no_records')
+
+javascript:
+  $(".users_mass_edit_checkbox").change(function() {
+    toggle_mass_edit();
+    if(!$(this).is(":checked")){
+      $("#select_all").prop('checked', false);
+    }
+
+    if($(".users_mass_edit_checkbox").length == $(".users_mass_edit_checkbox:checked").length){
+      $("#select_all").prop('checked', true);
+    }
+  });
+
+  $("#select_all").on('change', function(){
+    if($(this).is(":checked")){
+      $(".users_mass_edit_checkbox").prop('checked', true).change();
+    }else{
+      $(".users_mass_edit_checkbox").prop('checked', false).change();
+    }
+  });
+  
+  if($("#select_all").is(":checked")){
+    $(".users_mass_edit_checkbox").prop('checked', true).change();
+  }else{
+    $(".users_mass_edit_checkbox").prop('checked', false).change();
+  }
+  
+  function toggle_mass_edit() {
+    if($(".users_mass_edit_checkbox:checked").length > 0) {
+      $(".classify_user_link").removeClass("hidden");
+    }
+    else{
+      $(".classify_user_link").addClass("hidden");
+    }
+  }
+
+  toggle_mass_edit();

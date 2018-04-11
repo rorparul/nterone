@@ -56,6 +56,10 @@ class UserPolicy < ApplicationPolicy
     @user.admin? || @user.sales_manager?
   end
 
+  def mark_customers_type?
+    @user.admin? || @user.sales_manager? || @user.sales?
+  end
+
   def destroy?
     @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))
   end
