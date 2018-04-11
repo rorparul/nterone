@@ -66,6 +66,13 @@ class Company < ActiveRecord::Base
     Company.where(id: ids)
   end
 
+  def self.companies_with_amount(opportunities)
+    companies = Company.where(id: opportunities.map(&:account_id).reject(&:blank?).uniq)
+    companies.select{|company| 
+                      Opportunity.get_company_open_amount(opportunities, company.id) > 0
+                    }
+  end
+
   private
 
   def reassign_company_users

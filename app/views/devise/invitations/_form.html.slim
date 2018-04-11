@@ -67,6 +67,16 @@
     br
     = f.check_box :do_not_call
 
+  .form-group
+    = f.label :customer_type, "Direct Customer"
+    br
+    = f.radio_button :customer_type, "direct_customer", checked: true 
+
+  .form-group
+    = f.label :customer_type, "Partner Customer"
+    br
+    = f.radio_button :customer_type, "partner_customer"
+    
   hr
 
   .form-group

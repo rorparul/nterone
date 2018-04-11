@@ -76,6 +76,7 @@ class Users::InvitationsController < Devise::InvitationsController
       :salutation,
       :status,
       :source_name,
+      :customer_type,
       chosen_courses_attributes: [:course_id]
     )
   end

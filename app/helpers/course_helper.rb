@@ -4,7 +4,7 @@ module CourseHelper
     groups.collect do |group|
       [
         group.first.try(:title), group.second.collect do |course|
-          ["#{course.full_title} #{course.active_regions}", course.id]
+          [course.full_title, course.id]
         end
       ]
     end

@@ -142,6 +142,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def mark_customers_type
+    params[:user_ids].each do |user_id|
+      user = User.find(user_id)
+      user.update_attributes(customer_type: params[:mark_as])
+    end
+    render json: { message: "Users are successfully marked as #{params[:mark_as]}"}
+  end
+
   def members
     render json: { items: User.members.custom_search(params[:q]).order(:last_name) }
   end
@@ -221,6 +229,7 @@ class UsersController < ApplicationController
       :shipping_zip_code,
       :state,
       :status,
+      :customer_type,
       :source_name,
       :street,
       :video_bio,
@@ -239,7 +248,7 @@ class UsersController < ApplicationController
       ],
       chosen_courses_attributes: [:course_id]
     )
-  end
+  end 
 
   def prepare_smart_listing(users_scope)
     smart_listing_create(

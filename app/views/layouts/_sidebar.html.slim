@@ -21,6 +21,10 @@
           li = link_to main_app.instructor_classes_path, class: "role-tab" do
             span.fa.fa-users
             span.text= t 'breadcrumbs.instructor'
+        - if current_user.marketing?
+          li = link_to main_app.admin_website_path, class: "role-tab" do
+            span.fa.fa-user
+            span.text My Marketing
         - if current_user.member?
           li = link_to main_app.my_account_plan_path, class: "role-tab" do
             span.fa.fa-user

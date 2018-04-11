@@ -2,7 +2,6 @@ tr
   td = course.id
   td = course.full_title.gsub(/^(.{50,}?).*$/m,'\1...')
   td = course.upcoming_events.count
-  td = human_boolean course.archived
   td
     ul style="padding: 0; margin: 0;"
       - course.active_regions.each do |region|
@@ -15,7 +14,7 @@ tr
     = link_to platform_course_path(course.platform, course) do
       i class="fa fa-eye" aria-hidden="true"
   td.fit
-    = link_to edit_platform_course_path(course.platform, course) do
+    = link_to edit_platform_course_path(course.platform, course), target: '_blank' do
       i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
   td.fit
     = link_to clone_form_platform_course_path(course.platform, course), remote: true do

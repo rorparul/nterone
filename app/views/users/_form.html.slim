@@ -46,6 +46,19 @@
                   label Active
                   br
                   = f.check_box :active
+            hr
+            
+            .row
+              .col-xs-12.col-md-2
+                .form-group
+                  label Direct Customer
+                  br
+                  = f.radio_button :customer_type, "direct_customer"
+              .col-xs-12.col-md-2
+                .form-group
+                  label Partner Customer
+                  br
+                  = f.radio_button :customer_type, "partner_customer"
 
             hr
 
