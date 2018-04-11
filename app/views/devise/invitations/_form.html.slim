@@ -79,8 +79,8 @@
                existing_select2_ajax_company(@user.company),
                { include_blank: t('companies.partial_form.dropdown') },
                { class: 'search-companies-select form-control', style: "width: 100%;" }
-
-  - if request.path == "/users/invitation/new"
+  
+  - if params[:controller] == "users/invitations" && params[:action] == "new"
     .form-group
       = f.label nil, 'Teachable Courses'
       #courses
