@@ -109,19 +109,11 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        if params[:customer_type].present?
-          @users = params[:customer_type] == "direct_customer" ? User.leads.direct_customer : User.leads.private_customer 
-          render xlsx: "customer_type_leads", filename: "leads-#{params[:customer_type]}.xlsx" and return
-        else
-          @users = User.leads.where(clean_params(user_params[:filters]))
-        end
+        @users = User.leads.where(clean_params(user_params[:filters]))
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
       end
     end
-  end
-
-  def leads_new
   end
 
   def leads_unsubscribe_new
@@ -155,20 +147,11 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        if params[:customer_type].present?
-          @users = params[:customer_type] == "direct_customer" ? User.contacts.direct_customer : User.contacts.private_customer 
-          render xlsx: "customer_type_leads", filename: "contacts-#{params[:customer_type]}.xlsx" and return
-        else
-          @users = User.contacts.where(clean_params(user_params[:filters]))
-        end
-        
+        @users = User.contacts.where(clean_params(user_params[:filters]))
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
       end
     end
-  end
-
-  def contacts_new
   end
 
   def mark_customers_type
@@ -268,7 +251,8 @@ class UsersController < ApplicationController
         :source_name,
         :status,
         :state,
-        :company_id
+        :company_id,
+        :customer_type
       ],
       roles_attributes: [
         :id,

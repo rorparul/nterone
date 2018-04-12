@@ -25,7 +25,6 @@
       = link_to t('default.action.new'), new_contact_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
       - if policy(:user).mass_edit?
         = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
-      = link_to "Export by customer type", contacts_new_users_path, class: 'btn btn-default btn-sm ml-5', remote: true
       = link_to "Unsubscribe Contacts", leads_unsubscribe_new_users_path(from: "contacts"), class: 'btn btn-default btn-sm ml-5', remote: true
       = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
         i.fa.fa-file-excel-o aria-hidden="true"
@@ -51,6 +50,7 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+  $(".search-customer-type-select-filter").first().prop("checked", true);
 
   $('#export').on('click', function(e) {
     e.preventDefault();
@@ -63,7 +63,7 @@ javascript:
         "user[filters][status]": $('#user_filters_status').val(),
         "user[filters][state]": $('#user_filters_state').val(),
         "user[filters][company_id]": $('#user_filters_company_id').val(),
-
+        "user[filters][customer_type]": $(".search-customer-type-select-filter:checked").val(),
         "search": $('#search').val()
       })
     );
