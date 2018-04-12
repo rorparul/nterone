@@ -84,7 +84,6 @@ class OpportunitiesController < ApplicationController
       fly_form('destroy')
     else
       fly_form('post')
-      set_associations
       render 'shared/new'
     end
   end
@@ -94,7 +93,6 @@ class OpportunitiesController < ApplicationController
       # flash[:success] = 'Opportunity successfully updated.'
       # redirect_to :back
     else
-      set_associations
       render 'shared/edit'
     end
   end
