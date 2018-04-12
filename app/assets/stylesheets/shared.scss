@@ -268,7 +268,10 @@ header {
 }
 
 .btn-padded {
-  padding: 6px 40px;
+  padding: 6px 12px;
+  @media (min-width: 480px) {
+    padding: 6px 40px;
+  }
 }
 
 .btn-full-width {

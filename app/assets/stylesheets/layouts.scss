@@ -1,9 +1,10 @@
-
-
 main {
-  padding-top: 89px;
+  padding-top: 122px;
   .container-fluid {
     padding: 0;
+  }
+  @media (min-width: 768px) {
+    padding-top: 89px;
   }
 }
 
