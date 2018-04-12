@@ -223,4 +223,12 @@ module GeneralHelper
     array = array.map {|i| i.id }
     return object.where(id: array)
   end
+
+  def array_to_numbers_with_delimiters (array)
+    array.map{|element| "$#{number_with_delimiter(element)}"}
+  end
+
+  def array_percentages_of_total(grand_total, array)
+    grand_total > 0 ? array.map{|total| "#{((total*100)/grand_total).round(2)}%"} : [0]
+  end
 end
