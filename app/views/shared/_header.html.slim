@@ -15,11 +15,20 @@
               span.hidden-xs = "#{t('shared.header.call_today')}: "
               = link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"
             #container-for-sign_in_or_account
-              .btn-group role='group'
-                = sign_in_or_account
-                - if user_signed_in?
-                  = link_to logout_path, id: 'sign_out', class: 'btn btn-blue-gradient', role: 'button' do
-                    span.glyphicon.glyphicon-log-out title="#{t('shared.header.sign_out')}"
+              .btn-group.btn-group-master role='group'
+                .btn-group role='group'
+                  = sign_in_or_account
+                  - if user_signed_in?
+                    ul.dropdown-menu.dropdown-menu-right
+                      li.divider role='separator'
+                      li = link_to t('shared.header.sign_out'), logout_path, class: 'text-danger'
+                .btn-group role='group'
+                  - if content_for(:actions)
+                    = link_to '#', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+                      span.glyphicon.glyphicon-wrench title="#{t('shared.header.actions')}"
+                      span.caret
+                    ul.dropdown-menu.dropdown-menu-right
+                      = yield :actions
                 = link_to '#', id: 'btn-menu', class: 'btn btn-blue-gradient', role: 'button' do
                   span.glyphicon.glyphicon-menu-hamburger title="#{t('shared.header.menu')}"
                 = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do

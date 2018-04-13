@@ -408,15 +408,15 @@ span.required {
   padding-left: 32px !important;
 }
 
-.btn {
-  &:not(.btn-block, .btn-blue) {
-    border-radius: 3px;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 14px;
-    padding: 7px 10px;
-  }
-}
+// .btn {
+//   &:not(.btn-block, .btn-blue) {
+//     border-radius: 3px;
+//     font-size: 11px;
+//     font-weight: bold;
+//     line-height: 14px;
+//     padding: 7px 10px;
+//   }
+// }
 
 .group {
   @include value-prefix(background-image, linear-gradient(top, rgb(249, 249, 249) 0%, rgb(242, 242, 242) 100%));
@@ -837,23 +837,23 @@ span.required {
   @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
 }
 
-#back {
-  border-radius: 2px;
-  color: rgb(255, 255, 255);
-  float: left;
-  font-size: 11px;
-  font-weight: bold;
-  height: 30px;
-  margin-bottom: 5px;
-  padding: 7px 10px;
-  outline: none;
-  @include value-prefix(background-image, linear-gradient(top, rgb(91, 165, 203) 0%, rgb(58, 112, 171) 100%));
-  border: 1px solid rgb(62, 118, 175);
-  cursor: pointer;
-  &:hover {
-    opacity: .80;
-  }
-}
+// #back {
+//   border-radius: 2px;
+//   color: rgb(255, 255, 255);
+//   float: left;
+//   font-size: 11px;
+//   font-weight: bold;
+//   height: 30px;
+//   margin-bottom: 5px;
+//   padding: 7px 10px;
+//   outline: none;
+//   @include value-prefix(background-image, linear-gradient(top, rgb(91, 165, 203) 0%, rgb(58, 112, 171) 100%));
+//   border: 1px solid rgb(62, 118, 175);
+//   cursor: pointer;
+//   &:hover {
+//     opacity: .80;
+//   }
+// }
 
 .unassign {
   @include value-prefix(background-image, linear-gradient(top, rgb(250, 150, 150) 0%, rgb(150, 100, 75) 100%));
@@ -1345,118 +1345,6 @@ hr {
     }
   }
 }
-
-// .post-form {
-//   border: 1px solid rgb(213, 213, 213);
-//   border-radius: 3px;
-//   box-shadow: rgb(250, 250, 250) 0px 1px 1px 0px;
-//   box-sizing: border-box;
-//   color: rgb(64, 64, 64);
-//   display: block;
-//   font-size: 14px;
-//   height: 34px;
-//   padding-bottom: 10px;
-//   padding-left: 10px;
-//   padding-right: 120px;
-//   padding-top: 10px;
-// }
-//
-// .post-form-inputs-container {
-//   display: block;
-//   position: relative;
-//   margin-bottom: 20px;
-//   input {
-//     &:focus {
-//       border-color: rgb(213, 213, 213);
-//       box-shadow: none;
-//     }
-//   }
-// }
-//
-// .post-form-button-container {
-//   display: block;
-//   font-size: 14px;
-//   height: 28px;
-//   position: absolute;
-//   right: 3px;
-//   top: 3px;
-// }
-//
-// .post-form-button {
-//   background-color: rgba(0, 0, 0, 0);
-//   @include value-prefix(background-image, linear-gradient(top, rgb(109, 181, 213) 0%, rgb(74, 145, 192) 100%));
-//   background-origin: padding-box;
-//   background-size: auto;
-//   border: 1px solid rgb(88, 151, 195);
-//   border-radius: 3px;
-//   color: rgb(255, 255, 255);
-//   cursor: pointer;
-//   display: block;
-//   float: left;
-//   font-size: 11px;
-//   font-style: normal;
-//   font-variant: normal;
-//   font-weight: bold;
-//   height: 28px;
-//   line-height: 15px;
-//   margin: 0 0 0 12px;
-//   padding: 6px 10px;
-//   text-align: center;
-//   width: 57px;
-//   &:hover {
-//     color: rgb(255, 255, 255);
-//   }
-//   &:active {
-//     -webkit-box-shadow: rgb(128, 128, 128) 0px 0px 2px 0px inset, rgb(255, 255, 255) 0px 1px 0px 0px;
-//     background-color: rgb(85, 156, 199);
-//   }
-// }
-//
-// .posts-back {
-//   margin-top: 15px;
-// }
-//
-// .divider {
-//   border-bottom-color: rgb(255, 255, 255);
-//   border-bottom-style: solid;
-//   border-bottom-width: 1px;
-//   border-top-color: rgb(223, 223, 223);
-//   border-top-style: solid;
-//   border-top-width: 1px;
-//   margin-bottom: 20px;
-//   margin-top: 20px;
-//   outline-color: rgb(95, 95, 95);
-//   position: relative;
-//   text-align: left;
-//   vertical-align: baseline;
-//   span {
-//     -webkit-background-clip: border-box;
-//     -webkit-background-origin: padding-box;
-//     -webkit-background-size: auto;
-//     background-attachment: scroll;
-//     background-clip: border-box;
-//     background-color: none;
-//     background-image: image-url("divider.png");
-//     background-origin: padding-box;
-//     background-size: auto;
-//     color: rgb(95, 95, 95);
-//     display: block;
-//     font-size: 14px;
-//     left: 50%;
-//     margin: 0 0 0 -21px;
-//     outline-color: rgb(95, 95, 95);
-//     outline-style: none;
-//     outline-width: 0px;
-//     padding: 0 3px;
-//     position: absolute;
-//     text-align: left;
-//     top: -4px;
-//     vertical-align: baseline;
-//     background-repeat: no-repeat;
-//     height: 8px;
-//     width: 30px;
-//   }
-// }
 
 #students {
   tbody a {

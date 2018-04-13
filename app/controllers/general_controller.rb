@@ -50,7 +50,6 @@ class GeneralController < ApplicationController
   end
 
   def industry
-    redirect_to root_path unless TopLevelDomain == "com"
     @page              = Page.find_by(title: 'Industry Index')
     @industry_articles = Article.current_region.where(kind: "Industry Article").order(created_at: :desc)
   end

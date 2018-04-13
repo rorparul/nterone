@@ -14,7 +14,9 @@ module SharedHelper
       end
     end
 
-    link_to text, url, id: 'sign-in-or-account', class: 'btn btn-blue-gradient', role: 'button'
+    link_to '#', id: 'sign-in-or-account', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+      "#{text} <span class='caret'></span>".html_safe
+    end
   end
 
   def flag_icon_of_current_region
@@ -32,5 +34,16 @@ module SharedHelper
 
   def active_vendors_in_region
     Platform.active.current_region.order(:title)
+  end
+
+  def back_button
+    ("<button id='back' class='btn btn-blue-gradient btn-padded center-block'>" +
+      "Back" +
+    "</button>" +
+    "<script>" +
+      "$('#back').on('click', function() {" +
+        "location.replace(document.referrer);" +
+      "});" +
+    "</script>").html_safe
   end
 end

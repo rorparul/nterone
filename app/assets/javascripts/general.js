@@ -9,8 +9,8 @@ $(function() {
   });
 
   $('#myModal').on('shown.bs.modal', function(e) {
-    $('#query').focus();
-    $('input[autofocus]').focus();
+    $('#myModal #query').focus();
+    $('#myModal input[autofocus]').focus();
     prepareInputs();
   });
 

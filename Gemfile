@@ -73,7 +73,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'wysiwyg-rails', '2.7.6'
+gem 'wysiwyg-rails', '2.8.0'
 gem 'zip-zip'
 
 group :development do

@@ -1,34 +1,23 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.testimonials')
-    
-.row
-  .col-xs-12.col-central
-    = image_tag t('testimonials.index.image'), class: "header-image"
-    .row
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12
       - if @page.content.present?
-        .col-xs-12.category-description
-          .panel.panel-default
-            .panel-body
-              = @page.content.html_safe
-        
-      .col-xs-12#testimonials
-        - @testimonials.each do |testimonial|
-          = render partial: 'testimonial', locals: { testimonial: testimonial }
-  
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.testimonials-tab').addClass('active');
+        .panel.panel-default
+          .panel-body
+            = @page.content.html_safe
+  .row
+    .col-xs-12
+      - @testimonials.each do |testimonial|
+        = render partial: 'testimonial', locals: { testimonial: testimonial }
+
+= back_button
+
+= render partial: 'shared/banner_footer'

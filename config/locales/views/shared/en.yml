@@ -38,6 +38,7 @@ en:
       twitter: 'Twitter'
     header:
       about_us: 'About Us'
+      actions: 'Actions'
       call_today: 'Call Today'
       change_region: 'Change Region'
       consulting: 'Consulting'
@@ -50,8 +51,8 @@ en:
       my_nterone: 'My NterOne'
       partners: 'Partners'
       search: 'Search'
-      shopping_cart: 'Shopping Cart'
       sign_out: 'Sign Out'
+      shopping_cart: 'Shopping Cart'
       testimonials: 'Testimonials'
       training: 'Training'
     edit_js:

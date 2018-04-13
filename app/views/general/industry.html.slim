@@ -1,39 +1,25 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    = t('admins.partial_breadcrumbs.about_us')
-    
-.row
-  .col-xs-12.col-central
-    = image_tag t('general.industry.image'), class: "header-image"
-    = render partial: 'layouts/about_us_nav_bar'
-    
-    .row.executive-bios
-      .col-xs-12
-        - @industry_articles.each do |industry_article|
-          .article
-            h3
-              a href="#{article_path(industry_article)}"
-                = industry_article.title
-            = truncate_html(industry_article.content, length: 250, omission: '...(continued)')
-            small.text-muted
-              = t('general.industry.published')
-              = industry_article.created_at.strftime("%B %d, %Y")
-            hr
-  
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.about-us-tab').addClass('active');
-  $('.industry').addClass('active-category');
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12
+      = render partial: 'layouts/about_us_nav_bar'
+      - @industry_articles.each do |press_release|
+        .article
+          h3
+            a href="#{article_path(press_release)}"
+              = press_release.title
+          = truncate_html(press_release.content, length: 250, omission: '...(continued)')
+          small.text-muted
+            = "#{t('default.label.published')} #{press_release.created_at.strftime("%B %d, %Y")}"
+          hr
+
+= back_button
+
+= render partial: 'shared/banner_footer'
