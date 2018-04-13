@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-        prepare_smart_listing(users_scope)
+        prepare_smart_listing(users_scope.order(:last_name))
       end
 
       format.json do
@@ -100,17 +100,17 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         users_scope = User.leads.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope)
+        prepare_smart_listing(users_scope.order(:last_name))
       end
 
       format.js do
         users_scope = User.leads.where(clean_params(user_params[:filters]))
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope)
+        prepare_smart_listing(users_scope.order(:last_name))
       end
 
       format.xlsx do
-        @users = User.leads.where(clean_params(user_params[:filters]))
+        @users = User.leads.where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
       end
@@ -121,13 +121,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         users_scope = User.contacts.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope)
+        prepare_smart_listing(users_scope.order(:last_name))
       end
 
       format.js do
         users_scope = User.contacts.where(clean_params(user_params[:filters]))
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope)
+        prepare_smart_listing(users_scope.order(:last_name))
       end
 
       format.json do
@@ -135,7 +135,7 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        @users = User.contacts.where(clean_params(user_params[:filters]))
+        @users = User.contacts.where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
       end
