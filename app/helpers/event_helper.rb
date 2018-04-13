@@ -8,9 +8,11 @@ module EventHelper
     return 'EST' if time_zone == 'Eastern Time (US & Canada)'
   end
 
-  def instructors_with_rate(instructors) 
+  def instructors_with_rate(instructors, event)
+    selected_instructor = event.instructor
+    if selected_instructor.present?
+      instructors << selected_instructor
+    end
     instructors.collect { |user| ["#{user.last_name}, #{user.first_name}: $#{number_with_delimiter(number_with_precision(user.daily_rate, precision: 2))}", user.id] }
   end
-
-
 end
