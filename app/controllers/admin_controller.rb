@@ -3,7 +3,6 @@ class AdminController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   include SmartListingConcerns
-  include MessageManager
 
   before_action :authenticate_user!
   before_action :authorize_admin

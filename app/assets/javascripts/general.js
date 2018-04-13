@@ -57,39 +57,6 @@ function prepareInputs() {
   $('.froala').froalaEditor({
     height: 240,
     imageUploadURL: '/public/uploads/editor',
-    imageUploadMethod: 'POST',
-    toolbarButtons: [
-      'fullscreen',
-      'bold',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'subscript',
-      'superscript',
-      'fontFamily',
-      'fontSize',
-      'color',
-      'emoticons',
-      'inlineStyle',
-      'paragraphStyle',
-      'paragraphFormat',
-      'align',
-      'formatOL',
-      'formatUL',
-      'outdent',
-      'indent',
-      'quote',
-      'insertHR',
-      'insertLink',
-      'insertImage',
-      'insertVideo',
-      'insertFile',
-      'insertTable',
-      'undo',
-      'redo',
-      'clearFormatting',
-      'selectAll',
-      'html'
-    ]
+    imageUploadMethod: 'POST'
   });
 }

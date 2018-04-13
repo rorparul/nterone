@@ -38,8 +38,6 @@ NterOne::Application.routes.draw do
 
   resources :articles
 
-  resources :image_store_units
-
   resources :contact_us_submissions, only: [:index, :show]
 
   resources :carts
@@ -69,10 +67,6 @@ NterOne::Application.routes.draw do
   end
 
   resources :posts, except: [:index, :new, :show]
-
-  resources :announcements, except: [:new, :show]
-
-  resources :messages, only: [:index]
 
   resources :testimonials, except: [:show] do
     collection do
@@ -280,9 +274,7 @@ NterOne::Application.routes.draw do
     get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
     # get 'admin/courses',                             as: :admin_courses
     get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
-    get 'admin/announcements',                       as: :admin_announcements
     get 'admin/website',                             as: :admin_website
-    get 'admin/messages',                            as: :admin_messages
     get 'admin/settings',                            as: :admin_settings
     get 'admin/tools',                               as: :admin_tools
     get 'admin/cpl_log'     => 'admin#cpl_log',      as: :cpl_log
@@ -290,7 +282,6 @@ NterOne::Application.routes.draw do
 
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
-    get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
 

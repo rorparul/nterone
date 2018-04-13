@@ -1,7 +1,5 @@
 en:
   admins:
-    announcements:
-      new_announcement: "New Announcement"
     classes:
       commissions_report: "Generate Commissions Report"
       past: "Including past"
@@ -50,13 +48,11 @@ en:
       engineers: "Engineers"
       cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
-      announcements: "Announcements"
       my_classes: "My Classes"
       classes: "Classes"
       courses: "Courses"
       insights: "Insights"
       lab_rentals: "Labs"
-      messages: "Messages"
       orders: "Orders"
       settings: "Settings"
       checklists: "Checklists"

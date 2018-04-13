@@ -11,25 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413035746) do
+ActiveRecord::Schema.define(version: 20180413041053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
-    t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -47,19 +32,6 @@ ActiveRecord::Schema.define(version: 20180413035746) do
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
-
-  create_table "announcements", force: :cascade do |t|
-    t.text     "content"
-    t.string   "audience"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "status",         default: "open"
-    t.string   "poster"
-    t.integer  "origin_region"
-    t.text     "active_regions", default: [],                  array: true
-  end
-
-  add_index "announcements", ["origin_region"], name: "index_announcements_on_origin_region", using: :btree
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
@@ -104,28 +76,6 @@ ActiveRecord::Schema.define(version: 20180413035746) do
     t.datetime "updated_at",       null: false
     t.string   "slug"
     t.text     "page_description"
-  end
-
-  create_table "bootsy_image_galleries", force: :cascade do |t|
-    t.integer  "bootsy_resource_id"
-    t.string   "bootsy_resource_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bootsy_images", force: :cascade do |t|
-    t.string   "image_file"
-    t.integer  "image_gallery_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "carousel_items", force: :cascade do |t|
-    t.string   "caption"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "active",     default: true
-    t.string   "url"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -605,16 +555,6 @@ ActiveRecord::Schema.define(version: 20180413035746) do
 
   add_index "hacp_requests", ["origin_region"], name: "index_hacp_requests_on_origin_region", using: :btree
 
-  create_table "image_store_units", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
-  end
-
-  add_index "image_store_units", ["origin_region"], name: "index_image_store_units_on_origin_region", using: :btree
-
   create_table "images", force: :cascade do |t|
     t.string  "file"
     t.integer "imageable_id"
@@ -858,18 +798,6 @@ ActiveRecord::Schema.define(version: 20180413035746) do
   end
 
   add_index "lms_managed_students", ["origin_region"], name: "index_lms_managed_students_on_origin_region", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "announcement_id"
-    t.boolean  "read",            default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "origin_region"
-    t.text     "active_regions",  default: [],                 array: true
-  end
-
-  add_index "messages", ["origin_region"], name: "index_messages_on_origin_region", using: :btree
 
   create_table "opportunities", force: :cascade do |t|
     t.integer  "employee_id"

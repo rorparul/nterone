@@ -49,10 +49,8 @@ es:
       orders: "Ordenes"
       classes: "Clases"
       courses: "Cursos"
-      announcements: "Anuncios"
       people: "Personas"
       website: "Pagina Web"
-      messages: "Mensajes"
       settings: "Ajustes"
     admin_queue:
       row:
@@ -196,27 +194,6 @@ es:
             course_id: "Curso ID"
             course_title: "Titulo"
             course_events: "Proximos Eventos"
-    admin_announcements:
-      row:
-        new_announcement:
-          title: "Nuevos Anuncios"
-          button:
-            all: "Todo"
-            members: "Miembros"
-            sales_rep: "Representantes de Ventas"
-            sales_member: "Gerente de Ventas"
-            members_sales_reps: "Miembros & Representantes de Ventas"
-        announcements:
-          title: "Anuncios"
-          column:
-            announcements_content: "Contenidos"
-            announcements_target: "Objetivo"
-            announcements_poster: "Póster"
-            announcements_status:
-              title: "Estado"
-              value:
-                active: "Activo"
-                inactive: "Inactivo"
     admin_people:
       row:
         people:
@@ -305,14 +282,6 @@ es:
           label:
             image: "Imagen"
             image_title: "Titulo"
-    admin_messages:
-      row:
-        messages:
-          title: "Mensaje"
-          column:
-            date: "Fecha"
-            from: "De"
-            message: "Mensaje"
     admin_settings:
       row:
         contact_info:

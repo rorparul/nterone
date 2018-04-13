@@ -65,10 +65,8 @@ en:
       classes: "Classes"
       courses: "Courses"
       lab_rentals: "Labs"
-      announcements: "Announcements"
       people: "People"
       website: "Website"
-      messages: "Messages"
       settings: "Settings"
     action:
       commissions_report: "Generate Commissions Report"
@@ -223,27 +221,6 @@ en:
             course_id: "Course ID"
             course_title: "Title"
             course_events: "Upcoming Events"
-    admin_announcements:
-      row:
-        new_announcement:
-          title: "New Announcement"
-          button:
-            all: "All"
-            members: "Members"
-            sales_rep: "Sales Reps"
-            sales_member: "Sales Managers"
-            members_sales_reps: "Members & Sales Reps"
-        announcements:
-          title: "Announcements"
-          column:
-            announcements_content: "Content"
-            announcements_target: "Target"
-            announcements_poster: "Poster"
-            announcements_status:
-              title: "Status"
-              value:
-                active: "Active"
-                inactive: "Inactive"
     admin_people:
       row:
         people:
@@ -351,14 +328,6 @@ en:
           label:
             image: "Image"
             image_title: "Title"
-    admin_messages:
-      row:
-        messages:
-          title: "Message"
-          column:
-            date: "Date"
-            from: "From"
-            message: "Message"
     admin_settings:
       row:
         contact_info:

@@ -2,12 +2,9 @@ class Admin::BaseController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   include SmartListingConcerns
-  include MessageManager
 
   before_action :authenticate_user!
   before_action :validate_authorization
-
-  # layout 'admin'
 
   respond_to :json
 

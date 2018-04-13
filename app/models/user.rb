@@ -131,7 +131,6 @@ class User < ActiveRecord::Base
   has_many :buyer_leads,              class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
   has_many :lab_rentals
   has_many :individual_lab_rentals,   through: :order_items, source: :orderable, source_type: 'LabRental'
-  has_many :messages,                 dependent:   :destroy
   has_many :posts
   has_many :roles,                    dependent:   :destroy
   has_many :seller_orders,            class_name:  'Order',
@@ -269,14 +268,6 @@ class User < ActiveRecord::Base
       courses << course if potential_courses.include?(course)
     end
     courses
-  end
-
-  def new_message_count
-    count = 0
-    self.messages.where(read: false).each do |message|
-      count += 1 if message.announcement.status == 'open'
-    end
-    count
   end
 
   def show_tasks?
