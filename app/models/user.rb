@@ -44,9 +44,6 @@
 #  billing_state           :string
 #  billing_zip_code        :string
 #  same_addresses          :boolean          default(FALSE)
-#  forem_admin             :boolean          default(FALSE)
-#  forem_state             :string           default("pending_review")
-#  forem_auto_subscribe    :boolean          default(FALSE)
 #  billing_first_name      :string
 #  billing_last_name       :string
 #  shipping_first_name     :string
@@ -79,6 +76,7 @@
 #  active                  :boolean          default(TRUE)
 #  archive                 :boolean          default(FALSE)
 #  sales_force_id          :string
+#  customer_type           :integer
 #
 # Indexes
 #
@@ -226,10 +224,6 @@ class User < ActiveRecord::Base
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
     end
-  end
-
-  def forem_name
-    full_name
   end
 
   def my_plan_total_low

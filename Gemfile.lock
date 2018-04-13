@@ -254,7 +254,7 @@ GEM
       sass (~> 3.2)
     font-awesome-rails (4.7.0.3)
       railties (>= 3.2, < 5.2)
-    font-awesome-sass (4.7.0)
+    font-awesome-sass (5.0.9)
       sass (>= 3.2)
     formatador (0.2.5)
     friendly_id (5.2.3)
@@ -580,8 +580,8 @@ GEM
       chronic (>= 0.6.3)
     wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.3.1)
-    wysiwyg-rails (2.7.5)
-      font-awesome-sass (~> 4.4, >= 4.4.0)
+    wysiwyg-rails (2.7.6)
+      font-awesome-sass (>= 4.4.0)
       railties (>= 3.2, < 6.0)
     xpath (3.0.0)
       nokogiri (~> 1.8)
@@ -700,7 +700,7 @@ DEPENDENCIES
   whenever
   wicked_pdf
   wkhtmltopdf-binary
-  wysiwyg-rails (= 2.7.5)
+  wysiwyg-rails (= 2.7.6)
   zip-zip
 
 RUBY VERSION

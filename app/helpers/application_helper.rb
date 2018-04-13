@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def welcome_page?
+    controller_name == 'welcome' && action_name == 'index'
+  end
+
   def number_to_currency(number, options = {})
     options[:locale] ||= :en
     super(number, options)

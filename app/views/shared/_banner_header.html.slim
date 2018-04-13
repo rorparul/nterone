@@ -1,0 +1,14 @@
+#banner-header class="#{'welcome' if welcome_page?}"
+  .container-fluid
+    #banner-header-message
+      h1 = t('shared._banner_header.reinvent_yourself')
+      h2 = t('shared._banner_header.world_class_solutions')
+    - if welcome_page?
+      #banner-header-welcome-search
+        = form_tag search_path, method: :get, 'data-parsley-validate' => true do
+          .input-group
+            = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('shared._banner_header.search_by')
+            span.input-group-btn
+              button.btn.btn-blue-gradient.btn-padded type='submit' = t('shared._banner_header.search')
+      #banner-header-welcome-gtr-classes
+        = link_to t('shared._banner_header.guaranteed_to_run_classes'), featured_classes_path

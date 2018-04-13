@@ -26,9 +26,6 @@
 #  billing_state           :string
 #  billing_zip_code        :string
 #  same_addresses          :boolean          default(FALSE)
-#  forem_admin             :boolean          default(FALSE)
-#  forem_state             :string           default("pending_review")
-#  forem_auto_subscribe    :boolean          default(FALSE)
 #  billing_first_name      :string
 #  billing_last_name       :string
 #  shipping_first_name     :string

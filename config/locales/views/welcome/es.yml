@@ -1,10 +1,5 @@
 es:
   welcome:
     index:
-      guaranteed_to_run_classes: 'GARANTIZADO PARA EJECUTAR CLASES'
       our_mission: 'NUESTRA MISIÓN'
       register_today: '¡Regístrese hoy!'
-      reinvent_yourself: 'REINVÉNTATE A TI MISMO.'
-      search_by: 'Buscar por certificación, curso o examen'
-      search: 'Buscar'
-      world_class_solutions: 'Soluciones de Capacitación y Consultoría de TI de Clase Mundial'

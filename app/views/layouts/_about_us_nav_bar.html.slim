@@ -1,12 +1,6 @@
-.categories.categories-repurposed.text-center
-  a.btn.category.btn-category.about-nterone href="#{about_us_path}"
-    = t('layouts.partial_about_us_nav_bar.about')
-  a.btn.category.btn-category.executive-bios href="#{executives_bios_path}"
-    = t('layouts.partial_about_us_nav_bar.exective')
-  a.btn.category.btn-category.instructor-bios href="#{instructors_bios_path}"
-    = t('layouts.partial_about_us_nav_bar.instructor')
-  a.btn.category.btn-category.press href="#{press_path}"
-    = t('layouts.partial_about_us_nav_bar.press')
-  - if TopLevelDomain == "com"
-    a.btn.category.btn-category.industry href="#{industry_path}"
-      = t('layouts.partial_about_us_nav_bar.industry')
+.btn-group.btn-group-justified.btn-group-responsive role="group"
+  = link_to t('layouts.partial_about_us_nav_bar.about'), about_us_path, class: 'btn btn-blue-gradient btn-padded ', role: 'button'
+  = link_to t('layouts.partial_about_us_nav_bar.exective'), executives_bios_path, class: 'btn btn-blue-gradient btn-padded ', role: 'button'
+  = link_to t('layouts.partial_about_us_nav_bar.instructor'), instructors_bios_path, class: 'btn btn-blue-gradient btn-padded ', role: 'button'
+  = link_to t('layouts.partial_about_us_nav_bar.press'), press_path, class: 'btn btn-blue-gradient btn-padded ', role: 'button'
+  = link_to t('layouts.partial_about_us_nav_bar.industry'), industry_path, class: 'btn btn-blue-gradient btn-padded ', role: 'button'

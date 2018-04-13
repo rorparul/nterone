@@ -1,3 +1,154 @@
+#banner-footer {
+  background-image: image-url('shared/banner-footer.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 15px 0;
+  text-align: center;
+  #nterone-gives-back {
+    width: 100px;
+    display: block;
+    margin: 0 auto 40px auto;
+    @media (min-width: 1049px) {
+      margin: 0 50px;
+      display: inline;
+    }
+  }
+  #redeem-your-credits {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 40px auto;
+    @media (min-width: 1049px) {
+      display: inline;
+      margin: 0;
+    }
+  }
+  #veteran-owned {
+    width: 125px;
+    display: block;
+    margin: 0 auto;
+    @media (min-width: 1049px) {
+      margin: 0 50px;
+      display: inline;
+    }
+  }
+}
+
+#banner-header {
+  background-image: image-url('shared/banner-header.jpg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding: 50px 0;
+  margin-bottom: 50px;
+  #banner-header-message {
+    color: white;
+    font-family: 'Raleway', Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0;
+      @media (min-width: 320px) {
+        font-size: 2.5em;
+      }
+      @media (min-width: 480px) {
+        font-size: 3em;
+      }
+      @media (min-width: 768px) {
+        font-size: 4.5em;
+      }
+    }
+    h2 {
+      font-size: 0.88em;
+      margin: 0;
+      line-height: 20px;
+      @media (min-width: 320px) {
+        font-size: 1.1em;
+      }
+      @media (min-width: 480px) {
+        font-size: 1.32em;
+      }
+      @media (min-width: 768px) {
+        font-size: 2em;
+      }
+    }
+  }
+  #banner-header-welcome-search {
+    margin: 0 15px 40px 15px;
+    text-align: center;
+    form {
+      display: inline-block;
+      width: 550px;
+      max-width: 100%;
+      input {
+        background-color: transparent;
+        border-bottom: 2px solid white;
+        border-left: 2px solid white;
+        border-top: 2px solid white;
+        color: white;
+        z-index: 0;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.5);
+        }
+        &:focus {
+          background-color: rgba(255, 255, 255, 1.0);
+          color: black;
+          &::placeholder {
+            color: gray;
+            opacity: 1;
+          }
+
+          &:-ms-input-placeholder {
+            color: gray;
+          }
+
+          &::-ms-input-placeholder {
+            color: gray;
+          }
+        }
+        &::placeholder {
+          color: white;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          color: white;
+        }
+
+        &::-ms-input-placeholder {
+          color: white;
+        }
+      }
+    }
+  }
+  #banner-header-welcome-gtr-classes {
+    text-align: center;
+    a {
+      color: white;
+      text-decoration: underline;
+      font-size: 0.88em;
+      font-weight: 300;
+      line-height: 20px;
+      @media (min-width: 320px) {
+        font-size: 1.1em;
+      }
+      @media (min-width: 480px) {
+        font-size: 1.32em;
+      }
+      @media (min-width: 768px) {
+        font-size: 2em;
+      }
+    }
+  }
+  &.welcome {
+    padding: 150px 0 210px 0;
+    margin-bottom: 0;
+    #banner-header-message {
+      margin: 0 15px 50px 15px;
+    }
+  }
+}
+
 header {
   background-color: white;
   left: 0;
@@ -335,4 +486,31 @@ header {
 
 .hr-blue {
   border-top: 2px solid rgb(10, 80, 155);
+}
+
+.btn-group-responsive {
+  margin-bottom: 50px;
+}
+
+@media (max-width: 991px) {
+  .btn-group.btn-group-responsive > .btn {
+    display: block;
+    width: 100%;
+  }
+
+  /* making the border-radius correct */
+  .btn-group.btn-group-responsive > .btn:first-child {
+    border-radius: 6px 6px 0 0;
+  }
+  .btn-group.btn-group-responsive > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 6px;
+  }
+  .btn-group.btn-group-responsive > .btn:last-child:not(:first-child) {
+    border-radius: 0 0 6px 6px;
+  }
+
+  /* fixing margin */
+  .btn-group.btn-group-responsive .btn + .btn {
+    margin-left: 0;
+  }
 }

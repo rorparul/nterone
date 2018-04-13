@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   after_action  :store_location
 
-  helper_method :forem_user, :resource_name, :resource, :devise_mapping
+  helper_method :resource_name, :resource, :devise_mapping
 
   protect_from_forgery with: :exception
 

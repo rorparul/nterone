@@ -3,6 +3,14 @@ en:
     _addresses:
       billing_address: 'NterOne Billing Address'
       corporate_address: 'NterOne Corporate Address'
+    _banner_header:
+      guaranteed_to_run_classes: 'GUARANTEED TO RUN CLASSES'
+      our_mission: 'OUR MISSION'
+      register_today: 'Register Today!'
+      reinvent_yourself: 'REINVENT YOURSELF.'
+      search_by: 'Search by certification, course, or exam'
+      search: 'Search'
+      world_class_solutions: 'World-Class IT Training and Consulting Solutions'
     _contact_us_form:
       email: 'Email'
     _search_form:
