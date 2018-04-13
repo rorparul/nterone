@@ -63,7 +63,8 @@ class Opportunity < ActiveRecord::Base
     attributes partner:  ['partner.title', 'partner.industry_code']
   end
 
-  validates_presence_of :employee_id, :account_id
+  validates_presence_of :employee_id
+  validates_presence_of :account_id, unless: :is_account_id_required?
 
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   before_save :confirm_amount_equals_integer
@@ -98,6 +99,10 @@ class Opportunity < ActiveRecord::Base
 
   def self.amount_won_last_month
     won.where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount)
+  end
+  
+  def is_account_id_required?
+    self.waiting_changed? && (self.waiting == true) ? true : false
   end
 
   def self.amount_won_ytd
