@@ -33,6 +33,4 @@
               - if lab_course.image.present? && lab_course.image.file.present?
                 = image_tag lab_course.image.file.subject_large_icon.url, class: "lab-course-card-pic"
 
-= back_button
-
 = render partial: 'shared/banner_footer'
