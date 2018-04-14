@@ -1849,3 +1849,61 @@ hr {
 .select2-search__field {
   width: 100% !important;
 }
+
+.course {
+  background-color: #F6F6F6;
+  border-radius: 10px;
+  height: 135px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: 1px solid #D1D1D1;
+  display: block;
+  img {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+}
+.resource-item {
+  background-color: #F6F6F6;
+  border: 1px solid #D1D1D1;
+  height: 82px;
+  margin-bottom: 10px;
+  padding: 9px;
+  text-decoration: none;
+  display: block;
+
+  p {
+    color: #505050;
+    margin: 0 0 0 70px;
+    vertical-align: middle;
+    text-overflow: clip;
+    overflow: hidden;
+    width: inherit;
+    word-wrap: break-word;
+    position: relative;
+    top: 50%;
+  	-webkit-transform: translateY(-50%);
+  	-ms-transform: translateY(-50%);
+  	transform: translateY(-50%);
+  }
+
+  .course-links {
+    margin-top: 20px;
+  }
+
+  &.with-image {
+    img {
+      float: left;
+      width: 62px;
+      height: 62px;
+    }
+  }
+  &.without-image {
+    p {
+      margin: 0 0 0 28px;
+    }
+  }
+}

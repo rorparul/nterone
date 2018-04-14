@@ -4,96 +4,76 @@
 - content_for :page_description do
   = @subject.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{platforms_path}"
-    = t('admins.partial_breadcrumbs.training')
-  span.seperator
-    | /
-  a href="#{platform_path(@platform)}"
-    = @platform.title
-  span.seperator
-    | /
-  span.text-muted = "#{@subject.abbreviation}"
-
 - content_for :actions do
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
-      i.fa.fa-plus
       = t('subjects.show.add_table')
 
-.row
-  .col-xs-12.col-central
-    .row#subject-description
-      .col-xs-12
-        .page-header
-          h1 style="margin: 0 0 10px 0; font-size: 28px;" = @subject.full_title
-        = @subject.description.html_safe
-    .row#subject-groups
-      - @subject.groups.each do |group|
-        = render partial: 'groups/group', locals: { platform: @platform, subject: @subject, group: group }
+= render partial: 'shared/banner_header'
 
-    .row
-      .col-xs-12
-        button#back Back
-        - if !user_signed_in? || (user_signed_in? && current_user.member?)
-          - if @platform.url
-            a href="#{@platform.url}" target="_blank"
+.container
+  .row
+    .col-xs-12.col-central
+      .row#subject-description
+        .col-xs-12
+          .page-header
+            h1 style="margin: 0 0 10px 0; font-size: 28px;" = @subject.full_title
+          = @subject.description.html_safe
+      .row#subject-groups
+        - @subject.groups.each do |group|
+          = render partial: 'groups/group', locals: { platform: @platform, subject: @subject, group: group }
+
+      .row
+        .col-xs-12
+          - if !user_signed_in? || (user_signed_in? && current_user.member?)
+            - if @platform.url
+              a href="#{@platform.url}" target="_blank"
+                button#find-testing-center
+                  span.fa.fa-location-arrow
+                  span
+                  = t('subjects.show.find_testing_center')
+          - if !user_signed_in?
+            a href="#{main_app.new_user_session_path}"
               button#find-testing-center
-                span.fa.fa-location-arrow
+                span.fa.fa-sign-in
                 span
-                = t('subjects.show.find_testing_center')
-        - if !user_signed_in?
-          a href="#{main_app.new_user_session_path}"
-            button#find-testing-center
-              span.fa.fa-sign-in
-              span
-              = t('subjects.show.login_to_add_to_plan')
-        - if user_signed_in? && current_user.member?
-          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
-            = f.hidden_field :user_id, value: current_user.id
-            = f.hidden_field :subject_id, value: @subject.id
-            - if user_signed_in? && current_user.planned.include?(@subject)
-              button.active id="subject-toggle-#{@subject.id}" type="submit"
-                span.fa.fa-minus
-                span
-                = t('subjects.show.remove_from_plan')
-            - else
+                = t('subjects.show.login_to_add_to_plan')
+          - if user_signed_in? && current_user.member?
+            = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :subject_id, value: @subject.id
+              - if user_signed_in? && current_user.planned.include?(@subject)
+                button.active id="subject-toggle-#{@subject.id}" type="submit"
+                  span.fa.fa-minus
+                  span
+                  = t('subjects.show.remove_from_plan')
+              - else
+                button.inactive id="subject-toggle-#{@subject.id}" type="submit"
+                  span.fa.fa-plus
+                  span
+                  = t('subjects.show.add_to_plan')
+          - if user_signed_in? && current_user.sales?
+            = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+              = f.hidden_field :subject_id, value: @subject.id
               button.inactive id="subject-toggle-#{@subject.id}" type="submit"
-                span.fa.fa-plus
                 span
-                = t('subjects.show.add_to_plan')
-        - if user_signed_in? && current_user.sales?
-          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
-            = f.hidden_field :subject_id, value: @subject.id
-            button.inactive id="subject-toggle-#{@subject.id}" type="submit"
-              span
-              = t('default.action.toggle')
-            = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
+                = t('default.action.toggle')
+              = f.select :user_id, @leads.collect { |lead| ["#{lead.buyer.full_name} #{lead.buyer.option_class(@subject)}", lead.buyer.id] }.unshift(['Select Member', nil]), {}, class: "form-control lead-subject-toggle"
 
-  .col-xs-12.side-column
-    .panel.panel-default
-      .panel-body
-        h5
-          strong
-            = t('courses.show.questions')
-        p
-          = t('courses.show.nterone_message')
-        p
-          = "#{t('default.label.email') + ": "}"
-          a href="mailto:sales@nterone.#{TopLevelDomain}" = "sales@nterone.#{TopLevelDomain}"
+    .col-xs-12.side-column
+      .panel.panel-default
+        .panel-body
+          h5
+            strong
+              = t('courses.show.questions')
+          p
+            = t('courses.show.nterone_message')
+          p
+            = "#{t('default.label.email') + ": "}"
+            a href="mailto:sales@nterone.#{TopLevelDomain}" = "sales@nterone.#{TopLevelDomain}"
 
-        p
-          = "#{t('default.label.phone')}: #{RegionalPhoneNumber}"
-    = render partial: 'layouts/side_column'
+          p
+            = "#{t('default.label.phone')}: #{RegionalPhoneNumber}"
+      = render partial: 'layouts/side_column'
 
-javascript:
-  $('.training-tab').addClass('active');
-
-  $('#back').on('click', function() {
-    location.replace(document.referrer);
-  });
+= render partial: 'shared/banner_footer'

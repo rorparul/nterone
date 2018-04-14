@@ -128,8 +128,6 @@ class GeneralController < ApplicationController
 
             ContactUsSubmission.create(submission_params)
 
-            flash[:success] = 'Message successfully sent.'
-
             if params[:origin] == "course"
               redirect_to course_inquiry_confirmation_path
             elsif params[:origin] == "learning_credits"

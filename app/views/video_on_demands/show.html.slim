@@ -4,225 +4,201 @@
 - content_for :page_description do
   = @video_on_demand.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{platforms_path}"
-    = t('admins.partial_breadcrumbs.training')
-  span.seperator
-    | /
-  a href="#{platform_path(@platform)}"
-    = @platform.title
-  span.seperator
-    | /
-  span.text-muted = "#{@video_on_demand.abbreviation}"
+= render partial: 'shared/banner_header'
 
-.row
-  .col-xs-12.col-central
-    #video-on-demand
-      .row
-        .col-xs-12
-          = image_tag t("courses.show.image"), class: "course-banner"
+.container
+  .row
+    .col-xs-12.col-central
+      #video-on-demand
+        .row
+          .col-xs-12
+            - if @video_on_demand.intro.present?
+              .panel.panel-default
+                .panel-body
+                  = @video_on_demand.intro.html_safe
 
-          - if @video_on_demand.intro.present?
-            .panel.panel-default
-              .panel-body
-                = @video_on_demand.intro.html_safe
+            - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
+              .course-progress
+                .progress-bar-our
+                  .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
+                    | #{@video_on_demand.overal_progress_percent_for(current_user)}%
 
-          - if user_signed_in? && @video_on_demand.overal_progress_percent_for(current_user) > 0
-            .course-progress
-              .progress-bar-our
-                .progress-our style="width: #{@video_on_demand.overal_progress_percent_for(current_user)}%;"
-                  | #{@video_on_demand.overal_progress_percent_for(current_user)}%
-
-          .row
-            .col-xs-12
-              #accordion.panel-group role="tablist" aria-multiselectable="true"
-                - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
-
-                  / NOTE: The code in this 'if' block is deprecated:
-                  - if @video_on_demand.cisco_digital_learning?
-                    .row
-                      .col-xs-12
-                        .panel.panel-default
-                          .panel-body style="padding: 0 15px;"
-                            = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
-                            - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
-                              = link_to "Digital Learning Portal for #{video_module.title}", cdl_show_path(video_module.id)
-                              i.fa.fa-external-link style='margin-left: 10px;'
-                            - else
-                              = video_module.title
-
-                  - elsif @video_on_demand.cisco_course_product_code.present?
-                    .row
-                      .col-xs-12
-                        .panel.panel-default
-                          .panel-body style="padding: 0 15px;"
-                            = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
-                            - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
-                              = link_to video_module.title, cpl_launch_path(video_module, child: true)
-                              i.fa.fa-external-link style='margin-left: 10px;'
-                            - else
-                              = video_module.title
-
-                  - else
-                    .panel.panel-default
-                      .panel-heading role="tab" id="heading#{index}"
-                        strong
-                          a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}" class='collapse-module'
-                            span.fa.fa-caret-right.collapse-module-icon
-                            span= video_module.title
-                          .video-module-results
-                            span.label.item class=video_completed_class(video_module, current_user) style="box-shadow: 0px 0px 3px #888888;"
-                              span.fa.fa-play
-                              span.count
-                                = video_completed_ratio(video_module, current_user)
-                            - if video_module.lms_exams.count > 0
-                              span.label.item class=exam_completed_class(video_module, current_user) style="box-shadow: 0px 0px 3px #888888;"
-                                span.fa.fa-file-text-o
-                                span.count
-                                  = exam_completed_ratio(video_module, current_user)
-                            - if @video_on_demand.lms_exam
-                              span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default') style="margin: 0; box-shadow: 0px 0px 3px #888888;"
-                                span.fa.fa-check
-                      .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
-                        .table-responsive
-                          table.table.table-condensed
-                            tbody
-                              - video_module.videos.order(:position).each do |video|
-                                tr.video
-                                  td.fit id="video-#{video.id}-status"
-                                    = video_status(current_user, video)
-                                  - if video.free
-                                    td
-                                      span.fa.fa-play
-                                      a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
-                                        = video.title
-                                      .label.label-info style="margin-left: 10px; box-shadow: 0px 0px 3px #888888;" Free Sample
-                                  - elsif user_signed_in? && video.permit_user?(current_user)
-                                    td
-                                      span.fa.fa-play
-                                      a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
-                                        = video.title
-                                  - else
-                                    td
-                                      span.fa.fa-play
-                                      span.text-muted title="Play Video" = video.title
-                                - video.lms_exams.each do |lms_exam|
-                                  tr.quiz class="video-#{video.id}-quiz"
-                                    td.fit id="quiz-#{lms_exam.id}-status"
-                                      = taken_exam_status(current_user, lms_exam)
-                                    td
-                                      span.fa.fa-file-text-o
-                                      a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                        = lms_exam.title
-                                      - if lms_exam.completed_by?(current_user)
-                                        a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
-                                          | Scores
-
-                - if @video_on_demand.cisco_course_product_code.present? && @video_on_demand.video_modules.empty?
-                  .row
-                    .col-xs-12
-                      .panel.panel-default
-                        .panel-body style="padding: 0 15px;"
-                          = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
-                          - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
-                            = link_to @video_on_demand.title, cpl_launch_path(@video_on_demand)
-                            i.fa.fa-external-link style='margin-left: 10px;'
-                          - else
-                            = @video_on_demand.title
-
-          - unless @purchased
             .row
               .col-xs-12
+                #accordion.panel-group role="tablist" aria-multiselectable="true"
+                  - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
+
+                    / NOTE: The code in this 'if' block is deprecated:
+                    - if @video_on_demand.cisco_digital_learning?
+                      .row
+                        .col-xs-12
+                          .panel.panel-default
+                            .panel-body style="padding: 0 15px;"
+                              = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
+                              - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
+                                = link_to "Digital Learning Portal for #{video_module.title}", cdl_show_path(video_module.id)
+                                i.fa.fa-external-link style='margin-left: 10px;'
+                              - else
+                                = video_module.title
+
+                    - elsif @video_on_demand.cisco_course_product_code.present?
+                      .row
+                        .col-xs-12
+                          .panel.panel-default
+                            .panel-body style="padding: 0 15px;"
+                              = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
+                              - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
+                                = link_to video_module.title, cpl_launch_path(video_module, child: true)
+                                i.fa.fa-external-link style='margin-left: 10px;'
+                              - else
+                                = video_module.title
+
+                    - else
+                      .panel.panel-default
+                        .panel-heading role="tab" id="heading#{index}"
+                          strong
+                            a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse#{index}" aria-expanded="false" aria-controls="collapse#{index}" class='collapse-module'
+                              span.fa.fa-caret-right.collapse-module-icon
+                              span= video_module.title
+                            .video-module-results
+                              span.label.item class=video_completed_class(video_module, current_user) style="box-shadow: 0px 0px 3px #888888;"
+                                span.fa.fa-play
+                                span.count
+                                  = video_completed_ratio(video_module, current_user)
+                              - if video_module.lms_exams.count > 0
+                                span.label.item class=exam_completed_class(video_module, current_user) style="box-shadow: 0px 0px 3px #888888;"
+                                  span.fa.fa-file-text-o
+                                  span.count
+                                    = exam_completed_ratio(video_module, current_user)
+                              - if @video_on_demand.lms_exam
+                                span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default') style="margin: 0; box-shadow: 0px 0px 3px #888888;"
+                                  span.fa.fa-check
+                        .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
+                          .table-responsive
+                            table.table.table-condensed
+                              tbody
+                                - video_module.videos.order(:position).each do |video|
+                                  tr.video
+                                    td.fit id="video-#{video.id}-status"
+                                      = video_status(current_user, video)
+                                    - if video.free
+                                      td
+                                        span.fa.fa-play
+                                        a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                          = video.title
+                                        .label.label-info style="margin-left: 10px; box-shadow: 0px 0px 3px #888888;" Free Sample
+                                    - elsif user_signed_in? && video.permit_user?(current_user)
+                                      td
+                                        span.fa.fa-play
+                                        a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                          = video.title
+                                    - else
+                                      td
+                                        span.fa.fa-play
+                                        span.text-muted title="Play Video" = video.title
+                                  - video.lms_exams.each do |lms_exam|
+                                    tr.quiz class="video-#{video.id}-quiz"
+                                      td.fit id="quiz-#{lms_exam.id}-status"
+                                        = taken_exam_status(current_user, lms_exam)
+                                      td
+                                        span.fa.fa-file-text-o
+                                        a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                          = lms_exam.title
+                                        - if lms_exam.completed_by?(current_user)
+                                          a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
+                                            | Scores
+
+                  - if @video_on_demand.cisco_course_product_code.present? && @video_on_demand.video_modules.empty?
+                    .row
+                      .col-xs-12
+                        .panel.panel-default
+                          .panel-body style="padding: 0 15px;"
+                            = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
+                            - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
+                              = link_to @video_on_demand.title, cpl_launch_path(@video_on_demand)
+                              i.fa.fa-external-link style='margin-left: 10px;'
+                            - else
+                              = @video_on_demand.title
+
+            - unless @purchased
+              .row
+                .col-xs-12
+                  .panel.panel-default
+                    .table-responsive
+                      table.table.table-condensed
+                        thead
+                          tr
+                            - if @video_on_demand.instructor.present?
+                              th = t('video_on_demands.show.instructor')
+                            - if @video_on_demand.level.present?
+                              th = t('video_on_demands.show.level')
+                            th = t('video_on_demands.show.price')
+                            - if !user_signed_in? || (user_signed_in? && current_user.member?) || !@purchased
+                              th
+                        tbody
+                          tr
+                            - if @video_on_demand.instructor.present?
+                              td
+                                a href="#{platform_instructor_path(@video_on_demand.platform, @video_on_demand.instructor)}" data-remote="true"
+                                  = @video_on_demand.instructor.full_name
+                            - if @video_on_demand.level.present?
+                              td = @video_on_demand.level
+                            td = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))} for 1 year of access"
+                            - if !user_signed_in? || (user_signed_in? && current_user.member? && !@purchased)
+                              td.text-right
+                                = form_for :order_item, url: order_items_path do |f|
+                                  = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
+                                  = link_to_cart(@video_on_demand)
+
+            #accordion.panel-group role="tablist" aria-multiselectable="true"
+              - if @video_on_demand.overview.present?
                 .panel.panel-default
-                  .table-responsive
-                    table.table.table-condensed
-                      thead
-                        tr
-                          - if @video_on_demand.instructor.present?
-                            th = t('video_on_demands.show.instructor')
-                          - if @video_on_demand.level.present?
-                            th = t('video_on_demands.show.level')
-                          th = t('video_on_demands.show.price')
-                          - if !user_signed_in? || (user_signed_in? && current_user.member?) || !@purchased
-                            th
-                      tbody
-                        tr
-                          - if @video_on_demand.instructor.present?
-                            td
-                              a href="#{platform_instructor_path(@video_on_demand.platform, @video_on_demand.instructor)}" data-remote="true"
-                                = @video_on_demand.instructor.full_name
-                          - if @video_on_demand.level.present?
-                            td = @video_on_demand.level
-                          td = "$#{number_with_delimiter(number_with_precision(@video_on_demand.price, precision: 2))} for 1 year of access"
-                          - if !user_signed_in? || (user_signed_in? && current_user.member? && !@purchased)
-                            td.text-right
-                              = form_for :order_item, url: order_items_path do |f|
-                                = f.hidden_field :video_on_demand_id, value: @video_on_demand.id
-                                = link_to_cart(@video_on_demand)
+                  .panel-heading role="tab" id="headingOne"
+                    strong
+                      a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                        = t('video_on_demands.show.prerequisites_course_objectives')
+                  #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
+                    .panel-body
+                      = @video_on_demand.overview.html_safe
+              - if @video_on_demand.outline.present?
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingTwo"
+                    strong
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                        = t('video_on_demands.show.course_outline')
+                  #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
+                    .panel-body
+                      = @video_on_demand.outline.html_safe
+              - if @video_on_demand.intended_audience.present?
+                .panel.panel-default
+                  .panel-heading role="tab" id="headingThree"
+                    strong
+                      a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
+                        = t('video_on_demands.show.who_should_attend')
+                  #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
+                    .panel-body
+                      = @video_on_demand.intended_audience.html_safe
 
-          #accordion.panel-group role="tablist" aria-multiselectable="true"
-            - if @video_on_demand.overview.present?
-              .panel.panel-default
-                .panel-heading role="tab" id="headingOne"
-                  strong
-                    a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                      = t('video_on_demands.show.prerequisites_course_objectives')
-                #collapseOne.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingOne"
-                  .panel-body
-                    = @video_on_demand.overview.html_safe
-            - if @video_on_demand.outline.present?
-              .panel.panel-default
-                .panel-heading role="tab" id="headingTwo"
-                  strong
-                    a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                      = t('video_on_demands.show.course_outline')
-                #collapseTwo.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingTwo"
-                  .panel-body
-                    = @video_on_demand.outline.html_safe
-            - if @video_on_demand.intended_audience.present?
-              .panel.panel-default
-                .panel-heading role="tab" id="headingThree"
-                  strong
-                    a.collapsed role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
-                      = t('video_on_demands.show.who_should_attend')
-                #collapseThree.panel-collapse.collapse.in role="tabpanel" aria-labelledby="headingThree"
-                  .panel-body
-                    = @video_on_demand.intended_audience.html_safe
+            .row
+              .col-xs-12
+                #degrees
+                  = image_tag '360-degrees.png', class: 'degrees'
 
-          .row
-            .col-xs-12
-              #degrees
-                = image_tag '360-degrees.png', class: 'degrees'
+    .col-xs-12.side-column
+      .panel.panel-default
+        .panel-body
+          h5
+            strong = t('video_on_demands.show.questions')
+          p = t('video_on_demands.show.nterone_message')
+          p
+            = "#{t('default.label.email') + ": "}"
+            a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
+          p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
+      = render partial: 'layouts/side_column'
 
-  .col-xs-12.side-column
-    .panel.panel-default
-      .panel-body
-        h5
-          strong = t('video_on_demands.show.questions')
-        p = t('video_on_demands.show.nterone_message')
-        p
-          = "#{t('default.label.email') + ": "}"
-          a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
-        p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
-    = render partial: 'layouts/side_column'
-
-.row
-  .col-xs-12
-    button#back
-      = t('default.action.back')
+= render partial: 'shared/banner_footer'
 
 javascript:
-  $('.training-tab').addClass('active');
-
-  $('#back').on('click', function() {
-    location.replace(document.referrer);
-  });
-
   $('.collapse-module').click(function (e) {
     $(this).find('.collapse-module-icon').toggleClass('collapsed');
   });
