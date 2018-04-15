@@ -1,22 +1,13 @@
 - content_for :page_title do
   = @page.page_title
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted = @page.title
-    
-.row
-  .col-xs-12.col-central
-    .page-header
-      h3 = @page.title
-    = @page.content.try(:html_safe)
-  
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.about-us-tab').addClass('active');
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      .page-header
+        h3 = @page.title
+      = @page.content.try(:html_safe)
+
+= render partial: 'shared/banner_footer'

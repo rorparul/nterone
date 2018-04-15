@@ -4,67 +4,63 @@
 - content_for :page_description do
   = @page.try(:page_description)
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.sitemap')
+= render partial: 'shared/banner_header'
 
-.row
-  .col-xs-12
-    .page-header
-      h3
-        = t('general.sitemap.sitemap')
+.container
+  .row
+    .col-xs-12
+      .page-header
+        h3
+          = t('general.sitemap.sitemap')
 
-.row#sitemap
-  .col-xs-12.col-sm-6
-    h4
-      = t('general.sitemap.general')
-    ul
-      li = link_to t('general.sitemap.home'), root_path
-      li = link_to t('general.sitemap.consulting'), consulting_path
-      li = link_to t('general.sitemap.partners'), partners_path
-      li = link_to t('sgeneral.sitemap.labs'), labs_path
-
-    h4
-      = t('general.sitemap.about_us')
-    ul
-      li = link_to t('general.sitemap.executive'), executives_bios_path
-      li = link_to t('general.sitemap.instructor'), instructors_bios_path
-      li = link_to t('general.sitemap.testimonials'), testimonials_path
-      li = link_to t('general.sitemap.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
-      li = link_to t('general.sitemap.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
-
-    h4
-      = t('general.sitemap.articles')
-    ul
-      li = link_to t('general.sitemap.press'), press_path
-      li = link_to t('general.sitemap.industry'), industry_path
-
-    h4
-      = t('general.sitemap.other')
-    ul
-      - Page.where(static: false).each do |page|
-        li = link_to page.title, page_path(page)
-
-  .col-xs-12.col-sm-6
-    h4
-      = t('general.sitemap.training')
-    ul
-      li = link_to t('general.sitemap.featured_classes'), featured_classes_path
-    - Platform.active.current_region.order(:title).each do |platform|
+  .row#sitemap
+    .col-xs-12.col-sm-6
+      h4
+        = t('general.sitemap.general')
       ul
-        li
-          span = platform.title
-          - platform.parent_categories.sort_by{ |cc| cc.title.downcase }.each do |parent_category|
-            ul
-              li = link_to parent_category.title, platform_category_path(parent_category.platform, parent_category)
-              ul.training
-                - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
-                  li = link_to child_category.title, platform_category_path(child_category.platform, child_category)
-                  ul.training
-                    - child_category.items.each do |item|
-                      li = link_to item.full_title, send("platform_#{item.class.to_s.underscore}_path", item.platform, item)
+        li = link_to t('general.sitemap.home'), root_path
+        li = link_to t('general.sitemap.consulting'), consulting_path
+        li = link_to t('general.sitemap.partners'), partners_path
+        li = link_to t('sgeneral.sitemap.labs'), labs_path
+
+      h4
+        = t('general.sitemap.about_us')
+      ul
+        li = link_to t('general.sitemap.executive'), executives_bios_path
+        li = link_to t('general.sitemap.instructor'), instructors_bios_path
+        li = link_to t('general.sitemap.testimonials'), testimonials_path
+        li = link_to t('general.sitemap.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
+        li = link_to t('general.sitemap.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
+
+      h4
+        = t('general.sitemap.articles')
+      ul
+        li = link_to t('general.sitemap.press'), press_path
+        li = link_to t('general.sitemap.industry'), industry_path
+
+      h4
+        = t('general.sitemap.other')
+      ul
+        - Page.where(static: false).each do |page|
+          li = link_to page.title, page_path(page)
+
+    .col-xs-12.col-sm-6
+      h4
+        = t('general.sitemap.training')
+      ul
+        li = link_to t('general.sitemap.featured_classes'), featured_classes_path
+      - Platform.active.current_region.order(:title).each do |platform|
+        ul
+          li
+            span = platform.title
+            - platform.parent_categories.sort_by{ |cc| cc.title.downcase }.each do |parent_category|
+              ul
+                li = link_to parent_category.title, platform_category_path(parent_category.platform, parent_category)
+                ul.training
+                  - parent_category.children.sort_by{ |cc| cc.title.downcase }.each do |child_category|
+                    li = link_to child_category.title, platform_category_path(child_category.platform, child_category)
+                    ul.training
+                      - child_category.items.each do |item|
+                        li = link_to item.full_title, send("platform_#{item.class.to_s.underscore}_path", item.platform, item)
+
+= render partial: 'shared/banner_footer'

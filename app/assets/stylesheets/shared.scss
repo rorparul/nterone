@@ -418,6 +418,21 @@ header {
   }
 }
 
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+  @include set-all {
+    background-color: rgb(15, 115, 185);
+    @include value-prefix(background-image, linear-gradient(top, rgb(15, 115, 185) 0%, rgb(10, 80, 155) 100%));
+    border-color: rgb(15, 115, 185);
+    color: white;
+    outline: none !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    line-height: 20px;
+    height: auto;
+    border: 1px solid rgb(15, 115, 185);
+  }
+}
+
 .btn-padded {
   padding: 6px 12px;
   @media (min-width: 480px) {

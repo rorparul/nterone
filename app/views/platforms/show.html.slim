@@ -40,11 +40,13 @@
       = t('platforms.show.edit_custom_item')
 
 - if @category.video.present?
-  .text-center style="margin-bottom: 10px;"
-    = @category.video.html_safe
+  .container
+    .text-center style="margin-bottom: 10px;"
+      = @category.video.html_safe
 - else
   - if @platform.title == "Cisco"
-    = image_tag 'vendor-banners/en/nterone-cisco-award.jpg', style: 'width: 100%; margin-bottom: 10px;'
+    .container
+      = image_tag 'vendor-banners/en/nterone-cisco-award.jpg', style: 'width: 100%; margin-bottom: 10px;'
   - else
     = render partial: 'shared/banner_header'
 

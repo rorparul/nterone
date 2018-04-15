@@ -51,6 +51,7 @@
 
   #mission
     h1 = t('welcome.index.our_mission')
-    = image_tag 'nterone-gives-back.png', id: 'nterone-gives-back'
+    = link_to nterone_gives_back_path do
+      = image_tag 'nterone-gives-back.png', id: 'nterone-gives-back'
     = image_tag 'feeding-america.jpg', id: 'feeding-america'
     = image_tag 'veteran-owned.png', id: 'veteran-owned'

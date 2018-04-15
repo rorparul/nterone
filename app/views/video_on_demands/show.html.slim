@@ -179,11 +179,6 @@
                     .panel-body
                       = @video_on_demand.intended_audience.html_safe
 
-            .row
-              .col-xs-12
-                #degrees
-                  = image_tag '360-degrees.png', class: 'degrees'
-
     .col-xs-12.side-column
       .panel.panel-default
         .panel-body
@@ -195,6 +190,11 @@
             a href="mailto:sales#{t('default.contact.email')}" #{'sales' + t('default.contact.email')}
           p = "#{t('default.label.phone')}: #{t('default.contact.phone')}"
       = render partial: 'layouts/side_column'
+      
+  .row
+    .col-xs-12
+      #degrees
+        = image_tag '360-degrees.png', class: 'degrees'
 
 = render partial: 'shared/banner_footer'
 
