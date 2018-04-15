@@ -14,9 +14,7 @@ module SharedHelper
       end
     end
 
-    link_to '#', id: 'sign-in-or-account', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
-      "#{text} <span class='caret'></span>".html_safe
-    end
+    link_to text, url, id: 'sign-in-or-account', class: 'btn btn-blue-gradient', role: 'button'
   end
 
   def flag_icon_of_current_region
