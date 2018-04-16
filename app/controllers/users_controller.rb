@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-        prepare_smart_listing(users_scope.order(:last_name))
+        prepare_smart_listing(users_scope)
       end
 
       format.json do
@@ -100,13 +100,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         users_scope = User.leads.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope.order(:last_name))
+        prepare_smart_listing(users_scope)
       end
 
       format.js do
         users_scope = User.leads.where(clean_params(user_params[:filters]))
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope.order(:last_name))
+        prepare_smart_listing(users_scope)
       end
 
       format.xlsx do
@@ -121,13 +121,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         users_scope = User.contacts.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope.order(:last_name))
+        prepare_smart_listing(users_scope)
       end
 
       format.js do
         users_scope = User.contacts.where(clean_params(user_params[:filters]))
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope.order(:last_name))
+        prepare_smart_listing(users_scope)
       end
 
       format.json do
@@ -258,7 +258,7 @@ class UsersController < ApplicationController
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
                         [:email, "email"]],
-      default_sort: { created_at: 'desc' }
+      default_sort: { updated_at: 'desc' }
     )
   end
 
