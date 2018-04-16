@@ -247,6 +247,10 @@ GEM
     formatador (0.2.5)
     friendly_id (5.0.5)
       activerecord (>= 4.0.0)
+    fullcalendar-rails (3.4.0.0)
+      jquery-rails (>= 4.0.5, < 5.0.0)
+      jquery-ui-rails (>= 5.0.2)
+      momentjs-rails (>= 2.9.0)
     git-version-bump (0.15.1)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -628,6 +632,7 @@ DEPENDENCIES
   figaro
   font-awesome-rails
   friendly_id
+  fullcalendar-rails
   gon
   guard-bundler
   guard-rails
@@ -696,4 +701,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.14.6
+   1.16.1

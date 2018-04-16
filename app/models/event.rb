@@ -260,6 +260,14 @@ class Event < ActiveRecord::Base
       false
     end
   end
+  
+  def title_with_instructor
+    if self.instructor.present?
+      "#{course.abbreviation} : #{instructor.full_name}"
+    else
+      "#{course.abbreviation}"
+    end
+  end
 
   private
 
