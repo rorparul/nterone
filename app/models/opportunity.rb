@@ -100,10 +100,6 @@ class Opportunity < ActiveRecord::Base
   def self.amount_won_last_month
     won.where('date_closed >= ? and date_closed <= ?', Date.today.last_month.beginning_of_month, Date.today.last_month.end_of_month).sum(:amount)
   end
-  
-  def is_account_id_required?
-    self.waiting_changed? && (self.waiting == true) ? true : false
-  end
 
   def self.amount_won_ytd
     won.where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount)
@@ -210,5 +206,9 @@ class Opportunity < ActiveRecord::Base
 
   def destroy_order
     order.destroy
+  end
+
+  def is_account_id_required?
+    self.waiting_changed? && (self.waiting == true) ? true : false
   end
 end
