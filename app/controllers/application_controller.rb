@@ -155,6 +155,8 @@ class ApplicationController < ActionController::Base
 
   def set_region
     session[:region] = case request.host
+      when 'www.nterone.in'
+        3
       when 'www.nterone.ca'
         2
       when 'www.nterone.la'
@@ -164,7 +166,7 @@ class ApplicationController < ActionController::Base
       end
 
     case session[:region]
-    when 0, 2
+    when 0, 2, 3
       I18n.locale = :en
     else
       I18n.locale = :es
