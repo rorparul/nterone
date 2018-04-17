@@ -267,17 +267,16 @@ NterOne::Application.routes.draw do
   end
 
   controller :admin do
-    get 'admin/queue',                               as: :admin_queue
-    get 'admin/orders',                              as: :admin_orders
-    get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
-    get 'admin/classes',                             as: :admin_classes
-    get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
-    # get 'admin/courses',                             as: :admin_courses
-    get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
-    get 'admin/website',                             as: :admin_website
-    get 'admin/settings',                            as: :admin_settings
-    get 'admin/tools',                               as: :admin_tools
-    get 'admin/cpl_log'     => 'admin#cpl_log',      as: :cpl_log
+    get 'admin/queue',                                  as: :admin_queue
+    get 'admin/orders',                                 as: :admin_orders
+    get 'admin/orders/:id'   => 'admin#orders_show',    as: :admin_orders_show
+    get 'admin/classes',                                as: :admin_classes
+    get 'admin/classes/:id'  => 'admin#classes_show',   as: :admin_classes_show
+    get 'admin/lab-rentals',                            as: :admin_lab_rentals, path: 'admin/lab-reservations'
+    get 'admin/website',                                as: :admin_website
+    get 'admin/settings'     => 'admin/settings#index', as: :admin_settings
+    get 'admin/tools',                                  as: :admin_tools
+    get 'admin/cpl_log'      => 'admin#cpl_log',        as: :cpl_log
   end
 
   controller :my_account do

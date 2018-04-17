@@ -103,9 +103,14 @@
                 = t('admins.partial_tabs.courses')
 
     - if policy(:admin).tools?
-      li.tools role="presentation"
+      li.tools_and_resources role="presentation"
         a.nav-pill href="#{admin_tools_path}"
           = t('admins.partial_tabs.tools_and_resources')
+
+    - if policy(:setting).index?
+      li.settings role="presentation"
+        a.nav-pill href="#{admin_settings_path}"
+          = t('admins.partial_tabs.settings')
 
 // javascript:
 //   $('a[data-toggle="tab"]').on('shown', function(e){

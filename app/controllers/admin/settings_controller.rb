@@ -1,5 +1,6 @@
 class Admin::SettingsController < Admin::BaseController
   before_action :get_setting, only: [:edit, :update]
+  before_action :authorize_user
 
   def index
     @settings = Setting.get_all
@@ -24,7 +25,13 @@ class Admin::SettingsController < Admin::BaseController
     end
   end
 
+  private
+
   def get_setting
     @setting = Setting.find_by(var: params[:id]) || Setting.new(var: params[:id])
+  end
+
+  def authorize_user
+    authorize Setting
   end
 end

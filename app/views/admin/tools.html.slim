@@ -20,33 +20,12 @@
         li role="presentation"
           a aria-controls="email_signature" data-toggle="tab" href="#email_signature" role="tab"
             = t('admins.tools.generate_signature')
-        - if current_user.try(:admin?)
-          li role="presentation"
-            a aria-controls="admin_settings" data-toggle="tab" href="#admin_settings" role="tab"
-              = t('admins.tools.admin_settings')
       .tab-content
         br
         #email_signature.tab-pane.fade role="tabpanel"
           .panel.panel-default
             .panel-body
               signature
-        - if current_user.try(:admin?)
-          #admin_settings.tab-pane.fade role="tabpanel"
-            .panel.panel-default
-              .panel-body
-                table.table.table-hover.table-striped
-                  thead
-                    tr
-                      th Key
-                      th Value
-                      th Action
-                  tbody
-                    - Setting.get_all.each_key do |key|
-                      tr
-                        td= key
-                        td= Setting.send(key)
-                        td= link_to edit_admin_param_path(key), remote: true do
-                          i.fa.fa-edit
 
   br
 
@@ -59,6 +38,6 @@
           a href="https://www.avast.com/endpoint-protection" Avast Business Antivirus
 
 javascript:
-  $('.tools').addClass('active');
+  $('.tools_and_resources').addClass('active');
   $('#tabs_tools .nav-tabs li:first').addClass('active');
   $('#tabs_tools .tab-content .tab-pane:first').addClass('active').addClass("in");
