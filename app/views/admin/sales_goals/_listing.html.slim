@@ -7,7 +7,7 @@
           th Region
           th Goal
           th Description
-          th colspan='3'
+          th colspan='2'
       tbody#sales_goals
         - smart_listing.collection.each do |goal|
           = render partial: 'admin/sales_goals/goal', locals: { goal: goal }

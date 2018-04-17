@@ -55,6 +55,7 @@ es:
       orders: "Ordenes"
       settings: "Ajustes"
       checklists: "Listas de verificación"
+      tools_and_resources: 'Herramientas y Recursos'
     website:
       active: "Activo"
       articles: "Articulos"

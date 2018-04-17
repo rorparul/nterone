@@ -310,6 +310,8 @@ GEM
       turbolinks
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    js_cookie_rails (2.1.4)
+      railties (>= 3.1)
     json (1.8.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
@@ -649,6 +651,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.3)
   jquery-turbolinks
   jquery-ui-rails (~> 5.0.5)
+  js_cookie_rails
   kaminari
   letter_opener
   meta_request (~> 0.3.4)

@@ -5,6 +5,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require js.cookie
 //= require bootstrap
 //= require bootstrap-select
 //= require bootstrap/tab

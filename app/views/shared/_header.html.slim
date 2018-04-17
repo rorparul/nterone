@@ -17,8 +17,8 @@
             #container-for-sign_in_or_account
               .btn-group.btn-group-master role='group'
                 = sign_in_or_account
-                .btn-group role='group'
-                  - if content_for(:actions)
+                - if content_for(:actions)
+                  .btn-group role='group'
                     = link_to '#', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
                       span.glyphicon.glyphicon-wrench title="#{t('shared.header.actions')}"
                       span.caret
