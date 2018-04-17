@@ -29,6 +29,7 @@
 //= require plugins/link.min.js
 
 //= require moment
+//= require fullcalendar
 //= require bootstrap-datetimepicker
 //= require bootstrap3-typeahead.min
 //= require bootstrap3-autocomplete-input.min
@@ -39,4 +40,3 @@
 //= require radialprogress/radialprogress/lib/d3.min
 //= require radialprogress/radialprogress/lib/vizuly_core.min
 //= require radialprogress/radialprogress/lib/vizuly_radialprogress.min
-
