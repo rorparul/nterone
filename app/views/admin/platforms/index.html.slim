@@ -16,7 +16,6 @@
               tr
                 th ID
                 th Title
-                th Archived
                 th
                   | Regions
                 th.fit colspan='2'
@@ -25,7 +24,6 @@
                 tr
                   td = platform.id
                   td = platform.title
-                  td = platform.archived.to_s.titleize
                   td
                     ul style="padding: 0; margin: 0;"
                       - platform.active_regions.each do |region|

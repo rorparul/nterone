@@ -3,6 +3,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def new
     self.resource = resource_class.new
+    @chosen_courses = self.resource.chosen_courses.build
     resource.assign_attributes(parent_id: current_user.id)
     resource.assign_attributes(status: 3) if request.path == '/users/contacts/new'
     resource.assign_attributes(email: "#{SecureRandom.hex(10)}@placeholder.email")
@@ -12,7 +13,6 @@ class Users::InvitationsController < Devise::InvitationsController
   def create
     if not_invited?
       super
-
       @user.roles.create
       @user.update_attributes(referring_partner_email_params)
 
@@ -75,7 +75,9 @@ class Users::InvitationsController < Devise::InvitationsController
       :phone_alternative,
       :salutation,
       :status,
-      :source_name
+      :source_name,
+      :customer_type,
+      chosen_courses_attributes: [:course_id]
     )
   end
 

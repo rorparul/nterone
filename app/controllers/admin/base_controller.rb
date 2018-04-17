@@ -14,7 +14,7 @@ class Admin::BaseController < ApplicationController
   private
 
   def validate_authorization
-    unless current_user.admin? || current_user.sales? || current_user.partner?
+    unless current_user.admin? || current_user.sales? || current_user.partner? || current_user.marketing?
       redirect_to root_path
     end
   end

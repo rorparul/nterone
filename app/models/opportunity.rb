@@ -53,6 +53,7 @@ class Opportunity < ActiveRecord::Base
   scope :lost,    -> { where(stage: 0) }
   scope :closed,  -> { where(stage: [100, 0]) }
   scope :waiting, -> { where(waiting: true) }
+  scope :for_company_kind, ->(kind) { joins(:account).where(companies: {kind: kind})}
 
   search_scope :custom_search do
     attributes :title
@@ -73,6 +74,18 @@ class Opportunity < ActiveRecord::Base
 
   def self.amount_open
     pending.sum(:amount)
+  end
+
+  def self.get_company_open_amount opportunities, company_id
+    opportunities = opportunities.select do |opportunity| 
+                    (opportunity.account_id == company_id) && ([10, 50, 75, 90].include? opportunity.stage) 
+                  end
+                                              
+    opportunities.sum(&:amount)
+  end
+
+  def self.group_by_months
+    self.order("date_closed").group_by{ |opportunity| opportunity.date_closed.beginning_of_month }
   end
 
   def self.amount_waiting

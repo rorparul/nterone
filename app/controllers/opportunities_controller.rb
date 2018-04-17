@@ -4,7 +4,6 @@ class OpportunitiesController < ApplicationController
   include FlyForm
 
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
-  before_action :set_associations,      only: [:new, :edit, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
   layout 'admin'
@@ -17,7 +16,7 @@ class OpportunitiesController < ApplicationController
       @owners = User.active_sales
 
       unless params[:filter_user].present?
-        opportunities_scope = Opportunity
+        opportunities_scope = Opportunity.all
       else
         sales_rep = User.find(params[:filter_user])
         opportunities_scope = sales_rep.opportunities
@@ -34,9 +33,10 @@ class OpportunitiesController < ApplicationController
 
     opportunities_scope = opportunities_scope.pending if params[:selection] == 'open' || params[:selection].nil?
     opportunities_scope = opportunities_scope.waiting if params[:selection] == 'waiting'
-    opportunities_scope = opportunities_scope.closed  if params[:selection] == 'closed'
+    opportunities_scope = opportunities_scope.won     if params[:selection] == 'won'
+    opportunities_scope = opportunities_scope.lost    if params[:selection] == 'lost'
 
-    if params[:selection] == 'closed'
+    if params[:selection] == 'won' || params[:selection] == 'lost'
       if params[:date_start].present? && params[:date_end].present?
         opportunities_scope  = opportunities_scope.where(date_closed: date_start..date_end)
       elsif params[:date_start].present?
@@ -84,7 +84,6 @@ class OpportunitiesController < ApplicationController
       fly_form('destroy')
     else
       fly_form('post')
-      set_associations
       render 'shared/new'
     end
   end
@@ -94,7 +93,6 @@ class OpportunitiesController < ApplicationController
       # flash[:success] = 'Opportunity successfully updated.'
       # redirect_to :back
     else
-      set_associations
       render 'shared/edit'
     end
   end
@@ -162,10 +160,6 @@ class OpportunitiesController < ApplicationController
 
   def set_opportunity
     @opportunity = Opportunity.find(params[:id])
-  end
-
-  def set_associations
-    @courses = Course.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
 
   def authorize_opportunity
