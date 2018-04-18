@@ -173,15 +173,17 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :chosen_courses, reject_if: :all_blank, allow_destroy: true
 
-  scope :active_sales,     -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
-  scope :only_instructors, -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
-  scope :all_sales,        -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
-  scope :leads,            -> { where.not(status: [3, 4]) }
-  scope :contacts,         -> { where(status: [3, 4]) }
-  scope :members,          -> { joins(:roles).where(roles: { role: 4 }) }
-  scope :direct_customer,   -> { where(customer_type: 0)}
-  scope :private_customer,  -> { where(customer_type: 1)}
+  scope :active_sales,            -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
+  scope :all_instructors,         -> { joins(:roles).where(roles: { role: 7 }).order('last_name').order("daily_rate asc").distinct }
+  scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("daily_rate asc").distinct }
+  scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
+  scope :leads,                   -> { where.not(status: [3, 4]) }
+  scope :contacts,                -> { where(status: [3, 4]) }
+  scope :members,                 -> { joins(:roles).where(roles: { role: 4 }) }
+  scope :direct_customer,         -> { where(customer_type: 0) }
+  scope :private_customer,        -> { where(customer_type: 1) }
 
   search_scope :custom_search do
     attributes :first_name, :last_name, :email
@@ -463,7 +465,7 @@ class User < ActiveRecord::Base
       user.update_attributes(do_not_email: true) if user.present?
     end
   end
-  
+
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
     when ".csv" then Roo::Csv.new(file.path, nil, :ignore)

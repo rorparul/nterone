@@ -8,7 +8,7 @@ class Reports::InstructorUtilizationsController < ApplicationController
   def create
     @start_date  = parse_date_select(report_params, :start_date)
     @end_date    = parse_date_select(report_params, :end_date)
-    @instructors = User.only_instructors
+    @instructors = User.all_instructors
 
     respond_to do |format|
       format.xlsx
