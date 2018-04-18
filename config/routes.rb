@@ -31,7 +31,6 @@ NterOne::Application.routes.draw do
       get  ':id/assign'          => 'users#assign',          as: :assign
       get  'mass_edit'           => 'users#mass_edit',       as: :mass_edit
       post 'mass_update'         => 'users#mass_update',     as: :mass_update
-      post 'mark_customers_type' => 'users#mark_customers_type', as: :mark_customers_type
     end
   end
 
