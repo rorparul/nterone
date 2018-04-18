@@ -25,6 +25,8 @@
       '
       = link_to t('default.partial_tabs.checklists'), admin_checklists_path, class: 'btn btn-default btn-sm', role: 'button'
 
+      = link_to 'Instructor Calendar', "javascript:void(0)", class: 'btn btn-default btn-sm calender_view', role: 'button'
+
       = link_to new_exports_event_path, class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', remote: true do
         i.fa.fa-file-excel-o aria-hidden="true"
       = smart_listing_controls_for(:events, {class: "input-search"}) do
@@ -54,7 +56,10 @@
           #by_origin_region.pull-right style='margin: 4px 3px 4px 0;'
             = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region)
 
-    = smart_listing_render(:events)
+    #calendar
+
+    #standard_view
+      = smart_listing_render(:events)
 
 .row
   .col-xs-12.text-center
@@ -68,3 +73,20 @@ javascript:
   $(document).on('click', '.event-link', function() {
     $(this).closest('form').submit();
   });
+
+  $('#calendar').fullCalendar({
+    events: #{raw @events.select { |event| event.instructor.present? }.map{ |event| {'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")}}.to_json }
+  });
+  $("#calendar").addClass('hide');
+
+  $(".calender_view").on('click', function(){
+    if($(this).text() == "Instructor Calendar"){
+      $(this).text("Standard View");
+      $("#standard_view").addClass('hide');
+      $("#calendar").removeClass('hide');
+    }else{
+      $(this).text("Instructor Calendar");
+      $("#standard_view").removeClass('hide');
+      $("#calendar").addClass('hide');
+    }
+  })
