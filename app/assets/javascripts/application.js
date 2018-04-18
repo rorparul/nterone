@@ -28,7 +28,7 @@
 //= require plugins/image_manager.min.js
 //= require plugins/link.min.js
 
-//= require moment 
+//= require moment
 //= require fullcalendar
 //= require bootstrap-datetimepicker
 //= require bootstrap3-typeahead.min

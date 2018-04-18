@@ -25,7 +25,7 @@
       '
       = link_to t('default.partial_tabs.checklists'), admin_checklists_path, class: 'btn btn-default btn-sm', role: 'button'
 
-      = link_to 'Calendar View', "javascript:void(0)", class: 'btn btn-default btn-sm calender_view', data: {load_calander: "true"}, role: 'button'
+      = link_to 'Instructor Calendar', "javascript:void(0)", class: 'btn btn-default btn-sm calender_view', data: {load_calander: "true"}, role: 'button'
 
       = link_to new_exports_event_path, class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', remote: true do
         i.fa.fa-file-excel-o aria-hidden="true"
@@ -59,7 +59,7 @@
     i.fa.fa-spinner.fa-spin.hide.calander_loading style="font-size:24px"
 
     #calendar
-    
+
     #standard_view
       = smart_listing_render(:events)
 
@@ -75,16 +75,15 @@ javascript:
   $(document).on('click', '.event-link', function() {
     $(this).closest('form').submit();
   });
-  
   $("#calendar").addClass('hide');
 
   $(".calender_view").on('click', function(){
-    if($(this).text() == "Calendar View"){
+    if($(this).text() == "Instructor Calendar"){
       $(this).text("Standard View");
       $("#standard_view").addClass('hide');
       $("#calendar").removeClass('hide');
     }else{
-      $(this).text("Calendar View");
+      $(this).text("Instructor Calendar");
       $("#standard_view").removeClass('hide');
       $("#calendar").addClass('hide');
     }
