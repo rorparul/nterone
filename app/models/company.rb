@@ -30,7 +30,7 @@
 class Company < ActiveRecord::Base
   extend ActsAsTree::TreeView
   extend ActsAsTree::TreeWalker
-
+ 
   include SearchCop
   include Regions
 
@@ -49,6 +49,11 @@ class Company < ActiveRecord::Base
   before_create :create_slug
 
   after_save :reassign_company_users, if: proc { |model| model.user_id_changed? }
+  
+  scope :pending, -> { joins(:account_opportunities).where(opportunities: {stage: [10, 50, 75, 90]}) }
+  scope :won,     -> { joins(:account_opportunities).where(opportunities: {stage: 100}) }
+  scope :waiting, -> { joins(:account_opportunities).where(opportunities: {waiting: true}) }
+  scope :lost,    -> { joins(:account_opportunities).where(opportunities: {stage: 0}) }
 
   scope :partners, -> { where(kind: 'Channel Partner') }
 
@@ -69,7 +74,7 @@ class Company < ActiveRecord::Base
   def self.companies_with_amount(opportunities)
     companies = Company.where(id: opportunities.map(&:account_id).reject(&:blank?).uniq)
     companies.select{|company| 
-                      Opportunity.get_company_open_amount(opportunities, company.id) > 0
+                      Opportunity.get_company_total_amount(opportunities, company.id) > 0
                     }
   end
 
