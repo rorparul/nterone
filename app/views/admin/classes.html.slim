@@ -25,7 +25,7 @@
       '
       = link_to t('default.partial_tabs.checklists'), admin_checklists_path, class: 'btn btn-default btn-sm', role: 'button'
 
-      = link_to 'Calendar View', "javascript:void(0)", class: 'btn btn-default btn-sm calender_view', role: 'button'
+      = link_to 'Calendar View', "javascript:void(0)", class: 'btn btn-default btn-sm calender_view', data: {load_calander: "true"}, role: 'button'
 
       = link_to new_exports_event_path, class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', remote: true do
         i.fa.fa-file-excel-o aria-hidden="true"
@@ -55,6 +55,8 @@
 
           #by_origin_region.pull-right style='margin: 4px 3px 4px 0;'
             = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region)
+    
+    i.fa.fa-spinner.fa-spin.hide.calander_loading style="font-size:24px"
 
     #calendar
     
@@ -74,9 +76,6 @@ javascript:
     $(this).closest('form').submit();
   });
   
-  $('#calendar').fullCalendar({
-    events: #{raw @events.map{|event| {'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d")}}.to_json}
-  });
   $("#calendar").addClass('hide');
 
   $(".calender_view").on('click', function(){
@@ -88,5 +87,19 @@ javascript:
       $(this).text("Calendar View");
       $("#standard_view").removeClass('hide');
       $("#calendar").addClass('hide');
+    }
+
+    if($(this).data("loadCalander") == true){
+      $('#calendar').fullCalendar({
+        events: '/admin/classes.json',
+        loading: function( isLoading, view ) {
+            if(isLoading) {
+              $(".calander_loading").removeClass('hide');
+            } else {
+              $(".calander_loading").addClass('hide');
+            }
+        }
+      });
+      $(this).data("loadCalander", false)
     }
   })
