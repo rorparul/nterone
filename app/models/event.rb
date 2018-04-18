@@ -261,6 +261,14 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def title_with_instructor
+    if self.instructor.present?
+      "#{instructor.full_name} (#{course.abbreviation})"
+    else
+      "#{course.abbreviation}"
+    end
+  end
+
   private
 
   def create_gtr_alert

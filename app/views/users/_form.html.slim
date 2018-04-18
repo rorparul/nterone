@@ -21,6 +21,19 @@
             hr
 
             .row
+              .col-xs-6
+                .form-group
+                  label
+                    = t('users.partial_form.teachable_courses')
+                  #courses
+                    = f.fields_for :chosen_courses do |chosen_course|
+                      = render 'users/chosen_course_fields', f: chosen_course
+                    .links
+                      = link_to_add_association 'Add Course', f, :chosen_courses
+
+            hr
+
+            .row
               .col-xs-12.col-md-6
                 .form-group
                   = f.label :status, t('users.partial_form.status')
