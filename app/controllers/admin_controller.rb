@@ -64,28 +64,23 @@ class AdminController < ApplicationController
 
     @start_date = Date.parse params[:start] if params[:start]
     @end_date   = Date.parse params[:end]   if params[:end]
-    
-    # if params[:region]
-    #   @region = params[:region]
-    # end
 
     if params[:origin_region].present?
       @origin_region = params[:origin_region]
     end
 
     events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
-    # events_scope = events_scope.where("events.active_regions @> ?", "{#{@region}}")  if @region
     events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
 
     events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
     events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
-    
+
     unless request.format.json?
       @start_date = events_scope.minimum("events.start_date")
       @end_date   = events_scope.maximum("events.start_date")
 
       @queried_events = events_scope
-      
+
       @events = smart_listing_create(:events,
                                      events_scope,
                                      partial: "events/listing",
@@ -103,17 +98,17 @@ class AdminController < ApplicationController
                                                        [:guaranteed, "guaranteed"],
                                                        [:status, "Status"]],
                                      default_sort: { start_date: "asc", course: "asc" })
-      
+
       if should_group_classes?
         @grouped_events = @events.group_by(&:week_range)
       end
-    end  
+    end
 
     respond_to do |format|
       format.html
       format.js
       format.json do
-        render json: events_scope.map{|event| {'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': event.end_date.strftime("%Y-%m-%d")}}.to_json
+        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")} }.to_json
       end
     end
   end
