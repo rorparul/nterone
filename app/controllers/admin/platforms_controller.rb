@@ -5,7 +5,7 @@ class Admin::PlatformsController < ApplicationController
   # layout 'admin'
 
   def index
-    @platforms = Platform.all
+    @platforms = Platform.active
   end
 
   private

@@ -6,8 +6,84 @@
       h4
         strong.text-muted = @company.title
       .container-muted
-        = link_to t('default.action.edit'), edit_company_path(@company), remote: true, class: 'btn btn-warning btn-sm', role: 'button', style: 'margin-right: 5px;'
-        = link_to t('default.action.destroy'), company_path(@company), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm pull-right', role: 'button', style: 'margin-right: 5px;'
+        .row
+          .col-xs-6
+            h3 Account Details
+          .col-xs-6.text-right
+            = link_to t('default.action.edit'), edit_company_path(@company),
+              remote: true, class: 'btn btn-warning btn-sm', role: 'button',
+              style: 'margin-right: 5px; margin-top: 15px;'
+            = link_to t('default.action.destroy'), company_path(@company),
+              method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'btn btn-danger btn-sm', role: 'button',
+              style: 'margin-right: 5px; margin-top: 15px;'
+        .row style="margin-bottom: 10px;"
+          .col-xs-12
+            .table-responsive
+              table.table.table-condensed
+                tbody
+                  tr
+                    th.text-right style="width: 25%" Account Name
+                    td style="width: 25%"  = @company.title
+                    th.text-right style="width: 25%" Account Owner
+                    td style="width: 25%" = @company.user.full_name if @company.user
+                  tr
+                    th.text-right Parent Account
+                    td = @company.parent.title if @company.parent
+                    th.text-right
+                    td
+                  tr
+                    th.text-right Phone
+                    td = @company.phone
+                    th.text-right
+                    td
+                  tr
+                    th.text-right Website
+                    td = @company.website
+                    th.text-right
+                    td
+                  tr
+                    th.text-right Customer Id
+                    td = @company.id
+                    th.text-right
+                    td
+        .row style="margin-bottom: 10px;"
+          .col-xs-12
+            div style="border: 1px solid #337ab7; width: 100%;"
+            span.glyphicon.glyphicon-triangle-bottom
+            button.collapse-button data-toggle="collapse" data-target="#address-information" onclick="this.blur();" style="background-color: whitesmoke; border: 0; font-weight: bold;" Address Information
+            #address-information
+              .table-responsive
+                table.table.table-condensed
+                  tbody
+                    tr
+                      th.text-right style="width: 25%" Street
+                      td style="width: 25%" = @company.street
+                      th.text-right style="width: 25%" City
+                      td style="width: 25%" = @company.state
+                    tr
+                      th.text-right Zip code
+                      td = @company.zip_code
+                      th.text-right State
+                      td = @company.state
+        .row
+          .col-xs-12
+            div style="border: 1px solid #337ab7; width: 100%;"
+            span.glyphicon.glyphicon-triangle-bottom
+            button.collapse-button data-toggle="collapse" data-target="#additional-information" onclick="this.blur();" style="background-color: whitesmoke; border: 0; font-weight: bold;" Additional Information
+            #additional-information
+              .table-responsive
+                table.table.table-condensed
+                  tbody
+                    tr
+                      th.text-right style="width: 25%" Type
+                      td style="width: 25%" = @company.kind
+                      th.text-right style="width: 25%" Region
+                      td style="width: 25%" = @company.origin_region.humanize
+                    tr
+                      th.text-right Industry
+                      td = @company.industry_code
+                      th.text-right Total Won Opportunities
+                      td = "$#{number_with_delimiter(@company.account_opportunities.won.sum(:amount))}"
 
   .row
     .col-xs-12
@@ -21,19 +97,22 @@
             - @company.ancestors.first(10).each do |company|
               = link_to company.title, company_path(company)
               br
-          .col-xs-12.col-md-4
-            strong.text-muted Siblings
-            br
-            - if @company.parent.present?
-              - @company.siblings.first(10).each do |company|
+              - @company.ancestors.first(10).each do |company|
                 = link_to company.title, company_path(company)
                 br
-          .col-xs-12.col-md-4
-            strong.text-muted Descendants
-            br
-            - @company.descendants.first(10).each do |company|
-              = link_to company.title, company_path(company)
+            .col-xs-12.col-md-4
+              strong.text-muted Siblings
               br
+              - if @company.parent.present?
+                - @company.siblings.first(10).each do |company|
+                  = link_to company.title, company_path(company)
+                  br
+            .col-xs-12.col-md-4
+              strong.text-muted Descendants
+              br
+              - @company.descendants.first(10).each do |company|
+                = link_to company.title, company_path(company)
+                br
 
   .row
     .col-xs-12
@@ -118,30 +197,6 @@
                                             placeholder: t('admins.classes.search'),
                                             autocomplete: :off
 
-          .radio
-            label
-              input type="radio" name="selection" id="selection_open" value="open" checked='true'
-              | Open
-          .radio
-            label
-              input type="radio" name="selection" id="selection_waiting" value="waiting"
-              | Waiting
-          .radio
-            label
-              input type="radio" name="selection" id="selection_closed" value="closed"
-              | Closed
-
-          #end-date.pull-right style='margin: 4px 15px 4px 0;'
-            = date_select :end_date, :end_date,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
-              { disabled: true, class: 'input-date' }
-          #start-date.pull-right style='margin: 4px 15px 4px 0;'
-            = date_select :start_date, :start_date,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, selected: @company.account_opportunities.minimum(:date_closed) },
-              { disabled: true, class: 'input-date' }
-
-      = smart_listing_render(:opportunities)
-
   .row
     .col-xs-12
       h4
@@ -174,3 +229,17 @@ javascript:
       $('.input-date').prop('disabled', true);
     }
   });
+
+  $(".collapse-button").click(function() {
+    var span = $(this).siblings('span:first')
+    var caret_bottom = span.hasClass("glyphicon-triangle-bottom")
+    setTimeout(function() {
+      if (caret_bottom == true) {
+        span.removeClass("glyphicon-triangle-bottom");
+        span.addClass("glyphicon-triangle-top");
+      } else {
+        span.removeClass("glyphicon-triangle-top");
+        span.addClass("glyphicon-triangle-bottom");
+      };
+    }, 200);
+  })

@@ -53,7 +53,7 @@ function prepareInputs() {
     dropdownParent: $("#myModal .modal-body.panel-body"),
     theme: "bootstrap"
   });
-
+  
   $('.froala').froalaEditor({
     height: 240,
     imageUploadURL: '/public/uploads/editor',

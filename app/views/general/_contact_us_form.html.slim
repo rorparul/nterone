@@ -38,8 +38,5 @@
     .form-buttons
       button.btn.btn-blue-gradient.btn-padded type='submit' = t('default.action.submit')
 
-javascript:
-  grecaptcha.reset();
-
 - if Rails.env.production?
   script type='text/javascript' src='https://conversions.marketing360.com/uxi/contra.js'

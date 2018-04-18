@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
 
-  # layout 'admin'
-
   def index
     respond_to do |format|
 			format.any(:html, :js) do
@@ -48,6 +46,7 @@ class UsersController < ApplicationController
 
   def edit
   end
+
 
   def edit_from_sales
     @owners    = User.all_sales
@@ -109,7 +108,7 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        @users = User.leads.where(clean_params(user_params[:filters]))
+        @users = User.leads.where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
       end
@@ -134,11 +133,19 @@ class UsersController < ApplicationController
       end
 
       format.xlsx do
-        @users = User.contacts.where(clean_params(user_params[:filters]))
+        @users = User.contacts.where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
         render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
       end
     end
+  end
+
+  def mark_customers_type
+    params[:user_ids].each do |user_id|
+      user = User.find(user_id)
+      user.update_attributes(customer_type: params[:mark_as])
+    end
+    render json: { message: "Users are successfully marked as #{params[:mark_as]}"}
   end
 
   def members
@@ -220,6 +227,7 @@ class UsersController < ApplicationController
       :shipping_zip_code,
       :state,
       :status,
+      :customer_type,
       :source_name,
       :street,
       :video_bio,
@@ -235,7 +243,8 @@ class UsersController < ApplicationController
         :id,
         :role,
         :_destroy
-      ]
+      ],
+      chosen_courses_attributes: [:course_id]
     )
   end
 
@@ -247,7 +256,7 @@ class UsersController < ApplicationController
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
                         [:email, "email"]],
-      default_sort: { created_at: 'desc' }
+      default_sort: { updated_at: 'desc' }
     )
   end
 

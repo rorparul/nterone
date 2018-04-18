@@ -127,4 +127,9 @@ module ApplicationHelper
   def human_boolean(boolean)
       boolean ? 'Yes' : 'No'
   end
+
+
+  def courses_for_select
+    Course.active.includes(:platform).order('platforms.title', 'lower(abbreviation)')
+  end
 end

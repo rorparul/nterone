@@ -12,26 +12,24 @@
             br
             #amount-open = number_to_currency(@amount_open)
           .col-xs-12.col-md-2
-            strong.text-muted Closed (MTD)
+            strong.text-muted Won (MTD)
             br
             #amount-won-mtd = number_to_currency(@amount_won_mtd)
           .col-xs-12.col-md-2
-            strong.text-muted Closed (Last Month)
+            strong.text-muted Won (Last Month)
             br
             #amount-won-last-month = number_to_currency(@amount_won_last_month)
           .col-xs-12.col-md-2
-            strong.text-muted Closed (YTD)
+            strong.text-muted Won (YTD)
             br
             #amount-won-ytd = number_to_currency(@amount_won_ytd)
           .col-xs-12.col-md-2
-            strong.text-muted Closed (Last Year)
+            strong.text-muted Won (Last Year)
             br
             #amount-won-last-year = number_to_currency(@amount_won_last_year)
 
-      .container-muted
+      #opportunities-controls.container-muted
         = link_to t('default.action.new'), new_opportunity_path, remote: true, class: 'btn btn-success btn-sm', role: 'button', style: 'margin-right: 5px;'
-        / = link_to new_reports_sale_path, remote: true, class: 'pull-right', role: 'button', title: 'Export', style: 'margin: 5px 0;' do
-        /   i.fa.fa-file-excel-o aria-hidden="true"
         = smart_listing_controls_for(:opportunities, { class: 'input-search' }) do
           .input-group.input-group-sm.filter
             = text_field_tag :filter, '', class: 'search form-control input-sm',
@@ -41,45 +39,52 @@
               button.btn.btn-default.btn-sm.disabled type="submit"
                 span.glyphicon.glyphicon-search
 
-          - if current_user.admin? || current_user.sales_manager?
-            .input-group.input-group-sm.filter style='margin-right: 15px;'
-              = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
-                                            placeholder: t('admins.classes.search'),
-                                            autocomplete: :off
 
-          .radio
-            label
-              input type="radio" name="selection" id="selection_open" value="open" checked='true'
-              | Open
-          .radio
-            label
-              input type="radio" name="selection" id="selection_waiting" value="waiting"
-              | Waiting
-          .radio
-            label
-              input type="radio" name="selection" id="selection_closed" value="closed"
-              | Closed
+            - if current_user.admin? || current_user.sales_manager?
+              .input-group.input-group-sm.filter style='margin-right: 15px;'
+                = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
+                                              placeholder: t('admins.classes.search'),
+                                              autocomplete: :off
 
-          #end-date.pull-right style='margin: 4px 15px 4px 0;'
-            = date_select :date_end, :date_end,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
-              { disabled: true, class: 'input-date' }
-          #start-date.pull-right style='margin: 4px 15px 4px 0;'
-            = date_select :date_start, :date_start,
-              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: Date.today.year, month: Date.today.month, day: 1 } },
-              { disabled: true, class: 'input-date' }
+            .radio
+              label
+                input type="radio" name="selection" id="selection_open" value="open" checked='true'
+                | Open
+            .radio
+              label
+                input type="radio" name="selection" id="selection_waiting" value="waiting"
+                | Waiting
+            .radio
+              label
+                input type="radio" name="selection" id="selection_won" value="won"
+                | Won
+            .radio
+              label
+                input type="radio" name="selection" id="selection_lost" value="lost"
+                | Lost
+
+            #end-date.pull-right style='margin: 4px 15px 4px 0;'
+              = date_select :date_end, :date_end,
+                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+                { disabled: true, class: 'input-date', style: 'opacity: .5;' }
+            #start-date.pull-right style='margin: 4px 15px 4px 0;'
+              = date_select :date_start, :date_start,
+                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: Date.today.year, month: Date.today.month, day: 1 } },
+                { disabled: true, class: 'input-date', style: 'opacity: .5;' }
 
       = smart_listing_render(:opportunities)
 
 javascript:
   $('.permissions .sales').addClass('active');
 
-  $('.radio input').on('change', function(){
-    if($('#selection_closed').is(':checked')){
-      $('.input-date').prop('disabled', false);
+  $('#opportunities-controls .radio input').on('change', function(){
+    if($('#opportunities-controls #selection_won').is(':checked') || $('#opportunities-controls #selection_lost').is(':checked')){
+      $('#opportunities-controls .input-date').prop('disabled', false);
+      $('#opportunities-controls .input-date').css('opacity', '1');
     }else{
-      $('.input-date').prop('disabled', true);
+      $('#opportunities-controls .input-date').prop('disabled', true);
+      $('#opportunities-controls .input-date').css('opacity', '.5');
     }
   });
 
-  $('#selection_open').click()
+  $('#selection_open').click();

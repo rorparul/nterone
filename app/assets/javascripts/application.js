@@ -50,6 +50,7 @@
 //= require plugins/url.min.js
 //= require plugins/video.min.js
 //= require moment
+//= require fullcalendar
 //= require bootstrap-datetimepicker
 //= require bootstrap3-typeahead.min
 //= require bootstrap3-autocomplete-input.min
