@@ -7,7 +7,7 @@
         strong.text-muted Opportunities
       .container-muted
         .row
-          .col-xs-12.col-md-2
+          .col-xs-12.col-md-2.col-md-offset-1
             strong.text-muted Open
             br
             #amount-open = number_to_currency(@amount_open)
@@ -40,37 +40,37 @@
                 span.glyphicon.glyphicon-search
 
 
-            - if current_user.admin? || current_user.sales_manager?
-              .input-group.input-group-sm.filter style='margin-right: 15px;'
-                = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
-                                              placeholder: t('admins.classes.search'),
-                                              autocomplete: :off
+          - if current_user.admin? || current_user.sales_manager?
+            .input-group.input-group-sm.filter style='margin-right: 15px;'
+              = select_tag :filter_user, options_for_select(surname_ordered_options(@owners)), prompt: 'All', class: 'search form-control input-sm',
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
 
-            .radio
-              label
-                input type="radio" name="selection" id="selection_open" value="open" checked='true'
-                | Open
-            .radio
-              label
-                input type="radio" name="selection" id="selection_waiting" value="waiting"
-                | Waiting
-            .radio
-              label
-                input type="radio" name="selection" id="selection_won" value="won"
-                | Won
-            .radio
-              label
-                input type="radio" name="selection" id="selection_lost" value="lost"
-                | Lost
+          .radio
+            label
+              input type="radio" name="selection" id="selection_open" value="open" checked='true'
+              | Open
+          .radio
+            label
+              input type="radio" name="selection" id="selection_waiting" value="waiting"
+              | Waiting
+          .radio
+            label
+              input type="radio" name="selection" id="selection_won" value="won"
+              | Won
+          .radio
+            label
+              input type="radio" name="selection" id="selection_lost" value="lost"
+              | Lost
 
-            #end-date.pull-right style='margin: 4px 15px 4px 0;'
-              = date_select :date_end, :date_end,
-                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
-                { disabled: true, class: 'input-date', style: 'opacity: .5;' }
-            #start-date.pull-right style='margin: 4px 15px 4px 0;'
-              = date_select :date_start, :date_start,
-                { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: Date.today.year, month: Date.today.month, day: 1 } },
-                { disabled: true, class: 'input-date', style: 'opacity: .5;' }
+          #end-date.pull-right style='margin: 4px 15px 4px 0;'
+            = date_select :date_end, :date_end,
+              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030 },
+              { disabled: true, class: 'input-date', style: 'opacity: .5;' }
+          #start-date.pull-right style='margin: 4px 15px 4px 0;'
+            = date_select :date_start, :date_start,
+              { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: Date.today.year, month: Date.today.month, day: 1 } },
+              { disabled: true, class: 'input-date', style: 'opacity: .5;' }
 
       = smart_listing_render(:opportunities)
 
