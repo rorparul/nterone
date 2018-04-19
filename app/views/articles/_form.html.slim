@@ -8,19 +8,19 @@
         ul
           - article.errors.full_messages.each do |msg|
             li = msg
-            
+
     = render partial: 'shared/region_inputs', locals: { model: Article, f: f }
-            
+
     .form-group
       = f.label :page_title, t('articles.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :page_description, t('articles.partial_form.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
-    
+
     hr
-    
+
     = f.label :kind, t('articles.partial_form.type')
     .row
       .col-xs-6
@@ -37,20 +37,20 @@
             .form-group
               = f.radio_button :kind, t('articles.partial_form.industry_article_value')
               =  " #{t('articles.partial_form.industry_article')}"
-    
+
     .form-group
       = f.label :title, t('default.label.title')
       = f.text_field :title, class: 'form-control input-sm'
-          
+
     .form-group
       = f.label :content, t('default.label.content')
       = f.text_area :content, class: 'form-control input-sm froala'
-      
+
     .form-group
       = f.label :created_at, t('articles.partial_form.published')
       br
       = f.datetime_select :created_at, class: 'form-control input-sm'
-      
+
     .form-buttons
       button.btn.btn-success type="submit"
         = t 'generic.button.save'

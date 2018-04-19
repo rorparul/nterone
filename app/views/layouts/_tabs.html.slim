@@ -1,5 +1,10 @@
-.well#nav-account
+#nav-account
   ul.nav.nav-pills.permissions
+    - if false
+      li.dashboard role="presentation"
+        a.nav-pill href="#{dashboard_path}"
+          = t('admins.partial_tabs.dashboard')
+
     - if policy(:admin).my_account?
       li.plan role="presentation"
         a.nav-pill href="#{my_account_plan_path}"
@@ -79,18 +84,18 @@
               a href='#{lms_student_path(current_user)}'
                 | Assignments
 
+    - if policy(:admin).marketing?
+      li.marketing role="presentation"
+        a.nav-pill href="#{admin_marketing_path}"
+          = t('layouts.partial_tabs.marketing')
+
     - if policy(:admin).people?
       li.people role="presentation"
         a.nav-pill href="#{users_path}"
           = t('layouts.partial_tabs.people')
 
     - if policy(:admin).website?
-      li.website role="presentation"
-        a.nav-pill href="#{admin_website_path}"
-          = t('layouts.partial_tabs.marketing')
-
-    - if policy(:admin).resources?
-      li.dropdown.resources role="presentation"
+      li.dropdown.website role="presentation"
         a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
           | Website
           span.caret

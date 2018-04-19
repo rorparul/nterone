@@ -1,14 +1,14 @@
 en:
   admins:
     classes:
-      commissions_report: "Generate Commissions Report"
+      commissions_report: "Commissions Report"
       past: "Including past"
-      profits_report: "Generate Profit Sheets Report"
+      profits_report: "Profit Sheets Report"
       registered: "Only registered"
       search: "Search"
       title: "Classes"
       upload: "Upload"
-      utilization_report: "Generate Instructor Utilization Report"
+      utilization_report: "Instructor Utilization Report"
       xlsx: "Download Student-registered Classes"
     classes_show:
       upload_classes: "Upload Classes"
@@ -36,6 +36,7 @@ en:
       admin: "My Admin"
       blog: "Blog"
       classes: "Classes"
+      dashboard: 'Dashboard'
       edit: "Edit"
       home: "Home"
       industry: "Industry"

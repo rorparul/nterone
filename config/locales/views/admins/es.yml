@@ -1,14 +1,14 @@
 es:
   admins:
     classes:
-      commissions_report: "Generar Reportes de Comisiones"
+      commissions_report: "Reportes de Comisiones"
       past: "Incluyendo Pasado"
-      profits_report: "Generar reportes de Ganancias"
+      profits_report: "Reportes de Ganancias"
       registered: "Solo Registrados"
       search: "Buscar"
       title: "Clases"
       upload: "Cargar"
-      utilization_report: "Generar Reportes de Utilización de Instructor"
+      utilization_report: "Reportes de Utilización de Instructor"
       xlsx: "Descarga Clases Estudiantes-Registrados"
     classes_show:
       upload_classes: "Clases Cargadas"
@@ -36,6 +36,7 @@ es:
       admin: "Mi cuenta"
       blog: "Blog"
       classes: "Clases"
+      dashboard: 'Tablero'
       edit: "Editar"
       home: "Inicio"
       industry: "Industria"

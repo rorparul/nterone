@@ -135,13 +135,12 @@ class AdminController < ApplicationController
     end
   end
 
-  def website
+  def marketing
     manage_smart_listing(
       [
         'list_articles',
         'list_lab_courses',
-        'list_pages_dynamic',
-        'list_pages_static',
+        'list_pages',
         'list_testimonials',
         'list_promotions'
       ]
@@ -184,20 +183,12 @@ class AdminController < ApplicationController
                                         default_sort: { title: "asc" })
   end
 
-  def list_pages_static
-    @static_pages = smart_listing_create(:pages_static,
-                                         Page.unscoped.where(static: true),
-                                         partial: "pages/listing_static",
-                                         sort_attributes: [[:title, "title"]],
-                                         default_sort: { title: "asc" })
-  end
-
-  def list_pages_dynamic
-    @dynamic_pages = smart_listing_create(:pages_dynamic,
-                                          Page.unscoped.where(static: false),
-                                          partial: "pages/listing_dynamic",
-                                          sort_attributes: [[:title, "title"]],
-                                          default_sort: { title: "asc" })
+  def list_pages
+    @pages = smart_listing_create(:pages,
+                                  Page.unscoped.all,
+                                  partial: "pages/listing",
+                                  sort_attributes: [[:title, "title"]],
+                                  default_sort: { title: "asc" })
   end
 
   def list_promotions

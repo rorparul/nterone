@@ -8,28 +8,31 @@
         ul
           - page.errors.full_messages.each do |msg|
             li = msg
-            
+
     = render partial: 'shared/region_inputs', locals: { model: Page, f: f }
-    
+
     .form-group
       = f.label :page_title, t('pages.partial_form.page_title')
       = f.text_field :page_title, class: 'form-control input-sm'
-      
+
     .form-group
       = f.label :page_description, t('pages.partial_form.page_description')
       = f.text_area :page_description, class: 'form-control input-sm'
-    
+
     hr
-    
+
     - unless page.static
       .form-group
         = f.label :title, t('pages.partial_form.title')
         = f.text_field :title, class: 'form-control input-sm'
-          
+
     .form-group
       = f.label :content, t('pages.partial_form.content')
       = f.text_area :content, class: 'form-control input-sm froala'
-      
+
+    .alert.alert-info
+      | Please note that whether or not the "Content" portion of this record is reflected on the website is dependent upon the page that the record is intended for.
+
     .form-buttons
       button.btn.btn-success type="submit"
         = t('default.action.save')

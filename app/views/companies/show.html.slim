@@ -100,19 +100,19 @@
               - @company.ancestors.first(10).each do |company|
                 = link_to company.title, company_path(company)
                 br
-            .col-xs-12.col-md-4
-              strong.text-muted Siblings
-              br
-              - if @company.parent.present?
-                - @company.siblings.first(10).each do |company|
-                  = link_to company.title, company_path(company)
-                  br
-            .col-xs-12.col-md-4
-              strong.text-muted Descendants
-              br
-              - @company.descendants.first(10).each do |company|
+          .col-xs-12.col-md-4
+            strong.text-muted Siblings
+            br
+            - if @company.parent.present?
+              - @company.siblings.first(10).each do |company|
                 = link_to company.title, company_path(company)
                 br
+          .col-xs-12.col-md-4
+            strong.text-muted Descendants
+            br
+            - @company.descendants.first(10).each do |company|
+              = link_to company.title, company_path(company)
+              br
 
   .row
     .col-xs-12

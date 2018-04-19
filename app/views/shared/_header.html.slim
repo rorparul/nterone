@@ -53,6 +53,22 @@
               li = link_to change_region_path, remote: true, rel: 'nofollow' do
                 = flag_icon_of_current_region
 
+/ #nav-training.well style="border-radius: 0; margin-bottom: 0;"
+/   .container
+/     - active_vendors_in_region.each do |vendor|
+/       - if vendor.welcome_category.present?
+/         .row
+/           .col-xs-12
+/             h3 = vendor.title
+/             .row
+/               - vendor.parent_categories.each do |category|
+/                 .col-xs-12.col-md-2
+/                   h4 = link_to category.title, platform_category_path(vendor, category)
+/                   hr
+/                   ul
+/                     - category.children.each do |category|
+/                       li = link_to category.title, platform_category_path(vendor, category)
+
 javascript:
   $('#btn-menu').on('click', function(e) {
     e.preventDefault();

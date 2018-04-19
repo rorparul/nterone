@@ -156,6 +156,7 @@ header {
   position: fixed;
   right: 0;
   z-index: 100;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
   .caret {
     margin-left: 3px !important;
     vertical-align: 8% !important;
@@ -332,6 +333,16 @@ header {
   }
 }
 
+#nav-training {
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+    }
+  }
+}
+
 #container-footer.container {
   z-index: 0;
   .row-level-1 {
@@ -426,19 +437,33 @@ header {
   }
 }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+.btn-green-gradient {
   @include set-all {
-    background-color: rgb(15, 115, 185);
-    @include value-prefix(background-image, linear-gradient(top, rgb(15, 115, 185) 0%, rgb(10, 80, 155) 100%));
-    border-color: rgb(15, 115, 185);
+    background-color: rgb(25, 140, 70);
+    @include value-prefix(background-image, linear-gradient(top, rgb(25, 140, 70) 0%, rgb(25, 110, 50) 100%));
+    border-color: rgb(25, 140, 70);
     color: white;
     outline: none !important;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    line-height: 20px;
-    height: auto;
-    border: 1px solid rgb(15, 115, 185);
   }
+  &.active {
+    @include value-prefix(background-image, none);
+  }
+}
+
+.nav-pills > li > a {
+  padding: 7px 16px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+  background-color: rgb(15, 115, 185);
+  @include value-prefix(background-image, linear-gradient(top, rgb(15, 115, 185) 0%, rgb(10, 80, 155) 100%));
+  border-color: rgb(15, 115, 185);
+  color: white;
+  outline: none !important;
+  padding: 6px 15px;
+  line-height: 20px;
+  height: auto;
+  border: 1px solid rgb(15, 115, 185);
 }
 
 .btn-padded {
