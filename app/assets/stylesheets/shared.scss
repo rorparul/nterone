@@ -337,6 +337,17 @@ header {
 }
 
 #nav-training {
+  display: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  .vendor-logo-or-title {
+    min-height: 85px;
+    position: relative;
+    img {
+      position: absolute;
+      bottom: 5px;
+    }
+  }
   ul {
     padding: 0;
     margin: 0;

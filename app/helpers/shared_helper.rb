@@ -48,7 +48,7 @@ module SharedHelper
   end
 
   def active_vendors_in_region
-    Platform.active.current_region.order(:title)
+    Platform.active.current_region.order(:title).select { |vendor| vendor.welcome_category.present? }
   end
 
   def back_button

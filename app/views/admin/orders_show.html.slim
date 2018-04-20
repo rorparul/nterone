@@ -1,53 +1,48 @@
-- content_for :breadcrumbs do
-  = render "breadcrumbs"
+= render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    = render 'layouts/tabs'
-
-.row
-  .col-xs-12.col-md-6
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('admins.orders_show.order_details')
-      .table-row
-        .table-col
-          .panel-table
-            .responsive-table
-              table.table.table-condensed
-                tbody
-                  tr
-                    td.text-right
-                      strong Regular Total
-                    td = @order.regular_price
-                  - @order.attributes.each do |attribute|
+.container
+  .row
+    .col-xs-12.col-md-6
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('admins.orders_show.order_details')
+        .table-row
+          .table-col
+            .panel-table
+              .responsive-table
+                table.table.table-condensed
+                  tbody
                     tr
                       td.text-right
-                        strong = "#{attribute[0].titleize}:"
-                      td = attribute[1]
+                        strong Regular Total
+                      td = @order.regular_price
+                    - @order.attributes.each do |attribute|
+                      tr
+                        td.text-right
+                          strong = "#{attribute[0].titleize}:"
+                        td = attribute[1]
 
-  .col-xs-12.col-md-6
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted = pluralize(@order.order_items.count, t('admins.orders_show.order_items'))
-      .panel-table
-        .responsive-table
-          table.table.table-condensed
-            tbody
-              - @order.order_items.each do |order_item|
-                - if order_item.orderable_type == "Event"
-                  tr
-                    td
-                      = "#{t('admins.orders_show.class_for')} "
-                      = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
-                      = " #{t('admins.orders_show.from')} "
-                      = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} #{t('admins.orders_show.to')} #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", admin_classes_show_path(order_item.orderable)
+    .col-xs-12.col-md-6
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted = pluralize(@order.order_items.count, t('admins.orders_show.order_items'))
+        .panel-table
+          .responsive-table
+            table.table.table-condensed
+              tbody
+                - @order.order_items.each do |order_item|
+                  - if order_item.orderable_type == "Event"
+                    tr
+                      td
+                        = "#{t('admins.orders_show.class_for')} "
+                        = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course)
+                        = " #{t('admins.orders_show.from')} "
+                        = link_to "#{order_item.orderable.start_date.strftime("%b. %d, %Y")} #{t('admins.orders_show.to')} #{order_item.orderable.end_date.strftime("%b. %d, %Y")}", admin_classes_show_path(order_item.orderable)
 
-                - if order_item.orderable_type == "VideoOnDemand"
-                  tr
-                    td = "VOD for #{order_item.orderable.full_title}"
+                  - if order_item.orderable_type == "VideoOnDemand"
+                    tr
+                      td = "VOD for #{order_item.orderable.full_title}"
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .orders').addClass('active');

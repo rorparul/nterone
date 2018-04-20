@@ -34,8 +34,9 @@
             ul
               li = link_to root_path do
                 span.text = t('shared.header.home')
-              li = link_to platforms_path do
+              li = link_to '#', id: 'training-dropdown-btn' do
                 span.text = t('shared.header.training')
+                span.caret
               li = link_to consulting_path do
                 span.text = t('shared.header.consulting')
               li = link_to labs_path do
@@ -53,24 +54,27 @@
               li = link_to change_region_path, remote: true, rel: 'nofollow' do
                 = flag_icon_of_current_region
 
-/ #nav-training.well style="border-radius: 0; margin-bottom: 0;"
-/   .container
-/     - active_vendors_in_region.each do |vendor|
-/       - if vendor.welcome_category.present?
-/         .row
-/           .col-xs-12
-/             h3 = vendor.title
-/             .row
-/               - vendor.parent_categories.each do |category|
-/                 .col-xs-12.col-md-2
-/                   h4 = link_to category.title, platform_category_path(vendor, category)
-/                   hr
-/                   ul
-/                     - category.children.each do |category|
-/                       li = link_to category.title, platform_category_path(vendor, category)
+#nav-training.well style="border-radius: 0; margin-bottom: 0; overflow: scroll;"
+  .container
+    .row
+      - active_vendors_in_region.each do |vendor|
+        .col-xs-12.col-md-2
+          .vendor-logo-or-title
+            - if vendor.image.present? && vendor.image.file.present?
+              = image_tag vendor.image.file.platform_icon.url
+            - else
+              h1 = vendor.title
+          hr
+          - vendor.parent_categories.each do |category|
+            h4 style="font-size: 12px;" = link_to category.title, platform_category_path(vendor, category)
 
 javascript:
   $('#btn-menu').on('click', function(e) {
     e.preventDefault();
     $('#nav-2').toggle();
+  });
+
+  $('#training-dropdown-btn').on('click', function(e) {
+    e.preventDefault();
+    $('#nav-training').toggle();
   });

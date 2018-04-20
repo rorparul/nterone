@@ -17,8 +17,7 @@
           ul
             li = link_to t('shared.footer.gtr_classes'), featured_classes_path
             - active_vendors_in_region.each do |vendor|
-              - if vendor.welcome_category.present?
-                li = link_to vendor.title.upcase, platform_category_path(vendor, vendor.welcome_category)
+              li = link_to vendor.title.upcase, platform_category_path(vendor, vendor.welcome_category)
         .col-xs-12.col-md-4.col-level-2
           ul
             li = link_to t('shared.footer.facebook'), 'https://www.facebook.com/NterOne', target: '_blank'

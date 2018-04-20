@@ -1,25 +1,18 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.admin')
-
 = render 'layouts/tabs'
 
-.panel.panel-default
-  .panel-heading
-    strong.text-muted
-      = t('lab_courses.new.add_lab_course')
-  .panel-body
-    = render partial: "form", locals: { lab_course: @lab_course }
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('lab_courses.new.add_lab_course')
+        .panel-body
+          = render partial: "form", locals: { lab_course: @lab_course }
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .website').addClass('active');
-  
+
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });

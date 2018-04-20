@@ -1,19 +1,14 @@
-- content_for :breadcrumbs do
-  = render "breadcrumbs"
-    
 = render 'layouts/tabs'
-    
-.row
-  .col-xs-12
-    = render partial: 'leads/index', locals: { sales_force: @sales_force,
-                                               assigned_leads: @assigned_leads,
-                                               unassigned_leads: @unassigned_leads,
-                                               archived_leads: @archived_leads }
-    
+
+.container
+  .row
+    .col-xs-12
+      = render partial: 'leads/index', locals: { sales_force: @sales_force,
+                                                 assigned_leads: @assigned_leads,
+                                                 unassigned_leads: @unassigned_leads,
+                                                 archived_leads: @archived_leads }
+
 javascript:
-  $('.role-tab').addClass('active');
-  $('.permissions .queue').addClass('active');
-  
   $('.seller_selector').on('change', function() {
     $(this).closest('form').submit();
   });

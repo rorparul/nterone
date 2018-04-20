@@ -1,30 +1,12 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{platforms_path}"
-    = t('admins.partial_breadcrumbs.training')
-  span.seperator
-    | /
-  a href="#{platform_path(@platform)}"
-    = @platform.title
-  span.seperator
-    | /
-  a href="#{platform_course_path(@platform, @course)}"
-    = "#{@course.abbreviation}"
-  span.seperator
-    | /
-  span.text-muted
-    = t('admins.partial_breadcrumbs.edit')
-
-.panel.panel-default
-  .panel-heading
-    strong.text-muted
-      = t('course.edit.edit_course')
-  .panel-body
-    = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('course.edit.edit_course')
+        .panel-body
+          = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {
