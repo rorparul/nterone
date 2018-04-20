@@ -6,18 +6,6 @@ en:
     contact_us: "Contact Us at 703.972.2288"
     search: "Search"
     actions: "Actions"
-  breadcrumbs:
-    home: "Home"
-    admin: "My Admin"
-    instructor: "My Classes"
-    my_sales: "My Sales"
-    lab_rentals: "Lab Reservations"
-    about_us: "About Us"
-    sitemap: "Sitemap"
-    training: "Training"
-    search: "Search"
-    new: "New"
-    edit: "Edit"
   side_menu:
     welcome: "Welcome"
     login: "Login"
@@ -603,9 +591,6 @@ en:
         students: "Students"
         lab_source: "Lab Source"
         actions: "Actions"
-    classes:
-      breadcrumbs:
-        my_classes: "My Classes"
     classes_show:
       registrations: "Class Registrations"
       students: "Students"

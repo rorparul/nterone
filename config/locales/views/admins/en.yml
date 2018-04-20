@@ -32,22 +32,6 @@ en:
       to: "to"
     people:
       users: "Users"
-    partial_breadcrumbs:
-      admin: "My Admin"
-      blog: "Blog"
-      classes: "Classes"
-      dashboard: 'Dashboard'
-      edit: "Edit"
-      home: "Home"
-      industry: "Industry"
-      my_sales: "My Sales"
-      nci: "NCI"
-      partner: "Partner"
-      press: "Press"
-      support: "Support"
-      training: "Training"
-      engineers: "Engineers"
-      cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
       my_classes: "My Classes"
       classes: "Classes"

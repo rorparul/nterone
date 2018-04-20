@@ -6,16 +6,6 @@ es:
     contact_us: "Contáctanos 703.972.2288"
     search: "Buscar"
     actions: "Acciones"
-  breadcrumbs:
-    home: "Inicio"
-    admin: "Mi cuenta"
-    instructor:
-    about_us: "Acerca de Nosotros"
-    sitemap: "Mapa"
-    training: "Entrenamientos"
-    search: "Buscar"
-    new: "Nuevo"
-    edit: "Editar"
   side_menu:
     welcome: "Bienvenidos"
     login: "Usuarios"
@@ -557,9 +547,6 @@ es:
         students: "Placeholder"
         lab_source: "Placeholder"
         actions: "Placeholder"
-    classes:
-      breadcrumbs:
-        my_classes: "Placeholder"
     classes_show:
       registrations: "Class Registrations"
       students: "Students"

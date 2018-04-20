@@ -55,9 +55,6 @@ class AdminController < ApplicationController
   end
 
   def classes
-    cookies[:only_registered] = params[:only_registered] if params[:only_registered]
-    cookies[:filter]          = params[:filter]          if params[:filter]
-
     @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
     @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
@@ -69,12 +66,13 @@ class AdminController < ApplicationController
     end
 
     events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
-    events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
-
-    events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
-    events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
 
     unless request.format.json?
+      events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
+
+      events_scope = events_scope.with_students if params[:only_registered] == "1" || params[:only_registered].nil?
+      events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
+
       @start_date = events_scope.minimum("events.start_date")
       @end_date   = events_scope.maximum("events.start_date")
 
@@ -107,7 +105,7 @@ class AdminController < ApplicationController
       format.html
       format.js
       format.json do
-        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")} }.to_json
+        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")} }.to_json
       end
     end
   end
