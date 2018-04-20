@@ -1,7 +1,9 @@
 #banner-header class="#{'welcome' if welcome_page?}"
   .container-fluid
     #banner-header-message
-      h1 = t('shared._banner_header.reinvent_yourself')
+      h1
+        = t('shared._banner_header.reinvent_yourself')
+        span#period .
       h2 = t('shared._banner_header.world_class_solutions')
     - if welcome_page?
       #banner-header-welcome-search
