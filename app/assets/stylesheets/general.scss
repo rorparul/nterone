@@ -408,16 +408,6 @@ span.required {
   padding-left: 32px !important;
 }
 
-// .btn {
-//   &:not(.btn-block, .btn-blue) {
-//     border-radius: 3px;
-//     font-size: 11px;
-//     font-weight: bold;
-//     line-height: 14px;
-//     padding: 7px 10px;
-//   }
-// }
-
 .group {
   @include value-prefix(background-image, linear-gradient(top, rgb(249, 249, 249) 0%, rgb(242, 242, 242) 100%));
   border: 1px solid rgb(174, 174, 174);
@@ -836,24 +826,6 @@ span.required {
   padding: 6px 10px;
   @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
 }
-
-// #back {
-//   border-radius: 2px;
-//   color: rgb(255, 255, 255);
-//   float: left;
-//   font-size: 11px;
-//   font-weight: bold;
-//   height: 30px;
-//   margin-bottom: 5px;
-//   padding: 7px 10px;
-//   outline: none;
-//   @include value-prefix(background-image, linear-gradient(top, rgb(91, 165, 203) 0%, rgb(58, 112, 171) 100%));
-//   border: 1px solid rgb(62, 118, 175);
-//   cursor: pointer;
-//   &:hover {
-//     opacity: .80;
-//   }
-// }
 
 .unassign {
   @include value-prefix(background-image, linear-gradient(top, rgb(250, 150, 150) 0%, rgb(150, 100, 75) 100%));
@@ -1712,7 +1684,6 @@ hr {
   }
 }
 
-// Checkbox and TextBox for autocalculated costs
 .auto-cost-checkbox {
   margin: 0;
   padding: 0;
@@ -1740,8 +1711,6 @@ hr {
   }
 }
 
-
-// Checkbox for kind of Discount
 .percentage-checkbox {
   margin: 0;
   padding: 0;
