@@ -39,7 +39,7 @@ module SharedHelper
     when 2
       flag_code = :ca
     when 1
-      flag_code = :dm
+      flag_code = :do
     else
       flag_code = :us
     end
