@@ -308,6 +308,14 @@ class User < ActiveRecord::Base
       nil
     end
   end
+  
+  def name_initials
+    if !self.first_name.blank? && !self.last_name.blank?
+      "#{self.first_name[0]} #{self.last_name[0]}"
+    else
+      nil
+    end
+  end
 
   def option_class(subject)
     self.planned.include?(subject) ? " (planned)" : ""

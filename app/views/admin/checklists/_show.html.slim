@@ -6,26 +6,37 @@ ul.list-group
         input.checklist_item.form-control[type="checkbox" value="0" checked=(checked) data-id=(item.id) data-event_id=(event.id)]
         '
         = item.content
+        span[class="checklist_item_#{item.id} pull-right"]
+          - if checklist_item_event_modified_detail(event, item)
+            = checklist_item_event_modified_detail(event, item)
+          
 
 javascript:
 
   $("input.checklist_item").on('click', function() {
     var $this = $(this);
 
-    if (this.checked) {
+    if (this.checked) { 
       this.checked = false;
       $.post("/admin/checklists/" + $this.data('id') + '/complete_item/events/' + $this.data('event_id'))
-        .success(function(){
+        .success(function(data){
             $this.prop('checked', true)
+            if(data["checklist_items_count"] == $("input.checklist_item").length){
+              $(".checklist_"+data["event_id"]).removeClass("label-default");
+              $(".checklist_"+data["event_id"]).addClass("label-success");
+            }
+            
+            $(".checklist_item_"+data["item_id"]).html("Modified_by:"+ data["initials"]+" Modified_at: "+ data["updated_at"])
           })
 
     } else {
       this.checked = true;
       $.post("/admin/checklists/" + $this.data('id') + '/uncomplete_item/events/' + $this.data('event_id'))
-        .success(function(){
+        .success(function(data){
             $this.prop('checked', false)
+            $(".checklist_"+data["event_id"]).removeClass("label-success");
+            $(".checklist_"+data["event_id"]).addClass("label-default"); 
+            $(".checklist_item_"+data["item_id"]).html("")
           })
     }
-
   });
-
