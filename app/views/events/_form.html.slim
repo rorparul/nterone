@@ -294,46 +294,6 @@ javascript:
     };
   });
 
-  // Cost T & E
-  $('#event_end_date_1i, #event_end_date_2i, #event_end_date_3i, #event_start_date_1i, #event_start_date_2i, #event_start_date_3i').change(function(){
-    var start_year = parseInt($('#event_start_date_1i').val());
-    var start_month = parseInt($('#event_start_date_2i').val()) - 1;
-    var start_day = parseInt($('#event_start_date_3i').val());
-    var end_year = parseInt($('#event_end_date_1i').val());
-    var end_month = parseInt($('#event_end_date_2i').val()) - 1;
-    var end_day = parseInt($('#event_end_date_3i').val());
-    var start_date = new Date(Date.UTC(start_year, start_month, start_day));
-    var end_date = new Date(Date.UTC(end_year, end_month, end_day));
-    var diff_in_days = Math.abs(start_date - end_date) / (1000 * 3600 * 24);
-    var cost_te = 0;
-    switch(diff_in_days) {
-    case 0:
-      cost_te = 0;
-      break
-    case 1:
-      cost_te = 900;
-      break
-    case 2:
-      cost_te = 1200;
-      break
-    case 3:
-      cost_te = 1500;
-      break
-    case 4:
-      cost_te = 1800;
-      break
-    case 5:
-      cost_te = 2100;
-      break
-    default:
-      cost_te = 2100;
-      break
-    };
-
-    $("#event_cost_te").val(cost_te);
-    $("#event_cost_te").trigger("blur");
-  });
-
   $(".toggle_instructor_options").on('click', function(){
     if($("#selected_instructor_option").hasClass('hide')){
       $("#all_instructor_option").addClass('hide');

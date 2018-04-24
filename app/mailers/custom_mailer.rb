@@ -24,7 +24,7 @@ class CustomMailer < Devise::Mailer
         'stephanie.pouse@madwiremedia.com',
         mad360_emails[@tld.to_sym]
       ],
-      subject: "Welcome to #{t'website'}!"
+      subject: "Welcome to NterOne.#{Rails.application.config.tld}!"
     )
   end
 
@@ -52,7 +52,7 @@ class CustomMailer < Devise::Mailer
         "helpdesk@nterone.#{@tld}",
         "billing@nterone.#{@tld}"
       ],
-      subject: "Welcome to #{t'website'}!"
+      subject: "Welcome to NterOne.#{Rails.application.config.tld}!"
     )
   end
 
@@ -64,7 +64,7 @@ class CustomMailer < Devise::Mailer
         'stephanie.pouse@madwiremedia.com',
         @mad360_emails[@tld.to_sym]
       ],
-      subject: "Welcome to #{t'website'}!"
+      subject: "Welcome to NterOne.#{Rails.application.config.tld}!"
     )
   end
 end

@@ -10,7 +10,7 @@ module EventHelper
 
   def instructors_with_rate(instructors, event)
     selected_instructor = event.instructor
-    
+
     if selected_instructor.present?
       instructors << selected_instructor
     end
