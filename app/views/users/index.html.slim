@@ -27,7 +27,18 @@
       strong.text-muted People
     .container-muted
       - if policy(:user).mass_edit?
-        = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'mass_edit_btn btn btn-warning btn-sm on-click', role: 'button', remote: true
+        .dropdown.inline-dropdown.mass_edit_btn
+          button#dropdownMenu1.btn.btn-default.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
+            | Mass Edit
+            span.caret
+          ul.dropdown-menu aria-labelledby="dropdownMenu1" 
+            li
+              = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), role: 'button', remote: true
+            li
+              = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
+            li
+              = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
+              
       = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn ml-5 btn-success btn-sm', role: 'button'
 
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
@@ -43,4 +54,36 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
+  
+  function mass_edit_customer_type(customer_type) {
+    user_ids = []
+    $(".users_mass_edit_checkbox:checked").each(function(){
+        user_ids.push($(this).val());
+    });
+    
+    $.ajax({
+      url: "/users/mark_customers_type",
+      dataType: 'json',
+      method: "POST",
+      data: {user_ids: user_ids, mark_as: customer_type },
+      success:function(data) {
+        $.each(user_ids, function( index, value ) {
+          if(customer_type == "direct_customer"){
+            $(".customer_type_"+value).text("D");
+          }
+          else{
+            $(".customer_type_"+value).text("P");
+          }
+        });
+      }
+    })
+  }
+
+  $(".mark_as_direct").on('click', function(){
+    mass_edit_customer_type("direct_customer");
+  });
+
+  $(".mark_as_partner").on('click', function(){
+    mass_edit_customer_type("partner_customer");
+  }); 
   
