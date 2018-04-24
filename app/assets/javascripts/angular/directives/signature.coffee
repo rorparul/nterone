@@ -21,7 +21,7 @@ angular
       hostname = window.location.hostname.split('.');
       tld = hostname[hostname.length - 1]
 
-      if tld == 'ca' || tld == 'com' || tld == "in"
+      if tld == 'ca' || tld == 'com' || tld == 'in'
         scope.link1 = "https://www.nterone." + tld + "/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"
         scope.link1_text = "NterOne Awarded Cisco Americas Learning Partner of the Year - 2016"
         scope.link2 = "https://www.nterone." + tld + "/articles/nterone-corporation-wins-cisco-innovation-award"
