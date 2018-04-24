@@ -26,9 +26,10 @@
     h4
       strong.text-muted People
     .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn  btn-success btn-sm', role: 'button'
-      span.toggle_customer_type_links
-        = render 'toggle_customer_type'
+      - if policy(:user).mass_edit?
+        = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'mass_edit_btn btn btn-warning btn-sm on-click', role: 'button', remote: true
+      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn ml-5 btn-success btn-sm', role: 'button'
+
       = smart_listing_controls_for(:users, { class: 'input-search' }) do
         .input-group.input-group-sm.filter
           = text_field_tag :filter, '', class: 'search form-control input-sm',
@@ -42,7 +43,4 @@
 javascript:
   $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
-  
-  
-  
   

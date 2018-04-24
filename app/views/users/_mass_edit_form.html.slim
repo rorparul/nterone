@@ -1,4 +1,12 @@
 .form-group
+  = label_tag "user[options]", "Options"
+  = select_tag "user[options]",
+               options_for_select([["Change Sales Rep", "change_sales_rep"], ["Mark As Direct Customer", "direct_customer"], ["Mark As Partner Customer", "partner_customer"]]),
+               include_blank: true,
+               class: 'form-control',
+               style: "width: 100%;"  
+
+.form-group.hidden.owner_dropdown
   = label_tag "user[parent_id]", "Owner"
   = select_tag "user[parent_id]",
                options_for_select([]),
@@ -12,21 +20,48 @@
     = t('default.action.cancel')
 
 javascript:
+  $("#user_options").on('change', function(){
+    if($(this).val() == "change_sales_rep"){
+      $(".owner_dropdown").removeClass("hidden");
+    }else{
+      $(".owner_dropdown").addClass("hidden");
+    }
+  })
   $('#mass-update').on('click', function() {
+    user_ids = []
+    $(".users_mass_edit_checkbox:checked").each(function(){
+        user_ids.push($(this).val());
+    });
+
+    prepare_params = {"user_ids": user_ids}
+    if($(".owner_dropdown").hasClass("hidden")){
+      prepare_params["user[customer_type]"] = $('#user_options').val();  
+    }
+    else{
+      prepare_params["user[parent_id]"] = $('#user_parent_id').val();
+    }
     $.ajax({
       type: "POST",
       url: "#{mass_update_users_path(type: @type)}",
-      data: $.param({
-        "user[parent_id]": $('#user_parent_id').val(),
-
-        "user[filters][parent_id]": $('#user_filters_parent_id').val(),
-        "user[filters][source_name]": $('#user_filters_source_name').val(),
-        "user[filters][status]": $('#user_filters_status').val(),
-        "user[filters][state]": $('#user_filters_state').val(),
-        "user[filters][company_id]": $('#user_filters_company_id').val(),
-
-        "search": $('#search').val()
-      })
+      dataType: 'json',
+      data: $.param(prepare_params),
+      success:function(data) {
+        if($(".owner_dropdown").hasClass("hidden")){
+          $.each(user_ids, function( index, value ) {
+            if(data["customer_type"] == "direct_customer"){
+              $(".customer_type_"+value).text("D");
+            }
+            else{
+              $(".customer_type_"+value).text("P");
+            }
+          });  
+        }else{
+          $.each(user_ids, function( index, value ) {
+            $("#user-"+value+"-sales-rep").text(data["parent_name"]);
+          });  
+        }
+        $('#myModal').modal('hide');
+      }
     });
   });
 

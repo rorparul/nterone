@@ -155,14 +155,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def mark_customers_type
-    params[:user_ids].each do |user_id|
-      user = User.find(user_id)
-      user.update_attributes(customer_type: params[:mark_as])
-    end
-    render json: { message: "Users are successfully marked as #{params[:mark_as]}"}
-  end
-
   def members
     render json: { items: User.members.custom_search(params[:q]).order(:last_name) }
   end
@@ -177,23 +169,23 @@ class UsersController < ApplicationController
 
   def mass_update
     if params[:type] == 'leads'
-      users = User.leads.where(clean_params(user_params[:filters]))
+      users = User.leads.where(id: params[:user_ids])
     elsif params[:type] == 'contacts'
-      users = User.contacts.where(clean_params(user_params[:filters]))
+      users = User.contacts.where(id: params[:user_ids])
     else
-      return render js: "window.location = '#{request.referrer}';"
+      users = User.where(id: params[:user_ids])
     end
 
     users       = users.custom_search(params[:search]) if params[:search].present?
+    parent_name = nil
     users_count = users.count
-
-    if users.update_all(parent_id: user_params[:parent_id])
-      flash[:success] = "Successfully updated #{users_count} records."
+    if user_params[:customer_type].present?
+      update_params = {customer_type: user_params[:customer_type]}
     else
-      flash[:alert] = "Failed to update #{users_count} records."
-    end
-
-    render js: "window.location = '#{request.referrer}';"
+      parent_name = User.find(user_params[:parent_id]).full_name if user_params[:parent_id]
+      update_params = {parent_id: user_params[:parent_id]}
+    end 
+    render json: { parent_name: parent_name, customer_type: user_params[:customer_type] }
   end
 
   private
