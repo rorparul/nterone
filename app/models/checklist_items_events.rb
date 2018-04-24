@@ -4,6 +4,9 @@
 #
 #  checklist_item_id :integer          not null
 #  event_id          :integer          not null
+#  id                :integer          not null, primary key
+#  updated_at        :datetime
+#  updated_by        :integer
 #
 # Indexes
 #
@@ -14,5 +17,7 @@ class ChecklistItemsEvents < ActiveRecord::Base
 
   belongs_to :checklist_item
   belongs_to :event
+
+  belongs_to :user, foreign_key: "updated_by" 
 
 end
