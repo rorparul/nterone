@@ -64,7 +64,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   validates_presence_of :employee_id
-  validates_presence_of :account_id, unless: :is_account_id_required?
+  validates_presence_of :account_id, unless: :account_id_required?
 
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   before_save :confirm_amount_equals_integer
@@ -82,7 +82,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def self.get_company_total_amount opportunities, company_id
-    opportunities = opportunities.select do |opportunity| 
+    opportunities = opportunities.select do |opportunity|
                     opportunity.account_id == company_id
                   end
     opportunities.sum(&:amount)
@@ -211,7 +211,7 @@ class Opportunity < ActiveRecord::Base
     order.destroy
   end
 
-  def is_account_id_required?
+  def account_id_required?
     self.waiting_changed? && (self.waiting == true) ? true : false
   end
 end

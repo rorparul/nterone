@@ -90,7 +90,7 @@ class Event < ActiveRecord::Base
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
-  
+
   has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
@@ -174,7 +174,7 @@ class Event < ActiveRecord::Base
 
   def commission_percent
     if student_count >= 10
-      0.08 
+      0.08
     else
       0.05
     end
@@ -297,7 +297,7 @@ class Event < ActiveRecord::Base
       self.cost_instructor = 0.0
     end
   end
-  
+
   def revenue_for_commission
     order_items.where.not(order_id: nil).sum(:price)
   end
