@@ -172,6 +172,11 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
+    if params[:event_id].present?
+      @events = Event.find(params[:event_id]).course.events.joins(:course).order('courses.abbreviation')
+    else
+      @events = Event.joins(:course).order('courses.abbreviation')
+    end  
   end
 
   def update

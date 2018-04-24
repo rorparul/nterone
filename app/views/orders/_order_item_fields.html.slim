@@ -9,7 +9,7 @@
           = f.label :orderable_id, t('orders.partial_order_item_fields.classes')
           br
           = f.select :orderable_id,
-            Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - f.object.price).to_s}", event.id] },
+            @events.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - f.object.price).to_s}", event.id] },
             { prompt: t('default.placeholder.select') },
             { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector" }  
         

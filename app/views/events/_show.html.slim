@@ -273,8 +273,11 @@
                       = f.text_field :po_number, class: "form-control form-async"
 
                   td = link_to 'Add to Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
-
-                  td = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
+                  td
+                    - if order_item.orderable_type == "Event" 
+                      = link_to t('default.action.edit'), edit_order_path(order_item.order, event_id: order_item.orderable.id), remote: true
+                    - else
+                      = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
 
 javascript:
   $('.table-select, .check-select').on('change', function() {
