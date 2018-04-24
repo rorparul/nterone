@@ -11,7 +11,7 @@ tr
     - if event.checklist
       - label_class = event.checklist_completed? ? 'success' : 'default'
       = link_to admin_checklist_path(event.checklist, event_id: event.id), title: t('events.partial_listing.checklist'), remote: true do
-        span.label[class="label-#{label_class}"]
+        span.label[class="label-#{label_class} checklist_#{event.id}"]
           i class="fa fa-list" aria-hidden="true"
   td.fit
     = link_to edit_in_house_note_path(event), remote: true do
