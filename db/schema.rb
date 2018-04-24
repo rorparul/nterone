@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402114754) do
+ActiveRecord::Schema.define(version: 20180423092101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,9 +215,11 @@ ActiveRecord::Schema.define(version: 20180402114754) do
   add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
   add_index "checklist_items", ["origin_region"], name: "index_checklist_items_on_origin_region", using: :btree
 
-  create_table "checklist_items_events", id: false, force: :cascade do |t|
-    t.integer "checklist_item_id", null: false
-    t.integer "event_id",          null: false
+  create_table "checklist_items_events", force: :cascade do |t|
+    t.integer  "checklist_item_id", null: false
+    t.integer  "event_id",          null: false
+    t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   add_index "checklist_items_events", ["checklist_item_id", "event_id"], name: "index_checklist_items_events_on_checklist_item_id_and_event_id", using: :btree
@@ -282,7 +284,6 @@ ActiveRecord::Schema.define(version: 20180402114754) do
     t.string   "subject"
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
-    t.text     "message",        default: ""
   end
 
   add_index "contact_us_submissions", ["origin_region"], name: "index_contact_us_submissions_on_origin_region", using: :btree
@@ -300,10 +301,10 @@ ActiveRecord::Schema.define(version: 20180402114754) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "platform_id"
-    t.boolean  "active",                                          default: true
+    t.boolean  "active",                                        default: true
     t.string   "abbreviation"
     t.text     "intro"
     t.text     "overview"
@@ -311,19 +312,18 @@ ActiveRecord::Schema.define(version: 20180402114754) do
     t.text     "intended_audience"
     t.string   "pdf"
     t.text     "video_preview"
-    t.decimal  "price",                   precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                 precision: 8, scale: 2, default: 0.0
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "partner_led",                                     default: false
+    t.boolean  "partner_led",                                   default: false
     t.string   "heading"
-    t.boolean  "satellite_viewable",                              default: true
+    t.boolean  "satellite_viewable",                            default: true
     t.integer  "origin_region"
-    t.text     "active_regions",                                  default: [],                 array: true
+    t.text     "active_regions",                                default: [],                 array: true
     t.string   "cisco_id"
-    t.boolean  "archived",                                        default: false
-    t.decimal  "book_cost_per_student",                           default: 0.0
-    t.text     "featured_course_summary",                         default: ""
+    t.boolean  "archived",                                      default: false
+    t.decimal  "book_cost_per_student",                         default: 0.0
   end
 
   add_index "courses", ["origin_region"], name: "index_courses_on_origin_region", using: :btree

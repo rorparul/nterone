@@ -1,31 +1,42 @@
-ul.list-group
-  - checklist.items.each do |item|
-    li.list-group-item
-      .form-inline
-        - checked = event.checklist_items.find_by_id(item.id).present?
-        input.checklist_item.form-control[type="checkbox" value="0" checked=(checked) data-id=(item.id) data-event_id=(event.id)]
-        '
-        = item.content
+table.table
+  .tbody
+    - checklist.items.each do |item|
+      tr
+        td.fit
+          - checked = event.checklist_items.find_by_id(item.id).present?
+          input.checklist_item[type="checkbox" value="0" checked=(checked) data-id=(item.id) data-event_id=(event.id) style="outline: none;"]
+        td
+          = item.content
+        td class="checklist_item_#{item.id}"
+          - if checklist_item_event_modified_detail(event, item)
+            = checklist_item_event_modified_detail(event, item)
+
 
 javascript:
-
   $("input.checklist_item").on('click', function() {
     var $this = $(this);
 
     if (this.checked) {
       this.checked = false;
       $.post("/admin/checklists/" + $this.data('id') + '/complete_item/events/' + $this.data('event_id'))
-        .success(function(){
+        .success(function(data){
             $this.prop('checked', true)
+            if(data["checklist_items_count"] == $("input.checklist_item").length){
+              $(".checklist_" + data["event_id"]).removeClass("label-default");
+              $(".checklist_" + data["event_id"]).addClass("label-success");
+            }
+
+            $(".checklist_item_" + data["item_id"]).html(data["initials"] + "<br>" + data["updated_at"])
           })
 
     } else {
       this.checked = true;
       $.post("/admin/checklists/" + $this.data('id') + '/uncomplete_item/events/' + $this.data('event_id'))
-        .success(function(){
+        .success(function(data){
             $this.prop('checked', false)
+            $(".checklist_" + data["event_id"]).removeClass("label-success");
+            $(".checklist_" + data["event_id"]).addClass("label-default");
+            $(".checklist_item_" + data["item_id"]).html("")
           })
     }
-
   });
-

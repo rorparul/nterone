@@ -2,32 +2,31 @@
 #
 # Table name: courses
 #
-#  id                      :integer          not null, primary key
-#  title                   :string
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  platform_id             :integer
-#  active                  :boolean          default(TRUE)
-#  abbreviation            :string
-#  intro                   :text
-#  overview                :text
-#  outline                 :text
-#  intended_audience       :text
-#  pdf                     :string
-#  video_preview           :text
-#  price                   :decimal(8, 2)    default(0.0)
-#  slug                    :string
-#  page_title              :string
-#  page_description        :text
-#  partner_led             :boolean          default(FALSE)
-#  heading                 :string
-#  satellite_viewable      :boolean          default(TRUE)
-#  origin_region           :integer
-#  active_regions          :text             default([]), is an Array
-#  cisco_id                :string
-#  archived                :boolean          default(FALSE)
-#  book_cost_per_student   :decimal(, )      default(0.0)
-#  featured_course_summary :text             default("")
+#  id                    :integer          not null, primary key
+#  title                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  platform_id           :integer
+#  active                :boolean          default(TRUE)
+#  abbreviation          :string
+#  intro                 :text
+#  overview              :text
+#  outline               :text
+#  intended_audience     :text
+#  pdf                   :string
+#  video_preview         :text
+#  price                 :decimal(8, 2)    default(0.0)
+#  slug                  :string
+#  page_title            :string
+#  page_description      :text
+#  partner_led           :boolean          default(FALSE)
+#  heading               :string
+#  satellite_viewable    :boolean          default(TRUE)
+#  origin_region         :integer
+#  active_regions        :text             default([]), is an Array
+#  cisco_id              :string
+#  archived              :boolean          default(FALSE)
+#  book_cost_per_student :decimal(, )      default(0.0)
 #
 # Indexes
 #

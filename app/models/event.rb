@@ -90,7 +90,8 @@ class Event < ActiveRecord::Base
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
-
+  
+  has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
