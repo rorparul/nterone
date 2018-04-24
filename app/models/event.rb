@@ -94,6 +94,7 @@ class Event < ActiveRecord::Base
   has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
+  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :calculate_cost_commission, if: proc { |model| model.autocalculate_cost_commission? }
   before_save :mark_non_public
@@ -286,6 +287,10 @@ class Event < ActiveRecord::Base
       errors.add(:base, 'Order Items present')
       return false
     end
+  end
+
+  def calculate_book_cost
+    self.cost_books = book_cost_per_student * student_count
   end
 
   def calculate_instructor_cost
