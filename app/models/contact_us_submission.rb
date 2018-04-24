@@ -14,7 +14,6 @@
 #  subject        :string
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
-#  message        :text             default("")
 #
 # Indexes
 #
