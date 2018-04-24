@@ -93,7 +93,6 @@ class Event < ActiveRecord::Base
 
   has_and_belongs_to_many :checklist_items
 
-  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :calculate_cost_commission, if: proc { |model| model.autocalculate_cost_commission? }
   before_save :mark_non_public
@@ -286,19 +285,6 @@ class Event < ActiveRecord::Base
       errors.add(:base, 'Order Items present')
       return false
     end
-  end
-
-  def calculate_book_cost
-    case event_platform
-    when "Cisco"
-      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
-    when "VMware"
-      book_cost = book_cost_per_student == 0 ? 850.00 : book_cost_per_student
-    else
-      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
-    end
-
-    self.cost_books = book_cost * student_count
   end
 
   def calculate_instructor_cost
