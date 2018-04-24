@@ -21,6 +21,7 @@ en:
       street: "Street"
       video_bio: "Video Bio"
       zip: "Zip Code"
+      teachable_courses: "Teachable Courses"
     partial_index:
       last_active: "Last Active"
       purchases: "Purchases"

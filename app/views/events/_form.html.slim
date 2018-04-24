@@ -95,15 +95,22 @@
         .form-group
           = f.label :instructor_id, t('events.partial_form.instructor')
           = f.select :instructor_id,
-                    User.only_instructors.collect { |user| ["#{user.last_name}, #{user.first_name}", user.id] },
+                    instructors_with_rate(@course.instructors, event),
                     { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control input-sm' }
+                    { class: 'form-control input-sm', id: "selected_instructor_option" }
+
+          = f.select :instructor_id,
+                    instructors_with_rate(User.all_instructors_by_rate, event),
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control all_instructor_option input-sm hide', id: "all_instructor_option", :disabled => true }
+
+          = link_to "View all instructor", "javascript:void(0)", class: "toggle_instructor_options"
+
       .col-xs-12.col-sm-6
         .form-group
           = f.label :do_not_send_instructor_email, t('events.partial_form.do_not_email_instructor')
           br
           = f.check_box :do_not_send_instructor_email
-
 
     .row
       .col-xs-12.col-sm-6
@@ -287,42 +294,20 @@ javascript:
     };
   });
 
-  // Cost T & E
-  $('#event_end_date_1i, #event_end_date_2i, #event_end_date_3i, #event_start_date_1i, #event_start_date_2i, #event_start_date_3i').change(function(){
-    var start_year = parseInt($('#event_start_date_1i').val());
-    var start_month = parseInt($('#event_start_date_2i').val()) - 1;
-    var start_day = parseInt($('#event_start_date_3i').val());
-    var end_year = parseInt($('#event_end_date_1i').val());
-    var end_month = parseInt($('#event_end_date_2i').val()) - 1;
-    var end_day = parseInt($('#event_end_date_3i').val());
-    var start_date = new Date(Date.UTC(start_year, start_month, start_day));
-    var end_date = new Date(Date.UTC(end_year, end_month, end_day));
-    var diff_in_days = Math.abs(start_date - end_date) / (1000 * 3600 * 24);
-    var cost_te = 0;
-    switch(diff_in_days) {
-    case 0:
-      cost_te = 0;
-      break
-    case 1:
-      cost_te = 900;
-      break
-    case 2:
-      cost_te = 1200;
-      break
-    case 3:
-      cost_te = 1500;
-      break
-    case 4:
-      cost_te = 1800;
-      break
-    case 5:
-      cost_te = 2100;
-      break
-    default:
-      cost_te = 2100;
-      break
-    };
+  $(".toggle_instructor_options").on('click', function(){
+    if($("#selected_instructor_option").hasClass('hide')){
+      $("#all_instructor_option").addClass('hide');
+      $("#selected_instructor_option").removeClass('hide');
 
-    $("#event_cost_te").val(cost_te);
-    $("#event_cost_te").trigger("blur");
+      $("#all_instructor_option").prop("disabled", true);
+      $("#selected_instructor_option").prop("disabled", false);
+      $(this).text("View all instructors");
+    }else{
+      $("#selected_instructor_option").addClass('hide');
+      $("#all_instructor_option").removeClass('hide');
+
+      $("#selected_instructor_option").prop("disabled", true);
+      $("#all_instructor_option").prop("disabled", false);
+      $(this).text("View qualified instructors");
+    }
   });

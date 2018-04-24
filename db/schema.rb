@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221151320) do
+ActiveRecord::Schema.define(version: 20180423092101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,9 +215,11 @@ ActiveRecord::Schema.define(version: 20180221151320) do
   add_index "checklist_items", ["checklist_id"], name: "index_checklist_items_on_checklist_id", using: :btree
   add_index "checklist_items", ["origin_region"], name: "index_checklist_items_on_origin_region", using: :btree
 
-  create_table "checklist_items_events", id: false, force: :cascade do |t|
-    t.integer "checklist_item_id", null: false
-    t.integer "event_id",          null: false
+  create_table "checklist_items_events", force: :cascade do |t|
+    t.integer  "checklist_item_id", null: false
+    t.integer  "event_id",          null: false
+    t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   add_index "checklist_items_events", ["checklist_item_id", "event_id"], name: "index_checklist_items_events_on_checklist_item_id_and_event_id", using: :btree
@@ -1456,6 +1458,7 @@ ActiveRecord::Schema.define(version: 20180221151320) do
     t.boolean  "active",                                          default: true
     t.boolean  "archive",                                         default: false
     t.string   "sales_force_id"
+    t.integer  "customer_type"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

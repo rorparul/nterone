@@ -90,10 +90,10 @@ class Event < ActiveRecord::Base
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
-
+  
+  has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
-  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :calculate_cost_commission, if: proc { |model| model.autocalculate_cost_commission? }
   before_save :mark_non_public
@@ -118,7 +118,7 @@ class Event < ActiveRecord::Base
   scope :remind_needed, -> { where('start_date > ?', Time.now).where(should_remind: true, reminder_sent: false) }
 
   search_scope :custom_search do
-    attributes :id, :format, :start_date, :public, :guaranteed
+    attributes :id, :format, :start_date, :public, :guaranteed, :street, :city, :state, :zipcode
     attributes :course => ["course.abbreviation", "course.title"]
     attributes :users => ["users.first_name", "users.last_name", "users.email"]
     attributes :instructor => ["instructor.first_name", "instructor.last_name"]
@@ -261,6 +261,14 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def title_with_instructor
+    if self.instructor.present?
+      "#{instructor.full_name} (#{course.abbreviation})"
+    else
+      "#{course.abbreviation}"
+    end
+  end
+
   private
 
   def create_gtr_alert
@@ -278,19 +286,6 @@ class Event < ActiveRecord::Base
       errors.add(:base, 'Order Items present')
       return false
     end
-  end
-
-  def calculate_book_cost
-    case event_platform
-    when "Cisco"
-      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
-    when "VMware"
-      book_cost = book_cost_per_student == 0 ? 850.00 : book_cost_per_student
-    else
-      book_cost = book_cost_per_student == 0 ? 400.00 : book_cost_per_student
-    end
-
-    self.cost_books = book_cost * student_count
   end
 
   def calculate_instructor_cost

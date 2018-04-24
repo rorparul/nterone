@@ -58,54 +58,58 @@ class AdminController < ApplicationController
   def classes
     cookies[:only_registered] = params[:only_registered] if params[:only_registered]
     cookies[:filter]          = params[:filter]          if params[:filter]
-    
+
     @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
     @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
-    if params[:region]
-      @region = params[:region]
-    end
-    
+    @start_date = Date.parse params[:start] if params[:start]
+    @end_date   = Date.parse params[:end]   if params[:end]
+
     if params[:origin_region].present?
       @origin_region = params[:origin_region]
     end
 
-    events_scope = (@start_date && @end_date) ? Event.unscoped.joins(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.joins(:course).upcoming_events
-    events_scope = events_scope.where("events.active_regions @> ?", "{#{@region}}")  if @region
+    events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
     events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
-    
+
     events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
     events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
-    @start_date = events_scope.minimum("events.start_date")
-    @end_date   = events_scope.maximum("events.start_date")
 
-    @queried_events = events_scope
+    unless request.format.json?
+      @start_date = events_scope.minimum("events.start_date")
+      @end_date   = events_scope.maximum("events.start_date")
 
-    @events = smart_listing_create(:events,
-                                   events_scope,
-                                   partial: "events/listing",
-                                   page_sizes: [100, 50, 10],
-                                   sort_attributes: [[:start_date, "start_date"],
-                                                     [:course, "courses.abbreviation"],
-                                                     [:id, "id"],
-                                                     [:status, "status"],
-                                                     [:resell, "Resell"],
-                                                     [:start_time, "start_time"],
-                                                     [:end_time, "end_time"],
-                                                     [:format, "format"],
-                                                     [:lab_source, "lab_source"],
-                                                     [:public, "public"],
-                                                     [:guaranteed, "guaranteed"],
-                                                     [:status, "Status"]],
-                                   default_sort: { start_date: "asc", course: "asc" })
+      @queried_events = events_scope
 
-    if should_group_classes?
-      @grouped_events = @events.group_by(&:week_range)
+      @events = smart_listing_create(:events,
+                                     events_scope,
+                                     partial: "events/listing",
+                                     page_sizes: [100, 50, 10],
+                                     sort_attributes: [[:start_date, "start_date"],
+                                                       [:course, "courses.abbreviation"],
+                                                       [:id, "id"],
+                                                       [:status, "status"],
+                                                       [:resell, "Resell"],
+                                                       [:start_time, "start_time"],
+                                                       [:end_time, "end_time"],
+                                                       [:format, "format"],
+                                                       [:lab_source, "lab_source"],
+                                                       [:public, "public"],
+                                                       [:guaranteed, "guaranteed"],
+                                                       [:status, "Status"]],
+                                     default_sort: { start_date: "asc", course: "asc" })
+
+      if should_group_classes?
+        @grouped_events = @events.group_by(&:week_range)
+      end
     end
-    
+
     respond_to do |format|
       format.html
       format.js
+      format.json do
+        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")} }.to_json
+      end
     end
   end
 
@@ -114,7 +118,7 @@ class AdminController < ApplicationController
   end
 
   def courses
-    @courses = Course.order(:title).page(params[:page])
+    @courses = Course.active.order(:title).page(params[:page])
   end
 
   def people
