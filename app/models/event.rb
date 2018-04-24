@@ -181,9 +181,7 @@ class Event < ActiveRecord::Base
   end
 
   def revenue
-    order_item_price = order_items.where.not(order_id: nil).sum(:price)
-    waiting_opportunities_price = opportunities.waiting.sum(:amount)
-    order_item_price + waiting_opportunities_price
+    order_items.where.not(order_id: nil).sum(:price)
   end
 
   def margin
@@ -298,12 +296,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def revenue_for_commission
-    order_items.where.not(order_id: nil).sum(:price)
-  end
-
   def calculate_cost_commission
-    self.cost_commission = revenue_for_commission * commission_percent
+    self.cost_commission = revenue * commission_percent
   end
 
   def confirm_with_instructor
