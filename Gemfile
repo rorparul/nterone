@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.3.7'
 
 gem 'acts_as_tree'
 gem 'angularjs-rails-resource'
@@ -50,7 +50,7 @@ gem 'pg', '~> 0.21'
 gem 'public_activity'
 gem 'pundit', '~> 1.0.1'
 gem 'rack-rewrite', '~> 1.5.0'
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.10'
 gem 'rails-i18n'
 gem 'rails-settings-cached'
 gem 'react-rails', '2.2.1'
