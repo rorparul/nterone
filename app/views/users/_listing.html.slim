@@ -109,10 +109,10 @@ javascript:
   
   function toggle_mass_edit() {
     if($(".users_mass_edit_checkbox:checked").length > 0) {
-      $(".mass_edit_btn").removeClass("hidden");
+      $("#dropdownMenu1").removeClass("disabled");
     }
     else{
-      $(".mass_edit_btn").addClass("hidden");
+      $("#dropdownMenu1").addClass("disabled");
     }
   }
 
