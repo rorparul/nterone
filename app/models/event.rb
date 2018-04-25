@@ -90,7 +90,7 @@ class Event < ActiveRecord::Base
   has_many :orders,      through: :order_items
   has_many :users,       through: :order_items
   has_many :registrations
-  
+
   has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
@@ -181,7 +181,9 @@ class Event < ActiveRecord::Base
   end
 
   def revenue
-    order_items.where.not(order_id: nil).sum(:price)
+    order_item_price = order_items.where.not(order_id: nil).sum(:price)
+    waiting_opportunities_price = opportunities.waiting.sum(:amount)
+    order_item_price + waiting_opportunities_price
   end
 
   def margin
@@ -296,8 +298,12 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def revenue_for_commission
+    order_items.where.not(order_id: nil).sum(:price)
+  end
+
   def calculate_cost_commission
-    self.cost_commission = revenue * commission_percent
+    self.cost_commission = revenue_for_commission * commission_percent
   end
 
   def confirm_with_instructor
