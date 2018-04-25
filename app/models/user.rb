@@ -61,7 +61,7 @@
 #  company_id              :integer
 #  about                   :text
 #  status                  :integer          default(0)
-#  daily_rate              :decimal(8, 2)    default(0.0)
+#  onsite_daily_rate       :decimal(8, 2)    default(0.0)
 #  video_bio               :text
 #  source_name             :string
 #  source_user_id          :string
@@ -80,6 +80,7 @@
 #  archive                 :boolean          default(FALSE)
 #  sales_force_id          :string
 #  customer_type           :integer
+#  online_daily_rate       :decimal(8, 2)    default(0.0)
 #
 # Indexes
 #
@@ -175,8 +176,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :chosen_courses, reject_if: :all_blank, allow_destroy: true
   scope :active_sales,            -> { joins(:roles).where(roles: { role: [2, 3] }).where.not(archive: true).order(:last_name) }
-  scope :all_instructors,         -> { joins(:roles).where(roles: { role: 7 }).order('last_name').order("daily_rate asc").distinct }
-  scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("daily_rate asc").distinct }
+  scope :all_instructors,         -> { joins(:roles).where(roles: { role: 7 }).order('last_name').order("onsite_daily_rate asc").distinct }
+  scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("onsite_daily_rate asc").distinct }
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
@@ -196,8 +197,13 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
   validates_uniqueness_of :source_user_id, allow_blank: true
-
-  after_save :update_instructor_costs, if: :daily_rate_changed?
+  
+  after_save do
+    if onsite_daily_rate_changed? || online_daily_rate_changed?
+      update_instructor_costs
+    end
+  end
+  
 
   def developer?
     email == 'ryan@storberg.net'
@@ -461,6 +467,14 @@ class User < ActiveRecord::Base
     [street, city, state, zipcode, country].compact.join(", ")
   end
 
+  def daily_rate(event=nil)
+    if event.present?
+      event.format == "Live Online" ? self.online_daily_rate : self.onsite_daily_rate
+    else
+      self.onsite_daily_rate
+    end
+  end
+
   private
 
   def update_instructor_costs
@@ -468,7 +482,7 @@ class User < ActiveRecord::Base
       events = Event.upcoming_events.where(instructor_id: self.id)
       events.each do |event|
         if event.autocalculate_instructor_costs && event.end_date != nil
-          event.cost_instructor = self.daily_rate * event.length
+          event.cost_instructor = self.daily_rate(event) * event.length
           event.save
         end
       end

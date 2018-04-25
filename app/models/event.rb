@@ -295,7 +295,7 @@ class Event < ActiveRecord::Base
 
   def calculate_instructor_cost
     if instructor
-      self.cost_instructor = instructor.daily_rate * length
+      self.cost_instructor = instructor.daily_rate(self) * length
     else
       self.cost_instructor = 0.0
     end

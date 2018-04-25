@@ -65,10 +65,17 @@
             .row
               .col-xs-12.col-md-6
                 .form-group
-                  = f.label :daily_rate, t('users.partial_form.daily_rate')
+                  = f.label :onsite_daily_rate, t('users.partial_form.onsite_daily_rate')
                   .input-group
                     span.input-group-addon $
-                    = f.text_field :daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
+                    = f.text_field :onsite_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
+
+              .col-xs-12.col-md-6
+                .form-group
+                  = f.label :online_daily_rate, t('users.partial_form.online_daily_rate')
+                  .input-group
+                    span.input-group-addon $
+                    = f.text_field :online_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"      
 
             hr
 
