@@ -44,21 +44,35 @@
     .text-center style="margin-bottom: 10px;"
       = @category.video.html_safe
 - else
-  - if @platform.title == "Cisco"
-    .container
-      = image_tag 'vendor-banners/en/nterone-cisco-award.jpg', style: 'width: 100%; margin-bottom: 10px;'
-  - else
-    = render partial: 'shared/banner_header'
+  = render partial: 'shared/banner_header'
 
 .container
-  = render partial: 'platforms/categories_menu', locals: { category: @category, categories: @categories }
+  .row.vendor-categories style="margin: 0 0 35px 0;"
+    .col-xs-12
+      = link_to t('platforms.partial_categories_menu.show_all'),
+                platform_category_path(@category.parent ? @category.parent.platform : @category.platform, @category.parent ? @category.parent : @category),
+                class: "btn #{@category.parent == nil ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                role: 'button'
+      - @categories.each do |parent_category|
+        - if parent_category == @category || parent_category == @category.parent
+          - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
+            = link_to child_category.title, platform_category_path(child_category.platform, child_category),
+                      class: "btn #{child_category == @category ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                      role: 'button'
 
-  .row
-    .col-xs-12.category-description
-      h1 style="margin: 20px 0 10px 0; font-size: 28px; color: gray;" = @category.heading
+  .row style="margin: 0 0 40px 0; text-align: center;"
+    .col-xs-12
+      h1 style="margin: 0; font-size: 28px; color: #505050;" = @category.heading
       = @category.description.try(:html_safe)
 
   .row.subjects
     = render partial: 'platforms/items', locals: { items: @items }
+
+  .row.vendor-categories style="margin: 35px 0 0 0;"
+    .col-xs-12
+      - @categories.each do |parent_category|
+        = link_to parent_category.title, platform_category_path(parent_category.platform, parent_category),
+                  class: "btn #{(parent_category == @category || parent_category.children.include?(@category)) ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                  role: 'button'
 
 = render partial: 'shared/banner_footer'

@@ -65,7 +65,7 @@
             - else
               h1 = vendor.title
           hr
-          - vendor.parent_categories.each do |category|
+          - vendor.parent_categories.order(:position).each do |category|
             h4 style="font-size: 12px;" = link_to category.title, platform_category_path(vendor, category)
 
 javascript:
