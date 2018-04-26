@@ -27,7 +27,7 @@
         div style='display: inline-block; margin: 2px 0; float: right;'
           = smart_listing_controls_for(:events, { class: "input-search" }) do
             .input-group.input-group-sm.filter style='margin-right: 15px;'
-              = text_field_tag :filter, cookies[:filter], class: "search form-control input-sm",
+              = text_field_tag :filter, '', class: "search form-control input-sm",
                                             placeholder: t('admins.classes.search'),
                                             autocomplete: :off
               span class="input-group-btn"
@@ -54,7 +54,7 @@
           = smart_listing_render(:events)
 
       #calendar-view-container
-        i.fa.fa-spinner.fa-spin.hidden.calander_loading.text-info style="font-size: 24px; position: absolute; right: 172px; top: 55px;"
+        i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
         #calendar-view
 
   .row
@@ -101,8 +101,14 @@ javascript:
             } else {
               $(".calander_loading").addClass('hidden');
             }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
         }
-      });
+      })
       $(this).data("loadCalander", false)
     }
-  });
+  })

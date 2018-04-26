@@ -105,7 +105,7 @@ class AdminController < ApplicationController
       format.html
       format.js
       format.json do
-        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': '#808080' } }.to_json
+        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) } }.to_json
       end
     end
   end
