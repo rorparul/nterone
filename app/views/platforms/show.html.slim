@@ -49,7 +49,7 @@
 .container
   .row.vendor-categories style="margin: 0 0 35px 0;"
     .col-xs-12
-      .btn-label Browse By
+      .btn-label Filter By
       - @categories.each do |parent_category|
         - if parent_category == @category || parent_category == @category.parent
           - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
