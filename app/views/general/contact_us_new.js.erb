@@ -1,6 +1,6 @@
-$('.modal-title').html("<%= t('general.contact_us_new_js.contact_us') %>");
-$('.modal-body').html("<%= escape_javascript(render partial: 'contact_us_form', locals: { user: @user }) %>");
-$('.modal-body').append("<hr style='margin: 18px 0 10px 0;'>");
-$('.modal-body').append("<%= escape_javascript(render partial: 'shared/addresses') %>");
-$('#myModal').modal('show');
+$('#myModal-wide .modal-title').html("<%= t('general.contact_us_new_js.contact_us') %>");
+$('#myModal-wide .modal-body').html("<div class='row'></div>");
+$('#myModal-wide .modal-body > .row').append("<div class='col-xs-12 col-md-6' style='margin-bottom: 20px;'><%= escape_javascript(render partial: 'contact_us_form', locals: { user: @user }) %></div>");
+$('#myModal-wide .modal-body > .row').append("<div class='col-xs-12 col-md-6'><%= escape_javascript(render partial: 'shared/addresses') %></div>");
+$('#myModal-wide').modal('show');
 grecaptcha.reset();

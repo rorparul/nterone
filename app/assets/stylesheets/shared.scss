@@ -509,7 +509,7 @@ header {
   align-items: center;
 }
 
-#myModal {
+#myModal, #myModal-wide {
   text-align: center;
   &:before {
     display: inline-block;
@@ -536,6 +536,12 @@ header {
         padding-top: 4px;
       }
     }
+  }
+}
+
+#myModal-wide {
+  .modal-dialog {
+    width: 80%;
   }
 }
 
