@@ -50,16 +50,16 @@
   .row.vendor-categories style="margin: 0 0 35px 0;"
     .col-xs-12
       .btn-label Filter By
+      = link_to t('platforms.partial_categories_menu.show_all'),
+                platform_category_path(@category.parent ? @category.parent.platform : @category.platform, @category.parent ? @category.parent : @category),
+                class: "btn #{@category.parent == nil ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                role: 'button'
       - @categories.each do |parent_category|
         - if parent_category == @category || parent_category == @category.parent
           - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
             = link_to child_category.title, platform_category_path(child_category.platform, child_category),
                       class: "btn #{child_category == @category ? 'btn-green-gradient' : 'btn-gray-gradient'}",
                       role: 'button'
-      = link_to t('platforms.partial_categories_menu.show_all'),
-                platform_category_path(@category.parent ? @category.parent.platform : @category.platform, @category.parent ? @category.parent : @category),
-                class: "btn #{@category.parent == nil ? 'btn-green-gradient' : 'btn-gray-gradient'}",
-                role: 'button'
 
   .row style="margin: 0 0 40px 0; text-align: center;"
     .col-xs-12
