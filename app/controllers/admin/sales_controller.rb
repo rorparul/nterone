@@ -131,16 +131,30 @@ class Admin::SalesController < Admin::BaseController
     params.require(:report)
   end
 
+  # def date_range(yearly, date)
+  #   if true?(yearly)
+  #     {
+  #       start: Date.parse(date).beginning_of_year,
+  #       end:   Date.parse(date).end_of_year
+  #     }
+  #   else
+  #     {
+  #       start: Date.parse(date).beginning_of_month,
+  #       end:   Date.parse(date).end_of_month
+  #     }
+  #   end
+  # end
+
   def date_range(yearly, date)
     if true?(yearly)
       {
         start: Date.parse(date).beginning_of_year,
-        end:   Date.parse(date).end_of_year
+        end:   Date.today
       }
     else
       {
         start: Date.parse(date).beginning_of_month,
-        end:   Date.parse(date).end_of_month
+        end:   Date.today
       }
     end
   end
