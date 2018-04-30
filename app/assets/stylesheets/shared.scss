@@ -477,6 +477,11 @@ header {
   }
 }
 
+label.btn.btn-blue-gradient.active {
+  background-color: rgb(25, 140, 70);
+  border-color: rgb(25, 140, 70);
+}
+
 .nav-pills > li > a {
   padding: 7px 16px;
 }
