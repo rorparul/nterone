@@ -2,7 +2,7 @@
   .panel.panel-default
     .panel-heading
       strong.text-muted = group.header
-      - if user_signed_in? && current_user.admin? && controller_name == 'subjects'
+      - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster)) && controller_name == 'subjects'
         .panel-actions-overlay
           = link_to edit_platform_subject_group_path(platform, subject, group), remote: true do
             = t('default.action.edit')
@@ -13,14 +13,14 @@
             - group.group_items.sort_by(&:position).each do |group_item|
               - case group_item.groupable_type
               - when 'Subject'
-              
+
                 / tr.subject-group-item
                 /   - if group_item.groupable.image.file_url != nil
                 /     td = image_tag group_item.groupable.image.file_url(:subject_small_icon) if group_item.groupable.image.present?
                 /   td colspan="6"
                 /     a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
                 /       = group_item.groupable.full_title
-                
+
                 tr.subject-group-item
                   - if group_item.groupable && group_item.groupable.image && group_item.groupable.image.file_url != nil
                     td.with-img colspan="6"
@@ -34,7 +34,7 @@
                       a href="#{platform_subject_path(subject.platform, group_item.groupable)}"
                         = group_item.groupable.title
                         span = " (#{group_item.groupable.abbreviation})"
-                        
+
               - when 'Course'
                 tr.course-group-item
                   td
@@ -134,7 +134,7 @@
                             / - if group_item.groupable.courses.first.price == '0' || group_item.groupable.courses.first.price == ''
                             /   = t 'partial.groups.groups.see_link'
                             / - else
-                            
+
                               / = "$#{number_with_delimiter(number_with_precision(group_item.groupable.courses.first.price, precision: 2))}"
                             = formatted_price_or_range_of_upcoming_events_for(group_item.groupable.courses.first)
                           - unless controller_name == 'subjects'
