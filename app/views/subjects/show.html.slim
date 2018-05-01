@@ -5,7 +5,7 @@
   = @subject.page_description
 
 - content_for :actions do
-  - if user_signed_in? && current_user.admin?
+  - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
     li = link_to new_platform_subject_group_path(@platform, @subject), remote: true do
       = t('subjects.show.add_table')
 
