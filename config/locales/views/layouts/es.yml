@@ -16,6 +16,7 @@ es:
     partial_header:
       contact_us: "Contáctanos 703.972.2288"
       partner: "Una Empresa Fundada por Veteranos"
+      logo: 'locales/es/logo-with-tagline.png'
     partial_sidebar:
       about_us: "Acerca de Nosotros"
       consulting: "Consultorías"

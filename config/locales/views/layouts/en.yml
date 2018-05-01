@@ -16,6 +16,7 @@ en:
     partial_header:
       contact_us: "Contact Us at 703-991-5185"
       partner: "A Veteran-Owned Business"
+      logo: 'locales/en/logo-with-tagline.png'
     partial_sidebar:
       about_us: "About Us"
       consulting: "Consulting"
