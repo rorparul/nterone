@@ -17,5 +17,16 @@
 
       = smart_listing_render(:courses)
 
+  .row
+    .col-xs-12.text-center
+      #download-classes
+        span
+          = t('admins.courses.download_courses')
+          | :
+        '
+        = link_to "XLSX", courses_export_path(format: 'xlsx')
+        = " | "
+        = link_to "CSV", courses_export_path(format: 'csv')
+
 javascript:
   $('.permissions .website').addClass('active');
