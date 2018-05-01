@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423092101) do
+ActiveRecord::Schema.define(version: 20180501153628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,16 +67,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
   add_index "assigned_items", ["origin_region"], name: "index_assigned_items_on_origin_region", using: :btree
-
-  create_table "blog_posts", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",                              null: false
@@ -568,16 +558,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
   add_index "images", ["origin_region"], name: "index_images_on_origin_region", using: :btree
 
-  create_table "industry_articles", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
-
   create_table "instructors", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -982,16 +962,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "press_releases", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
   end
 
   create_table "public_featured_events", force: :cascade do |t|
