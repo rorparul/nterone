@@ -256,7 +256,6 @@ es:
               option:
                 press_release: "Anuncio de Prensa"
                 blog_post: "Posteo del Blog"
-                industry_article: "Articulo de la industria"
             title: "Titulo"
             content: "Contenido"
             published: "Publicado"
@@ -319,7 +318,6 @@ es:
       instructor: "BIOS Instructores"
       press: "Prensa"
       blog: "Blog"
-      industry: "Industria"
   training:
     platform:
       action:
@@ -526,7 +524,6 @@ es:
         link:
           press: "Prensa"
           blog: "Blog"
-          industry: "Industria"
       other:
         title: "Otros"
       training:

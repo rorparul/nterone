@@ -49,11 +49,6 @@ class GeneralController < ApplicationController
     @blog_posts = Article.current_region.where(kind: "Blog Post").order(created_at: :desc)
   end
 
-  def industry
-    @page              = Page.find_by(title: 'Industry Index')
-    @industry_articles = Article.current_region.where(kind: "Industry Article").order(created_at: :desc)
-  end
-
   def consulting
     @page = Page.find_by(title: 'Consulting')
   end

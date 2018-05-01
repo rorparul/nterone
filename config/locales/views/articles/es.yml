@@ -7,8 +7,6 @@ es:
     partial_form:
       blog_post: "Blog"
       blog_post_value: "Blog Post"
-      industry_article: "Industria"
-      industry_article_value: "Industry Article"
       page_description: "Pagina Descripción"
       page_title: "Pagina Titulo"
       press_release: "Prensa"

@@ -23,9 +23,6 @@ en:
       price: "Price"
       webex: "Webex"
       preview: "Preview"
-    industry:
-      image: "locales/en/industry.png"
-      published: "Published"
     instructors:
       image: "locales/en/instructors.png"
     labs:
@@ -64,7 +61,6 @@ en:
       forums: "Forums"
       general: "General"
       home: "Home"
-      industry: "Industry"
       instructor: "Instructor Bios"
       labs: "Labs"
       other: "Other"

@@ -288,7 +288,6 @@ en:
               option:
                 press_release: "Press Release"
                 blog_post: "Blog Post"
-                industry_article: "Industry Article"
             title: "Title"
             content: "Content"
             published: "Published"
@@ -363,7 +362,6 @@ en:
       instructor: "Instructor Bios"
       press: "Press"
       blog: "Blog"
-      industry: "Industry"
   training:
     platform:
       action:
@@ -570,7 +568,6 @@ en:
         link:
           press: "Press"
           blog: "Blog"
-          industry: "Industry"
       other:
         title: "Other"
       training:
