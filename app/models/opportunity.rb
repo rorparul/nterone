@@ -97,7 +97,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def self.amount_won_mtd
-    won.where('date_closed >= ?', Date.today.beginning_of_month).sum(:amount)
+    won.where('date_closed >= ? and date_closed <= ?', Date.today.beginning_of_month, Date.today).sum(:amount)
   end
 
   def self.amount_won_last_month
@@ -105,7 +105,7 @@ class Opportunity < ActiveRecord::Base
   end
 
   def self.amount_won_ytd
-    won.where('date_closed >= ?', Date.today.beginning_of_year).sum(:amount)
+    won.where('date_closed >= ? and date_closed <= ?', Date.today.beginning_of_year, Date.today).sum(:amount)
   end
 
   def self.amount_won_last_year
