@@ -4,25 +4,10 @@
 - content_for :page_description do
   = @page.try(:page_description)
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{nci_path}"
-    = t('admins.partial_breadcrumbs.nci')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.engineers')
-
-.row#consulting
-  .col-xs-12.col-central
-    = @page.try(:content).try(:html_safe)
-
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
+.container
+  .row
+    .col-xs-12
+      = @page.try(:content).try(:html_safe)
 
 javascript:
   $('.nci-tab').addClass('active');

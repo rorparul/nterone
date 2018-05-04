@@ -1,6 +1,4 @@
 class MySalesController < ApplicationController
-  include MessageManager
-
   before_action :authenticate_user!
   before_action :validate_authorization
 
@@ -24,17 +22,7 @@ class MySalesController < ApplicationController
       @archived_leads   = Lead.where(seller_id: current_user.id, status: 'archived').where.not(buyer_id: nil).order(created_at: :desc)
     end
   end
-
-  def messages
-    @messages = Message.active(current_user)
-    mark_messages_read(current_user)
-    get_alert_counts
-  end
-
-  def announcements
-    @announcements = Announcement.where(poster: 'Sales Manager').order('created_at DESC')
-  end
-
+  
   private
 
   def validate_authorization

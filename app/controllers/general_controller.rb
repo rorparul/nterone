@@ -3,7 +3,7 @@ class GeneralController < ApplicationController
 
   def new_search
     respond_to do |format|
-      format.js
+      format.js { render 'shared/new_search' }
       format.html { redirect_to root_path }
     end
   end
@@ -16,8 +16,11 @@ class GeneralController < ApplicationController
     @items = subjects + courses + vods
   end
 
-  def welcome
-    @page = Page.find_by(title: 'Welcome')
+  def change_region
+    respond_to do |format|
+      format.js { render 'shared/change_region' }
+      format.html { redirect_to root_path }
+    end
   end
 
   def sign_up_confirmation
@@ -44,12 +47,6 @@ class GeneralController < ApplicationController
   def blog
     @page       = Page.find_by(title: 'Blog Index')
     @blog_posts = Article.current_region.where(kind: "Blog Post").order(created_at: :desc)
-  end
-
-  def industry
-    redirect_to root_path unless TopLevelDomain == "com"
-    @page              = Page.find_by(title: 'Industry Index')
-    @industry_articles = Article.current_region.where(kind: "Industry Article").order(created_at: :desc)
   end
 
   def consulting
@@ -126,8 +123,6 @@ class GeneralController < ApplicationController
 
             ContactUsSubmission.create(submission_params)
 
-            flash[:success] = 'Message successfully sent.'
-
             if params[:origin] == "course"
               redirect_to course_inquiry_confirmation_path
             elsif params[:origin] == "learning_credits"
@@ -178,21 +173,20 @@ class GeneralController < ApplicationController
   end
 
   def email_signature_tool
-    render layout: 'admin'
+    # render layout: 'admin'
   end
 
   private
 
   def contact_us_params
     params.require(:contact_us).permit(
-      'M360-Source',
-      :recipient,
+      :email,
+      :message,
       :name,
       :phone,
-      :email,
-      :inquiry,
+      :recipient,
       :subject,
-      :feedback
+      'M360-Source'
     )
   end
 

@@ -5,8 +5,6 @@ class UsersController < ApplicationController
 
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
-  
-  layout 'admin'
 
   def index
     respond_to do |format|
@@ -236,7 +234,7 @@ class UsersController < ApplicationController
       :zipcode,
       filters: [
         :parent_id,
-        :source_name, 
+        :source_name,
         :status,
         :state,
         :company_id
@@ -248,7 +246,7 @@ class UsersController < ApplicationController
       ],
       chosen_courses_attributes: [:course_id]
     )
-  end 
+  end
 
   def prepare_smart_listing(users_scope)
     smart_listing_create(

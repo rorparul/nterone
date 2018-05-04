@@ -1,0 +1,56 @@
+- content_for :page_title do
+  = @page.page_title
+
+- content_for :page_description do
+  = @page.page_description
+
+= render partial: 'shared/banner_header'
+
+#vendor-credits-redemption
+  #vendor-credits-redemption-logos
+    = image_tag 'vendor-logos/amazon-web-services.png'
+    = image_tag 'cisco-business-partner.png'
+    = image_tag 'cisco-partner.png'
+    = image_tag 'vendor-logos/itil.png'
+    = image_tag 'vendor-logos/microsoft-partner.png'
+    = image_tag 'vmware-partner-new.png'
+  #vendor-credits-redemption-banner
+    = link_to cisco_learning_credits_path do
+      = image_tag "redeem-your-credits.#{I18n.locale}.jpg"
+
+#featured-courses
+  #featured-courses-row-1.featured-courses-row.featured-courses-row-right
+    .row
+      .col-xs-8.col-xs-offset-2.col-sm-5.col-sm-offset-6.col-md-4.col-md-offset-6
+        - if @featured_course_1.present?
+          .featured-course-heading = @featured_course_1.heading
+          .featured-course-summary = @featured_course_1.featured_course_summary.try(:html_safe)
+          = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_1.platform, @featured_course_1), class: 'btn btn-blue-gradient', role: 'button'
+  #featured-courses-row-2.featured-courses-row.featured-courses-row-left
+    .row
+      .col-xs-8.col-xs-offset-2.col-sm-5.col-sm-offset-1.col-md-4.col-md-offset-2 style='text-align: right;'
+        - if @featured_course_2.present?
+          .featured-course-heading = @featured_course_2.heading
+          .featured-course-summary = @featured_course_2.featured_course_summary.try(:html_safe)
+          = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_2.platform, @featured_course_2), class: 'btn btn-blue-gradient', role: 'button'
+  #featured-courses-row-3.featured-courses-row.featured-courses-row-right
+    .row
+      .col-xs-8.col-xs-offset-2.col-sm-5.col-sm-offset-6.col-md-4.col-md-offset-6
+        - if @featured_course_3.present?
+          .featured-course-heading = @featured_course_3.heading
+          .featured-course-summary = @featured_course_3.featured_course_summary.try(:html_safe)
+          = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_3.platform, @featured_course_3), class: 'btn btn-blue-gradient', role: 'button'
+  #featured-courses-row-4.featured-courses-row.featured-courses-row-left
+    .row
+      .col-xs-8.col-xs-offset-2.col-sm-4.col-sm-offset-2 style='text-align: right;'
+        - if @featured_course_4.present?
+          .featured-course-heading = @featured_course_4.heading
+          .featured-course-summary = @featured_course_4.featured_course_summary.try(:html_safe)
+          = link_to t('welcome.index.register_today'), platform_course_path(@featured_course_4.platform, @featured_course_4), class: 'btn btn-blue-gradient', role: 'button'
+
+#mission
+  h1 = t('welcome.index.our_mission')
+  = link_to nterone_gives_back_path do
+    = image_tag 'nterone-gives-back.png', id: 'nterone-gives-back'
+  = image_tag "nterone-feeding-america.#{I18n.locale}.jpg", id: 'feeding-america'
+  = image_tag 'veteran-owned.png', id: 'veteran-owned'

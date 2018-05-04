@@ -1,40 +1,14 @@
 - content_for :page_title do
   = @article.page_title
-  
+
 - content_for :page_description do
   = @article.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    - if @article.kind == "Press Release"
-      = t('admins.partial_breadcrumbs.press')
-    - if @article.kind == "Blog Post"
-      = t('admins.partial_breadcrumbs.blog')
-    - if @article.kind == "Industry Article"
-      = t 'admins.partial_breadcrumbs.industry'
-    
-.row
-  .col-xs-12.col-md-9
-    .page-header
-      h3 = @article.title
-    = @article.content.html_safe
-    .row
-      .col-xs-12
-        br
-        button#back
-          = t('generic.button.back')
-  
-  .col-xs-12.col-md-3
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.about-us-tab').addClass('active');
-  
-  $('#back').on('click', function() {
-    location.replace(document.referrer);
-  });
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      = @article.content.try(:html_safe)
+
+= render partial: 'shared/banner_footer'

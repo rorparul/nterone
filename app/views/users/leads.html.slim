@@ -1,54 +1,36 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Sales
-  span.seperator
-    | / 
-  span.text-muted
-    | Leads
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Leads
-    .container-muted
-      = link_to t('default.action.new'), new_lead_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
-      - if policy(:user).mass_edit?
-        = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
-      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
-        i.fa.fa-file-excel-o aria-hidden="true"
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted Leads
+      .container-muted
+        = link_to t('default.action.new'), new_lead_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
+        - if policy(:user).mass_edit?
+          = link_to t('default.action.mass_edit'), mass_edit_users_path(type: action_name), class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
+        = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
+          i.fa.fa-file-excel-o aria-hidden="true"
+        span.toggle_customer_type_links
+          = render 'toggle_customer_type'
+        = smart_listing_controls_for(:users, { class: 'input-search' }) do
+          .input-group.input-group-sm.filter style='margin-right: 15px;'
+            = text_field_tag :search, '', class: 'search form-control input-sm',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+            span.input-group-btn
+              button.btn.btn-default.btn-sm.disabled type="submit"
+                span.glyphicon.glyphicon-search
 
-      span.toggle_customer_type_links
-        = render 'toggle_customer_type'  
-      = smart_listing_controls_for(:users, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :search, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
+          = render partial: 'filters_modal'
 
-        = render partial: 'filters_modal'
+        = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
+          i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+          | Filters
 
-      = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
-        i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
-        | Filters
-
-    = smart_listing_render(:users)
+      = smart_listing_render(:users)
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
   $('#export').on('click', function(e) {

@@ -1,16 +1,14 @@
 en:
   admins:
-    announcements:
-      new_announcement: "New Announcement"
     classes:
-      commissions_report: "Generate Commissions Report"
+      commissions_report: "Commissions Report"
       past: "Including past"
-      profits_report: "Generate Profit Sheets Report"
+      profits_report: "Profit Sheets Report"
       registered: "Only registered"
       search: "Search"
       title: "Classes"
       upload: "Upload"
-      utilization_report: "Generate Instructor Utilization Report"
+      utilization_report: "Instructor Utilization Report"
       xlsx: "Download Student-registered Classes"
     classes_show:
       upload_classes: "Upload Classes"
@@ -34,32 +32,16 @@ en:
       to: "to"
     people:
       users: "Users"
-    partial_breadcrumbs:
-      admin: "My Admin"
-      blog: "Blog"
-      classes: "Classes"
-      edit: "Edit"
-      home: "Home"
-      industry: "Industry"
-      my_sales: "My Sales"
-      nci: "NCI"
-      partner: "Partner"
-      press: "Press"
-      support: "Support"
-      training: "Training"
-      engineers: "Engineers"
-      cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
-      announcements: "Announcements"
       my_classes: "My Classes"
       classes: "Classes"
       courses: "Courses"
       insights: "Insights"
       lab_rentals: "Labs"
-      messages: "Messages"
       orders: "Orders"
       settings: "Settings"
       checklists: "Checklists"
+      tools_and_resources: 'Tools & Resources'
     website:
       active: "Active"
       articles: "Articles"

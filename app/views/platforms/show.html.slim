@@ -4,86 +4,77 @@
 - content_for :page_description do
   = @category.meta_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{platforms_path}"
-    = t('admins.partial_breadcrumbs.training')
-  span.seperator
-    | /
-  span.text-muted = @platform.title
-
 - content_for :actions do
   - if user_signed_in? && current_user.admin?
     li = link_to new_platform_category_path(@platform), remote: true do
-      i.fa.fa-plus
       = t('platforms.show.add_category')
     li = link_to select_platform_categories_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_category')
     li = link_to new_platform_subject_path(@platform), remote: false do
-      i.fa.fa-plus
       = t('platforms.show.add_certification')
     li = link_to select_platform_subjects_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_certification')
     li = link_to new_platform_course_path(@platform), remote: false do
-      i.fa.fa-plus
       = t('platforms.show.add_course')
     li = link_to select_platform_courses_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_course')
     li = link_to new_platform_video_on_demand_path(@platform), remote: false do
-      i.fa.fa-plus
       = t('platforms.show.add_video_on_demand')
     li = link_to select_platform_video_on_demands_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_video_on_demand')
     li = link_to new_platform_exam_path(@platform), remote: true do
-      i.fa.fa-plus
       = t('platforms.show.add_exam')
     li = link_to select_platform_exams_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_exam')
     li = link_to new_platform_exam_and_course_dynamic_path(@platform), remote: true do
-      i.fa.fa-plus
       = t('platforms.show.add_exam_course')
     li = link_to select_platform_exam_and_course_dynamics_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_exam_course')
     li = link_to new_platform_divider_path(@platform), remote: true do
-      i.fa.fa-plus
       = t('platforms.show.add_divider')
     li = link_to select_platform_dividers_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_divider')
     li = link_to new_platform_custom_item_path(@platform), remote: true do
-      i.fa.fa-plus
       = t('platforms.show.add_custom_item')
     li = link_to select_platform_custom_items_path(@platform), remote: true do
-      i.fa.fa-pencil
       = t('platforms.show.edit_custom_item')
-      
+
 - if @category.video.present?
-  .text-center style="margin-bottom: 10px;"
-    = @category.video.html_safe
+  .container
+    .text-center style="margin-bottom: 10px;"
+      = @category.video.html_safe
 - else
-  - if @platform.title == "Cisco"
-    = image_tag 'vendor-banners/en/nterone-cisco-award.jpg', style: 'width: 100%; margin-bottom: 10px;'
+  = render partial: 'shared/banner_header'
 
-= render partial: 'platforms/categories_menu', locals: { category: @category,
-                                                         categories: @categories }
+.container
+  .row.vendor-categories style="margin: 0 0 35px 0;"
+    .col-xs-12
+      .btn-label Filter By:
+      = link_to t('platforms.partial_categories_menu.show_all'),
+                platform_category_path(@category.parent ? @category.parent.platform : @category.platform, @category.parent ? @category.parent : @category),
+                class: "btn #{@category.parent == nil ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                role: 'button'
+      - @categories.each do |parent_category|
+        - if parent_category == @category || parent_category == @category.parent
+          - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
+            = link_to child_category.title, platform_category_path(child_category.platform, child_category),
+                      class: "btn #{child_category == @category ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                      role: 'button'
 
-.row
-  .col-xs-12.category-description
-    h1 style="margin: 20px 0 10px 0; font-size: 28px; color: gray;" = @category.heading
-    = @category.description.try(:html_safe)
+  .row style="margin: 0 0 40px 0; text-align: center;"
+    .col-xs-12
+      h1 style="margin: 0; font-size: 28px; color: #505050;" = @category.heading
+      = @category.description.try(:html_safe)
 
-.row.subjects
-  = render partial: 'platforms/items', locals: { items: @items }
+  .row.subjects
+    = render partial: 'platforms/items', locals: { items: @items }
 
-javascript:
-  $('.training-tab').addClass('active');
+  .row.vendor-categories style="margin: 35px 0 0 0;"
+    .col-xs-12
+      .btn-label Browse By:
+      - @categories.each do |parent_category|
+        = link_to parent_category.title, platform_category_path(parent_category.platform, parent_category),
+                  class: "btn #{(parent_category == @category || parent_category.children.include?(@category)) ? 'btn-green-gradient' : 'btn-gray-gradient'}",
+                  role: 'button'
+
+= render partial: 'shared/banner_footer'

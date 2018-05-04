@@ -1,94 +1,88 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.confirmation')
+= render partial: 'shared/banner_header'
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted = "#{t('orders.confirmation.confirmation')} ##{@order.id} #{t('orders.confirmation.order')}"
-      .table-responsive
-        table.table
-          thead
-            tr
-              th
-                = t('orders.confirmation.item')
-              th
-                = t('orders.confirmation.date')
-              th
-                = t('orders.confirmation.format')
-              th
-                = t('orders.confirmation.price')
-          tbody
-            - @order.order_items.each do |order_item|
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted = "#{t('orders.confirmation.confirmation')} ##{@order.id} #{t('orders.confirmation.order')}"
+        .table-responsive
+          table.table
+            thead
               tr
-                - if order_item.orderable_type == 'Event'
-                  td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
-                  td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
-                  td = order_item.orderable.format
-                - if order_item.orderable_type == 'VideoOnDemand'
-                  td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
-                  td
-                    = t('orders.confirmation.one_year_of_access')
-                  td
-                    = t('orders.confirmation.video_on_demand')
-                - if order_item.orderable_type == 'LabRental'
-                  td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
-                  td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
-                  td = t('orders.confirmation.pod_rental')
-                - if order_item.price > 0.00
-                  td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-                - else
-                  td
-                    = t('orders.confirmation.free')
+                th
+                  = t('orders.confirmation.item')
+                th
+                  = t('orders.confirmation.date')
+                th
+                  = t('orders.confirmation.format')
+                th
+                  = t('orders.confirmation.price')
+            tbody
+              - @order.order_items.each do |order_item|
+                tr
+                  - if order_item.orderable_type == 'Event'
+                    td = link_to order_item.orderable.course.full_title, platform_course_path(order_item.orderable.course.platform, order_item.orderable.course), target: "_blank"
+                    td = "#{order_item.orderable.start_date.strftime("%-m/%-d/%y")} to #{order_item.orderable.end_date.strftime("%-m/%-d/%y")}"
+                    td = order_item.orderable.format
+                  - if order_item.orderable_type == 'VideoOnDemand'
+                    td = link_to order_item.orderable.full_title, platform_video_on_demand_path(order_item.orderable.platform, order_item.orderable), target: "_blank"
+                    td
+                      = t('orders.confirmation.one_year_of_access')
+                    td
+                      = t('orders.confirmation.video_on_demand')
+                  - if order_item.orderable_type == 'LabRental'
+                    td = link_to order_item.orderable.lab_course.title, lab_course_path(order_item.orderable.lab_course), target: "_blank"
+                    td = "#{order_item.orderable.start_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")} - #{order_item.orderable.end_time.in_time_zone(order_item.orderable.time_zone).strftime("%I:%M%p")}, #{order_item.orderable.first_day.strftime("%-m/%-d/%y")} "
+                    td = t('orders.confirmation.pod_rental')
+                  - if order_item.price > 0.00
+                    td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                  - else
+                    td
+                      = t('orders.confirmation.free')
 
-.row
-  .col-xs-12
-    - if @order.payment_type == "Credit Card"
-      - if @order.discount
-        p = "#{t('orders.confirmation.regular_total')} $#{number_with_delimiter(number_with_precision(@order.regular_price, precision: 2))}"
-        p = "#{t('orders.confirmation.discount')} #{@order.discount_amount}"
-        p = "#{t('orders.confirmation.discounted_total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-      - else
-        p = "#{t('orders.confirmation.total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-    - if @order.payment_type == "Cisco Learning Credits"
-      - if @order.discount
-        p = "#{t('orders.confirmation.regular_total')} $#{number_with_delimiter(number_with_precision(@order.regular_price, precision: 2))}"
-        p = "#{t('orders.confirmation.discount')} #{@order.discount_amount}"
-        p = "#{t('orders.confirmation.discounted_total')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
-        p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
-      - else
-        p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      - if @order.payment_type == "Credit Card"
+        - if @order.discount
+          p = "#{t('orders.confirmation.regular_total')} $#{number_with_delimiter(number_with_precision(@order.regular_price, precision: 2))}"
+          p = "#{t('orders.confirmation.discount')} #{@order.discount_amount}"
+          p = "#{t('orders.confirmation.discounted_total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+        - else
+          p = "#{t('orders.confirmation.total_charged_card')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+      - if @order.payment_type == "Cisco Learning Credits"
+        - if @order.discount
+          p = "#{t('orders.confirmation.regular_total')} $#{number_with_delimiter(number_with_precision(@order.regular_price, precision: 2))}"
+          p = "#{t('orders.confirmation.discount')} #{@order.discount_amount}"
+          p = "#{t('orders.confirmation.discounted_total')} $#{number_with_delimiter(number_with_precision(@order.paid, precision: 2))}"
+          p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
+        - else
+          p = "#{t('orders.confirmation.total_credits_applied')} #{@order.clc_quantity}"
 
-.row
-  .col-xs-12
-    p
-      = t('orders.confirmation.copy1')
-      = mail_to "sales#{t('email')}", "sales#{t('email')}"
-      = t('orders.confirmation.copy2')
-      = mail_to "billing#{t('email')}", "billing#{t('email')}"
-      = t('orders.confirmation.copy3')
-      = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
-      = t('orders.confirmation.copy4')
-      strong = "#{RegionalPhoneNumber} "
-      = t('orders.confirmation.copy5')
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      p
+        = t('orders.confirmation.copy1')
+        = mail_to "sales#{t('email')}", "sales#{t('email')}"
+        = t('orders.confirmation.copy2')
+        = mail_to "billing#{t('email')}", "billing#{t('email')}"
+        = t('orders.confirmation.copy3')
+        = mail_to "helpdesk#{t('email')}", "helpdesk#{t('email')}"
+        = t('orders.confirmation.copy4')
+        strong = "#{RegionalPhoneNumber} "
+        = t('orders.confirmation.copy5')
 
-    p
-      = t('orders.confirmation.copy6')
+      p
+        = t('orders.confirmation.copy6')
 
-.row
-  .col-xs-12
-    #degrees
-      = image_tag '360-degrees.png', class: 'degrees'
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      #degrees
+        = image_tag '360-degrees.png', class: 'degrees'
+
+= render partial: 'shared/banner_footer'
 
 javascript:
-  $('.home-tab').addClass('active');
-
 - if I18n.locale == :en
   - if Rails.env.production?
     javascript:

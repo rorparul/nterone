@@ -6,16 +6,6 @@ es:
     contact_us: "Contáctanos 703.972.2288"
     search: "Buscar"
     actions: "Acciones"
-  breadcrumbs:
-    home: "Inicio"
-    admin: "Mi cuenta"
-    instructor:
-    about_us: "Acerca de Nosotros"
-    sitemap: "Mapa"
-    training: "Entrenamientos"
-    search: "Buscar"
-    new: "Nuevo"
-    edit: "Editar"
   side_menu:
     welcome: "Bienvenidos"
     login: "Usuarios"
@@ -49,10 +39,8 @@ es:
       orders: "Ordenes"
       classes: "Clases"
       courses: "Cursos"
-      announcements: "Anuncios"
       people: "Personas"
       website: "Pagina Web"
-      messages: "Mensajes"
       settings: "Ajustes"
     admin_queue:
       row:
@@ -196,27 +184,6 @@ es:
             course_id: "Curso ID"
             course_title: "Titulo"
             course_events: "Proximos Eventos"
-    admin_announcements:
-      row:
-        new_announcement:
-          title: "Nuevos Anuncios"
-          button:
-            all: "Todo"
-            members: "Miembros"
-            sales_rep: "Representantes de Ventas"
-            sales_member: "Gerente de Ventas"
-            members_sales_reps: "Miembros & Representantes de Ventas"
-        announcements:
-          title: "Anuncios"
-          column:
-            announcements_content: "Contenidos"
-            announcements_target: "Objetivo"
-            announcements_poster: "Póster"
-            announcements_status:
-              title: "Estado"
-              value:
-                active: "Activo"
-                inactive: "Inactivo"
     admin_people:
       row:
         people:
@@ -289,7 +256,6 @@ es:
               option:
                 press_release: "Anuncio de Prensa"
                 blog_post: "Posteo del Blog"
-                industry_article: "Articulo de la industria"
             title: "Titulo"
             content: "Contenido"
             published: "Publicado"
@@ -305,14 +271,6 @@ es:
           label:
             image: "Imagen"
             image_title: "Titulo"
-    admin_messages:
-      row:
-        messages:
-          title: "Mensaje"
-          column:
-            date: "Fecha"
-            from: "De"
-            message: "Mensaje"
     admin_settings:
       row:
         contact_info:
@@ -360,7 +318,6 @@ es:
       instructor: "BIOS Instructores"
       press: "Prensa"
       blog: "Blog"
-      industry: "Industria"
   training:
     platform:
       action:
@@ -567,7 +524,6 @@ es:
         link:
           press: "Prensa"
           blog: "Blog"
-          industry: "Industria"
       other:
         title: "Otros"
       training:
@@ -588,9 +544,6 @@ es:
         students: "Placeholder"
         lab_source: "Placeholder"
         actions: "Placeholder"
-    classes:
-      breadcrumbs:
-        my_classes: "Placeholder"
     classes_show:
       registrations: "Class Registrations"
       students: "Students"

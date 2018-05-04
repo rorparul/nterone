@@ -1,11 +1,6 @@
 tr
-  td.fit style="cursor: help;"
-    - if event.origin_region == 'united_states'
-      span.label.label-danger title="#{event.origin_region.try(:titleize)}" US
-    - elsif event.origin_region == 'latin_america'
-      span.label.label-warning title="#{event.origin_region.try(:titleize)}" LA
-    - elsif event.origin_region == 'canada'
-      span.label.label-info title="#{event.origin_region.try(:titleize)}" CA
+  td.fit.text-center
+    = region_label(event)
   td.fit = event.id
   td.fit
     - if event.checklist

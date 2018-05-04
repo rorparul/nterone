@@ -1,15 +1,52 @@
-@import 'bootstrap-sprockets';
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,700');
+
+@mixin set-all {
+  &, &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin set-all-pseudo {
+  &:active, &:hover, &:focus, &:visited, &:focus-within {
+    @content;
+  }
+}
+
+@mixin value-prefix($property, $value, $vendors: webkit moz ms o) {
+  @if $vendors {
+    @each $vendor in $vendors {
+      #{$property}: #{"-" + $vendor + "-" + $value};
+    }
+  }
+  #{$property}: #{$value};
+}
+
+@import "bootstrap-sprockets";
 @import 'bootstrap';
 @import 'bootstrap-datetimepicker';
 @import 'components/bootstrap-datepicker3.min';
+@import 'font-awesome-sprockets';
 @import 'font-awesome';
-@import 'froala_editor.min';
-@import 'froala_style.min';
+@import 'flag-icon';
 @import 'fullcalendar';
 @import 'jquery-ui/tabs';
 @import 'parsley';
-@import 'plugins/image_manager.min';
-@import 'plugins/image.min';
+@import 'froala_editor.min';
+@import 'froala_style.min';
+@import 'plugins/char_counter.min.css';
+@import 'plugins/code_view.min.css';
+@import 'plugins/colors.min.css';
+@import 'plugins/emoticons.min.css';
+@import 'plugins/file.min.css';
+@import 'plugins/fullscreen.min.css';
+@import 'plugins/help.min.css';
+@import 'plugins/image_manager.min.css';
+@import 'plugins/image.min.css';
+@import 'plugins/line_breaker.min.css';
+@import 'plugins/quick_insert.min.css';
+@import 'plugins/special_characters.min.css';
+@import 'plugins/table.min.css';
+@import 'plugins/video.min.css';
 @import 'select2';
 @import 'select2-bootstrap';
 @import 'radialprogress/lib/styles/vizuly';

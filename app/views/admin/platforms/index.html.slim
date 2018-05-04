@@ -1,37 +1,35 @@
-- content_for :breadcrumbs do
-  = render "admin/breadcrumbs"
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          | Vendors
-      .panel-table
-        .table-responsive
-          table.table.table-condensed
-            thead
-              tr
-                th ID
-                th Title
-                th
-                  | Regions
-                th.fit colspan='2'
-            tbody
-              - @platforms.each do |platform|
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            | Vendors
+        .panel-table
+          .table-responsive
+            table.table.table-condensed
+              thead
                 tr
-                  td = platform.id
-                  td = platform.title
-                  td
-                    ul style="padding: 0; margin: 0;"
-                      - platform.active_regions.each do |region|
-                        li style="list-style: none;" = region.titleize
-                  td.fit
-                    = link_to t('default.action.edit'), edit_platform_path(platform), remote: true
-                  td.fit
-                    = link_to t('default.action.delete'), platform_path(platform), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger', remote: true
+                  th ID
+                  th Title
+                  th
+                    | Regions
+                  th.fit colspan='2'
+              tbody
+                - @platforms.each do |platform|
+                  tr
+                    td = platform.id
+                    td = platform.title
+                    td
+                      ul style="padding: 0; margin: 0;"
+                        - platform.active_regions.each do |region|
+                          li style="list-style: none;" = region.titleize
+                    td.fit
+                      = link_to t('default.action.edit'), edit_platform_path(platform), remote: true
+                    td.fit
+                      = link_to t('default.action.delete'), platform_path(platform), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger', remote: true
 
 javascript:
-  $('.permissions .resources').addClass('active');
+  $('.permissions .website').addClass('active');

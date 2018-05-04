@@ -23,10 +23,3 @@
         .form-buttons
           button.btn.btn-success type="submit" style='width: 100%;'
             = t('default.action.send')
-
-= render partial: 'shared/credits'
-
-- unless (controller_name == 'courses' && action_name == 'show') || (controller_name == 'general' && action_name == 'labs')
-  .side-column-graphics
-    = link_to main_app.nterone_gives_back_path do
-      = image_tag 'nterone-gives-back.png'

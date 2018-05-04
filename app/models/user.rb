@@ -44,9 +44,6 @@
 #  billing_state           :string
 #  billing_zip_code        :string
 #  same_addresses          :boolean          default(FALSE)
-#  forem_admin             :boolean          default(FALSE)
-#  forem_state             :string           default("pending_review")
-#  forem_auto_subscribe    :boolean          default(FALSE)
 #  billing_first_name      :string
 #  billing_last_name       :string
 #  shipping_first_name     :string
@@ -93,7 +90,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#  fk_rails_...  (company_id => companies.id)
 #
 
 class User < ActiveRecord::Base
@@ -139,7 +136,6 @@ class User < ActiveRecord::Base
   has_many :buyer_leads,              class_name: "Lead", foreign_key: "buyer_id", dependent: :destroy
   has_many :lab_rentals
   has_many :individual_lab_rentals,   through: :order_items, source: :orderable, source_type: 'LabRental'
-  has_many :messages,                 dependent:   :destroy
   has_many :posts
   has_many :roles,                    dependent:   :destroy
   has_many :seller_orders,            class_name:  'Order',
@@ -235,10 +231,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def forem_name
-    full_name
-  end
-
   def my_plan_total_low
     planned_unattended_courses.inject(0) do |sum, course|
       event = course.events.where('active = ? and start_date >= ?', true, Date.today).order(:price).first
@@ -282,14 +274,6 @@ class User < ActiveRecord::Base
       courses << course if potential_courses.include?(course)
     end
     courses
-  end
-
-  def new_message_count
-    count = 0
-    self.messages.where(read: false).each do |message|
-      count += 1 if message.announcement.status == 'open'
-    end
-    count
   end
 
   def show_tasks?

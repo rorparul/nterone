@@ -1,5 +1,6 @@
 NterOne::Application.routes.draw do
-  root to: 'general#welcome'
+  root to: 'welcome#index'
+
   devise_for :users,
              controllers: {
                registrations: 'users/registrations',
@@ -32,13 +33,13 @@ NterOne::Application.routes.draw do
     end
   end
 
+  get 'dashboard' => 'dashboard#index', as: :dashboard
+
   get 'admin/' => 'admin#index'
 
   resources :pages
 
   resources :articles
-
-  resources :image_store_units
 
   resources :contact_us_submissions, only: [:index, :show]
 
@@ -69,10 +70,6 @@ NterOne::Application.routes.draw do
   end
 
   resources :posts, except: [:index, :new, :show]
-
-  resources :announcements, except: [:new, :show]
-
-  resources :messages, only: [:index]
 
   resources :testimonials, except: [:show] do
     collection do
@@ -273,24 +270,20 @@ NterOne::Application.routes.draw do
   end
 
   controller :admin do
-    get 'admin/queue',                               as: :admin_queue
-    get 'admin/orders',                              as: :admin_orders
-    get 'admin/orders/:id'  => 'admin#orders_show',  as: :admin_orders_show
-    get 'admin/classes',                             as: :admin_classes
-    get 'admin/classes/:id' => 'admin#classes_show', as: :admin_classes_show
-    # get 'admin/courses',                             as: :admin_courses
-    get 'admin/lab-rentals',                         as: :admin_lab_rentals, path: 'admin/lab-reservations'
-    get 'admin/announcements',                       as: :admin_announcements
-    get 'admin/website',                             as: :admin_website
-    get 'admin/messages',                            as: :admin_messages
-    get 'admin/settings',                            as: :admin_settings
-    get 'admin/tools',                               as: :admin_tools
-    get 'admin/cpl_log'     => 'admin#cpl_log',      as: :cpl_log
+    get 'admin/queue',                                  as: :admin_queue
+    get 'admin/orders',                                 as: :admin_orders
+    get 'admin/orders/:id'   => 'admin#orders_show',    as: :admin_orders_show
+    get 'admin/classes',                                as: :admin_classes
+    get 'admin/classes/:id'  => 'admin#classes_show',   as: :admin_classes_show
+    get 'admin/lab-rentals',                            as: :admin_lab_rentals, path: 'admin/lab-reservations'
+    get 'admin/marketing',                              as: :admin_marketing
+    get 'admin/settings'     => 'admin/settings#index', as: :admin_settings
+    get 'admin/tools',                                  as: :admin_tools
+    get 'admin/cpl_log'      => 'admin#cpl_log',        as: :cpl_log
   end
 
   controller :my_account do
     get 'my-account/my-nterone' => 'my_account#plan', as: :my_account_plan
-    get 'my-account/messages',                        as: :my_account_messages
     get 'my-account/settings',                        as: :my_account_settings
   end
 
@@ -309,7 +302,6 @@ NterOne::Application.routes.draw do
   get  'about-us/instructors'                        => 'general#instructors',                      as: :instructors_bios
   get  'about-us/press'                              => 'general#press',                            as: :press
   get  'about-us/blog'                               => 'general#blog',                             as: :blog
-  get  'about-us/industry'                           => 'general#industry',                         as: :industry
   get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',               as: :nterone_gives_back
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'
@@ -318,8 +310,9 @@ NterOne::Application.routes.draw do
   get  'my-queue'                                    => 'general#my_queue'
   get  'new-search'                                  => 'general#new_search'
   get  'search'                                      => 'general#search'
-  get  'contact_us'                                  => 'general#contact_us_new',                   as: :contact_us
-  post 'contact_us'                                  => 'general#contact_us_create'
+  get  'change_region'                               => 'general#change_region'
+  get  'contact_us'                                  => 'general#contact_us_new',                   as: :new_contact_us
+  post 'contact_us'                                  => 'general#contact_us_create',                as: :contact_us
   get  'general_inquiry_confirmation'                => 'general#contact_us_confirmation',          as: :general_inquiry_confirmation
   get  'course_inquiry_confirmation'                 => 'general#contact_us_confirmation',          as: :course_inquiry_confirmation
   get  'learning_credits_inquiry_confirmation'       => 'general#contact_us_confirmation',          as: :learning_credits_inquiry_confirmation

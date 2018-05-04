@@ -94,6 +94,7 @@ class Event < ActiveRecord::Base
   has_many :checklist_items_events, class_name: "ChecklistItemsEvents"
   has_and_belongs_to_many :checklist_items
 
+  before_save :calculate_book_cost,       if: proc { |model| model.calculate_book_costs? }
   before_save :calculate_instructor_cost, if: proc { |model| model.autocalculate_instructor_costs? }
   before_save :calculate_cost_commission, if: proc { |model| model.autocalculate_cost_commission? }
   before_save :mark_non_public
@@ -181,9 +182,7 @@ class Event < ActiveRecord::Base
   end
 
   def revenue
-    order_item_price = order_items.where.not(order_id: nil).sum(:price)
-    waiting_opportunities_price = opportunities.waiting.sum(:amount)
-    order_item_price + waiting_opportunities_price
+    order_items.where.not(order_id: nil).sum(:price)
   end
 
   def margin
@@ -263,11 +262,11 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def title_with_instructor
-    if self.instructor.present?
-      "#{instructor.full_name} (#{course.abbreviation})"
+  def title_with_instructor_and_state
+    if state.present?
+      "#{instructor.full_name} [#{course.abbreviation}] [#{state}]"
     else
-      "#{course.abbreviation}"
+      "#{instructor.full_name} [#{course.abbreviation}]"
     end
   end
 
@@ -290,6 +289,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def calculate_book_cost
+    self.cost_books = book_cost_per_student * student_count
+  end
+
   def calculate_instructor_cost
     if instructor
       self.cost_instructor = instructor.daily_rate * length
@@ -298,12 +301,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def revenue_for_commission
-    order_items.where.not(order_id: nil).sum(:price)
-  end
-
   def calculate_cost_commission
-    self.cost_commission = revenue_for_commission * commission_percent
+    self.cost_commission = revenue * commission_percent
   end
 
   def confirm_with_instructor

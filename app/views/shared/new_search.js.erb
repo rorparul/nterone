@@ -1,0 +1,3 @@
+$('#myModal .modal-title').html("<%= t('shared.new_search.title') %>");
+$('#myModal .modal-body').html("<%= escape_javascript(render partial: 'shared/search_form') %>");
+$('#myModal').modal('show');

@@ -6,7 +6,7 @@ class OpportunitiesController < ApplicationController
   before_action :set_opportunity,       only: [:show, :edit, :update, :destroy, :copy]
   before_action :authorize_opportunity, except: [:copy, :export_popup]
 
-  layout 'admin'
+  # layout 'admin'
 
   def index
     date_start = Date.parse params[:date_start].values.join("-") if params[:date_start]

@@ -43,7 +43,7 @@ end
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 
-guard 'rails', CLI: 'bin/rails server -b nterone.dev' do
+guard 'rails', CLI: 'bin/rails server -b nterone.local' do
   watch('Gemfile.lock')
   watch(%r{^(config|lib)/.*})
 end

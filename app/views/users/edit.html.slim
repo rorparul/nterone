@@ -1,19 +1,7 @@
-- content_for :breadcrumbs do
-  = render "admin/breadcrumbs"
-  
 = render 'layouts/tabs'
 
-= render 'form'
-
-.row#settings
-  .col-xs-12
-    button#back 
-      = t('default.action.back')
+.container
+  = render 'form'
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
-  
-  $('#back').on('click', function() {
-    location.replace(document.referrer);
-  });

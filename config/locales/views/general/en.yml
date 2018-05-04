@@ -23,9 +23,6 @@ en:
       price: "Price"
       webex: "Webex"
       preview: "Preview"
-    industry:
-      image: "locales/en/industry.png"
-      published: "Published"
     instructors:
       image: "locales/en/instructors.png"
     labs:
@@ -36,12 +33,11 @@ en:
       billing_address: "NterOne Billing Address"
       corporate_address: "NterOne Corporate Address"
       email: "Email"
-      feedback: "Feedback – How can we make your experience better?"
       help_desk: "Help Desk"
-      inquiry: "Inquiries - How can we help you?"
       name: "Name"
-      phone: "Phone Number"
+      phone: "Phone"
       sales: "Sales"
+      questions_or_comments: "Questions or Comments"
     partial_search_form:
       placeholder: "Search by certification, course, or exam"
     partners:
@@ -65,7 +61,6 @@ en:
       forums: "Forums"
       general: "General"
       home: "Home"
-      industry: "Industry"
       instructor: "Instructor Bios"
       labs: "Labs"
       other: "Other"

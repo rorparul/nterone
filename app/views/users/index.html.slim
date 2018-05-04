@@ -1,48 +1,44 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Users
-    
-= content_for :actions do 
+= content_for :actions do
   li
     = link_to sales_force_form_for_tasks_path, remote: true do
       = "Upload Sales Force Task Files"
-  li 
+  li
     = link_to sales_force_form_for_other_path, remote: true do
       = "Upload Other Sales Force Files"
 
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted People
-    .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn  btn-success btn-sm', role: 'button'
-      span.toggle_customer_type_links
-        = render 'toggle_customer_type'
-      = smart_listing_controls_for(:users, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
-    = smart_listing_render(:users)
-      
+.container
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs style='margin-bottom: 10px;'
+        li.active role="presentation"
+          = link_to 'All', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Students', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Instructors', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Marketing', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Admin', '#', id: 'btn-list-view'
+      #view-filter-controls.container-muted
+        = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient list-view-element', role: 'button'
+        span.toggle_customer_type_links
+          = render 'toggle_customer_type'
+        div style='display: inline-block; margin: 2px 0; float: right;'
+          = smart_listing_controls_for(:users, { class: 'input-search' }) do
+            .input-group.input-group-sm.filter
+              = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
+              span.input-group-btn
+                button.btn.btn-default.btn-sm.disabled type="submit"
+                  span.glyphicon.glyphicon-search
+
+      #list-view-container
+        #list-view
+          = smart_listing_render(:users)
+
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
-  
-  
-  
-  

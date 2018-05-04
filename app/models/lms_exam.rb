@@ -24,9 +24,9 @@
 #
 # Foreign Keys
 #
-#  fk_rails_288282c1b2  (video_module_id => video_modules.id)
-#  fk_rails_42a08bef10  (video_id => videos.id)
-#  fk_rails_8802cfdaa4  (video_on_demand_id => video_on_demands.id)
+#  fk_rails_...  (video_id => videos.id)
+#  fk_rails_...  (video_module_id => video_modules.id)
+#  fk_rails_...  (video_on_demand_id => video_on_demands.id)
 #
 
 class LmsExam < ActiveRecord::Base
