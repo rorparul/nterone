@@ -5,11 +5,11 @@
     .form-group
       .btn-group.btn-group-justified data-toggle='buttons'
         label.btn.btn-blue-gradient.active
-          = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", id: 'option1', autocomplete: 'off', checked: true
-          = t('general.partial_contact_us_form.help_desk')
-        label.btn.btn-blue-gradient
           = f.radio_button :recipient, "sales@nterone.#{Rails.application.config.tld}", id: 'option2', autocomplete: 'off'
           = t('general.partial_contact_us_form.sales')
+        label.btn.btn-blue-gradient
+          = f.radio_button :recipient, "helpdesk@nterone.#{Rails.application.config.tld}", id: 'option1', autocomplete: 'off', checked: true
+          = t('general.partial_contact_us_form.help_desk')
         label.btn.btn-blue-gradient
           = f.radio_button :recipient, "billing@nterone.#{Rails.application.config.tld}", id: 'option3', autocomplete: 'off'
           = t('general.partial_contact_us_form.billing')

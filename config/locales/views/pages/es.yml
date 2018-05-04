@@ -11,3 +11,9 @@ es:
       page_description: "Pagina Descripción"
       page_title: "Pagina Titulo"
       title: "Titulo"
+    clcs:
+      name: 'Nombre'
+      email: 'Email'
+      telephone: 'Teléfono'
+      inquiry_value: 'Por favor contácteme para conversar acerca de cómo utilizar los Créditos de Educación Cisco para inscribirme en un curso.'
+      request_information: 'Información Requerida'
