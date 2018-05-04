@@ -7,10 +7,10 @@ class WelcomeController < ApplicationController
   private
 
   def set_featured_courses
-    @featured_course_1 = Course.find(YAML.load(Setting.featured_course_1_id)[$tld])
-    @featured_course_2 = Course.find(YAML.load(Setting.featured_course_2_id)[$tld])
-    @featured_course_3 = Course.find(YAML.load(Setting.featured_course_3_id)[$tld])
-    @featured_course_4 = Course.find(YAML.load(Setting.featured_course_4_id)[$tld])
+    @featured_course_1 = Course.find_by(id: YAML.load(Setting.featured_course_1_id)[$tld])
+    @featured_course_2 = Course.find_by(id: YAML.load(Setting.featured_course_2_id)[$tld])
+    @featured_course_3 = Course.find_by(id: YAML.load(Setting.featured_course_3_id)[$tld])
+    @featured_course_4 = Course.find_by(id: YAML.load(Setting.featured_course_4_id)[$tld])
     rescue
   end
 end
