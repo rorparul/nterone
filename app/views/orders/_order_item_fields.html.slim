@@ -9,7 +9,7 @@
           = f.label :orderable_id, t('orders.partial_order_item_fields.classes')
           br
           = f.select :orderable_id,
-            @events.collect { |event| ["#{event.course.abbreviation} - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - f.object.price).to_s}", event.id] },
+            @events.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - f.object.price).to_s}", event.id] },
             { prompt: t('default.placeholder.select') },
             { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector" }  
         
@@ -23,15 +23,7 @@
         = f.hidden_field :updated_at, value: Time.now 
         - f.object.start_date = event.start_date
         - f.object.end_date = event.end_date
-        .col-xs-12.col-sm-3
-          .form-group
-            = f.label :start_date, t('orders.partial_order_item_fields.start_date')
-            = f.date_field :start_date, class: 'form-control input-sm order-item-start_date'
         
-        .col-xs-12.col-sm-3
-          .form-group
-            = f.label :end_date, t('orders.partial_order_item_fields.end_date')
-            = f.date_field :end_date, class: 'form-control input-sm order-item-end'
     - if order.new_record?
       = link_to_remove_association t('orders.partial_order_item_fields.remove'), f
 - when 'VideoOnDemand'
