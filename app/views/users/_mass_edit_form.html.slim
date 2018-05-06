@@ -1,4 +1,4 @@
-.form-group
+.form-group.owner_dropdown
   = label_tag "user[parent_id]", "Owner"
   = select_tag "user[parent_id]",
                options_for_select([]),
@@ -13,20 +13,25 @@
 
 javascript:
   $('#mass-update').on('click', function() {
+    user_ids = []
+    $(".users_mass_edit_checkbox:checked").each(function(){
+        user_ids.push($(this).val());
+    });
+
+    prepare_params = {"user_ids": user_ids}
+    prepare_params["user[parent_id]"] = $('#user_parent_id').val();
+    
     $.ajax({
       type: "POST",
       url: "#{mass_update_users_path(type: @type)}",
-      data: $.param({
-        "user[parent_id]": $('#user_parent_id').val(),
-
-        "user[filters][parent_id]": $('#user_filters_parent_id').val(),
-        "user[filters][source_name]": $('#user_filters_source_name').val(),
-        "user[filters][status]": $('#user_filters_status').val(),
-        "user[filters][state]": $('#user_filters_state').val(),
-        "user[filters][company_id]": $('#user_filters_company_id').val(),
-
-        "search": $('#search').val()
-      })
+      dataType: 'json',
+      data: $.param(prepare_params),
+      success:function(data) {
+        $.each(user_ids, function( index, value ) {
+          $("#user-"+value+"-sales-rep").text(data["parent_name"]);
+        });  
+        $('#myModal').modal('hide');
+      }
     });
   });
 
