@@ -1,9 +1,9 @@
 tr id="sales_goal-#{goal.id}"
-  td.month= goal.month.strftime("%m-%Y")
-  td.origin_region= Event.origin_regions.index(goal.origin_region).humanize.titleize
-  td.amount.text-right= number_with_delimiter goal.amount
-  td.description= goal.description
-  td[style="float:left"]= link_to edit_admin_sales_goal_path(goal), remote: true do
+  td.month = goal.month.strftime("%m-%Y")
+  td.origin_region = Event.origin_regions.index(goal.origin_region).humanize.titleize
+  td.amount.text-right = number_with_delimiter goal.amount
+  td.description = goal.description
+  td.fit = link_to edit_admin_sales_goal_path(goal), remote: true do
     i.fa.fa-edit
-  td[style="float:left"]= link_to admin_sales_goal_path(goal), method: :delete, confirm: "Are you sure?" do
+  td.fit = link_to admin_sales_goal_path(goal), method: :delete, confirm: "Are you sure?" do
     i.fa.fa-remove

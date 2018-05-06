@@ -65,11 +65,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def leads_unsubscribe_new?
-    user.has_any_role?(%i(admin))
+    user.has_any_role?(%i(admin sales_rep sales_manager))
   end
 
   def leads_unsubscribe?
-    user.has_any_role?(%i(admin))
+    user.has_any_role?(%i(admin sales_rep sales_manager))
   end
-  
+
 end

@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
 
-  layout 'admin'
-
   def index
     respond_to do |format|
 			format.any(:html, :js) do
@@ -188,7 +186,7 @@ class UsersController < ApplicationController
     parent_name = nil
     parent_name = User.find(user_params[:parent_id]).full_name if user_params[:parent_id]
     update_params = {parent_id: user_params[:parent_id]}
-    
+
     if users.update_all(update_params)
       render json: { parent_name: parent_name }
     else

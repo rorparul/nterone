@@ -20,8 +20,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_17dcfcfc42  (user_id => users.id)
-#  fk_rails_c363284271  (lms_exam_id => lms_exams.id)
+#  fk_rails_...  (lms_exam_id => lms_exams.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 class LmsExamAttempt < ActiveRecord::Base

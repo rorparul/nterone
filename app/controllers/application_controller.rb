@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   include Pundit
   include PublicActivity::StoreController
 
-  # before_action :redirect_to_user_tld
   before_action :_set_current_session
   before_action :set_region
   before_action :prepare_exception_notifier
@@ -11,14 +10,13 @@ class ApplicationController < ActionController::Base
   before_action :record_user_activity
   before_action :get_external_source_values
   before_action :set_cart
-  before_action :get_alert_counts
   before_action :update_request_urls
   before_action :set_gon
   before_action :set_task_popup_time
 
   after_action  :store_location
 
-  helper_method :forem_user, :resource_name, :resource, :devise_mapping
+  helper_method :resource_name, :resource, :devise_mapping
 
   protect_from_forgery with: :exception
 
@@ -51,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_task_popup_time
-    if current_user
+    if user_signed_in?
       @show_task_popup = true if current_user.show_tasks?
       current_user.settings.task_popup_time = Time.now
     end
@@ -123,13 +121,6 @@ class ApplicationController < ActionController::Base
     session[:current_request_url]  = request.referrer
   end
 
-  def get_alert_counts
-    if user_signed_in?
-      @new_message_count = current_user.new_message_count
-      @total_alert_count = @new_message_count
-    end
-  end
-
   def record_user_activity
     current_user.touch(:last_active_at) if user_signed_in?
   end
@@ -191,15 +182,5 @@ class ApplicationController < ActionController::Base
 
   def clean_params(required_and_permitted_params)
     required_and_permitted_params.select { |key, value| value.present? }
-  end
-
-  def redirect_to_user_tld
-    production = Rails.env.production?
-    user_tld   = current_user.settings.user_tld
-    different  = Rails.application.config.tld != current_user.settings.user_tld
-
-    if production && user_signed_in? && user_tld && different
-      redirect_to "https://nterone.#{current_user.settings.user_tld}"
-    end
   end
 end

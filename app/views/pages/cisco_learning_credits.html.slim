@@ -6,50 +6,35 @@ script src='https://www.google.com/recaptcha/api.js'
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  | Cisco Learning Credits
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      = image_tag "cisco-learning-credits.#{I18n.locale}.png", class: "header-image", style: 'margin-top: 40px;'
 
-.row#consulting
-  .col-xs-12.col-central
-    = image_tag "static-banners/#{TopLevelDomain}/cisco-learning-credits.png", class: "header-image"
+      .panel.panel-default
+        .panel-body
+          = form_for :contact_us, url: contact_us_path(origin: "learning_credits"), method: :post, html: { class: 'contact-us-form' } do |f|
+            = f.hidden_field 'M360-Source', value: 'M360-Source'
+            = f.hidden_field :recipient,    value: "sales@nterone.#{TopLevelDomain}"
+            = f.hidden_field :subject,      value: "Cisco Learning Credits Inquiry"
 
-    .panel.panel-default
-      .panel-body
-        = form_for :contact_us, url: contact_us_path(origin: "learning_credits"), method: :post, html: { class: 'contact-us-form' } do |f|
-          = f.hidden_field 'M360-Source', value: 'M360-Source'
-          = f.hidden_field :recipient,    value: "sales@nterone.#{TopLevelDomain}"
-          = f.hidden_field :subject,      value: "Cisco Learning Credits Inquiry"
+            .form-group
+              = f.text_field :name, class: 'form-control input-sm', placeholder: t('pages.clcs.name'), value: (current_user.full_name if user_signed_in?)
 
-          .form-group
-            = f.text_field :name, class: 'form-control input-sm', placeholder: 'Name', value: (current_user.full_name if user_signed_in?)
+            .form-group
+              = f.text_field :email, class: 'form-control input-sm', placeholder: t('pages.clcs.email'), value: (current_user.email if user_signed_in?)
 
-          .form-group
-            = f.text_field :email, class: 'form-control input-sm', placeholder: 'Email', value: (current_user.email if user_signed_in?)
+            .form-group
+              = f.text_field :phone, class: 'form-control input-sm', placeholder: t('pages.clcs.telephone'), value: (current_user.contact_number if user_signed_in?)
 
-          .form-group
-            = f.text_field :phone, class: 'form-control input-sm', placeholder: 'Phone', value: (current_user.contact_number if user_signed_in?)
+            .form-group
+              = f.text_area :inquiry, value: t('pages.clcs.inquiry_value'), rows: 8, class: 'form-control'
 
-          .form-group
-            = f.text_area :inquiry, value: "Please contact me to discuss using Cisco Learning Credits to sign-up for training.", rows: 8, class: 'form-control'
+            #recapcha
+              .g-recaptcha align='center' style='margin-bottom: 14px;' data-sitekey='6LdvNR0TAAAAAO07jFEA34PfeUUslqn3Q3CtCWDk'
 
-          #recapcha
-            / = recaptcha_tags
-            .g-recaptcha align='center' style='margin-bottom: 14px;' data-sitekey='6LdvNR0TAAAAAO07jFEA34PfeUUslqn3Q3CtCWDk'
+            .form-buttons
+              button.btn.btn-success type="submit" style='width: 100%;'
+                = t('pages.clcs.request_information')
 
-          .form-buttons
-            button.btn.btn-success type="submit" style='width: 100%;'
-              | Request Information
-
-    = @page.content.try(:html_safe)
-
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-
-javascript:
-  $('.home-tab').addClass('active');
+      = @page.content.try(:html_safe)

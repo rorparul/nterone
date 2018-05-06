@@ -1,67 +1,51 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Sales
-  span.seperator
-    | / 
-  span.text-muted
-    | Leads
- 
-= render 'layouts/tabs' 
+= render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Leads
-    .container-muted
-      - if policy(:user).mass_edit?
-        .dropdown.inline-dropdown.mass_edit_btn
-          button#dropdownMenu1.btn.btn-default.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
-            | Mass Edit
-            span.caret
-          ul.dropdown-menu aria-labelledby="dropdownMenu1" 
-            li
-              = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), role: 'button', remote: true
-            li
-              = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
-            li
-              = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
-      = link_to t('default.action.new'), new_lead_path, class: 'btn btn-success btn-sm ml-5', style: 'margin-right: 15px;', role: 'button', remote: true
-      
-      = link_to "Unsubscribe Leads", leads_unsubscribe_new_users_path(from: "leads"), class: 'btn btn-default btn-sm ml-5', remote: true
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted Leads
+      .container-muted
+        = link_to t('default.action.new'), new_lead_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
+        - if policy(:user).mass_edit?
+          .dropdown.inline-dropdown.mass_edit_btn
+            button#dropdownMenu1.btn.btn-default.dropdown-toggle.element-left-side aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
+              = "Mass Edit "
+              span.caret
+            ul.dropdown-menu aria-labelledby="dropdownMenu1"
+              li
+                = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), remote: true
+              li
+                = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
+              li
+                = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
-      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
-        i.fa.fa-file-excel-o aria-hidden="true"
-       
-      = smart_listing_controls_for(:users, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :search, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
+        = link_to "Unsubscribe", leads_unsubscribe_new_users_path(from: "leads"), class: 'btn btn-default element-left-side', remote: true
 
-        = render partial: 'filters_modal'
+        = link_to 'Export', '#', id: 'export', class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button'
 
-      = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
-        i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
-        | Filters
+        = smart_listing_controls_for(:users, { class: 'input-search' }) do
+          .input-group.filter.element-right-side
+            = text_field_tag :search, '', class: 'search form-control',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+            span.input-group-btn
+              button.btn.btn-default.disabled type="submit"
+                span.glyphicon.glyphicon-search
 
-    = smart_listing_render(:users)
+          = render partial: 'filters_modal'
+
+        = link_to "#", class: "pull-right btn btn-default element-right-side", data: { toggle: "modal", target: "#filtersModal" } do
+          i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+          | Filters
+
+      = smart_listing_render(:users)
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
+
   $(".search-customer-type-select-filter").first().prop("checked", true);
+
   $('#export').on('click', function(e) {
     e.preventDefault();
     window.open(
@@ -77,23 +61,24 @@ javascript:
       })
     );
   });
+
   function mass_edit_customer_type(customer_type) {
     user_ids = []
     $(".users_mass_edit_checkbox:checked").each(function(){
         user_ids.push($(this).val());
     });
-    
+
     $.ajax({
       url: "/users/mark_customers_type",
       dataType: 'json',
       method: "POST",
-      data: {user_ids: user_ids, mark_as: customer_type },
+      data: { user_ids: user_ids, mark_as: customer_type },
       success:function(data) {
-        $.each(user_ids, function( index, value ) {
-          if(customer_type == "direct_customer"){
+        $.each(user_ids, function(index, value) {
+          if(customer_type == "direct_customer") {
             $(".customer_type_"+value).text("D");
           }
-          else{
+          else {
             $(".customer_type_"+value).text("P");
           }
         });

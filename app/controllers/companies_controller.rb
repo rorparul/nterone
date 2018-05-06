@@ -7,7 +7,7 @@ class CompaniesController < ApplicationController
 	before_action :set_owners,        only: [:new, :edit]
 	before_action :authorize_company, except: [:pluck]
 
-	layout 'admin'
+	# layout 'admin'
 
 	def index
 		respond_to do |format|

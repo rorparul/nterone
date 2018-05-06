@@ -6,7 +6,7 @@ class ContactUsSubmissionsController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_authorization
 
-  layout 'admin'
+  # layout 'admin'
 
   def index
     contact_us_submission_scope = ContactUsSubmission.all

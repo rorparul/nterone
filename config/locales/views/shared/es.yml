@@ -1,9 +1,70 @@
 es:
   shared:
+    _addresses:
+      billing_address: 'NterOne Dirección de Facturación'
+      corporate_address: 'NterOne Dirección Corporativa'
+    _banner_header:
+      guaranteed_to_run_classes: 'CLASES CONFIRMADAS'
+      our_mission: 'NUESTRA MISIÓN'
+      register_today: '¡Regístrese hoy!'
+      reinvent_yourself: 'REINVÉNTATE'
+      search_by: 'Buscar por certificación, curso o examen'
+      search: 'Buscar'
+      world_class_solutions: 'Soluciones de Capacitación y Consultoría de TI de Clase Mundial'
+    _contact_us_form:
+      email: 'Email'
+    _search_form:
+      placeholder: 'Buscar por certificación, curso o examen'
+      search: 'Buscar'
+    change_region:
+      title: 'Cambia Región'
+    footer:
+      about_us: 'Nosotros'
+      copyright: 'NterOne Corporation. Todos los derechos reservados.'
+      consulting: 'Consultoría'
+      contact_our_team_today: '¡Póngase en Contacto con Nuestro Equipo Hoy!'
+      contact: 'Contacto'
+      facebook: 'Facebook'
+      gtr_classes: 'Clases Garantizado para Ejecutar'
+      google_plus: 'Google Plus'
+      home: 'Inicio'
+      labs: 'Labs'
+      linkedin: 'Linkedin'
+      partners: 'Aliados'
+      privacy_policy: 'Política de Privacidad'
+      sitemap: 'Mapa del Sitio'
+      terms_and_conditions: 'Términos y Condiciones'
+      testimonials: 'Testimonios'
+      twitter: 'Twitter'
+    header:
+      about_us: 'Nosotros'
+      account_settings: 'Configuracion de la Cuenta'
+      actions: 'Comportamiento'
+      call_today: 'Llama Hoy'
+      change_region: 'Cambia Región'
+      consulting: 'Consultoría'
+      contact: 'Contacto'
+      dashboard: 'Tablero'
+      home: 'Inicio'
+      labs: 'Labs'
+      login: 'Iniciar Sesión'
+      logo: 'locales/es/logo-with-tagline.png'
+      menu: 'Menú'
+      my_nterone: 'Mi NterOne'
+      partners: 'Aliados'
+      search: 'Buscar'
+      shopping_cart: 'Carrito de Compras'
+      sign_out: 'Desconectar'
+      tasks: 'Tareas'
+      testimonials: 'Testimonios'
+      training: 'Formación'
     edit_js:
       companies: "Editar Empresa"
     new_js:
       companies: "Agregar Empresa"
-
+    new_search:
+      title: 'Buscar'
+    merge_js:
+      companies: 'Merge Companies'
     opportunities:
-      export_popup: "Oportunidades de Exportación"
+      export_popup: 'Oportunidades de Exportación'

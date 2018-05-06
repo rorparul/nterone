@@ -63,6 +63,10 @@ class Platform < ActiveRecord::Base
 
   scope :active, -> { where(archived: false) }
 
+  def welcome_category
+    parent_categories.order(:position).first
+  end
+
   def has_many_associations
     [
       categories,

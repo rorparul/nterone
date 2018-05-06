@@ -32,10 +32,6 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [40, 40]
   end
 
-  version :processed_image, if: :carousel_item? do
-    process resize_to_fill: [745, 330]
-  end
-
   private
 
   def platform?(picture)
@@ -45,10 +41,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   def subject?(picture)
     model.imageable_type == 'Subject' || model.imageable_type == 'Course' || model.imageable_type == 'VideoOnDemand' || model.imageable_type == 'LabCourse' || model.imageable_type == 'Topology'
   end
-
-  def carousel_item?(picture)
-    model.imageable_type == 'CarouselItem'
-  end
-
-
 end

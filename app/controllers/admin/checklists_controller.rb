@@ -2,7 +2,7 @@ class Admin::ChecklistsController < Admin::BaseController
 
   def index
     checklists_scope = Checklist.all
-    checklists_scope = checklists_scope.custom_search(cookies[:filter]) if cookies[:filter]
+    # checklists_scope = checklists_scope.custom_search(cookies[:filter]) if cookies[:filter]
 
     @checklists = smart_listing_create(:checklists,
                                    checklists_scope,

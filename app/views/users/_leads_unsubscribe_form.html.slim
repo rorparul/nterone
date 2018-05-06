@@ -4,8 +4,8 @@
       .col-xs-12.form-group
         .file style="display: inline-block; margin-right: 15px;"
           label
-            | File must include column with heading "Email", by which all the user with that email gets unsubscribed and no further email send to that user.
+            | File must include column with heading "Email," under which are the listed emails of users that should be marked as "Unsubscribed."
           = file_field_tag "user_file"
-          = hidden_field_tag :from, params[:from]              
-    button.btn.btn-success
+          = hidden_field_tag :from, params[:from]
+    button.btn.btn-green-gradient
       = "Unsubscribe"

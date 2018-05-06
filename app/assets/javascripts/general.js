@@ -8,14 +8,9 @@ $(function() {
     $sidebarContent.fadeToggle();
   });
 
-  $(document).on('click', '.topic', function() {
-    $('.topic').removeClass('active-topic');
-    $(this).addClass('active-topic');
-  });
-
   $('#myModal').on('shown.bs.modal', function(e) {
-    $('#query').focus();
-    $('input[autofocus]').focus();
+    $('#myModal #query').focus();
+    $('#myModal input[autofocus]').focus();
     prepareInputs();
   });
 
@@ -27,19 +22,6 @@ $(function() {
     $('#accordion .in').collapse('hide');
     $('#mobile-accordion .in').collapse('hide');
   });
-
-  $(document).on('scroll', function() {
-    if (!$('.content').offset()) return
-
-		var windowScroll = $(window).scrollTop();
-		var offerOffSet = $('.content').offset().top;
-		var difference = windowScroll - offerOffSet;
-		if(difference >= -30) {
-			$('.sidebar-v2').addClass("fixed");
-		} else {
-			$('.sidebar-v2').removeClass("fixed");
-		}
-	});
 });
 
 function prepareInputs() {
@@ -75,39 +57,6 @@ function prepareInputs() {
   $('.froala').froalaEditor({
     height: 240,
     imageUploadURL: '/public/uploads/editor',
-    imageUploadMethod: 'POST',
-    toolbarButtons: [
-      'fullscreen',
-      'bold',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'subscript',
-      'superscript',
-      'fontFamily',
-      'fontSize',
-      'color',
-      'emoticons',
-      'inlineStyle',
-      'paragraphStyle',
-      'paragraphFormat',
-      'align',
-      'formatOL',
-      'formatUL',
-      'outdent',
-      'indent',
-      'quote',
-      'insertHR',
-      'insertLink',
-      'insertImage',
-      'insertVideo',
-      'insertFile',
-      'insertTable',
-      'undo',
-      'redo',
-      'clearFormatting',
-      'selectAll',
-      'html'
-    ]
+    imageUploadMethod: 'POST'
   });
 }

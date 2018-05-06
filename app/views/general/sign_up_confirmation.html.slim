@@ -4,23 +4,11 @@
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('general.sign_up_confirmation.home')
-  span.seperator /
-  span.text-muted = t('general.sign_up_confirmation.welcome')
+.container
+  .row
+    .col-xs-12
+      = @page.content.try(:html_safe)
 
-.row
-  .col-sm-12.col-central
-    = @page.content.try(:html_safe)
-    
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-
-javascript:
-  $('.home-tab').addClass('active');
-  
 - if I18n.locale == :en
   - if Rails.env.production?
     javascript:
@@ -34,7 +22,7 @@ javascript:
     noscript
       div style="display:inline;"
         img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/871022053/?label=NY8yCLvf2WoQ5fuqnwM&amp;guid=ON&amp;script=0"
-    
+
     javascript:
       !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;

@@ -1,16 +1,14 @@
 es:
   admins:
-    announcements:
-      new_announcement: "Nuevos Anuncios"
     classes:
-      commissions_report: "Generar Reportes de Comisiones"
+      commissions_report: "Reportes de Comisiones"
       past: "Incluyendo Pasado"
-      profits_report: "Generar reportes de Ganancias"
+      profits_report: "Reportes de Ganancias"
       registered: "Solo Registrados"
       search: "Buscar"
       title: "Clases"
       upload: "Cargar"
-      utilization_report: "Generar Reportes de Utilización de Instructor"
+      utilization_report: "Reportes de Utilización de Instructor"
       xlsx: "Descarga Clases Estudiantes-Registrados"
     classes_show:
       upload_classes: "Clases Cargadas"
@@ -34,31 +32,15 @@ es:
       to: "Para"
     people:
       users: "Usuarios"
-    partial_breadcrumbs:
-      admin: "Mi cuenta"
-      blog: "Blog"
-      classes: "Clases"
-      edit: "Editar"
-      home: "Inicio"
-      industry: "Industria"
-      my_sales: "Mis Ventas"
-      nci: "NCI"
-      partner: "Compañero"
-      press: "Prensa"
-      support: "Apoyo"
-      training: "Entrenamientos"
-      engineers: "Engineers"
-      cisco_program_administrators: "Cisco Program Administrators"
     partial_tabs:
-      announcements: "Anuncios"
       classes: "Clases"
       courses: "Cursos"
       insights: "Ideas"
       lab_rentals: "Laboratorios"
-      messages: "Mensajes"
       orders: "Ordenes"
       settings: "Ajustes"
       checklists: "Listas de verificación"
+      tools_and_resources: 'Herramientas y Recursos'
     website:
       active: "Activo"
       articles: "Articulos"

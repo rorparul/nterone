@@ -3,35 +3,26 @@
     table.table.table-condensed
       thead
         tr.background-muted
-          th
+          th.fit.text-center
             = check_box_tag :select_all, nil, nil, class: "select_all_users"
-          th.fit
-            i.fa.fa-globe aria-hidden="true" title='Origin Region'
-          th ID
-          th = smart_listing.sortable t('default.label.first_name'), :first_name
-          th = smart_listing.sortable t('default.label.last_name'), :last_name
-          th = "Phone Number"
-          th = smart_listing.sortable t('default.label.email'), :email
+          th.fit.text-center title='Region'
+            i.fa.fa-globe aria-hidden="true"
+          th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
+          th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
+          th.fit = "Phone Number"
+          th.fit = smart_listing.sortable t('default.label.email'), :email
           th = t('default.label.company')
-          th CT
-          th Orders 
-          th Sales Rep
+          th.fit CT
+          th.fit Orders
+          th.fit Sales Rep
           th colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
-            td
+            td.fit.text-center
               = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
-            td.fit style="cursor: help;"
-              - if user.origin_region == 'united_states'
-                i.fa.fa-circle.text-danger aria-hidden="true" title="#{user.origin_region.titleize}"
-              - elsif user.origin_region == 'latin_america'
-                i.fa.fa-circle.text-warning aria-hidden="true" title="#{user.origin_region.titleize}"
-              - elsif user.origin_region == 'canada'
-                i.fa.fa-circle.text-info aria-hidden="true" title="#{user.origin_region.titleize}"
-              - else
-                i.fa.fa-circle-thin aria-hidden="true" title="N/A"
-            td = user.id
+            td.fit.text-center
+              = region_label(resource)
             - if action_name == 'leads'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)
@@ -48,11 +39,11 @@
                 = link_to user.company.title, company_path(user.company)
               - else
                 | N/A
-            td class="customer_type_#{user.id}" 
+            td class="customer_type_#{user.id}"
               - if user.customer_type.present?
-                = user.customer_type == "direct_customer" ? "D" : "P"    
+                = user.customer_type == "direct_customer" ? "D" : "P"
               - else
-                | N/A  
+                | N/A
             td = user.buyer_orders.count
             td id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
@@ -100,13 +91,13 @@ javascript:
       $(".users_mass_edit_checkbox").prop('checked', false).change();
     }
   });
-  
+
   if($("#select_all").is(":checked")){
     $(".users_mass_edit_checkbox").prop('checked', true).change();
   }else{
     $(".users_mass_edit_checkbox").prop('checked', false).change();
   }
-  
+
   function toggle_mass_edit() {
     if($(".users_mass_edit_checkbox:checked").length > 0) {
       $("#dropdownMenu1").removeClass("disabled");

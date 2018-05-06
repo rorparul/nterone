@@ -1,13 +1,9 @@
-- content_for :breadcrumbs do 
-  = render "admin/breadcrumbs"
-  
 = render 'layouts/tabs'
 
-.panel.panel-default
-  .panel-heading
-    strong.text-muted = t('admins.insights.carts.carts')
-  = smart_listing_render(:carts)
-
-javascript:
-  $('.role-tab').addClass('active');
-  $('.permissions .insights').addClass('active');
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted = t('admins.insights.carts.carts')
+        = smart_listing_render(:carts)

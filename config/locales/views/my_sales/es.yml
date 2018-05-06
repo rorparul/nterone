@@ -1,15 +1,11 @@
 es:
   my_sales:
-    announcements:
-      new_announcement: "Nuevos Anuncios"
     classes_show:
       upload_classes: "Cargar Clases"
     partial_tabs:
-      announcements: "Anuncios"
       classes: "Clases"
       courses: "Cursos"
       lab_rentals: "Laboratorios"
-      messages: "Mensajes"
       orders: "Ordenes"
       people: "Personas"
       queue: "Cola"

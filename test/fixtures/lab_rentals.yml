@@ -25,14 +25,17 @@
 #  twenty_four_hours :boolean
 #  last_day          :date
 #  level             :string
+#  origin_region     :integer
+#  active_regions    :text             default([]), is an Array
 #
 # Indexes
 #
 #  index_lab_rentals_on_lab_course_id  (lab_course_id)
+#  index_lab_rentals_on_origin_region  (origin_region)
 #
 # Foreign Keys
 #
-#  fk_rails_d4d0b72fbf  (lab_course_id => lab_courses.id)
+#  fk_rails_...  (lab_course_id => lab_courses.id)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

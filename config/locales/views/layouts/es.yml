@@ -10,13 +10,12 @@ es:
       about: "Acerca NterOne"
       blog: "Blog"
       exective: "BIOS Ejecutivos"
-      industry: "Industria"
       instructor: "BIOS Instructores"
       press: "Prensa"
     partial_header:
       contact_us: "Contáctanos 703.972.2288"
-      image1: "locales/es/logo-with-tagline-small.png"
       partner: "Una Empresa Fundada por Veteranos"
+      logo: 'locales/es/logo-with-tagline.png'
     partial_sidebar:
       about_us: "Acerca de Nosotros"
       consulting: "Consultorías"

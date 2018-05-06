@@ -1,37 +1,23 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admin.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{platforms_path}"
-    = t('admin.partial_breadcrumbs.training')
-  span.seperator
-    | /
-  a href="#{platform_path(@platform)}"
-    = @platform.title
-  span.seperator
-    | /
-  a href="#{new_platform_video_on_demand_path(@platform, @video_on_demand)}"
-    = t('admin.partial_breadcrumbs.new')
-    
-.panel.panel-default
-  .panel-heading
-    strong.text-muted 
-      = t('video_on_demands.edit.edit_video_on_demand')
-  .panel-body
-    #vod-tabs
-      ul.nav.nav-tabs role="tablist"
-        li.active role="presentation"
-          a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  General and Videos
-        li role="presentation"
-          a aria-controls="quiz-upload" data-toggle="tab" href="#quiz-upload" role="tab"  Quizzes and Tests
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('video_on_demands.edit.edit_video_on_demand')
+        .panel-body
+          #vod-tabs
+            ul.nav.nav-tabs role="tablist"
+              li.active role="presentation"
+                a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  General and Videos
+              li role="presentation"
+                a aria-controls="quiz-upload" data-toggle="tab" href="#quiz-upload" role="tab"  Quizzes and Tests
 
-      .tab-content
-        #overview.tab-pane.active role="tabpanel"
-          = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
-        #quiz-upload.tab-pane.fade role="tabpanel"
-          = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
+            .tab-content
+              #overview.tab-pane.active role="tabpanel"
+                = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors }
+              #quiz-upload.tab-pane.fade role="tabpanel"
+                = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
 
 javascript:
   $('.form-buttons button.btn.btn-default').on('click', function() {

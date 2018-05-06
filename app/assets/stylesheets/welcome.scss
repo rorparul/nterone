@@ -1,0 +1,108 @@
+#vendor-credits-redemption {
+  background-image: image-url('divider.png');
+  background-position: center top;
+  background-repeat: no-repeat;
+  margin-top: -85px;
+  padding-top: 110px;
+  #vendor-credits-redemption-logos {
+    text-align: center;
+    img {
+      height: 80px;
+      margin: 0 15px 30px 15px;
+    }
+  }
+  #vendor-credits-redemption-banner {
+    background-color: rgb(100, 155, 205);
+    text-align: center;
+    img {
+      max-width: 100%;
+    }
+    @media (min-width: 768px) {
+      background-color: transparent;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+#featured-courses {
+  .featured-courses-row {
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 321px;
+    overflow: hidden;
+    padding-bottom: 25px;
+    @media (min-width: 768px) {
+      background-size: cover;
+    }
+  }
+  .featured-courses-row-right {
+    background-position: right top;
+    @media (min-width: 768px) {
+      background-position: center top;
+    }
+  }
+  .featured-courses-row-left {
+    background-position: left top;
+    @media (min-width: 768px) {
+      background-position: center top;
+    }
+  }
+  #featured-courses-row-1 {
+    background-image: image-url('featured-class-row-1.jpg');
+  }
+  #featured-courses-row-2 {
+    background-image: image-url('featured-class-row-2.jpg');
+  }
+  #featured-courses-row-3 {
+    background-image: image-url('featured-class-row-3.jpg');
+  }
+  #featured-courses-row-4 {
+    background-image: image-url('featured-class-row-4.jpg');
+  }
+  .featured-course-heading {
+    font-size: 28px;
+    line-height: 30px;
+    margin: 25px 0;
+  }
+  .featured-course-summary {
+    margin-bottom: 20px;
+  }
+}
+
+#mission {
+  padding-bottom: 40px;
+  text-align: center;
+  h1 {
+    font-family: 'Raleway', Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 25px 0;
+  }
+  #nterone-gives-back {
+    width: 100px;
+    display: block;
+    margin: 0 auto 40px auto;
+    @media (min-width: 1049px) {
+      margin: 0 50px;
+      display: inline;
+    }
+  }
+  #feeding-america {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 40px auto;
+    @media (min-width: 1049px) {
+      display: inline;
+      margin: 0;
+    }
+  }
+  #veteran-owned {
+    width: 125px;
+    display: block;
+    margin: 0 auto;
+    @media (min-width: 1049px) {
+      margin: 0 50px;
+      display: inline;
+    }
+  }
+}

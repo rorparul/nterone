@@ -1,103 +1,86 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Sales
-  span.seperator
-    | /
-  span.text-muted
-    | Companies
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Companies
-    .container-muted
-      = link_to t('default.action.new'), new_company_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
-      - if policy(:user).mass_edit?
-        = link_to t('default.action.mass_edit'), mass_edit_companies_path, class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
-      = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
-        i.fa.fa-file-excel-o aria-hidden="true"
-      = smart_listing_controls_for(:companies, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :search, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted Companies
+      .container-muted
+        = link_to t('default.action.new'), new_company_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
+        - if policy(:user).mass_edit?
+          = link_to t('default.action.mass_edit'), mass_edit_companies_path, class: 'btn btn-warning btn-sm on-click', role: 'button', remote: true
+        = link_to '#', class: 'pull-right', title: 'Export', style: 'margin: 5px 0;', id: 'export' do
+          i.fa.fa-file-excel-o aria-hidden="true"
+        = smart_listing_controls_for(:companies, { class: 'input-search' }) do
+          .input-group.input-group-sm.filter style='margin-right: 15px;'
+            = text_field_tag :search, '', class: 'search form-control input-sm',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+            span.input-group-btn
+              button.btn.btn-default.btn-sm.disabled type="submit"
+                span.glyphicon.glyphicon-search
 
-        #filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
-          .modal-dialog
-            .panel.panel-default
-              .modal-body.panel-body
-                = hidden_field_tag "company[filters][escort]", value: 'escort'
+          #filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
+            .modal-dialog
+              .panel.panel-default
+                .modal-body.panel-body
+                  = hidden_field_tag "company[filters][escort]", value: 'escort'
 
-                .form-group
-                  = label_tag "company[filters][user_id]", "Owner"
-                  = select_tag "company[filters][user_id]",
-                               options_for_select(existing_select2_ajax_user(current_user)),
-                               class: 'form-control search-sales-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][user_id]", "Owner"
+                    = select_tag "company[filters][user_id]",
+                                 options_for_select(existing_select2_ajax_user(current_user)),
+                                 class: 'form-control search-sales-select-filter',
+                                 style: "width: 100%;"
 
-                .form-group
-                  = label_tag "company[filters][parent_id]", "Parent Company"
-                  = select_tag "company[filters][parent_id]",
-                               options_for_select([]),
-                               class: 'form-control search-companies-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][parent_id]", "Parent Company"
+                    = select_tag "company[filters][parent_id]",
+                                 options_for_select([]),
+                                 class: 'form-control search-companies-select-filter',
+                                 style: "width: 100%;"
 
-                .form-group
-                  = label_tag "company[filters][kind]", "Kind"
-                  = select_tag "company[filters][kind]",
-                               options_for_select(kind_options),
-                               include_blank: "All",
-                               class: 'form-control search-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][kind]", "Kind"
+                    = select_tag "company[filters][kind]",
+                                 options_for_select(kind_options),
+                                 include_blank: "All",
+                                 class: 'form-control search-select-filter',
+                                 style: "width: 100%;"
 
-                .form-group
-                  = label_tag "company[filters][industry_code]", "Industry Code"
-                  = select_tag "company[filters][industry_code]",
-                               options_for_select(industry_code_options),
-                               include_blank: "All",
-                               class: 'form-control search-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][industry_code]", "Industry Code"
+                    = select_tag "company[filters][industry_code]",
+                                 options_for_select(industry_code_options),
+                                 include_blank: "All",
+                                 class: 'form-control search-select-filter',
+                                 style: "width: 100%;"
 
-                .form-group
-                  = label_tag "company[filters][state]", "State"
-                  = select_tag "company[filters][state]",
-                               options_for_select([]),
-                               class: 'form-control search-states-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][state]", "State"
+                    = select_tag "company[filters][state]",
+                                 options_for_select([]),
+                                 class: 'form-control search-states-select-filter',
+                                 style: "width: 100%;"
 
-                .form-group
-                  = label_tag "company[filters][zip_code]", "Zip Code"
-                  = select_tag "company[filters][zip_code]",
-                               options_for_select([]),
-                               class: 'form-control search-zip-codes-select-filter',
-                               style: "width: 100%;"
+                  .form-group
+                    = label_tag "company[filters][zip_code]", "Zip Code"
+                    = select_tag "company[filters][zip_code]",
+                                 options_for_select([]),
+                                 class: 'form-control search-zip-codes-select-filter',
+                                 style: "width: 100%;"
 
-                .form-buttons
-                  button.btn.btn-default type="button" data-dismiss="modal"
-                    = t('default.action.close')
+                  .form-buttons
+                    button.btn.btn-default type="button" data-dismiss="modal"
+                      = t('default.action.close')
 
-      = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
-        i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
-        | Filters
+        = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
+          i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+          | Filters
 
-    = smart_listing_render(:companies)
+      = smart_listing_render(:companies)
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
   $('#export').on('click', function(e) {
