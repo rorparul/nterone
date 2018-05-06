@@ -184,6 +184,7 @@ span.required {
 .smart-listing-controls {
   display: inline-block;
   float: right;
+  height: auto;
 }
 
 .margin-none {
@@ -308,60 +309,6 @@ span.required {
   cursor: pointer;
 }
 
-
-
-
-
-
-// .categories, .categories-mobile {
-//   .btn-category, .btn-child-category {
-//     font-size: 16px !important;
-//     font-weight: bold;
-//     color: #707070;
-//     border: 1px solid rgb(210, 210, 210);
-//     @include value-prefix(background-image, linear-gradient(top, rgb(248, 248, 248) 0%, rgb(232, 232, 232) 100%));
-//     @media (max-width: 767px) { width: 100%; }
-//   }
-//   .active-category {
-//     color: #fff;
-//     border: 1px solid rgb(112, 153, 60);
-//     @include value-prefix(background-image, linear-gradient(top, rgb(150, 193, 97) 0%, rgb(96, 156, 61) 100%));
-//   }
-// }
-// .categories {
-//   .btn-category {
-//     margin: 0 5px;
-//   }
-//   .btn-child-category {
-//     margin: 0 5px 10px 5px;
-//   }
-// }
-// .categories-mobile {
-//   .btn-category {
-//     margin: 0 0 0 0;
-//   }
-//   .panel {
-//     border: 0;
-//     margin: 0;
-//     .panel-heading {
-//       padding: 0;
-//     }
-//     .panel-collapse {
-//       padding: 0 10px;
-//       .btn-child-category {
-//         margin: 0;
-//       }
-//     }
-//   }
-// }
-// .categories-repurposed {
-//   .btn-category {
-//     @media (max-width: 767px) {
-//       margin: 0;
-//     }
-//   }
-// }
-
 .vendor-categories {
   text-align: center;
   .btn {
@@ -417,11 +364,6 @@ span.required {
   max-width: 100%;
   height: 125px;
 }
-
-// .fa-file-pdf-o {
-//   font-size: 20px;
-//   margin: 5px;
-// }
 
 .fa-file-video-o {
   font-size: 40px;
