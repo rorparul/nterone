@@ -1,3 +1,8 @@
+- if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
+  - content_for :actions do
+    li
+      = link_to t('layouts.partial_tabs.sales_goals'), admin_sales_goals_path
+
 = render 'layouts/tabs'
 
 .container
@@ -6,8 +11,6 @@
       h4
         strong.text-muted= t('layouts.partial_tabs.sales_overview')
       .container-muted
-        - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
-          a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px; position: absolute; right: 15px; z-index: 100;" = t('layouts.partial_tabs.sales_goals')
         .row
           .col-xs-12
             = form_for :report, method: :get do |f|

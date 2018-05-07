@@ -39,7 +39,11 @@
                 = link_to user.company.title, company_path(user.company)
               - else
                 | N/A
-            td class="customer_type_#{user.id}" = user.customer_type == "direct_customer" ? "D" : "P"
+            td class="customer_type_#{user.id}"
+              - if user.customer_type.present?
+                = user.customer_type == "direct_customer" ? "D" : "P"
+              - else
+                | N/A
             td = user.buyer_orders.count
             td id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
@@ -96,10 +100,10 @@ javascript:
 
   function toggle_mass_edit() {
     if($(".users_mass_edit_checkbox:checked").length > 0) {
-      $(".classify_user_link").removeClass("hidden");
+      $("#dropdownMenu1").removeClass("disabled");
     }
     else{
-      $(".classify_user_link").addClass("hidden");
+      $("#dropdownMenu1").addClass("disabled");
     }
   }
 

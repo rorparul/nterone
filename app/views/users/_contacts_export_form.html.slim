@@ -1,0 +1,15 @@
+.form-container
+  = form_for :contacts, url: contacts_users_path(format: :xlsx), method: "GET" do |f|
+    .row
+      .col-xs-12
+        .radio style="display: inline-block; margin-right: 15px;"
+          label
+            input type="radio" name="customer_type" id="selection_direct" value="direct_customer" checked='true'
+            | Direct Customer
+        .radio style="display: inline-block; margin-right: 15px;"
+          label
+            input type="radio" name="customer_type" id="selection_private" value="private_customer"
+            | Private Customer
+        
+    button.btn.btn-success
+      = t('reports.profit_sheets.partial_form.generate')
