@@ -1,24 +1,9 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{users_path}"
-    = t('admins.partial_breadcrumbs.people')
-  span.seperator
-    | /
-  a href="#"
-    = t('admins.partial_breadcrumbs.new_person')
-
-.row#settings
-  .col-xs-12
-    .group
-      .group-heading
-        h6 
-          = t('users.new.new_person')
-      .group-body
-        = render 'form', user: @user
-
-javascript:
-  $('.people-tab').addClass('active');
+.container
+  .row
+    .col-xs-12
+      .group
+        .group-heading
+          h6
+            = t('users.new.new_person')
+        .group-body
+          = render 'form', user: @user

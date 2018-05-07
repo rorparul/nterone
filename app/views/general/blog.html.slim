@@ -1,39 +1,27 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    = t('admins.partial_breadcrumbs.about_us')
-    
-.row
-  .col-xs-12.col-central
-    = image_tag 'blog.png', class: "header-image"
-    = render partial: 'layouts/about_us_nav_bar'
-    
-    .row.executive-bios
-      .col-xs-12
-        - @blog_posts.each do |blog_post|
-          .article
-            h3
-              a href="#{article_path(blog_post)}"
-                = blog_post.title
-            = truncate_html(blog_post.content, length: 250, omission: '...(continued)')
-            small.text-muted
-              | Published 
-              = blog_post.created_at.strftime("%B %d, %Y")
-            hr
-  
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
+.container
+  .row
+    .col-xs-12
+      = image_tag 'blog.png', class: "header-image"
+      = render partial: 'layouts/about_us_nav_bar'
+
+      .row.executive-bios
+        .col-xs-12
+          - @blog_posts.each do |blog_post|
+            .article
+              h3
+                a href="#{article_path(blog_post)}"
+                  = blog_post.title
+              = truncate_html(blog_post.content, length: 250, omission: '...(continued)')
+              small.text-muted
+                | Published
+                = blog_post.created_at.strftime("%B %d, %Y")
+              hr
+
 javascript:
-  $('.about-us-tab').addClass('active');
   $('.blog').addClass('active-category');

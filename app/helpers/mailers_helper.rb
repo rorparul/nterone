@@ -22,5 +22,3 @@ module MailersHelper
     end
   end
 end
-
-#{@event.start_time.strftime("%I:%M%p")}" +  "#{format_timezone(@event)}

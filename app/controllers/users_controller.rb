@@ -5,8 +5,6 @@ class UsersController < ApplicationController
 
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
   before_action :authorize_user, except: [:show, :toggle_archived]
-  
-  layout 'admin'
 
   def index
     respond_to do |format|
@@ -117,6 +115,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def leads_unsubscribe_new
+  end
+
+  def leads_unsubscribe
+    User.unsubscribe_from_email(params[:user_file])
+    flash[:success] = "List Unsubscribes successfully"
+    if params[:from] == "contacts"
+      redirect_to contacts_users_path
+    else
+      redirect_to leads_users_path
+    end
+  end
+
   def contacts
     respond_to do |format|
       format.html do
@@ -164,23 +175,23 @@ class UsersController < ApplicationController
 
   def mass_update
     if params[:type] == 'leads'
-      users = User.leads.where(clean_params(user_params[:filters]))
+      users = User.leads.where(id: params[:user_ids])
     elsif params[:type] == 'contacts'
-      users = User.contacts.where(clean_params(user_params[:filters]))
+      users = User.contacts.where(id: params[:user_ids])
     else
-      return render js: "window.location = '#{request.referrer}';"
+      users = User.where(id: params[:user_ids])
     end
 
     users       = users.custom_search(params[:search]) if params[:search].present?
-    users_count = users.count
+    parent_name = nil
+    parent_name = User.find(user_params[:parent_id]).full_name if user_params[:parent_id]
+    update_params = {parent_id: user_params[:parent_id]}
 
-    if users.update_all(parent_id: user_params[:parent_id])
-      flash[:success] = "Successfully updated #{users_count} records."
+    if users.update_all(update_params)
+      render json: { parent_name: parent_name }
     else
-      flash[:alert] = "Failed to update #{users_count} records."
+      render nothing: true
     end
-
-    render js: "window.location = '#{request.referrer}';"
   end
 
   private
@@ -236,10 +247,11 @@ class UsersController < ApplicationController
       :zipcode,
       filters: [
         :parent_id,
-        :source_name, 
+        :source_name,
         :status,
         :state,
-        :company_id
+        :company_id,
+        :customer_type
       ],
       roles_attributes: [
         :id,
@@ -248,7 +260,7 @@ class UsersController < ApplicationController
       ],
       chosen_courses_attributes: [:course_id]
     )
-  end 
+  end
 
   def prepare_smart_listing(users_scope)
     smart_listing_create(

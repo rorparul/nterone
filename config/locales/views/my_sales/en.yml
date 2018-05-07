@@ -1,15 +1,11 @@
 en:
   my_sales:
-    announcements:
-      new_announcement: "New Announcement"
     classes_show:
       upload_classes: "Upload Classes"
     partial_tabs:
-      announcements: "Announcements"
       classes: "Classes"
       courses: "Courses"
       lab_rentals: "Labs"
-      messages: "Messages"
       orders: "Orders"
       people: "People"
       queue: "Queue"

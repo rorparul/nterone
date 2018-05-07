@@ -19,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_8ced3d0303  (lms_exam_question_id => lms_exam_questions.id)
+#  fk_rails_...  (lms_exam_question_id => lms_exam_questions.id)
 #
 
 class LmsExamAnswer < ActiveRecord::Base

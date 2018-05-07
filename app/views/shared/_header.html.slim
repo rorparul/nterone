@@ -1,0 +1,80 @@
+= render 'shared/flash_messages'
+
+.container
+  .row
+    .col-xs-12.col-sm-3
+      #logo
+        = link_to root_path do
+          .hidden-lg = image_tag 'logo.png'
+          .hidden-xs.hidden-sm.hidden-md = image_tag t('shared.header.logo')
+    .col-xs-12.col-sm-9
+      .row
+        .col-xs-12
+          nav#nav-1
+            #phone
+              span.hidden-xs = "#{t('shared.header.call_today')}: "
+              = link_to RegionalPhoneNumber, "tel:#{RegionalPhoneNumber}"
+            #container-for-sign_in_or_account
+              .btn-group.btn-group-master role='group'
+                = sign_in_or_account
+                - if content_for(:actions)
+                  .btn-group role='group'
+                    = link_to '#', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+                      span.glyphicon.glyphicon-wrench title="#{t('shared.header.actions')}"
+                      span.caret
+                    ul.dropdown-menu.dropdown-menu-right
+                      = yield :actions
+                = link_to '#', id: 'btn-menu', class: 'btn btn-blue-gradient', role: 'button' do
+                  span.glyphicon.glyphicon-menu-hamburger title="#{t('shared.header.menu')}"
+                = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
+                  span.glyphicon.glyphicon-shopping-cart title="#{t('shared.header.shopping_cart')}"
+      .row
+        .col-xs-12
+          nav#nav-2
+            ul
+              li = link_to root_path do
+                span.text = t('shared.header.home')
+              li = link_to '#', id: 'training-dropdown-btn' do
+                span.text = t('shared.header.training')
+                span.caret
+              li = link_to consulting_path do
+                span.text = t('shared.header.consulting')
+              li = link_to labs_path do
+                span.text = t('shared.header.labs')
+              li = link_to about_us_path do
+                span.text = t('shared.header.about_us')
+              li = link_to testimonials_path do
+                span.text = t('shared.header.testimonials')
+              li = link_to partners_path do
+                span.text = t('shared.header.partners')
+              li = link_to new_contact_us_path, remote: true, rel: 'nofollow' do
+                span.text = t('shared.header.contact')
+              li = link_to new_search_path, remote: true, rel: 'nofollow' do
+                span.text = t('shared.header.search')
+              li = link_to change_region_path, remote: true, rel: 'nofollow' do
+                = flag_icon_of_current_region
+
+#nav-training.well style="border-radius: 0; margin-bottom: 0; overflow: scroll;"
+  .container
+    .row
+      - active_vendors_in_region.each do |vendor|
+        .col-xs-12.col-md-2
+          .vendor-logo-or-title
+            - if vendor.image.present? && vendor.image.file.present?
+              = image_tag vendor.image.file.platform_icon.url
+            - else
+              h1 = vendor.title
+          hr
+          - vendor.parent_categories.order(:position).each do |category|
+            h4 style="font-size: 12px;" = link_to category.title, platform_category_path(vendor, category)
+
+javascript:
+  $('#btn-menu').on('click', function(e) {
+    e.preventDefault();
+    $('#nav-2').toggle();
+  });
+
+  $('#training-dropdown-btn').on('click', function(e) {
+    e.preventDefault();
+    $('#nav-training').toggle();
+  });

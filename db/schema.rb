@@ -11,25 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423092101) do
+ActiveRecord::Schema.define(version: 20180501153628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
-    t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -47,19 +32,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
-
-  create_table "announcements", force: :cascade do |t|
-    t.text     "content"
-    t.string   "audience"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "status",         default: "open"
-    t.string   "poster"
-    t.integer  "origin_region"
-    t.text     "active_regions", default: [],                  array: true
-  end
-
-  add_index "announcements", ["origin_region"], name: "index_announcements_on_origin_region", using: :btree
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
@@ -95,38 +67,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "assigned_items", ["item_type", "item_id"], name: "index_assigned_items_on_item_type_and_item_id", using: :btree
   add_index "assigned_items", ["origin_region"], name: "index_assigned_items_on_origin_region", using: :btree
-
-  create_table "blog_posts", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
-
-  create_table "bootsy_image_galleries", force: :cascade do |t|
-    t.integer  "bootsy_resource_id"
-    t.string   "bootsy_resource_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bootsy_images", force: :cascade do |t|
-    t.string   "image_file"
-    t.integer  "image_gallery_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "carousel_items", force: :cascade do |t|
-    t.string   "caption"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.boolean  "active",     default: true
-    t.string   "url"
-  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",                              null: false
@@ -284,6 +224,7 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.string   "subject"
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+    t.text     "message",        default: ""
   end
 
   add_index "contact_us_submissions", ["origin_region"], name: "index_contact_us_submissions_on_origin_region", using: :btree
@@ -301,10 +242,10 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "platform_id"
-    t.boolean  "active",                                        default: true
+    t.boolean  "active",                                          default: true
     t.string   "abbreviation"
     t.text     "intro"
     t.text     "overview"
@@ -312,18 +253,19 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.text     "intended_audience"
     t.string   "pdf"
     t.text     "video_preview"
-    t.decimal  "price",                 precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                   precision: 8, scale: 2, default: 0.0
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "partner_led",                                   default: false
+    t.boolean  "partner_led",                                     default: false
     t.string   "heading"
-    t.boolean  "satellite_viewable",                            default: true
+    t.boolean  "satellite_viewable",                              default: true
     t.integer  "origin_region"
-    t.text     "active_regions",                                default: [],                 array: true
+    t.text     "active_regions",                                  default: [],                 array: true
     t.string   "cisco_id"
-    t.boolean  "archived",                                      default: false
-    t.decimal  "book_cost_per_student",                         default: 0.0
+    t.boolean  "archived",                                        default: false
+    t.decimal  "book_cost_per_student",                           default: 0.0
+    t.text     "featured_course_summary",                         default: ""
   end
 
   add_index "courses", ["origin_region"], name: "index_courses_on_origin_region", using: :btree
@@ -488,103 +430,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "exams", ["origin_region"], name: "index_exams_on_origin_region", using: :btree
 
-  create_table "forem_categories", force: :cascade do |t|
-    t.string   "name",                   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.integer  "position",   default: 0
-  end
-
-  add_index "forem_categories", ["slug"], name: "index_forem_categories_on_slug", unique: true, using: :btree
-
-  create_table "forem_forums", force: :cascade do |t|
-    t.string  "name"
-    t.text    "description"
-    t.integer "category_id"
-    t.integer "views_count", default: 0
-    t.string  "slug"
-    t.integer "position",    default: 0
-  end
-
-  add_index "forem_forums", ["slug"], name: "index_forem_forums_on_slug", unique: true, using: :btree
-
-  create_table "forem_groups", force: :cascade do |t|
-    t.string "name"
-  end
-
-  add_index "forem_groups", ["name"], name: "index_forem_groups_on_name", using: :btree
-
-  create_table "forem_memberships", force: :cascade do |t|
-    t.integer "group_id"
-    t.integer "member_id"
-  end
-
-  add_index "forem_memberships", ["group_id"], name: "index_forem_memberships_on_group_id", using: :btree
-
-  create_table "forem_moderator_groups", force: :cascade do |t|
-    t.integer "forum_id"
-    t.integer "group_id"
-  end
-
-  add_index "forem_moderator_groups", ["forum_id"], name: "index_forem_moderator_groups_on_forum_id", using: :btree
-
-  create_table "forem_posts", force: :cascade do |t|
-    t.integer  "topic_id"
-    t.text     "text"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "reply_to_id"
-    t.string   "state",       default: "pending_review"
-    t.boolean  "notified",    default: false
-  end
-
-  add_index "forem_posts", ["reply_to_id"], name: "index_forem_posts_on_reply_to_id", using: :btree
-  add_index "forem_posts", ["state"], name: "index_forem_posts_on_state", using: :btree
-  add_index "forem_posts", ["topic_id"], name: "index_forem_posts_on_topic_id", using: :btree
-  add_index "forem_posts", ["user_id"], name: "index_forem_posts_on_user_id", using: :btree
-
-  create_table "forem_subscriptions", force: :cascade do |t|
-    t.integer "subscriber_id"
-    t.integer "topic_id"
-  end
-
-  create_table "forem_topics", force: :cascade do |t|
-    t.integer  "forum_id"
-    t.integer  "user_id"
-    t.string   "subject"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "locked",       default: false,            null: false
-    t.boolean  "pinned",       default: false
-    t.boolean  "hidden",       default: false
-    t.datetime "last_post_at"
-    t.string   "state",        default: "pending_review"
-    t.integer  "views_count",  default: 0
-    t.string   "slug"
-  end
-
-  add_index "forem_topics", ["forum_id"], name: "index_forem_topics_on_forum_id", using: :btree
-  add_index "forem_topics", ["slug"], name: "index_forem_topics_on_slug", unique: true, using: :btree
-  add_index "forem_topics", ["state"], name: "index_forem_topics_on_state", using: :btree
-  add_index "forem_topics", ["user_id"], name: "index_forem_topics_on_user_id", using: :btree
-
-  create_table "forem_views", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "viewable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "count",             default: 0
-    t.string   "viewable_type"
-    t.datetime "current_viewed_at"
-    t.datetime "past_viewed_at"
-  end
-
-  add_index "forem_views", ["updated_at"], name: "index_forem_views_on_updated_at", using: :btree
-  add_index "forem_views", ["user_id"], name: "index_forem_views_on_user_id", using: :btree
-  add_index "forem_views", ["viewable_id"], name: "index_forem_views_on_viewable_id", using: :btree
-
   create_table "forums", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -631,7 +476,7 @@ ActiveRecord::Schema.define(version: 20180423092101) do
   add_index "groups", ["origin_region"], name: "index_groups_on_origin_region", using: :btree
 
   create_table "guests", force: :cascade do |t|
-    t.string   "email",                                           default: "",               null: false
+    t.string   "email",                                           default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "company_name"
@@ -654,9 +499,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.string   "billing_state"
     t.string   "billing_zip_code"
     t.boolean  "same_addresses",                                  default: false
-    t.boolean  "forem_admin",                                     default: false
-    t.string   "forem_state",                                     default: "pending_review"
-    t.boolean  "forem_auto_subscribe",                            default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_first_name"
@@ -685,7 +527,7 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.text     "notes"
     t.string   "aasm_state"
     t.integer  "origin_region"
-    t.text     "active_regions",                                  default: [],                            array: true
+    t.text     "active_regions",                                  default: [],                 array: true
     t.boolean  "active",                                          default: true
     t.boolean  "archive",                                         default: false
     t.string   "sales_force_id"
@@ -705,16 +547,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "hacp_requests", ["origin_region"], name: "index_hacp_requests_on_origin_region", using: :btree
 
-  create_table "image_store_units", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "origin_region"
-    t.text     "active_regions", default: [],              array: true
-  end
-
-  add_index "image_store_units", ["origin_region"], name: "index_image_store_units_on_origin_region", using: :btree
-
   create_table "images", force: :cascade do |t|
     t.string  "file"
     t.integer "imageable_id"
@@ -725,16 +557,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
   add_index "images", ["origin_region"], name: "index_images_on_origin_region", using: :btree
-
-  create_table "industry_articles", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
-  end
 
   create_table "instructors", force: :cascade do |t|
     t.string   "first_name"
@@ -959,18 +781,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
 
   add_index "lms_managed_students", ["origin_region"], name: "index_lms_managed_students_on_origin_region", using: :btree
 
-  create_table "messages", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "announcement_id"
-    t.boolean  "read",            default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "origin_region"
-    t.text     "active_regions",  default: [],                 array: true
-  end
-
-  add_index "messages", ["origin_region"], name: "index_messages_on_origin_region", using: :btree
-
   create_table "opportunities", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "customer_id"
@@ -1152,16 +962,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "press_releases", force: :cascade do |t|
-    t.string   "page_title"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "slug"
-    t.text     "page_description"
   end
 
   create_table "public_featured_events", force: :cascade do |t|
@@ -1382,12 +1182,12 @@ ActiveRecord::Schema.define(version: 20180423092101) do
   add_index "user_companies", ["user_id"], name: "index_user_companies_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                           default: "",               null: false
-    t.string   "encrypted_password",                              default: "",               null: false
+    t.string   "email",                                           default: "",    null: false
+    t.string   "encrypted_password",                              default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                   default: 0,                null: false
+    t.integer  "sign_in_count",                                   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -1423,9 +1223,6 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.string   "billing_state"
     t.string   "billing_zip_code"
     t.boolean  "same_addresses",                                  default: false
-    t.boolean  "forem_admin",                                     default: false
-    t.string   "forem_state",                                     default: "pending_review"
-    t.boolean  "forem_auto_subscribe",                            default: false
     t.string   "billing_first_name"
     t.string   "billing_last_name"
     t.string   "shipping_first_name"
@@ -1454,7 +1251,7 @@ ActiveRecord::Schema.define(version: 20180423092101) do
     t.text     "notes"
     t.string   "aasm_state"
     t.integer  "origin_region"
-    t.text     "active_regions",                                  default: [],                            array: true
+    t.text     "active_regions",                                  default: [],                 array: true
     t.boolean  "active",                                          default: true
     t.boolean  "archive",                                         default: false
     t.string   "sales_force_id"

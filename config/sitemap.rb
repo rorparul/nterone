@@ -6,7 +6,6 @@ SitemapGenerator::Sitemap.create do
   add instructors_bios_path
   add press_path
   add blog_path
-  add industry_path
   add testimonials_path
   add consulting_path
   add partners_path

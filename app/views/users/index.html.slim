@@ -1,48 +1,128 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Users
-    
-= content_for :actions do 
+/ .container
+/   .row
+/     .col-xs-12
+/       h4
+/         strong.text-muted Leads
+/       .container-muted
+/         = link_to t('default.action.new'), new_lead_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
+/         - if policy(:user).mass_edit?
+/           .dropdown.inline-dropdown.mass_edit_btn
+/             button#dropdownMenu1.btn.btn-default.dropdown-toggle.element-left-side aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
+/               = "Mass Edit "
+/               span.caret
+/             ul.dropdown-menu aria-labelledby="dropdownMenu1"
+/               li
+/                 = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), remote: true
+/               li
+/                 = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
+/               li
+/                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
+/
+/         = link_to "Unsubscribe", leads_unsubscribe_new_users_path(from: "leads"), class: 'btn btn-default element-left-side', remote: true
+/
+/         = link_to 'Export', '#', id: 'export', class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button'
+/
+/         = smart_listing_controls_for(:users, { class: 'input-search' }) do
+/           .input-group.filter.element-right-side
+/             = text_field_tag :search, '', class: 'search form-control',
+/                                           placeholder: t('admins.classes.search'),
+/                                           autocomplete: :off
+/             span.input-group-btn
+/               button.btn.btn-default.disabled type="submit"
+/                 span.glyphicon.glyphicon-search
+/
+/           = render partial: 'filters_modal'
+/
+/         = link_to "#", class: "pull-right btn btn-default element-right-side", data: { toggle: "modal", target: "#filtersModal" } do
+/           i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
+/           | Filters
+/
+/       = smart_listing_render(:users)
+
+= content_for :actions do
   li
     = link_to sales_force_form_for_tasks_path, remote: true do
       = "Upload Sales Force Task Files"
-  li 
+  li
     = link_to sales_force_form_for_other_path, remote: true do
       = "Upload Other Sales Force Files"
 
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted People
-    .container-muted
-      = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn  btn-success btn-sm', role: 'button'
-      span.toggle_customer_type_links
-        = render 'toggle_customer_type'
-      = smart_listing_controls_for(:users, { class: 'input-search' }) do
-        .input-group.input-group-sm.filter
-          = text_field_tag :filter, '', class: 'search form-control input-sm',
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span.input-group-btn
-            button.btn.btn-default.btn-sm.disabled type="submit"
-              span.glyphicon.glyphicon-search
-    = smart_listing_render(:users)
-      
+.container
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs style='margin-bottom: 10px;'
+        li.active role="presentation"
+          = link_to 'All', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Students', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Instructors', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Marketing', '#', id: 'btn-list-view'
+        / li role="presentation"
+        /   = link_to 'Admin', '#', id: 'btn-list-view'
+      #view-filter-controls.container-muted
+        = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient element-left-side', role: 'button'
+
+        - if policy(:user).mass_edit?
+          .dropdown.inline-dropdown.mass_edit_btn
+            button#dropdownMenu1.btn.btn-default.dropdown-toggle.element-left-side aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
+              = "Mass Edit "
+              span.caret
+            ul.dropdown-menu aria-labelledby="dropdownMenu1"
+              li
+                = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), role: 'button', remote: true
+              li
+                = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
+              li
+                = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
+
+        = smart_listing_controls_for(:users, { class: 'input-search' }) do
+          .input-group.filter.element-right-side
+            = text_field_tag :filter, '', class: 'search form-control',
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+            span.input-group-btn
+              button.btn.btn-default.disabled type="submit"
+                span.glyphicon.glyphicon-search
+
+      #list-view-container
+        #list-view
+          = smart_listing_render(:users)
+
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .people').addClass('active');
-  
-  
-  
-  
+
+  function mass_edit_customer_type(customer_type) {
+    user_ids = []
+    $(".users_mass_edit_checkbox:checked").each(function(){
+        user_ids.push($(this).val());
+    });
+
+    $.ajax({
+      url: "/users/mark_customers_type",
+      dataType: 'json',
+      method: "POST",
+      data: {user_ids: user_ids, mark_as: customer_type },
+      success:function(data) {
+        $.each(user_ids, function( index, value ) {
+          if(customer_type == "direct_customer"){
+            $(".customer_type_"+value).text("D");
+          }
+          else{
+            $(".customer_type_"+value).text("P");
+          }
+        });
+      }
+    })
+  }
+
+  $(".mark_as_direct").on('click', function(){
+    mass_edit_customer_type("direct_customer");
+  });
+
+  $(".mark_as_partner").on('click', function(){
+    mass_edit_customer_type("partner_customer");
+  });

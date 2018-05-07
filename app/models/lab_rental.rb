@@ -35,7 +35,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_d4d0b72fbf  (lab_course_id => lab_courses.id)
+#  fk_rails_...  (lab_course_id => lab_courses.id)
 #
 
 class LabRental < ActiveRecord::Base

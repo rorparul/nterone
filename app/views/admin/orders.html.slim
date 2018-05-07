@@ -1,33 +1,26 @@
-- content_for :breadcrumbs do
-  = render "breadcrumbs"
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading.panel-heading-with-search
-        .row
-          .col-xs-6
-            strong.text-muted
-              = t('admins.orders.title')
-          .col-xs-6
-            = link_to t('admins.orders.add'), new_order_path, remote: true, class: "table-header-action"
+.container-fluid
+  .row
+    .col-xs-12
+      #view-filter-controls.container-muted
+        = link_to t('admins.orders.add'), new_order_path, remote: true, class: 'btn btn-green-gradient', role: 'button'
+        
+        div style='display: inline-block; margin: 2px 0; float: right;'
+          = smart_listing_controls_for(:orders, { class: 'input-search' }) do
+            .input-group.input-group-sm.filter style='margin-right: 15px;'
+              = text_field_tag :filter, '', class: 'search form-control input-sm',
+                                            placeholder: t('admins.orders.search'),
+                                            autocomplete: :off
+              span class="input-group-btn"
+                button class="btn btn-default btn-sm disabled" type="submit"
+                  span.glyphicon.glyphicon-search
 
-            = smart_listing_controls_for(:orders, {class: "form-inline text-right"}) do
-
-              .input-group.input-group-sm.filter.input-append
-                = text_field_tag :filter, '', class: "search form-control input-sm",
-                                              placeholder: t('admins.orders.search'),
-                                              autocomplete: :off
-                span class="input-group-btn"
-                  button class="btn btn-default btn-sm disabled" type="submit"
-                    span.glyphicon.glyphicon-search
-
-      = smart_listing_render(:orders)
+      #list-view-container
+        #list-view
+          = smart_listing_render(:orders)
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .orders').addClass('active');
 
   $(".panel").on('change', ".check-select", function() {

@@ -78,12 +78,16 @@
         .form-group
           = f.label :heading, t('courses.partial_form.heading')
           = f.text_field :heading, class: 'form-control input-sm'
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :book_cost_per_student, 'Default Book Cost Per Student'
-          .input-group
-            span.input-group-addon $
-            = f.text_field :book_cost_per_student, data: { autonumeric: true }, class: 'form-control input-sm'
+      / .col-xs-12.col-sm-6
+      /   .form-group
+      /     = f.label :book_cost_per_student, 'Default Book Cost Per Student'
+      /     .input-group
+      /       span.input-group-addon $
+      /       = f.text_field :book_cost_per_student, data: { autonumeric: true }, class: 'form-control input-sm'
+
+    .form-group
+      = f.label :featured_course_summary, t('courses.partial_form.featured_course_summary')
+      = f.text_area :featured_course_summary, class: 'form-control input-sm froala'
 
     .form-group
       = f.label :intro, t('courses.partial_form.introduction')

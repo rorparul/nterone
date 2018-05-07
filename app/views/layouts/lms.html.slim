@@ -20,7 +20,7 @@ html
         $.src='//v2.zopim.com/?3naKOCfXUCQpTL48Row9IGOxjjAxy1Ez';z.t=+new Date;$.
         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
   body
-    = render 'layouts/modal'
+    = render 'shared/modal'
     = render 'layouts/header_lms'
 
     .container-fluid
@@ -34,7 +34,7 @@ html
 
       hr
       .content.content-lms
-        = render 'layouts/notifications'
+        = render 'shared/flash_messages'
         = yield
     = render 'layouts/footer_lms'
     = render 'layouts/ad_words'

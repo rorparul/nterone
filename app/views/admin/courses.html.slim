@@ -1,24 +1,21 @@
-- content_for :breadcrumbs do
-  = render "breadcrumbs"
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    = render partial: 'courses/index', locals: { courses: @courses }
+.container
+  .row
+    .col-xs-12
+      = render partial: 'courses/index', locals: { courses: @courses }
 
-.row
-  .col-xs-12.text-center
-    #download-classes
-      span
-        = t('admins.courses.download_courses')
-        | :
-      '
-      = link_to "XLSX", courses_export_path(format: 'xlsx')
-      = " | "
-      = link_to "CSV", courses_export_path(format: 'csv')
+  .row
+    .col-xs-12.text-center
+      #download-classes
+        span
+          = t('admins.courses.download_courses')
+          | :
+        '
+        = link_to "XLSX", courses_export_path(format: 'xlsx')
+        = " | "
+        = link_to "CSV", courses_export_path(format: 'csv')
 
 
 javascript:
-  $('.role-tab').addClass('active');
-  $('.permissions .resources').addClass('active');
+  $('.permissions .website').addClass('active');

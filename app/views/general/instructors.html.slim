@@ -1,30 +1,15 @@
 - content_for :page_title do
   = @page.page_title
-  
+
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    = t('admins.partial_breadcrumbs.about_us')
-    
-.row
-  .col-xs-12.col-central
-    = image_tag t('general.instructors.image'), class: "header-image"
-    = render partial: 'layouts/about_us_nav_bar'
-        
-    .row.instructor-bios
-      .col-xs-12
-        = @page.content.try(:html_safe)
-  
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.about-us-tab').addClass('active');
-  $('.instructor-bios').addClass('active-category');
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      = render partial: 'layouts/about_us_nav_bar'
+      = @page.content.try(:html_safe)
+
+= render partial: 'shared/banner_footer'

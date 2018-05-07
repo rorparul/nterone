@@ -4,28 +4,17 @@
 - content_for :page_description do
   = @page.try(:page_description)
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-  = t('admins.partial_breadcrumbs.nci')
-
-.row#consulting
-  .col-xs-12.col-central
-    = @page.try(:content).try(:html_safe)
-    .row
-      .col-xs-6
-        a href="#{nci_engineers_path}"
-          button.btn.btn-primary.btn-lg.btn-block type="button" Engineers
-      .col-xs-6
-        a href="#{nci_cisco_program_administrators_path}"
-          button.btn.btn-primary.btn-lg.btn-block type="button" Cisco Program Administrators
-
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
+.container
+  .row
+    .col-xs-12
+      = @page.try(:content).try(:html_safe)
+      .row
+        .col-xs-6
+          a href="#{nci_engineers_path}"
+            button.btn.btn-primary.btn-lg.btn-block type="button" Engineers
+        .col-xs-6
+          a href="#{nci_cisco_program_administrators_path}"
+            button.btn.btn-primary.btn-lg.btn-block type="button" Cisco Program Administrators
 
 javascript:
   $('.nci-tab').addClass('active');

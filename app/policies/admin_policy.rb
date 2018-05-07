@@ -45,7 +45,7 @@ class AdminPolicy < Struct.new(:user, :admin)
     user.has_any_role?(%i(admin webmaster))
   end
 
-  def resources?
+  def website?
     user.has_any_role?(%i(admin marketing webmaster))
   end
 
@@ -53,7 +53,7 @@ class AdminPolicy < Struct.new(:user, :admin)
     user.has_any_role?(%i(admin sales_rep sales_manager))
   end
 
-  def website?
+  def marketing?
     user.has_any_role?(%i(admin marketing webmaster))
   end
 

@@ -1,24 +1,16 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t 'breadcrumbs.home'
-  span.seperator
-    | /
-  span.text-muted= t('instructor.classes.breadcrumbs.my_classes')
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading.panel-heading-with-search
-        .row
-          .col-xs-6
-            strong.text-muted
-              = t 'admin.admin_classes.row.classes.title'
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading.panel-heading-with-search
+          .row
+            .col-xs-6
+              strong.text-muted
+                = t 'admin.admin_classes.row.classes.title'
 
-      = smart_listing_render(:events)
+        = smart_listing_render(:events)
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .my-classes').addClass('active');

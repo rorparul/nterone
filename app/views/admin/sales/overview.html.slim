@@ -1,80 +1,66 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    | My NterOne
-  span.seperator
-    | /
-  span.text-muted
-    | Reports
-  span.seperator
-    | /
-  span.text-muted
-    = t('layouts.partial_tabs.sales_overview')
+- if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
+  - content_for :actions do
+    li
+      = link_to t('layouts.partial_tabs.sales_goals'), admin_sales_goals_path
 
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted= t('layouts.partial_tabs.sales_overview')
-    .container-muted
-      - if user_signed_in? && (current_user.admin? || current_user.sales_manager?)
-        a.pull-right href="#{admin_sales_goals_path}" style="margin: 5px 15px; position: absolute; right: 15px; z-index: 100;" = t('layouts.partial_tabs.sales_goals')
-      .row
-        .col-xs-12
-          = form_for :report, method: :get do |f|
-            - tab_active_class = "active"
-            ul.nav.nav-tabs
-              li class=(@yearly ? tab_active_class : "")
-                a#overview-yearly href="#overview-yearly" data-toggle="tab" Yearly
-              li class=(!@yearly ? tab_active_class : "")
-                a#overview-monthly href="#overview-monthly" data-toggle="tab" Monthly
-            br
-            .tab-content
-              - pane_active_class = 'in active'
-              #overview-yearly.tab-pane.fade role="tabpanel" class=(@yearly ? pane_active_class : "")
-                = select_date @selected_date, prefix: :yearly, discard_day: true, order: [:year]
-              #overview-monthly.tab-pane.fade role="tabpanel" class=(!@yearly ? pane_active_class : "")
-                = select_date @selected_date, prefix: :monthly, discard_day: true, order: [:year, :month]
-    .container-muted
-      h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" All Regions
-      .row
-        .col-xs-12.col-md-4
-          radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) goal=(number_to_currency @total_goal)]
-        .col-xs-12.col-md-4
-          .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
-          div id="top_courses_by_revenue_all_regions"
-            div style="text-align: center; margin-top: 100px;"
-              i.fa.fa-cog.fa-spin.fa-3x.fa-fw
-        .col-xs-12.col-md-4
-          .text-muted style="margin-bottom: 12px;" Margin
-          div id="margin_for_all_regions"
-            div style="text-align: center; margin-top: 100px;"
-              i.fa.fa-cog.fa-spin.fa-3x.fa-fw
-    - Event.origin_regions.each do |region, region_number|
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted= t('layouts.partial_tabs.sales_overview')
       .container-muted
-        h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" = region.humanize.split.map(&:capitalize).join(' ')
+        .row
+          .col-xs-12
+            = form_for :report, method: :get do |f|
+              - tab_active_class = "active"
+              ul.nav.nav-tabs
+                li class=(@yearly ? tab_active_class : "")
+                  a#overview-yearly href="#overview-yearly" data-toggle="tab" Yearly
+                li class=(!@yearly ? tab_active_class : "")
+                  a#overview-monthly href="#overview-monthly" data-toggle="tab" Monthly
+              br
+              .tab-content
+                - pane_active_class = 'in active'
+                #overview-yearly.tab-pane.fade role="tabpanel" class=(@yearly ? pane_active_class : "")
+                  = select_date @selected_date, prefix: :yearly, discard_day: true, order: [:year]
+                #overview-monthly.tab-pane.fade role="tabpanel" class=(!@yearly ? pane_active_class : "")
+                  = select_date @selected_date, prefix: :monthly, discard_day: true, order: [:year, :month]
+      .container-muted
+        h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" All Regions
         .row
           .col-xs-12.col-md-4
-            radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) goal=(number_to_currency @region_goals[region_number])]
+            radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) goal=(number_to_currency @total_goal)]
           .col-xs-12.col-md-4
             .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
-            div id="top_courses_by_revenue_#{region}"
+            div id="top_courses_by_revenue_all_regions"
               div style="text-align: center; margin-top: 100px;"
                 i.fa.fa-cog.fa-spin.fa-3x.fa-fw
           .col-xs-12.col-md-4
             .text-muted style="margin-bottom: 12px;" Margin
-            div id="margin_for_#{region}"
+            div id="margin_for_all_regions"
               div style="text-align: center; margin-top: 100px;"
                 i.fa.fa-cog.fa-spin.fa-3x.fa-fw
-    .clearfix
+      - Event.origin_regions.each do |region, region_number|
+        .container-muted
+          h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" = region.humanize.split.map(&:capitalize).join(' ')
+          .row
+            .col-xs-12.col-md-4
+              radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) goal=(number_to_currency @region_goals[region_number])]
+            .col-xs-12.col-md-4
+              .text-muted style="margin-bottom: 12px;" Top 5 Courses by Revenue
+              div id="top_courses_by_revenue_#{region}"
+                div style="text-align: center; margin-top: 100px;"
+                  i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+            .col-xs-12.col-md-4
+              .text-muted style="margin-bottom: 12px;" Margin
+              div id="margin_for_#{region}"
+                div style="text-align: center; margin-top: 100px;"
+                  i.fa.fa-cog.fa-spin.fa-3x.fa-fw
+      .clearfix
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .sales').addClass('active');
 
   $('#overview-yearly').on('click', function() {
