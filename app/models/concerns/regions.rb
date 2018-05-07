@@ -7,7 +7,8 @@ module Regions
     enum origin_region: {
       united_states: 0,
       latin_america: 1,
-      canada: 2
+      canada: 2,
+      india: 3
     }
 
     after_initialize :set_origin_region, if: proc { |model| model.new_record? }
