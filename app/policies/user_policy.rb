@@ -63,4 +63,13 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))
   end
+
+  def leads_unsubscribe_new?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
+  def leads_unsubscribe?
+    user.has_any_role?(%i(admin sales_rep sales_manager))
+  end
+
 end

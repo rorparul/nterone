@@ -1,45 +1,36 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t 'breadcrumbs.home'
-  span.seperator
-    | /
-    span.text-muted= t('instructor.classes.breadcrumbs.my_classes')
+.container
+  .row
+    .col-xs-12
+      .admin.categories.hidden-xs.role-tabs
+        .row.text-center
+          .col-sm-12
+            a.btn.category.btn-category.classes href="#{instructor_classes_path}"
+              = t 'admin.filter.classes'
+            a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+              = t 'admin.filter.settings'
+      .categories-mobile.visible-xs.role-tabs
+        .row.text-center
+          .col-sm-12
+            a.btn.category.btn-category.classes href="#{instructor_classes_path}"
+              = t 'admin.filter.classes'
+            a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
+              = t 'admin.filter.settings'
 
-
-.row
-  .col-xs-12
-    .admin.categories.hidden-xs.role-tabs
-      .row.text-center
-        .col-sm-12
-          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
-            = t 'admin.filter.classes'
-          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-            = t 'admin.filter.settings'
-    .categories-mobile.visible-xs.role-tabs
-      .row.text-center
-        .col-sm-12
-          a.btn.category.btn-category.classes href="#{instructor_classes_path}"
-            = t 'admin.filter.classes'
-          a.btn.category.btn-category.settings href="#{main_app.edit_user_registration_path}"
-            = t 'admin.filter.settings'
-
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted= t('instructor.classes_show.registrations')
-      .panel-table
-        .responsive-table.table-scrollable
-          table.table.table-condensed
-            thead
-              tr
-                th= t('instructor.classes_show.students')
-            tbody
-              - @event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
-                tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
-                  td= order_item.user.full_name if order_item.user
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted= t('instructor.classes_show.registrations')
+        .panel-table
+          .responsive-table.table-scrollable
+            table.table.table-condensed
+              thead
+                tr
+                  th= t('instructor.classes_show.students')
+              tbody
+                - @event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
+                  tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
+                    td= order_item.user.full_name if order_item.user
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .classes').addClass('active');

@@ -6,18 +6,6 @@ en:
     contact_us: "Contact Us at 703.972.2288"
     search: "Search"
     actions: "Actions"
-  breadcrumbs:
-    home: "Home"
-    admin: "My Admin"
-    instructor: "My Classes"
-    my_sales: "My Sales"
-    lab_rentals: "Lab Reservations"
-    about_us: "About Us"
-    sitemap: "Sitemap"
-    training: "Training"
-    search: "Search"
-    new: "New"
-    edit: "Edit"
   side_menu:
     welcome: "Welcome"
     login: "Login"
@@ -65,10 +53,8 @@ en:
       classes: "Classes"
       courses: "Courses"
       lab_rentals: "Labs"
-      announcements: "Announcements"
       people: "People"
       website: "Website"
-      messages: "Messages"
       settings: "Settings"
     action:
       commissions_report: "Generate Commissions Report"
@@ -223,27 +209,6 @@ en:
             course_id: "Course ID"
             course_title: "Title"
             course_events: "Upcoming Events"
-    admin_announcements:
-      row:
-        new_announcement:
-          title: "New Announcement"
-          button:
-            all: "All"
-            members: "Members"
-            sales_rep: "Sales Reps"
-            sales_member: "Sales Managers"
-            members_sales_reps: "Members & Sales Reps"
-        announcements:
-          title: "Announcements"
-          column:
-            announcements_content: "Content"
-            announcements_target: "Target"
-            announcements_poster: "Poster"
-            announcements_status:
-              title: "Status"
-              value:
-                active: "Active"
-                inactive: "Inactive"
     admin_people:
       row:
         people:
@@ -323,7 +288,6 @@ en:
               option:
                 press_release: "Press Release"
                 blog_post: "Blog Post"
-                industry_article: "Industry Article"
             title: "Title"
             content: "Content"
             published: "Published"
@@ -351,14 +315,6 @@ en:
           label:
             image: "Image"
             image_title: "Title"
-    admin_messages:
-      row:
-        messages:
-          title: "Message"
-          column:
-            date: "Date"
-            from: "From"
-            message: "Message"
     admin_settings:
       row:
         contact_info:
@@ -406,7 +362,6 @@ en:
       instructor: "Instructor Bios"
       press: "Press"
       blog: "Blog"
-      industry: "Industry"
   training:
     platform:
       action:
@@ -613,7 +568,6 @@ en:
         link:
           press: "Press"
           blog: "Blog"
-          industry: "Industry"
       other:
         title: "Other"
       training:
@@ -634,9 +588,6 @@ en:
         students: "Students"
         lab_source: "Lab Source"
         actions: "Actions"
-    classes:
-      breadcrumbs:
-        my_classes: "My Classes"
     classes_show:
       registrations: "Class Registrations"
       students: "Students"

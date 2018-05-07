@@ -11,3 +11,9 @@ en:
       page_description: "Page Description"
       page_title: "Page Title"
       title: "Title"
+    clcs:
+      name: 'Name'
+      email: 'Email'
+      telephone: 'Telephone'
+      inquiry_value: 'Please contact me to discuss using Cisco Learning Credits to sign-up for training.'
+      request_information: 'Request Information'

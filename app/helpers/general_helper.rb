@@ -4,26 +4,6 @@ module GeneralHelper
     "www.NterOne.#{top_level}"
   end
 
-  def personal_greeting
-    personal_greeting = "Guest"
-
-    if user_signed_in?
-      if current_user.first_name.present?
-        personal_greeting = current_user.first_name
-      else
-        if current_user.admin?
-          personal_greeting = "Admin"
-        elsif current_user.sales?
-          personal_greeting = "Sales"
-        else
-          personal_greeting = "Member"
-        end
-      end
-    end
-
-    "<span class='text'>".html_safe + t("side_menu.welcome").html_safe + " #{personal_greeting}<span/>".html_safe
-  end
-
   def existing_select2_ajax_user(user)
     if user.present?
       [["#{user.last_name}, #{user.first_name}", user.id]]

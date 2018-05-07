@@ -117,7 +117,7 @@ class CoursesController < ApplicationController
   end
 
   def export
-    @courses = Course.order(:abbreviation)
+    @courses = Course.active.order(:abbreviation)
 
     respond_to do |format|
       format.xlsx do
@@ -142,6 +142,7 @@ class CoursesController < ApplicationController
       :archived,
       :book_cost_per_student,
       :cisco_id,
+      :featured_course_summary,
       :heading,
       :id,
       :intended_audience,

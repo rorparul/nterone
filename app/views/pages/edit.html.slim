@@ -1,25 +1,18 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admin.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="#{admin_website_path}"
-    = t('admin.partial_breadcrumbs.admin')
-    
 = render 'layouts/tabs'
 
-.panel.panel-default
-  .panel-heading
-    strong.text-muted
-      = t('pages.edit.edit_page')
-  .panel-body
-    = render partial: "form", locals: { page: @page }
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('pages.edit.edit_page')
+        .panel-body
+          = render partial: "form", locals: { page: @page }
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .website').addClass('active');
-  
+
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });

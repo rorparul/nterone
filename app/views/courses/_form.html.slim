@@ -86,6 +86,10 @@
       /       = f.text_field :book_cost_per_student, data: { autonumeric: true }, class: 'form-control input-sm'
 
     .form-group
+      = f.label :featured_course_summary, t('courses.partial_form.featured_course_summary')
+      = f.text_area :featured_course_summary, class: 'form-control input-sm froala'
+
+    .form-group
       = f.label :intro, t('courses.partial_form.introduction')
       = f.text_area :intro, class: 'form-control input-sm froala'
 

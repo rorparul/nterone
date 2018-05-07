@@ -22,9 +22,9 @@
 #
 # Foreign Keys
 #
-#  fk_rails_0d79488b8f  (lms_exam_question_id => lms_exam_questions.id)
-#  fk_rails_35a6d2df9d  (lms_exam_answer_id => lms_exam_answers.id)
-#  fk_rails_a2a48529d4  (lms_exam_attempt_id => lms_exam_attempts.id)
+#  fk_rails_...  (lms_exam_answer_id => lms_exam_answers.id)
+#  fk_rails_...  (lms_exam_attempt_id => lms_exam_attempts.id)
+#  fk_rails_...  (lms_exam_question_id => lms_exam_questions.id)
 #
 
 class LmsExamAttemptAnswer < ActiveRecord::Base

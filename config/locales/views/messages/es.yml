@@ -1,6 +1,0 @@
-es:
-  messages:
-    partial_index:
-      date: "Fecha"
-      from: "De"
-      message: "Mensaje"

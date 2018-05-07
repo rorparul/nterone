@@ -23,6 +23,12 @@
 #  updated_at          :datetime         not null
 #  host                :string
 #  event_id            :integer
+#  origin_region       :integer
+#  active_regions      :text             default([]), is an Array
+#
+# Indexes
+#
+#  index_public_featured_events_on_origin_region  (origin_region)
 #
 
 require 'test_helper'

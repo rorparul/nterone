@@ -1,23 +1,32 @@
-- content_for :breadcrumbs do
-  = render "admin/breadcrumbs"
-
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    h4
-      strong.text-muted= t('admin.partial_tabs.courses')
-    .container-muted style="height: 60px;"
-      = smart_listing_controls_for(:courses, {class: "input-search"}) do
-        .input-group.input-group-sm.filter style='margin-right: 15px;'
-          = text_field_tag :filter, params[:filter], class: "search form-control input-sm",
-                                        placeholder: t('admins.classes.search'),
-                                        autocomplete: :off
-          span class="input-group-btn"
-            button class="btn btn-default btn-sm" type="submit"
-              span.glyphicon.glyphicon-search
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted= t('admin.partial_tabs.courses')
+      .container-muted style="height: 60px;"
+        = smart_listing_controls_for(:courses, {class: "input-search"}) do
+          .input-group.input-group-sm.filter style='margin-right: 15px;'
+            = text_field_tag :filter, params[:filter], class: "search form-control input-sm",
+                                          placeholder: t('admins.classes.search'),
+                                          autocomplete: :off
+            span class="input-group-btn"
+              button class="btn btn-default btn-sm" type="submit"
+                span.glyphicon.glyphicon-search
 
-    = smart_listing_render(:courses)
+      = smart_listing_render(:courses)
+
+  .row
+    .col-xs-12.text-center
+      #download-classes
+        span
+          = t('admins.courses.download_courses')
+          | :
+        '
+        = link_to "XLSX", courses_export_path(format: 'xlsx')
+        = " | "
+        = link_to "CSV", courses_export_path(format: 'csv')
 
 javascript:
-  $('.role-tab').addClass('active');
+  $('.permissions .website').addClass('active');

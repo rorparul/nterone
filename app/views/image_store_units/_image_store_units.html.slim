@@ -1,9 +1,0 @@
-- carousel_items.each do |carousel_item|
-  tr
-    td = image_tag carousel_item.image.file.processed_image.url
-    td = carousel_item.caption
-    td = carousel_item.active
-    td.actions-column.fit
-      = link_to t('default.action.edit'), edit_carousel_item_path(carousel_item), remote: true
-      = " | "
-      = link_to t('default.action.delete'), carousel_item_path(carousel_item), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

@@ -12,6 +12,12 @@
 #  updated_at      :datetime         not null
 #  position        :integer          default(0)
 #  slug            :string
+#  origin_region   :integer
+#  active_regions  :text             default([]), is an Array
+#
+# Indexes
+#
+#  index_videos_on_origin_region  (origin_region)
 #
 
 require 'rails_helper'

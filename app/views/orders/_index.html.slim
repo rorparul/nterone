@@ -8,21 +8,21 @@
       thead
         tr
           th #
-          th 
+          th
             = t('orders.partial_index.status')
-          th.fit 
+          th.fit
             = t('orders.partial_index.total')
-          th 
+          th
             = t('orders.partial_index.charged')
-          th.fit 
+          th.fit
             = t('orders.partial_index.auth_code')
           th
             = t('orders.partial_index.credits')
           th
             = t('orders.partial_index.so_num')
-          th 
+          th
             = t('orders.partial_index.balance')
-          th 
+          th
             = t('orders.partial_index.created')
           th.fit
             = t('orders.partial_index.member_email')
@@ -50,9 +50,9 @@
             td = order.buyer.email if order.buyer
             td.fit.actions-column.text-right
               = link_to t('default.action.show'), admin_orders_show_path(order), remote: false
-              |  | 
+              |  |
               = link_to t('default.action.edit'), edit_order_path(order), remote: true
-              |  | 
+              |  |
               = link_to t('default.action.delete'), order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 javascript:

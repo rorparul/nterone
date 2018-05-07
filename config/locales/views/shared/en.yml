@@ -1,12 +1,70 @@
 en:
   shared:
+    _addresses:
+      billing_address: 'NterOne Billing Address'
+      corporate_address: 'NterOne Corporate Address'
+    _banner_header:
+      guaranteed_to_run_classes: 'GUARANTEED TO RUN CLASSES'
+      our_mission: 'OUR MISSION'
+      register_today: 'Register Today!'
+      reinvent_yourself: 'REINVENT YOURSELF'
+      search_by: 'Search by certification, course, or exam'
+      search: 'Search'
+      world_class_solutions: 'World-Class IT Training and Consulting Solutions'
+    _contact_us_form:
+      email: 'Email'
+    _search_form:
+      placeholder: 'Search by certification, course, or exam'
+      search: 'Search'
+    change_region:
+      title: 'Change Region'
+    footer:
+      about_us: 'About Us'
+      copyright: 'NterOne Corporation. All rights reserved.'
+      consulting: 'Consulting'
+      contact_our_team_today: 'Contact Our Team Today!'
+      contact: 'Contact'
+      facebook: 'Facebook'
+      gtr_classes: 'Guaranteed to Run Classes'
+      google_plus: 'Google Plus'
+      home: 'Home'
+      labs: 'Labs'
+      linkedin: 'Linkedin'
+      partners: 'Partners'
+      privacy_policy: 'Privacy Policy'
+      sitemap: 'Sitemap'
+      terms_and_conditions: 'Terms and Conditions'
+      testimonials: 'Testimonials'
+      twitter: 'Twitter'
+    header:
+      about_us: 'About Us'
+      account_settings: 'Account Settings'
+      actions: 'Actions'
+      call_today: 'Call Today'
+      change_region: 'Change Region'
+      consulting: 'Consulting'
+      contact: 'Contact'
+      dashboard: 'Dashboard'
+      home: 'Home'
+      labs: 'Labs'
+      login: 'Login'
+      logo: 'locales/en/logo-with-tagline.png'
+      menu: 'Menu'
+      my_nterone: 'My NterOne'
+      partners: 'Partners'
+      search: 'Search'
+      shopping_cart: 'Shopping Cart'
+      sign_out: 'Sign Out'
+      tasks: 'Tasks'
+      testimonials: 'Testimonials'
+      training: 'Training'
     edit_js:
-      companies: "Edit Company"
+      companies: 'Edit Company'
     new_js:
-      companies: "New Company"
-
+      companies: 'New Company'
+    new_search:
+      title: 'Search'
     merge_js:
-      companies: "Merge Companies"
-
+      companies: 'Merge Companies'
     opportunities:
-      export_popup: "Export Opportunities"
+      export_popup: 'Export Opportunities'

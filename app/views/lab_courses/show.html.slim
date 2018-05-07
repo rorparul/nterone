@@ -1,42 +1,26 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  a href="/labs"
-    = t('admins.partial_breadcrumbs.labs')
-  span.seperator.breadcrumbs-title
-    | /
-  span.text-muted.breadcrumbs-title = "#{@lab_course.try(:abbreviation)}"
-  
 - if current_user && current_user.admin? == true
   - content_for :actions do
     li
       = link_to new_lab_course_lab_course_time_block_path(@lab_course), remote: true do
         = t('lab_courses.show.new_time_block')
 
-.row
-  .col-xs-12.col-central
-    = image_tag t('general.labs.image1'), class: "header-image"
-    .row
-      .col-xs-12
-        .panel.panel-default
-          .panel-body
-            h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
-            
-        .row
-          .col-xs-12
-            .well style="background-color: white;"
-              = render partial: 'date_select'
-            
-        - unless @time_blocks.empty?
-          .time-select-partial
-            .form-container
-              = render partial: 'time_select', locals: { lab_course: @lab_course, time_blocks: @time_blocks, time_zone: @time_zone }
-                        
-  .col-xs-12.side-column
-    = render partial: 'layouts/side_column'
-    
-javascript:
-  $('.labs-tab').addClass('active');
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      .panel.panel-default
+        .panel-body
+          h1 style="margin: 0 0 10px 0; font-size: 28px;" = @lab_course.title
+
+      .row
+        .col-xs-12
+          .well style="background-color: white;"
+            = render partial: 'date_select'
+
+      - unless @time_blocks.empty?
+        .time-select-partial
+          .form-container
+            = render partial: 'time_select', locals: { lab_course: @lab_course, time_blocks: @time_blocks, time_zone: @time_zone }
+
+= render partial: 'shared/banner_footer'

@@ -1,4 +1,4 @@
-lock '3.9.0'
+lock '3.9.1'
 
 require 'capistrano-db-tasks'
 
@@ -14,6 +14,7 @@ set :deploy_via, :remote_cache
 set :sidekiq_processes, 2
 set :sidekiq_user, fetch(:user)
 set :sidekiq_options_per_process, ["--queue default", "--queue mailer"]
+set :rvm_ruby_version, '2.3.7'
 
 # dbtasks
 set :db_remote_clean, true

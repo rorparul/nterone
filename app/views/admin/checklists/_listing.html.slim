@@ -4,7 +4,7 @@
       thead
         tr.background-muted
           th = smart_listing.sortable "#{t('default.label.description')}", :name
-          th.fit[colspan="2"] = t('default.label.actions')
+          th.fit colspan='2'
 
       tbody
         - smart_listing.collection.each do |checklist|

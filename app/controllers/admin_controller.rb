@@ -3,12 +3,11 @@ class AdminController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   include SmartListingConcerns
-  include MessageManager
 
   before_action :authenticate_user!
   before_action :authorize_admin
 
-  layout 'admin'
+  layout 'application'
 
   def become
     sign_in(:user, User.find(params[:id]), { bypass: true })
@@ -56,9 +55,6 @@ class AdminController < ApplicationController
   end
 
   def classes
-    cookies[:only_registered] = params[:only_registered] if params[:only_registered]
-    cookies[:filter]          = params[:filter]          if params[:filter]
-
     @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
     @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
 
@@ -70,12 +66,13 @@ class AdminController < ApplicationController
     end
 
     events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
-    events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
-
-    events_scope = events_scope.with_students if cookies[:only_registered] == "1" || cookies[:only_registered].blank?
-    events_scope = events_scope.custom_search(cookies[:filter]) if cookies[:filter]
 
     unless request.format.json?
+      events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
+
+      events_scope = events_scope.with_students if params[:only_registered] == "1" || params[:only_registered].nil?
+      events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
+
       @start_date = events_scope.minimum("events.start_date")
       @end_date   = events_scope.maximum("events.start_date")
 
@@ -108,7 +105,7 @@ class AdminController < ApplicationController
       format.html
       format.js
       format.json do
-        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d")} }.to_json
+        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) } }.to_json
       end
     end
   end
@@ -136,13 +133,12 @@ class AdminController < ApplicationController
     end
   end
 
-  def website
+  def marketing
     manage_smart_listing(
       [
         'list_articles',
         'list_lab_courses',
-        'list_pages_dynamic',
-        'list_pages_static',
+        'list_pages',
         'list_testimonials',
         'list_promotions'
       ]
@@ -185,20 +181,12 @@ class AdminController < ApplicationController
                                         default_sort: { title: "asc" })
   end
 
-  def list_pages_static
-    @static_pages = smart_listing_create(:pages_static,
-                                         Page.unscoped.where(static: true),
-                                         partial: "pages/listing_static",
-                                         sort_attributes: [[:title, "title"]],
-                                         default_sort: { title: "asc" })
-  end
-
-  def list_pages_dynamic
-    @dynamic_pages = smart_listing_create(:pages_dynamic,
-                                          Page.unscoped.where(static: false),
-                                          partial: "pages/listing_dynamic",
-                                          sort_attributes: [[:title, "title"]],
-                                          default_sort: { title: "asc" })
+  def list_pages
+    @pages = smart_listing_create(:pages,
+                                  Page.unscoped.all,
+                                  partial: "pages/listing",
+                                  sort_attributes: [[:title, "title"]],
+                                  default_sort: { title: "asc" })
   end
 
   def list_promotions

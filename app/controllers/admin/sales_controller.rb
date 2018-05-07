@@ -132,16 +132,21 @@ class Admin::SalesController < Admin::BaseController
   end
 
   def date_range(yearly, date)
+    date_query = Date.parse(date)
+    date_today = Date.today
+
     if true?(yearly)
-      {
-        start: Date.parse(date).beginning_of_year,
-        end:   Date.parse(date).end_of_year
-      }
+      if date_query.all_year.include?(date_today)
+        {start: date_query.beginning_of_year, end: date_today}
+      else
+        {start: date_query.beginning_of_year, end: date_query.end_of_year}
+      end
     else
-      {
-        start: Date.parse(date).beginning_of_month,
-        end:   Date.parse(date).end_of_month
-      }
+      if date_query.all_month.include?(date_today)
+        {start: date_query.beginning_of_month, end: date_today}
+      else
+        {start: date_query.beginning_of_month, end: date_query.end_of_month}
+      end
     end
   end
 end

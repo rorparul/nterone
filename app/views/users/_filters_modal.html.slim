@@ -41,6 +41,22 @@
                      class: 'form-control search-companies-select-filter',
                      style: "width: 100%;"
 
+        .row.form-group
+          .col-md-4
+            label
+              | All Customer
+              input.form-control.search-customer-type-select-filter type="radio" name="user[filters][customer_type]" value="" checked="true"
+
+          .col-md-4
+            label
+              | Direct Customer
+              input.form-control.search-customer-type-select-filter type="radio" name="user[filters][customer_type]" value="0"
+
+          .col-md-4
+            label
+              | Private Customer
+              input.form-control.search-customer-type-select-filter type="radio" name="user[filters][customer_type]" value="1"
+
         .form-buttons
           button.btn.btn-default type="button" data-dismiss="modal"
             = t('default.action.close')

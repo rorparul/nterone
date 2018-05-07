@@ -1,6 +1,0 @@
-= form_tag search_path, method: :get, "data-parsley-validate" => true do
-  .form-group
-    .input-group.input-group-sm
-      = text_field_tag :query, params[:query], class: 'form-control', required: true, placeholder: t('general.partial_search_form.placeholder')
-      span class="input-group-btn"
-        button class="btn btn-default" type="submit" Go

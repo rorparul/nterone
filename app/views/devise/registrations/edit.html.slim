@@ -1,24 +1,4 @@
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  - if current_user.admin?
-    span.text-muted
-    = t('admins.partial_breadcrumbs.admin')
-  - if current_user.sales?
-    span.text-muted
-    = t('admins.partial_breadcrumbs.my_sales')
-  - if current_user.member?
-    span.text-muted
-    = t('admins.partial_breadcrumbs.my_account')
-
-= render 'layouts/tabs'
-    
-= render 'form'
-
-javascript:
-  $('.role-tab').addClass('active');
-  $('.categories .settings').addClass('active-category');
-  $('.permissions .settings').addClass('active');
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2 style="padding-top: 50px;"
+      = render 'form'

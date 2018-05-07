@@ -1,6 +1,4 @@
 class MyAccountController < ApplicationController
-  include MessageManager
-
   before_action :authenticate_user!
   before_action :validate_authorization
 
@@ -13,12 +11,6 @@ class MyAccountController < ApplicationController
       @time_blocks[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: time_block.id, cart_id: nil).exists?
     end
     @time_blocks.to_a.compact!
-  end
-
-  def messages
-    @messages = Message.active(current_user)
-    mark_messages_read(current_user)
-    get_alert_counts
   end
 
   private

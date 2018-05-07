@@ -4,35 +4,22 @@
 - content_for :page_description do
   = @page.page_description
 
-- content_for :breadcrumbs do
-  a href="#{root_path}"
-    span.fa.fa-home
-    = t('admins.partial_breadcrumbs.home')
-  span.seperator
-    | /
-  span.text-muted
-    = t('admins.partial_breadcrumbs.training')
-
 - content_for :actions do
   - if current_user && current_user.admin?
-    li
-      = link_to new_platform_path, remote: true do
-        i.fa.fa-plus
-        = t('platforms.index.add_platform')
-    li
-      = link_to new_vendor_import_platforms_path, remote: true do
-        i.fa.fa-upload
-        = t('platforms.index.import_platform')
+    li = link_to t('platforms.index.add_platform'), new_platform_path, remote: true
+    li = link_to t('platforms.index.import_platform'), new_vendor_import_platforms_path, remote: true
 
-- if @page.content.present?
+= render partial: 'shared/banner_header'
+
+.container
+  - if @page.content.present?
+    .row
+      .col-xs-12.category-description
+        = @page.content.html_safe
+
   .row
-    .col-xs-12.category-description
-      = @page.content.html_safe
+    - if @platforms
+      - @platforms.each do |platform|
+        = render partial: 'platforms/platform', locals: { platform: platform }
 
-.row
-  - if @platforms
-    - @platforms.each do |platform|
-      = render partial: 'platforms/platform', locals: { platform: platform }
-
-javascript:
-  $('.training-tab').addClass('active');
+= render partial: 'shared/banner_footer'

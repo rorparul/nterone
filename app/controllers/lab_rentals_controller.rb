@@ -37,7 +37,7 @@ class LabRentalsController < ApplicationController
     default_sort: { "first_day": "desc" }
     )
 
-    render layout: "admin" if current_user.try(:admin?)
+    # render layout: "admin" if current_user.try(:admin?)
   end
 
   def show

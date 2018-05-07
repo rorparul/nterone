@@ -4,9 +4,6 @@
   - else
     = @event.course.abbreviation
 
-- content_for :breadcrumbs do
-  = render "breadcrumbs"
-
 - content_for :actions do
   li
     = link_to events_upload_path, remote: true do
@@ -15,11 +12,11 @@
 
 = render 'layouts/tabs'
 
-.row
-  .col-xs-12
-    = render partial: 'events/show', locals: { event: @event }
+.container
+  .row
+    .col-xs-12
+      = render partial: 'events/show', locals: { event: @event }
 
 
 javascript:
-  $('.role-tab').addClass('active');
   $('.permissions .classes').addClass('active');

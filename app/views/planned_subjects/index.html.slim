@@ -1,62 +1,55 @@
-- content_for :breadcrumbs do
-  span.fa.fa-graduation-cap
-  a href="#{planned_subjects_path}"
-    = t('admins.partial_breadcrumbs.my_plan')
-
-- unless @planned_subjects.any?
-  .row
-    .col-xs-12
-      .button-container
-        a href="#{platforms_path}"
-          button type="submit"
-            span.fa.fa-check-square-o
-            span 
-            = t('planned_subjects.index.build_my_training_plan')
-- else
-  - @planned_subjects.each do |planned_subject|
-    .row#subject-description.my-plan
-      .col-xs-12
-        h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
-    .row#subject-groups
-      - planned_subject.subject.groups.each do |group|
-        = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
-        
+.container
+  - unless @planned_subjects.any?
     .row
       .col-xs-12
-        - if planned_subject.subject.platform.url
-          a href="#{planned_subject.subject.platform.url}" target="_blank"
-            button#find-testing-center
-              span.fa.fa-location-arrow
-              span 
-              = t('planned_subjects.index.find_testing_center')
-          = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
-            = f.hidden_field :user_id, value: current_user.id
-            = f.hidden_field :subject_id, value: planned_subject.subject.id
-            button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
-              span.fa.fa-minus
+        .button-container
+          a href="#{platforms_path}"
+            button type="submit"
+              span.fa.fa-check-square-o
               span
-              = t('planned_subjects.index.remove_from_plan')
-    hr
+              = t('planned_subjects.index.build_my_training_plan')
+  - else
+    - @planned_subjects.each do |planned_subject|
+      .row#subject-description.my-plan
+        .col-xs-12
+          h4 = "#{planned_subject.subject.title} (#{planned_subject.subject.abbreviation})"
+      .row#subject-groups
+        - planned_subject.subject.groups.each do |group|
+          = render partial: 'groups/group', locals: { group: group , subject: planned_subject.subject, planned_subject: planned_subject, user: current_user }
 
-  = form_for :lead, url: request_quote_path, html: {} do |f|
-    = f.hidden_field :buyer_id, value: current_user.id
-    button#request-quote type="submit"
-      span.fa.fa-envelope-o
-      span
-      = t('planned_subjects.index.request_quote')
-
-  #grand-total
-    span
-      = "#{t('planned_subjects.index.grand_total')} #{formatted_price_or_range_of_my_plan_for(current_user)}"
-
-.row
-  .col-xs-12
-    #activity-history
-      h1
-        = t('planned_subjects.index.label.my_plan_history')
+      .row
+        .col-xs-12
+          - if planned_subject.subject.platform.url
+            a href="#{planned_subject.subject.platform.url}" target="_blank"
+              button#find-testing-center
+                span.fa.fa-location-arrow
+                span
+                = t('planned_subjects.index.find_testing_center')
+            = form_for :planned_subject, url: toggle_planned_subjects_path, html: {} do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :subject_id, value: planned_subject.subject.id
+              button.active id="subject-toggle-#{planned_subject.subject.id}" type="submit"
+                span.fa.fa-minus
+                span
+                = t('planned_subjects.index.remove_from_plan')
       hr
-      ul
-        = render_activities(@activities, fallback: 'default')
 
-javascript:
-  $('.my-account-tab').addClass('active');
+    = form_for :lead, url: request_quote_path, html: {} do |f|
+      = f.hidden_field :buyer_id, value: current_user.id
+      button#request-quote type="submit"
+        span.fa.fa-envelope-o
+        span
+        = t('planned_subjects.index.request_quote')
+
+    #grand-total
+      span
+        = "#{t('planned_subjects.index.grand_total')} #{formatted_price_or_range_of_my_plan_for(current_user)}"
+
+  .row
+    .col-xs-12
+      #activity-history
+        h1
+          = t('planned_subjects.index.label.my_plan_history')
+        hr
+        ul
+          = render_activities(@activities, fallback: 'default')

@@ -13,7 +13,7 @@ class EventMailer < ApplicationMailer
     @event = event
 
     mail(
-      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca'],
+      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca', 'helpdesk@nterone.in'],
       subject: "New GTR on #{`hostname`}",
       template_name: 'gtr_alert'
     )
@@ -23,7 +23,7 @@ class EventMailer < ApplicationMailer
     @event = event
 
     mail(
-      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca'],
+      to: ['helpdesk@nterone.com', 'helpdesk@nterone.la', 'helpdesk@nterone.ca', 'helpdesk@nterone.in'],
       subject: "Canceled GTR on #{`hostname`}",
       template_name: 'gtr_alert'
     )
