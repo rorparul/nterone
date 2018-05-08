@@ -83,23 +83,23 @@ javascript:
 
     $('#view-filter-controls').addClass('hidden');
 
-    // if($(this).data("loadCalander") == true){
-    //   $('#calendar-view').fullCalendar({
-    //     events: '/admin/classes.json',
-    //     loading: function(isLoading, view) {
-    //         if(isLoading) {
-    //           $(".calander_loading").removeClass('hidden');
-    //         } else {
-    //           $(".calander_loading").addClass('hidden');
-    //         }
-    //     },
-    //     eventClick: function(event) {
-    //       if (event.url) {
-    //         window.open(event.url);
-    //         return false;
-    //       }
-    //     }
-    //   })
-    //   $(this).data("loadCalander", false)
-    // }
+    if($(this).data("loadCalander") == true){
+      $('#calendar-view').fullCalendar({
+        events: '/lab-reservations.json',
+        loading: function(isLoading, view) {
+          if(isLoading) {
+            $(".calander_loading").removeClass('hidden');
+          } else {
+              $(".calander_loading").addClass('hidden');
+            }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
+        }
+      })
+      $(this).data("loadCalander", false)
+    }
   })
