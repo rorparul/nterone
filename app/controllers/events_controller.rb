@@ -147,6 +147,12 @@ class EventsController < ApplicationController
     @event = Event.find_by(id: params[:event_id])
   end
 
+  def instructor_options
+    @course = Course.find_by_id(params[:course_id])
+    @event = Event.find_by(id: params[:event_id])
+    @event.format = params[:event_format]
+  end
+
   private
 
   def event_params

@@ -311,3 +311,10 @@ javascript:
       $(this).text("View qualified instructors");
     }
   });
+
+  $("#event_format").on('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/instructor_options",
+      data: {course_id: "#{@course.id}", event_id: "#{event.id}", event_format: $(this).val()}   });
+  })

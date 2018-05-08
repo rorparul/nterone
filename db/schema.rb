@@ -1047,6 +1047,16 @@ ActiveRecord::Schema.define(version: 20180501153628) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "sales_rep_goals", force: :cascade do |t|
+    t.date     "month"
+    t.integer  "amount"
+    t.text     "description"
+    t.integer  "origin_region"
+    t.integer  "sales_rep_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",                                    null: false
     t.text     "value"
@@ -1237,7 +1247,7 @@ ActiveRecord::Schema.define(version: 20180501153628) do
     t.integer  "company_id"
     t.text     "about"
     t.integer  "status",                                          default: 0
-    t.decimal  "daily_rate",              precision: 8, scale: 2, default: 0.0
+    t.decimal  "onsite_daily_rate",       precision: 8, scale: 2, default: 0.0
     t.text     "video_bio"
     t.string   "source_name"
     t.string   "source_user_id"
@@ -1256,6 +1266,7 @@ ActiveRecord::Schema.define(version: 20180501153628) do
     t.boolean  "archive",                                         default: false
     t.string   "sales_force_id"
     t.integer  "customer_type"
+    t.decimal  "online_daily_rate",       precision: 8, scale: 2, default: 0.0
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
