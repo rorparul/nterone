@@ -127,26 +127,68 @@ class Event < ActiveRecord::Base
 
   delegate :platform, to: :course
 
-  def self.upcoming_events
-    where("start_date >= :start_date", { start_date: 1.week.ago.beginning_of_week })
-  end
+  class << self
+    def upcoming_events
+      where("start_date >= :start_date", { start_date: 1.week.ago.beginning_of_week })
+    end
 
-  def self.guaranteed_events
-    where(guaranteed: true).order(:start_date)
-  end
+    def guaranteed_events
+      where(guaranteed: true).order(:start_date)
+    end
 
-  def self.upcoming_public_events
-    where('active = ? and public = ? and start_date >= ?', true, true, Date.today).order(:start_date)
-  end
+    def upcoming_public_events
+      where('active = ? and public = ? and start_date >= ?', true, true, Date.today).order(:start_date)
+    end
 
-  def self.guaranteed_upcoming_events
-    where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
-  end
+    def guaranteed_upcoming_events
+      where("active = :active and guaranteed = :guaranteed and start_date >= :start_date", { active: true, guaranteed: true, start_date: Date.today })
+    end
 
-  def self.in_range(start_date, end_date)
-    Event.joins(:order_items)
-      .where(start_date: start_date..end_date, order_items: { cart_id: nil })
-      .where.not(order_items: { order_id: nil }).distinct
+    def in_range(start_date, end_date)
+      Event.joins(:order_items)
+           .where(start_date: start_date..end_date, order_items: { cart_id: nil })
+           .where.not(order_items: { order_id: nil }).distinct
+    end
+
+    def with_students
+      # TODO: Figure out a way to remove the double-query
+      ids_with_students = joins(:order_items).where(order_items: { cart_id: nil }).distinct.pluck(:id)
+      Event.where(id: ids_with_students)
+    end
+
+    def average_margin(region, date_range_start, date_range_end)
+      events = if region.nil? && date_range_start.nil? && date_range_end.nil?
+                 where(archived: false)
+               else
+                 if region.nil? && date_range_start.present? && date_range_end.present?
+                   where(archived: false).where(
+                     'end_date >= ? and end_date <= ?',
+                     date_range_start,
+                     date_range_end
+                   )
+                 elsif date_range_start.nil? && date_range_end.nil?
+                   where(archived: false).where(
+                     'origin_region = ?',
+                     region
+                   )
+                 else
+                   where(archived: false).where(
+                     'origin_region = ? and end_date >= ? and end_date <= ?',
+                     region,
+                     date_range_start,
+                     date_range_end
+                   )
+                 end
+               end
+
+      events_with_positive_revenue = events.reject { |event| event.revenue == 0.0 }
+
+      total_revenue    = events_with_positive_revenue.inject(0) { |sum, event| sum += event.revenue }
+      total_expenses   = events_with_positive_revenue.inject(0) { |sum, event| sum += event.total_cost }
+      total_net_profit = total_revenue - total_expenses
+
+      total_revenue == 0 ? total_net_profit : (total_net_profit / total_revenue) * 100
+    end
   end
 
   def length
@@ -156,13 +198,6 @@ class Event < ActiveRecord::Base
 
       count > 0 ? count : 1
     end
-  end
-
-  def self.with_students
-    # TODO: Figure out a way to remove the double-query
-
-    ids_with_students = joins(:order_items).where(order_items: { cart_id: nil }).distinct.pluck(:id)
-    Event.where(id: ids_with_students)
   end
 
   def student_count
@@ -187,39 +222,6 @@ class Event < ActiveRecord::Base
 
   def margin
     (net_revenue / revenue) * 100
-  end
-
-  def self.average_margin(region = nil, date_range_start = nil, date_range_end = nil)
-    select_events = if region.nil? && date_range_start.nil? && date_range_end.nil?
-      where(archived: false)
-    else
-      if region.nil? && date_range_start.present? && date_range_end.present?
-        where(archived: false).where(
-          'end_date >= ? and end_date <= ?',
-          date_range_start,
-          date_range_end
-        )
-      elsif date_range_start.nil? && date_range_end.nil?
-        where(archived: false).where(
-          'origin_region = ?',
-          region
-        )
-      else
-        where(archived: false).where(
-          'origin_region = ? and end_date >= ? and end_date <= ?',
-          region,
-          date_range_start,
-          date_range_end
-        )
-      end
-    end
-
-    filtered_events = select_events.reject { |event| event.revenue == 0.0 }
-
-    margin_sum       = filtered_events.inject(0) { |sum, event| sum += event.margin }
-    number_of_events = filtered_events.count
-
-    margin_sum == 0 ? 0 : (margin_sum / number_of_events)
   end
 
   def revenue_by(user_id)
