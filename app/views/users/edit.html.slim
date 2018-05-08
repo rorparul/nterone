@@ -1,7 +1,11 @@
 = render 'layouts/tabs'
 
 .container
-  = render 'form'
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      h4
+        strong.text-muted = "Edit #{@user.full_name}"
+      = render 'form'
 
 javascript:
   $('.permissions .people').addClass('active');

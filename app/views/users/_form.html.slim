@@ -1,188 +1,171 @@
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('users.partial_form.user_info')
-      .panel-body
-        = form_for @user, url: user_path(@user), html: { method: :put } do |f|
-          - if current_user.admin?
-            .row
-              .col-xs-12
-                .form-group
-                  label
-                    = t('users.partial_form.privileges')
-                  #roles
-                    = f.fields_for :roles do |ff|
-                      = render 'users/role_fields', f: ff
-                    .links
-                      = link_to_add_association t('users.partial_form.add_permission'), f, :roles
+= form_for @user, url: user_path(@user), html: { method: :put } do |f|
+  .container-muted
+    = link_to_add_association 'Add Role', f, :roles, class: 'btn btn-green-gradient', role: 'button', data: { 'association-insertion-node' => '#roles', 'association-insertion-method' => 'after' }
+  - if current_user.admin?
+    .row
+      .col-xs-12
+        .form-group
+          label
+            | Roles
+          #roles
+            = f.fields_for :roles do |ff|
+              = render 'users/role_fields', f: ff
 
-            hr
+  .container-muted
+    | General
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :first_name, t('default.label.first_name')
+        = f.text_field :first_name, class: "form-control input-sm"
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :last_name, t('default.label.last_name')
+        = f.text_field :last_name, class: "form-control input-sm"
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :contact_number, t('users.partial_form.phone')
+        = f.text_field :contact_number, class: "form-control input-sm"
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :company_id, t('users.partial_form.company_name')
+        = f.select :company_id,
+          Company.all.collect {|c| [ c.title, c.id ] },
+          { prompt: t('default.placeholder.select') },
+          { class: "form-control input-sm" }
+  fieldset
+    label
+      = t('users.partial_form.billing_address')
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :billing_first_name, t('default.label.first_name')
+          = f.text_field :billing_first_name, class: 'form-control input-sm'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :billing_last_name, t('default.label.last_name')
+          = f.text_field :billing_last_name, class: 'form-control input-sm'
+    .form-group
+      = f.label :billing_street, t('users.partial_form.street')
+      = f.text_field :billing_street, class: "form-control input-sm"
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :billing_city, t('users.partial_form.city')
+          = f.text_field :billing_city, class: "form-control input-sm"
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :billing_state, t('users.partial_form.state')
+          = f.select :billing_state,
+                     grouped_options_for_select(country_regions, @user.billing_state),
+                     { prompt: true },
+                     { class: 'form-control input-sm' }
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :billing_zip_code, t('users.partial_form.zip')
+          = f.text_field :billing_zip_code, class: "form-control input-sm"
+  fieldset.hideable
+    label
+      = t('users.partial_form.shipping_address')
+    .form-group
+      .checkbox
+        label
+          = f.check_box :same_addresses, class: 'shipping-address-box'
+          = t('users.partial_form.same_as')
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :shipping_first_name, t('default.label.first_name')
+          = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :shipping_last_name, t('default.label.last_name')
+          = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
+    .form-group
+      = f.label :shipping_street, t('users.partial_form.street')
+      = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :shipping_city, t('users.partial_form.city')
+          = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :shipping_state, t('users.partial_form.shipping_state')
+          = f.select :shipping_state,
+                     grouped_options_for_select(country_regions),
+                     { prompt: true },
+                     { class: 'form-control input-sm input-shipping-address' }
+      .col-xs-12.col-md-2
+        .form-group
+          = f.label :shipping_zip_code, t('users.partial_form.zip')
+          = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        label Active
+        br
+        = f.check_box :active
 
-            .row
-              .col-xs-6
-                .form-group
-                  label
-                    = t('users.partial_form.teachable_courses')
-                  #courses
-                    = f.fields_for :chosen_courses do |chosen_course|
-                      = render 'users/chosen_course_fields', f: chosen_course
-                    .links
-                      = link_to_add_association 'Add Course', f, :chosen_courses
+  .container-muted
+    | For Student Role
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :status, t('users.partial_form.status')
+        = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
+                            options = {},
+                          html_options = { class: "form-control input-sm" }
+    .col-xs-12.col-md-3
+      .form-group
+        label Direct Customer
+        br
+        = f.radio_button :customer_type, "direct_customer"
+    .col-xs-12.col-md-3
+      .form-group
+        label Partner Customer
+        br
+        = f.radio_button :customer_type, "partner_customer"
 
-            hr
+  .container-muted
+    | For Instructor Role
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :onsite_daily_rate, t('users.partial_form.onsite_daily_rate')
+        .input-group
+          span.input-group-addon $
+          = f.text_field :onsite_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
 
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :status, t('users.partial_form.status')
-                  = f.select :status, User.statuses.keys.to_a.map { |w| [w.humanize, w] },
-                                      options = {},
-                                    html_options = { class: "form-control input-sm" }
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :online_daily_rate, t('users.partial_form.online_daily_rate')
+        .input-group
+          span.input-group-addon $
+          = f.text_field :online_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :about, t('users.partial_form.about')
+        = f.text_area :about, class: "form-control input-sm"
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :video_bio, t('users.partial_form.video_bio')
+        = f.text_area :video_bio, class: "form-control input-sm"
+  .row
+    .col-xs-6
+      .form-group
+        label
+          = t('users.partial_form.teachable_courses')
+        #courses
+          = f.fields_for :chosen_courses do |chosen_course|
+            = render 'users/chosen_course_fields', f: chosen_course
+          .links
+            = link_to_add_association 'Add Course', f, :chosen_courses
 
-              .col-xs-12.col-md-6
-                .form-group
-                  label Active
-                  br
-                  = f.check_box :active
-            hr
-            
-            .row
-              .col-xs-12.col-md-2
-                .form-group
-                  label Direct Customer
-                  br
-                  = f.radio_button :customer_type, "direct_customer"
-              .col-xs-12.col-md-2
-                .form-group
-                  label Partner Customer
-                  br
-                  = f.radio_button :customer_type, "partner_customer"
-
-            hr
-
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :onsite_daily_rate, t('users.partial_form.onsite_daily_rate')
-                  .input-group
-                    span.input-group-addon $
-                    = f.text_field :onsite_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"
-
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :online_daily_rate, t('users.partial_form.online_daily_rate')
-                  .input-group
-                    span.input-group-addon $
-                    = f.text_field :online_daily_rate, data: { autonumeric: true }, class: "form-control input-sm"      
-
-            hr
-
-          .row
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :first_name, t('default.label.first_name')
-                = f.text_field :first_name, class: "form-control input-sm"
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :last_name, t('default.label.last_name')
-                = f.text_field :last_name, class: "form-control input-sm"
-
-          .row
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :contact_number, t('users.partial_form.phone')
-                = f.text_field :contact_number, class: "form-control input-sm"
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :company_id, t('users.partial_form.company_name')
-                = f.select :company_id,
-                  Company.all.collect {|c| [ c.title, c.id ] },
-                  { prompt: t('default.placeholder.select') },
-                  { class: "form-control input-sm" }
-          .row
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :about, t('users.partial_form.about')
-                = f.text_area :about, class: "form-control input-sm"
-            .col-xs-12.col-md-6
-              .form-group
-                = f.label :video_bio, t('users.partial_form.video_bio')
-                = f.text_area :video_bio, class: "form-control input-sm"
-          hr
-          fieldset
-            label
-              = t('users.partial_form.billing_address')
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :billing_first_name, t('default.label.first_name')
-                  = f.text_field :billing_first_name, class: 'form-control input-sm'
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :billing_last_name, t('default.label.last_name')
-                  = f.text_field :billing_last_name, class: 'form-control input-sm'
-            .form-group
-              = f.label :billing_street, t('users.partial_form.treet')
-              = f.text_field :billing_street, class: "form-control input-sm"
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :billing_city, t('users.partial_form.city')
-                  = f.text_field :billing_city, class: "form-control input-sm"
-              .col-xs-12.col-md-4
-                .form-group
-                  = f.label :billing_state, t('users.partial_form.state')
-                  = f.select :billing_state,
-                             grouped_options_for_select(country_regions, @user.billing_state),
-                             { prompt: true },
-                             { class: 'form-control input-sm' }
-              .col-xs-12.col-md-2
-                .form-group
-                  = f.label :billing_zip_code, t('users.partial_form.zip')
-                  = f.text_field :billing_zip_code, class: "form-control input-sm"
-
-          hr
-          fieldset.hideable
-            label
-              = t('users.partial_form.shipping_address')
-            .form-group
-              .checkbox
-                label
-                  = f.check_box :same_addresses, class: 'shipping-address-box'
-                  = t('users.partial_form.same_as')
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :shipping_first_name, t('default.label.first_name')
-                  = f.text_field :shipping_first_name, class: 'form-control input-sm input-shipping-address'
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :shipping_last_name, t('default.label.last_name')
-                  = f.text_field :shipping_last_name, class: 'form-control input-sm input-shipping-address'
-            .form-group
-              = f.label :shipping_street, t('users.partial_form.street')
-              = f.text_field :shipping_street, class: "form-control input-sm input-shipping-address"
-            .row
-              .col-xs-12.col-md-6
-                .form-group
-                  = f.label :shipping_city, t('default.label.last_name')
-                  = f.text_field :shipping_city, class: "form-control input-sm input-shipping-address"
-              .col-xs-12.col-md-4
-                .form-group
-                  = f.label :shipping_state, t('users.partial_form.shipping_state')
-                  = f.select :shipping_state,
-                             grouped_options_for_select(country_regions),
-                             { prompt: true },
-                             { class: 'form-control input-sm input-shipping-address' }
-              .col-xs-12.col-md-2
-                .form-group
-                  = f.label :shipping_zip_code, t('users.partial_form.zip')
-                  = f.text_field :shipping_zip_code, class: "form-control input-sm input-shipping-address"
-
-          .form-buttons
-            = f.submit t('default.action.save'), class: 'btn btn-success'
+  .form-buttons
+    = f.submit t('default.action.save'), class: 'btn btn-success'
 
 javascript:
   function toggleShippingAddress(checkBox) {
