@@ -42,7 +42,7 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    @page = Page.find(params[:id])
+    @page = Page.unscope.find(params[:id])
   end
 
   def page_params
