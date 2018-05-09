@@ -1,283 +1,260 @@
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('events.partial_show.class_details')
-        .panel-actions-overlay
-          = link_to edit_platform_course_event_path(event.course.platform, event.course, event), remote: true do
-            = t('default.action.edit')
-      .row.table-row
-        .col-xs-12.col-md-6.table-col
-          .panel-table
-            .responsive-table
-              table.table.table-condensed
-                tbody
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.vendor')
-                    td = event.course.platform.title
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.course')
-                    td = "#{event.course.abbreviation} #{event.course.title}"
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.start_date')
-                    td = event.start_date.to_formatted_s(:rfc822) if event.start_date
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.end_date')
-                    td = event.end_date.to_formatted_s(:rfc822) if event.end_date
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.duration')
-                    td = pluralize(event.length, 'Day')
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.start_time')
-                    td = event.start_time.strftime("%I:%M %p") if event.start_time
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.end_time')
-                    td = event.end_time.strftime("%I:%M %p") if event.end_time
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.format')
-                    td = event.format
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.location')
-                    - if event.city.present? || event.state.present?
-                      td = "#{event.city}, #{event.state}"
-                    - else
-                      td
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.instructor')
-                    td = event.instructor.full_name if event.instructor
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.enrollment_count')
-                    td = event.student_count
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.public')
-                    td = event.public ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.guaranteed')
-                    td = event.guaranteed ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.active')
-                    td = event.active ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.regions')
-                    td
-                      - event.active_regions.each do |active_region|
-                        - if active_region == 'united_states'
-                          span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
-                        - elsif active_region == 'latin_america'
-                          span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
-                        - elsif active_region == 'canada'
-                          span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
-
-        .col-xs-12.col-md-6.table-col
-          .panel-table
-            .responsive-table
-              table.table.table-condensed
-                tbody
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.instructor_cost')
-                    td.text-warning = number_to_currency(event.cost_instructor, precision: 2)
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.lab_cost')
-                    td.text-warning = number_to_currency(event.cost_lab, precision: 2)
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.te_cost')
-                    td.text-warning = number_to_currency(event.cost_te, precision: 2)
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.facility_cost')
-                    td.text-warning = number_to_currency(event.cost_facility, precision: 2)
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.books_material_cost')
-                    td.text-warning = number_to_currency(event.cost_books, precision: 2)
-                  tr
-                    td.text-right
-                      strong
-                        = t('events.partial_show.shipping_cost')
-                    td.text-warning = number_to_currency(event.cost_shipping, precision: 2)
-                  tr
-                    td.text-right
-                      strong = t('events.partial_show.commission')
-                    td.text-warning = number_to_currency(event.cost_commission, precision: 2)
-                  tr
-                    td.text-right
-                      strong = t('events.partial_show.revenue')
-                    td = number_to_currency(event.revenue, precision: 2)
-                  tr
-                    td.text-right
-                      strong = t('events.partial_show.total_cost')
-                    td.text-danger = number_to_currency(event.total_cost, precision: 2)
-                  tr
-                    td.text-right
-                      strong = t('events.partial_show.net_revenue')
-                    td.text-success = number_to_currency(event.net_revenue, precision: 2)
-                  tr
-                    td.text-right
-                      strong = t('events.partial_show.margin')
-                    td.text-success = number_to_percentage(event.margin, precision: 2)
-
-.row
-  .col-xs-12
-    .panel.panel-default
-      .panel-heading
-        strong.text-muted
-          = t('events.partial_show.class_registrations')
-        .panel-actions-overlay
-          = link_to new_order_path(event: event.id), remote: true do
-            span title="#{t('events.partial_show.add_student')}"
-             = t('events.partial_show.add_student')
-      .panel-table
-        .responsive-table.table-scrollable
-          table.table.table-condensed
-            thead
-              tr
-                th title="#{t('events.partial_show.sent_webex')}"
-                  span.fa.fa-globe
-                th title="#{t('events.partial_show.sent_course_material')}"
-                  span.fa.fa-book
-                th title="#{t('events.partial_show.sent_lab_credentials')}"
-                  span.fa.fa-flask
-                th
-                  = t('events.partial_show.invoice')
-                th
-                  = t('events.partial_show.student')
-                th
-                  = t('events.partial_show.contacts')
-                th
-                  = t('events.partial_show.company')
-                th
-                  = t('events.partial_show.ship_to')
-                th
-                  = t('events.partial_show.partner_email')
-                th
-                  = t('events.partial_show.amount_quoted')
-                th
-                  = t('events.partial_show.amount_paid')
-                th
-                  = t('events.partial_show.amount_due')
-                th
-                  = t('events.partial_show.closed_date')
-                th
-                  = t('events.partial_show.sales_rep')
-                th
-                  = t('events.partial_show.note')
-                th
-                  = t('events.partial_show.gilmore_order_number')
-                th
-                  = t('events.partial_show.gilmore_invoice')
-                th
-                  = t('events.partial_show.royalty_id')
-                th
-                  = t('events.partial_show.po_number')
-                th
-                th
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted = "Class for #{event.course.abbreviation} #{event.course.title}"
+      .container-muted
+        = link_to t('default.action.edit'), edit_platform_course_event_path(event.course.platform, event.course, event), class: 'btn btn-default element-left-side', remote: true
+      .col-xs-12.col-md-6.table-col
+        .table-responsive
+          table#table-event-details.table.table-condensed
             tbody
-              - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
-                tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.start_date')
+                td = event.start_date.to_formatted_s(:rfc822) if event.start_date
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.end_date')
+                td = event.end_date.to_formatted_s(:rfc822) if event.end_date
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.duration')
+                td = pluralize(event.length, 'Day')
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.start_time')
+                td = event.start_time.strftime("%I:%M %p") if event.start_time
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.end_time')
+                td = event.end_time.strftime("%I:%M %p") if event.end_time
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.format')
+                td = event.format
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.location')
+                - if event.city.present? || event.state.present?
+                  td = "#{event.city}, #{event.state}"
+                - else
                   td
-                    = form_for order_item, remote: true do |f|
-                      = f.check_box :sent_webex_invite,    class: "check-select"
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.instructor')
+                td = event.instructor.full_name if event.instructor
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.enrollment_count')
+                td = event.student_count
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.public')
+                td = event.public ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.guaranteed')
+                td = event.guaranteed ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.active')
+                td = event.active ? t('events.partial_show.affirmative') : t('events.partial_show.negatory')
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.regions')
+                td
+                  - event.active_regions.each do |active_region|
+                    - if active_region == 'united_states'
+                      span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
+                    - elsif active_region == 'latin_america'
+                      span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
+                    - elsif active_region == 'canada'
+                      span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
+      .col-xs-12.col-md-6.table-col
+        .responsive-table
+          table#table-event-details.table.table-condensed
+            tbody
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.instructor_cost')
+                td.text-warning = number_to_currency(event.cost_instructor, precision: 2)
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.lab_cost')
+                td.text-warning = number_to_currency(event.cost_lab, precision: 2)
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.te_cost')
+                td.text-warning = number_to_currency(event.cost_te, precision: 2)
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.facility_cost')
+                td.text-warning = number_to_currency(event.cost_facility, precision: 2)
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.books_material_cost')
+                td.text-warning = number_to_currency(event.cost_books, precision: 2)
+              tr
+                td.text-right
+                  strong
+                    = t('events.partial_show.shipping_cost')
+                td.text-warning = number_to_currency(event.cost_shipping, precision: 2)
+              tr
+                td.text-right
+                  strong = t('events.partial_show.commission')
+                td.text-warning = number_to_currency(event.cost_commission, precision: 2)
+              tr
+                td.text-right
+                  strong = t('events.partial_show.revenue')
+                td = number_to_currency(event.revenue, precision: 2)
+              tr
+                td.text-right
+                  strong = t('events.partial_show.total_cost')
+                td.text-danger = number_to_currency(event.total_cost, precision: 2)
+              tr
+                td.text-right
+                  strong = t('events.partial_show.net_revenue')
+                td.text-success = number_to_currency(event.net_revenue, precision: 2)
+              tr
+                td.text-right
+                  strong = t('events.partial_show.margin')
+                td.text-success = number_to_percentage(event.margin, precision: 2)
+
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted Registrations
+      .container-muted
+        = link_to t('events.partial_show.add_student'), new_order_path(event: event.id), class: 'btn btn-green-gradient element-left-side', remote: true
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr
+              th title="#{t('events.partial_show.sent_webex')}"
+                span.fa.fa-globe
+              th title="#{t('events.partial_show.sent_course_material')}"
+                span.fa.fa-book
+              th title="#{t('events.partial_show.sent_lab_credentials')}"
+                span.fa.fa-flask
+              th
+                = t('events.partial_show.invoice')
+              th
+                = t('events.partial_show.student')
+              th
+                = t('events.partial_show.contacts')
+              th
+                = t('events.partial_show.company')
+              th.fit
+                = t('events.partial_show.ship_to')
+              th.fit
+                = t('events.partial_show.partner_email')
+              th.fit
+                = t('events.partial_show.amount_quoted')
+              th.fit
+                = t('events.partial_show.amount_paid')
+              th.fit
+                = t('events.partial_show.amount_due')
+              th.fit
+                = t('events.partial_show.closed_date')
+              th.fit
+                = t('events.partial_show.sales_rep')
+              th
+                = t('events.partial_show.note')
+              th.fit
+                = t('events.partial_show.gilmore_order_number')
+              th.fit
+                = t('events.partial_show.gilmore_invoice')
+              th.fit
+                = t('events.partial_show.royalty_id')
+              th.fit
+                = t('events.partial_show.po_number')
+              th
+              th
+          tbody
+            - event.order_items.where(cart_id: nil).order(status: :desc).each do |order_item|
+              tr id="order_item_#{order_item.id}" class="#{order_item.status == 'complete' ? 'success' : 'pending'}"
+                td
+                  = form_for order_item, remote: true do |f|
+                    = f.check_box :sent_webex_invite,    class: "check-select"
+                td
+                  = form_for order_item, remote: true do |f|
+                    = f.check_box :sent_course_material, class: "check-select"
+                td
+                  = form_for order_item, remote: true do |f|
+                    = f.check_box :sent_lab_credentials, class: "check-select"
+                td
+                  = form_for order_item.order, remote: true do |f|
+                    = f.text_field :invoice_number, class: "form-control form-async"
+                td = order_item.user.full_name if order_item.user
+                td = contact_info(order_item.user) if order_item.user
+                td = order_item.user.try(:company).try(:title)
+                td = order_item.try(:order).shipping_address
+                td = order_item.order.try(:referring_partner_email)
+                td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
+                - if order_item.order
+                  td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
+                  td = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
+                - else
                   td
-                    = form_for order_item, remote: true do |f|
-                      = f.check_box :sent_course_material, class: "check-select"
                   td
-                    = form_for order_item, remote: true do |f|
-                      = f.check_box :sent_lab_credentials, class: "check-select"
+
+                td.closed-date = form_for order_item.order, remote: true do |f|
+                  = f.date_field :closed_date, class: "form-control form-async"
+
+                - if current_user.admin?
                   td
-                    = form_for order_item.order, remote: true do |f|
-                      = f.text_field :invoice_number, class: "form-control form-async"
-                  td = order_item.user.full_name if order_item.user
-                  td = contact_info(order_item.user) if order_item.user
-                  td = order_item.user.try(:company).try(:title)
-                  td = order_item.try(:order).shipping_address
-                  td = order_item.order.try(:referring_partner_email)
-                  td = "$#{number_with_delimiter(number_with_precision(order_item.price, precision: 2))}"
-                  - if order_item.order
-                    td = "$#{number_with_delimiter(number_with_precision(order_item.paid, precision: 2))}"
-                    td = "$#{number_with_delimiter(number_with_precision(order_item.due, precision: 2))}"
-                  - else
-                    td
-                    td
-
-                  td.closed-date = form_for order_item.order, remote: true do |f|
-                    = f.date_field :closed_date, class: "form-control form-async"
-
-                  - if current_user.admin?
-                    td
-                      - if order_item.order
-                        = form_for order_item.order, url: order_path(order_item.order), method: :patch, remote: true do |f|
-                          = f.select :seller_id,
-                                     Role.where(role: [2, 3]).collect { |role| [role.user.try(:full_name), role.user.try(:id)] },
-                                     { prompt: true },
-                                     { class: 'form-control input-sm table-select' }
-                  - else
-                    td = order_item.order.seller.full_name if order_item.order.seller
+                    - if order_item.order
+                      = form_for order_item.order, url: order_path(order_item.order), method: :patch, remote: true do |f|
+                        = f.select :seller_id,
+                                   Role.where(role: [2, 3]).collect { |role| [role.user.try(:full_name), role.user.try(:id)] },
+                                   { prompt: true },
+                                   { class: 'form-control input-sm table-select' }
+                - else
+                  td = order_item.order.seller.full_name if order_item.order.seller
 
 
-                  td
-                    = link_to edit_order_item_path(order_item), remote: true do
-                      - if order_item.note.present?
-                        span.fa.fa-sticky-note
-                      - else
-                        span.fa.fa-sticky-note-o
-
-                  td = form_for order_item.order, remote: true do |f|
-                      = f.text_field :gilmore_order_number, class: "form-control form-async"
-
-                  td = form_for order_item.order, remote: true do |f|
-                      = f.text_field :gilmore_invoice, class: "form-control form-async"
-
-                  td = form_for order_item.order, remote: true do |f|
-                      = f.text_field :royalty_id, class: "form-control form-async"
-
-                  td = form_for order_item.order, remote: true do |f|
-                      = f.text_field :po_number, class: "form-control form-async"
-
-                  td = link_to 'Add to Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
-                  td
-                    - if order_item.orderable_type == "Event" 
-                      = link_to t('default.action.edit'), edit_order_path(order_item.order, event_id: order_item.orderable.id), remote: true
+                td
+                  = link_to edit_order_item_path(order_item), remote: true do
+                    - if order_item.note.present?
+                      span.fa.fa-sticky-note
                     - else
-                      = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
+                      span.fa.fa-sticky-note-o
+
+                td = form_for order_item.order, remote: true do |f|
+                    = f.text_field :gilmore_order_number, class: "form-control form-async"
+
+                td = form_for order_item.order, remote: true do |f|
+                    = f.text_field :gilmore_invoice, class: "form-control form-async"
+
+                td = form_for order_item.order, remote: true do |f|
+                    = f.text_field :royalty_id, class: "form-control form-async"
+
+                td = form_for order_item.order, remote: true do |f|
+                    = f.text_field :po_number, class: "form-control form-async"
+
+                td.text-warning = link_to 'Waiting', order_item_path(order_item, create_waiting: true), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }
+
+                td.text-warning = link_to t('default.action.edit'), edit_order_path(order_item.order), remote: true
 
 javascript:
   $('.table-select, .check-select').on('change', function() {

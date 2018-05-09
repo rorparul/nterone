@@ -21,7 +21,8 @@ javascript:
       $.post("/admin/checklists/" + $this.data('id') + '/complete_item/events/' + $this.data('event_id'))
         .success(function(data){
             $this.prop('checked', true)
-            if(data["checklist_items_count"] == $("input.checklist_item").length){
+            
+            if($("input.checklist_item:checked").length == $("input.checklist_item").length){
               $(".checklist_" + data["event_id"]).removeClass("label-default");
               $(".checklist_" + data["event_id"]).addClass("label-success");
             }
