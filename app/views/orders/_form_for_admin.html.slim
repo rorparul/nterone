@@ -63,7 +63,7 @@
     - if order.id.present? && order.source == 'other'
       p = order.other_source
     hr
-
+    
     - if order.id.present? || errors == true
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false, remote: true do |order_item|
@@ -71,10 +71,11 @@
                                         type: order_item.object.orderable_type,
                                         order: order
         .links
-          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-            render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          - unless params[:add_vod].present? && params[:add_vod] == "false"
+            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+              render_options: {locals: {type: 'Event', order: order}}
+            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+              render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
@@ -82,10 +83,11 @@
                                         type: "Event",
                                         order: order
         .links
-          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-            render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          - unless params[:add_vod].present? && params[:add_vod] == "false"
+            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+              render_options: {locals: {type: 'Event', order: order}}
+            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+              render_options: {locals: {type: 'VideoOnDemand', order: order}}
     - else
       #order-items
         = f.fields_for :order_items, include_id: false do |order_item|
@@ -93,10 +95,11 @@
                                         type: nil,
                                         order: order
         .links
-          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-            render_options: {locals: {type: 'Event', order: order}}
-          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-            render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          - unless params[:add_vod].present? && params[:add_vod] == "false"
+            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+              render_options: {locals: {type: 'Event', order: order}}
+            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+              render_options: {locals: {type: 'VideoOnDemand', order: order}}
 
     hr
     - if current_user.sales_rep?
@@ -381,14 +384,11 @@ javascript:
   $('#order-items').on('change', '.order-item-selector', function(e) {
     var value = $(this).find('option:selected').text();
     var match = value.match(/-\s\$(.+)$/);
-
+    
     if(match) {
-      value = match[1];
+      value = match[1].split("-")[0];
     }
-
-    if($(this).hasClass("new-order-item") == true) {
-      $(this).closest('.row').find('.order-item-price').val(value);
-    };
+    $(this).closest('.row').find('.order-item-price').val(value);
   });
 
   $('.order-item-selector').trigger('change');
