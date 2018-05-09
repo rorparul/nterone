@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     if @page.save
-      redirect_to admin_website_path
+      redirect_to admin_marketing_path
     else
       render 'new'
     end
