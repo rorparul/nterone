@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
-  before_action :set_page,           only: [:show, :edit, :update, :delete]
+  before_action :set_page,           only: [:edit, :update, :delete]
   before_action :authorize_page,     only: [:new, :create, :edit, :update, :delete]
 
   def new
@@ -17,6 +17,7 @@ class PagesController < ApplicationController
   end
 
   def show
+    @page = Page.find(params[:id])
   end
 
   def edit
@@ -42,7 +43,7 @@ class PagesController < ApplicationController
   private
 
   def set_page
-    @page = Page.find(params[:id])
+    @page = Page.unscope.find(params[:id])
   end
 
   def page_params
