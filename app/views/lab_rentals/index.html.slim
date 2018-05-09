@@ -1,4 +1,4 @@
-- if current_user.admin? == true
+- if user_signed_in? && current_user.admin?
   - content_for :actions do
     li
       = link_to new_file_path, remote: true do
@@ -9,43 +9,97 @@
 .container-fluid
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading.panel-heading-with-search
-          .row
-            .col-xs-2
-              strong.text-muted
-                = t('lab_rentals.index.lab_rentals')
-            .col-xs-10
-              = smart_listing_controls_for(:lab_rentals, { class: "form-inline text-right" }) do
-                .filter.hide
-                  = text_field_tag :date_start
-                  = text_field_tag :date_end
+      ul.nav.nav-tabs style='margin-bottom: 10px;'
+        li.active role="presentation" title='List View'
+          = link_to "javascript:void(0)", id: 'btn-list-view' do
+            span.glyphicon.glyphicon-th-list
+        li role="presentation" title='Calendar View'
+          = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
+            span.glyphicon.glyphicon-calendar
+      #view-filter-controls.container-muted
+        = link_to t('default.action.new'), new_lab_rental_path, class: 'btn btn-green-gradient element-left-side', role: 'button'
 
-                = link_to t('default.action.add'), new_lab_rental_path, class: "table-header-action"
+        = smart_listing_controls_for(:lab_rentals, { class: 'form-inline' }) do
+          .filter.hide
+            = text_field_tag :date_start
+            = text_field_tag :date_end
 
-                .input-group.input-group-sm.filter.input-append
-                  = text_field_tag :filter, '', class: "search form-control input-sm",
-                                                placeholder: t('default.action.search'),
-                                                autocomplete: :off
-                  span class="input-group-btn"
-                    button class="btn btn-default btn-sm disabled" type="submit"
-                      span.glyphicon.glyphicon-search
+          .input-group.element-right-side
+            = text_field_tag :filter, '', class: 'search form-control',
+                                          placeholder: t('default.action.search'),
+                                          autocomplete: :off
+            span.input-group-btn
+              button.btn.btn-default.disabled type='submit'
+                span.glyphicon.glyphicon-search
 
-              .form-inline.pull-right.margin-right-3
-                .input-group.input-group-sm.input-append.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
-                  .input-group.input-group-sm.input-append
-                    span class="input-group-btn"
-                      = text_field_tag :_date_start, '', class: "search form-control input-sm", data: { linked: "#date_start" },
-                                                  placeholder: t('default.placeholder.start_date'),
-                                                  autocomplete: :off
+        .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+          .input-group
+            span.input-group-btn
+              = text_field_tag :_date_start, '', class: 'search form-control element-right-side',
+                                                 style: 'border-radius: 4px;',
+                                                 data: { linked: '#date_start' },
+                                                 placeholder: t('default.placeholder.start_date'),
+                                                 autocomplete: :off
 
-                  .input-group.input-group-sm.input-append
-                    span class="input-group-btn"
-                      = text_field_tag :_date_end, '', class: "search form-control input-sm", data: { linked: "#date_end" },
-                                                  placeholder: t('default.placeholder.end_date'),
-                                                  autocomplete: :off
+          div style='display: inline-block; margin: 6px 0 4px 10px;' -
 
-        = smart_listing_render(:lab_rentals)
+          .input-group
+            span.input-group-btn
+              = text_field_tag :_date_end, '', class: 'search form-control element-right-side',
+                                               style: 'border-radius: 4px;',
+                                               data: { linked: '#date_end' },
+                                               placeholder: t('default.placeholder.end_date'),
+                                               autocomplete: :off
+
+      #list-view-container
+        #list-view
+          = smart_listing_render(:lab_rentals)
+
+      #calendar-view-container
+        i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+        #calendar-view
 
 javascript:
   $('.permissions .lab-rentals').addClass('active');
+
+  $("#calendar-view-container").addClass('hidden');
+
+  $("#btn-list-view").on('click', function() {
+    $("#btn-list-view").parent().addClass('active');
+    $("#btn-calender-view").parent().removeClass('active');
+
+    $("#list-view-container").removeClass('hidden');
+    $("#calendar-view-container").addClass('hidden');
+
+    $('#view-filter-controls').removeClass('hidden');
+  });
+
+  $("#btn-calender-view").on('click', function() {
+    $("#btn-list-view").parent().removeClass('active');
+    $("#btn-calender-view").parent().addClass('active');
+
+    $("#list-view-container").addClass('hidden');
+    $("#calendar-view-container").removeClass('hidden');
+
+    $('#view-filter-controls').addClass('hidden');
+
+    // if($(this).data("loadCalander") == true){
+    //   $('#calendar-view').fullCalendar({
+    //     events: '/admin/classes.json',
+    //     loading: function(isLoading, view) {
+    //         if(isLoading) {
+    //           $(".calander_loading").removeClass('hidden');
+    //         } else {
+    //           $(".calander_loading").addClass('hidden');
+    //         }
+    //     },
+    //     eventClick: function(event) {
+    //       if (event.url) {
+    //         window.open(event.url);
+    //         return false;
+    //       }
+    //     }
+    //   })
+    //   $(this).data("loadCalander", false)
+    // }
+  })

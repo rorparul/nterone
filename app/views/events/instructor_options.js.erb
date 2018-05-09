@@ -1,0 +1,20 @@
+$("#selected_instructor_option option").remove();
+$("#all_instructor_option option").remove();
+
+<% instructors_with_rate(User.all_instructors_by_rate, @event).each_with_index do |option, index| %>
+  <% if index == 0 %>
+    $("#all_instructor_option").append("<option>Please Select</option>") 
+  <% end %>  
+  var new_option = $("<option value="+<%=option[1]%>+"></option>")
+  new_option.text("<%=option[0]%>");
+  $("#all_instructor_option").append(new_option)
+<%end%>
+
+<% instructors_with_rate(@course.instructors, @event).each_with_index do |option, index| %>
+  <% if index == 0 %>
+    $("#selected_instructor_option").append("<option>Please Select</option>")
+  <% end %>  
+  var new_option = $("<option value="+<%=option[1]%>+"></option>")
+  new_option.text("<%=option[0]%>");
+  $("#selected_instructor_option").append(new_option)
+<%end%>

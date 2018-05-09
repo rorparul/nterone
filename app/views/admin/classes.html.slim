@@ -59,7 +59,7 @@
         #list-view
           = smart_listing_render(:events)
 
-      #calendar-view-container
+      #calendar-view-container.hidden
         i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
         #calendar-view
 
@@ -85,7 +85,6 @@ javascript:
     $("#calendar-view-container").addClass('hidden');
 
     $('#view-filter-controls').removeClass('hidden');
-    // $('.list-view-element').removeClass('invisible');
   });
 
   $("#btn-calender-view").on('click', function() {
@@ -96,7 +95,6 @@ javascript:
     $("#calendar-view-container").removeClass('hidden');
 
     $('#view-filter-controls').addClass('hidden');
-    // $('.list-view-element').addClass('invisible');
 
     if($(this).data("loadCalander") == true){
       $('#calendar-view').fullCalendar({

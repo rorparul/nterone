@@ -90,14 +90,14 @@
                     td.text-right
                       strong
                         = t('events.partial_show.regions')
-                    td  
+                    td
                       - event.active_regions.each do |active_region|
                         - if active_region == 'united_states'
                           span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
                         - elsif active_region == 'latin_america'
                           span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
                         - elsif active_region == 'canada'
-                          span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA      
+                          span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
 
         .col-xs-12.col-md-6.table-col
           .panel-table

@@ -4,7 +4,7 @@
 - content_for :page_description do
   = @page.page_description
 
-- if current_user && current_user.admin? == true
+- if user_signed_in? && current_user.admin?
   - content_for :actions do
     li
       = link_to t('general.labs.new_lab_course'), new_lab_course_path, remote: false

@@ -36,6 +36,8 @@ module SharedHelper
 
   def flag_icon_of_current_region
     case session[:region]
+    when 3
+      flag_code = :in
     when 2
       flag_code = :ca
     when 1

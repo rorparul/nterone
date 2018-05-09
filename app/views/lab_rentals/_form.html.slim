@@ -6,15 +6,15 @@
           span aria-hidden="true" &times;
         - lab_rental.errors.full_messages.each do |msg|
           p = msg
-          
+
     = f.hidden_field :level, value: 'partner'
-    
+
     - if @lab_rental.new_record?
       = f.hidden_field :kind
 
     - if @lab_rental.new_record?
       = f.hidden_field :user_id
-    
+
     - if @lab_rental.new_record? && (current_user.try(:admin?) == false || !user_signed_in?)
       = f.hidden_field :company_id
     - if @lab_rental.new_record? && current_user.try(:admin?)
@@ -57,7 +57,7 @@
                                  ActiveSupport::TimeZone.us_zones,
                                  { include_blank: 'Please select', default: 'Mountain Time (US & Canada)' },
                                  { required: true, class: 'form-control input-sm' }
-                                 
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -70,7 +70,7 @@
           span.required *
           br
           = f.time_select :end_time, { ampm: true, default: { hour: '17', minute: '00' } }, { required: true }
-        
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -112,7 +112,7 @@
         .form-group
           = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
-          
+
     - if @lab_rental.kind == 2
       hr style="margin-top: 0;"
       #lab_students
@@ -127,7 +127,7 @@
         .form-group
           = f.label :notes, t('lab_rentals.partial_form.notes')
           = f.text_area :notes, class: 'form-control'
-          
+
     .row
       - if @lab_rental.kind == 1 || current_user.try(:admin?)
         .col-xs-12.col-md-4
@@ -150,8 +150,8 @@
             br
             = f.check_box :twenty_four_hours
 
-    button.btn.btn-success
-      = t 'generic.button.save'
+    button.btn.btn-green-gradient.element-left-side
+      = t('generic.button.save')
 
 javascript:
   $('.confirmed-radio-button').on('change', function() {
@@ -161,10 +161,10 @@ javascript:
       $('.toggleable').removeAttr('required').prev('.required').remove();
     }
   });
-  
+
   $('.select-company').on('change', function() {
     var company_id = $(this).val();
     var url = window.location.protocol + '//' + window.location.host + '/' + 'lab-reservations/new?company_id=' + company_id
-  
+
     window.location = url;
   });

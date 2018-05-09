@@ -4,7 +4,7 @@ module Admin::ChecklistsHelper
     checklist_items_event = event.checklist_items_events.where(checklist_item_id: item.id).first
 
     if checklist_items_event.present? && checklist_items_event.user.present?
-      "#{checklist_items_event.user.name_initials} <br> #{checklist_items_event.updated_at.strftime("%d-%m-%Y")}".html_safe
+      "#{checklist_items_event.user.name_initials} <br> #{checklist_items_event.updated_at.strftime("%m-%d-%Y")}".html_safe
     else
       nil
     end

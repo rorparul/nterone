@@ -36,8 +36,6 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
-
-    # render layout: "admin" if current_user.try(:admin?)
   end
 
   def show
