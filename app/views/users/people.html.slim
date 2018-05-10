@@ -4,9 +4,9 @@
   .row
     .col-xs-12
       h4
-        strong.text-muted Leads
+        strong.text-muted Contacts
       .container-muted
-        = link_to t('default.action.new'), new_lead_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
+        = link_to t('default.action.new'), new_contact_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
         - if policy(:user).mass_edit?
           .dropdown.inline-dropdown.mass_edit_btn
             button#dropdownMenu1.btn.btn-default.dropdown-toggle.element-left-side aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
@@ -14,13 +14,23 @@
               span.caret
             ul.dropdown-menu aria-labelledby="dropdownMenu1"
               li
-                = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), remote: true
+                = link_to "Change Sales Rep", mass_edit_users_path(type: action_name), role: 'button', remote: true
               li
                 = link_to "Mark As Direct Customer", "javascript:void(0)", class: "classify_user_link mark_as_direct"
               li
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
-        = link_to "Unsubscribe", leads_unsubscribe_new_users_path(from: "leads"), class: 'btn btn-default element-left-side', remote: true
+        .dropdown.inline-dropdown.people_stage
+            button#people_stage.btn.btn-default.dropdown-toggle.element-left-side aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
+              = params[:stage].present? && params[:stage] == 'leads' ? "Leads" : "Contacts" 
+              span.caret
+            ul.dropdown-menu aria-labelledby="dropdownMenu1"
+              li
+                = link_to "Contacts", people_users_path(stage: "contacts"), remote: true
+              li
+                = link_to "Leads", people_users_path(stage: "leads"), role: 'button', remote: true
+
+        = link_to "Unsubscribe", leads_unsubscribe_new_users_path(from: "contacts"), class: 'btn btn-default element-left-side', remote: true
 
         = link_to 'Export', '#', id: 'export', class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button'
 
@@ -49,7 +59,7 @@ javascript:
   $('#export').on('click', function(e) {
     e.preventDefault();
     window.open(
-      "#{leads_users_path(:format => :xlsx)}?" +
+      "#{people_users_path(:format => :xlsx)}?" +
       $.param({
         "user[filters][parent_id]": $('#user_filters_parent_id').val(),
         "user[filters][source_name]": $('#user_filters_source_name').val(),
@@ -86,10 +96,10 @@ javascript:
     })
   }
 
-  $(".mark_as_direct").on('click', function(){
+  $(".mark_as_direct").on('click', function() {
     mass_edit_customer_type("direct_customer");
   });
 
-  $(".mark_as_partner").on('click', function(){
+  $(".mark_as_partner").on('click', function() {
     mass_edit_customer_type("partner_customer");
   });

@@ -3,6 +3,7 @@
     .panel.panel-default
       .modal-body.panel-body
         = hidden_field_tag "user[filters][escort]", value: 'escort'
+        = hidden_field_tag "stage", "contacts", class: "user_filter_stage"
 
         .form-group
           = label_tag "user[filters][parent_id]", "Owner"
@@ -62,6 +63,8 @@
             = t('default.action.close')
 
 javascript:
+  $(".user_filter_stage").val('contacts');
+
   $('.search-select-filter').select2({
     dropdownParent: $("#filtersModal"),
     theme: "bootstrap"
