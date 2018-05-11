@@ -2,6 +2,7 @@
 - when 'Event'
   .nested-fields
     .row
+      - event = f.object.orderable_id ? f.object.orderable : nil
       .col-xs-12.col-sm-9
         .form-group
           = f.hidden_field :id
@@ -9,15 +10,15 @@
           = f.label :orderable_id, t('orders.partial_order_item_fields.classes')
           br
           = f.select :orderable_id,
-            @events.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - f.object.price).to_s}", event.id] },
+            course_options(event, f.object),
             { prompt: t('default.placeholder.select') },
-            { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector" }
+            { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector" } 
 
       .col-xs-12.col-sm-3
         .form-group
           = f.label :price, t('orders.partial_order_item_fields.price')
           = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm order-item-price'
-      - event = f.object.orderable if f.object.orderable_id
+      
       - if event.present?
         - #This will allow callbacks of nested model to execute
         = f.hidden_field :updated_at, value: Time.now

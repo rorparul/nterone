@@ -11,7 +11,8 @@ class OrdersController < ApplicationController
     @orders = Order.order('created_at desc').page(params[:page])
   end
 
-  def new
+  def new 
+    
     if !user_signed_in? && params[:cart_token].nil?
       return redirect_to root_path
     end
@@ -21,9 +22,10 @@ class OrdersController < ApplicationController
     if current_user.try(:admin?) || current_user.try(:sales?)
       @user  = params[:user] ? User.find(params[:user]) : nil
       @event = params[:event] ? @order.order_items.build(orderable_type: "Event", orderable_id: params[:event]) : nil
-
       return render 'new_admin'
     end
+    
+    
 
     if TopLevelDomain == 'ca' && params[:form] != 'default'
       @x_amount        = view_context.number_with_precision(@cart.total_price, precision: 2)
@@ -172,11 +174,6 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
-    if params[:event_id].present?
-      @events = Event.find(params[:event_id]).course.events.joins(:course).order('courses.abbreviation')
-    else
-      @events = Event.joins(:course).order('courses.abbreviation')
-    end
   end
 
   def update

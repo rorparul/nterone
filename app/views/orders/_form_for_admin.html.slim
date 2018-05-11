@@ -71,11 +71,10 @@
                                         type: order_item.object.orderable_type,
                                         order: order
         .links
-          - unless params[:add_vod].present? && params[:add_vod] == "false"
-            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-              render_options: {locals: {type: 'Event', order: order}}
-            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-              render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}, class: 'hide'
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}, class: 'hide'
     - elsif event
       #order-items
         = f.fields_for :order_items, event, include_id: false do |order_item|
@@ -83,11 +82,10 @@
                                         type: "Event",
                                         order: order
         .links
-          - unless params[:add_vod].present? && params[:add_vod] == "false"
-            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-              render_options: {locals: {type: 'Event', order: order}}
-            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-              render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}, class: 'hide'
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}, class: 'hide'
     - else
       #order-items
         = f.fields_for :order_items, include_id: false do |order_item|
@@ -95,11 +93,10 @@
                                         type: nil,
                                         order: order
         .links
-          - unless params[:add_vod].present? && params[:add_vod] == "false"
-            = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
-              render_options: {locals: {type: 'Event', order: order}}
-            = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
-              render_options: {locals: {type: 'VideoOnDemand', order: order}}
+          = link_to_add_association t('orders.partial_form_for_admin.add_class'), f, :order_items,
+            render_options: {locals: {type: 'Event', order: order}}, class: 'hide'
+          = link_to_add_association t('orders.partial_form_for_admin.add_vod'), f, :order_items,
+            render_options: {locals: {type: 'VideoOnDemand', order: order}}, class: 'hide'
 
     hr
     - if current_user.sales_rep?
