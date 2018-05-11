@@ -150,7 +150,7 @@ class EventsController < ApplicationController
   def instructor_options
     @course = Course.find_by_id(params[:course_id])
     @event = Event.find_by(id: params[:event_id])
-    @event.format = params[:event_format]
+    @event.format = params[:event_format] if @event.present?
   end
 
   private
