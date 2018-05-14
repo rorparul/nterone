@@ -10,8 +10,14 @@ class UsersController < ApplicationController
     respond_to do |format|
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
+        
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
+        
+        ["students", "instructors", "admins"].each do |role|
+          prepare_role_smart_listing(role, users_scope.limit(1))
+        end  
+        
       end
 
       format.json do
@@ -194,6 +200,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_users_by_role
+    respond_to do |format|
+      format.any(:html, :js) do
+        case params[:role]
+        when "students"
+          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
+        when "instructors"  
+          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).all_instructors : User.all_instructors
+        when "admins"  
+          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
+        end
+        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+        prepare_role_smart_listing(params[:role], users_scope)
+      end
+    end
+  end
+
   private
 
   def set_user
@@ -268,6 +291,18 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
+      sort_attributes: [[:first_name, "first_name"],
+                        [:last_name, "last_name"],
+                        [:email, "email"]],
+      default_sort: { updated_at: 'desc' }
+    )
+  end
+
+  def prepare_role_smart_listing(role, users_scope)
+    smart_listing_create(
+      role.to_sym,
+      users_scope,
+      partial: "#{role}_listing",
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
                         [:email, "email"]],

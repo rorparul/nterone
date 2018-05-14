@@ -15,6 +15,18 @@ class UserPolicy < ApplicationPolicy
     @user.admin? || @user.sales?
   end
 
+  def students?
+    @user.admin? || @user.sales?
+  end
+
+  def instructors?
+    @user.admin? || @user.sales?
+  end
+
+  def get_users_by_role?
+    @user.admin? || @user.sales?
+  end
+
   def sales_reps?
     @user.admin? || @user.sales?
   end

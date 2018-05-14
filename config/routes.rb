@@ -26,6 +26,8 @@ NterOne::Application.routes.draw do
       
       get  'contacts'            => 'users#contacts',        as: :contacts
       get  'members'             => 'users#members',         as: :members
+      get  'get_users_by_role'   => 'users#get_users_by_role', as: :get_user_by_role
+      
       get  'sales_reps'          => 'users#sales_reps',      as: :sales_reps
       get  'leads/:id'           => 'users#show_as_lead',    as: :lead
       get  'contacts/:id'        => 'users#show_as_contact', as: :contact
