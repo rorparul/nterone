@@ -1,4 +1,4 @@
-- if current_user && current_user.admin? == true
+- if user_signed_in? && current_user.has_any_role?(%i(admin lab_admin))
   - content_for :actions do
     li
       = link_to new_lab_course_lab_course_time_block_path(@lab_course), remote: true do

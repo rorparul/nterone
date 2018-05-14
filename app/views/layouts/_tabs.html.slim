@@ -116,22 +116,3 @@
       li.settings role="presentation"
         a.nav-pill href="#{admin_settings_path}"
           = t('admins.partial_tabs.settings')
-
-// javascript:
-//   $('a[data-toggle="tab"]').on('shown', function(e){
-//     //save the latest tab using a cookie:
-//     Cookie.set('last_tab', $(e.target).attr('href'));
-//   });
-//
-//   //activate latest tab, if it exists:
-//   var lastTab = Cookie.get('last_tab');
-//   if (lastTab) {
-//       $('ul.nav-tabs').children().removeClass('active');
-//       $('a[href='+ lastTab +']').parents('li:first').addClass('active');
-//       $('div.tab-content').children().removeClass('active');
-//       $(lastTab).addClass('active');
-//   }
-
-  // if ($activePillID) {
-  //   $('.navbar a[href="' + activeLinkHref + '"]').click();
-  // }

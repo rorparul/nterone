@@ -18,7 +18,7 @@
         li role="tab"
           a href="#lab-course-topology" aria-controls="tab" role="tab" data-toggle="tab"
             | Topology
-                
+
   .row
     .col-xs-12
       .well style="background-color: white; border-top: 0px; border-top-left-radius: 0; border-top-right-radius: 0;"
@@ -38,11 +38,11 @@
                                 th Time Zone
                                 th Price
                                 th.fit style="text-align: right;"
-                                  - if user_signed_in? && current_user.admin?
+                                  - if user_signed_in? && current_user.has_any_role?(%i(admin lab_admin))
                                     = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
                             tbody
                               - value.each do |time|
-                                tr 
+                                tr
                                   td = "#{time.strftime("%l:%M%p")}"
                                   td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
                                   td = time.zone
@@ -50,7 +50,7 @@
                                   td.fit
                                     .btn.btn-success style="background-color: #f8f8f8; border: none; color: #5cb85c; float: right; position: absolute;" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
                                     button.btn.btn-success style="opacity: 0;" type="submit" name="time_start" value="#{key.id} #{time}" = t('lab_course_time_blocks.partial_time_select.add_to_cart')
-                          - else 
+                          - else
                             tbody
                               tr
                                 h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
@@ -66,11 +66,11 @@
                               th Time Zone
                               th Price
                               th
-                                - if user_signed_in? && current_user.admin?
+                                - if user_signed_in? && current_user.has_any_role?(%i(admin lab_admin))
                                   = link_to "Edit", edit_lab_course_lab_course_time_block_path(lab_course, key), remote: true
                           tbody
                             - value.each do |time|
-                              tr 
+                              tr
                                 td = "#{time.strftime("%l:%M%p")}"
                                 td = (time + 60 * 60 * key.unit_quantity).strftime("%A") == time.strftime("%A") ? "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")}" : "#{(time + 60 * 60 * key.unit_quantity).strftime("%l:%M%p")} (Next Day)"
                                 td = time.zone
@@ -82,11 +82,11 @@
                           tbody
                             tr
                               h4.text-center = t('lab_course_time_blocks.partial_time_select.nothing_available')
-                              
+
               .tab-pane role="tabpanel" id="lab-course-description"
                 .panel.panel-default style="padding: 15px;"
                   = @lab_course.description.try(:html_safe) if @lab_course.description
-                  
+
               .tab-pane role="tabpanel" id="lab-course-topology"
                 .panel.panel-default
                   = image_tag @lab_course.topology.image.file.url, style: "width: 100%; border-radius: 5px;" if @lab_course.topology && @lab_course.topology.image
