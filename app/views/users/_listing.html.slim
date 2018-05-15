@@ -73,33 +73,33 @@
     = t('default.placeholder.no_records')
 
 javascript:
-  $(".users_mass_edit_checkbox").change(function() {
+  $(".all_listing .users_mass_edit_checkbox").change(function() {
     toggle_mass_edit();
     if(!$(this).is(":checked")){
-      $("#select_all").prop('checked', false);
+      $(".all_listing .select_all_users").prop('checked', false);
     }
 
-    if($(".users_mass_edit_checkbox").length == $(".users_mass_edit_checkbox:checked").length){
-      $("#select_all").prop('checked', true);
+    if($(".all_listing .users_mass_edit_checkbox").length == $(".all_listing .users_mass_edit_checkbox:checked").length){
+      $(".all_listing .select_all_users").prop('checked', true);
     }
   });
 
-  $("#select_all").on('change', function(){
+  $(".all_listing .select_all_users").on('change', function(){
     if($(this).is(":checked")){
-      $(".users_mass_edit_checkbox").prop('checked', true).change();
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
     }else{
-      $(".users_mass_edit_checkbox").prop('checked', false).change();
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
     }
   });
 
-  if($("#select_all").is(":checked")){
-    $(".users_mass_edit_checkbox").prop('checked', true).change();
+  if($(".all_listing .select_all_users").is(":checked")){
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
   }else{
-    $(".users_mass_edit_checkbox").prop('checked', false).change();
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
   }
 
   function toggle_mass_edit() {
-    if($(".users_mass_edit_checkbox:checked").length > 0) {
+    if($(".all_listing .users_mass_edit_checkbox:checked").length > 0) {
       $("#dropdownMenu1").removeClass("disabled");
     }
     else{
