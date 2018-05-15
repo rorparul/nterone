@@ -63,7 +63,7 @@
     - if order.id.present? && order.source == 'other'
       p = order.other_source
     hr
-    
+
     - if order.id.present? || errors == true
       #order-items
         = f.fields_for :order_items, order.order_items, include_id: false, remote: true do |order_item|
@@ -381,7 +381,7 @@ javascript:
   $('#order-items').on('change', '.order-item-selector', function(e) {
     var value = $(this).find('option:selected').text();
     var match = value.match(/-\s\$(.+)$/);
-    
+
     if(match) {
       value = match[1].split("-")[0];
     }
