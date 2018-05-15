@@ -3,6 +3,7 @@ module Regions
 
   included do
     scope :current_region, -> { where("#{self.table_name}.active_regions @> ?", "{#{self.origin_regions.key(self.get_session_region)}}") }
+    scope :where_all_regions_active, ->{ where("#{self.table_name}.active_regions @> ARRAY[?]", ['canada', 'latin_america', 'united_states']) }
 
     enum origin_region: {
       united_states: 0,

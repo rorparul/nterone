@@ -39,15 +39,15 @@
       = f.label :seller_id, t('orders.partial_form_for_admin.seller')
       = f.select :seller_id,
                  existing_select2_ajax_user(order.seller),
-                 { prompt: t('default.placeholder.select') },
-                 { class: "form-control input-sm search-sales-select", style: "width: 100%;" }
+                 { include_blank: t('default.placeholder.select') },
+                 { class: "form-control search-sales-select", style: "width: 100%;" }
 
     .form-group
       = f.label :buyer_id, t('orders.partial_form_for_admin.buyer')
       = f.select :buyer_id,
                  existing_select2_ajax_user(order.buyer),
-                 { prompt: t('default.placeholder.select') },
-                 { class: "buyer-selector search-members-select", style: "width: 100%;", disabled: !order.new_record? }
+                 { include_blank: t('default.placeholder.select') },
+                 { class: "form-control buyer-selector search-members-select", style: "width: 100%;", disabled: !order.new_record? }
 
     .form-group
       = f.label :source, t('orders.partial_form_for_admin.source')
@@ -308,6 +308,7 @@
 javascript:
   $('.search-members-select').select2({
     dropdownParent: $(".search-members-select").closest('.form-group'),
+    theme: "bootstrap",
     ajax: {
       url: "#{members_users_path}",
       dataType: 'json',
@@ -334,6 +335,7 @@ javascript:
 
   $('.search-sales-select').select2({
     dropdownParent: $(".search-sales-select").closest('.form-group'),
+    theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
       dataType: 'json',
