@@ -94,23 +94,32 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
-  def leads
+  def people
+    params[:stage] ||= "all_stage"
     respond_to do |format|
       format.html do
-        users_scope = User.leads.where(parent_id: current_user.id)
+        users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
         prepare_smart_listing(users_scope)
       end
 
       format.js do
-        users_scope = User.leads.where(clean_params(user_params[:filters]))
+        if params[:user]
+          users_scope = User.send(params[:stage]).where(clean_params(user_params[:filters]))
+        else
+          users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
+        end
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
         prepare_smart_listing(users_scope)
       end
 
+      format.json do
+        render json: { items: User.send(params[:stage]).custom_search(params[:q]).order(:last_name) }
+      end
+
       format.xlsx do
-        @users = User.leads.where(clean_params(user_params[:filters])).order(:last_name)
+        @users = User.send(params[:stage]).where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
-        render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
+        render xlsx: 'index', filename: "#{params[:stage]}-#{DateTime.now}.xlsx"
       end
     end
   end
@@ -121,36 +130,7 @@ class UsersController < ApplicationController
   def leads_unsubscribe
     User.unsubscribe_from_email(params[:user_file])
     flash[:success] = "List Unsubscribes successfully"
-    if params[:from] == "contacts"
-      redirect_to contacts_users_path
-    else
-      redirect_to leads_users_path
-    end
-  end
-
-  def contacts
-    respond_to do |format|
-      format.html do
-        users_scope = User.contacts.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope)
-      end
-
-      format.js do
-        users_scope = User.contacts.where(clean_params(user_params[:filters]))
-        users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope)
-      end
-
-      format.json do
-        render json: { items: User.contacts.custom_search(params[:q]).order(:last_name) }
-      end
-
-      format.xlsx do
-        @users = User.contacts.where(clean_params(user_params[:filters])).order(:last_name)
-        @users = @users.custom_search(params[:search]) if params[:search].present?
-        render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
-      end
-    end
+    redirect_to people_users_path
   end
 
   def mark_customers_type
@@ -252,7 +232,10 @@ class UsersController < ApplicationController
         :status,
         :state,
         :company_id,
-        :customer_type
+        :customer_type,
+        escort: [
+          :value
+        ]
       ],
       roles_attributes: [
         :id,

@@ -514,7 +514,7 @@ label.btn.btn-blue-gradient.active {
   align-items: center;
 }
 
-#myModal, #myModal-wide {
+#myModal, #myModalWide, #filtersModal {
   text-align: center;
   &:before {
     display: inline-block;
@@ -544,7 +544,7 @@ label.btn.btn-blue-gradient.active {
   }
 }
 
-#myModal-wide {
+#myModalWide {
   .modal-dialog {
     width: 80%;
   }
