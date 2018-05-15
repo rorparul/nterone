@@ -95,7 +95,7 @@ class UsersController < ApplicationController
   end
 
   def people
-    params[:stage] ||= "contacts"
+    params[:stage] ||= "all_stage"
     respond_to do |format|
       format.html do
         users_scope = User.send(params[:stage]).where(parent_id: current_user.id)

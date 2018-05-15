@@ -178,6 +178,7 @@ class User < ActiveRecord::Base
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
+  scope :all_stage,               -> {where(status: [0, 1, 2, 3, 4])}
   scope :members,                 -> { joins(:roles).where(roles: { role: 4 }) }
   scope :direct_customer,         -> { where(customer_type: 0) }
   scope :private_customer,        -> { where(customer_type: 1) }
