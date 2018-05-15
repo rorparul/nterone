@@ -31,7 +31,9 @@
             span.input-group-btn
               button.btn.btn-default.disabled type='submit'
                 span.glyphicon.glyphicon-search
-
+        
+        = select_tag :level_filter, options_for_select([["All", nil], ["Partner", "partner"], ["Individual", "individual"]]), class: 'form-control', style: 'display: inline; width: auto;'                                  
+        
         .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
           .input-group
             span.input-group-btn
@@ -56,6 +58,8 @@
           = smart_listing_render(:lab_rentals)
 
       #calendar-view-container
+        = select_tag :calender_level_filter, options_for_select([["All", nil], ["Partner", "partner"], ["Individual", "individual"]]), class: 'form-control', style: 'display: inline; width: auto;' 
+
         i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
         #calendar-view
 
@@ -85,7 +89,14 @@ javascript:
 
     if($(this).data("loadCalander") == true){
       $('#calendar-view').fullCalendar({
-        events: '/lab-reservations.json',
+        events: {
+          url: '/lab-reservations.json',
+          data: function() { 
+            return {
+              level: $("#calender_level_filter").val()
+            };
+          }
+        },
         loading: function(isLoading, view) {
           if(isLoading) {
             $(".calander_loading").removeClass('hidden');
@@ -102,4 +113,16 @@ javascript:
       })
       $(this).data("loadCalander", false)
     }
+  })
+  
+  $("#level_filter").on("change", function(){
+    $.ajax({
+      type: "GET",
+      url: "/lab-reservations.js",
+      data: {level: $(this).val()}
+    });
+  })
+
+  $("#calender_level_filter").on("change", function(){
+    $('#calendar-view').fullCalendar('refetchEvents');
   })

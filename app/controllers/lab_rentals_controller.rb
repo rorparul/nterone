@@ -7,9 +7,12 @@ class LabRentalsController < ApplicationController
   def index
     redirect_to root_path unless user_signed_in?
     lab_rentals_scope  = current_user.try(:admin?) ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.try(:company_id))
-    lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
+    lab_rentals_scope = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
+    
+    lab_rentals_scope = lab_rentals_scope.where(level: params[:level]) if params[:level].present?
     params[:date_start] ||= params[:start]
     params[:date_end] ||= params[:end]
+
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
     elsif params[:date_start].present?
@@ -42,6 +45,7 @@ class LabRentalsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.js
       format.json do
         render json: lab_rentals_scope.map{ |lab| { 'title': lab.lab_course.title, 'start': lab.first_day.strftime("%Y-%m-%d"), 'end': (lab.last_day + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)'} }.to_json
       end
