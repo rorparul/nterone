@@ -4,7 +4,7 @@
   .row
     .col-xs-12
       h4
-        strong.text-muted Contacts
+        strong.text-muted People
       .container-muted
         = link_to t('default.action.new'), new_contact_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
         - if policy(:user).mass_edit?
@@ -20,7 +20,7 @@
               li
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
-        
+
         = link_to "Unsubscribe", leads_unsubscribe_new_users_path(from: "contacts"), class: 'btn btn-default element-left-side', remote: true
 
         = link_to 'Export', '#', id: 'export', class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button'
@@ -35,12 +35,12 @@
                 span.glyphicon.glyphicon-search
 
           = render partial: 'filters_modal'
-   
+
         = link_to "#", class: "pull-right btn btn-default element-right-side", data: { toggle: "modal", target: "#filtersModal" } do
           i.fa.fa-filter aria-hidden="true" style='margin-right: 5px;'
           | Filters
-        
-        = select_tag "people_stage", options_for_select([[ "All", "all_stage"], ['Contacts', "contacts"], ['Leads', 'leads']], "All"), class: 'form-control pull-right'
+
+        = select_tag "people_stage", options_for_select([[ "All", "all_stage"], ['Leads', 'leads'], ['Contacts', "contacts"]], "All"), class: 'form-control pull-right'
 
       = smart_listing_render(:users)
 
@@ -95,7 +95,7 @@ javascript:
       method: "GET",
       data: { stage: $(this).val() }
     })
-    
+
   })
 
   $(".mark_as_direct").on('click', function() {

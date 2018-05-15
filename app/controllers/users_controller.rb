@@ -101,7 +101,7 @@ class UsersController < ApplicationController
         users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
         prepare_smart_listing(users_scope)
       end
-     
+
       format.js do
         if params[:user]
           users_scope = User.send(params[:stage]).where(clean_params(user_params[:filters]))
@@ -232,7 +232,10 @@ class UsersController < ApplicationController
         :status,
         :state,
         :company_id,
-        :customer_type
+        :customer_type,
+        escort: [
+          :value
+        ]
       ],
       roles_attributes: [
         :id,
