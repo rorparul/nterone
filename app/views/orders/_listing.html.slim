@@ -55,7 +55,7 @@
               = link_to admin_orders_show_path(order, format: :pdf), title: 'PDF Download', remote: false do
                 i class="fa fa-file-pdf-o" aria-hidden="true"
             td.fit
-              = link_to edit_order_path(order), remote: true do
+              = link_to edit_order_path(order, add_vod: false), remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             td.fit
               = link_to order_path(order), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do

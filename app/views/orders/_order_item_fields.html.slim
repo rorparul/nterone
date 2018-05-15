@@ -2,6 +2,7 @@
 - when 'Event'
   .nested-fields
     .row
+      - event = f.object.orderable_id ? f.object.orderable : nil
       .col-xs-12.col-sm-9
         .form-group
           = f.hidden_field :id
@@ -9,13 +10,15 @@
           = f.label :orderable_id, t('orders.partial_order_item_fields.classes')
           br
           = f.select :orderable_id,
-                     Event.joins(:course).order('courses.abbreviation').collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)}", event.id] },
-                     { prompt: t('default.placeholder.select') },
-                     { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector", disabled: !order.new_record? }
+            course_options(event, f.object),
+            { prompt: t('default.placeholder.select') },
+            { class: order.new_record? ? "form-control sub-select input-sm order-item-selector new-order-item" : "form-control sub-select input-sm order-item-selector" }
+
       .col-xs-12.col-sm-3
         .form-group
           = f.label :price, t('orders.partial_order_item_fields.price')
           = f.text_field :price, data: { autonumeric: true }, class: 'form-control input-sm order-item-price'
+
     - if order.new_record?
       = link_to_remove_association t('orders.partial_order_item_fields.remove'), f
 - when 'VideoOnDemand'
