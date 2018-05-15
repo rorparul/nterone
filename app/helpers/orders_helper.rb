@@ -22,16 +22,16 @@ module OrdersHelper
       "$#{number_with_precision(discount.value, precision: 2)}"
     end
   end
-  
+
   def course_options(event, order_item)
     events = nil
-    
-    if event.present?
-      events = event.course.events.joins(:course).order('courses.abbreviation')
-    else
-      events = Event.joins(:course).order('courses.abbreviation')
-    end  
-    events.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)} #{'- Price Difference: '+ (event.price - order_item.price).to_s}", event.id] }
-  end
 
+    if event.present?
+      events = event.course.events.upcoming_events.joins(:course).order('courses.abbreviation').order('start_date')
+    else
+      events = Event.upcoming_events.joins(:course).order('courses.abbreviation').order('start_date')
+    end
+
+    events.collect { |event| ["#{event.course.abbreviation} (#{event.start_date} - #{event.end_date}) - #{dollar_value(event.price)}", event.id] }
+  end
 end
