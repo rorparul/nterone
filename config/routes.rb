@@ -20,11 +20,10 @@ NterOne::Application.routes.draw do
     post :toggle_archived, on: :member
     collection do
       get  ':id/edit_from_sales'   => 'users#edit_from_sales',       as: :edit_from_sales
-      get  'leads'                 => 'users#leads',                 as: :leads
       get  'leads_unsubscribe_new' => 'users#leads_unsubscribe_new', as: :leads_unsubscribe_new
       post 'leads_unsubscribe'     => 'users#leads_unsubscribe'    , as: :leads_unsubscribe
       
-      get  'contacts'            => 'users#contacts',        as: :contacts
+      get  'people'              => 'users#people',           as: :people
       get  'members'             => 'users#members',         as: :members
       get  'get_users_by_role'   => 'users#get_users_by_role', as: :get_user_by_role
       

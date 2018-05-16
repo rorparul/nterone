@@ -1,13 +1,20 @@
 #filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
   .modal-dialog
-    .panel.panel-default
+    .panel
+      .panel-heading
+        strong.text-muted.modal-title
+          | Filters
+        button.close.close-filter type='button' data-dismiss='modal' aria-label='Close'
+          span.glyphicon.glyphicon-remove aria-hidden='true'
       .modal-body.panel-body
         = hidden_field_tag "user[filters][escort]", value: 'escort'
+        = hidden_field_tag "stage", "contacts", class: "user_filter_stage"
 
         .form-group
           = label_tag "user[filters][parent_id]", "Owner"
           = select_tag "user[filters][parent_id]",
-                       options_for_select(existing_select2_ajax_user(current_user)),
+                       options_for_select([]),
+                       include_blank: true,
                        class: 'form-control search-sales-select-filter',
                        style: "width: 100%;"
 
@@ -15,22 +22,23 @@
           = label_tag "user[filters][source_name]", 'Source'
           = select_tag "user[filters][source_name]",
                        options_for_select(Rails.application.config.lead_sources),
-                       include_blank: "All",
-                       class: 'form-control search-select-filter',
+                       include_blank: true,
+                       class: 'form-control search-source-select-filter',
                        style: "width: 100%;"
 
         .form-group
           = label_tag "user[filters][status]", t('users.partial_form.status')
           = select_tag "user[filters][status]",
                        options_for_select(User.statuses.keys.to_a.map { |w| [w.humanize, w] }),
-                       include_blank: "All",
-                       class: 'form-control search-select-filter',
+                       include_blank: true,
+                       class: 'form-control search-status-select-filter',
                        style: "width: 100%;"
 
         .form-group
           = label_tag "user[filters][state]", 'State/Province'
           = select_tag "user[filters][state]",
                      options_for_select([]),
+                     include_blank: true,
                      class: 'form-control search-states-select-filter',
                      style: "width: 100%;"
 
@@ -38,6 +46,7 @@
           = label_tag "user[filters][company_id]", 'Company'
           = select_tag "user[filters][company_id]",
                      options_for_select([]),
+                     include_blank: true,
                      class: 'form-control search-companies-select-filter',
                      style: "width: 100%;"
 
@@ -58,17 +67,39 @@
               input.form-control.search-customer-type-select-filter type="radio" name="user[filters][customer_type]" value="1"
 
         .form-buttons
-          button.btn.btn-default type="button" data-dismiss="modal"
+          button.btn.btn-default.close-filter type="button" data-dismiss="modal" aria-label='Close'
             = t('default.action.close')
 
 javascript:
-  $('.search-select-filter').select2({
-    dropdownParent: $("#filtersModal"),
-    theme: "bootstrap"
+  $(".user_filter_stage").val('all_stage');
+
+  var defaultUserFilter = {
+      id: "#{current_user.id}",
+      text: "#{current_user.last_name}, #{current_user.first_name}"
+  };
+  var newOption = new Option(defaultUserFilter.text, defaultUserFilter.id, true, true);
+  $('.search-sales-select-filter').append(newOption).trigger('change');
+
+  $('.close-filter').on('click', function() {
+    $('#filtersModal').modal('hide');
+  });
+
+  $('.search-source-select-filter').select2({
+    dropdownParent: $("#filtersModal .search-source-select-filter").closest('.form-group'),
+    theme: "bootstrap",
+    placeholder: 'All',
+    allowClear: true
+  });
+
+  $('.search-status-select-filter').select2({
+    dropdownParent: $("#filtersModal .search-status-select-filter").closest('.form-group'),
+    theme: "bootstrap",
+    placeholder: 'All',
+    allowClear: true
   });
 
   $('.search-sales-select-filter').select2({
-    dropdownParent: $("#filtersModal"),
+    dropdownParent: $("#filtersModal .search-sales-select-filter").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{sales_reps_users_path}",
@@ -97,7 +128,7 @@ javascript:
   });
 
   $('.search-states-select-filter').select2({
-    dropdownParent: $("#filtersModal"),
+    dropdownParent: $("#filtersModal .search-states-select-filter").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{users_path(key: 'state')}",
@@ -126,7 +157,7 @@ javascript:
   });
 
   $('.search-companies-select-filter').select2({
-    dropdownParent: $("#filtersModal"),
+    dropdownParent: $("#filtersModal .search-companies-select-filter").closest('.form-group'),
     theme: "bootstrap",
     ajax: {
       url: "#{companies_path}",
