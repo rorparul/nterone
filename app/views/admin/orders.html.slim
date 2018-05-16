@@ -5,15 +5,15 @@
     .col-xs-12
       #view-filter-controls.container-muted
         = link_to t('admins.orders.add'), new_order_path, remote: true, class: 'btn btn-green-gradient', role: 'button'
-        
+
         div style='display: inline-block; margin: 2px 0; float: right;'
           = smart_listing_controls_for(:orders, { class: 'input-search' }) do
-            .input-group.input-group-sm.filter style='margin-right: 15px;'
-              = text_field_tag :filter, '', class: 'search form-control input-sm',
+            .input-group.filter
+              = text_field_tag :filter, '', class: 'search form-control',
                                             placeholder: t('admins.orders.search'),
                                             autocomplete: :off
               span class="input-group-btn"
-                button class="btn btn-default btn-sm disabled" type="submit"
+                button class="btn btn-default disabled" type="submit"
                   span.glyphicon.glyphicon-search
 
       #list-view-container
