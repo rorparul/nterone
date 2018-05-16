@@ -56,7 +56,7 @@
                   = user.parent.full_name
                 - else
                   span.text-warning Unassigned
-            - if action_name == 'leads' || action_name == 'contacts'
+            - if controller_name == 'users' && action_name == 'people'
               td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             - else
