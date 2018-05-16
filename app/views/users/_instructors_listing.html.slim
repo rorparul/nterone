@@ -2,21 +2,18 @@
   .table-responsive
     table.table.table-condensed
       thead
-        tr.background-muted
+        tr.background-muted 
           th.fit.text-center
             = check_box_tag :select_all, nil, nil, class: "select_all_users"
           th.fit.text-center title='Region'
             i.fa.fa-globe aria-hidden="true"
           th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
           th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
-          th.fit = "Phone Number"
           th.fit = smart_listing.sortable t('default.label.email'), :email
-          th = t('default.label.company')
-          th.fit CT
-          th.fit Orders
-          th.fit Sales Rep
+          th.fit = t('default.label.onsite_rate')
+          th.fit = t('default.label.online_rate')
           th colspan='2'
-      tbody
+      tbody 
         - smart_listing.collection.each do |user|
           tr
             td.fit.text-center
@@ -32,35 +29,14 @@
             - else
               td = user.first_name
               td = user.last_name
-            td = user.contact_number
             td = user.email
-            td
-              - if user.company.present?
-                = link_to user.company.title, company_path(user.company)
-              - else
-                | N/A
-            td class="customer_type_#{user.id}"
-              - if user.customer_type.present?
-                = user.customer_type == "direct_customer" ? "D" : "P"
-              - else
-                | N/A
-            td = user.buyer_orders.count
-            td id="user-#{user.id}-sales-rep"
-              - if current_user.admin? || current_user.sales_manager?
-                - if user.parent.present?
-                  = user.parent.full_name
-                - else
-                  = link_to 'Assign', assign_users_path(user), remote: true, class: 'text-warning'
-              - else
-                - if user.parent.present?
-                  = user.parent.full_name
-                - else
-                  span.text-warning Unassigned
+            td = user.onsite_daily_rate.try(:to_s)
+            td = user.online_daily_rate.try(:to_s)
             - if action_name == 'leads' || action_name == 'contacts'
-              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning', remote: true do
+              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             - else
-              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning' do
+              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning pull-right' do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             td.fit = link_to user_path(user), title: 'Delete', method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger' do
               i.text-danger class="fa fa-trash-o" aria-hidden="true"

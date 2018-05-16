@@ -177,9 +177,10 @@ class User < ActiveRecord::Base
   scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("onsite_daily_rate asc").distinct }
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
 
-  scope :students,                -> { joins(:roles).where(roles: { role: 7 }).order('last_name').distinct }
-
-  scope :admins,                  -> {joins(:roles).where(roles: { role: 1 }).order('last_name').distinct}
+  scope :students,                -> { joins(:roles).where(roles: { role: 6 }).distinct }
+  scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :admins,                  -> {joins(:roles).where(roles: { role: 1 }).distinct}
+  
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
   scope :members,                 -> { joins(:roles).where(roles: { role: 4 }) }

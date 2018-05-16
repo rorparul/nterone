@@ -207,7 +207,7 @@ class UsersController < ApplicationController
         when "students"
           users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
         when "instructors"  
-          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).all_instructors : User.all_instructors
+          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
         when "admins"  
           users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
         end
