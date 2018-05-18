@@ -17,4 +17,14 @@ class Admin::CoursesController < Admin::BaseController
       format.js
     end
   end
+
+  def toggle_exclude_from_revenue
+    @course = Course.find(params[:id])
+    if @course.exclude_from_revenue
+      @course.update_attributes(exclude_from_revenue: false)
+    else
+      @course.update_attributes(exclude_from_revenue: true)
+    end
+    render json: {is_excluded: @course.exclude_from_revenue,course_id: @course.id, status: 200}
+  end
 end
