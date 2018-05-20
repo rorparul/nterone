@@ -8,12 +8,36 @@
 
 #vendor-credits-redemption
   #vendor-credits-redemption-logos
-    = image_tag 'vendor-logos/amazon-web-services.png'
-    = image_tag 'cisco-business-partner.png'
-    = image_tag 'cisco-partner.png'
-    = image_tag 'vendor-logos/itil.png'
-    = image_tag 'vendor-logos/microsoft-partner.png'
-    = image_tag 'vmware-partner-new.png'
+    - if @amazon.present?
+      = link_to platform_category_path(@amazon, @amazon.welcome_category) do
+        = image_tag 'vendor-logos/amazon-web-services.png'
+    - else
+      = image_tag 'vendor-logos/amazon-web-services.png'
+    - if @cisco.present?
+      = link_to platform_category_path(@cisco, @cisco.welcome_category) do
+        = image_tag 'cisco-business-partner.png'
+    - else
+      = image_tag 'cisco-business-partner.png'
+    - if @cisco.present?
+      = link_to platform_category_path(@cisco, @cisco.welcome_category) do
+        = image_tag 'cisco-partner.png'
+    - else
+      = image_tag 'cisco-partner.png'
+    - if @itil.present?
+      = link_to platform_category_path(@itil, @itil.welcome_category) do
+        = image_tag 'vendor-logos/itil.png'
+    - else
+      = image_tag 'vendor-logos/itil.png'
+    - if @microsoft.present?
+      = link_to platform_category_path(@microsoft, @microsoft.welcome_category) do
+        = image_tag 'vendor-logos/microsoft-partner.png'
+    - else
+      = image_tag 'vendor-logos/microsoft-partner.png'
+    - if @vmware.present?
+      = link_to platform_category_path(@vmware, @vmware.welcome_category) do
+        = image_tag 'vmware-partner-new.png'
+    - else
+      = image_tag 'vmware-partner-new.png'
   #vendor-credits-redemption-banner
     = link_to cisco_learning_credits_path do
       = image_tag "redeem-your-credits.#{I18n.locale}.jpg"
