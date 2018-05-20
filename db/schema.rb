@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501153628) do
+ActiveRecord::Schema.define(version: 20180518063230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -266,6 +266,7 @@ ActiveRecord::Schema.define(version: 20180501153628) do
     t.boolean  "archived",                                        default: false
     t.decimal  "book_cost_per_student",                           default: 0.0
     t.text     "featured_course_summary",                         default: ""
+    t.boolean  "exclude_from_revenue",                            default: false
   end
 
   add_index "courses", ["origin_region"], name: "index_courses_on_origin_region", using: :btree
