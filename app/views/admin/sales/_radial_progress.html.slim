@@ -1,0 +1,59 @@
+div.reload_on_async#test
+  div style="position: relative; margin: auto;"
+    .chart id="radial_#{region}" style="text-align: center;"
+    div style="position: absolute; bottom: 25px; left: 0; right: 0; text-align: center;"
+      div
+        b Current:
+        = amount
+      div
+        b Target:
+        = goals
+
+javascript:
+  
+  var theme, viz;
+  
+  var skinA;
+
+  skinA = {
+    name: "Alert",
+    label_color: "#CCC",
+    track_fill: "#DDDDDD",
+    progress_colors: ["#4CAF50", "#FFC107", "#FF9800", "#E64A19", "#FFEB3B"],
+    arc_fill: function(d, i) {
+      return this.progress_colors[i % 5];
+    },
+    arc_fill_opacity: function(d, i) {
+      return 1;
+    },
+    arc_stroke: function(d, i) {
+      return this.progress_colors[i % 5];
+    },
+    "class": "vz-skin-alert"
+  };
+
+  viz = vizuly.viz.radial_progress($("#radial_#{region}")[0]);
+
+  theme = vizuly.theme.radial_progress(viz).skin(vizuly.skin.RADIAL_PROGRESS_ALERT);
+  
+  theme.skin().arc_fill = function(d, i) {
+    var value;
+    value = viz.data();
+    if (value < 40) {
+      return "#E64A19";
+    } else if (value < 90) {
+      return "#FFC107";
+    } else {
+      return "#4CAF50";
+    }
+  };
+  
+  viz.data("#{percent}").height(300).min(0).max(100).capRadius(25).startAngle(250).endAngle(110).arcThickness(.12).label(function(d, i) {
+    return d3.format(".0f")(d) + "%";
+  }).update();
+  
+  selection = viz.selection()
+
+  selection.selectAll(".vz-radial_progress-label").style("fill", "#000").style("stroke-opacity", 0).style("font-size", viz.radius() * .25);
+  
+  selection.selectAll(".vz-radial_progress-track").style("fill", "#BBB");
