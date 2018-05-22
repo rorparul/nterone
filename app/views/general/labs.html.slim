@@ -1,8 +1,8 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
 - if user_signed_in? && current_user.has_any_role?(%i(admin lab_admin))
   - content_for :actions do
@@ -14,7 +14,7 @@
 .container
   .row
     .col-xs-12.col-md-8.col-md-offset-2
-      = @page.content.try(:html_safe)
+      = @page.try(:content).try(:html_safe)
 
   .row
     - @lab_courses.each do |lab_course|
