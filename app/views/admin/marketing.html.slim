@@ -3,48 +3,48 @@
 .container
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('admins.website.pages')
-          = link_to t('generic.action.add'), new_page_path, remote: false, class: "panel-heading-controls"
-        = smart_listing_render(:pages)
+      h4
+        strong.text-muted
+          = t('admins.website.pages')
+      .container-muted
+        = link_to t('default.action.new'), new_page_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: false
+      = smart_listing_render(:pages)
 
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('admins.website.posts')
-          = link_to t('default.action.add'), new_article_path, remote: false, class: "panel-heading-controls"
-        = smart_listing_render(:articles)
+      h4 style="margin-top: 30px;"
+        strong.text-muted
+          = t('admins.website.posts')
+      .container-muted
+        = link_to t('default.action.new'), new_article_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: false
+      = smart_listing_render(:articles)
 
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('admins.website.testimonials')
-          = link_to "Add", new_testimonial_path, remote: true, class: "panel-heading-controls"
-        = smart_listing_render(:testimonials)
+      h4 style="margin-top: 30px;"
+        strong.text-muted
+          = t('admins.website.testimonials')
+      .container-muted
+        = link_to t('default.action.new'), new_testimonial_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
+      = smart_listing_render(:testimonials)
 
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('admins.website.discounts')
-          = link_to t('generic.action.add'), new_discount_path, remote: true, class: "panel-heading-controls"
-        = smart_listing_render(:promotions)
+      h4 style="margin-top: 30px;"
+        strong.text-muted
+          = t('admins.website.discounts')
+      .container-muted
+        = link_to t('default.action.new'), new_discount_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
+      = smart_listing_render(:promotions)
 
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('admins.website.lab_courses')
-          = link_to t('default.action.add'), new_lab_course_path, remote: false, class: "panel-heading-controls"
-        = smart_listing_render(:lab_courses)
+      h4 style="margin-top: 30px;"
+        strong.text-muted
+          = t('admins.website.lab_courses')
+      .container-muted
+        = link_to t('default.action.new'), new_lab_course_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: false
+      = smart_listing_render(:lab_courses)
 
 javascript:
   $('.permissions .marketing').addClass('active');
