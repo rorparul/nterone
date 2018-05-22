@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
-  before_action :set_page,           only: [:edit, :update, :delete]
-  before_action :authorize_page,     only: [:new, :create, :edit, :update, :delete]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_page,           only: [:edit, :update, :destroy]
+  before_action :authorize_page,     only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @page = Page.new
@@ -33,7 +33,13 @@ class PagesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    if @page.destroy
+      flash[:success] = "Page successfully deleted!"
+    else
+      flash[:alert] = "Page failed to delete!"
+    end
+    redirect_to :back
   end
 
   def cisco_learning_credits

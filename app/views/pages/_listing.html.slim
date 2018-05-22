@@ -5,7 +5,7 @@
         tr
           th For Regions
           th = smart_listing.sortable t('admins.website.title'), :title
-          th
+          th colspan='2'
       tbody#pages
         - @pages.each do |page|
           tr
@@ -21,6 +21,7 @@
                   = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')
             td = page.title
             td.fit = link_to t('default.action.edit'), edit_page_path(page), remote: false
+            td.fit = link_to t('default.action.delete'), page_path(page), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
 
 .panel-footer
   = smart_listing.paginate
