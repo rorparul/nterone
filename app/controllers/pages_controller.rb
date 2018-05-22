@@ -27,7 +27,7 @@ class PagesController < ApplicationController
   def update
     if @page.update_attributes(page_params)
       flash[:success] = "Page successfully updated!"
-      redirect_to admin_website_path
+      redirect_to admin_marketing_path
     else
       render 'edit'
     end
