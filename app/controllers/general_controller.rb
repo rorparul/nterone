@@ -28,7 +28,7 @@ class GeneralController < ApplicationController
   end
 
   def about_us
-    @page = Page.find_by(title: 'About NterOne')
+    @page = Page.current_region.find_by(title: 'About NterOne')
   end
 
   def executives
