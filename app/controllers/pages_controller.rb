@@ -43,7 +43,7 @@ class PagesController < ApplicationController
   end
 
   def cisco_learning_credits
-    @page = Page.find_or_create_by(title: __method__.to_s.titleize, static: true)
+    @page = Page.current_region.find_by(title: __method__.to_s.titleize)
   end
 
   private
