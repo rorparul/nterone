@@ -34,6 +34,10 @@ module SharedHelper
     end
   end
 
+  def latest_press
+    Article.current_region.where(kind: "Press Release").order(created_at: :desc).limit(4)
+  end
+
   def flag_icon_of_current_region
     case session[:region]
     when 3
