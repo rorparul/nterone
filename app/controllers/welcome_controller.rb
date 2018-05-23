@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-    @page = Page.find_by(title: 'Welcome')
+    @page = Page.current_region.find_by(title: 'Welcome')
     set_featured_courses
   end
 

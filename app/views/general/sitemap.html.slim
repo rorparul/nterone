@@ -29,8 +29,8 @@
         li = link_to t('general.sitemap.executive'), executives_bios_path
         li = link_to t('general.sitemap.instructor'), instructors_bios_path
         li = link_to t('general.sitemap.testimonials'), testimonials_path
-        li = link_to t('general.sitemap.privacy'), page_path(Page.find_by(title: "NterOne Privacy Policy"))
-        li = link_to t('general.sitemap.terms'), page_path(Page.find_by(title: "NterOne Terms and Conditions"))
+        li = link_to t('general.sitemap.privacy'), page_path(Page.current_region.find_by(title: "NterOne Privacy Policy"))
+        li = link_to t('general.sitemap.terms'), page_path(Page.current_region.find_by(title: "NterOne Terms and Conditions"))
 
       h4
         = t('general.sitemap.articles')

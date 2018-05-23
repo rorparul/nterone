@@ -3,7 +3,7 @@ class PlatformsController < ApplicationController
   before_action :set_platform, only: [:show, :edit, :update, :destroy]
 
   def index
-    @page      = Page.find_by(title: 'Vendor Index')
+    @page      = Page.current_region.find_by(title: 'Vendor Index')
     @platforms = Platform.active.current_region.order(:title)
   end
 
