@@ -1,6 +1,0 @@
-$(".users_listing").addClass("hide");
-$(".<%=params[:role]%>_listing").removeClass("hide");
-
-$('.input-search').attr('action', "<%= @search_url %>");
-
-<%= smart_listing_update(params[:role].to_sym) %>

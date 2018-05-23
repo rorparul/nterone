@@ -14,10 +14,14 @@ class UsersController < ApplicationController
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
         
-        ["students", "instructors", "admins"].each do |role|
-          prepare_role_smart_listing(role, users_scope.limit(1))
-        end  
-        
+        if params[:role].present? 
+          user_scope = get_users_by_role
+          prepare_role_smart_listing(params[:role], users_scope)
+        else  
+          ["students", "instructors", "admins"].each do |role|
+            prepare_role_smart_listing(role, users_scope.limit(1))
+          end
+        end
       end
 
       format.json do
@@ -52,7 +56,6 @@ class UsersController < ApplicationController
 
   def edit
   end
-
 
   def edit_from_sales
     @owners    = User.all_sales
@@ -180,24 +183,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def get_users_by_role
-    respond_to do |format|
-      format.any(:html, :js) do
-        case params[:role]
-        when "students"
-          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
-        when "instructors"  
-          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
-        when "admins"  
-          users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
-        end
-        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
-        prepare_role_smart_listing(params[:role], users_scope)
-      end
-    end
-  end
-
   private
+  
+  def get_users_by_role
+    case params[:role]
+    when "students"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
+    when "instructors"  
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
+    when "admins"  
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
+    end
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+  end
 
   def set_user
     @user = User.find(params[:id])

@@ -36,14 +36,7 @@
               li
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
-        = smart_listing_controls_for(:users, { class: 'input-search' }) do
-          .input-group.filter.element-right-side
-            = text_field_tag :filter, '', class: 'search form-control',
-                                          placeholder: t('admins.classes.search'),
-                                          autocomplete: :off
-            span.input-group-btn
-              button.btn.btn-default.disabled type="submit"
-                span.glyphicon.glyphicon-search  
+        = render partial: "search_inputs"
 
                                                       
       #list-view-container.users_listing.all_listing
@@ -109,11 +102,13 @@ javascript:
   $(".btn-list-view").on('click', function(){
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
-    
+    $("input.search").val("");
+    $(".input-search").addClass("hide");
+    $("."+$(this).data('role')+"_search").removeClass("hide");
+
     $.ajax({
-      url: "/users/get_users_by_role.js",
+      url: "/users.js",
       method: "GET",
       data: {role: $(this).data('role') },
     })
   })
-

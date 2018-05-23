@@ -1,0 +1,20 @@
+= smart_listing_controls_for(:users, { class: 'input-search all_search' }) do
+  .input-group.filter.element-right-side
+    = text_field_tag :filter, '', class: 'search form-control',
+                                  placeholder: t('admins.classes.search'),
+                                  autocomplete: :off
+    span.input-group-btn
+      button.btn.btn-default.disabled type="submit"
+        span.glyphicon.glyphicon-search
+
+- ["students", "instructors", "admins"].each do |role|
+  = smart_listing_controls_for(role.to_sym, { class: "input-search  #{role}_search hide" }) do
+    .input-group.filter.element-right-side
+      = text_field_tag :filter, '', class: 'search form-control',
+                                    placeholder: t('admins.classes.search'),
+                                    autocomplete: :off
+      = hidden_field_tag :role, role                              
+      span.input-group-btn
+        button.btn.btn-default.disabled type="submit"
+          span.glyphicon.glyphicon-search    
+          
