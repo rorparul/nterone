@@ -34,8 +34,9 @@
             div
               radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) goal=(number_to_currency @total_goal)]
           .col-xs-12.col-md-4
-            .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
-            .text-muted.pull-right style="margin-bottom: 12px;" Excluded
+            div style=("height: 32px")  
+              .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
+              .text-muted.pull-right style="margin-bottom: 12px;" Excluded
             div.reload_on_async id="top_courses_by_revenue_all_regions"
               div style="text-align: center; margin-top: 100px;"
                 i.fa.fa-cog.fa-spin.fa-3x.fa-fw
@@ -52,8 +53,9 @@
               div
                 radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) goal=(number_to_currency @region_goals[region_number])]
             .col-xs-12.col-md-4
-              .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
-              .text-muted.pull-right style="margin-bottom: 12px;" Excluded
+              div style=("height: 32px") 
+                .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
+                .text-muted.pull-right style="margin-bottom: 12px;" Excluded
               div.reload_on_async id="top_courses_by_revenue_#{region}"
                 div style="text-align: center; margin-top: 100px;"
                   i.fa.fa-cog.fa-spin.fa-3x.fa-fw
