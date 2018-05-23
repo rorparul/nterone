@@ -15,8 +15,7 @@ class UsersController < ApplicationController
         prepare_smart_listing(users_scope)
         
         if params[:role].present? 
-          user_scope = get_users_by_role
-          prepare_role_smart_listing(params[:role], users_scope)
+          prepare_role_smart_listing(params[:role], get_users_by_role)
         else  
           ["students", "instructors", "admins"].each do |role|
             prepare_role_smart_listing(role, users_scope.limit(1))
@@ -195,6 +194,7 @@ class UsersController < ApplicationController
       users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
     end
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    users_scope
   end
 
   def set_user
