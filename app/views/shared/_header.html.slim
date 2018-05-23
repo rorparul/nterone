@@ -41,8 +41,10 @@
                 span.text = t('shared.header.consulting')
               li = link_to labs_path do
                 span.text = t('shared.header.labs')
-              li = link_to about_us_path do
+              li = link_to '#', id: 'about-us-dropdown-btn' do
+                / about_us_path
                 span.text = t('shared.header.about_us')
+                span.caret
               li = link_to testimonials_path do
                 span.text = t('shared.header.testimonials')
               li = link_to partners_path do
@@ -68,6 +70,23 @@
           - vendor.parent_categories.order(:position).each do |category|
             h4 style="font-size: 12px;" = link_to category.title, platform_category_path(vendor, category)
 
+#nav-about-us.well style="border-radius: 0; margin-bottom: 0; overflow: scroll;"
+  .container
+    .row
+      .col-xs-12.col-md-8.col-md-offset-2
+        = render partial: 'layouts/about_us_nav_bar'
+    .row
+      h4.text-muted.text-center style='margin-top: -30px;' Latest Press
+      - latest_press.each do |post|
+        .col-xs-12.col-md-3
+          .article
+            h4 style="font-size: 14px;"
+              a href="#{article_path(post)}"
+                = post.title
+            div style="font-size: 12px;" = truncate_html(post.content, length: 150, omission: '...(continued)')
+            small.text-muted
+              = "#{t('default.label.published')} #{post.created_at.strftime("%B %d, %Y")}"
+
 javascript:
   $('#btn-menu').on('click', function(e) {
     e.preventDefault();
@@ -76,5 +95,12 @@ javascript:
 
   $('#training-dropdown-btn').on('click', function(e) {
     e.preventDefault();
+    $('#nav-about-us').hide();
     $('#nav-training').toggle();
+  });
+
+  $('#about-us-dropdown-btn').on('click', function(e) {
+    e.preventDefault();
+    $('#nav-training').hide();
+    $('#nav-about-us').toggle();
   });

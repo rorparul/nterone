@@ -1,13 +1,13 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
 .container
   .row
     .col-xs-12
-      = @page.content.try(:html_safe)
+      = @page.try(:content).try(:html_safe)
 
 - if I18n.locale == :en
   - if Rails.env.production?

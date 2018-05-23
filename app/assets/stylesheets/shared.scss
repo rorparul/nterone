@@ -357,6 +357,23 @@ header {
   }
 }
 
+#nav-about-us {
+  display: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  // .title {
+  //   min-height: 85px;
+  //   position: relative;
+  // }
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style: none;
+    }
+  }
+}
+
 #container-footer.container {
   z-index: 0;
   .row-level-1 {
@@ -477,7 +494,7 @@ header {
   }
 }
 
-label.btn.btn-blue-gradient.active {
+label.btn.btn-blue-gradient.active, .btn-group-about-us > .active {
   background-color: rgb(25, 140, 70);
   border-color: rgb(25, 140, 70);
 }
