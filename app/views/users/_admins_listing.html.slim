@@ -9,8 +9,8 @@
             i.fa.fa-globe aria-hidden="true"
           th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
           th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
-          th.fit = smart_listing.sortable t('default.label.email'), :email
-          th colspan='2'
+          th = smart_listing.sortable t('default.label.email'), :email
+          th.fit colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
@@ -28,7 +28,6 @@
               td = user.first_name
               td = user.last_name
             td = user.email
-            
             - if action_name == 'leads' || action_name == 'contacts'
               td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"

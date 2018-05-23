@@ -2,18 +2,18 @@
   .table-responsive
     table.table.table-condensed
       thead
-        tr.background-muted 
+        tr.background-muted
           th.fit.text-center
             = check_box_tag :select_all, nil, nil, class: "select_all_users"
           th.fit.text-center title='Region'
             i.fa.fa-globe aria-hidden="true"
           th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
           th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
-          th.fit = smart_listing.sortable t('default.label.email'), :email
+          th = smart_listing.sortable t('default.label.email'), :email
           th.fit = t('default.label.onsite_rate')
           th.fit = t('default.label.online_rate')
-          th colspan='2'
-      tbody 
+          th.fit colspan='2'
+      tbody
         - smart_listing.collection.each do |user|
           tr
             td.fit.text-center
@@ -30,8 +30,8 @@
               td = user.first_name
               td = user.last_name
             td = user.email
-            td = user.onsite_daily_rate.try(:to_s)
-            td = user.online_daily_rate.try(:to_s)
+            td = number_to_currency(user.onsite_daily_rate.try(:to_s), precision: 2)
+            td = number_to_currency(user.online_daily_rate.try(:to_s), precision: 2)
             - if action_name == 'leads' || action_name == 'contacts'
               td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"

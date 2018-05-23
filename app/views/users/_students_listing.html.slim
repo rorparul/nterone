@@ -45,7 +45,7 @@
               - else
                 | N/A
             td = user.buyer_orders.count
-            td id="user-#{user.id}-sales-rep"
+            td.fit id="user-#{user.id}-sales-rep"
               - if current_user.admin? || current_user.sales_manager?
                 - if user.parent.present?
                   = user.parent.full_name
@@ -83,7 +83,7 @@ javascript:
       $(".students_listing .select_all_users").prop('checked', true);
     }
   });
-  
+
   $(".students_listing .select_all_users").change(function() {
     if($(this).is(":checked")){
       $(".students_listing .users_mass_edit_checkbox").prop('checked', true).change();
