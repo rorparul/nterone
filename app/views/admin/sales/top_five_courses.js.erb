@@ -1,10 +1,3 @@
-<% if params[:show_exclude_from_revenue].present? || params[:course_id].present? || params[:hide_excluded].present? %>
-  $("#radial_progress_all_region").html("<%= escape_javascript render(:partial => 'radial_progress', :locals => { percent: @total_percent, amount: @total_amount, goals: @total_goal, region: 'all_region' }) %>")
-  <%  Event.origin_regions.each do |region, region_number| %>  
-    $("#radial_progress_<%= region %>").html("<%= escape_javascript render(:partial => 'radial_progress', :locals => { percent: @region_percents[region_number], amount: @region_amounts[region_number], goals: @region_goals[region_number], region: region }) %>")
-  <% end %>
-<% end %>
-
 <% @top_five_courses_by_region.each do |region, courses| %>
   $("#top_courses_by_revenue_<%= region.to_s %>").html(
     "<table class='table'>" +
@@ -62,7 +55,7 @@ $(".hide_excluded").on('click', function(){
 })
 
 $(".excluded_checkbox").on('click', function(){
-  $(".reload_on_async").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
+  //$(".reload_on_async").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
 
   $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>"+"&course_id="+$(this).data("id"));
 })

@@ -51,7 +51,7 @@ class Admin::SalesController < Admin::BaseController
       @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].select{|course| course.exclude_from_revenue == false}.first(5)
     end
     
-    set_region_details if params[:show_exclude_from_revenue].present? || params[:course_id].present? || params[:hide_excluded].present?
+    #set_region_details if params[:show_exclude_from_revenue].present? || params[:course_id].present? || params[:hide_excluded].present?
 
     Event.origin_regions.each do |region, region_value|
       @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
