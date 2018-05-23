@@ -1,13 +1,13 @@
-div.reload_on_async#test
+div
   div style="position: relative; margin: auto;"
     .chart id="radial_#{region}" style="text-align: center;"
     div style="position: absolute; bottom: 25px; left: 0; right: 0; text-align: center;"
       div
         b Current:
-        = amount
+        = number_to_currency amount
       div
         b Target:
-        = goals
+        = number_to_currency goals
 
 javascript:
   

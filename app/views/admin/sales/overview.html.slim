@@ -10,7 +10,7 @@
     .col-xs-12
       h4
         strong.text-muted= t('layouts.partial_tabs.sales_overview')
-      .container-muted
+      .container-muted 
         .row
           .col-xs-12
             = form_for :report, method: :get do |f|
@@ -31,7 +31,7 @@
         h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" All Regions
         .row
           .col-xs-12.col-md-4 id="radial_progress_all_region"
-            div.reload_on_async
+            div
               radialprogress-chart[value=(@total_percent) amount=(number_to_currency @total_amount) goal=(number_to_currency @total_goal)]
           .col-xs-12.col-md-4
             .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
@@ -49,7 +49,7 @@
           h2.text-muted style="margin: 0 0 15px 0; font-size: 18px;" = region.humanize.split.map(&:capitalize).join(' ')
           .row
             .col-xs-12.col-md-4 id="radial_progress_#{region}"
-              div.reload_on_async
+              div
                 radialprogress-chart[value=(@region_percents[region_number]) amount=(number_to_currency @region_amounts[region_number]) goal=(number_to_currency @region_goals[region_number])]
             .col-xs-12.col-md-4
               .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
