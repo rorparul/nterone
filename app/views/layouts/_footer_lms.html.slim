@@ -1,5 +1,5 @@
 footer.general-footer.text-muted style="text-align: center;"
   #legal-docs
-    a href="#{main_app.page_path(Page.find_by(title: "NterOne Privacy Policy"))}" Privacy Policy
+    a href="#{main_app.page_path(Page.current_region.find_by(title: "NterOne Privacy Policy"))}" Privacy Policy
     span  |
-    a href="#{main_app.page_path(Page.find_by(title: "NterOne Terms and Conditions"))}" Terms and Conditions
+    a href="#{main_app.page_path(Page.current_region.find_by(title: "NterOne Terms and Conditions"))}" Terms and Conditions

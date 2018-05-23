@@ -1,8 +1,8 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
 = render partial: 'shared/banner_header'
 
@@ -21,3 +21,6 @@
           hr
 
 = render partial: 'shared/banner_footer'
+
+javascript:
+  $('.btn-press').addClass('active')

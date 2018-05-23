@@ -1,8 +1,8 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
 = render partial: 'shared/banner_header'
 
@@ -10,7 +10,7 @@
   .row
     .col-xs-12
       .panel.panel-default
-        .panel-body = @page.content.try(:html_safe)
+        .panel-body = @page.try(:content).try(:html_safe)
       - @platforms.each do |platform|
         - if platform.upcoming_public_featured_events.current_region.any?
           #featured-classes

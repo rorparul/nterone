@@ -79,11 +79,13 @@
                 td
                   - event.active_regions.each do |active_region|
                     - if active_region == 'united_states'
-                      span.label.label-danger style='margin-right: 2.5px;' title="#{active_region.titleize}" US
+                      = flag_icon(:us, id: 'my-flag', class: 'strong', title: 'United States')
                     - elsif active_region == 'latin_america'
-                      span.label.label-warning style='margin-right: 2.5px;' title="#{active_region.titleize}" LA
+                      = flag_icon(:do, id: 'my-flag', class: 'strong', title: 'Latin America')
                     - elsif active_region == 'canada'
-                      span.label.label-info style='margin-right: 2.5px;' title="#{active_region.titleize}" CA
+                      = flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
+                    - elsif active_region == 'india'
+                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')
       .col-xs-12.col-md-6.table-col
         .responsive-table
           table#table-event-details.table.table-condensed

@@ -37,5 +37,5 @@
         .copyright
           |  &copy;
           = "#{Date.today.year} #{t('shared.footer.copyright')}"
-        = link_to t('shared.footer.privacy_policy'), page_path(Page.find_by(title: 'NterOne Privacy Policy'))
-        = link_to t('shared.footer.terms_and_conditions'), page_path(Page.find_by(title: 'NterOne Terms and Conditions'))
+        = link_to t('shared.footer.privacy_policy'), page_path(Page.current_region.find_by(title: 'NterOne Privacy Policy'))
+        = link_to t('shared.footer.terms_and_conditions'), page_path(Page.current_region.find_by(title: 'NterOne Terms and Conditions'))

@@ -1,8 +1,8 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
 = render partial: 'shared/banner_header'
 
@@ -10,6 +10,9 @@
   .row
     .col-xs-12.col-md-8.col-md-offset-2
       = render partial: 'layouts/about_us_nav_bar'
-      = @page.content.try(:html_safe)
+      = @page.try(:content).try(:html_safe)
 
 = render partial: 'shared/banner_footer'
+
+javascript:
+  $('.btn-instructors').addClass('active')
