@@ -37,12 +37,12 @@
             div style=("height: 32px")  
               .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
               .text-muted.pull-right style="margin-bottom: 12px;" Excluded
-            div.reload_on_async id="top_courses_by_revenue_all_regions"
-              div style="text-align: center; margin-top: 100px;"
+            div.reload_on_async_top_five id="top_courses_by_revenue_all_regions"
+              div style="text-align: center; margin-top: 88px;"
                 i.fa.fa-cog.fa-spin.fa-3x.fa-fw
           .col-xs-12.col-md-4
             .text-muted style="margin-bottom: 12px;" Margin
-            div.reload_on_async id="margin_for_all_regions"
+            div.reload_on_async_margin id="margin_for_all_regions"
               div style="text-align: center; margin-top: 100px;"
                 i.fa.fa-cog.fa-spin.fa-3x.fa-fw
       - Event.origin_regions.each do |region, region_number|
@@ -56,12 +56,12 @@
               div style=("height: 32px") 
                 .text-muted.col-md-7 style="margin-bottom: 12px;" Top 5 Courses by Revenue
                 .text-muted.pull-right style="margin-bottom: 12px;" Excluded
-              div.reload_on_async id="top_courses_by_revenue_#{region}"
-                div style="text-align: center; margin-top: 100px;"
+              div.reload_on_async_top_five id="top_courses_by_revenue_#{region}"
+                div style="text-align: center; margin-top: 88px;"
                   i.fa.fa-cog.fa-spin.fa-3x.fa-fw
             .col-xs-12.col-md-4
               .text-muted style="margin-bottom: 12px;" Margin
-              div.reload_on_async id="margin_for_#{region}"
+              div.reload_on_async_margin id="margin_for_#{region}"
                 div style="text-align: center; margin-top: 100px;"
                   i.fa.fa-cog.fa-spin.fa-3x.fa-fw
         
