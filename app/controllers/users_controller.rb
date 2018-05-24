@@ -187,7 +187,7 @@ class UsersController < ApplicationController
   def get_users_by_role
     case params[:role]
     when "students"
-      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).only_students : User.only_students
     when "instructors"  
       users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
     when "admins"  
