@@ -28,6 +28,7 @@
 #  archived                :boolean          default(FALSE)
 #  book_cost_per_student   :decimal(, )      default(0.0)
 #  featured_course_summary :text             default("")
+#  exclude_from_revenue    :boolean          default(FALSE)
 #
 # Indexes
 #

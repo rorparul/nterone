@@ -1,26 +1,72 @@
-<% @top_five_courses_by_region.each do |region, courses| %>
-  $("#top_courses_by_revenue_<%= region.to_s %>").html(
-    "<table class='table'>" +
-      "<tbody>" +
-        <% courses.each do |course| %>
-          "<tr>" +
-            "<td>" +
-              "<%= escape_javascript(link_to course.abbreviation, platform_course_path(course.platform, course)) %>" +
-            "</td>" +
-            "<td>" +
-              "<%= escape_javascript(number_to_currency(course.temp_revenue)) %>" +
-            "</td>" +
-          "</tr>" +
-        <% end %>
-      "</tbody>" +
-    "</table>"
-  );
-<% end %>
+<% unless params[:course_id].present? %>
+  <% @top_five_courses_by_region.each do |region, courses| %>
+    $("#top_courses_by_revenue_<%= region.to_s %>").html(
+      "<table class='table'>" +
+        "<tbody>" +
+          <% courses.each do |course| %>
+            <% row_class = "row_#{region.to_s} " %>
 
-<% @margin_by_region.each do |region, margin| %>
-  $("#margin_for_<%= region.to_s %>").html(
-    "<h1>" +
-      "<%= escape_javascript(number_to_percentage(margin, precision: 2)) %>" +
-    "</h1>"
-  );
+            "<tr class='"+ "<%= row_class %>"+ "'>"+
+              "<td>" +
+                "<%= escape_javascript(link_to course.abbreviation, platform_course_path(course.platform, course)) %>" +
+              "</td>" +
+              "<td>" +
+                "<%= escape_javascript(number_to_currency(course.temp_revenue)) %>" +
+              "</td>" +
+              "<td>" +
+                <% if course.exclude_from_revenue %>
+                  "<input id='checkbox_"+"<%= course.id.to_s %>"+"' class='excluded_checkbox' data-region='"+"<%= region.to_s %>"+"' data-id='"+"<%= course.id.to_s %>"+"' type='checkbox' checked></input>"
+                <% else %>
+                  "<input id='checkbox_"+"<%= course.id.to_s %>"+"' class='excluded_checkbox' data-region='"+"<%= region.to_s %>"+"' data-id='"+"<%= course.id.to_s %>"+"' type='checkbox'></input>"
+                <% end %>
+                +
+              "</td>" +
+            "</tr>" +
+          <% end %>
+        "</tbody>" +
+      "</table>" +
+      <% if params[:show_exclude_from_revenue].present? %>
+        "<span class='btn btn-blue-gradient hide_excluded'>Hide Excluded</span>"+
+        "<span class='btn btn-blue-gradient hide show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Show All</span>"
+      <% else %>
+        "<span class='btn btn-blue-gradient hide hide_excluded'>Hide Excluded</span>"+
+        "<span class='btn btn-blue-gradient show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Show All</span>"
+      <% end %>
+    );
+  <% end %>
+
+  <% @margin_by_region.each do |region, margin| %>
+    $("#margin_for_<%= region.to_s %>").html(
+      "<h1>" +
+        "<%= escape_javascript(number_to_percentage(margin, precision: 2)) %>" +
+      "</h1>"
+    );
+  <% end %>
+
+  <% @top_five_courses_by_region.each do |region, courses| %>
+    $(".show_with_excluded_"+"<%= region  %>").on('click', function(){
+      $(".reload_on_async_margin").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
+      $(".reload_on_async_top_five").html("<div style='text-align: center; margin-top: 88px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
+      $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>"+"&show_exclude_from_revenue=true");
+    })
+  <% end %>
+
+  $(".hide_excluded").on('click', function(){
+    $(".reload_on_async_margin").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
+    $(".reload_on_async_top_five").html("<div style='text-align: center; margin-top: 88px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
+      $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>+&hide_excluded=true");
+  })
+
+  $(".excluded_checkbox").on('click', function(){
+    if($(".excluded_checkbox:checked").length > 0){
+      $(".hide_excluded").removeClass('hide');
+      $(".show_excluded_btn").addClass('hide');
+    }
+    else{
+      $(".hide_excluded").addClass('hide');
+      $(".show_excluded_btn").removeClass('hide');
+    }
+    $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>"+"&course_id="+$(this).data("id"));
+  })
+
 <% end %>

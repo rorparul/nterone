@@ -3,91 +3,96 @@ class Admin::SalesController < Admin::BaseController
     @yearly = true
 
     if params[:date] && params[:date][:year]
-      @year = params[:date][:year].to_i
+      @year          = params[:date][:year].to_i
       @selected_date = Date.new(@year)
     else
       @selected_date = Date.today
     end
 
     if params[:date] && params[:date][:month]
-      @yearly = false
-      @month = params[:date][:month].to_i
+      @yearly        = false
+      @month         = params[:date][:month].to_i
       @selected_date = Date.new(@year, @month)
     end
 
-    @region_amounts = {}
-    @region_percents = {}
-    @region_goals = {}
-
-    Event.origin_regions.each do |region, region_value|
-      amount_scope = Opportunity.unscoped.won.where(origin_region: region_value)
-
-      if @yearly
-        amount_scope = amount_scope.where(date_closed: @selected_date.beginning_of_year..@selected_date.end_of_year)
-      else
-        amount_scope = amount_scope.where(date_closed: @selected_date.beginning_of_month..@selected_date.end_of_month)
-      end
-
-      amount = amount_scope.sum(:amount)
-
-      goal_scope = SalesGoal.where(origin_region: region_value)
-
-      if @yearly
-        goal_scope = goal_scope.where(month: @selected_date.beginning_of_year..@selected_date.end_of_year)
-      else
-        goal_scope = goal_scope.where(month: @selected_date.beginning_of_month..@selected_date.end_of_month)
-      end
-
-      goal = goal_scope.sum(:amount)
-
-      @region_percents[region_value] = goal.to_i > 0 ? (amount / goal * 100).round : 100
-      @region_amounts[region_value] = amount
-      @region_goals[region_value] = goal.to_i
-    end
-
-    @total_amount = @region_amounts.values.sum
-    @total_goal = @region_goals.values.sum
-    @total_percent = @total_goal.to_i > 0 ? (@total_amount / @total_goal * 100).round : 100
+    set_region_details
   end
 
   def top_five_courses
-    dates = date_range(params[:yearly], params[:date])
+    if params[:course_id].present?
+      course = Course.find(params[:course_id])
 
-    @date_range_start = dates[:start]
-    @date_range_end   = dates[:end]
+      if course.exclude_from_revenue
+        course.update_attributes(exclude_from_revenue: false)
+      else
+        course.update_attributes(exclude_from_revenue: true)
+      end
+    else
+      dates          = date_range(params[:yearly], params[:date])
+      @selected_date = dates[:start]
 
-    @top_five_courses_by_region = {}
+      if params[:yearly] == 'true'
+        @yearly = true
+      else
+        @yearly = false
+      end
 
-    @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
-      nil,
-      @date_range_start,
-      @date_range_end
-    ).first(5)
+      @date_range_start = dates[:start]
+      @date_range_end   = dates[:end]
 
-    Event.origin_regions.each do |region, region_value|
-      @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
-        region_value,
-        @date_range_start,
-        @date_range_end
-      ).first(5)
-    end
+      @top_five_courses_by_region = {}
 
-    @margin_by_region = {}
-
-    @margin_by_region['all_regions'] = Event.average_margin(
-      nil,
-      @date_range_start,
-      @date_range_end
-    )
-
-    Event.origin_regions.each do |region, region_value|
-      @margin_by_region[region] = Event.average_margin(
-        region_value,
+      @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
+        nil,
         @date_range_start,
         @date_range_end
       )
+
+      if params[:show_exclude_from_revenue].present?
+        @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].first(5)
+      else
+        @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].select{ |course| course.exclude_from_revenue == false }.first(5)
+      end
+
+      Event.origin_regions.each do |region, region_value|
+        @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
+          region_value,
+          @date_range_start,
+          @date_range_end
+        )
+
+        if params[:show_exclude_from_revenue].present?
+          @top_five_courses_by_region[region] = @top_five_courses_by_region[region].first(5)
+        else
+          @top_five_courses_by_region[region] = @top_five_courses_by_region[region].select{|course| course.exclude_from_revenue == false}.first(5)
+        end
+      end
+
+      @margin_by_region = {}
+      events            = nil
+
+      if params[:show_exclude_from_revenue].present?
+        events = Event.all
+      else
+        events = Event.joins(:course).where('courses.exclude_from_revenue = ?', false)
+      end
+
+      @margin_by_region['all_regions'] = events.average_margin(
+        nil,
+        @date_range_start,
+        @date_range_end
+      )
+
+      Event.origin_regions.each do |region, region_value|
+        @margin_by_region[region] = events.average_margin(
+          region_value,
+          @date_range_start,
+          @date_range_end
+        )
+      end
     end
   end
+
 
   def details
     if params[:report]
@@ -148,5 +153,40 @@ class Admin::SalesController < Admin::BaseController
         {start: date_query.beginning_of_month, end: date_query.end_of_month}
       end
     end
+  end
+
+  def set_region_details
+    @region_amounts  = {}
+    @region_goals    = {}
+    @region_percents = {}
+
+    Event.origin_regions.each do |region, region_value|
+      amount_scope = Opportunity.unscoped.won.where(origin_region: region_value)
+
+      if @yearly
+        amount_scope = amount_scope.where(date_closed: @selected_date.beginning_of_year..@selected_date.end_of_year)
+      else
+        amount_scope = amount_scope.where(date_closed: @selected_date.beginning_of_month..@selected_date.end_of_month)
+      end
+
+      amount     = amount_scope.sum(:amount)
+      goal_scope = SalesGoal.where(origin_region: region_value)
+
+      if @yearly
+        goal_scope = goal_scope.where(month: @selected_date.beginning_of_year..@selected_date.end_of_year)
+      else
+        goal_scope = goal_scope.where(month: @selected_date.beginning_of_month..@selected_date.end_of_month)
+      end
+
+      goal = goal_scope.sum(:amount)
+
+      @region_amounts[region_value]  = amount
+      @region_goals[region_value]    = goal.to_i
+      @region_percents[region_value] = goal.to_i > 0 ? (amount / goal * 100).round : 100
+    end
+
+    @total_amount  = @region_amounts.values.sum
+    @total_goal    = @region_goals.values.sum
+    @total_percent = @total_goal.to_i > 0 ? (@total_amount / @total_goal * 100).round : 100
   end
 end
