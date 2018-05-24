@@ -25,69 +25,70 @@ class Admin::SalesController < Admin::BaseController
       else
         course.update_attributes(exclude_from_revenue: true)
       end
-    end
-    dates = date_range(params[:yearly], params[:date])
-    @selected_date = dates[:start]
-    
-    if params[:yearly] == "true"
-      @yearly = true
     else
-      @yearly = false
-    end
-    @date_range_start = dates[:start]
-    @date_range_end   = dates[:end]
+      dates = date_range(params[:yearly], params[:date])
+      @selected_date = dates[:start]
+      
+      if params[:yearly] == "true"
+        @yearly = true
+      else
+        @yearly = false
+      end
+      @date_range_start = dates[:start]
+      @date_range_end   = dates[:end]
 
-    @top_five_courses_by_region = {}
+      @top_five_courses_by_region = {}
 
-    @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
-      nil,
-      @date_range_start, 
-      @date_range_end
-    )
-
-    if params[:show_exclude_from_revenue].present?
-      @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].first(5)
-    else
-      @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].select{|course| course.exclude_from_revenue == false}.first(5)
-    end
-    
-    set_region_details if params[:show_exclude_from_revenue].present? || params[:course_id].present? || params[:hide_excluded].present?
-
-    Event.origin_regions.each do |region, region_value|
-      @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
-        region_value,
-        @date_range_start,
+      @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
+        nil,
+        @date_range_start, 
         @date_range_end
       )
 
       if params[:show_exclude_from_revenue].present?
-        @top_five_courses_by_region[region] = @top_five_courses_by_region[region].first(5)
+        @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].first(5)
       else
-        @top_five_courses_by_region[region] = @top_five_courses_by_region[region].select{|course| course.exclude_from_revenue == false}.first(5)
+        @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].select{|course| course.exclude_from_revenue == false}.first(5)
       end
-    end
+      
+      #set_region_details if params[:show_exclude_from_revenue].present? || params[:course_id].present? || params[:hide_excluded].present?
 
-    @margin_by_region = {}
-    events = nil
-    if params[:show_exclude_from_revenue].present?
-      events = Event.all
-    else
-      events = Event.joins(:course).where("courses.exclude_from_revenue = ?", false)
-    end
-    
-    @margin_by_region['all_regions'] = events.average_margin(
-      nil,
-      @date_range_start,
-      @date_range_end
-    )
+      Event.origin_regions.each do |region, region_value|
+        @top_five_courses_by_region[region] = Course.top_courses_by_revenue(
+          region_value,
+          @date_range_start,
+          @date_range_end
+        )
 
-    Event.origin_regions.each do |region, region_value|
-      @margin_by_region[region] = events.average_margin(
-        region_value,
+        if params[:show_exclude_from_revenue].present?
+          @top_five_courses_by_region[region] = @top_five_courses_by_region[region].first(5)
+        else
+          @top_five_courses_by_region[region] = @top_five_courses_by_region[region].select{|course| course.exclude_from_revenue == false}.first(5)
+        end
+      end
+
+      @margin_by_region = {}
+      events = nil
+      if params[:show_exclude_from_revenue].present?
+        events = Event.all
+      else
+        events = Event.joins(:course).where("courses.exclude_from_revenue = ?", false)
+      end
+      
+      @margin_by_region['all_regions'] = events.average_margin(
+        nil,
         @date_range_start,
         @date_range_end
       )
-    end
+
+      Event.origin_regions.each do |region, region_value|
+        @margin_by_region[region] = events.average_margin(
+          region_value,
+          @date_range_start,
+          @date_range_end
+        )
+      end
+    end  
   end
 
 
@@ -157,11 +158,6 @@ class Admin::SalesController < Admin::BaseController
     @region_percents = {}
     @region_goals = {} 
     
-    if params[:show_exclude_from_revenue].present? || params[:course_id].present?
-      @selected_date = Date.today
-      @yearly = true
-    end
-    
     Event.origin_regions.each do |region, region_value|
       amount_scope = Opportunity.unscoped.won.where(origin_region: region_value)
 
@@ -170,13 +166,8 @@ class Admin::SalesController < Admin::BaseController
       else
         amount_scope = amount_scope.where(date_closed: @selected_date.beginning_of_month..@selected_date.end_of_month)
       end
+      amount = amount_scope.sum(:amount)
       
-      if params[:show_exclude_from_revenue].present?
-        amount = amount_scope.sum(:amount)
-      else
-        amount = amount_scope.includes(:course).where("courses.exclude_from_revenue = ? or opportunities.course_id IS NULL", false).references(:courses).sum(:amount)
-      end
-    
       goal_scope = SalesGoal.where(origin_region: region_value)
 
       if @yearly
