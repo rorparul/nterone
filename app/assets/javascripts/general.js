@@ -4,15 +4,15 @@ $(function() {
   $('.selectpicker').selectpicker();
 
   if ($('.alert').length) {
-    let alertQuantity  = $('.alert').length
-    let alertHeight    = $('.alert').outerHeight()
-    let valueIncrement = alertQuantity * alertHeight
+    var alertQuantity  = $('.alert').length
+    var alertHeight    = $('.alert').outerHeight()
+    var valueIncrement = alertQuantity * alertHeight
 
     $('main').css('padding-top', '+=' + valueIncrement)
   }
 
   $('.alert').on('close.bs.alert', function () {
-    let valueDecrement = $(this).outerHeight()
+    var valueDecrement = $(this).outerHeight()
 
     $('main').css('padding-top', '-=' + valueDecrement)
   })
