@@ -3,6 +3,20 @@ $(function() {
 
   $('.selectpicker').selectpicker();
 
+  if ($('.alert').length) {
+    let alertQuantity  = $('.alert').length
+    let alertHeight    = $('.alert').outerHeight()
+    let valueIncrement = alertQuantity * alertHeight
+
+    $('main').css('padding-top', '+=' + valueIncrement)
+  }
+
+  $('.alert').on('close.bs.alert', function () {
+    let valueDecrement = $(this).outerHeight()
+
+    $('main').css('padding-top', '-=' + valueDecrement)
+  })
+
   $('#menu-toggle').on('click', function() {
     var $sidebarContent = $('.sidebar-content');
     $sidebarContent.fadeToggle();
@@ -53,7 +67,7 @@ function prepareInputs() {
     dropdownParent: $("#myModal .modal-body.panel-body"),
     theme: "bootstrap"
   });
-  
+
   $('.froala').froalaEditor({
     height: 240,
     imageUploadURL: '/public/uploads/editor',
