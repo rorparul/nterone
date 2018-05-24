@@ -12,16 +12,14 @@
   .row
     .col-xs-12
       ul.nav.nav-tabs style='margin-bottom: 10px;'
-        li.active role="presentation"
-          = link_to 'All', '#', id: 'btn-list-view'
-        / li role="presentation"
-        /   = link_to 'Students', '#', id: 'btn-list-view'
-        / li role="presentation"
-        /   = link_to 'Instructors', '#', id: 'btn-list-view'
-        / li role="presentation"
-        /   = link_to 'Marketing', '#', id: 'btn-list-view'
-        / li role="presentation"
-        /   = link_to 'Admin', '#', id: 'btn-list-view'
+        li.active.users_tab role="presentation"
+          = link_to 'All', '#', id: 'btn-all-view'
+        li.users_tab role="presentation"
+          = link_to 'Students', '#', id: 'btn-student-view', class: "btn-list-view", data: {role: "students"}
+        li.users_tab role="presentation"
+          = link_to 'Instructors', '#', id: 'btn-instructors-view', class: "btn-list-view", data: {role: "instructors"}
+        li.users_tab role="presentation"
+          = link_to 'Admin', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
       #view-filter-controls.container-muted
         = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient element-left-side', role: 'button'
 
@@ -38,18 +36,24 @@
               li
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
-        = smart_listing_controls_for(:users, { class: 'input-search' }) do
-          .input-group.filter.element-right-side
-            = text_field_tag :filter, '', class: 'search form-control',
-                                          placeholder: t('admins.classes.search'),
-                                          autocomplete: :off
-            span.input-group-btn
-              button.btn.btn-default.disabled type="submit"
-                span.glyphicon.glyphicon-search
+        = render partial: "search_inputs"
 
-      #list-view-container
+                                                      
+      #list-view-container.users_listing.all_listing
         #list-view
           = smart_listing_render(:users)
+
+      #list-view-container.users_listing.students_listing.hide
+        #list-view
+          = smart_listing_render(:students) 
+
+      #list-view-container.users_listing.instructors_listing.hide
+        #list-view
+          = smart_listing_render(:instructors)  
+
+      #list-view-container.users_listing.admins_listing.hide
+        #list-view
+          = smart_listing_render(:admins)      
 
 javascript:
   $('.permissions .people').addClass('active');
@@ -85,3 +89,26 @@ javascript:
   $(".mark_as_partner").on('click', function(){
     mass_edit_customer_type("partner_customer");
   });
+  
+  $("#btn-all-view").on('click', function(){
+    $(".users_tab").removeClass("active");
+    $(this).parent().addClass("active");
+    $.ajax({
+      url: "/users.js",
+      method: "GET"
+    })
+  })
+
+  $(".btn-list-view").on('click', function(){
+    $(".users_tab").removeClass("active");
+    $(this).parent().addClass("active");
+    $("input.search").val("");
+    $(".input-search").addClass("hide");
+    $("."+$(this).data('role')+"_search").removeClass("hide");
+
+    $.ajax({
+      url: "/users.js",
+      method: "GET",
+      data: {role: $(this).data('role') },
+    })
+  })

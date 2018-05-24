@@ -1,1 +1,10 @@
-<%= smart_listing_update(:users) %>
+<% if params[:role].present? %>
+  $(".users_listing").addClass("hide");
+  $(".<%=params[:role]%>_listing").removeClass("hide");
+  <%= smart_listing_update(params[:role].to_sym) %>
+<% else %>
+  $(".user_search_role").remove();
+  $(".users_listing").addClass("hide");
+  $(".all_listing").removeClass("hide");
+  <%= smart_listing_update(:users) %>
+<% end %>

@@ -10,8 +10,17 @@ class UsersController < ApplicationController
     respond_to do |format|
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
+
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
+
+        if params[:role].present?
+          prepare_role_smart_listing(params[:role], get_users_by_role)
+        else
+          ["students", "instructors", "admins"].each do |role|
+            prepare_role_smart_listing(role, users_scope.limit(1))
+          end
+        end
       end
 
       format.json do
@@ -46,7 +55,6 @@ class UsersController < ApplicationController
 
   def edit
   end
-
 
   def edit_from_sales
     @owners    = User.all_sales
@@ -176,6 +184,19 @@ class UsersController < ApplicationController
 
   private
 
+  def get_users_by_role
+    case params[:role]
+    when "students"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
+    when "instructors"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
+    when "admins"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
+    end
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    users_scope
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
@@ -251,6 +272,18 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
+      sort_attributes: [[:first_name, "first_name"],
+                        [:last_name, "last_name"],
+                        [:email, "email"]],
+      default_sort: { updated_at: 'desc' }
+    )
+  end
+
+  def prepare_role_smart_listing(role, users_scope)
+    smart_listing_create(
+      role.to_sym,
+      users_scope,
+      partial: "#{role}_listing",
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
                         [:email, "email"]],
