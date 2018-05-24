@@ -254,7 +254,11 @@ NterOne::Application.routes.draw do
     end
     resources :params, controller: 'settings'
     resources :sales_goals
-    resources :courses
+    resources :courses do
+      member do
+        post 'toggle_exclude_from_revenue'
+      end
+    end
     get '/sales/overview'         => 'sales#overview'
     get '/sales/top_five_courses' => 'sales#top_five_courses'
     get '/sales/details'          => 'sales#details'
