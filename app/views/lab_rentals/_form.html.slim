@@ -149,6 +149,124 @@
             = f.label :twenty_four_hours, t('24-hours')
             br
             = f.check_box :twenty_four_hours
+    
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.setup_by')
+        .form-group
+          = f.select :setup_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
+          { include_blank: t('default.placeholder.select') },
+          { class: "form-control input-sm " } 
+
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.tested_by')
+        .form-group
+          = f.select :tested_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
+          { include_blank: t('default.placeholder.select') },
+          { class: "form-control input-sm " }     
+    
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.lab')
+        .form-group
+          = f.text_field :lab, class: 'form-control input-sm'  
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.partner')
+        .form-group
+          = f.text_field :partner, class: 'form-control input-sm'  
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.gmt')
+        .form-group
+          = f.text_field :gmt, class: 'form-control input-sm' 
+
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.number_of_pods')
+        .form-group
+          = f.number_field :number_of_pods, class: 'form-control input-sm' 
+
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.number_of_students')
+        .form-group
+          = f.number_field :number_of_students, class: 'form-control input-sm'
+
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.plus_instructor')
+        .form-group
+          - if @lab_rental.new_record?
+            = f.radio_button :plus_instructor, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :plus_instructor, false, class: 'false', checked: true       
+            span style='margin-right: 12px;' No 
+          -else
+            = f.radio_button :plus_instructor, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :plus_instructor, false, class: 'false'
+            span style='margin-right: 12px;' No 
+      
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.entered_into_crm')
+        .form-group
+          - if @lab_rental.new_record?
+            = f.radio_button :entered_into_crm, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :entered_into_crm, false, class: 'false', checked: true       
+            span style='margin-right: 12px;' No 
+          -else
+            = f.radio_button :entered_into_crm, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :entered_into_crm, false, class: 'false'
+            span style='margin-right: 12px;' No  
+
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.payment_received')
+        .form-group
+          - if @lab_rental.new_record?
+            = f.radio_button :payment_received, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :payment_received, false, class: 'false', checked: true       
+            span style='margin-right: 12px;' No 
+          -else
+            = f.radio_button :payment_received, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :payment_received, false, class: 'false'
+            span style='margin-right: 12px;' No  
+    .row
+      .col-xs-12.col-md-4  
+        label = t('lab_rentals.partial_form.price')
+        .form-group
+          = f.number_field :price, class: 'form-control input-sm'  
+      
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.po_number')
+        .form-group
+          = f.text_field :po_number, class: 'form-control input-sm'  
+
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.invoice_number')
+        .form-group
+          = f.text_field :invoice_number, class: 'form-control input-sm'  
+    
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.poc')
+        .form-group
+          = f.text_field :poc, class: 'form-control input-sm'  
+
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.terms')
+        .form-group
+          - if @lab_rental.new_record?
+            = f.radio_button :terms, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :terms, false, class: 'false', checked: true       
+            span style='margin-right: 12px;' No 
+          -else
+            = f.radio_button :terms, true, class: 'true'
+            span style='margin-right: 12px;' Yes
+            = f.radio_button :terms, false, class: 'false'
+            span style='margin-right: 12px;' No    
 
     button.btn.btn-green-gradient.element-left-side
       = t('generic.button.save')

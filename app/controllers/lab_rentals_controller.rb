@@ -59,8 +59,6 @@ class LabRentalsController < ApplicationController
     elsif params[:show] == 'students'
       @lab_students = @lab_rental.lab_students
       render 'show_lab_students'
-    else
-      render nothing: true
     end
   end
 
@@ -204,6 +202,21 @@ class LabRentalsController < ApplicationController
       :twenty_four_hours,
       :file,
       :level,
+      :setup_by,
+      :tested_by,
+      :lab,
+      :partner,
+      :gmt,
+      :number_of_pods,
+      :number_of_students,
+      :plus_instructor,
+      :price,
+      :po_number,
+      :entered_into_crm,
+      :invoice_number,
+      :payment_received,
+      :poc,
+      :terms,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end
