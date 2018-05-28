@@ -4,7 +4,105 @@
   .row
     .col-xs-12
       = render partial: 'show', locals: { lab_rental: @lab_rental }
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            = t('lab_rentals.partial_show.lab_details')
+        
+        .row.table-row
+          .col-xs-12.col-md-6.table-col
+            .panel-table
+              .responsive-table
+                table.table.table-condensed
+                  tbody
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.setup_by')
+                      td = @lab_rental.setup_by_user.try(:full_name)
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.lab')
+                      td = @lab_rental.lab
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.gmt')
+                      td = @lab_rental.gmt
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.number_of_pods')
+                      td = @lab_rental.number_of_pods
+
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.plus_instructor')
+                      td = @lab_rental.plus_instructor ? 'Yes' : "No"    
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.entered_into_crm')
+                      td = @lab_rental.entered_into_crm ? 'Yes' : "No"      
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.payment_received')
+                      td = @lab_rental.payment_received ? 'Yes' : "No"       
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.terms')
+                      td = @lab_rental.terms ? 'Yes' : "No"         
+                    
+
+          .col-xs-12.col-md-6.table-col
+            .panel-table
+              .responsive-table
+                table.table.table-condensed
+                  tbody
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.tested_by')
+                      td = @lab_rental.tested_by_user.try(:full_name)  
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.partner')
+                      td = @lab_rental.partner
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.number_of_students')
+                      td = @lab_rental.number_of_students 
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.price')
+                      td = number_to_currency(@lab_rental.price, precision: 2)
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.po_number')
+                      td = @lab_rental.po_number       
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.invoice_number')
+                      td = @lab_rental.invoice_number
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.poc')
+                      td = @lab_rental.poc
+                    tr
+                      td.text-right
+                      td   
 
 
 javascript:
   $('.permissions .lab-rentals').addClass('active');
+                      

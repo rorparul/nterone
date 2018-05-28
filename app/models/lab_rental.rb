@@ -69,6 +69,9 @@ class LabRental < ActiveRecord::Base
 
 	after_save :count_students, if: Proc.new { |model| model.kind == 2 && model.level == "partner" }
 
+  belongs_to :setup_by_user, foreign_key: :setup_by, class_name: "User"
+  belongs_to :tested_by_user, foreign_key: :tested_by, class_name: "User"
+
 	search_scope :custom_search do
     attributes :course, :instructor, :instructor_email, :location, :level 
     attributes :company => ["company.title"]
