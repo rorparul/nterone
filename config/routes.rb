@@ -124,6 +124,7 @@ NterOne::Application.routes.draw do
 
   get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
   get 'events/pluck'  => 'events#pluck',  as: :pluck_events
+  get 'state_list' => 'events#state_list', as: :state_list
 
   resources :lab_courses do
     resources :lab_course_time_blocks

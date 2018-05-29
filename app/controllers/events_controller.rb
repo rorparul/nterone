@@ -153,6 +153,10 @@ class EventsController < ApplicationController
     @event.format = params[:event_format] if @event.present?
   end
 
+  def state_list
+    @states = CS.states(params[:country_code].downcase)
+  end
+
   private
 
   def event_params
