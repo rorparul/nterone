@@ -12,12 +12,12 @@ class CategoryPolicy < ApplicationPolicy
 
   def create?
     ensure_user_present
-    @user.has_any_role?(%i(admin marketing))
+    @user.has_any_role?(%i(admin webmaster marketing))
   end
 
   def update?
     ensure_user_present
-    @user.has_any_role?(%i(admin marketing))
+    @user.has_any_role?(%i(admin webmaster marketing))
   end
 
   def destroy?
