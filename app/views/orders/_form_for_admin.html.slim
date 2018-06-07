@@ -101,6 +101,12 @@
     hr
     - if current_user.sales_rep?
       = f.hidden_field :payment_type, value: 'None'
+      .form-group
+        = f.label :referring_partner_email, t('orders.partial_form_for_admin.referrer')
+        - if order.id
+          = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
+        - else
+          = f.text_field :referring_partner_email, class: 'form-control input-sm'
     - else
       fieldset
         .form-group
@@ -196,14 +202,6 @@
         hr
 
       fieldset
-        .row
-          .col-xs-6.col-sm-6
-            .form-group
-              = f.label :referring_partner_email, t('orders.partial_form_for_admin.referrer')
-              - if order.id
-                = f.text_field :referring_partner_email, class: 'form-control input-sm', value: order.referring_partner_email
-              - else
-                = f.text_field :referring_partner_email, class: 'form-control input-sm'
         label
           = t('orders.partial_form_for_admin.billing_address')
         .row

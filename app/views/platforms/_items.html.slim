@@ -6,14 +6,14 @@
           = link_to platform_subject_path(item.platform, item), class: 'resource-item with-image' do
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
       - else
         .col-xs-12.col-md-4
           = link_to platform_subject_path(item.platform, item), class: 'resource-item without-image' do
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_subject_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
     - elsif item.class == Course
@@ -22,14 +22,14 @@
           = link_to platform_course_path(item.platform, item), class: 'resource-item with-image' do
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_course_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
       - else
         .col-xs-12.col-md-4
           = link_to platform_course_path(item.platform, item), class: 'resource-item without-image' do
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_course_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
     - elsif item.class == VideoOnDemand
@@ -38,14 +38,14 @@
           = link_to platform_video_on_demand_path(item.platform, item), class: 'resource-item with-image' do
             = image_tag item.image.file_url(:subject_icon)
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
       - else
         .col-xs-12.col-md-4
           = link_to platform_video_on_demand_path(item.platform, item), class: 'resource-item without-image' do
             p = item.full_title
-          - if user_signed_in? && current_user.admin?
+          - if user_signed_in? && current_user.has_any_role?(%i(admin webmaster))
             = link_to edit_platform_video_on_demand_path(item.platform, item), remote: false, class: "platform-item-actions" do
               span.glyphicon.glyphicon-edit title="#{t('default.action.edit')}"
 

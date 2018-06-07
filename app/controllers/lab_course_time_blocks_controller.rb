@@ -57,6 +57,6 @@ class LabCourseTimeBlocksController < ApplicationController
   end
 
   def authorize_lab_course_time_block
-    redirect_to root_url unless current_user.admin?
+    redirect_to root_url unless current_user.has_any_role?(%i(admin webmaster lab_admin))
   end
 end
