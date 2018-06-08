@@ -38,7 +38,6 @@
 
         = render partial: "search_inputs"
 
-                                                      
       #list-view-container.users_listing.all_listing
         #list-view
           = smart_listing_render(:users)
@@ -93,6 +92,9 @@ javascript:
   $("#btn-all-view").on('click', function(){
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
+    $("input.search").val("");
+    $(".input-search").addClass("hide");
+    $(".all_search").removeClass("hide");
     $.ajax({
       url: "/users.js",
       method: "GET"
