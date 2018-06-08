@@ -18,17 +18,17 @@
               = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
             td.fit.text-center
               = region_label(resource)
-            - if action_name == 'leads'
+            - if controller_name == 'users' && action_name == 'people'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)
-            - elsif action_name == 'contacts'
-              td = link_to user.first_name, contact_users_path(user)
-              td = link_to user.last_name, contact_users_path(user)
+            / - elsif action_name == 'leads'
+            /   td = link_to user.first_name, contact_users_path(user)
+            /   td = link_to user.last_name, contact_users_path(user)
             - else
               td = user.first_name
               td = user.last_name
             td = user.email
-            - if action_name == 'leads' || action_name == 'contacts'
+            - if controller_name == 'users' && action_name == 'people'
               td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             - else
