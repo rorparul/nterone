@@ -263,7 +263,7 @@ class UsersController < ApplicationController
         :role,
         :_destroy
       ],
-      chosen_courses_attributes: [:course_id]
+      chosen_courses_attributes: [:id, :course_id, :_destroy]
     )
   end
 
