@@ -37,6 +37,8 @@
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
         = render partial: "search_inputs"
+      
+      i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
 
       #list-view-container.users_listing.all_listing
         #list-view
@@ -117,3 +119,10 @@ javascript:
       data: {role: $(this).data('role'), filter: filter_value }
     })
   })
+  
+  $( document ).ajaxStart(function() {
+    $(".loading").css('display', 'block');
+    $(".loading").css('opacity', '1');
+    $(".content").css('opacity', '0.2');
+    $(".people_loader").removeClass('hide');
+  });
