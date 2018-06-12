@@ -17,4 +17,6 @@ class Admin::CoursesController < Admin::BaseController
       format.js
     end
   end
+
+  
 end

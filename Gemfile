@@ -18,6 +18,7 @@ gem 'bower-rails'
 gem 'canonical-rails'
 gem 'carrierwave', '~> 0.10.0'
 gem "celluloid", github: 'celluloid/celluloid', submodules: true
+gem 'city-state'
 gem 'cocoon'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'country_select'

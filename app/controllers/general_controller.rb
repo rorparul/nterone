@@ -24,62 +24,50 @@ class GeneralController < ApplicationController
   end
 
   def sign_up_confirmation
-    @page = Page.find_by(title: 'Sign Up Confirmation')
+    @page = Page.current_region.find_by(title: 'Sign Up Confirmation')
   end
 
   def about_us
-    @page = Page.find_by(title: 'About NterOne')
+    @page = Page.current_region.find_by(title: 'About NterOne')
   end
 
   def executives
-    @page  = Page.find_by(title: 'Executive Bios')
+    @page  = Page.current_region.find_by(title: 'Executive Bios')
   end
 
   def instructors
-    @page = Page.find_by(title: 'Instructor Bios')
+    @page = Page.current_region.find_by(title: 'Instructor Bios')
   end
 
   def press
-    @page           = Page.find_by(title: 'Press Index')
+    @page           = Page.current_region.find_by(title: 'Press Index')
     @press_releases = Article.current_region.where(kind: "Press Release").order(created_at: :desc)
   end
 
   def blog
-    @page       = Page.find_by(title: 'Blog Index')
+    @page       = Page.current_region.find_by(title: 'Blog Index')
     @blog_posts = Article.current_region.where(kind: "Blog Post").order(created_at: :desc)
   end
 
   def consulting
-    @page = Page.find_by(title: 'Consulting')
+    @page = Page.current_region.find_by(title: 'Consulting')
   end
 
   def partners
-    @page = Page.find_by(title: 'Partners')
+    @page = Page.current_region.find_by(title: 'Partners')
   end
 
   def labs
-    @page        = Page.find_by(title: 'Labs')
+    @page        = Page.current_region.find_by(title: 'Labs')
     @lab_courses = LabCourse.current_region.where.not(level: 'partner').order(:title)
   end
 
-  def nci
-    @page = Page.find_by(title: 'NCI')
-  end
-
-  def nci_engineers
-    @page = Page.find_by(title: 'NCI Engineers')
-  end
-
-  def nci_cisco_program_administrators
-    @page = Page.find_by(title: 'NCI Cisco Program Administrators')
-  end
-
   def nterone_gives_back
-    @page = Page.find_by(title: 'NterOne Gives Back')
+    @page = Page.current_region.find_by(title: 'NterOne Gives Back')
   end
 
   def featured_classes
-    @page      = Page.find_by(title: 'Featured Classes')
+    @page      = Page.current_region.find_by(title: 'Featured Classes')
     @platforms = Platform.active.current_region.order(:title)
 
     respond_to do |format|
@@ -148,18 +136,18 @@ class GeneralController < ApplicationController
   end
 
   def contact_us_confirmation
-    @page = Page.find_by(title: 'Contact Us Confirmation')
+    @page = Page.current_region.find_by(title: 'Contact Us Confirmation')
   end
 
   def sims
   end
 
   def support
-    @page = Page.find_by(title: 'Support')
+    @page = Page.current_region.find_by(title: 'Support')
   end
 
   def sitemap
-    @page = Page.find_by(title: "Sitemap")
+    @page = Page.current_region.find_by(title: "Sitemap")
   end
 
   def editor_upload_photo
@@ -173,7 +161,6 @@ class GeneralController < ApplicationController
   end
 
   def email_signature_tool
-    # render layout: 'admin'
   end
 
   private

@@ -8,7 +8,7 @@
         ul
           - event.errors.full_messages.each do |msg|
             li = msg
-
+ 
     = render partial: 'shared/region_inputs', locals: { model: Event, f: f }
 
     hr
@@ -125,24 +125,25 @@
     .row
       .col-xs-12.col-sm-6
         .form-group
-          = f.label :state, t('events.partial_form.state')
-          = f.select :state,
-                     grouped_options_for_select(country_regions, event.state),
-                     { include_blank: t('default.prompt.please_select') },
-                     { class: 'form-control input-sm' }
-      .col-xs-12.col-sm-6
-        .form-group
-          = f.label :zipcode, t('events.partial_form.zipcode')
-          = f.text_field :zipcode, class: "form-control input-sm"
-
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
           = f.label :country_code, t('events.partial_form.country_code')
           = f.country_select :country_code,
                      nil,
                      { include_blank: t('default.prompt.please_select') },
                      { class: 'form-control input-sm' }
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :state, t('events.partial_form.state')
+          = f.select :state,
+                     grouped_options_for_select([], event.state),
+                     { include_blank: t('default.prompt.please_select') },
+                     { class: 'form-control input-sm' }
+          = hidden_field_tag "selected_state", event.state           
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :zipcode, t('events.partial_form.zipcode')
+          = f.text_field :zipcode, class: "form-control input-sm"
 
     .row
       .col-xs-12.col-sm-6
@@ -317,4 +318,20 @@ javascript:
       type: "GET",
       url: "/instructor_options",
       data: {course_id: "#{@course.id}", event_id: "#{event.id}", event_format: $(this).val()}   });
+  })
+  
+  
+  if($("#event_country_code").val() != ''){
+    $.ajax({
+      type: "GET",
+      url: "/state_list",
+      data: {country_code: $("#event_country_code").val()}
+    });
+  }
+  $("#event_country_code").on('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/state_list",
+      data: {country_code: $(this).val()}
+    });
   })

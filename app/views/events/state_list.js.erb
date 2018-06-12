@@ -1,0 +1,11 @@
+$("#event_state").empty();
+var option = $('<option></option>').attr("value", "").text("Please Select");
+$("#event_state").append(option);
+<% @states.each do |code, value| %>
+  var option = $('<option></option>').attr("value", "<%= code %>").text("<%= value %>");
+  $("#event_state").append(option);
+<% end %>  
+
+if($("#selected_state").val() != ''){
+  $("#event_state").val($("#selected_state").val())
+}

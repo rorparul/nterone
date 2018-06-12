@@ -20,12 +20,13 @@ NterOne::Application.routes.draw do
     post :toggle_archived, on: :member
     collection do
       get  ':id/edit_from_sales'   => 'users#edit_from_sales',       as: :edit_from_sales
-      get  'leads'                 => 'users#leads',                 as: :leads
       get  'leads_unsubscribe_new' => 'users#leads_unsubscribe_new', as: :leads_unsubscribe_new
       post 'leads_unsubscribe'     => 'users#leads_unsubscribe'    , as: :leads_unsubscribe
       
-      get  'contacts'            => 'users#contacts',        as: :contacts
+      get  'people'              => 'users#people',           as: :people
       get  'members'             => 'users#members',         as: :members
+      get  'get_users_by_role'   => 'users#get_users_by_role', as: :get_user_by_role
+      
       get  'sales_reps'          => 'users#sales_reps',      as: :sales_reps
       get  'leads/:id'           => 'users#show_as_lead',    as: :lead
       get  'contacts/:id'        => 'users#show_as_contact', as: :contact
@@ -123,6 +124,7 @@ NterOne::Application.routes.draw do
 
   get 'courses/pluck' => 'courses#pluck', as: :pluck_courses
   get 'events/pluck'  => 'events#pluck',  as: :pluck_events
+  get 'state_list' => 'events#state_list', as: :state_list
 
   resources :lab_courses do
     resources :lab_course_time_blocks
@@ -253,7 +255,11 @@ NterOne::Application.routes.draw do
     end
     resources :params, controller: 'settings'
     resources :sales_goals
-    resources :courses
+    resources :courses do
+      member do
+        post 'toggle_exclude_from_revenue'
+      end
+    end
     get '/sales/overview'         => 'sales#overview'
     get '/sales/top_five_courses' => 'sales#top_five_courses'
     get '/sales/details'          => 'sales#details'

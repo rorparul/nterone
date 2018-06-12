@@ -88,7 +88,7 @@ class LabCoursesController < ApplicationController
 	end
 
 	def authorize_lab_course
-		redirect_to root_url unless current_user.admin?
+		redirect_to root_url unless current_user.has_any_role?(%i(admin lab_admin))
 	end
 
 	def filter_times

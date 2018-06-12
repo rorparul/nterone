@@ -73,7 +73,7 @@ class Admin::ChecklistsController < Admin::BaseController
     checklist_item_events.update_attribute(:updated_by, current_user.id)
 
     success = @event.checklist_items.exists? @checklist_item.id
-    render json: { success: success, event_id: @event.id, item_id: @checklist_item.id, checklist_items_count: @event.checklist_items.count, initials: current_user.name_initials, updated_at: Date.today.strftime("%d-%m-%Y")}, status: success ? 200 : 404
+    render json: { success: success, event_id: @event.id, item_id: @checklist_item.id, checklist_items_count: @event.checklist_items.count, initials: current_user.name_initials, updated_at: Date.today.strftime("%m-%d-%Y")}, status: success ? 200 : 404
   end
 
   def uncomplete_item

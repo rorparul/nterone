@@ -168,12 +168,12 @@ class Event < ActiveRecord::Base
                    )
                  elsif date_range_start.nil? && date_range_end.nil?
                    where(archived: false).where(
-                     'origin_region = ?',
+                     'events.origin_region = ?',
                      region
                    )
                  else
                    where(archived: false).where(
-                     'origin_region = ? and end_date >= ? and end_date <= ?',
+                     'events.origin_region = ? and end_date >= ? and end_date <= ?',
                      region,
                      date_range_start,
                      date_range_end

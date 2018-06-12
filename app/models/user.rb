@@ -176,11 +176,18 @@ class User < ActiveRecord::Base
   scope :all_instructors,         -> { joins(:roles).where(roles: { role: 7 }).order('last_name').order("onsite_daily_rate asc").distinct }
   scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("onsite_daily_rate asc").distinct }
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
+
+  scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
+  scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :admins,                  -> { joins(:roles).where(roles: { role: 1 }).distinct }
+
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
+  scope :all_stage,               -> { where(status: [0, 1, 2, 3, 4]) }
   scope :members,                 -> { joins(:roles).where(roles: { role: 4 }) }
   scope :direct_customer,         -> { where(customer_type: 0) }
   scope :private_customer,        -> { where(customer_type: 1) }
+
 
   search_scope :custom_search do
     attributes :first_name, :last_name, :email
@@ -196,13 +203,13 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
   validates_uniqueness_of :source_user_id, allow_blank: true
-  
+
   after_save do
     if onsite_daily_rate_changed? || online_daily_rate_changed?
       update_instructor_costs
     end
   end
-  
+
 
   def developer?
     email == 'ryan@storberg.net'
@@ -255,9 +262,9 @@ class User < ActiveRecord::Base
     self.taught_events.where(start_date: start_date..end_date)
   end
 
-  def self.only_students
-    joins(:roles).where(roles: {role: 4}).distinct
-  end
+  # def self.only_students
+  #   joins(:roles).where(roles: {role: 4}).distinct
+  # end
 
   def my_plan_total_high
     planned_unattended_courses.inject(0) do |sum, course|
@@ -461,7 +468,7 @@ class User < ActiveRecord::Base
       self.onsite_daily_rate
     end
   end
-    
+
   def self.unsubscribe_from_email(file)
     spreadsheet = self.open_spreadsheet(file)
     header = spreadsheet.row(1)

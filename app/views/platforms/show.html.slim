@@ -6,12 +6,12 @@
 
 - content_for :actions do
   - if user_signed_in?
-    - if current_user.admin? || policy(:admin).marketing?
+    - if current_user.has_any_role?(%i(admin webmaster marketing))
       li = link_to new_platform_category_path(@platform), remote: true do
         = t('platforms.show.add_category')
       li = link_to select_platform_categories_path(@platform), remote: true do
         = t('platforms.show.edit_category')
-    - if current_user.admin?
+    - if current_user.has_any_role?(%i(admin webmaster))
       li = link_to new_platform_subject_path(@platform), remote: false do
         = t('platforms.show.add_certification')
       li = link_to select_platform_subjects_path(@platform), remote: true do

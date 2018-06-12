@@ -9,13 +9,8 @@
             i.fa.fa-globe aria-hidden="true"
           th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
           th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
-          th.fit = "Phone Number"
-          th.fit = smart_listing.sortable t('default.label.email'), :email
-          th = t('default.label.company')
-          th.fit CT
-          th.fit Orders
-          th.fit Sales Rep
-          th colspan='2'
+          th = smart_listing.sortable t('default.label.email'), :email
+          th.fit colspan='2'
       tbody
         - smart_listing.collection.each do |user|
           tr
@@ -23,44 +18,21 @@
               = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
             td.fit.text-center
               = region_label(resource)
-            - if action_name == 'leads'
+            - if controller_name == 'users' && action_name == 'people'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)
-            - elsif action_name == 'contacts'
-              td = link_to user.first_name, contact_users_path(user)
-              td = link_to user.last_name, contact_users_path(user)
+            / - elsif action_name == 'leads'
+            /   td = link_to user.first_name, contact_users_path(user)
+            /   td = link_to user.last_name, contact_users_path(user)
             - else
               td = user.first_name
               td = user.last_name
-            td = user.contact_number
             td = user.email
-            td
-              - if user.company.present?
-                = link_to user.company.title, company_path(user.company)
-              - else
-                | N/A
-            td class="customer_type_#{user.id}"
-              - if user.customer_type.present?
-                = user.customer_type == "direct_customer" ? "D" : "P"
-              - else
-                | N/A
-            td = user.buyer_orders.count
-            td id="user-#{user.id}-sales-rep"
-              - if current_user.admin? || current_user.sales_manager?
-                - if user.parent.present?
-                  = user.parent.full_name
-                - else
-                  = link_to 'Assign', assign_users_path(user), remote: true, class: 'text-warning'
-              - else
-                - if user.parent.present?
-                  = user.parent.full_name
-                - else
-                  span.text-warning Unassigned
-            - if action_name == 'leads' || action_name == 'contacts'
-              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning', remote: true do
+            - if controller_name == 'users' && action_name == 'people'
+              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             - else
-              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning' do
+              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning pull-right' do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
             td.fit = link_to user_path(user), title: 'Delete', method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger' do
               i.text-danger class="fa fa-trash-o" aria-hidden="true"
@@ -73,33 +45,33 @@
     = t('default.placeholder.no_records')
 
 javascript:
-  $(".users_mass_edit_checkbox").change(function() {
+  $(".all_listing .users_mass_edit_checkbox").change(function() {
     toggle_mass_edit();
     if(!$(this).is(":checked")){
-      $("#select_all").prop('checked', false);
+      $(".all_listing .select_all_users").prop('checked', false);
     }
 
-    if($(".users_mass_edit_checkbox").length == $(".users_mass_edit_checkbox:checked").length){
-      $("#select_all").prop('checked', true);
+    if($(".all_listing .users_mass_edit_checkbox").length == $(".all_listing .users_mass_edit_checkbox:checked").length){
+      $(".all_listing .select_all_users").prop('checked', true);
     }
   });
 
-  $("#select_all").on('change', function(){
+  $(".all_listing .select_all_users").on('change', function(){
     if($(this).is(":checked")){
-      $(".users_mass_edit_checkbox").prop('checked', true).change();
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
     }else{
-      $(".users_mass_edit_checkbox").prop('checked', false).change();
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
     }
   });
 
-  if($("#select_all").is(":checked")){
-    $(".users_mass_edit_checkbox").prop('checked', true).change();
+  if($(".all_listing .select_all_users").is(":checked")){
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
   }else{
-    $(".users_mass_edit_checkbox").prop('checked', false).change();
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
   }
 
   function toggle_mass_edit() {
-    if($(".users_mass_edit_checkbox:checked").length > 0) {
+    if($(".all_listing .users_mass_edit_checkbox:checked").length > 0) {
       $("#dropdownMenu1").removeClass("disabled");
     }
     else{

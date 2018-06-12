@@ -10,8 +10,17 @@ class UsersController < ApplicationController
     respond_to do |format|
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
+
         users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
         prepare_smart_listing(users_scope)
+
+        if params[:role].present?
+          prepare_role_smart_listing(params[:role], get_users_by_role)
+        else
+          ["students", "instructors", "admins"].each do |role|
+            prepare_role_smart_listing(role, users_scope.limit(1))
+          end
+        end
       end
 
       format.json do
@@ -46,7 +55,6 @@ class UsersController < ApplicationController
 
   def edit
   end
-
 
   def edit_from_sales
     @owners    = User.all_sales
@@ -94,23 +102,32 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
-  def leads
+  def people
+    params[:stage] ||= "all_stage"
     respond_to do |format|
       format.html do
-        users_scope = User.leads.where(parent_id: current_user.id)
+        users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
         prepare_smart_listing(users_scope)
       end
 
       format.js do
-        users_scope = User.leads.where(clean_params(user_params[:filters]))
+        if params[:user]
+          users_scope = User.send(params[:stage]).where(clean_params(user_params[:filters]))
+        else
+          users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
+        end
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
         prepare_smart_listing(users_scope)
       end
 
+      format.json do
+        render json: { items: User.send(params[:stage]).custom_search(params[:q]).order(:last_name) }
+      end
+
       format.xlsx do
-        @users = User.leads.where(clean_params(user_params[:filters])).order(:last_name)
+        @users = User.send(params[:stage]).where(clean_params(user_params[:filters])).order(:last_name)
         @users = @users.custom_search(params[:search]) if params[:search].present?
-        render xlsx: 'index', filename: "leads-#{DateTime.now}.xlsx"
+        render xlsx: 'index', filename: "#{params[:stage]}-#{DateTime.now}.xlsx"
       end
     end
   end
@@ -121,36 +138,7 @@ class UsersController < ApplicationController
   def leads_unsubscribe
     User.unsubscribe_from_email(params[:user_file])
     flash[:success] = "List Unsubscribes successfully"
-    if params[:from] == "contacts"
-      redirect_to contacts_users_path
-    else
-      redirect_to leads_users_path
-    end
-  end
-
-  def contacts
-    respond_to do |format|
-      format.html do
-        users_scope = User.contacts.where(parent_id: current_user.id)
-        prepare_smart_listing(users_scope)
-      end
-
-      format.js do
-        users_scope = User.contacts.where(clean_params(user_params[:filters]))
-        users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
-        prepare_smart_listing(users_scope)
-      end
-
-      format.json do
-        render json: { items: User.contacts.custom_search(params[:q]).order(:last_name) }
-      end
-
-      format.xlsx do
-        @users = User.contacts.where(clean_params(user_params[:filters])).order(:last_name)
-        @users = @users.custom_search(params[:search]) if params[:search].present?
-        render xlsx: 'index', filename: "contacts-#{DateTime.now}.xlsx"
-      end
-    end
+    redirect_to people_users_path
   end
 
   def mark_customers_type
@@ -195,6 +183,19 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_users_by_role
+    case params[:role]
+    when "students"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
+    when "instructors"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
+    when "admins"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
+    end
+    users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+    users_scope
+  end
 
   def set_user
     @user = User.find(params[:id])
@@ -252,14 +253,17 @@ class UsersController < ApplicationController
         :status,
         :state,
         :company_id,
-        :customer_type
+        :customer_type,
+        escort: [
+          :value
+        ]
       ],
       roles_attributes: [
         :id,
         :role,
         :_destroy
       ],
-      chosen_courses_attributes: [:course_id]
+      chosen_courses_attributes: [:id, :course_id, :_destroy]
     )
   end
 
@@ -268,6 +272,18 @@ class UsersController < ApplicationController
       :users,
       users_scope,
       partial: 'listing',
+      sort_attributes: [[:first_name, "first_name"],
+                        [:last_name, "last_name"],
+                        [:email, "email"]],
+      default_sort: { updated_at: 'desc' }
+    )
+  end
+
+  def prepare_role_smart_listing(role, users_scope)
+    smart_listing_create(
+      role.to_sym,
+      users_scope,
+      partial: "#{role}_listing",
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
                         [:email, "email"]],

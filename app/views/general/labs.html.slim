@@ -1,10 +1,10 @@
 - content_for :page_title do
-  = @page.page_title
+  = @page.try(:page_title)
 
 - content_for :page_description do
-  = @page.page_description
+  = @page.try(:page_description)
 
-- if user_signed_in? && current_user.admin?
+- if user_signed_in? && current_user.has_any_role?(%i(admin webmaster lab_admin))
   - content_for :actions do
     li
       = link_to t('general.labs.new_lab_course'), new_lab_course_path, remote: false
@@ -14,13 +14,13 @@
 .container
   .row
     .col-xs-12.col-md-8.col-md-offset-2
-      = @page.content.try(:html_safe)
+      = @page.try(:content).try(:html_safe)
 
   .row
     - @lab_courses.each do |lab_course|
       .col-xs-12.col-sm-6.col-md-4.col-xl-2
         .panel.panel-default.panel-lab-course
-          - if current_user && current_user.admin?
+          - if current_user && current_user.has_any_role?(%i(admin webmaster lab_admin))
             = link_to "Edit", edit_lab_course_path(lab_course), class: "edit-lab-course"
           = link_to lab_course_path(lab_course), class: "lab-course-link" do
             .panel-body style="display: relative;"

@@ -2,16 +2,24 @@ class UserPolicy < ApplicationPolicy
   def index?
     @user.admin?
   end
-
-  def leads?
-    @user.admin? || @user.sales?
-  end
-
-  def contacts?
+  
+  def people?
     @user.admin? || @user.sales?
   end
 
   def members?
+    @user.admin? || @user.sales?
+  end
+
+  def students?
+    @user.admin? || @user.sales?
+  end
+
+  def instructors?
+    @user.admin? || @user.sales?
+  end
+
+  def get_users_by_role?
     @user.admin? || @user.sales?
   end
 

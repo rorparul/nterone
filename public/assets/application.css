@@ -22145,78 +22145,79 @@ span.required {
 .smart-listing-controls {
   display: inline-block;
   float: right;
+  height: auto;
 }
 
-/* line 189, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 190, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .margin-none {
   margin: 0 !important;
 }
 
-/* line 193, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 194, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .order-register {
   display: none;
 }
 
-/* line 198, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 199, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading h4 {
   margin: 0;
 }
 
-/* line 204, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 205, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading-with-search strong {
   display: inline-block;
   margin: 5px 0;
 }
-/* line 208, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 209, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading-with-search .checkbox {
   margin: 0 5px 0 0;
 }
-/* line 210, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 211, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading-with-search .checkbox input[type='checkbox'] {
   margin: 0 2.5px 0 0;
 }
 
-/* line 216, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 217, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .white-cell {
   background-color: white;
 }
 
-/* line 220, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 221, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .planned-subject {
   margin-bottom: 15px;
 }
 
-/* line 224, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 225, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform-item-edit {
   position: absolute;
   top: 10px;
   right: 30px;
 }
 
-/* line 230, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 231, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-link-container {
   height: 0px !important;
   width: 0px !important;
   line-height: 0px;
 }
 
-/* line 236, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 237, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-thumbnail-container {
   overflow: hidden;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-/* line 240, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 241, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-thumbnail-container .wistia_embed {
   width: 100% !important;
 }
 
-/* line 245, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 246, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .wistia_embed {
   width: 100% !important;
 }
 
-/* line 249, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 250, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-module-status {
   float: right;
   height: 20px;
@@ -22225,149 +22226,149 @@ span.required {
   padding: 4px;
 }
 
-/* line 257, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 258, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content {
   margin-bottom: 10px;
 }
-/* line 260, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 261, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content .group-heading h6 {
   font-size: 12.5px !important;
 }
 @media (max-width: 767px) {
-  /* line 259, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 260, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .text-content .group-heading {
     text-align: center;
   }
 }
-/* line 267, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 268, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content .group-body {
   padding: 8px 10px;
 }
-/* line 269, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 270, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content .group-body h2 {
   font-size: 16px;
   margin: 0 0 4px 0;
   font-weight: bold;
 }
-/* line 274, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 275, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content .group-body h3 {
   font-size: 16px;
   color: blue;
   margin: 0 0 4px 0;
   color: #206497;
 }
-/* line 281, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 282, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .text-content .group-body p:last-child {
   margin-bottom: 0;
 }
 
-/* line 289, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 290, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .testimonial .quotation {
   color: #609c3d;
 }
 
-/* line 294, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 295, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #ice-team-summary, #instructor-bios-additional-info {
   font-weight: bold;
 }
 
 @media (max-width: 767px) {
-  /* line 298, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 299, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .zopim {
     right: 15px !important;
   }
 }
 @media (min-width: 768px) {
-  /* line 298, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 299, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .zopim {
     right: 30px !important;
   }
 }
 
-/* line 307, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 308, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #search-submit-button {
   cursor: pointer;
 }
 
-/* line 365, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 312, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .vendor-categories {
   text-align: center;
 }
-/* line 367, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 314, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .vendor-categories .btn {
   margin: 5px;
 }
 @media (max-width: 991px) {
-  /* line 372, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 319, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .vendor-categories .btn {
     display: block;
     width: 100%;
     border-radius: 0;
     margin: 0;
   }
-  /* line 379, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 326, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .vendor-categories .btn:first-child {
     border-radius: 4px 4px 0 0;
   }
-  /* line 382, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 329, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .vendor-categories .btn:last-child:not(:first-child) {
     border-radius: 0 0 4px 4px;
   }
 }
 
-/* line 388, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 335, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .green {
   color: #96c161;
 }
 
-/* line 392, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 339, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .gray {
   color: lightgray;
 }
 
-/* line 396, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 343, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .red {
   color: red;
 }
 
-/* line 400, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 347, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading {
   color: #636363;
 }
 
-/* line 404, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 351, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #degrees {
   text-align: center;
   margin-bottom: 20px;
 }
-/* line 407, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 354, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #degrees img {
   max-width: 100%;
 }
 
-/* line 412, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 359, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .order-summary-table {
   margin-bottom: 15px;
 }
 
-/* line 416, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 363, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .degrees-checkout {
   max-width: 100%;
   height: 125px;
 }
 
-/* line 426, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 368, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .fa-file-video-o {
   font-size: 40px;
   margin: 5px;
 }
 
-/* line 431, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 373, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .minicolors-input {
   padding-left: 32px !important;
 }
 
-/* line 435, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 377, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .group {
   background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #f2f2f2 100%);
   background-image: -moz-linear-gradient(top, #f9f9f9 0%, #f2f2f2 100%);
@@ -22380,7 +22381,7 @@ span.required {
   font-size: 12px;
   margin-bottom: 20px;
 }
-/* line 442, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 384, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .group .group-heading {
   background-image: -webkit-linear-gradient(top, #f8f8f8 0%, #e8e8e8 100%);
   background-image: -moz-linear-gradient(top, #f8f8f8 0%, #e8e8e8 100%);
@@ -22393,7 +22394,7 @@ span.required {
   height: 37px;
   position: relative;
 }
-/* line 449, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 391, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .group .group-heading h6 {
   font-size: 12px;
   font-weight: bold;
@@ -22401,13 +22402,13 @@ span.required {
   margin: 0px;
   padding: 8px 10px 7px 10px;
 }
-/* line 457, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 399, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .group .group-body {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-/* line 463, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 405, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .password-reset {
   margin: 0 0 0 5px;
   background-image: -webkit-linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
@@ -22417,32 +22418,32 @@ span.required {
   background-image: linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
 }
 
-/* line 468, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 410, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-instructions {
   font-style: italic;
   color: gray;
   font-size: 10px;
 }
-/* line 472, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 414, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-instructions.absolute {
   position: absolute;
 }
 
-/* line 477, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 419, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .image-container {
   margin-bottom: 20px;
 }
-/* line 479, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 421, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .image-container img {
   width: 100%;
 }
 
-/* line 484, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 426, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-heading-controls {
   float: right;
 }
 
-/* line 489, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 431, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-default .panel-heading {
   background-image: -webkit-linear-gradient(top, #f8f8f8 0%, #e8e8e8 100%);
   background-image: -moz-linear-gradient(top, #f8f8f8 0%, #e8e8e8 100%);
@@ -22451,12 +22452,12 @@ span.required {
   background-image: linear-gradient(top, #f8f8f8 0%, #e8e8e8 100%);
 }
 
-/* line 494, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 436, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-red {
   border-color: #b22a35;
   margin: 0 auto 20px auto;
 }
-/* line 497, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 439, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-red .panel-heading {
   background-image: -webkit-linear-gradient(top, #d6535d 0%, #b22a35 100%);
   background-image: -moz-linear-gradient(top, #d6535d 0%, #b22a35 100%);
@@ -22466,13 +22467,13 @@ span.required {
   color: white;
   border-bottom-color: #b22a35;
 }
-/* line 503, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 445, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-red .image-container img {
   width: 80%;
 }
 
 @media (min-width: 768px) {
-  /* line 509, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 451, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .side-column {
     width: 230px;
     display: inline-block;
@@ -22480,14 +22481,14 @@ span.required {
 }
 
 @media (min-width: 768px) {
-  /* line 516, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 458, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .credits-image {
     margin: 15px 0;
     width: 80%;
   }
 }
 @media (max-width: 767px) {
-  /* line 516, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 458, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .credits-image {
     margin: 0;
     padding: 15px;
@@ -22495,15 +22496,15 @@ span.required {
   }
 }
 
-/* line 528, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 470, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .side-column-graphics {
   text-align: center;
 }
-/* line 530, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 472, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .side-column-graphics br {
   display: none;
 }
-/* line 533, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 475, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .side-column-graphics img {
   display: inline !important;
   float: none !important;
@@ -22511,58 +22512,58 @@ span.required {
   margin-bottom: 20px;
 }
 @media (max-width: 767px) {
-  /* line 533, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 475, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .side-column-graphics img {
     padding: 15px;
   }
 }
 
-/* line 544, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 486, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .input-post, .btn-group-forum {
   margin-bottom: 15px;
 }
 
 @media (min-width: 768px) {
-  /* line 548, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 490, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .col-central {
     width: calc(100% - 230px);
   }
 }
 
-/* line 554, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 496, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .forum-post-content {
   min-height: 100%;
 }
 
-/* line 559, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 501, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #featured-classes td {
   vertical-align: middle;
 }
 
-/* line 564, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 506, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #forum {
   line-height: 0;
 }
 
-/* line 569, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 511, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #sitemap ul {
   padding-left: 0;
 }
-/* line 571, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 513, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #sitemap ul li {
   list-style: none;
 }
-/* line 575, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 517, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #sitemap ul.training {
   padding-left: 20px;
 }
 
-/* line 580, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 522, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .expanded-text {
   color: black;
 }
 
-/* line 584, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 526, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .btn-blue {
   border-color: #2b86ca;
   background-image: -webkit-linear-gradient(top, #539ed6 0%, #2b86ca 100%);
@@ -22577,7 +22578,7 @@ span.required {
   font-size: 18px;
   text-shadow: #303030 0px 1px 0px;
 }
-/* line 593, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 535, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .btn-blue:hover, .btn-blue:active, .btn-blue:focus {
   background-image: -webkit-linear-gradient(top, #539ed6 0%, #2b86ca 100%);
   background-image: -moz-linear-gradient(top, #539ed6 0%, #2b86ca 100%);
@@ -22587,32 +22588,32 @@ span.required {
   border-color: #2b86ca;
   color: white;
 }
-/* line 598, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 540, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .btn-blue .fa {
   font-size: 40px;
 }
 
-/* line 603, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 545, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #brand-form {
   background-color: white;
 }
-/* line 605, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 547, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #brand-form img {
   padding: 10px 15px;
 }
 
-/* line 610, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 552, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #no-border.form-group.no-border {
   border-bottom: none;
 }
 
-/* line 614, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 556, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .or {
   font-size: 18px;
   color: darkgray;
 }
 
-/* line 620, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 562, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .search-results {
   height: auto;
   display: none;
@@ -22621,58 +22622,58 @@ span.required {
   z-index: 100;
 }
 
-/* line 628, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 570, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .exam-title-field-group {
   position: relative;
 }
 
-/* line 632, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 574, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .exam-result li {
   list-style: none;
 }
 
-/* line 636, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 578, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .fit {
   width: 1%;
   white-space: nowrap;
 }
-/* line 639, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 581, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .fit a {
   text-decoration: none;
 }
 
-/* line 645, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 587, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #user-info span {
   margin-right: 5px;
   font-weight: bold;
 }
 
-/* line 651, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 593, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .mini-title {
   font-size: 10px;
   color: gray;
 }
 
-/* line 656, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 598, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .center-align {
   text-align: center;
 }
 
-/* line 660, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 602, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .sign-in-field {
   text-align: center;
 }
 
-/* line 665, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 607, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-buttons button {
   margin-right: 5px;
 }
 
-/* line 670, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 612, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .button-container {
   text-align: center;
 }
-/* line 673, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 615, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .button-container a button {
   border-radius: 2px;
   color: white;
@@ -22689,28 +22690,28 @@ span.required {
   background-image: linear-gradient(top, #96c161 0%, #609c3d 100%);
   border: 1px solid #68a341;
 }
-/* line 684, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 626, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .button-container a button span {
   margin-right: 8px;
 }
 
-/* line 691, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 633, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .seperator {
   margin: 0 5px;
 }
 
-/* line 697, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 639, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .btn-group-container .btn-group button {
   margin: 0;
 }
 
-/* line 703, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 645, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-description {
   color: #525252;
   font-size: 14px;
   margin-bottom: 20px;
 }
-/* line 707, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 649, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-description h4 {
   color: #5f5f5f;
   font-size: 16px;
@@ -22719,12 +22720,12 @@ span.required {
   margin-top: 0;
 }
 
-/* line 716, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 658, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-description.my-plan {
   margin-bottom: 0;
 }
 
-/* line 722, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 664, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #testimonials tr td {
   overflow: hidden;
   max-width: 250px;
@@ -22732,7 +22733,7 @@ span.required {
   white-space: nowrap;
 }
 
-/* line 733, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 675, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #pages tr td {
   overflow: hidden;
   max-width: 500px;
@@ -22740,25 +22741,25 @@ span.required {
   white-space: nowrap;
 }
 
-/* line 743, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 685, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table {
   color: #5f5f5f;
   font-size: 12px;
   width: 100%;
 }
-/* line 749, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 691, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table:last-child tr:last-child {
   border-bottom-width: 0px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-/* line 757, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 699, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody tr {
   border-bottom-color: #dfdfdf;
   border-bottom-style: solid;
   border-bottom-width: 1px;
 }
-/* line 761, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 703, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody tr td {
   border-right-color: #dfdfdf;
   border-right-style: solid;
@@ -22766,34 +22767,34 @@ span.required {
   padding: 10px;
   vertical-align: middle;
 }
-/* line 767, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 709, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody tr td:last-child {
   border-right-width: 0px;
 }
-/* line 773, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 715, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item a {
   text-decoration: none;
 }
-/* line 776, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 718, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item span {
   color: #4d7f12;
   font-weight: bold;
 }
-/* line 780, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 722, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item td.with-img {
   line-height: 12px;
 }
-/* line 782, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 724, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item td.with-img img {
   float: left;
 }
-/* line 785, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 727, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item td.with-img .link-container {
   min-height: 40px;
   margin-left: 50px;
   padding-top: 8px;
 }
-/* line 789, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 731, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .subject-group-item td.with-img .link-container a {
   display: inline-block;
   text-overflow: clip;
@@ -22801,47 +22802,47 @@ span.required {
   width: inherit;
   word-wrap: break-word;
 }
-/* line 801, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 743, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .exam-group-item td:nth-child(2) a {
   text-decoration: none;
 }
-/* line 805, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 747, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .exam-group-item td:nth-child(3) {
   width: 1%;
   white-space: nowrap;
 }
-/* line 809, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 751, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .exam-group-item td:nth-child(4) {
   width: 1%;
   white-space: nowrap;
 }
-/* line 812, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 754, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .exam-group-item td:nth-child(4) input {
   margin: 0;
 }
-/* line 818, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 760, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .course-group-item td:nth-child(2) {
   width: 1%;
   white-space: nowrap;
 }
-/* line 822, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 764, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .course-group-item td:nth-child(3) {
   width: 1%;
   white-space: nowrap;
 }
-/* line 828, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 770, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .header-group-item td {
   font-size: 14px;
   padding: 2px;
   text-align: center;
 }
-/* line 835, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 777, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #subject-groups table tbody .custom-item-group-item ul {
   margin-bottom: 0;
   padding-left: 15px;
 }
 
-/* line 844, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 786, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .green-btn {
   border-radius: 3px;
   color: white;
@@ -22856,7 +22857,7 @@ span.required {
   background-image: linear-gradient(top, #96c161 0%, #609c3d 100%);
 }
 
-/* line 854, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 796, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .unassign {
   background-image: -webkit-linear-gradient(top, #fa9696 0%, #96644b 100%);
   background-image: -moz-linear-gradient(top, #fa9696 0%, #96644b 100%);
@@ -22866,7 +22867,7 @@ span.required {
   border: 1px solid #c87d7d;
 }
 
-/* line 859, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 801, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 button[id^="subject-toggle-"] {
   border-radius: 2px;
   color: white;
@@ -22878,7 +22879,7 @@ button[id^="subject-toggle-"] {
   padding: 7px 10px;
   outline: none;
 }
-/* line 869, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 811, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 button[id^="subject-toggle-"].inactive {
   background-image: -webkit-linear-gradient(top, #96c161 0%, #609c3d 100%);
   background-image: -moz-linear-gradient(top, #96c161 0%, #609c3d 100%);
@@ -22887,7 +22888,7 @@ button[id^="subject-toggle-"].inactive {
   background-image: linear-gradient(top, #96c161 0%, #609c3d 100%);
   border: 1px solid #68a341;
 }
-/* line 873, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 815, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 button[id^="subject-toggle-"].active {
   background-image: -webkit-linear-gradient(top, #fa9696 0%, #96644b 100%);
   background-image: -moz-linear-gradient(top, #fa9696 0%, #96644b 100%);
@@ -22896,23 +22897,23 @@ button[id^="subject-toggle-"].active {
   background-image: linear-gradient(top, #fa9696 0%, #96644b 100%);
   border: 1px solid #c87d7d;
 }
-/* line 877, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 819, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 button[id^="subject-toggle-"] .fa {
   margin-right: 8px;
 }
 
-/* line 882, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 824, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 select[multiple="multiple"] {
   height: 120px !important;
 }
 
-/* line 890, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 832, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lead-date, .lead-my-plan, .lead-selector, .lead-buttons {
   width: 1%;
   white-space: nowrap;
 }
 
-/* line 895, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 837, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lead-subject-toggle {
   float: right;
   width: 150px;
@@ -22920,57 +22921,57 @@ select[multiple="multiple"] {
   margin-right: 5px;
 }
 
-/* line 902, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 844, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-select {
   height: 20px !important;
   width: 125px;
   font-size: 11px;
 }
 
-/* line 908, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 850, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-row {
   margin: 0;
 }
-/* line 910, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 852, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-row td {
   width: 50%;
 }
 
-/* line 916, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 858, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-split td {
   width: 50%;
 }
 
-/* line 921, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 863, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-col {
   padding: 0;
 }
 
-/* line 926, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 868, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-column select {
   height: 20px;
   width: 130px;
 }
-/* line 930, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 872, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-column .roles-form {
   display: inline-block;
 }
 
-/* line 935, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 877, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lead-form {
   display: inline-block;
 }
-/* line 938, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 880, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lead-form:last-child .sq-btn {
   margin-right: 0;
 }
 
-/* line 944, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 886, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .alert {
   margin-bottom: 10px;
 }
 
-/* line 948, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 890, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   text-align: center;
   padding: 0;
@@ -22979,31 +22980,31 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   outline: none;
 }
 
-/* line 957, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 899, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #activity-history h1 {
   font-size: 12px;
   font-weight: bold;
   color: #B3B3B3;
 }
-/* line 962, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 904, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #activity-history ul {
   padding: 0;
   font-size: 12px;
 }
-/* line 965, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 907, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #activity-history ul.inner {
   padding-left: 40px;
 }
-/* line 968, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 910, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #activity-history ul li {
   list-style: none;
 }
-/* line 970, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 912, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #activity-history ul li.inner {
   list-style: circle;
 }
 
-/* line 977, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 919, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #find-testing-center {
   background-image: -webkit-linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
   background-image: -moz-linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
@@ -23022,17 +23023,17 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   padding: 7px 10px;
   outline: none;
 }
-/* line 990, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 932, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #find-testing-center .fa {
   margin-right: 8px;
 }
 
-/* line 995, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 937, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .my-plan-subject-header {
   margin: 0;
 }
 
-/* line 999, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 941, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #grand-total {
   display: inline-block;
   font-weight: bold;
@@ -23041,11 +23042,11 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   padding: 7px 0 8px 0;
 }
 
-/* line 1007, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 949, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #request-quote {
   display: inline-block;
 }
-/* line 1009, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 951, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #request-quote button {
   border-radius: 2px;
   color: white;
@@ -23061,31 +23062,31 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   background-image: linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
   border: 1px solid #3e76af;
 }
-/* line 1019, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 961, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #request-quote button .fa {
   margin-right: 8px;
 }
 
-/* line 1026, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 968, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .links a {
   margin-right: 10px;
 }
-/* line 1028, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 970, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .links a:last-child {
   margin-right: 0;
 }
 
-/* line 1034, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 976, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .remove_fields {
   color: #a94442;
 }
 
-/* line 1038, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 980, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .add_fields {
   color: #3c763d;
 }
 
-/* line 1043, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 985, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #lab_rentals_form .add_fields {
   border-radius: 3px;
   border: 1px solid #4cae4c;
@@ -23102,32 +23103,32 @@ button[class^="course-toggle-"], button[class^="exam-toggle-"] {
   padding-right: 10px;
   padding-top: 7px;
 }
-/* line 1058, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1000, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #lab_rentals_form .add_fields:hover {
   text-decoration: none;
 }
 
-/* line 1064, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1006, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 li.break {
   height: 1px;
   background-color: #c3c3c3;
 }
 
-/* line 1069, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1011, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .links {
   margin-bottom: 15px;
 }
 
-/* line 1073, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1015, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #group-items {
   padding: 0;
 }
-/* line 1075, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1017, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #group-items .nested-fields {
   list-style: none;
   position: relative;
 }
-/* line 1078, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1020, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #group-items .nested-fields .fa-bars {
   cursor: move;
   font-size: 20px;
@@ -23135,22 +23136,22 @@ li.break {
   right: 0;
   bottom: 30px;
 }
-/* line 1085, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1027, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #group-items .nested-fields .form-group {
   margin-right: 25px;
 }
 
-/* line 1091, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1033, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 input[type='file'] {
   font-size: 12px;
 }
 
-/* line 1095, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1037, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-group.remove-bottom-border {
   border-bottom: none;
 }
 
-/* line 1098, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1040, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-label {
   width: 100%;
   padding: 10px 15px 0 15px;
@@ -23158,36 +23159,36 @@ input[type='file'] {
   margin: 0;
 }
 
-/* line 1104, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1046, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-row {
   margin: 0;
   padding: 0;
 }
-/* line 1107, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1049, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-row .form-column {
   margin: 0;
   padding: 0;
 }
 
-/* line 1113, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1055, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .group-items-divider {
   margin-top: 0;
 }
 
-/* line 1117, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1059, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .nested-fields {
   margin-bottom: 10px;
 }
-/* line 1119, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1061, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .nested-fields .form-group {
   margin-bottom: 5px;
 }
 
-/* line 1124, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1066, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .forums-select {
   padding: 0 15px;
 }
-/* line 1126, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1068, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .forums-select .sub-select {
   width: 100%;
   text-align: center;
@@ -23195,48 +23196,48 @@ input[type='file'] {
   color: #5f5f5f;
 }
 
-/* line 1134, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1076, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .sub-divider {
   margin-left: 15px;
   margin-right: 15px;
 }
 
-/* line 1139, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1081, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 hr {
   margin-bottom: 10px;
   margin-top: 10px;
 }
 
-/* line 1144, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1086, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .nav-justified, .nav-tabs.nav-justified {
   margin-bottom: 10px;
 }
-/* line 1145, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1087, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .nav-justified li, .nav-tabs.nav-justified li {
   font-size: 12.5px;
 }
 
-/* line 1151, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1093, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .hr-sub {
   border-top: 2px dashed #eee;
 }
 
-/* line 1155, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1097, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .training-group-horizontal-line {
   margin-top: 0;
 }
 
-/* line 1158, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1100, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .training-group-heading {
   color: gray;
 }
 
-/* line 1162, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1104, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-container {
   padding: 0;
 }
 
-/* line 1166, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1108, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform-item-actions {
   position: absolute;
   top: 5px;
@@ -23244,7 +23245,7 @@ hr {
   font-size: 10px;
 }
 
-/* line 1173, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1115, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform {
   min-height: 360px;
   border-radius: 4px;
@@ -23253,11 +23254,11 @@ hr {
   background-color: #F6F6F6;
   text-align: center;
 }
-/* line 1180, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1122, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform .logo-container {
   height: 135px;
 }
-/* line 1183, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1125, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform img {
   position: relative;
   top: 50%;
@@ -23265,36 +23266,36 @@ hr {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-/* line 1190, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1132, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .platform hr {
   margin: 0 0 10px 0;
 }
 @media (min-width: 768px) {
-  /* line 1193, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1135, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .platform .btn-category.category {
     margin: 0 5px 10px 5px !important;
   }
 }
 @media (max-width: 767px) {
-  /* line 1193, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1135, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .platform .btn-category.category {
     border-right: 0 !important;
     border-left: 0 !important;
   }
 }
 @media (max-width: 767px) {
-  /* line 1202, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1144, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .platform .panel-group {
     margin-bottom: 10px !important;
   }
 }
 
-/* line 1209, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1151, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table {
   margin: 0;
 }
 
-/* line 1213, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1155, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .division-header {
   box-sizing: border-box;
   color: #333333;
@@ -23309,40 +23310,40 @@ hr {
   max-width: 100%;
 }
 
-/* line 1228, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1170, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .sub-select:focus {
   border-color: #cccccc;
 }
 
-/* line 1233, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1175, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .form-control {
   box-shadow: none;
 }
 
-/* line 1237, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1179, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .post:last-child .divider {
   display: none;
 }
 
-/* line 1241, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1183, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-actions-overlay {
   float: right;
 }
-/* line 1244, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1186, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-actions-overlay a:hover {
   text-decoration: none;
 }
 
-/* line 1250, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1192, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #lab_rentals_form .confirmed-radio-button {
   margin: 4px 5px 0 0;
 }
 
-/* line 1255, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1197, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .action-group .button-group {
   display: inline-block;
 }
-/* line 1257, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1199, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .action-group .button-group button {
   border-radius: 2px;
   color: white;
@@ -23359,12 +23360,12 @@ hr {
   border: 1px solid #3e76af;
   margin: 0 0 0 5px;
 }
-/* line 1268, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1210, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .action-group .button-group button:hover {
   opacity: .80;
 }
 
-/* line 1275, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1217, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-overlay {
   display: none;
   position: absolute;
@@ -23372,26 +23373,26 @@ hr {
   top: 8px;
   font-size: 11px;
 }
-/* line 1281, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1223, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-overlay a {
   float: right;
   color: #6a6a6a;
   margin-right: 10px;
 }
-/* line 1285, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1227, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-overlay a:hover {
   text-decoration: none;
 }
-/* line 1288, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1230, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-overlay a:first-child {
   margin-right: 0;
 }
-/* line 1291, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1233, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-overlay a i {
   margin: 5px 10px 5px 0;
 }
 
-/* line 1297, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1239, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-menu {
   background-color: white;
   border: 1px solid #c3c3c3;
@@ -23403,13 +23404,13 @@ hr {
   padding: 0;
   position: absolute;
 }
-/* line 1307, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1249, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-menu li {
   font-size: 14px;
   height: 33px;
   list-style: none;
 }
-/* line 1311, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1253, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-menu li a {
   background-image: -webkit-linear-gradient(top, #fdfdfd 0%, whitesmoke 100%);
   background-image: -moz-linear-gradient(top, #fdfdfd 0%, whitesmoke 100%);
@@ -23436,47 +23437,47 @@ hr {
   vertical-align: middle;
   white-space: nowrap;
 }
-/* line 1332, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1274, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-menu li a:hover {
   background-color: whitesmoke;
   background-image: none;
   color: #6a6a6a;
 }
-/* line 1337, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1279, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .actions-menu li a i {
   display: inline-block;
   float: left;
   margin: 6px 10px 5px 0;
 }
 
-/* line 1347, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1289, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #students tbody a {
   display: block;
   text-decoration: none;
 }
 
-/* line 1353, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1295, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .courses-header {
   margin-left: 15px;
   margin-bottom: 20px;
   display: block;
 }
 
-/* line 1359, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1301, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-wrapper {
   position: relative;
 }
-/* line 1362, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1304, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-wrapper a {
   margin-right: 10px;
 }
-/* line 1366, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1308, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-wrapper .results {
   position: absolute;
   right: 20px;
   top: 10px;
 }
-/* line 1371, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1313, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-wrapper .results span {
   float: right;
   width: 150px;
@@ -23484,86 +23485,86 @@ hr {
   margin-bottom: 5px;
 }
 
-/* line 1381, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1323, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-container .btn-quiz-medium {
   width: 130px;
 }
-/* line 1385, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1327, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-container input[type="radio"] {
   margin-bottom: 14px;
   margin-left: 3px;
   width: 20px;
 }
-/* line 1391, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1333, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-container #display-score {
   margin-bottom: 20px;
   margin-top: 10px;
 }
-/* line 1396, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1338, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-container kbd {
   margin-left: 6px;
   margin-right: 6px;
 }
 
-/* line 1408, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1350, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz a.take-quiz, .quiz a.show-score {
   float: right;
 }
-/* line 1412, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1354, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz a.take-quiz {
   margin-right: 5px;
 }
-/* line 1416, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1358, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz .fa-file-text-o {
   margin-right: 7px;
 }
-/* line 1420, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1362, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz a.disabled {
   pointer-events: none;
   color: #777;
 }
 
-/* line 1427, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1369, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video .fa-play {
   margin-right: 7px;
 }
 
-/* line 1432, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1374, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-module-results {
   display: inline-block;
   float: right;
 }
-/* line 1436, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1378, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-module-results .count {
   margin-left: 3px;
   margin-right: 3px;
 }
-/* line 1441, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1383, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-module-results .video-module-status {
   font-size: 11px;
   padding: 3px;
 }
-/* line 1446, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1388, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-module-results .item {
   margin-right: 5px;
   padding: 4px 6px;
 }
 
-/* line 1452, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1394, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .content-lms {
   padding-left: 15px !important;
 }
 
-/* line 1457, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1399, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .assignment {
   padding-left: 0px;
 }
-/* line 1460, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1402, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .assignment .remove-assignment {
   padding: 8px;
 }
 
-/* line 1465, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1407, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .half-circle {
   background-color: #c06;
   height: 10px;
@@ -23571,7 +23572,7 @@ hr {
   border-radius: 10px 0 0 10px;
 }
 
-/* line 1472, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1414, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .status-circle {
   display: inline-block;
   width: 11px;
@@ -23580,20 +23581,20 @@ hr {
   border: 1px solid #5cb85c;
   box-shadow: 0px 0px 3px #888888;
 }
-/* line 1480, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1422, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .status-circle.started {
   width: 5px;
   border-radius: 11px 0 0 11px;
   border: none;
   background-color: #5cb85c;
 }
-/* line 1487, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1429, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .status-circle.completed {
   border: none;
   background: #5cb85c;
 }
 
-/* line 1494, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1436, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .progress-bar-our {
   box-sizing: border-box;
   width: 100%;
@@ -23602,7 +23603,7 @@ hr {
   border-radius: 20px;
   height: 5px;
 }
-/* line 1502, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1444, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .progress-bar-our .progress-our {
   position: relative;
   max-width: 100%;
@@ -23613,17 +23614,17 @@ hr {
   transition: width 0.3s;
 }
 
-/* line 1513, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1455, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-progress {
   margin-bottom: 20px;
 }
-/* line 1516, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1458, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-progress .progress-bar-our {
   height: 40px;
   border-radius: 5px;
   margin: 0;
 }
-/* line 1522, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1464, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-progress .progress-our {
   height: 40px;
   text-align: center;
@@ -23634,20 +23635,20 @@ hr {
   box-shadow: 0px 0px 3px #888888;
 }
 
-/* line 1533, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1475, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form {
   margin-bottom: 20px;
 }
-/* line 1536, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1478, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .question {
   border-bottom: 1px solid #dedede;
   padding-bottom: 10px;
 }
-/* line 1541, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1483, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .add-question {
   margin-bottom: 10px;
 }
-/* line 1545, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1487, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .question-text {
   height: 40px;
   display: inline-block;
@@ -23656,137 +23657,137 @@ hr {
   margin-right: 12px;
   margin-top: 15px;
 }
-/* line 1555, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1497, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .answers .answer-text {
   display: inline-block;
   width: 294px;
   margin-bottom: 15px;
   margin-right: 12px;
 }
-/* line 1562, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1504, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .answers .answer-position {
   display: inline-block;
   width: 80px;
   margin-left: 10px;
 }
-/* line 1568, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1510, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .answers .answer-correct {
   margin-left: 6px;
 }
-/* line 1572, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1514, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .answers .placeholder {
   background: #fff078;
 }
-/* line 1576, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1518, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .answers placeholder:before {
   content: 'Drop here';
   color: #e1d25a;
 }
-/* line 1582, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1524, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .question-answer-form .add-answer {
   margin-top: 7px;
 }
 
-/* line 1587, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1529, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-answers {
   margin-bottom: 20px;
 }
-/* line 1590, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1532, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-answers .position-input {
   width: 40px;
   padding-left: 10px;
   margin-left: 15px;
 }
-/* line 1596, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1538, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .quiz-answers .answer-text-input {
   width: 300px;
   padding: 8px;
 }
 
-/* line 1602, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1544, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .update-exam {
   margin-bottom: 10px;
 }
-/* line 1605, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1547, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .update-exam .edit-exam {
   color: #337ab7;
   margin-right: 15px;
 }
-/* line 1610, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1552, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .update-exam .destroy-exam {
   color: #a94442;
 }
 
-/* line 1615, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1557, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .export-button {
   margin-left: 5px;
 }
 
-/* line 1619, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1561, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .collapse-module-icon {
   margin-right: 6px;
   position: relative;
   top: 1px;
   font-size: 1.2em;
 }
-/* line 1625, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1567, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .collapse-module-icon.collapsed {
   transform: rotate(90deg);
 }
 
-/* line 1631, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1573, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 #vod-tabs .tab-content {
   margin-top: 10px;
 }
 
-/* line 1637, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1579, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-on-demand-fields .title, .video-fields .title {
   display: inline-block;
   width: 70%;
 }
-/* line 1642, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1584, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-on-demand-fields .position, .video-on-demand-fields .free, .video-fields .position, .video-fields .free {
   display: inline-block;
   width: 50px;
   margin-left: 5px;
 }
-/* line 1648, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1590, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-on-demand-fields #videos, .video-fields #videos {
   margin-left: 20px;
 }
 
-/* line 1654, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1596, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-fields .free {
   position: relative;
   top: -28px;
   margin-left: 15px;
 }
-/* line 1660, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1602, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .video-fields .embed-code {
   width: 70%;
   margin-top: -30px;
 }
 
-/* line 1666, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1608, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .content-top-lms {
   margin-top: 30px;
 }
 
-/* line 1670, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1612, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .vod-lms-show {
   margin: 0 auto;
 }
 
-/* line 1674, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1616, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .table-scrollable {
   overflow-x: scroll;
 }
 
-/* line 1678, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1620, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .fixed-table {
   table-layout: fixed;
 }
-/* line 1681, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1623, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .fixed-table .fixed-cell {
   max-width: 1px;
   width: 90%;
@@ -23795,32 +23796,32 @@ hr {
   overflow: hidden;
 }
 
-/* line 1691, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1633, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .link-diver {
   display: inline;
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 1698, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1640, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course-actions a {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-/* line 1706, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1648, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .location-td .tooltip {
   width: 200px;
   margin-left: -20px;
 }
 
-/* line 1712, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1654, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-checkbox {
   margin: 0;
   padding: 0;
 }
 
-/* line 1717, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1659, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-checkbox-container {
   padding: 0;
   position: absolute;
@@ -23828,29 +23829,29 @@ hr {
   top: 29px;
   z-index: 3;
 }
-/* line 1723, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1665, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-checkbox-container span {
   padding-right: 5px;
   font-size: 10px;
 }
 
-/* line 1729, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1671, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-container {
   margin: 0;
   padding: 0;
 }
-/* line 1733, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1675, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-container input:focus {
   z-index: 0 !important;
 }
 
-/* line 1739, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1681, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .percentage-checkbox {
   margin: 0;
   padding: 0;
 }
 
-/* line 1744, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1686, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-checkbox-container {
   padding: 0;
   position: absolute;
@@ -23858,39 +23859,39 @@ hr {
   top: 29px;
   z-index: 3;
 }
-/* line 1750, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1692, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .auto-cost-checkbox-container span {
   padding-right: 5px;
   font-size: 10px;
 }
 
-/* line 1756, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1698, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .percentage-container {
   margin: 0;
   padding: 0;
 }
-/* line 1760, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1702, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .percentage-container input:focus {
   z-index: 0 !important;
 }
 
-/* line 1767, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1709, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-lab-course .panel-body {
   color: black;
   height: 250px;
   overflow: hidden;
 }
-/* line 1771, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1713, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .panel-lab-course .panel-body h3 {
   font-weight: bold;
 }
 
-/* line 1778, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1720, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lab-course-link:hover {
   text-decoration: none !important;
 }
 
-/* line 1783, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1725, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .edit-lab-course {
   float: right;
   position: absolute;
@@ -23898,7 +23899,7 @@ hr {
   right: 30px;
 }
 
-/* line 1790, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1732, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .card-fade {
   background-color: red;
   bottom: 0px;
@@ -23911,50 +23912,50 @@ hr {
 }
 
 @media (max-width: 767px) {
-  /* line 1801, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1743, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .breadcrumbs-title {
     display: none;
   }
 }
 
 @media (max-width: 767px) {
-  /* line 1809, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1751, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr th, .labrental-time-select tbody tr th {
     font-size: 11px;
   }
 }
 @media (max-width: 680px) {
-  /* line 1809, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1751, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr th, .labrental-time-select tbody tr th {
     font-size: 10px;
   }
 }
 @media (max-width: 767px) {
-  /* line 1817, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1759, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr td, .labrental-time-select tbody tr td {
     font-size: 11px;
   }
 }
 @media (max-width: 680px) {
-  /* line 1817, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1759, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr td, .labrental-time-select tbody tr td {
     font-size: 10px;
   }
 }
 @media (max-width: 767px) {
-  /* line 1824, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1766, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr td button, .labrental-time-select thead tr td .btn, .labrental-time-select tbody tr td button, .labrental-time-select tbody tr td .btn {
     font-size: 11px;
   }
 }
 @media (max-width: 680px) {
-  /* line 1824, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+  /* line 1766, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
   .labrental-time-select thead tr td button, .labrental-time-select thead tr td .btn, .labrental-time-select tbody tr td button, .labrental-time-select tbody tr td .btn {
     font-size: 10px;
   }
 }
 
-/* line 1836, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1778, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .lab-course-card-pic {
   bottom: 35px;
   border-radius: 3px;
@@ -23962,12 +23963,12 @@ hr {
   position: absolute;
 }
 
-/* line 1843, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1785, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .select2-search__field {
   width: 100% !important;
 }
 
-/* line 1847, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1789, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course {
   background-color: #F6F6F6;
   border-radius: 10px;
@@ -23977,7 +23978,7 @@ hr {
   border: 1px solid #D1D1D1;
   display: block;
 }
-/* line 1855, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1797, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .course img {
   position: relative;
   top: 50%;
@@ -23986,7 +23987,7 @@ hr {
   transform: translateY(-50%);
 }
 
-/* line 1868, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1810, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .resource-item {
   height: 82px;
   margin-bottom: 10px;
@@ -24003,7 +24004,7 @@ hr {
   border-color: #f8f8f8;
   color: #505050;
 }
-/* line 1879, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1821, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .resource-item p {
   color: #505050;
   margin: 0 0 0 70px;
@@ -24018,24 +24019,44 @@ hr {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-/* line 1893, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1835, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .resource-item .course-links {
   margin-top: 20px;
 }
-/* line 1897, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1839, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .resource-item.with-image img {
   float: left;
   width: 62px;
   height: 62px;
 }
-/* line 1904, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+/* line 1846, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
 .resource-item.without-image p {
   margin: 0 0 0 28px;
 }
 
-/* line 1910, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
-.classify_user_link {
+/* line 1852, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+.ml-5 {
   margin-left: 5px;
+}
+
+/* line 1856, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+.element-left-side {
+  margin-right: 10px;
+}
+
+/* line 1860, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+.element-right-side {
+  margin-left: 10px;
+}
+
+/* line 1864, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+.inline-dropdown {
+  display: inline;
+}
+
+/* line 1869, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/general.scss */
+#table-event-details td {
+  width: 50%;
 }
 
 /* line 1, /Users/ryanstorberg/Documents/Source/nterone/app/assets/stylesheets/layouts.scss */
