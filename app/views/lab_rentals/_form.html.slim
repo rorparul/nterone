@@ -15,17 +15,35 @@
     - if @lab_rental.new_record?
       = f.hidden_field :user_id
 
-    - if @lab_rental.new_record? && (current_user.try(:admin?) == false || !user_signed_in?)
-      = f.hidden_field :company_id
-    - if @lab_rental.new_record? && current_user.try(:admin?)
-      .row
+    .row
+      - if @lab_rental.new_record? && (current_user.try(:admin?) == false || !user_signed_in?)
+        = f.hidden_field :company_id
+      - if @lab_rental.new_record? && current_user.try(:admin?)
         .col-xs-12.col-md-4
           .form-group
             = f.label :company_id, t('lab_rentals.partial_form.company')
             span.required *
-            = f.select :company_id, Company.all.collect{ |company| [company.title, company.id] },
+            = f.select :company_id, existing_select2_ajax_company(@lab_rental.company),
                    { include_blank: t('default.placeholder.select') },
-                   { required: true, class: "form-control input-sm select-company" }
+                   { required: true, class: "form-control search-companies-select select-company" }
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :lab_course_id, t('lab_rentals.partial_form.course')
+          span.required *
+          - if @lab_rental.company
+            = f.select :lab_course_id, @lab_rental.company.lab_courses.collect{ |course| [course.title, course.id] },
+              { include_blank: t('generic.select.placeholder')},
+              { required: true, class: "form-control" }
+          - else
+            = f.select :lab_course_id, LabCourse.all.collect{ |course| [course.title, course.id] },
+              { include_blank: t('generic.select.placeholder')},
+              { required: true, class: "form-control" }
+      - if @lab_rental.kind == 1 || current_user.try(:admin?)
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :location, t('lab_rentals.partial_form.location')
+            span.required *
+            = f.text_field :location, required: true, class: 'form-control'
 
     .row
       .col-xs-12.col-md-4
@@ -51,12 +69,12 @@
             = f.time_zone_select :time_zone,
                                  ActiveSupport::TimeZone.us_zones,
                                  { include_blank: 'Please select', default: 'Eastern Time (US & Canada)' },
-                                 { required: true, class: 'form-control input-sm' }
+                                 { required: true, class: 'form-control' }
           - else
             = f.time_zone_select :time_zone,
                                  ActiveSupport::TimeZone.us_zones,
                                  { include_blank: 'Please select', default: 'Mountain Time (US & Canada)' },
-                                 { required: true, class: 'form-control input-sm' }
+                                 { required: true, class: 'form-control' }
 
     .row
       .col-xs-12.col-md-4
@@ -74,44 +92,35 @@
     .row
       .col-xs-12.col-md-4
         .form-group
-          = f.label :lab_course_id, t('lab_rentals.partial_form.course')
-          span.required *
-          - if @lab_rental.company
-            = f.select :lab_course_id, @lab_rental.company.lab_courses.collect{ |course| [course.title, course.id] },
-                   { include_blank: t('generic.select.placeholder')},
-                   { required: true, class: "form-control input-sm" }
-          - else
-            = f.select :lab_course_id, LabCourse.all.collect{ |course| [course.title, course.id] },
-                   { include_blank: t('generic.select.placeholder')},
-                   { required: true, class: "form-control input-sm" }
-      - if @lab_rental.kind == 1 || current_user.try(:admin?)
-        .col-xs-12.col-md-4
-          .form-group
-            = f.label :location, t('lab_rentals.partial_form.location')
-            span.required *
-            = f.text_field :location, required: true, class: 'form-control input-sm'
+          = f.label :instructor, t('lab_rentals.partial_form.instructor')
+          = f.text_field :instructor, class: 'form-control toggleable'
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :instructor_email, t('lab_rentals.partial_form.instructor_email')
+          = f.email_field :instructor_email, class: 'form-control toggleable'
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
+          = f.phone_field :instructor_phone, class: 'form-control toggleable'
+
+    .row
       - if @lab_rental.kind == 1
         .col-xs-12.col-md-4
           .form-group
             = f.label :num_of_students, t('lab_rentals.partial_form.number_of_students')
             - if @lab_rental.new_record?
-              = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control input-sm'
+              = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control'
             - else
-              = f.number_field :num_of_students, in: 4..16, class: 'form-control input-sm'
-
-    .row
+              = f.number_field :num_of_students, in: 4..16, class: 'form-control'
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.number_of_pods')
+        .form-group
+          = f.number_field :number_of_pods, class: 'form-control'
       .col-xs-12.col-md-4
         .form-group
-          = f.label :instructor, t('lab_rentals.partial_form.instructor')
-          = f.text_field :instructor, class: 'form-control input-sm toggleable'
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :instructor_email, t('lab_rentals.partial_form.instructor_email')
-          = f.email_field :instructor_email, class: 'form-control input-sm toggleable'
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
-          = f.phone_field :instructor_phone, class: 'form-control input-sm toggleable'
+          = f.label :plus_instructor, t('lab_rentals.partial_form.plus_instructor')
+          br
+          = f.check_box :plus_instructor
 
     - if @lab_rental.kind == 2
       hr style="margin-top: 0;"
@@ -123,150 +132,80 @@
       hr style="margin-top: -4px;"
 
     .row
-      .col-xs-12
-        .form-group
-          = f.label :notes, t('lab_rentals.partial_form.notes')
-          = f.text_area :notes, class: 'form-control'
-
-    .row
-      - if @lab_rental.kind == 1 || current_user.try(:admin?)
-        .col-xs-12.col-md-4
-          label = t('lab_rentals.partial_form.confirmed')
-          .form-group
-            - if @lab_rental.new_record?
-              = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
-              span style='margin-right: 12px;' Yes
-              = f.radio_button :confirmed, false, class: 'confirmed-radio-button false', checked: true
-              span style='margin-right: 12px;' No
-            - else
-              = f.radio_button :confirmed, true, class: 'confirmed-radio-button true'
-              span style='margin-right: 12px;' Yes
-              = f.radio_button :confirmed, false, class: 'confirmed-radio-button false'
-              span style='margin-right: 12px;' No
       - if current_user.try(:admin?)
-        .col-xs-12.col-md-4
+        .col-xs-12.col-md-2
           .form-group
             = f.label :twenty_four_hours, t('24-hours')
             br
             = f.check_box :twenty_four_hours
-    
+      - if @lab_rental.kind == 1 || current_user.try(:admin?)
+        .col-xs-12.col-md-2
+          .form-group
+            = f.label :confirmed, t('lab_rentals.partial_form.confirmed')
+            br
+            = f.check_box :confirmed
+
+    hr style="margin-top: 0;"
+
     .row
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.setup_by')
         .form-group
           = f.select :setup_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
           { include_blank: t('default.placeholder.select') },
-          { class: "form-control input-sm " } 
+          { class: "form-control" }
 
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.tested_by')
         .form-group
           = f.select :tested_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
           { include_blank: t('default.placeholder.select') },
-          { class: "form-control input-sm " }     
-    
-    .row
+          { class: "form-control" }
       .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.lab')
         .form-group
-          = f.text_field :lab, class: 'form-control input-sm'  
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.partner')
-        .form-group
-          = f.text_field :partner, class: 'form-control input-sm'  
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.gmt')
-        .form-group
-          = f.text_field :gmt, class: 'form-control input-sm' 
+          = f.label :entered_into_crm, t('lab_rentals.partial_form.entered_into_crm')
+          br
+          = f.check_box :entered_into_crm
 
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.number_of_pods')
-        .form-group
-          = f.number_field :number_of_pods, class: 'form-control input-sm' 
+    hr style="margin-top: 0;"
 
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.number_of_students')
-        .form-group
-          = f.number_field :number_of_students, class: 'form-control input-sm'
-
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.plus_instructor')
-        .form-group
-          - if @lab_rental.new_record?
-            = f.radio_button :plus_instructor, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :plus_instructor, false, class: 'false', checked: true       
-            span style='margin-right: 12px;' No 
-          -else
-            = f.radio_button :plus_instructor, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :plus_instructor, false, class: 'false'
-            span style='margin-right: 12px;' No 
-      
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.entered_into_crm')
-        .form-group
-          - if @lab_rental.new_record?
-            = f.radio_button :entered_into_crm, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :entered_into_crm, false, class: 'false', checked: true       
-            span style='margin-right: 12px;' No 
-          -else
-            = f.radio_button :entered_into_crm, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :entered_into_crm, false, class: 'false'
-            span style='margin-right: 12px;' No  
-
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.payment_received')
-        .form-group
-          - if @lab_rental.new_record?
-            = f.radio_button :payment_received, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :payment_received, false, class: 'false', checked: true       
-            span style='margin-right: 12px;' No 
-          -else
-            = f.radio_button :payment_received, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :payment_received, false, class: 'false'
-            span style='margin-right: 12px;' No  
-    .row
-      .col-xs-12.col-md-4  
-        label = t('lab_rentals.partial_form.price')
-        .form-group
-          = f.number_field :price, class: 'form-control input-sm'  
-      
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.po_number')
-        .form-group
-          = f.text_field :po_number, class: 'form-control input-sm'  
-
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.invoice_number')
-        .form-group
-          = f.text_field :invoice_number, class: 'form-control input-sm'  
-    
     .row
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.poc')
         .form-group
-          = f.text_field :poc, class: 'form-control input-sm'  
-
+          = f.text_field :poc, class: 'form-control'
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.price')
+        .input-group
+          span.input-group-addon $
+          = f.number_field :price, class: 'form-control'
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.terms')
         .form-group
-          - if @lab_rental.new_record?
-            = f.radio_button :terms, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :terms, false, class: 'false', checked: true       
-            span style='margin-right: 12px;' No 
-          -else
-            = f.radio_button :terms, true, class: 'true'
-            span style='margin-right: 12px;' Yes
-            = f.radio_button :terms, false, class: 'false'
-            span style='margin-right: 12px;' No    
+          = f.text_field :terms, class: 'form-control'
+
+    .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.invoice_number')
+        .form-group
+          = f.text_field :invoice_number, class: 'form-control'
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.po_number')
+        .form-group
+          = f.text_field :po_number, class: 'form-control'
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :payment_received, t('lab_rentals.partial_form.payment_received')
+          br
+          = f.check_box :payment_received
+
+    hr style="margin-top: 0;"
+
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :notes, t('lab_rentals.partial_form.notes')
+          = f.text_area :notes, class: 'form-control', rows: 5
 
     button.btn.btn-green-gradient.element-left-side
       = t('generic.button.save')
@@ -285,4 +224,31 @@ javascript:
     var url = window.location.protocol + '//' + window.location.host + '/' + 'lab-reservations/new?company_id=' + company_id
 
     window.location = url;
+  });
+
+  $('.search-companies-select').select2({
+    dropdownParent: $(".search-companies-select").closest('.form-group'),
+    theme: "bootstrap",
+    ajax: {
+      url: "#{companies_path}",
+      dataType: 'json',
+      delay: 500,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data.items, function(item) {
+            return {
+              id: item.id,
+              text: item.title
+            }
+          })
+        };
+      }
+    },
+    cache: true,
+    minimumInputLength: 3
   });

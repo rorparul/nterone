@@ -8,7 +8,7 @@ class LabRentalsController < ApplicationController
     redirect_to root_path unless user_signed_in?
     lab_rentals_scope  = current_user.try(:admin?) ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.try(:company_id))
     lab_rentals_scope = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
-    
+
     lab_rentals_scope = lab_rentals_scope.where(level: params[:level]) if params[:level].present?
     params[:date_start] ||= params[:start]
     params[:date_end] ||= params[:end]
@@ -42,7 +42,7 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
-    
+
     respond_to do |format|
       format.html
       format.js
@@ -204,11 +204,7 @@ class LabRentalsController < ApplicationController
       :level,
       :setup_by,
       :tested_by,
-      :lab,
-      :partner,
-      :gmt,
       :number_of_pods,
-      :number_of_students,
       :plus_instructor,
       :price,
       :po_number,

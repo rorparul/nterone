@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524103325) do
+ActiveRecord::Schema.define(version: 20180612061132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -627,16 +627,16 @@ ActiveRecord::Schema.define(version: 20180524103325) do
 
   create_table "lab_rentals", force: :cascade do |t|
     t.date     "first_day"
-    t.integer  "num_of_students",    default: 0
+    t.integer  "num_of_students",                           default: 0
     t.time     "start_time"
     t.string   "instructor"
     t.string   "instructor_email"
     t.string   "instructor_phone"
     t.text     "notes"
     t.string   "location"
-    t.boolean  "confirmed"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.boolean  "confirmed",                                 default: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "course"
     t.integer  "user_id"
     t.integer  "company_id"
@@ -645,26 +645,22 @@ ActiveRecord::Schema.define(version: 20180524103325) do
     t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
-    t.boolean  "twenty_four_hours"
+    t.boolean  "twenty_four_hours",                         default: false
     t.date     "last_day"
     t.string   "level"
     t.integer  "origin_region"
-    t.text     "active_regions",     default: [],              array: true
+    t.text     "active_regions",                            default: [],                 array: true
     t.integer  "setup_by"
     t.integer  "tested_by"
-    t.string   "lab"
-    t.string   "partner"
-    t.string   "gmt"
     t.integer  "number_of_pods"
-    t.integer  "number_of_students"
-    t.boolean  "plus_instructor"
-    t.decimal  "price"
+    t.boolean  "plus_instructor",                           default: false
+    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
     t.integer  "po_number"
-    t.boolean  "entered_into_crm"
+    t.boolean  "entered_into_crm",                          default: false
     t.string   "invoice_number"
-    t.boolean  "payment_received"
+    t.boolean  "payment_received",                          default: false
     t.string   "poc"
-    t.boolean  "terms"
+    t.string   "terms"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
