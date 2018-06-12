@@ -6,6 +6,7 @@ class LabRentalsController < ApplicationController
 
   def index
     redirect_to root_path unless user_signed_in?
+
     lab_rentals_scope  = current_user.try(:admin?) ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.try(:company_id))
     lab_rentals_scope = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
 
@@ -20,13 +21,17 @@ class LabRentalsController < ApplicationController
     elsif params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
-
+    
+    rejected_lab_rental_ids = []
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
-        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
+        rejected_lab_rental_ids << lab_rental.id unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
       end
     end
+    
+    lab_rentals_scope = lab_rentals_scope.where("id NOT IN (?)", rejected_lab_rental_ids) if rejected_lab_rental_ids.present?
     lab_rentals_scope.to_a.compact!
+
     @lab_rentals       = smart_listing_create(
       :lab_rentals,
       lab_rentals_scope,
@@ -42,7 +47,7 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
-
+    
     respond_to do |format|
       format.html
       format.js
