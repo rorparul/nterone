@@ -102,21 +102,18 @@
         label = t('lab_rentals.partial_form.number_of_pods')
         .form-group
           = f.number_field :number_of_pods, class: 'form-control'
-
-    .row      
       .col-xs-12.col-md-4
         .form-group
-          = f.label :plus_instructor, t('lab_rentals.partial_form.plus_instructor')
+          label = t('lab_rentals.partial_form.plus_instructor')
           br
-          = f.check_box :plus_instructor
-
-      .col-xs-12.col-sm-6.hide.all_instructor_dropdown
-        .form-group
-          = f.label :instructor_id, t('events.partial_form.instructor')
-          = f.select :instructor_id,
+          .input-group
+            span.input-group-addon
+              = f.check_box :plus_instructor
+            = f.select :instructor_id,
                     instructors_with_rate(User.all_instructors_by_rate, nil),
                     { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control all_instructor_option input-sm', id: "all_instructor_option", :disabled => false }
+                    { class: 'form-control all_instructor_option', id: "all_instructor_option", :disabled => true }  
+            
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -131,7 +128,6 @@
           = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control toggleable'
 
-    
     - if @lab_rental.kind == 2
       hr style="margin-top: 0;"
       #lab_students
@@ -263,17 +259,15 @@ javascript:
     minimumInputLength: 3
   });
   
-  if($("#lab_rental_plus_instructor").prop('checked')){
-    $(".all_instructor_dropdown").removeClass("hide");
-  }else{
-    $(".all_instructor_dropdown").addClass("hide");
-  }
-    
+  $("#lab_rental_plus_instructor").prop("checked", false);
+  $("#all_instructor_option").val("")
+  $("#all_instructor_option").prop("disabled", true);
+
   $("#lab_rental_plus_instructor").on('change', function(){
     if($(this).prop('checked')){
-      $(".all_instructor_dropdown").removeClass("hide");
+      $("#all_instructor_option").prop("disabled", false);
     }else{
-      $(".all_instructor_dropdown").addClass("hide");
+      $("#all_instructor_option").prop("disabled", true);
     }
   })
 

@@ -52,7 +52,11 @@ class LabRentalsController < ApplicationController
       format.html
       format.js
       format.json do
-        render json: lab_rentals_scope.map{ |lab| { 'title': lab.lab_course.title, 'start': lab.first_day.strftime("%Y-%m-%d"), 'end': (lab.last_day + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)'} }.to_json
+        lab_rentals = lab_rentals_scope.map do |lab| 
+                        last_day = lab.last_day.present? ? lab.last_day : lab.first_day
+                        { 'title': lab.lab_course.title, 'start': lab.first_day.strftime("%Y-%m-%d"), 'end': (last_day + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)'}
+                      end
+        render json: lab_rentals.to_json
       end
     end
   end
