@@ -59,7 +59,7 @@
 
     .form-group
       = f.label :event_id, 'Event (Date)'
-      = f.select :event_id, @opportunity.course.present? ? @opportunity.course.upcoming_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
+      = f.select :event_id, @opportunity.course.present? ? @opportunity.course.active_events.collect { |event| ["#{event.start_date} to #{event.end_date} #{'(' + event.format + ')' if event.format.present?}", event.id] } : [],
         { include_blank: t('companies.partial_form.dropdown') },
         { class: 'search-select event-select form-control', disabled: @opportunity.course.nil? || @opportunity.course.upcoming_events.empty? }
 
