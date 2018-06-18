@@ -38,6 +38,7 @@
 #  payment_received  :boolean          default(FALSE)
 #  poc               :string
 #  terms             :string
+#  instructor_id     :integer
 #
 # Indexes
 #

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612061132) do
+ActiveRecord::Schema.define(version: 20180618084814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(version: 20180612061132) do
     t.boolean  "payment_received",                          default: false
     t.string   "poc"
     t.string   "terms"
+    t.integer  "instructor_id"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
