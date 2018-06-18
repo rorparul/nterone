@@ -176,6 +176,10 @@ class LabRentalsController < ApplicationController
     redirect_to :back
   end
 
+  def set_instructor_info
+    @instructor = User.instructors.find(params[:instructor_id])
+  end
+
   private
 
   def set_lab_rental
@@ -218,6 +222,7 @@ class LabRentalsController < ApplicationController
       :payment_received,
       :poc,
       :terms,
+      :instructor_id,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end

@@ -88,7 +88,35 @@
           span.required *
           br
           = f.time_select :end_time, { ampm: true, default: { hour: '17', minute: '00' } }, { required: true }
+    
+    .row
+      - if @lab_rental.kind == 1
+        .col-xs-12.col-md-4
+          .form-group
+            = f.label :num_of_students, t('lab_rentals.partial_form.number_of_students')
+            - if @lab_rental.new_record?
+              = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control'
+            - else
+              = f.number_field :num_of_students, in: 4..16, class: 'form-control'
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.number_of_pods')
+        .form-group
+          = f.number_field :number_of_pods, class: 'form-control'
 
+    .row      
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :plus_instructor, t('lab_rentals.partial_form.plus_instructor')
+          br
+          = f.check_box :plus_instructor
+
+      .col-xs-12.col-sm-6.hide.all_instructor_dropdown
+        .form-group
+          = f.label :instructor_id, t('events.partial_form.instructor')
+          = f.select :instructor_id,
+                    instructors_with_rate(User.all_instructors_by_rate, nil),
+                    { include_blank: t('generic.prompt.please_select') },
+                    { class: 'form-control all_instructor_option input-sm', id: "all_instructor_option", :disabled => false }
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -103,25 +131,7 @@
           = f.label :instructor_phone, t('lab_rentals.partial_form.instructor_phone')
           = f.phone_field :instructor_phone, class: 'form-control toggleable'
 
-    .row
-      - if @lab_rental.kind == 1
-        .col-xs-12.col-md-4
-          .form-group
-            = f.label :num_of_students, t('lab_rentals.partial_form.number_of_students')
-            - if @lab_rental.new_record?
-              = f.number_field :num_of_students, value: 4, in: 4..16, class: 'form-control'
-            - else
-              = f.number_field :num_of_students, in: 4..16, class: 'form-control'
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.number_of_pods')
-        .form-group
-          = f.number_field :number_of_pods, class: 'form-control'
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :plus_instructor, t('lab_rentals.partial_form.plus_instructor')
-          br
-          = f.check_box :plus_instructor
-
+    
     - if @lab_rental.kind == 2
       hr style="margin-top: 0;"
       #lab_students
@@ -252,3 +262,25 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
+  
+  if($("#lab_rental_plus_instructor").prop('checked')){
+    $(".all_instructor_dropdown").removeClass("hide");
+  }else{
+    $(".all_instructor_dropdown").addClass("hide");
+  }
+    
+  $("#lab_rental_plus_instructor").on('change', function(){
+    if($(this).prop('checked')){
+      $(".all_instructor_dropdown").removeClass("hide");
+    }else{
+      $(".all_instructor_dropdown").addClass("hide");
+    }
+  })
+
+  $("#all_instructor_option").on("change", function(){
+    $.ajax({
+      type: "GET",
+      url: "#{set_instructor_info_path}.js",
+      data: {instructor_id: $(this).val()}
+    });
+  })
