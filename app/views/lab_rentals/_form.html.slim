@@ -257,11 +257,18 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-
-  $("#lab_rental_plus_instructor").prop("checked", false)
-  $("#all_instructor_option").val("")
-  $("#all_instructor_option").prop("disabled", true)
-
+  
+  new_record = #{lab_rental.new_record? ? true : false};
+  if(new_record){
+    $("#lab_rental_plus_instructor").prop("checked", false)
+    $("#all_instructor_option").val("")
+    $("#all_instructor_option").prop("disabled", true)
+  }else{
+    if($("#lab_rental_plus_instructor").prop('checked')){
+      $("#all_instructor_option").prop("disabled", false)
+    }
+  }
+  
   $("#lab_rental_plus_instructor").on('change', function(){
     if($(this).prop('checked')){
       $("#all_instructor_option").prop("disabled", false)
