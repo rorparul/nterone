@@ -128,6 +128,11 @@
           = f.label :archived, "Archived"
           br
           = f.check_box :archived
+      .col-xs-6.col-md-3
+        .form-group
+          = f.label :exclude_from_revenue, t('courses.partial_form.exclude_from_revenue')
+          br
+          = f.check_box :exclude_from_revenue    
 
     .form-buttons
       button.btn.btn-success type="submit"
