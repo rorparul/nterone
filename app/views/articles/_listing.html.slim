@@ -11,7 +11,7 @@
       tbody#press-releases
         - @articles.each do |article|
           tr
-            td = region_label(article)
+            td = region_label(article.origin_region)
             td = article.title
             td = article.kind
             td = article.created_at.strftime("%b. %d, %Y")

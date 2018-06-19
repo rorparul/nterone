@@ -1,14 +1,15 @@
+= render 'layouts/tabs'
+
 .container
   .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('course.edit.edit_course')
-        .panel-body
-          = render partial: "form", locals: { platform: @platform, course: @course, categories: @categories }
+    .col-xs-12.col-md-8.col-md-offset-2
+      h4
+        strong.text-muted = t('course.edit.edit_course')
+      = render partial: 'form', locals: { platform: @platform, course: @course, categories: @categories }
 
 javascript:
+  $('.permissions .website').addClass('active')
+
   $('.form-buttons button.btn.btn-default').on('click', function() {
-    location.replace(document.referrer);
-  });
+    location.replace(document.referrer)
+  })
