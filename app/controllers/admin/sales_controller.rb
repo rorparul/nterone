@@ -50,6 +50,7 @@ class Admin::SalesController < Admin::BaseController
 
       if params[:show_exclude_from_revenue].present?
         @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].first(5)
+        Course.reset_excluded_course
       else
         @top_five_courses_by_region['all_regions'] = @top_five_courses_by_region['all_regions'].select{ |course| course.exclude_from_revenue == false }.first(5)
       end

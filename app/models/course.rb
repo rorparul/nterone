@@ -91,6 +91,10 @@ class Course < ActiveRecord::Base
       course.temp_revenue = course.revenue(region, date_range_start, date_range_end)
     end.reverse
   end
+  
+  def self.reset_excluded_course
+    self.update_all(exclude_from_revenue: false)
+  end
 
   def revenue(region = nil, date_range_start = nil, date_range_end = nil)
     select_opportunities = if region.nil? && date_range_start.nil? && date_range_end.nil?
