@@ -21,14 +21,14 @@ class LabRentalsController < ApplicationController
     elsif params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
-    
+
     rejected_lab_rental_ids = []
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
         rejected_lab_rental_ids << lab_rental.id unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
       end
     end
-    
+
     lab_rentals_scope = lab_rentals_scope.where("id NOT IN (?)", rejected_lab_rental_ids) if rejected_lab_rental_ids.present?
     lab_rentals_scope.to_a.compact!
 
@@ -47,12 +47,12 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
-    
+
     respond_to do |format|
       format.html
       format.js
       format.json do
-        lab_rentals = lab_rentals_scope.map do |lab| 
+        lab_rentals = lab_rentals_scope.map do |lab|
                         last_day = lab.last_day.present? ? lab.last_day : lab.first_day
                         { 'title': lab.lab_course.title, 'start': lab.first_day.strftime("%Y-%m-%d"), 'end': (last_day + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)'}
                       end

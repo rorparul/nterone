@@ -88,7 +88,7 @@
           span.required *
           br
           = f.time_select :end_time, { ampm: true, default: { hour: '17', minute: '00' } }, { required: true }
-    
+
     .row
       - if @lab_rental.kind == 1
         .col-xs-12.col-md-4
@@ -104,16 +104,15 @@
           = f.number_field :number_of_pods, class: 'form-control'
       .col-xs-12.col-md-4
         .form-group
+          span style='margin-right: 5px;' = f.check_box :plus_instructor
           label = t('lab_rentals.partial_form.plus_instructor')
           br
           .input-group
-            span.input-group-addon
-              = f.check_box :plus_instructor
             = f.select :instructor_id,
                     instructors_with_rate(User.all_instructors_by_rate, nil),
                     { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control all_instructor_option', id: "all_instructor_option", :disabled => true }  
-            
+                    { class: 'form-control all_instructor_option', id: "all_instructor_option", disabled: true, style: 'width: 80%;' }
+
     .row
       .col-xs-12.col-md-4
         .form-group
@@ -258,23 +257,35 @@ javascript:
     cache: true,
     minimumInputLength: 3
   });
-  
-  $("#lab_rental_plus_instructor").prop("checked", false);
+
+  $("#lab_rental_plus_instructor").prop("checked", false)
   $("#all_instructor_option").val("")
-  $("#all_instructor_option").prop("disabled", true);
+  $("#all_instructor_option").prop("disabled", true)
 
   $("#lab_rental_plus_instructor").on('change', function(){
     if($(this).prop('checked')){
-      $("#all_instructor_option").prop("disabled", false);
+      $("#all_instructor_option").prop("disabled", false)
     }else{
-      $("#all_instructor_option").prop("disabled", true);
+      $("#all_instructor_option")[0].selectedIndex = 0
+      $("#all_instructor_option").prop("disabled", true)
+      resetIntructorInfo()
     }
   })
 
   $("#all_instructor_option").on("change", function(){
-    $.ajax({
-      type: "GET",
-      url: "#{set_instructor_info_path}.js",
-      data: {instructor_id: $(this).val()}
-    });
+    if($(this).val() === '') {
+      resetIntructorInfo()
+    } else {
+      $.ajax({
+        type: "GET",
+        url: "#{set_instructor_info_path}.js",
+        data: {instructor_id: $(this).val()}
+      })
+    }
   })
+
+  function resetIntructorInfo() {
+    $("#lab_rental_instructor").val("")
+    $("#lab_rental_instructor_email").val("")
+    $("#lab_rental_instructor_phone").val("")
+  }
