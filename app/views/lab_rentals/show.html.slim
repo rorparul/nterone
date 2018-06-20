@@ -23,12 +23,12 @@
                       td.text-right
                         strong
                           = t('lab_rentals.partial_show.lab')
-                      td = @lab_rental.lab
+                      td = @lab_rental.try(:lab)
                     tr
                       td.text-right
                         strong
                           = t('lab_rentals.partial_show.gmt')
-                      td = @lab_rental.gmt
+                      td = @lab_rental.try(:gmt)
                     tr
                       td.text-right
                         strong
@@ -71,12 +71,12 @@
                       td.text-right
                         strong
                           = t('lab_rentals.partial_show.partner')
-                      td = @lab_rental.partner
+                      td = @lab_rental.try(:partner)
                     tr
                       td.text-right
                         strong
                           = t('lab_rentals.partial_show.number_of_students')
-                      td = @lab_rental.number_of_students
+                      td = @lab_rental.try(:number_of_students)
                     tr
                       td.text-right
                         strong

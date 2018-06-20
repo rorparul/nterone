@@ -64,13 +64,17 @@
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
               td.fit
+                = link_to lab_rental_path(rental) do
+                    div style="display: inline-block;"
+                      span.fa.fa-eye style="margin-left: 5px;"
+              td.fit
                 = link_to edit_lab_rental_path(rental) do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"
               td.fit
                 = link_to lab_rental_path(rental), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do
                   i.text-danger class="fa fa-trash-o" aria-hidden="true" title="#{t('default.action.cancel')}"
 
-  .panel-footer
+  .panel-footer 
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
 - else
