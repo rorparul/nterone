@@ -83,6 +83,7 @@ class Course < ActiveRecord::Base
   after_initialize :set_all_regions, if: :new_record?
 
   before_save :format_slug
+  before_save :archive_slug, if: proc { |record| record.archived? }
 
   scope :active, -> { where(archived: false) }
 
