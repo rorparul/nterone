@@ -1,34 +1,33 @@
+- random_id = SecureRandom.hex
+
 .row
-  .col-xs-12.col-sm-6
+  .col-xs-12 class="#{'col-sm-3' if request.format.html?}"
     .form-group
       = f.label :origin_region, 'Origin Region'
       = f.select :origin_region,
                 model.options_for_regions,
                 { prompt: true },
-                { class: 'form-control input-sm' }
-
-.row
-  .col-xs-12
+                { class: 'form-control' }
+  .col-xs-12 class="#{'col-sm-9' if request.format.html?}"
     .form-group
       = f.label :active_regions, 'Active Region(s)'
       = f.select :active_regions,
                 model.options_for_regions,
-                { prompt: true },
-                { class: 'form-control input-sm active-regions-select', style: "width: 100%;", multiple: 'true' }
+                {},
+                { class: "form-control active-regions-select-#{random_id}", style: "width: 100%;", multiple: 'true' }
 
 - if request.xhr?
   javascript:
-    $('.active-regions-select').select2({
-      dropdownParent: $(".active-regions-select").closest('.form-group'),
+    $(".active-regions-select-#{random_id}").select2({
+      dropdownParent: $(".active-regions-select-#{random_id}").closest('.form-group'),
       theme: "bootstrap",
-      tags: true,
-      placeholder: "Please select"
+      tags: true
     });
 
 - else
   javascript:
-    $('.active-regions-select').select2({
+    $(".active-regions-select-#{random_id}").select2({
+      dropdownParent: $(".active-regions-select-#{random_id}").closest('.form-group'),
       theme: "bootstrap",
-      tags: true,
-      placeholder: "Please select"
+      tags: true
     });

@@ -32,7 +32,7 @@
       = f.select :category_ids,
                  categories.collect { |category| ["#{category.platform.title} > #{category.parent.title} > #{category.title}", category.id] },
                  {},
-                 html_options = { class: "form-control input-sm", multiple: 'true' }
+                 { class: "form-control input-sm categories-select", multiple: 'true' }
 
     .form-group
       = f.label :title, t('courses.partial_form.title')
@@ -78,12 +78,6 @@
         .form-group
           = f.label :heading, t('courses.partial_form.heading')
           = f.text_field :heading, class: 'form-control input-sm'
-      / .col-xs-12.col-sm-6
-      /   .form-group
-      /     = f.label :book_cost_per_student, 'Default Book Cost Per Student'
-      /     .input-group
-      /       span.input-group-addon $
-      /       = f.text_field :book_cost_per_student, data: { autonumeric: true }, class: 'form-control input-sm'
 
     .form-group
       = f.label :featured_course_summary, t('courses.partial_form.featured_course_summary')
@@ -110,19 +104,14 @@
     .row
       .col-xs-6.col-md-3
         .form-group
-          = f.label :active, t('courses.partial_form.active')
-          br
-          = f.check_box :active
-      .col-xs-6.col-md-3
-        .form-group
           = f.label :partner_led, t('courses.partial_form.partner')
           br
           = f.check_box :partner_led
       .col-xs-6.col-md-3
         .form-group
-          = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
+          = f.label :exclude_from_revenue, t('courses.partial_form.exclude_from_revenue')
           br
-          = f.check_box :satellite_viewable
+          = f.check_box :exclude_from_revenue
       .col-xs-6.col-md-3
         .form-group
           = f.label :archived, "Archived"
@@ -136,3 +125,10 @@
         = t('default.action.cancel')
       - if course.id
         = link_to t('default.action.delete'), platform_course_path(platform, course), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+
+javascript:
+  $('.categories-select').select2({
+    theme: "bootstrap",
+    tags: true,
+    placeholder: "Please select"
+  });
