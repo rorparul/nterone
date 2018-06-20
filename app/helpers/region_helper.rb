@@ -1,12 +1,12 @@
 module RegionHelper
-  def region_label(resource)
-    if resource.origin_region == 'united_states'
+  def region_label(region)
+    if region == 'united_states'
       flag_icon(:us, id: 'my-flag', class: 'strong', title: 'United States')
-    elsif resource.origin_region == 'latin_america'
+    elsif region == 'latin_america'
       flag_icon(:do, id: 'my-flag', class: 'strong', title: 'Latin America')
-    elsif resource.origin_region == 'canada'
+    elsif region == 'canada'
       flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Latin America')
-    elsif resource.origin_region == 'india'
+    elsif region == 'india'
       flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')
     end
   end
