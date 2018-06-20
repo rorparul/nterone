@@ -45,14 +45,12 @@
 
   <% @top_five_courses_by_region.each do |region, courses| %>
     $(".show_with_excluded_"+"<%= region  %>").on('click', function(){
-      $(".reload_on_async_margin").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
       $(".reload_on_async_top_five").html("<div style='text-align: center; margin-top: 88px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
       $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>"+"&show_exclude_from_revenue=true");
     })
   <% end %>
 
   $(".hide_excluded").on('click', function(){
-    $(".reload_on_async_margin").html("<div style='text-align: center; margin-top: 100px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
     $(".reload_on_async_top_five").html("<div style='text-align: center; margin-top: 88px;'><i class='i fa fa-cog fa-spin fa-3x fa-fw'></i></div>");
       $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>+&hide_excluded=true");
   })

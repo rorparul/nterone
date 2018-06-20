@@ -69,14 +69,9 @@ class Admin::SalesController < Admin::BaseController
       end
 
       @margin_by_region = {}
-      events            = nil
-
-      if params[:show_exclude_from_revenue].present?
-        events = Event.all
-      else
-        events = Event.joins(:course).where('courses.exclude_from_revenue = ?', false)
-      end
-
+      
+      events = Event.all
+      
       @margin_by_region['all_regions'] = events.average_margin(
         nil,
         @date_range_start,
@@ -92,7 +87,6 @@ class Admin::SalesController < Admin::BaseController
       end
     end
   end
-
 
   def details
     if params[:report]

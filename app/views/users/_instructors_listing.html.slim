@@ -19,7 +19,7 @@
             td.fit.text-center
               = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
             td.fit.text-center
-              = region_label(resource)
+              = region_label(resource.origin_region)
             - if action_name == 'leads'
               td = link_to user.first_name, lead_users_path(user)
               td = link_to user.last_name, lead_users_path(user)
