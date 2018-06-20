@@ -26,11 +26,9 @@
         "</tbody>" +
       "</table>" +
       <% if params[:show_exclude_from_revenue].present? %>
-        "<span class='btn btn-blue-gradient hide_excluded'>Hide Excluded</span>"+
-        "<span class='btn btn-blue-gradient hide show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Show All</span>"
+        "<span class='btn btn-blue-gradient show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Uncheck and Show All</span>"+"<span class='btn btn-blue-gradient hide hide_excluded'>Hide Checked</span>"
       <% else %>
-        "<span class='btn btn-blue-gradient hide hide_excluded'>Hide Excluded</span>"+
-        "<span class='btn btn-blue-gradient show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Show All</span>"
+        "<span class='btn btn-blue-gradient show_excluded_btn show_with_excluded_"+ "<%= region %>" +"'>Uncheck and Show All</span>" + "<span class='btn btn-blue-gradient hide hide_excluded'>Hide Checked</span>"
       <% end %>
     );
   <% end %>
@@ -58,11 +56,11 @@
   $(".excluded_checkbox").on('click', function(){
     if($(".excluded_checkbox:checked").length > 0){
       $(".hide_excluded").removeClass('hide');
-      $(".show_excluded_btn").addClass('hide');
+      //$(".show_excluded_btn").addClass('hide');
     }
     else{
       $(".hide_excluded").addClass('hide');
-      $(".show_excluded_btn").removeClass('hide');
+      //$(".show_excluded_btn").removeClass('hide');
     }
     $.get("<%= admin_sales_top_five_courses_path + '?yearly=' + params[:yearly] + '&date=' + params[:date] %>"+"&course_id="+$(this).data("id"));
   })
