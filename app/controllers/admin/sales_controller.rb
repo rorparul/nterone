@@ -41,7 +41,8 @@ class Admin::SalesController < Admin::BaseController
       @date_range_end   = dates[:end]
 
       @top_five_courses_by_region = {}
-
+      Course.reset_excluded_course if params[:show_exclude_from_revenue].present?
+        
       @top_five_courses_by_region['all_regions'] = Course.top_courses_by_revenue(
         nil,
         @date_range_start,
