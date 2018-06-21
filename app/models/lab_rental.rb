@@ -52,7 +52,9 @@
 
 class LabRental < ActiveRecord::Base
 	include SearchCop
-include Regions
+  include Regions
+  
+  TERMS = ["Due upon receipt", "Due upon booking", "7", "14", "30", "45"]
 
 	belongs_to :user
 	belongs_to :company

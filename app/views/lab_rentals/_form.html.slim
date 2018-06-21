@@ -187,8 +187,9 @@
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.terms')
         .form-group
-          = f.text_field :terms, class: 'form-control'
-
+          = f.select :terms, LabRental::TERMS,
+                   { include_blank: t('default.placeholder.select') },
+                   { required: true, class: "form-control" }
     .row
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.invoice_number')
@@ -268,7 +269,7 @@ javascript:
       $("#all_instructor_option").prop("disabled", false)
     }
   }
-  
+
   $("#lab_rental_plus_instructor").on('change', function(){
     if($(this).prop('checked')){
       $("#all_instructor_option").prop("disabled", false)
@@ -295,4 +296,9 @@ javascript:
     $("#lab_rental_instructor").val("")
     $("#lab_rental_instructor_email").val("")
     $("#lab_rental_instructor_phone").val("")
+  }
+  
+  last_term = "#{@last_lab_rental.present? ? @last_lab_rental.terms : false}";
+  if(last_term){
+    $("#lab_rental_terms").val(last_term)
   }
