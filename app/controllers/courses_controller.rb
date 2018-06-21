@@ -160,6 +160,7 @@ class CoursesController < ApplicationController
       :slug,
       :title,
       :video_preview,
+      :exclude_from_revenue,
       active_regions: [],
       category_ids: [])
   end
