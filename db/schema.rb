@@ -1060,16 +1060,6 @@ ActiveRecord::Schema.define(version: 20180618084814) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "sales_rep_goals", force: :cascade do |t|
-    t.date     "month"
-    t.integer  "amount"
-    t.text     "description"
-    t.integer  "origin_region"
-    t.integer  "sales_rep_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "settings", force: :cascade do |t|
     t.string   "var",                                    null: false
     t.text     "value"
