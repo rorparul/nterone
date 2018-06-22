@@ -57,6 +57,10 @@ class GeneralController < ApplicationController
     @page = Page.current_region.find_by(title: 'Partners')
   end
 
+  def employment_opportunity
+    @page = Page.current_region.find_by(title: 'Employment Opportunity')
+  end
+
   def labs
     @page        = Page.current_region.find_by(title: 'Labs')
     @lab_courses = LabCourse.current_region.where.not(level: 'partner').order(:title)

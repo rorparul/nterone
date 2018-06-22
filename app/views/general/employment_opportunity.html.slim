@@ -1,0 +1,18 @@
+- content_for :page_title do
+  = @page.try(:page_title)
+
+- content_for :page_description do
+  = @page.try(:page_description)
+
+= render partial: 'shared/banner_header'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      = render partial: 'layouts/about_us_nav_bar'
+      = @page.try(:content).try(:html_safe)
+
+= render partial: 'shared/banner_footer'
+
+javascript:
+  $('.btn-about-us').addClass('active')
