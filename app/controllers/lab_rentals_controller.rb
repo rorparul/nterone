@@ -29,7 +29,7 @@ class LabRentalsController < ApplicationController
       end
     end
 
-    lab_rentals_scope = lab_rentals_scope.where("id NOT IN (?)", rejected_lab_rental_ids) if rejected_lab_rental_ids.present?
+    lab_rentals_scope = lab_rentals_scope.where("lab_rentals.id NOT IN (?)", rejected_lab_rental_ids) if rejected_lab_rental_ids.present?
     lab_rentals_scope.to_a.compact!
 
     @lab_rentals       = smart_listing_create(
