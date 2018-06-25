@@ -30,3 +30,9 @@ html[ng-app='nterone']
         $(document).ready(function() {
           $.get('/tasks', {});
         });
+    
+    - if session[:region] == 1
+      javascript:
+        $(document).ready(function() {
+          $.get('/set_la_info', {region: getCookie("region")});
+        });  

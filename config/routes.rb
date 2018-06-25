@@ -346,6 +346,7 @@ NterOne::Application.routes.draw do
   get  '/cisco_learning_credits'                     => 'pages#cisco_learning_credits',             as: :cisco_learning_credits
   get  '/cisco/self-paced'                           => 'categories#cisco_self_paced',              as: :cisco_self_paced
   get  '/email_signature_tool'                       => 'general#email_signature_tool',             as: :email_signature_tool
+  get  '/set_la_info'                                => 'general#set_la_info',                      as: :set_la_info
   get  '/cpl_launch/:id'                             => 'video_on_demands#cpl_launch',              as: :cpl_launch
 
   get  '/quiz_demo'                                                       => 'lms_exams#quiz_demo',                      as: :quiz_demo

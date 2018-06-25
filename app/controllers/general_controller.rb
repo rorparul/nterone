@@ -166,7 +166,20 @@ class GeneralController < ApplicationController
 
   def email_signature_tool
   end
-
+  
+  def set_la_info
+    case params[:region]
+    when "republica_dominicana"
+      @flag_class = "flag-icon strong flag-icon-do"
+    when "venezuela"
+      @flag_class = "flag-icon strong flag-icon-ve"
+    when "panama"
+      @flag_class = "flag-icon strong flag-icon-pa"
+    when "colombia"
+      @flag_class = "flag-icon strong flag-icon-co"
+    end
+  end
+  
   private
 
   def contact_us_params
