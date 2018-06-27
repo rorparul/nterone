@@ -171,12 +171,16 @@ class GeneralController < ApplicationController
     case params[:region]
     when "republica_dominicana"
       @flag_class = "flag-icon strong flag-icon-do"
+      @contact = '+809-542-2476'
     when "venezuela"
       @flag_class = "flag-icon strong flag-icon-ve"
+      @contact = '+582-129-930634'
     when "panama"
       @flag_class = "flag-icon strong flag-icon-pa"
+      @contact = '+507-833-6419'
     when "colombia"
       @flag_class = "flag-icon strong flag-icon-co"
+      @contact = '+571-639-8444'
     end
   end
   
