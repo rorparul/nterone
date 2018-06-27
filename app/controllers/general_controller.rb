@@ -166,7 +166,7 @@ class GeneralController < ApplicationController
 
   def email_signature_tool
   end
-  
+
   def set_la_info
     case params[:region]
     when "republica_dominicana"
@@ -183,7 +183,7 @@ class GeneralController < ApplicationController
       @contact = '+571-639-8444'
     end
   end
-  
+
   private
 
   def contact_us_params

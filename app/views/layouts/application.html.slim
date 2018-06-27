@@ -30,9 +30,36 @@ html[ng-app='nterone']
         $(document).ready(function() {
           $.get('/tasks', {});
         });
-    
+
     - if session[:region] == 1
       javascript:
         $(document).ready(function() {
-          $.get('/set_la_info', {region: getCookie("region")});
-        });  
+          // $.get('/set_la_info', { region: getCookie("region") })
+
+          var region = getCookie("region");
+          var flag_class;
+          var contact;
+
+          switch(region) {
+            case 'colombia':
+              flag_class = "flag-icon strong flag-icon-co"
+              contact = '+571-639-8444'
+              break
+            case 'panama':
+              flag_class = "flag-icon strong flag-icon-pa"
+              contact = '+507-833-6419'
+              break
+            case 'republica_dominicana':
+              flag_class = "flag-icon strong flag-icon-do"
+              contact = '+809-542-2476'
+              break
+            case 'venezuela':
+              flag_class = "flag-icon strong flag-icon-ve"
+              contact = '+582-129-930634'
+              break
+          }
+        })
+
+        $("#nav-change-region #my-flag").removeClass()
+        $("#nav-change-region #my-flag").addClass(flag_class)
+        $("#nav-1 #phone a").text(contact)
