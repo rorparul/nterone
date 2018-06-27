@@ -6,17 +6,23 @@ ul#regions-list
     = link_to switch_tld_path('ca') do
       = "#{flag_icon(:ca, id: 'my-flag', class: 'strong')} Canada".html_safe
   li
-    = link_to switch_tld_path('la') do
+    = link_to switch_tld_path('la'), class: "region_la", data: {region: "republica_dominicana"} do
       = "#{flag_icon(:do, id: 'my-flag', class: 'strong')} República Dominicana".html_safe
   li
-    = link_to switch_tld_path('la') do
+    = link_to switch_tld_path('la'), class: "region_la", data: {region: "venezuela"} do
       = "#{flag_icon(:ve, id: 'my-flag', class: 'strong')} Venezuela".html_safe
   li
-    = link_to switch_tld_path('la') do
+    = link_to switch_tld_path('la'), class: "region_la", data: {region: "panama"} do
       = "#{flag_icon(:pa, id: 'my-flag', class: 'strong')} Panamá".html_safe
   li
-    = link_to switch_tld_path('la') do
+    = link_to switch_tld_path('la'), class: "region_la", data: {region: "colombia"} do
       = "#{flag_icon(:co, id: 'my-flag', class: 'strong')} Colombia".html_safe
   li
     = link_to switch_tld_path('in') do
       = "#{flag_icon(:in, id: 'my-flag', class: 'strong')} India".html_safe
+
+javascript:
+  $(".region_la").on("click", function(){
+    region = $(this).data("region")
+    document.cookie = "region="+region;
+  })
