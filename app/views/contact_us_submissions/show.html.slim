@@ -1,17 +1,20 @@
-p = @contact_us_submission.id
+.container style="margin-top: 40px;"
+  p = "ID: #{@contact_us_submission.id}"
 
-p = @contact_us_submission.recipient
+  p = "Received: #{@contact_us_submission.created_at}"
 
-p = @contact_us_submission.subject
+  p = "Recipient: #{@contact_us_submission.recipient}"
 
-p = @contact_us_submission.name
+  p = "Subject: #{@contact_us_submission.subject}"
 
-p = @contact_us_submission.phone
+  p = "Name: #{@contact_us_submission.name}"
 
-p = @contact_us_submission.email
+  p = "Phone: #{@contact_us_submission.phone}"
 
-p = @contact_us_submission.inquiry
+  p = "Email: #{@contact_us_submission.email}"
 
-p = @contact_us_submission.feedback
+  p = "Message: #{@contact_us_submission.message}"
 
-p = @contact_us_submission.created_at
+  p = "Inquiry (Retired): #{@contact_us_submission.inquiry}"
+
+  p = "Feedback (Retired): #{@contact_us_submission.feedback}"
