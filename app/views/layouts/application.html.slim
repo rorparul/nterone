@@ -60,4 +60,5 @@ html[ng-app='nterone']
           $("#nav-change-region #my-flag").removeClass();
           $("#nav-change-region #my-flag").addClass(flag_class);
           $("#nav-1 #phone a").text(contact);
+          $("#nav-1 #phone a").attr('href', 'tel:' + contact);
         });
