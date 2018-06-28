@@ -22,6 +22,6 @@
 class Setting < RailsSettings::Base
   # include Regions
 
-  # source Rails.root.join("config/app.yml")
-  # namespace Rails.env
+  source Rails.root.join("config/app.yml")
+  # cache_prefix { "v1" }
 end
