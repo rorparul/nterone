@@ -102,6 +102,7 @@ class PlatformsController < ApplicationController
       :satellite_viewable,
       :origin_region,
       :archived,
+      :display_parent_category_on_top,
       active_regions: []
     )
   end

@@ -20,7 +20,7 @@
     = f.label :page_description, t('platforms.partial_form.page_description')
     = f.text_area :page_description, class: 'form-control input-sm'
 
-  hr
+  hr 
 
   .form-group
     = f.label :title, t('platforms.partial_form.platform_title')
@@ -31,7 +31,7 @@
     = f.text_field :url, class: 'form-control input-sm'
 
   .row
-    .col-xs-6
+    .col-xs-12
       .form-group
         - if @platform.image.present? && @platform.image.file.present?
           = image_tag @platform.image.file.platform_icon.url
@@ -40,16 +40,21 @@
           = icon.label :file, t('platforms.partial_form.image')
           = icon.file_field :file
           = icon.hidden_field :file_cache
-    .col-xs-3
+    .col-xs-4
       .form-group
         = f.label :satellite_viewable, t('courses.partial_form.satellite_viewable')
         br
         = f.check_box :satellite_viewable
-    .col-xs-3
+    .col-xs-2
       .form-group
         = f.label :archived, "Archived"
         br
         = f.check_box :archived
+    .col-xs-6
+      .form-group
+        = f.label :display_parent_category_on_top, "Display parent category on top"
+        br
+        = f.check_box :display_parent_category_on_top
 
   .form-buttons
     button.btn.btn-success type="submit"
