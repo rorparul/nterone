@@ -245,6 +245,7 @@ NterOne::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :instructors, only: [:index]
     resources :platforms, only: [:index]
     resources :checklists do
       member do
