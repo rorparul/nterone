@@ -24,4 +24,8 @@ class Setting < RailsSettings::Base
 
   source Rails.root.join("config/app.yml")
   # cache_prefix { "v1" }
+
+  def self.host
+    "nterone.#{`hostname`.match(/\w+$/).to_s}"
+  end
 end
