@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518063230) do
+ActiveRecord::Schema.define(version: 20180628104431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -627,16 +627,16 @@ ActiveRecord::Schema.define(version: 20180518063230) do
 
   create_table "lab_rentals", force: :cascade do |t|
     t.date     "first_day"
-    t.integer  "num_of_students",   default: 0
+    t.integer  "num_of_students",                           default: 0
     t.time     "start_time"
     t.string   "instructor"
     t.string   "instructor_email"
     t.string   "instructor_phone"
     t.text     "notes"
     t.string   "location"
-    t.boolean  "confirmed"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "confirmed",                                 default: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "course"
     t.integer  "user_id"
     t.integer  "company_id"
@@ -645,11 +645,23 @@ ActiveRecord::Schema.define(version: 20180518063230) do
     t.integer  "lab_course_id"
     t.integer  "kind"
     t.string   "time_zone"
-    t.boolean  "twenty_four_hours"
+    t.boolean  "twenty_four_hours",                         default: false
     t.date     "last_day"
     t.string   "level"
     t.integer  "origin_region"
-    t.text     "active_regions",    default: [],              array: true
+    t.text     "active_regions",                            default: [],                 array: true
+    t.integer  "setup_by"
+    t.integer  "tested_by"
+    t.integer  "number_of_pods"
+    t.boolean  "plus_instructor",                           default: false
+    t.decimal  "price",             precision: 8, scale: 2, default: 0.0
+    t.integer  "po_number"
+    t.boolean  "entered_into_crm",                          default: false
+    t.string   "invoice_number"
+    t.boolean  "payment_received",                          default: false
+    t.string   "poc"
+    t.string   "terms"
+    t.integer  "instructor_id"
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree
@@ -941,10 +953,11 @@ ActiveRecord::Schema.define(version: 20180518063230) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "satellite_viewable", default: true
+    t.boolean  "satellite_viewable",             default: true
     t.integer  "origin_region"
-    t.text     "active_regions",     default: [],    array: true
-    t.boolean  "archived",           default: false
+    t.text     "active_regions",                 default: [],    array: true
+    t.boolean  "archived",                       default: false
+    t.boolean  "display_parent_category_on_top", default: false
   end
 
   add_index "platforms", ["origin_region"], name: "index_platforms_on_origin_region", using: :btree
@@ -1044,16 +1057,6 @@ ActiveRecord::Schema.define(version: 20180518063230) do
     t.integer  "amount"
     t.text     "description"
     t.integer  "origin_region"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "sales_rep_goals", force: :cascade do |t|
-    t.date     "month"
-    t.integer  "amount"
-    t.text     "description"
-    t.integer  "origin_region"
-    t.integer  "sales_rep_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
