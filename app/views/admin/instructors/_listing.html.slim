@@ -8,8 +8,9 @@
           th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
           th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
           th = smart_listing.sortable t('default.label.email'), :email
-          th.fit = t('default.label.onsite_rate')
-          th.fit = t('default.label.online_rate')
+          th = smart_listing.sortable t('default.label.days_worked'), :days_worked
+          th = smart_listing.sortable t('default.label.cost'), :cost
+          th = smart_listing.sortable t('default.label.next_working_day'), :next_working_day
           th.fit colspan='2'
       tbody
         - smart_listing.collection.each do |user|
@@ -26,8 +27,11 @@
               td = user.first_name
               td = user.last_name
             td = user.email
-            td = number_to_currency(user.onsite_daily_rate.try(:to_s), precision: 2)
-            td = number_to_currency(user.online_daily_rate.try(:to_s), precision: 2)
+            td = number_to_currency(user.total_work_days, precision: 2)
+            td = number_to_currency(user.total_instructor_cost, precision: 2)
+            td 
+              - if user.next_upcoming_event != nil
+                = link_to "#{user.next_upcoming_event.try(:start_date).to_formatted_s(:rfc822)}",admin_classes_show_path(user.next_upcoming_event.id), target: 'blank'
             - if action_name == 'leads' || action_name == 'contacts'
               td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
                 i.fa.fa-pencil-square-o.text-warning aria-hidden="true"

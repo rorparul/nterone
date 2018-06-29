@@ -492,6 +492,7 @@ class User < ActiveRecord::Base
     end
   end
 
+
   def next_upcoming_event
     events.where("start_date >= :start_date", { start_date: Date.today }).order(:start_date).first
   end  
@@ -503,7 +504,7 @@ class User < ActiveRecord::Base
   end
   
   def total_instructor_cost
-    past_events.sum(:cost_instructor).to_f
+    events.sum(:cost_instructor).to_f
   end  
 
 
