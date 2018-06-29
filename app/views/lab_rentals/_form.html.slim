@@ -104,16 +104,11 @@
           = f.number_field :number_of_pods, class: 'form-control'
       .col-xs-12.col-md-4
         .form-group
-          span style='margin-right: 5px;' = f.check_box :plus_instructor
-          label = t('lab_rentals.partial_form.plus_instructor')
+          = f.label :plus_instructor, t('lab_rentals.partial_form.plus_instructor')
           br
-          .input-group
-            = f.select :instructor_id,
-                    instructors_with_rate(User.all_instructors_by_rate, nil),
-                    { include_blank: t('generic.prompt.please_select') },
-                    { class: 'form-control all_instructor_option', id: "all_instructor_option", disabled: true, style: 'width: 80%;' }
+          = f.check_box :plus_instructor
 
-    .row
+    .row.instructor-info
       .col-xs-12.col-md-4
         .form-group
           = f.label :instructor, t('lab_rentals.partial_form.instructor')
@@ -150,68 +145,78 @@
             br
             = f.check_box :confirmed
 
-    hr style="margin-top: 0;"
+    - if user_signed_in? && current_user.admin?
+      .well
+        label.text-muted For Administrative Use
 
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.setup_by')
-        .form-group
-          = f.select :setup_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
-          { include_blank: t('default.placeholder.select') },
-          { class: "form-control" }
+        .row
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.setup_by')
+            .form-group
+              = f.select :setup_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
+              { include_blank: t('default.placeholder.select') },
+              { class: "form-control" }
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.tested_by')
+            .form-group
+              = f.select :tested_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
+              { include_blank: t('default.placeholder.select') },
+              { class: "form-control" }
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.plus_instructor')
+            .form-group
+              = f.select :instructor_id,
+                      instructors_with_rate(User.all_instructors_by_rate, nil),
+                      { include_blank: t('generic.prompt.please_select') },
+                      { class: 'form-control all_instructor_option', id: "all_instructor_option", disabled: true }
 
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.tested_by')
-        .form-group
-          = f.select :tested_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
-          { include_blank: t('default.placeholder.select') },
-          { class: "form-control" }
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :entered_into_crm, t('lab_rentals.partial_form.entered_into_crm')
-          br
-          = f.check_box :entered_into_crm
+        .row
+          .col-xs-12.col-md-4
+            .form-group
+              = f.label :entered_into_crm, 'Entered Into CRM'
+              br
+              = f.check_box :entered_into_crm
 
-    hr style="margin-top: 0;"
+        hr style="margin-top: 0;"
 
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.poc')
-        .form-group
-          = f.text_field :poc, class: 'form-control'
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.price')
-        .input-group
-          span.input-group-addon $
-          = f.number_field :price, class: 'form-control'
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.terms')
-        .form-group
-          = f.select :terms, LabRental::TERMS,
-                   { include_blank: t('default.placeholder.select') },
-                   { required: true, class: "form-control" }
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.invoice_number')
-        .form-group
-          = f.text_field :invoice_number, class: 'form-control'
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.po_number')
-        .form-group
-          = f.text_field :po_number, class: 'form-control'
-      .col-xs-12.col-md-4
-        .form-group
-          = f.label :payment_received, t('lab_rentals.partial_form.payment_received')
-          br
-          = f.check_box :payment_received
+        .row
+          .col-xs-12.col-md-4
+            label POC
+            .form-group
+              = f.text_field :poc, class: 'form-control'
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.price')
+            .input-group
+              span.input-group-addon $
+              = f.number_field :price, class: 'form-control'
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.terms')
+            .form-group
+              = f.select :terms, LabRental::TERMS,
+                       { include_blank: t('default.placeholder.select') },
+                       { required: true, class: "form-control" }
+        .row
+          .col-xs-12.col-md-4
+            label = t('lab_rentals.partial_form.invoice_number')
+            .form-group
+              = f.text_field :invoice_number, class: 'form-control'
+          .col-xs-12.col-md-4
+            label PO Number
+            .form-group
+              = f.text_field :po_number, class: 'form-control'
+          .col-xs-12.col-md-4
+            .form-group
+              = f.label :payment_received, t('lab_rentals.partial_form.payment_received')
+              br
+              = f.check_box :payment_received
 
-    hr style="margin-top: 0;"
+        hr style="margin-top: 0;"
 
-    .row
-      .col-xs-12
-        .form-group
-          = f.label :notes, t('lab_rentals.partial_form.notes')
-          = f.text_area :notes, class: 'form-control', rows: 5
+        .row
+          .col-xs-12
+            .form-group
+              = f.label :notes, t('lab_rentals.partial_form.notes')
+              = f.text_area :notes, class: 'form-control', rows: 5
 
     button.btn.btn-green-gradient.element-left-side
       = t('generic.button.save')
@@ -268,16 +273,19 @@ javascript:
   } else {
     if($("#lab_rental_plus_instructor").prop('checked')) {
       $("#all_instructor_option").prop("disabled", false)
+      hideIntructorInfo()
     }
   }
 
   $("#lab_rental_plus_instructor").on('change', function() {
     if($(this).prop('checked')) {
       $("#all_instructor_option").prop("disabled", false)
+      hideIntructorInfo()
     } else {
       $("#all_instructor_option")[0].selectedIndex = 0
       $("#all_instructor_option").prop("disabled", true)
       resetIntructorInfo()
+      showIntructorInfo()
     }
   })
 
@@ -297,6 +305,22 @@ javascript:
     $("#lab_rental_instructor").val("")
     $("#lab_rental_instructor_email").val("")
     $("#lab_rental_instructor_phone").val("")
+  }
+
+  function hideIntructorInfo() {
+    $(".instructor-info").hide()
+
+    $("#lab_rental_instructor").attr('type', 'hidden')
+    $("#lab_rental_instructor_email").attr('type', 'hidden')
+    $("#lab_rental_instructor_phone").attr('type', 'hidden')
+  }
+
+  function showIntructorInfo() {
+    $(".instructor-info").show()
+
+    $("#lab_rental_instructor").attr('type', 'text')
+    $("#lab_rental_instructor_email").attr('type', 'text')
+    $("#lab_rental_instructor_phone").attr('type', 'text')
   }
 
   last_term = "#{@last_lab_rental.present? ? @last_lab_rental.terms : ''}"

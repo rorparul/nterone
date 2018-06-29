@@ -3,8 +3,10 @@ module SharedHelper
     unless user_signed_in?
       link_to t('shared.header.login'), new_user_session_path, id: 'sign-in-or-account', class: 'btn btn-blue-gradient', role: 'button'
     else
-      dashboard_link = if current_user.admin? || current_user.partner? || current_user.sales?
+      dashboard_link = if current_user.admin? || current_user.sales?
                          admin_classes_path
+                       elsif current_user.partner?
+                         lab_rentals_path
                        elsif current_user.instructor?
                          instructor_classes_path
                        else

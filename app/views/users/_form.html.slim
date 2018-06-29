@@ -31,7 +31,7 @@
       .form-group
         = f.label :company_id, t('users.partial_form.company_name')
         = f.select :company_id,
-          Company.all.collect {|c| [ c.title, c.id ] },
+          Company.order(:title).collect {|c| [ c.title, c.id ] },
           { prompt: t('default.placeholder.select') },
           { class: "form-control input-sm" }
   fieldset

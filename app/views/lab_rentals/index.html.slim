@@ -32,7 +32,8 @@
               button.btn.btn-default.disabled type='submit'
                 span.glyphicon.glyphicon-search
 
-        = select_tag :level_filter, options_for_select([["All", nil], ["Partner", "partner"], ["Individual", "individual"]]), class: 'form-control', style: 'display: inline; width: 170px;'                                  
+        - unless user_signed_in? && current_user.partner?
+          = select_tag :level_filter, options_for_select([["All", nil], ["Partner", "partner"], ["Individual", "individual"]]), class: 'form-control', style: 'display: inline; width: 170px;'
 
         .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
           .input-group

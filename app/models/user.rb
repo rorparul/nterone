@@ -179,6 +179,7 @@ class User < ActiveRecord::Base
 
   scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
   scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :admins,                  -> { joins(:roles).where(roles: { role: 1 }).distinct }
 
   scope :leads,                   -> { where.not(status: [3, 4]) }

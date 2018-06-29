@@ -76,7 +76,7 @@ class LabRentalsController < ApplicationController
     company ||= Company.find_by(id: params[:company_id])   if params[:company_id]
     company ||= current_user.company                       if current_user && current_user.admin? == false
     kind    = company.try(:form_type) ? company.form_type : 1
-    
+
     @last_lab_rental = company.lab_rentals.try(:last) if company.present?
     @lab_rental = LabRental.new(user_id: current_user.try(:id), company_id: company.try(:id), kind: kind)
     @lab_rental.lab_students.build if @lab_rental.kind == 2
