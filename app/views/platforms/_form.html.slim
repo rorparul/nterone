@@ -20,7 +20,7 @@
     = f.label :page_description, t('platforms.partial_form.page_description')
     = f.text_area :page_description, class: 'form-control input-sm'
 
-  hr 
+  hr
 
   .form-group
     = f.label :title, t('platforms.partial_form.platform_title')
@@ -52,7 +52,7 @@
         = f.check_box :archived
     .col-xs-6
       .form-group
-        = f.label :display_parent_category_on_top, "Display parent category on top"
+        = f.label :display_parent_category_on_top, "Invert Categories Display"
         br
         = f.check_box :display_parent_category_on_top
 

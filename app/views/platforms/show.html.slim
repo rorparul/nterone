@@ -49,15 +49,15 @@
   = render partial: 'shared/banner_header'
 
 .container
-  - if @platform.display_parent_category_on_top 
-    .row.vendor-categories style="margin: 35px 0 0 0;"
+  - if @platform.display_parent_category_on_top
+    .row.vendor-categories style="margin: 0 0 35px 0;"
       .col-xs-12
-        .btn-label Browse By:
+        .btn-label Filter By:
         - @categories.each do |parent_category|
           = link_to parent_category.title, platform_category_path(parent_category.platform, parent_category),
                     class: "btn #{(parent_category == @category || parent_category.children.include?(@category)) ? 'btn-green-gradient' : 'btn-gray-gradient'}",
                     role: 'button'
-  - else                      
+  - else
     .row.vendor-categories style="margin: 0 0 35px 0;"
       .col-xs-12
         .btn-label Filter By:
@@ -70,7 +70,7 @@
             - parent_category.children.sort_by{ |cc| cc.position }.each do |child_category|
               = link_to child_category.title, platform_category_path(child_category.platform, child_category),
                         class: "btn #{child_category == @category ? 'btn-green-gradient' : 'btn-gray-gradient'}",
-                        role: 'button'  
+                        role: 'button'
   .row style="margin: 0 0 40px 0; text-align: center;"
     .col-xs-12
       h1 style="margin: 0; font-size: 28px; color: #505050;" = @category.heading
@@ -78,8 +78,8 @@
 
   .row.subjects
     = render partial: 'platforms/items', locals: { items: @items }
-  
-  - unless @platform.display_parent_category_on_top 
+
+  - unless @platform.display_parent_category_on_top
     .row.vendor-categories style="margin: 35px 0 0 0;"
       .col-xs-12
         .btn-label Browse By:
