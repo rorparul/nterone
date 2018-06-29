@@ -53,7 +53,7 @@
                 span.text = t('shared.header.contact')
               li = link_to new_search_path, remote: true, rel: 'nofollow' do
                 span.text = t('shared.header.search')
-              li = link_to change_region_path, remote: true, rel: 'nofollow' do
+              li#nav-change-region = link_to change_region_path, remote: true, rel: 'nofollow' do
                 = flag_icon_of_current_region
 
 #nav-training.well style="border-radius: 0; margin-bottom: 0; overflow: scroll;"

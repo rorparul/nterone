@@ -8,7 +8,6 @@ defaults: &defaults
   aws_s3_files_keep: 10
   current_hostname: "<%= `hostname`.strip %>"
   tld: "<%= `hostname`.match(/\w+$/).to_s %>"
-  host: "<%= "nterone.#{`hostname`.match(/\w+$/).to_s}" %>"
   formatted_domain: "<%= "www.NterOne.#{`hostname`.match(/\w+$/).to_s}" %>"
 
   # The last cart update should be more 24 hours and less:
