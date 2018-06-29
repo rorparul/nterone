@@ -1,12 +1,10 @@
 class ContactUsSubmissionsController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
 
-  helper  SmartListing::Helper
+  helper SmartListing::Helper
 
   before_action :authenticate_user!
   before_action :validate_authorization
-
-  # layout 'admin'
 
   def index
     contact_us_submission_scope = ContactUsSubmission.all

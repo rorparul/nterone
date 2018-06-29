@@ -22,11 +22,11 @@ NterOne::Application.routes.draw do
       get  ':id/edit_from_sales'   => 'users#edit_from_sales',       as: :edit_from_sales
       get  'leads_unsubscribe_new' => 'users#leads_unsubscribe_new', as: :leads_unsubscribe_new
       post 'leads_unsubscribe'     => 'users#leads_unsubscribe'    , as: :leads_unsubscribe
-      
+
       get  'people'              => 'users#people',           as: :people
       get  'members'             => 'users#members',         as: :members
       get  'get_users_by_role'   => 'users#get_users_by_role', as: :get_user_by_role
-      
+
       get  'sales_reps'          => 'users#sales_reps',      as: :sales_reps
       get  'leads/:id'           => 'users#show_as_lead',    as: :lead
       get  'contacts/:id'        => 'users#show_as_contact', as: :contact
@@ -312,6 +312,7 @@ NterOne::Application.routes.draw do
   get  'about-us/instructors'                        => 'general#instructors',                      as: :instructors_bios
   get  'about-us/press'                              => 'general#press',                            as: :press
   get  'about-us/blog'                               => 'general#blog',                             as: :blog
+  get  'about-us/employment_opportunity'             => 'general#employment_opportunity',           as: :employment_opportunity
   get  'about-us/nterone_gives_back'                 => 'general#nterone_gives_back',               as: :nterone_gives_back
   get  'testimonials'                                => 'general#testimonials'
   get  'consulting'                                  => 'general#consulting'

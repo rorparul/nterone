@@ -23,5 +23,9 @@ class Setting < RailsSettings::Base
   # include Regions
 
   source Rails.root.join("config/app.yml")
-  namespace Rails.env
+  # cache_prefix { "v1" }
+
+  def self.host
+    "nterone.#{`hostname`.match(/\w+$/).to_s}"
+  end
 end
