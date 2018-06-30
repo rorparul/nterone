@@ -508,7 +508,7 @@ class User < ActiveRecord::Base
   end
   
   def total_instructor_cost
-    events.sum(:cost_instructor).to_f
+    past_events.sum(:cost_instructor).to_f
   end  
 
 
