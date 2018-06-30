@@ -12,8 +12,18 @@ class Admin::InstructorsController < ApplicationController
     @instructors = User.all_instructors
     if params[:instructors_smart_listing].present? and params[:instructors_smart_listing][:sort].present?
       @instructors = @instructors.unscope(:order) 
-    end  
-    prepare_smart_listing(@instructors)
+    end
+    unless request.format.json?
+      @instructors = @instructors.custom_search(params[:filter]) if params[:filter].present?
+      prepare_smart_listing(@instructors)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+      format.json do
+        render json: @instructors 
+      end
+    end
   end
 
   private
@@ -25,7 +35,8 @@ class Admin::InstructorsController < ApplicationController
       partial: 'listing',
       sort_attributes: [[:first_name, "first_name"],
                         [:last_name, "last_name"],
-                        [:email, "email"]],
+                        [:email, "email"]
+                      ],
       default_sort: { updated_at: 'desc' }
     )
   end

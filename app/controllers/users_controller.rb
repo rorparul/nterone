@@ -247,6 +247,8 @@ class UsersController < ApplicationController
       :street,
       :video_bio,
       :zipcode,
+      :employement_type,
+      :rating, 
       filters: [
         :parent_id,
         :source_name,

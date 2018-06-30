@@ -120,6 +120,8 @@ class User < ActiveRecord::Base
     partner_customer: 1
   }
 
+  enum employement_type: { employee: 0, contractor: 1 }
+
   # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
@@ -214,6 +216,8 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  Ratings = [ ['1',1],['2',2],['3',3],['4',4],['5',5]]
 
   def developer?
     email == 'ryan@storberg.net'

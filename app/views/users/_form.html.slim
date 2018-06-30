@@ -130,6 +130,17 @@
 
   .container-muted
     | For Instructor Role
+  
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :employement_type, t('users.partial_form.employement_type')
+        = f.select :employement_type, User.employement_types.keys.to_a.map { |emp_type| [emp_type.humanize, emp_type] }, options = {},html_options = { class: "form-control input-sm" }
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :rating, t('users.partial_form.rating')
+        = f.select :rating, options_for_select(User::Ratings),{:include_blank => 'Select One'},html_options = { class: "form-control input-sm" }
+
   .row
     .col-xs-12.col-md-6
       .form-group
