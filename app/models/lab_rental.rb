@@ -40,7 +40,7 @@
 
 class LabRental < ActiveRecord::Base
 	include SearchCop
-include Regions
+  include Regions
 
 	belongs_to :user
 	belongs_to :company
@@ -61,7 +61,6 @@ include Regions
     attributes :course, :instructor, :instructor_email, :location
     attributes :company => ["company.title"]
   end
-  
 
   def instructor_name_and_lab_course_title
     inst_details = "#{user.try(:full_name)} [#{lab_course.title}]" if user.present? && lab_course.present? 
@@ -74,4 +73,5 @@ include Regions
 	def count_students
 		self.update_column(:num_of_students, self.lab_students.count)
 	end
+
 end

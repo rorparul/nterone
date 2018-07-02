@@ -541,7 +541,7 @@ class User < ActiveRecord::Base
       end 
     end
     return employment_date
-  end  
+  end    
 
   private
 
