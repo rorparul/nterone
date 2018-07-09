@@ -41,8 +41,12 @@ en:
       orders: "Orders"
       settings: "Settings"
       checklists: "Checklists"
+<<<<<<< 5187fc132edbc3aa0286e0a8447b7f7c5eae5f32
       tools_and_resources: 'Tools & Resources'
       employments: 'Employment'
+=======
+      tools: 'Tools'
+>>>>>>> Change tab names
     website:
       active: "Active"
       articles: "Articles"

@@ -112,7 +112,7 @@
       li.employments role="presentation"
         a.nav-pill href="#{employments_path}"
           = t('admins.partial_tabs.employments')      
-
+          
     - if policy(:admin).resources?
       li.dropdown.resources role="presentation"
         a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -122,7 +122,12 @@
             li.instructors
               a href="#{admin_instructors_path}"
                 | Instructors
-            
+
+    - if policy(:admin).tools?
+      li.tools_and_resources role="presentation"
+        a.nav-pill href="#{admin_tools_path}"
+          = t('admins.partial_tabs.tools')
+
     - if policy(:setting).index?
       li.settings role="presentation"
         a.nav-pill href="#{admin_settings_path}"
