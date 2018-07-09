@@ -69,6 +69,8 @@ class Opportunity < ActiveRecord::Base
   before_save :update_title, if: proc { |model| model.title.blank? && model.course.present? }
   before_save :confirm_amount_equals_integer
 
+  after_update :update_partner_email
+
   after_save :create_order,  if: proc { |model| model.stage_changed? && model.stage == 100 && model.course.present? && (model.event.present? || model.video_on_demand.present?) }
   after_save :update_order,  if: proc { |model| model.id_was.present? && (model.event_id_changed? || model.video_on_demand_id_changed?) && model.stage == 100 && model.order.present? }
   after_save :destroy_order, if: proc { |model| model.stage_changed? && model.stage_was == 100 && model.order.present? }
@@ -124,6 +126,11 @@ class Opportunity < ActiveRecord::Base
 
   def update_title
     self.title = course.full_title
+  end
+
+  def update_partner_email
+    order.referring_partner_email = email_optional
+    order.save
   end
 
   def create_order
