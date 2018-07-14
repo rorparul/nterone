@@ -78,6 +78,8 @@
 #  sales_force_id          :string
 #  customer_type           :integer
 #  online_daily_rate       :decimal(8, 2)    default(0.0)
+#  employement_type        :integer
+#  rating                  :integer
 #
 # Indexes
 #
@@ -93,6 +95,7 @@
 #
 #  fk_rails_...  (company_id => companies.id)
 #
+
 require 'roo'
 class User < ActiveRecord::Base
   extend ActsAsTree::TreeView
@@ -487,6 +490,39 @@ class User < ActiveRecord::Base
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  def next_upcoming_event
+    events.where("start_date >= :start_date", { start_date: Date.today }).order(:start_date).first
+  end  
+
+  def total_work_days
+    sum = 0;
+    past_events.map{|event| sum += event.length}
+    return sum
+  end
+  
+  def total_instructor_cost
+    past_events.sum(:cost_instructor).to_f
+  end  
+
+
+  def self.instructor_events_and_lab_rentals(instructors)
+    events = []
+    lab_rentals = []
+    instructors.includes(:events, :lab_rentals).each do |ins|
+      ins.events.each{|e| events << e} unless ins.events.blank?
+      ins.lab_rentals.each{|e| lab_rentals << e} unless ins.lab_rentals.blank? 
+    end
+    return events + lab_rentals
+  end
+
+  def self.exclude_instructor_already_assigned(event)
+    ins =    all_instructors_by_rate.joins(:events).where("events.start_date >= ? AND events.end_date <= ?",event.start_date,event.end_date).uniq.map(&:id)
+    lab =   all_instructors_by_rate.joins(:lab_rentals).where("(lab_rentals.first_day >= ? AND lab_rentals.last_day <= ?)",event.start_date, event.end_date).uniq.map(&:id)
+    all_instructor = User.all_instructors_by_rate.where.not(:id=>[ins, lab])
+    return all_instructor
+  end  
+
 
   private
 

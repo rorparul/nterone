@@ -1,0 +1,42 @@
+#lab_rentals_form.form-container
+  = form_for employment do |f|
+    - if employment.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        - employment.errors.full_messages.each do |msg|
+          p = msg
+    .row
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :start_date, t('employments.partial_form.start_date')
+          span.required *
+          br
+          = f.date_select :start_date, {}, { required: true }
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :start_time, t('employments.partial_form.start_time')
+          span.required *
+          br
+          = f.time_select :start_time, { ampm: true, default: { hour: '00', minute: '00' } }, { required: true }
+              
+    .row  
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :end_date, t('employments.partial_form.end_date')
+          span.required *
+          br
+          = f.date_select :end_date, {}, { required: true }
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :end_time, t('employments.partial_form.end_time')
+          span.required *
+          br
+          = f.time_select :end_time, { ampm: true, default: { hour: '00', minute: '00' } }, { required: true }    
+    .row
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :type, t('employments.partial_form.type')
+          = f.select :employment_type, options_for_select(["developer"]),{:include_blank => 'Please Select'}, class: 'form-control'     
+    button.btn.btn-green-gradient.element-left-side
+      = t('generic.button.save')

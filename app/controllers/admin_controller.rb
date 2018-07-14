@@ -64,15 +64,12 @@ class AdminController < ApplicationController
     if params[:origin_region].present?
       @origin_region = params[:origin_region]
     end
-
     events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
-
     unless request.format.json?
       events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
 
       events_scope = events_scope.with_students if params[:only_registered] == "1" || params[:only_registered].nil?
       events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
-
       @start_date = events_scope.minimum("events.start_date")
       @end_date   = events_scope.maximum("events.start_date")
 
@@ -105,7 +102,7 @@ class AdminController < ApplicationController
       format.html
       format.js
       format.json do
-        render json: events_scope.select { |event| event.instructor.present? }.map{ |event| { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) } }.to_json
+        render json: get_all_event(events_scope)
       end
     end
   end
@@ -152,6 +149,7 @@ class AdminController < ApplicationController
     @log = JSON.parse(cpl_get_log.body)
   end
 
+  
   private
 
   def authorize_admin
@@ -211,4 +209,21 @@ class AdminController < ApplicationController
                                                            [:author, "author"]],
                                          default_sort: { created_at: "asc" })
   end
+
+  def get_all_event(events_scope)
+    a = []
+    lab_rental = LabRental.all
+    all_event_and_rental  = events_scope + lab_rental
+    all_event_and_rental.each do |event|
+      if event.class == Event && event.instructor.present?
+        a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
+      end
+      if event.class == LabRental  && event.user.present?  && event.first_day.present? && event.last_day.present?
+        a << {'title': event.instructor_name_and_lab_course_title, 'start':  event.try(:first_day).strftime("%Y-%m-%d"),'end': event.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)' }
+      end  
+    end
+    return a.to_json
+  end  
+
+
 end

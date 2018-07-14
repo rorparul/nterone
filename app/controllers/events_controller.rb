@@ -56,6 +56,7 @@ class EventsController < ApplicationController
     @platform = Platform.find(params[:platform_id])
     @course   = Course.find(params[:course_id])
     @event    = Event.find(params[:id])
+    @all_instructor = User.exclude_instructor_already_assigned(@event)
   end
 
   def update

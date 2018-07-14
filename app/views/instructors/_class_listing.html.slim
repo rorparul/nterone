@@ -1,31 +1,33 @@
 - unless smart_listing.empty?
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        thead
-          tr
-            th.fit = smart_listing.sortable t('instructor.class_listing.headers.start_date'), :start_date
-            th.fit = smart_listing.sortable t('instructor.class_listing.headers.start_time'), :start_time
-            th.fit= t('instructor.class_listing.headers.students')
-            th.fit = smart_listing.sortable t('instructor.class_listing.headers.lab_source'), :lab_source
-            th.fit= t('instructor.class_listing.headers.actions')
-        tbody
-          - smart_listing.collection.each do |event|
-            tr
-              td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
-              td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
-              td.fit = event.student_count
-              td.fit = event.lab_source
-              td.fit
-                = link_to t('generic.action.view'), instructor_classes_show_path(event), title: t('generic.action.view_details')
-  .panel-footer
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th.fit.text-center title='Region'
+            i.fa.fa-globe aria-hidden="true"
+  
+          th.fit title="#{t('events.partial_listing.resell')}" = smart_listing.sortable "#{t('events.partial_listing.r')}", :resell
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.course')}", :course
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.start_date')}", :start_date
+          th.fit title="#{t('events.partial_listing.length')}" = t('events.partial_listing.abbr_length')
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.start_time')}", :start_time
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
+          th.fit = t('events.partial_lmisting.instructor')
+          th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.r')
+          th.fit = t('events.partial_listing.revenue')
+          th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
+          th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
+          th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
+          th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
+          th.fit colspan="5"
+
+      tbody
+        - smart_listing.collection.each do |event|
+          = render partial: 'instructors/instructor_event', locals: { event: event }
+    .table-end
+  .container-muted
     = smart_listing.paginate
     = smart_listing.pagination_per_page_links
 - else
-  .panel-table
-    .table-responsive
-      table.table.table-condensed
-        tbody
-          tr
-            td.text-center
-              = t 'generic.no_records'
+  .container-muted.text-center
+    = t('default.placeholder.no_records')
