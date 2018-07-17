@@ -129,8 +129,10 @@ class Opportunity < ActiveRecord::Base
   end
 
   def update_partner_email
-    order.referring_partner_email = email_optional
-    order.save
+    if order
+      order.referring_partner_email = email_optional
+      order.save
+    end
   end
 
   def create_order
