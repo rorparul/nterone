@@ -61,7 +61,14 @@ include Regions
     attributes :course, :instructor, :instructor_email, :location
     attributes :company => ["company.title"]
   end
+  
 
+  def instructor_name_and_lab_course_title
+    inst_details = "#{user.try(:full_name)} [#{lab_course.title}]" if user.present? && lab_course.present? 
+    inst_details = "#{inst_details} [#{user.instructor_employment_date }]" if inst_details.present? && user.employments.present?
+    return inst_details
+  end  
+ 
 	private
 
 	def count_students

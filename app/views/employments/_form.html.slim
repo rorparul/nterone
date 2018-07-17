@@ -37,6 +37,11 @@
       .col-xs-12.col-md-4
         .form-group
           = f.label :type, t('employments.partial_form.type')
-          = f.select :employment_type, options_for_select(["developer"]),{:include_blank => 'Please Select'}, class: 'form-control'     
+          = f.select :employment_type, options_for_select(["developer"],selected: f.object.employment_type),{:include_blank => 'Please Select'}, class: 'form-control'
+    .row
+      .col-xs-12.col-md-4
+        .form-group
+          = f.label :instructor, t('employments.partial_form.instructor')
+          = f.select :instructor_id, options_for_select(User.all_instructors.map{|ins| [ins.full_name, ins.id] }, selected: f.object.instructor_id),{:include_blank => 'Please Select Instructor'}, class: 'form-control'             
     button.btn.btn-green-gradient.element-left-side
       = t('generic.button.save')

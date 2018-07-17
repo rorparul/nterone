@@ -8,7 +8,8 @@
             th.fit Start Time  
             th.fit End Date
             th.fit End Time  
-            th.fit Employment Type  
+            th.fit Employment Type 
+            th.fit Instructor 
             th colspan='2'
         tbody
           - smart_listing.collection.each do |employment|
@@ -24,6 +25,8 @@
 
               td.fit
                 div = employment.employment_type if employment.employment_type
+              td.fit
+                div = employment.instructor.full_name if employment.instructor  
                     
               td.fit
                 = link_to edit_employment_path(employment) do

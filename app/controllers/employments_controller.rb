@@ -50,6 +50,6 @@ class EmploymentsController < ApplicationController
     end 
 
     def employment_params
-      params.require(:employment).permit(:start_date, :end_date, :employment_type, :start_time, :end_time)   
+      params.require(:employment).permit(:start_date, :end_date, :employment_type, :start_time, :end_time, :instructor_id)   
     end
 end

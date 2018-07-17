@@ -170,6 +170,7 @@ class User < ActiveRecord::Base
                                       foreign_key: 'employee_id'
   has_many :tasks
   has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
+  has_many :employments,              class_name: 'Employment', foreign_key: 'instructor_id'  
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
@@ -521,8 +522,21 @@ class User < ActiveRecord::Base
     lab =   all_instructors_by_rate.joins(:lab_rentals).where("(lab_rentals.first_day >= ? AND lab_rentals.last_day <= ?)",event.start_date, event.end_date).uniq.map(&:id)
     all_instructor = User.all_instructors_by_rate.where.not(:id=>[ins, lab])
     return all_instructor
-  end  
+  end 
 
+
+  def instructor_employment_date 
+    dates = self.employments.map{|emp| [emp.start_date, emp.end_date]}.uniq
+    employment_date = ""   
+    dates.each_with_index do |emp, index|
+      if index == 0
+        employment_date << "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}" 
+      else
+        employment_date << + "," + "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}"
+      end 
+    end
+    return employment_date
+  end  
 
   private
 

@@ -266,9 +266,9 @@ class Event < ActiveRecord::Base
 
   def title_with_instructor_and_state
     if state.present?
-      "#{instructor.full_name} [#{course.abbreviation}] [#{state}]"
+      "#{instructor.full_name} [#{course.abbreviation}] [#{state}] #{instructor.instructor_employment_date}"
     else
-      "#{instructor.full_name} [#{course.abbreviation}]"
+      "#{instructor.full_name} [#{course.abbreviation}] #{instructor.instructor_employment_date }"
     end
   end
 
