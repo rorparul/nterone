@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180618084814) do
+ActiveRecord::Schema.define(version: 20180714065306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,17 @@ ActiveRecord::Schema.define(version: 20180618084814) do
   end
 
   add_index "dividers", ["origin_region"], name: "index_dividers_on_origin_region", using: :btree
+
+  create_table "employments", force: :cascade do |t|
+    t.string   "string"
+    t.string   "employment_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.date     "start_date"
+    t.date     "end_date"
+  end
 
   create_table "events", force: :cascade do |t|
     t.date     "start_date"
@@ -953,10 +964,11 @@ ActiveRecord::Schema.define(version: 20180618084814) do
     t.string   "slug"
     t.string   "page_title"
     t.text     "page_description"
-    t.boolean  "satellite_viewable", default: true
+    t.boolean  "satellite_viewable",             default: true
     t.integer  "origin_region"
-    t.text     "active_regions",     default: [],    array: true
-    t.boolean  "archived",           default: false
+    t.text     "active_regions",                 default: [],    array: true
+    t.boolean  "archived",                       default: false
+    t.boolean  "display_parent_category_on_top", default: false
   end
 
   add_index "platforms", ["origin_region"], name: "index_platforms_on_origin_region", using: :btree
@@ -1270,6 +1282,8 @@ ActiveRecord::Schema.define(version: 20180618084814) do
     t.string   "sales_force_id"
     t.integer  "customer_type"
     t.decimal  "online_daily_rate",       precision: 8, scale: 2, default: 0.0
+    t.integer  "employement_type"
+    t.integer  "rating"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
