@@ -11,7 +11,7 @@
 #  instructor_phone  :string
 #  notes             :text
 #  location          :string
-#  confirmed         :boolean
+#  confirmed         :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  course            :string
@@ -22,11 +22,23 @@
 #  lab_course_id     :integer
 #  kind              :integer
 #  time_zone         :string
-#  twenty_four_hours :boolean
+#  twenty_four_hours :boolean          default(FALSE)
 #  last_day          :date
 #  level             :string
 #  origin_region     :integer
 #  active_regions    :text             default([]), is an Array
+#  setup_by          :integer
+#  tested_by         :integer
+#  number_of_pods    :integer
+#  plus_instructor   :boolean          default(FALSE)
+#  price             :decimal(8, 2)    default(0.0)
+#  po_number         :integer
+#  entered_into_crm  :boolean          default(FALSE)
+#  invoice_number    :string
+#  payment_received  :boolean          default(FALSE)
+#  poc               :string
+#  terms             :string
+#  instructor_id     :integer
 #
 # Indexes
 #
