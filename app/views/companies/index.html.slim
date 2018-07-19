@@ -22,7 +22,11 @@
 
           #filtersModal.modal tabindex="-1" role="dialog" aria-labelledby="filtersModalLabel"
             .modal-dialog
-              .panel.panel-default
+              .panel
+                .panel-heading
+                  strong.text-muted.modal-title
+                  button.close.close-filter type='button' data-dismiss='modal' aria-label='Close'
+                    span.glyphicon.glyphicon-remove aria-hidden='true'
                 .modal-body.panel-body
                   = hidden_field_tag "company[filters][escort]", value: 'escort'
 
