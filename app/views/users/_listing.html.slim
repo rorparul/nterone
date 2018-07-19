@@ -51,8 +51,8 @@ javascript:
       $(".select_all_users").prop('checked', false);
     }
 
-    if($(".all_listing .users_mass_edit_checkbox").length == $(".all_listing .users_mass_edit_checkbox:checked").length){
-      $(".all_listing .select_all_users").prop('checked', true);
+    if($(".users_mass_edit_checkbox").length == $(".users_mass_edit_checkbox:checked").length){
+      $(".select_all_users").prop('checked', true);
     }
   });
 
