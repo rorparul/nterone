@@ -109,7 +109,8 @@ class CompaniesController < ApplicationController
 	end
 
 	def create
-		@company = current_user.companies.build(company_params)
+		@company = Company.new(company_params)
+
 		if @company.save
 			flash[:success] = "Company successfully created."
       render js: "window.location = '#{request.referrer}';"
