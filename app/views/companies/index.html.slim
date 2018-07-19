@@ -71,7 +71,7 @@
                                  style: "width: 100%;"
 
                   .form-buttons
-                    button.btn.btn-default type="button" data-dismiss="modal"
+                    button.btn.btn-default.close-filter type="button" data-dismiss="modal"
                       = t('default.action.close')
 
         = link_to "#", class: "pull-right", style: "margin: 5px 12px 5px 0; text-decoration: none;", data: { toggle: "modal", target: "#filtersModal" } do
@@ -85,7 +85,6 @@ javascript:
 
   $('#export').on('click', function(e) {
     e.preventDefault();
-
     window.open(
       "#{companies_path(:format => :xlsx)}?" +
       $.param({
@@ -220,4 +219,8 @@ javascript:
     minimumInputLength: 3,
     placeholder: 'All',
     allowClear: true
+  });
+
+  $('.close-filter').on('click', function() {
+    $('#filtersModal').modal('hide');
   });
