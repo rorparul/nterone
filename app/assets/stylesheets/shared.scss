@@ -1,3 +1,14 @@
+.alert {
+  border-radius: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  .glyphicon {
+    margin-right: 5px;
+    vertical-align: -8%;
+  }
+}
+
 #banner-footer {
   background-image: image-url('shared/banner-footer.png');
   background-position: center;
@@ -243,14 +254,14 @@ header {
       }
     }
   }
-  .alert {
-    border-radius: 0;
-    margin: 0;
-    .glyphicon {
-      margin-right: 15px;
-      vertical-align: -8%;
-    }
-  }
+  // .alert {
+  //   border-radius: 0;
+  //   margin: 0;
+  //   .glyphicon {
+  //     margin-right: 15px;
+  //     vertical-align: -8%;
+  //   }
+  // }
   @media (min-width: 768px) {
     #logo {
       padding: 17px 0;

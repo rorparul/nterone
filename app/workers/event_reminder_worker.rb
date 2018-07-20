@@ -1,8 +1,5 @@
 class EventReminderWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { daily }
 
   def perform
     events = Event.remind_needed

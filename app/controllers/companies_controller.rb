@@ -22,7 +22,8 @@ class CompaniesController < ApplicationController
 			end
 
 			format.js do
-				companies_scope = @companies.where(clean_params(company_params[:filters]))
+				companies_scope = @companies
+				companies_scope = companies_scope.where(clean_params(company_params[:filters]))  if params[:company]
 				companies_scope = companies_scope.custom_search(params[:search]) if params[:search].present?
 				smart_listing_create(:companies, companies_scope,
 					partial: 'companies/listing',

@@ -11,8 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630061355) do
 
+ActiveRecord::Schema.define(version: 20180630061355) do
+  
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -333,6 +334,17 @@ ActiveRecord::Schema.define(version: 20180630061355) do
   end
 
   add_index "dividers", ["origin_region"], name: "index_dividers_on_origin_region", using: :btree
+
+  create_table "employments", force: :cascade do |t|
+    t.string   "string"
+    t.string   "employment_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.date     "start_date"
+    t.date     "end_date"
+  end
 
   create_table "events", force: :cascade do |t|
     t.date     "start_date"
