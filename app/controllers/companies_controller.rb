@@ -147,8 +147,7 @@ class CompaniesController < ApplicationController
 		companies       = Company.where(clean_params(company_params[:filters]))
     companies       = companies.custom_search(params[:search]) if params[:search].present?
     companies_count = companies.count
-
-    if companies.map {|comp| comp.update(user_id:company_params[:user_id])}
+    if companies.update_all(user_id:company_params[:user_id])
       flash[:success] = "Successfully updated #{companies_count} records."
     else
       flash[:alert] = "Failed to update #{companies_count} records."
