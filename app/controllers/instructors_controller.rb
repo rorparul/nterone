@@ -73,7 +73,7 @@ class InstructorsController < ApplicationController
       @events = smart_listing_create(:events,
         @events,
         partial: 'instructors/class_listing',
-        page_sizes: [100, 50, 10],
+        page_sizes: [10, 50, 100],
         sort_attributes: [
           [:start_date, 'start_date'],
           [:start_time, 'start_time'],
