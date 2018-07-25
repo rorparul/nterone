@@ -2,11 +2,11 @@
   .row
     .col-xs-12.col-md-8.col-md-offset-2
       - if user_signed_in? && (current_user.company || current_user.admin?)
-        = link_to employments_path do
+        = link_to resourse_events_path do
           span style='margin: 27px 0; display: inline-block;'
             i.fa.fa-chevron-left style='margin-right: 5px;'
-            | #{t('employments.new.back_to_employments')}
+            | #{t('resourse_events.new.back_to_resourse_events')}
       h4
-        strong.text-muted = t("employments.new.add_employment")
+        strong.text-muted = t("employments.edit.edit_resourse_event")
       = render partial: "form", locals: { employment: @emp }
 

@@ -29,10 +29,10 @@
                 div = employment.instructor.full_name if employment.instructor  
                     
               td.fit
-                = link_to edit_employment_path(employment) do
+                = link_to edit_resourse_event_path(employment) do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"
               td.fit
-                = link_to employment_path(employment), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do
+                = link_to resourse_event_path(employment), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do
                   i.text-danger class="fa fa-trash-o" aria-hidden="true" title="#{t('default.action.cancel')}"      
 
   .panel-footer

@@ -368,7 +368,7 @@ NterOne::Application.routes.draw do
   end
 
 
-  resources :employments
+  resources :resourse_events
 
   get  'cdl/:module_id' => 'cisco_digital_learning#show',     as: :cdl_show
   post 'cdl/callback'   => 'cisco_digital_learning#callback', as: :cdl_callback

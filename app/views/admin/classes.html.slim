@@ -20,40 +20,53 @@
           = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
 
+
       #view-filter-controls.container-muted
         = link_to t('default.action.upload'), events_upload_path, remote: true, class: 'btn btn-green-gradient list-view-element element-left-side', role: 'button'
+        ul.nav.nav-pills.permissions[style="margin-left: 50px; margin-top: -34px;"]
+          li.dropdown.resources role="presentation"
+            a.dropdown-toggle.nav-pill.btn-green-gradient data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+              | Resource Events
+              span.caret
+            ul.dropdown-menu
+                li.instructors
+                  a href="#{resourse_events_path}"
+                    | Resourse Events
 
-        = link_to 'Export', new_exports_event_path, class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button', remote: true
+          = link_to 'Export', new_exports_event_path, class: 'pull-right btn btn-green-gradient element-right-side', title: 'Export', role: 'button', remote: true
 
-        div style='display: inline-block; float: right;'
-          = smart_listing_controls_for(:events, { class: "input-search" }) do
-            .input-group.filter.element-right-side.pull-right
-              = text_field_tag :filter, '', class: "search form-control",
-                                            placeholder: t('admins.classes.search'),
-                                            autocomplete: :off
-              span class="input-group-btn"
-                button class="btn btn-default disabled" type="submit"
-                  span.glyphicon.glyphicon-search
 
-            .checkbox.pull-right style='margin: 7px 0 7px 10px;'
-              = hidden_field_tag :only_registered, '0'
-              label
-                = check_box_tag :only_registered, '1', checked: true
-                = t('admins.classes.registered')
+          div style='display: inline-block; float: right;'
+            = smart_listing_controls_for(:events, { class: "input-search" }) do
+              .input-group.filter.element-right-side.pull-right
+                = text_field_tag :filter, '', class: "search form-control",
+                                              placeholder: t('admins.classes.search'),
+                                              autocomplete: :off
+                span class="input-group-btn"
+                  button class="btn btn-default disabled" type="submit"
+                    span.glyphicon.glyphicon-search
 
-            - unless current_user.partner?
-              #end-date.list-view-element.element-right-side.pull-right
-                = date_select :date_end, :date_end,
-                  { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @end_date.try(:year), month: @end_date.try(:month), day: @end_date.try(:day) } },
-                  { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }
-              div.pull-right style='display: inline-block; margin: 6px 0 4px 10px;' -
-              #start-date.list-view-element.element-right-side.pull-right
-                = date_select :date_start, :date_start,
-                  { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
-                  { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }
+              .checkbox.pull-right style='margin: 7px 0 7px 10px;'
+                = hidden_field_tag :only_registered, '0'
+                label
+                  = check_box_tag :only_registered, '1', checked: true
+                  = t('admins.classes.registered')
 
-              #by_origin_region.pull-right.element-right-side.pull-right
-                = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region), class: 'form-control', style: 'display: inline; width: auto;'
+              - unless current_user.partner?
+                #end-date.list-view-element.element-right-side.pull-right
+                  = date_select :date_end, :date_end,
+                    { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @end_date.try(:year), month: @end_date.try(:month), day: @end_date.try(:day) } },
+                    { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }
+                div.pull-right style='display: inline-block; margin: 6px 0 4px 10px;' -
+                #start-date.list-view-element.element-right-side.pull-right
+                  = date_select :date_start, :date_start,
+                    { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
+                    { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }
+
+                #by_origin_region.pull-right.element-right-side.pull-right
+                  = select_tag :origin_region, options_for_select([["All Regions", nil]] + Event.options_for_origin_region, selected: @origin_region), class: 'form-control', style: 'display: inline; width: auto;'
+          
+           
 
       #list-view-container
         #list-view

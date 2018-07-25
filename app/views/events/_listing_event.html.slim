@@ -20,7 +20,7 @@ tr
     - else
       span.label.label-default = t('events.partial_listing.n')
   td.fit = link_to event.course.abbreviation, platform_course_path(event.course.platform, event.course)
-  td.fit = event.start_date.to_formatted_s(:rfc822) if event.start_date
+  td.fit = event.start_date.strftime("%b %d %Y") if event.start_date
   td.fit = event.length
   td.fit = event.start_time.strftime("%I:%M %p") if event.start_time
   td.fit
@@ -29,9 +29,9 @@ tr
     - else
       = event.format
   td.fit = event.instructor.full_name if event.instructor
-  td.fit = event.instructor.instructor_employment_date  if event.instructor.present? &&  event.instructor.employments
   td.fit = event.student_count
-  td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
+  - unless (controller_name.eql?("lab_rentals")&& action_name.eql?("index"))
+    td.fit = "$#{number_with_delimiter(number_with_precision(event.revenue, precision: 2))}"
   td.fit = event.lab_source
   td.fit
     - if event.public
@@ -48,9 +48,10 @@ tr
       span.label.label-success = t('events.partial_listing.y')
     - else
       span.label.label-default = t('events.partial_listing.n')
-  td.fit
-    = link_to admin_classes_show_path(event), target: '_blank', title: t('events.partial_listing.view') do
-      i class="fa fa-eye" aria-hidden="true"
+  - unless (controller_name.eql?("lab_rentals")&& action_name.eql?("index"))
+    td.fit
+      = link_to admin_classes_show_path(event), target: '_blank', title: t('events.partial_listing.view') do
+        i class="fa fa-eye" aria-hidden="true"
   td.fit
     = form_for :order_item, url: get_link_order_items_path, remote: true do |f|
       = f.hidden_field :event_id, value: event.id

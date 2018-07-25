@@ -11,7 +11,7 @@
 #  instructor_phone  :string
 #  notes             :text
 #  location          :string
-#  confirmed         :boolean          default(FALSE)
+#  confirmed         :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  course            :string
@@ -22,23 +22,11 @@
 #  lab_course_id     :integer
 #  kind              :integer
 #  time_zone         :string
-#  twenty_four_hours :boolean          default(FALSE)
+#  twenty_four_hours :boolean
 #  last_day          :date
 #  level             :string
 #  origin_region     :integer
 #  active_regions    :text             default([]), is an Array
-#  setup_by          :integer
-#  tested_by         :integer
-#  number_of_pods    :integer
-#  plus_instructor   :boolean          default(FALSE)
-#  price             :decimal(8, 2)    default(0.0)
-#  po_number         :integer
-#  entered_into_crm  :boolean          default(FALSE)
-#  invoice_number    :string
-#  payment_received  :boolean          default(FALSE)
-#  poc               :string
-#  terms             :string
-#  instructor_id     :integer
 #
 # Indexes
 #
@@ -70,8 +58,9 @@ class LabRental < ActiveRecord::Base
 	after_save :count_students, if: Proc.new { |model| model.kind == 2 && model.level == "partner" }
 
 	search_scope :custom_search do
-    attributes :course, :instructor, :instructor_email, :location
-    attributes :company => ["company.title"]
+    attributes :course, :instructor, :instructor_email, :location 
+    # attributes :company => ["company.title"]
+    attributes :lab_course => ["lab_course.pods_individual"]
   end
 
   def instructor_name_and_lab_course_title
