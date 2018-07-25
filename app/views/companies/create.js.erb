@@ -1,0 +1,3 @@
+$('tbody#companies').prepend("<%= escape_javascript(render partial: 'company', locals: { company: @company }) %>");
+$("#company-<%= @company.id %>").addClass('success');
+$('#myModal').modal('hide');
