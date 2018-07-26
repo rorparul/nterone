@@ -12,7 +12,7 @@
             th.fit
               = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
             th.fit 
-              = smart_listing.sortable t('lab_rentals.partial_listing.lab_course.pods_individual'), :pods_individual  
+              = smart_listing.sortable 'Pod Individual', :pods_individual  
 
             th.fit
               = smart_listing.sortable 'Date', :first_day

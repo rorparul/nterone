@@ -16,7 +16,7 @@
           th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
           th.fit = t('events.partial_lmisting.instructor')
           th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.r')
-          - unless (controller_name.eql?("lab_rentals")&& action_name.eql?("index"))
+          - unless params["view_type"].eql?("lab_classes_list_view")
             th.fit = t('events.partial_listing.revenue')
           th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
           th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public

@@ -28,6 +28,7 @@ class LabRentalsController < ApplicationController
       sort_attributes: [[:course, "course"],
 			[:company, "companies.title"],
 			[:num_of_students, "num_of_students"],
+      [:lab_course, "lab_courses.pods_individual"],
 			[:first_day, "first_day"],
 			[:instructor, "instructor"],
 			[:location, "location"],
@@ -36,45 +37,6 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
-    @start_date = Date.parse params[:date_start].values.join("-") if params[:date_start]
-    @end_date   = Date.parse params[:date_end].values.join("-")   if params[:date_end]
-
-    @start_date = Date.parse params[:start] if params[:start]
-    @end_date   = Date.parse params[:end]   if params[:end]
-
-    if params[:origin_region].present?
-      @origin_region = params[:origin_region]
-    end
-    events_scope = (@start_date && @end_date) ? Event.unscoped.includes(:course).where(start_date: [@start_date..@end_date]) : Event.unscoped.includes(:course).upcoming_events
-    unless request.format.json?
-      events_scope = events_scope.where(origin_region: @origin_region) if @origin_region
-
-      events_scope = events_scope.with_students if params[:only_registered] == "1" || params[:only_registered].nil?
-      events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
-      @start_date = events_scope.minimum("events.start_date")
-      @end_date   = events_scope.maximum("events.start_date")
-
-      @queried_events = events_scope
-
-      @events = smart_listing_create(:events,
-                                     events_scope,
-                                     partial: "events/listing",
-                                     page_sizes: [100, 50, 10],
-                                     sort_attributes: [[:start_date, "start_date"],
-                                                       [:course, "courses.abbreviation"],
-                                                       [:id, "id"],
-                                                       [:status, "status"],
-                                                       [:resell, "Resell"],
-                                                       [:start_time, "start_time"],
-                                                       [:end_time, "end_time"],
-                                                       [:format, "format"],
-                                                       [:lab_source, "lab_source"],
-                                                       [:public, "public"],
-                                                       [:guaranteed, "guaranteed"],
-                                                       [:status, "Status"]],
-                                     default_sort: { start_date: "asc", course: "asc" })  
-    end
-
   end
 
   def show

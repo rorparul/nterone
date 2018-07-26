@@ -20,8 +20,11 @@
         li role="presentation" title='List View'
           = link_to "javascript:void(0)", id: 'list-view-classes' do    
             span.glyphicon.glyphicon-th-list
+        li role="presentation" title='Calendar View'
+          = link_to "javascript:void(0)", id: 'btn-calender-view-classes', data: { load_calander: "true" } do
+            span.glyphicon.glyphicon-calendar   
       div.classes_view
-        #view-filter-controls.container-muted.lab_rental_view
+        #view-filter-controls.container-muted
           = link_to t('default.action.new'), new_lab_rental_path, class: 'btn btn-green-gradient element-left-side', role: 'button'
           = smart_listing_controls_for(:lab_rentals, { class: 'form-inline' }) do
             .filter.hide
@@ -54,6 +57,7 @@
                                                  data: { linked: '#date_end' },
                                                  placeholder: t('default.placeholder.end_date'),
                                                  autocomplete: :off
+        
         #list-view-container
           #list-view
             = smart_listing_render(:lab_rentals)
@@ -61,37 +65,95 @@
         #calendar-view-container
           i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
           #calendar-view
+            
 
-        #classes-list-view-container
-          #list-view
+        #classes-calendar-view-container
+          i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+          #calendar-view2    
             
 
 javascript:
   $('.permissions .lab-rentals').addClass('active');
 
   $("#calendar-view-container").addClass('hidden');
+  $("#classes-calendar-view-container").addClass('hidden');
 
   $("#list-view-classes").click(function(){
     $("#list-view-classes").parent().addClass('active')
     $("#btn-list-view").parent().removeClass('active');
     $("#btn-calender-view").parent().removeClass('active');
+    $("#btn-calender-view-classes").parent().removeClass('active')
     
     $("#list-view-container").addClass('hidden');
     $("#calendar-view-container").addClass('hidden');
-    $("#classes-list-view-container").removeClass('hidden')
-    $(".lab_rental_view").hide()
-  })
+    $("#classes-list-view-container").removeClass('hide');
+    $("#view-filter-controls").addClass("hidden")
+    $("#classes-calendar-view-container").addClass("hidden");
+    $.ajax({
+      type: "GET",
+      url: "/admin/classes",
+      data: {view_type : "lab_classes_list_view"},
+      dataType: "script"
+    });
+  });
+
   $("#btn-list-view").on('click', function() {
     $("#btn-list-view").parent().addClass('active');
     $("#btn-calender-view").parent().removeClass('active');
     
     $("#list-view-classes").parent().removeClass('active')
+    $("#btn-calender-view-classes").parent().removeClass('active')
 
     $("#list-view-container").removeClass('hidden');
     $("#calendar-view-container").addClass('hidden');
-    $("#classes-list-view-container").addClass('hidden')
-    $('#view-filter-controls').removeClass('hidden');
-    $(".lab_rental_view").show()
+    $("#classes-list-view-container").addClass('hide');
+    $("#view-filter-controls").removeClass("hidden");
+    $("#classes-calendar-view-container").addClass("hidden");
+    location.reload();
+  });
+  $("#btn-calender-view-classes").on('click', function() {
+    $("#btn-calender-view-classes").parent().addClass('active');
+    $("#btn-list-view").parent().removeClass('active');
+    $("#btn-calender-view").parent().removeClass('active');
+    $("#list-view-classes").parent().removeClass('active');
+
+    $("#view-filter-controls").addClass('hidden');
+    $("#calendar-view-container").addClass('hidden');
+    $("#classes-list-view-container").addClass('hide');
+    $("#list-view-container").addClass('hidden');
+    $("#classes-calendar-view-container").removeClass('hidden')
+    if($(this).data("loadCalander") == true){
+      $('#calendar-view2').fullCalendar({
+        events: '/admin/classes.json',
+        loading: function(isLoading, view) {
+            if(isLoading) {
+              $(".calander_loading").removeClass('hidden');
+            } else {
+              $(".calander_loading").addClass('hidden');
+            }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
+        }
+      })
+      $(this).data("loadCalander", false)
+    }
   });
 
- 
+  $("#btn-calender-view").on('click', function() {
+     $("#btn-calender-view").parent().addClass('active')
+      $("#btn-list-view").parent().removeClass('active');
+      $("#btn-calender-view-classes").parent().removeClass('active')
+      $("#list-view-classes").parent().removeClass('active')
+
+      $("#view-filter-controls").addClass('hidden');
+      $("#calendar-view-container").removeClass('hidden');
+      $("#list-view-container").addClass('hidden');
+      $("#classes-list-view-container").addClass('hide'); 
+      $("#classes-calendar-view-container").addClass("hidden");
+  });
+  
+

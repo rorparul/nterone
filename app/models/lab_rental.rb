@@ -59,8 +59,7 @@ class LabRental < ActiveRecord::Base
 
 	search_scope :custom_search do
     attributes :course, :instructor, :instructor_email, :location 
-    # attributes :company => ["company.title"]
-    attributes :lab_course => ["lab_course.pods_individual"]
+    attributes :company => ["company.title"]
   end
 
   def instructor_name_and_lab_course_title
