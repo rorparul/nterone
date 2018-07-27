@@ -37,6 +37,13 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
+    respond_to do |format|
+      format.html
+      format.js
+      format.json do
+        render json: get_all_lab_rental(lab_rentals_scope)
+      end
+    end
   end
 
   def show
@@ -194,4 +201,15 @@ class LabRentalsController < ApplicationController
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end
+
+  def get_all_lab_rental(lab_rentals_scope)
+    a = []
+    lab_rentals_scope.each do |lab_rental|
+      if lab_rental.class == LabRental  && lab_rental.user.present?  && lab_rental.first_day.present? && lab_rental.last_day.present?
+        a << {'title': lab_rental.instructor_name_and_lab_course_title, 'start':  lab_rental.try(:first_day).strftime("%Y-%m-%d"),'end': lab_rental.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)' }
+      end
+    end
+    return a.to_json
+  end  
+
 end

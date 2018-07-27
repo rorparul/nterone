@@ -24,52 +24,9 @@
           = link_to "javascript:void(0)", id: 'btn-calender-view-classes', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar   
       div.classes_view
-        #view-filter-controls.container-muted
-          = link_to t('default.action.new'), new_lab_rental_path, class: 'btn btn-green-gradient element-left-side', role: 'button'
-          = smart_listing_controls_for(:lab_rentals, { class: 'form-inline' }) do
-            .filter.hide
-              = text_field_tag :date_start
-              = text_field_tag :date_end
-
-            .input-group.element-right-side
-              = text_field_tag :filter, '', class: 'search form-control',
-                                            placeholder: t('default.action.search'),
-                                            autocomplete: :off
-              span.input-group-btn
-                button.btn.btn-default.disabled type='submit'
-                  span.glyphicon.glyphicon-search
-
-          .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
-            .input-group
-              span.input-group-btn
-                = text_field_tag :_date_start, '', class: 'search form-control element-right-side',
-                                                   style: 'border-radius: 4px;',
-                                                   data: { linked: '#date_start' },
-                                                   placeholder: t('default.placeholder.start_date'),
-                                                   autocomplete: :off
-
-            div style='display: inline-block; margin: 6px 0 4px 10px;' -
-
-            .input-group
-              span.input-group-btn
-                = text_field_tag :_date_end, '', class: 'search form-control element-right-side',
-                                                 style: 'border-radius: 4px;',
-                                                 data: { linked: '#date_end' },
-                                                 placeholder: t('default.placeholder.end_date'),
-                                                 autocomplete: :off
+        = render partial: 'lab_rental_filter'
         
-        #list-view-container
-          #list-view
-            = smart_listing_render(:lab_rentals)
-
-        #calendar-view-container
-          i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
-          #calendar-view
-            
-
-        #classes-calendar-view-container
-          i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
-          #calendar-view2    
+        
             
 
 javascript:
@@ -122,7 +79,6 @@ javascript:
     $("#classes-list-view-container").addClass('hide');
     $("#list-view-container").addClass('hidden');
     $("#classes-calendar-view-container").removeClass('hidden')
-    if($(this).data("loadCalander") == true){
       $('#calendar-view2').fullCalendar({
         events: '/admin/classes.json',
         loading: function(isLoading, view) {
@@ -139,6 +95,7 @@ javascript:
           }
         }
       })
+    if($(this).data("loadCalander") == true){
       $(this).data("loadCalander", false)
     }
   });
@@ -154,6 +111,27 @@ javascript:
       $("#list-view-container").addClass('hidden');
       $("#classes-list-view-container").addClass('hide'); 
       $("#classes-calendar-view-container").addClass("hidden");
+
+      $('#calendar-view').fullCalendar({
+        events: '/lab-reservations.json',
+        loading: function(isLoading, view) {
+            if(isLoading) {
+              $(".calander_loading").removeClass('hidden');
+            } else {
+              $(".calander_loading").addClass('hidden');
+            }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
+        }
+      })
+      if($(this).data("loadCalander") == true){
+        $(this).data("loadCalander", false)
+      }
   });
   
+ 
 
