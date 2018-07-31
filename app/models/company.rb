@@ -59,7 +59,6 @@ class Company < ActiveRecord::Base
 
   search_scope :custom_search do
     attributes :title, :industry_code
-    attributes :user => ['user.first_name', 'user.last_name', 'user.email']
   end
 
   def full_address
