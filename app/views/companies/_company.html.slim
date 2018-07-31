@@ -1,0 +1,8 @@
+tr id="company-#{company.id}"
+  td.title = link_to company.title, company_path(company)
+  td.count = company.users.count
+  td.website = link_to 'Visit', url_with_protocol(company.website) if company.website.present?
+  td.owner = company.user.try(:full_name)
+  td.fit = link_to t('default.action.merge'), merge_company_path(company), remote: true, class: 'text-warning'
+  td.fit = link_to t('default.action.edit'), edit_company_path(company), remote: true, class: 'text-warning'
+  td.fit = link_to t('default.action.destroy'), company_path(company), method: :delete, remote: true, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'

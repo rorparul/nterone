@@ -218,7 +218,7 @@ class Order < ActiveRecord::Base
     return unless seller
 
     order_items.where(orderable_type: 'Event').each do |item|
-      RegistrationMailer.registration_made(seller, buyer, item.orderable).deliver_now
+      RegistrationMailer.registration_made(seller, buyer, item.orderable, self).deliver_now
     end
   end
 

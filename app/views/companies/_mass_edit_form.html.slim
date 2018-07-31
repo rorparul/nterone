@@ -15,6 +15,7 @@ javascript:
   $('#mass-update').on('click', function() {
     $.ajax({
       type: "POST",
+      dataType: 'script',
       url: "#{mass_update_companies_path(type: @type)}",
       data: $.param({
         "company[user_id]": $('#company_user_id').val(),

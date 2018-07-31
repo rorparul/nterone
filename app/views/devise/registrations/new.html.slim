@@ -14,7 +14,7 @@
     br
   = f.password_field :password,              autocomplete: "off", placeholder: t('default.label.password'),         class: 'form-control sign-in-field session-input', id: 'password',         required: true
   = f.password_field :password_confirmation, autocomplete: "off", placeholder: t('default.label.password_confirmation'), class: 'form-control sign-in-field session-input', id: 'confirm-password', required: true
-  #instructions
+  #instructions style="margin-bottom: 12px;"
     = t('devise.registrations.new.instructions')
 
   - if @special_event || resource.interest
