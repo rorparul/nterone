@@ -1,27 +1,84 @@
-.nested-fields
+.nested-fields.check
   .form-group
     = f.select :course_id, grouped_options_for_select(grouped_courses_options(courses_for_select), f.object.course_id),
           { include_blank: t('companies.partial_form.dropdown') },
           { class: 'search-select course-select form-control' }
-  .form-group  
+  .form-group.audit_checked  
     label
       = t('users.partial_form.audit_complete')
     .form-group
-      = f.check_box :audit_complete
-  .form-group
+      = f.check_box :audit_complete, class: "checklists_by_audit"
+      = f.hidden_field :audit_complete_by_user, class: "audit_complete", data: "#{current_user.first_name[0]} #{current_user.last_name[0]}" 
+      = f.hidden_field :audit_complete_by_date, class: "audit_date"
+    div.audit_detail
+      - if f.object.audit_complete_by_user && f.object.audit_complete_by_date
+        = "#{f.object.audit_complete_by_user}   #{f.object.audit_complete_by_date.strftime("%m/%d/%y")}"   
+  .form-group.lab_complete
     label
       = t('users.partial_form.completed_all_labs')
     .form-group  
-      = f.check_box :completed_all_labs
-  .form-group
+      = f.check_box :completed_all_labs, class: "checklists_completed_all_labs"
+      = f.hidden_field :completed_all_labs_by_user, class: "completed_lab_by_user", data: "#{current_user.first_name[0]} #{current_user.last_name[0]}" 
+      = f.hidden_field :completed_all_labs_by_date, class: "complete_by_date"
+    div.lab_complete_detail 
+      - if f.object.completed_all_labs_by_user && f.object.completed_all_labs_by_date
+        = "#{f.object.completed_all_labs_by_user}   #{f.object.completed_all_labs_by_date.strftime("%m/%d/%y")}"   
+  .form-group.course_director_met
     label
       = t('users.partial_form.met_with_course_director')
     .form-group
-      = f.check_box :met_with_course_director    
-
+      = f.check_box :met_with_course_director, class: "checklists_met_with_course_director"
+      = f.hidden_field :met_with_course_director_by, class: "cd_met_by_user", data: "#{current_user.first_name[0]} #{current_user.last_name[0]}" 
+      = f.hidden_field :met_with_course_director_by_date, class: "cd_met_by_date" 
+    div.course_director_details
+      - if f.object.met_with_course_director_by && f.object.completed_all_labs_by_date
+        = "#{f.object.met_with_course_director_by}   #{f.object.met_with_course_director_by_date.strftime("%m/%d/%y")}"         
   = link_to_remove_association "Remove Course", f
 
 javascript:
   $('.search-select').select2({
     theme: "bootstrap"
   });
+
+  $(".nested-fields.check").each(function(){
+    date = new Date
+    month = date.getMonth()
+    day = date.getDate()
+    year = date.getFullYear()
+    date_formate =  month + "/" + day + "/" + year 
+    $(".checklists_by_audit").change(function(){
+      if ($(this).is(":checked") && $(this).attr('class')=="checklists_by_audit" ){
+        $(this).closest('div.audit_checked').find(".audit_complete").val($(".audit_complete").attr("data"))
+        $(this).closest('div.audit_checked').find(".audit_date").val(new Date)
+        $(this).closest('div.audit_checked').find(".audit_detail").html( $(".audit_complete").attr("data") + " " +date_formate)
+      }else{
+        $(this).closest('div.audit_checked').find(".audit_complete").val("")
+        $(this).closest('div.audit_checked').find(".audit_date").val("")
+        $(this).closest('div.audit_checked').find(".audit_detail").html("")
+      }
+    })
+    $(".checklists_completed_all_labs").change(function(){
+      if($(this).is(":checked") && $(this).attr('class')=="checklists_completed_all_labs"){
+        $(this).closest('div.lab_complete').find(".completed_lab_by_user").val($(".completed_lab_by_user").attr("data"))
+        $(this).closest('div.lab_complete').find(".complete_by_date").val(new Date)
+        $(this).closest('div.lab_complete').find(".lab_complete_detail").html($(".completed_lab_by_user").attr("data") + " " +date_formate)
+
+      }else{
+        $(this).closest('div.lab_complete').find(".completed_lab_by_user").val("")
+        $(this).closest('div.lab_complete').find(".complete_by_date").val("")
+        $(this).closest('div.lab_complete').find(".lab_complete_detail").html("")
+      }
+    })
+    $(".checklists_met_with_course_director").change(function(){
+      if ($(this).is(":checked") && $(this).attr('class')=="checklists_met_with_course_director" ){
+        $(this).closest('div .course_director_met').find(".cd_met_by_user").val($(".cd_met_by_user").attr("data"))
+        $(this).closest('div .course_director_met').find(".cd_met_by_date").val(new Date)
+        $(this).closest('div .course_director_met').find(".course_director_details").html($(".cd_met_by_user").attr("data") + " " +date_formate)
+      }
+      else{
+        $(this).closest('div .course_director_met').find(".cd_met_by_user").val("")
+        $(this).closest('div .course_director_met').find(".cd_met_by_date").val("")
+        $(this).closest('div .course_director_met').find(".course_director_details").html("")
+      }
+    })
+  })

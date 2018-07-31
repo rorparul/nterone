@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      if @user.update_attributes(user_params) 
         format.html do
           flash[:success] = 'User successfully updated!'
           redirect_to :back
@@ -263,7 +263,7 @@ class UsersController < ApplicationController
         :role,
         :_destroy
       ],
-      chosen_courses_attributes: [:id, :course_id, :audit_complete,:completed_all_labs,:met_with_course_director, :_destroy]
+      chosen_courses_attributes: [:id, :course_id, :audit_complete,:completed_all_labs,:met_with_course_director, :audit_complete_by_user,:audit_complete_by_date,:completed_all_labs_by_user,:completed_all_labs_by_date,:met_with_course_director_by,:met_with_course_director_by_date, :_destroy]
     )
   end
 
