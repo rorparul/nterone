@@ -2,18 +2,19 @@
 #
 # Table name: platforms
 #
-#  id                 :integer          not null, primary key
-#  title              :string
-#  created_at         :datetime
-#  updated_at         :datetime
-#  url                :string
-#  slug               :string
-#  page_title         :string
-#  page_description   :text
-#  satellite_viewable :boolean          default(TRUE)
-#  origin_region      :integer
-#  active_regions     :text             default([]), is an Array
-#  archived           :boolean          default(FALSE)
+#  id                             :integer          not null, primary key
+#  title                          :string
+#  created_at                     :datetime
+#  updated_at                     :datetime
+#  url                            :string
+#  slug                           :string
+#  page_title                     :string
+#  page_description               :text
+#  satellite_viewable             :boolean          default(TRUE)
+#  origin_region                  :integer
+#  active_regions                 :text             default([]), is an Array
+#  archived                       :boolean          default(FALSE)
+#  display_parent_category_on_top :boolean          default(FALSE)
 #
 # Indexes
 #

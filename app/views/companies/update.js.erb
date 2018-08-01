@@ -1,0 +1,3 @@
+$("#company-<%= @company.id %>").replaceWith("<%= escape_javascript(render partial: 'company', locals: { company: @company }) %>");
+$("#company-<%= @company.id %>").addClass('warning');
+$('#myModal').modal('hide');
