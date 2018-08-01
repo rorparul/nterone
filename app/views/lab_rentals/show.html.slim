@@ -1,0 +1,10 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      = render partial: 'show', locals: { lab_rental: @lab_rental }
+
+
+javascript:
+  $('.permissions .lab-rentals').addClass('active');

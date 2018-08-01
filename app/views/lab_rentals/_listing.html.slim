@@ -5,7 +5,7 @@
         thead
           tr
             th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
+              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course  
             - if current_user.admin?
               th.fit
                 = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
@@ -69,6 +69,10 @@
               td.fit style="text-align: center;"
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
+              td.fit
+                = link_to lab_rental_path(rental), target: '_blank', title:   t('events.partial_listing.view') do
+                  i class="fa fa-eye" aria-hidden="true"  
+                      
               td.fit
                 = link_to edit_lab_rental_path(rental) do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"

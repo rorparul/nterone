@@ -1,0 +1,104 @@
+.container
+  .row
+    .col-xs-12
+      h4
+      .container-muted
+        = link_to t('default.action.edit'), edit_lab_rental_path(lab_rental), class: 'btn btn-default element-left-side'
+      .col-xs-12.col-md-6.table-col
+        .table-responsive
+          table#table-event-details.table.table-condensed
+            tbody
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.first_day')
+                td = lab_rental.first_day.to_formatted_s(:rfc822) if lab_rental.first_day
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.last_day')
+                td = lab_rental.last_day.to_formatted_s(:rfc822) if lab_rental.last_day 
+
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.start_time')
+                td = lab_rental.start_time.strftime("%I:%M %p") if lab_rental.start_time
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.end_time')
+                td = lab_rental.end_time.strftime("%I:%M %p") if lab_rental.end_time  
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.num_of_students')
+                td = lab_rental.num_of_students if lab_rental.num_of_students
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.instructor')
+                td = lab_rental.instructor.to_formatted_s(:rfc822) if lab_rental.instructor
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.instructor_email')
+                td = lab_rental.instructor.to_formatted_s(:rfc822) if lab_rental.instructor_email
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.instructor_phone')
+                td = lab_rental.instructor_phone if lab_rental.instructor_phone
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.confirmed')
+                td = lab_rental.confirmed ? t('lab_rentals.partial_show.affirmative') : t('lab_rentals.partial_show.unconfirmed')
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.origin_region')
+                td = lab_rental.origin_region.gsub("-","").humanize if lab_rental.origin_region.present?  
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.active_regions')
+                td
+                  - lab_rental.active_regions.each do |active_region|
+                    - if active_region == 'united_states'
+                      = flag_icon(:us, id: 'my-flag', class: 'strong', title: 'United States')
+                    - elsif active_region == 'latin_america'
+                      = flag_icon(:do, id: 'my-flag', class: 'strong', title: 'Latin America')
+                    - elsif active_region == 'canada'
+                      = flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
+                    - elsif active_region == 'india'
+                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')                         
+
+                  
+
+      .col-xs-12.col-md-6.table-col
+        .responsive-table
+          table#table-event-details.table.table-condensed
+            tbody
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.notes')
+                td = lab_rental.notes if lab_rental.notes 
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.company')
+                td = lab_rental.company.title if lab_rental.company                   
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.course')
+                td = lab_rental.course if lab_rental.course 
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.time_zone')
+                td = lab_rental.time_zone if lab_rental.time_zone                 
+                  
+              

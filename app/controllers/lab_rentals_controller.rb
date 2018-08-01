@@ -52,9 +52,7 @@ class LabRentalsController < ApplicationController
       render 'show_note'
     elsif params[:show] == 'students'
       @lab_students = @lab_rental.lab_students
-      render 'show_lab_students'
-    else
-      render nothing: true
+      render 'show_lab_students' 
     end
   end
 
