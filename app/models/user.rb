@@ -78,6 +78,8 @@
 #  sales_force_id          :string
 #  customer_type           :integer
 #  online_daily_rate       :decimal(8, 2)    default(0.0)
+#  employement_type        :integer
+#  rating                  :integer
 #
 # Indexes
 #
@@ -93,6 +95,7 @@
 #
 #  fk_rails_...  (company_id => companies.id)
 #
+
 require 'roo'
 class User < ActiveRecord::Base
   extend ActsAsTree::TreeView
