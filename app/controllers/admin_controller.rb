@@ -72,7 +72,6 @@ class AdminController < ApplicationController
       events_scope = events_scope.custom_search(params[:filter]) if params[:filter]
       @start_date = events_scope.minimum("events.start_date")
       @end_date   = events_scope.maximum("events.start_date")
-
       @queried_events = events_scope
       @events = smart_listing_create(:events,
                                      events_scope,
@@ -211,15 +210,11 @@ class AdminController < ApplicationController
 
   def get_all_event(events_scope)
     a = []
-    lab_rental = LabRental.all
     resourse_events = ResourseEvent.all
-    all_event_and_rental  = events_scope + lab_rental + resourse_events
-    all_event_and_rental.each do |event|
+    all_event_and_resource_events  = events_scope + resourse_events
+    all_event_and_resource_events.each do |event|
       if event.class == Event && event.instructor.present?
         a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
-      end
-      if event.class == LabRental  && event.user.present?  && event.first_day.present? && event.last_day.present?
-        a << {'title': event.instructor_name_and_lab_course_title, 'start':  event.try(:first_day).strftime("%Y-%m-%d"),'end': event.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)' }
       end
       if event.class == ResourseEvent && event.instructor.present?
         a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 188, 140)'}  

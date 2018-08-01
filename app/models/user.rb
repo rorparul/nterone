@@ -514,12 +514,10 @@ class User < ActiveRecord::Base
 
   def self.instructor_events_and_lab_rentals(instructors)
     events = []
-    lab_rentals = []
     instructors.includes(:events, :lab_rentals).each do |ins|
       ins.events.each{|e| events << e} unless ins.events.blank?
-      ins.lab_rentals.each{|e| lab_rentals << e} unless ins.lab_rentals.blank? 
     end
-    return events + lab_rentals
+    return events
   end
 
   def self.exclude_instructor_already_assigned(event)

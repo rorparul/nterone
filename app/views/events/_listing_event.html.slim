@@ -59,9 +59,10 @@ tr
   td.fit
     = link_to new_order_path(event: event.id), title: t('events.partial_listing.register_student'), remote: true do
       i.fa.fa-plus.text-success aria-hidden="true"
-  td.fit
-    = link_to edit_platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.edit'), remote: true do
-      i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+  - unless params["view_type"].eql?("lab_classes_list_view")   
+    td.fit
+      = link_to edit_platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.edit'), remote: true do
+        i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
   td.fit
     = link_to platform_course_event_path(event.course.platform, event.course, event), title: t('events.partial_listing.delete'), method: :delete, data: { confirm: t('events.partial_listing.delete') } do
       i.text-danger class="fa fa-trash-o" aria-hidden="true"

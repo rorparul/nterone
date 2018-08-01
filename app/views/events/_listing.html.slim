@@ -31,7 +31,8 @@
               td(style="background-color: #D5DDF2;" colspan=12)
                 strong = date_str
               td(style="background-color: #D5DDF2;" colspan=12)
-                strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
+                - unless params["view_type"].eql?("lab_classes_list_view")
+                  strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
             - events.each do |event|
               = render partial: 'events/listing_event', locals: { event: event }
         - else

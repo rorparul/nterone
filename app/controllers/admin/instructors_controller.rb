@@ -53,9 +53,6 @@ class Admin::InstructorsController < ApplicationController
       if event.class == Event && event.instructor.present?
         a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
       end
-      if event.class == LabRental  && event.user.present?
-        a << {'title': event.instructor_name_and_lab_course_title, 'start':  event.try(:first_day).strftime("%Y-%m-%d"),'end': event.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)' }
-      end  
     end
     return a.to_json 
   end  
