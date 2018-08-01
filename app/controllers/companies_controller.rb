@@ -112,8 +112,8 @@ class CompaniesController < ApplicationController
 		@company = Company.new(company_params)
 
 		if @company.save
-			flash[:success] = "Company successfully created."
-      render js: "window.location = '#{request.referrer}';"
+			# flash[:success] = "Company successfully created."
+      # render js: "window.location = '#{request.referrer}';"
 		else
 			render 'shared/new'
 		end
@@ -121,20 +121,20 @@ class CompaniesController < ApplicationController
 
 	def update
 		if @company.update(company_params)
-			flash[:success] = "Company successfully updated."
-			redirect_to :back
+			# flash[:success] = "Company successfully updated."
+			# render js: "window.location = '#{request.referrer}';"
 		else
-			render 'edit'
+			render 'shared/edit'
 		end
 	end
 
   def destroy
     if @company.destroy
-      flash[:success] = "Company successfully deleted."
+      # flash[:success] = "Company successfully deleted."
     else
-      flash[:alert] = "Company failed to delete!"
+      # flash[:alert] = "Company failed to delete!"
     end
-    redirect_to :back
+    # redirect_to :back
   end
 
 	def pluck
@@ -148,8 +148,7 @@ class CompaniesController < ApplicationController
 		companies       = Company.where(clean_params(company_params[:filters]))
     companies       = companies.custom_search(params[:search]) if params[:search].present?
     companies_count = companies.count
-
-    if companies.update_all(user_id: company_params[:user_id])
+    if companies.update_all(user_id:company_params[:user_id])
       flash[:success] = "Successfully updated #{companies_count} records."
     else
       flash[:alert] = "Failed to update #{companies_count} records."
