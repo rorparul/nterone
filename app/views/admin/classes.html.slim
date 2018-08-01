@@ -1,11 +1,12 @@
-- if policy(:class).report?
-  - content_for :actions do
-    li = link_to t('default.partial_tabs.checklists'), admin_checklists_path
-    hr
+- content_for :actions do
+  li = link_to t('default.partial_tabs.checklists'), admin_checklists_path
+  - if current_user.admin?
+    li = link_to 'Resource Events', resourse_events_path
+  - if policy(:class).report?
     li = link_to t('admins.classes.commissions_report'), new_reports_commission_path, remote: true
-    - if current_user.admin?
-      li = link_to t('admins.classes.profits_report'), new_reports_profit_sheet_path, remote: true
-      li = link_to t('admins.classes.utilization_report'), new_reports_instructor_utilization_path, remote: true
+  - if current_user.admin?
+    li = link_to t('admins.classes.profits_report'), new_reports_profit_sheet_path, remote: true
+    li = link_to t('admins.classes.utilization_report'), new_reports_instructor_utilization_path, remote: true
 
 = render 'layouts/tabs'
 
@@ -13,22 +14,23 @@
   .row
     .col-xs-12
       ul.nav.nav-tabs style='margin-bottom: 10px;'
-        li.active role="presentation" title='List View'
+        li.active role="presentation" title='Classes List'
           = link_to "javascript:void(0)", id: 'btn-list-view' do
             span.glyphicon.glyphicon-th-list
-        li role="presentation" title='Calendar View'
+        li role="presentation" title='Classes &amp; Resource Events Calendar'
           = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
-        li role="presentation" title='Calendar View'
+            |  Classes & Resource Events
+        li role="presentation" title='Labs Calendar'
           = link_to "javascript:void(0)", id: 'btn-calender-view-lab', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
-
+            |  Labs
 
       = render partial: 'admin/view_filter'
 
       #lab-calendar-view-container.hidden
         i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
-        #calendar-view-lab-calendar     
+        #calendar-view-lab-calendar
 
   .row
     .col-xs-12.text-center

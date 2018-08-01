@@ -10,24 +10,23 @@
   .row
     .col-xs-12
       ul.nav.nav-tabs style='margin-bottom: 10px;'
-        li.active role="presentation" title='List View'
+        li.active role="presentation" title='Labs List'
           = link_to "javascript:void(0)", id: 'btn-list-view' do
             span.glyphicon.glyphicon-th-list
-        li role="presentation" title='Calendar View'
+        li role="presentation" title='Labs Calendar'
           = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
-
-        li role="presentation" title='List View'
-          = link_to "javascript:void(0)", id: 'list-view-classes' do    
+            |  Labs
+        li role="presentation" title='Classes List'
+          = link_to "javascript:void(0)", id: 'list-view-classes' do
             span.glyphicon.glyphicon-th-list
-        li role="presentation" title='Calendar View'
+            |  Classes
+        li role="presentation" title='Classes &amp; Resource Events Calendar'
           = link_to "javascript:void(0)", id: 'btn-calender-view-classes', data: { load_calander: "true" } do
-            span.glyphicon.glyphicon-calendar   
+            span.glyphicon.glyphicon-calendar
+            |  Classes & Resource Events
       div.classes_view
         = render partial: 'lab_rental_filter'
-        
-        
-            
 
 javascript:
   $('.permissions .lab-rentals').addClass('active');
@@ -40,7 +39,7 @@ javascript:
     $("#btn-list-view").parent().removeClass('active');
     $("#btn-calender-view").parent().removeClass('active');
     $("#btn-calender-view-classes").parent().removeClass('active')
-    
+
     $("#list-view-container").addClass('hidden');
     $("#calendar-view-container").addClass('hidden');
     $("#classes-list-view-container").removeClass('hide');
@@ -57,7 +56,7 @@ javascript:
   $("#btn-list-view").on('click', function() {
     $("#btn-list-view").parent().addClass('active');
     $("#btn-calender-view").parent().removeClass('active');
-    
+
     $("#list-view-classes").parent().removeClass('active')
     $("#btn-calender-view-classes").parent().removeClass('active')
 
@@ -109,7 +108,7 @@ javascript:
       $("#view-filter-controls").addClass('hidden');
       $("#calendar-view-container").removeClass('hidden');
       $("#list-view-container").addClass('hidden');
-      $("#classes-list-view-container").addClass('hide'); 
+      $("#classes-list-view-container").addClass('hide');
       $("#classes-calendar-view-container").addClass("hidden");
 
       $('#calendar-view').fullCalendar({
@@ -132,6 +131,3 @@ javascript:
         $(this).data("loadCalander", false)
       }
   });
-  
- 
-

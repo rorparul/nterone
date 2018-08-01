@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: employments
+# Table name: resourse_events
 #
 #  id              :integer          not null, primary key
 #  string          :string
@@ -12,6 +12,7 @@
 #  start_date      :date
 #  end_date        :date
 #  instructor_id   :integer
+#
 
 class ResourseEvent < ActiveRecord::Base
   validates :start_date, :start_time , :end_date, :end_time ,:employment_type,:instructor_id, presence: :true

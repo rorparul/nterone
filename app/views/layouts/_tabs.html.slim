@@ -41,7 +41,7 @@
     - if policy(:admin).orders?
       li.orders role="presentation"
         a.nav-pill href="#{admin_orders_path}"
-          = t('admins.partial_tabs.orders')      
+          = t('admins.partial_tabs.orders')
     - if policy(:admin).my_classes?
       li.my-classes role="presentation"
         a.nav-pill href="#{instructor_classes_path}"
@@ -88,7 +88,7 @@
     - if policy(:admin).people?
       li.people role="presentation"
         a.nav-pill href="#{users_path}"
-          = t('layouts.partial_tabs.people') 
+          = t('layouts.partial_tabs.people')
 
     - if policy(:admin).website?
       li.dropdown.website role="presentation"
@@ -107,21 +107,6 @@
       li.tools_and_resources role="presentation"
         a.nav-pill href="#{admin_tools_path}"
           = t('admins.partial_tabs.tools_and_resources')
-     
-    - if policy(:admin).employment?
-      li.employments role="presentation"
-        a.nav-pill href="#{resourse_events_path}"
-          = t('admins.partial_tabs.resourse_events')      
-          
-    - if policy(:admin).resources?
-      li.dropdown.resources role="presentation"
-        a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-          | Resources
-          span.caret
-        ul.dropdown-menu
-            li.instructors
-              a href="#{admin_instructors_path}"
-                | Instructors
 
     - if policy(:admin).tools?
       li.tools_and_resources role="presentation"
