@@ -72,7 +72,7 @@ module CiscoPrivateLabel
   end
 
   def new_request(url_endpoint, post_object = nil)
-    url_base                 = "https://ckprivatelabel#{Rails.env.production? ? nil : 'uat'}.cloudhub.io/api/v1"
+    url_base                 = Rails.env.production? ? 'https://digital-learning.cisco.com/lpapi/v1' : 'https://private-label.cte.systems/lpapi/v1'
     uri                      = URI.parse(url_base + url_endpoint)
     request                  = "Net::HTTP::#{post_object ? 'Post' : 'Get'}".constantize.new(uri.request_uri)
     request['Authorization'] = "Bearer #{new_access_token}"
@@ -80,7 +80,7 @@ module CiscoPrivateLabel
     request.body             = post_object.to_json
     http                     = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl             = true
-    http.verify_mode         = "OpenSSL::SSL::#{Rails.env.production? ? 'VERIFY_PEER' : 'VERIFY_NONE'}".constantize
+    http.verify_mode         = Rails.env.production? ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
 
     logger.info "\n#{request.body}\n"
 
@@ -88,13 +88,11 @@ module CiscoPrivateLabel
   end
 
   def new_access_token
-    # client_id      = 'a1a1fc70e1e34c9291848cc17726c5e2'
-    # client_secret  = '9b308cFaC4Cb410Cad9D2B7711AD0446'
     client_id      = '39450595357f4ad581184ccb5b1e67c0'
     client_secret  = '5C2E19a038b84B2Da16eB47f73CbE4cDu'
     grant_type     = 'client_credentials'
     scope          = 'IDENTITY'
-    url_base       = "https://ckoauth#{Rails.env.production? ? nil : 'uat'}.cloudhub.io/ckoauth/api/token"
+    url_base       = Rails.env.production? ? 'https://digital-learning.cisco.com/ckoauth/token' : 'https://private-label.cte.systems/ckoauth/token'
     url_params     = "?client_id=#{client_id}&client_secret=#{client_secret}&grant_type=#{grant_type}&scope=#{scope}"
     uri            = URI(url_base + url_params)
     cisco_response = Net::HTTP.get(uri)
