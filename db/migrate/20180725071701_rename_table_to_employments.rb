@@ -1,5 +1,5 @@
 class RenameTableToEmployments < ActiveRecord::Migration
   def change
-    rename_table :employments, :resourse_events
+    rename_table :employments, :resource_events
   end
 end

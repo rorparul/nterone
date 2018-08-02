@@ -14,7 +14,7 @@
 #  instructor_id   :integer
 #
 
-class ResourseEvent < ActiveRecord::Base
+class ResourceEvent < ActiveRecord::Base
   validates :start_date, :start_time , :end_date, :end_time ,:employment_type,:instructor_id, presence: :true
   belongs_to :instructor,  class_name: "User", foreign_key: "instructor_id" 
 

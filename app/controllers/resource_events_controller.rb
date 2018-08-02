@@ -1,26 +1,26 @@
-class ResourseEventsController < ApplicationController
+class ResourceEventsController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
   before_action :set_emplyment, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employments_scop = ResourseEvent.all
+    @employments_scop = ResourceEvent.all
     @employments      = smart_listing_create(
       :resourse_events,
       @employments_scop,
-      partial: "resourse_events/employment_list"
+      partial: "resource_events/employment_list"
     )
   end  
   
   def new
-    @emp = ResourseEvent.new
+    @emp = ResourceEvent.new
   end
   
   def create
-    @emp = ResourseEvent.new(employment_params)
+    @emp = ResourceEvent.new(employment_params)
     if @emp.save
-      redirect_to resourse_events_path
+      redirect_to resource_events_path
     else
       render :new  
     end  
@@ -31,7 +31,7 @@ class ResourseEventsController < ApplicationController
 
   def update
     if @emp.update(employment_params)
-      redirect_to resourse_events_path
+      redirect_to resource_events_path
     else
       render :edit  
     end  
@@ -39,17 +39,17 @@ class ResourseEventsController < ApplicationController
 
   def destroy
     if @emp.delete
-      redirect_to resourse_events_path 
+      redirect_to resource_events_path 
     end
   end 
    
   private
 
     def set_emplyment
-      @emp = ResourseEvent.find(params[:id])
+      @emp = ResourceEvent.find(params[:id])
     end 
 
     def employment_params
-      params.require(:resourse_event).permit(:start_date, :end_date, :employment_type, :start_time, :end_time, :instructor_id)   
+      params.require(:resource_event).permit(:start_date, :end_date, :employment_type, :start_time, :end_time, :instructor_id)   
     end
 end

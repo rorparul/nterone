@@ -210,13 +210,13 @@ class AdminController < ApplicationController
 
   def get_all_event(events_scope)
     a = []
-    resourse_events = ResourseEvent.all
+    resourse_events = ResourceEvent.all
     all_event_and_resource_events  = events_scope + resourse_events
     all_event_and_resource_events.each do |event|
       if event.class == Event && event.instructor.present?
         a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
       end
-      if event.class == ResourseEvent && event.instructor.present?
+      if event.class == ResourceEvent && event.instructor.present?
         a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 188, 140)'}  
       end  
     end
