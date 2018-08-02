@@ -13,15 +13,25 @@ class LabRentalsController < ApplicationController
     elsif params[:date_start].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day >= '#{params[:date_start]}'")
     elsif params[:date_end].present?
-      lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
-    end
+      lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")  
+    end 
+    if params[:date_start].present? && params[:date_end].present? &&  params[:level].present?
+      lab_rentals_scope  = lab_rentals_scope.where("(first_day >= '#{params[:date_start]}' AND first_day <= '#{params[:date_end]}') AND level = '#{params[:level]}'")
+    elsif params[:date_start].present? && params[:level].present?
+      lab_rentals_scope = lab_rentals_scope.where("first_day >= '#{params[:date_start]}' AND level = '#{params[:level]}'")
+    elsif params[:date_end].present? && params[:level].present?
+       lab_rentals_scope = lab_rentals_scope.where("first_day <= '#{params[:date_end]}' AND level = '#{params[:level]}'")
+    elsif params[:level].present?
+      lab_rentals_scope = lab_rentals_scope.where(level: params[:level])
+    end 
+
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
         lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
       end
     end
     lab_rentals_scope.to_a.compact!
-    @lab_rentals       = smart_listing_create(
+    @lab_rentals = smart_listing_create(
       :lab_rentals,
       lab_rentals_scope,
       partial: "lab_rentals/listing",

@@ -70,7 +70,7 @@ class LabRental < ActiveRecord::Base
 	after_save :count_students, if: Proc.new { |model| model.kind == 2 && model.level == "partner" }
 
 	search_scope :custom_search do
-    attributes :course, :instructor, :instructor_email, :location 
+    attributes :course, :instructor, :instructor_email, :location, :level 
     attributes :company => ["company.title"]
   end
 

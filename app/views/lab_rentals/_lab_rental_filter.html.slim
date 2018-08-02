@@ -4,14 +4,18 @@
     .filter.hide
       = text_field_tag :date_start
       = text_field_tag :date_end
-
+      = select_tag :level
+    .input-group.form-inline.element-right-side
+      = select_tag :level, options_for_select([["All", ""],["Partner", "partner"],["Individual", "individual"]]), class: 'search form-control',
+                                           style: 'border-radius: 4px;'         
     .input-group.element-right-side
       = text_field_tag :filter, '', class: 'search form-control',
                                     placeholder: t('default.action.search'),
                                     autocomplete: :off
       span.input-group-btn
         button.btn.btn-default.disabled type='submit'
-          span.glyphicon.glyphicon-search
+          span.glyphicon.glyphicon-search 
+
 
   .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
     .input-group
@@ -31,6 +35,8 @@
                                          data: { linked: '#date_end' },
                                          placeholder: t('default.placeholder.end_date'),
                                          autocomplete: :off
+
+                                         
 #list-view-container
   #list-view
     = smart_listing_render(:lab_rentals)
