@@ -49,16 +49,42 @@
                   strong
                     = t('lab_rentals.partial_show.instructor_phone')
                 td = lab_rental.instructor_phone if lab_rental.instructor_phone
+                                             
+      .col-xs-12.col-md-6.table-col
+        .responsive-table
+          table#table-event-details.table.table-condensed
+            tbody
               tr
                 td.text-right
                   strong
                     = t('lab_rentals.partial_show.confirmed')
-                td = lab_rental.confirmed ? t('lab_rentals.partial_show.affirmative') : t('lab_rentals.partial_show.unconfirmed')
+                td = lab_rental.confirmed ? t('lab_rentals.partial_show.affirmative') : t('lab_rentals.partial_show.unconfirmed') 
+
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.notes')
+                td = lab_rental.notes if lab_rental.notes 
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.company')
+                td = lab_rental.level == 'partner' ? rental.company.try(:title) : t('lab_rentals.partial_listing.individual_level')               
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.course')
+                td = lab_rental.course if lab_rental.course 
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.time_zone')
+                td = lab_rental.time_zone if lab_rental.time_zone
               tr
                 td.text-right
                   strong
                     = t('lab_rentals.partial_show.origin_region')
-                td = lab_rental.origin_region.gsub("-","").humanize if lab_rental.origin_region.present?  
+                td = lab_rental.origin_region.gsub("-","").humanize if lab_rental.origin_region.present?    
               tr
                 td.text-right
                   strong
@@ -72,33 +98,6 @@
                     - elsif active_region == 'canada'
                       = flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
                     - elsif active_region == 'india'
-                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')                         
-
-                  
-
-      .col-xs-12.col-md-6.table-col
-        .responsive-table
-          table#table-event-details.table.table-condensed
-            tbody
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.notes')
-                td = lab_rental.notes if lab_rental.notes 
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.company')
-                td = lab_rental.company.title if lab_rental.company                   
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.course')
-                td = lab_rental.course if lab_rental.course 
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.time_zone')
-                td = lab_rental.time_zone if lab_rental.time_zone                 
+                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')                        
                   
               

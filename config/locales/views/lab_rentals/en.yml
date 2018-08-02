@@ -95,6 +95,8 @@ en:
       instructor_email: "Instructor Email:" 
       instructor_phone:  "Instructor Phone:"
       origin_region:  "Origin Region:"
-      time_zone: "Time Zone"
+      time_zone: "Time Zone:"
       affirmative: "Yes"
       unconfirmed: "No"
+      active_regions: "Active Regions:"
+     
