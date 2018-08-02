@@ -22,20 +22,19 @@ angular
       tld = hostname[hostname.length - 1]
 
       if tld == 'ca' || tld == 'com' || tld == 'in'
-        scope.link1 = "https://www.nterone." + tld + "/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"
-        scope.link1_text = "NterOne Awarded Cisco Americas Learning Partner of the Year - 2016"
-        scope.link2 = "https://www.nterone." + tld + "/articles/nterone-corporation-wins-cisco-innovation-award"
-        scope.link2_text = "NterOne Corporation Wins Cisco Innovation Award - 2015"
-        scope.link3 = "https://www.nterone." + tld + "/articles/nterone-wins-acceleration-learning-partner-of-the-year"
-        scope.link3_text = "NterOne Wins Acceleration Learning Partner of the Year - 2014"
+        scope.link1 = "https://www.nterone." + tld + "/articles/nterone-corporation-wins-global-acceleration-and-transformation-learning-partner-of-the-year-award-at-cisco-platinum-learning-partner-conference-2018"
+        scope.link1_text = "NterOne Corporation Wins Global Acceleration and Transformation Learning Partner of the Year - 2018"
+        scope.link2 = "https://www.nterone." + tld + "/articles/nterone-awarded-cisco-americas-learning-partner-of-the-year-for-2016"
+        scope.link2_text = "NterOne Awarded Cisco Americas Learning Partner of the Year - 2016"
+        scope.link3 = "https://www.nterone." + tld + "/articles/nterone-corporation-wins-cisco-innovation-award"
+        scope.link3_text = "NterOne Corporation Wins Cisco Innovation Award - 2015"
       else
-        scope.link1 = "https://www.nterone.la/articles/nterone-recibe-el-premio-cisco-americas-learning-partner-del-ano-2016"
-        scope.link1_text = "NterOne Recibe el Premio Cisco Americas Learning Partner del Año - 2016"
-        scope.link2 = "https://www.nterone.la/articles/nterone-corporation-gana-el-premio-a-la-innovacion-de-cisco"
-        scope.link2_text = "NterOne Corporation Gana el Premio a la Innovacion de Cisco - 2015"
-        scope.link3 = "https://www.nterone.la/articles/nterone-wins-acceleration-learning-partner-of-the-year-2014"
-        scope.link3_text = "NterOne Gana Acceleration Learning Partner del Año - 2014"
-
+        scope.link1 = "https://www.nterone.la/articles/nterone-corporation-gana-el-premio-global-de-aceleracion-y-transformacion-de-aprendizaje-del-socio-del-ano-por-2018"
+        scope.link1_text = "NterOne Corporation Gana el Premio Global de Aceleración y Transformación del año - 2018"
+        scope.link2 = "https://www.nterone.la/articles/nterone-recibe-el-premio-cisco-americas-learning-partner-del-ano-2016"
+        scope.link2_text = "NterOne Recibe el Premio Cisco Americas Learning Partner del Año - 2016"
+        scope.link3 = "https://www.nterone.la/articles/nterone-corporation-gana-el-premio-a-la-innovacion-de-cisco"
+        scope.link3_text = "NterOne Corporation Gana el Premio a la Innovacion de Cisco - 2015"
 
       scope.embed = element.find("div.signature").html()
 

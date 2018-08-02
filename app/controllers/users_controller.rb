@@ -267,7 +267,20 @@ class UsersController < ApplicationController
         :role,
         :_destroy
       ],
-      chosen_courses_attributes: [:id, :course_id, :_destroy]
+      chosen_courses_attributes: [
+        :id,
+        :course_id,
+        :audit_complete,
+        :completed_all_labs,
+        :met_with_course_director,
+        :audit_complete_by_user,
+        :audit_complete_by_date,
+        :completed_all_labs_by_user,
+        :completed_all_labs_by_date,
+        :met_with_course_director_by,
+        :met_with_course_director_by_date,
+        :_destroy
+      ]
     )
   end
 

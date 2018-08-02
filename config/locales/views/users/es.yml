@@ -23,6 +23,9 @@ es:
       video_bio: "Bio de Vídeo"
       zip: "Codigo Postal"
       teachable_courses: "Cursos Enseñables"
+      audit_complete: "Auditoría completa"
+      completed_all_labs: "Completó todos los laboratorios"
+      met_with_course_director: "Se reunió con el director del curso"
     partial_index:
       last_active: "Ultimo Activo"
       purchases: "Compras"

@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20180725071701) do
 
   # These are extensions that must be enabled in order to support this database
@@ -176,15 +177,24 @@ ActiveRecord::Schema.define(version: 20180725071701) do
 
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "status"
-    t.boolean  "planned",        default: false
-    t.boolean  "attended",       default: false
-    t.boolean  "passed",         default: false
+    t.boolean  "planned",                          default: false
+    t.boolean  "attended",                         default: false
+    t.boolean  "passed",                           default: false
     t.integer  "user_id"
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],                 array: true
+    t.text     "active_regions",                   default: [],                 array: true
+    t.boolean  "audit_complete",                   default: false
+    t.boolean  "completed_all_labs",               default: false
+    t.boolean  "met_with_course_director",         default: false
+    t.string   "audit_complete_by_user"
+    t.string   "completed_all_labs_by_user"
+    t.string   "met_with_course_director_by"
+    t.date     "audit_complete_by_date"
+    t.date     "completed_all_labs_by_date"
+    t.date     "met_with_course_director_by_date"
   end
 
   add_index "chosen_courses", ["origin_region"], name: "index_chosen_courses_on_origin_region", using: :btree
