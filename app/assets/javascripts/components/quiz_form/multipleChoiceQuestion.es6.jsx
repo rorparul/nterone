@@ -20,10 +20,17 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
 
     this.props.addAnswer(this.props.question, answer)
   }
+  
+  renderAnswerId (answer) {
+    if(answer.lms_exam_question_id){
+      return  <input type='hidden' defaultValue={answer.id} name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
+    }
+  }
 
   renderAnswer = (answer) => {
     return (
       <div key={answer.id} className='answer'>
+        {this.renderAnswerId(answer)}
         <input
           className='form-control input-sm answer-text'
           placeholder='Enter Answer...'

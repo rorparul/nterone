@@ -32,7 +32,6 @@ class LmsExamsController < ApplicationController
   def update
     @exam = LmsExam.find(params[:id])
     @exam.update(exam_params)
-
     redirect_to :back
   end
 
@@ -151,12 +150,14 @@ class LmsExamsController < ApplicationController
                                      lms_exam_questions_attributes: [:id,
                                                                     :question_text,
                                                                     :question_type,
+                                                                    :lms_exam_id,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
                                                                                                   :position,
+                                                                                                  :lms_exam_question_id,
                                                                                                   :correct]])
   end
-
+    
   def sanitize_page_params
     params[:lms_exam][:exam_type] = LmsExam.exam_types.key(params[:lms_exam][:exam_type].to_i)
     params[:lms_exam][:lms_exam_questions_attributes].each do |key, question|

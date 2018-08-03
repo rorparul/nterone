@@ -62,9 +62,15 @@ class QuizQuestionForm extends React.Component {
     }
   }
 
+  renderQuestionId (question) {
+    if (question.text != undefined) {
+      return  <input type='hidden' name={this.questionInputName(question.id) + '[id]'} value={question.id} />
+    }
+  }
+
   renderQuestion = (question) => {
     return <div key={question.id} className='question'>
-      <input type='hidden' name={this.questionInputName(question.id) + '[question_id]'} value={question.id} />
+      {this.renderQuestionId(question)}
       <input
         className='form-control input-sm question-text'
         placeholder='Enter your Question'
@@ -94,7 +100,6 @@ class QuizQuestionForm extends React.Component {
           onClick={this.addQuestion.bind(this)} >
           Add Question
         </button>
-
         {this.state.questions.map(q => this.renderQuestion(q))}
       </div>
     )
