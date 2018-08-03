@@ -214,7 +214,7 @@ class LabRentalsController < ApplicationController
     a = []
     lab_rentals_scope.each do |lab_rental|
       if lab_rental.class == LabRental  && lab_rental.user.present?  && lab_rental.first_day.present? && lab_rental.last_day.present?
-        a << {'title': lab_rental.instructor_name_and_lab_course_title, 'start':  lab_rental.try(:first_day).strftime("%Y-%m-%d"),'end': lab_rental.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)' }
+        a << {'title': lab_rental.instructor_name_and_lab_course_title, 'start':  lab_rental.try(:first_day).strftime("%Y-%m-%d"),'end': lab_rental.try(:last_day).strftime("%Y-%m-%d"), 'color': 'rgb(0,100,0)','url': lab_rental_path(lab_rental) }
       end
     end
     return a.to_json

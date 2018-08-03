@@ -38,12 +38,12 @@
                 td.text-right
                   strong
                     = t('lab_rentals.partial_show.instructor')
-                td = lab_rental.instructor.to_formatted_s(:rfc822) if lab_rental.instructor
+                td = lab_rental.instructor if lab_rental.instructor
               tr
                 td.text-right
                   strong
                     = t('lab_rentals.partial_show.instructor_email')
-                td = lab_rental.instructor.to_formatted_s(:rfc822) if lab_rental.instructor_email
+                td = lab_rental.instructor_email if lab_rental.instructor_email
               tr
                 td.text-right
                   strong
