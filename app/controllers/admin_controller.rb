@@ -147,7 +147,7 @@ class AdminController < ApplicationController
     @log = JSON.parse(cpl_get_log.body)
   end
 
-  
+
   private
 
   def authorize_admin
@@ -217,11 +217,11 @@ class AdminController < ApplicationController
         a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
       end
       if event.class == ResourceEvent && event.instructor.present?
-        a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 188, 140)'}  
-      end  
+        a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(150, 150, 150)'}  
+      end
     end
     return a.to_json
-  end  
+  end
 
 
 end
