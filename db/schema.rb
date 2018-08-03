@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180730132520) do
+ActiveRecord::Schema.define(version: 20180803072440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1050,7 +1050,7 @@ ActiveRecord::Schema.define(version: 20180730132520) do
   add_index "relationships", ["seller_id", "buyer_id"], name: "index_relationships_on_seller_id_and_buyer_id", unique: true, using: :btree
   add_index "relationships", ["seller_id"], name: "index_relationships_on_seller_id", using: :btree
 
-  create_table "resourse_events", force: :cascade do |t|
+  create_table "resource_events", force: :cascade do |t|
     t.string   "string"
     t.string   "employment_type"
     t.datetime "created_at",      null: false

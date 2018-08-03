@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: resourse_events
+# Table name: resource_events
 #
 #  id              :integer          not null, primary key
 #  string          :string
