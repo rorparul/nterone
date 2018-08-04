@@ -147,7 +147,7 @@ class AdminController < ApplicationController
     @log = JSON.parse(cpl_get_log.body)
   end
 
-  
+
   private
 
   def authorize_admin
@@ -221,7 +221,7 @@ class AdminController < ApplicationController
       end  
     end
     return a.to_json
-  end  
+  end
 
 
 end

@@ -13,8 +13,8 @@ class LabRentalsController < ApplicationController
     elsif params[:date_start].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day >= '#{params[:date_start]}'")
     elsif params[:date_end].present?
-      lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")  
-    end 
+      lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
+    end
     if params[:date_start].present? && params[:date_end].present? &&  params[:level].present?
       lab_rentals_scope  = lab_rentals_scope.where("(first_day >= '#{params[:date_start]}' AND first_day <= '#{params[:date_end]}') AND level = '#{params[:level]}'")
     elsif params[:date_start].present? && params[:level].present?
@@ -23,7 +23,7 @@ class LabRentalsController < ApplicationController
        lab_rentals_scope = lab_rentals_scope.where("first_day <= '#{params[:date_end]}' AND level = '#{params[:level]}'")
     elsif params[:level].present?
       lab_rentals_scope = lab_rentals_scope.where(level: params[:level])
-    end 
+    end
 
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
@@ -62,7 +62,7 @@ class LabRentalsController < ApplicationController
       render 'show_note'
     elsif params[:show] == 'students'
       @lab_students = @lab_rental.lab_students
-      render 'show_lab_students' 
+      render 'show_lab_students'
     end
   end
 
@@ -218,6 +218,6 @@ class LabRentalsController < ApplicationController
       end
     end
     return a.to_json
-  end  
+  end
 
 end
