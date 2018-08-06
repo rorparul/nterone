@@ -69,7 +69,7 @@
                 td.text-right
                   strong
                     = t('lab_rentals.partial_show.company')
-                td = lab_rental.level == 'partner' ? rental.company.try(:title) : t('lab_rentals.partial_listing.individual_level')               
+                td = lab_rental.level == 'partner' ? lab_rental.company.try(:title) : t('lab_rentals.partial_listing.individual_level')               
               tr
                 td.text-right
                   strong

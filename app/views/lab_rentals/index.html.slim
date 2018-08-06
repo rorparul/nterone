@@ -11,21 +11,23 @@
     .col-xs-12
       ul.nav.nav-tabs style='margin-bottom: 10px;'
         li.active role="presentation" title='Labs List'
-          = link_to "javascript:void(0)", id: 'btn-list-view' do
+          = link_to "javascript:void(0)", id: 'btn-list-view', class: 'list_lab' do
             span.glyphicon.glyphicon-th-list
             |  Labs
         li role="presentation" title='Labs Calendar'
-          = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
+          = link_to "javascript:void(0)", id: 'btn-calender-view',class: 'calender_lab', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
             |  Labs
         li role="presentation" title='Classes List'
-          = link_to "javascript:void(0)", id: 'list-view-classes' do
+          = link_to "javascript:void(0)", id: 'list-view-classes', class: 'list_class' do
             span.glyphicon.glyphicon-th-list
             |  Classes
         li role="presentation" title='Classes &amp; Resource Events Calendar'
-          = link_to "javascript:void(0)", id: 'btn-calender-view-classes', data: { load_calander: "true" } do
+          = link_to "javascript:void(0)", id: 'btn-calender-view-classes',class: 'calender_clases', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
             |  Classes & Resource Events
+
+        = hidden_field_tag :ajax_executed, false
       div.classes_view
         = render partial: 'lab_rental_filter'
 
@@ -36,56 +38,81 @@ javascript:
   $("#classes-calendar-view-container").addClass('hidden');
 
   $("#list-view-classes").click(function(){
-    $("#list-view-classes").parent().addClass('active')
-    $("#btn-list-view").parent().removeClass('active');
-    $("#btn-calender-view").parent().removeClass('active');
-    $("#btn-calender-view-classes").parent().removeClass('active')
+    if($("#ajax_executed").val() == "false"){
+      $("#ajax_executed").val("true");
+      $("#list-view-classes").parent().addClass('active')
+      $("#btn-list-view").parent().removeClass('active');
+      $("#btn-calender-view").parent().removeClass('active');
+      $("#btn-calender-view-classes").parent().removeClass('active')
 
-    $("#list-view-container").addClass('hidden');
-    $("#calendar-view-container").addClass('hidden');
-    $("#classes-list-view-container").removeClass('hide');
-    $("#view-filter-controls").addClass("hidden")
-    $("#classes-calendar-view-container").addClass("hidden");
-    $.ajax({
-      type: "GET",
-      url: "/admin/classes",
-      data: {view_type : "lab_classes_list_view"},
-      dataType: "script"
-    });
+      $("#list-view-container").addClass('hidden');
+      $("#calendar-view-container").addClass('hidden');
+      $("#classes-list-view-container").removeClass('hide');
+      $("#view-filter-controls").addClass("hidden")
+      $("#classes-calendar-view-container").addClass("hidden");    
+      $(".people_loader").removeClass('hide');
+
+      $.ajax({
+        type: "GET",
+        url: "/admin/classes",
+        data: {view_type : "lab_classes_list_view"},
+        dataType: "script"
+      });
+    }  
   });
 
   $("#btn-list-view").on('click', function() {
-    $("#btn-list-view").parent().addClass('active');
-    $("#btn-calender-view").parent().removeClass('active');
+    if($("#ajax_executed").val() == "false"){
+      $("#ajax_executed").val("true");
+      $("#btn-list-view").parent().addClass('active');
+      $("#btn-calender-view").parent().removeClass('active');
 
-    $("#list-view-classes").parent().removeClass('active')
-    $("#btn-calender-view-classes").parent().removeClass('active')
+      $("#list-view-classes").parent().removeClass('active')
+      $("#btn-calender-view-classes").parent().removeClass('active')
 
-    $("#list-view-container").removeClass('hidden');
-    $("#calendar-view-container").addClass('hidden');
-    $("#classes-list-view-container").addClass('hide');
-    $("#view-filter-controls").removeClass("hidden");
-    $("#classes-calendar-view-container").addClass("hidden");
-    location.reload();
+      $("#list-view-container").removeClass('hidden');
+      $("#calendar-view-container").addClass('hidden');
+      $("#classes-list-view-container").addClass('hide');
+      $("#view-filter-controls").removeClass("hidden");
+      $("#classes-calendar-view-container").addClass("hidden");
+
+      $(".people_loader").removeClass('hide');
+      
+      $.ajax({
+        type: "GET",
+        url: "/lab-reservations",
+        dataType: "script",
+        data: {view_type : "lab_list_view"},
+      });
+    }  
+
   });
-  $("#btn-calender-view-classes").on('click', function() {
-    $("#btn-calender-view-classes").parent().addClass('active');
-    $("#btn-list-view").parent().removeClass('active');
-    $("#btn-calender-view").parent().removeClass('active');
-    $("#list-view-classes").parent().removeClass('active');
 
-    $("#view-filter-controls").addClass('hidden');
-    $("#calendar-view-container").addClass('hidden');
-    $("#classes-list-view-container").addClass('hide');
-    $("#list-view-container").addClass('hidden');
-    $("#classes-calendar-view-container").removeClass('hidden')
+  $("#btn-calender-view-classes").on('click', function() {
+    if($("#ajax_executed").val() == "false"){
+      $("#btn-calender-view-classes").parent().addClass('active');
+      $("#btn-list-view").parent().removeClass('active');
+      $("#btn-calender-view").parent().removeClass('active');
+      $("#list-view-classes").parent().removeClass('active');
+
+      $("#view-filter-controls").addClass('hidden');
+      $("#calendar-view-container").addClass('hidden');
+      $("#classes-list-view-container").addClass('hide');
+      $("#list-view-container").addClass('hidden');
+
+      $("#classes-calendar-view-container").removeClass('hidden')
       $('#calendar-view2').fullCalendar({
-        events: '/admin/classes.json',
+        events: {
+            url: '/admin/classes.json',
+            dataType: "json"
+        },
         loading: function(isLoading, view) {
             if(isLoading) {
+              $("#ajax_executed").val("true");
               $(".calander_loading").removeClass('hidden');
             } else {
               $(".calander_loading").addClass('hidden');
+              $("#ajax_executed").val("false");
             }
         },
         eventClick: function(event) {
@@ -94,31 +121,37 @@ javascript:
             return false;
           }
         }
+
       })
-    if($(this).data("loadCalander") == true){
-      $(this).data("loadCalander", false)
-    }
+    }  
   });
 
   $("#btn-calender-view").on('click', function() {
-     $("#btn-calender-view").parent().addClass('active')
+    if($("#ajax_executed").val() == "false"){
+      $("#btn-calender-view").parent().addClass('active')
       $("#btn-list-view").parent().removeClass('active');
       $("#btn-calender-view-classes").parent().removeClass('active')
       $("#list-view-classes").parent().removeClass('active')
-
+      
       $("#view-filter-controls").addClass('hidden');
       $("#calendar-view-container").removeClass('hidden');
       $("#list-view-container").addClass('hidden');
       $("#classes-list-view-container").addClass('hide');
-      $("#classes-calendar-view-container").addClass("hidden");
+      $("#classes-calendar-view-container").addClass("hidden");    
+
 
       $('#calendar-view').fullCalendar({
-        events: '/lab-reservations.json',
+        events:{
+            url: "/lab-reservations.json",
+            dataType: "json"
+        },
         loading: function(isLoading, view) {
             if(isLoading) {
+              $("#ajax_executed").val("true");
               $(".calander_loading").removeClass('hidden');
             } else {
               $(".calander_loading").addClass('hidden');
+              $("#ajax_executed").val("false");
             }
         },
         eventClick: function(event) {
@@ -131,4 +164,6 @@ javascript:
       if($(this).data("loadCalander") == true){
         $(this).data("loadCalander", false)
       }
+    }  
   });
+  

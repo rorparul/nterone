@@ -1,1 +1,8 @@
-<%= smart_listing_update(:lab_rentals) %>
+<% if params[:view_type] == "lab_list_view" %>
+  $(".classes_view").html("<%= escape_javascript (render partial: 'lab_rental_filter') %>");
+  $(".people_loader").addClass('hide');
+  $("#ajax_executed").val("false");
+  <%= smart_listing_update(:lab_rentals) %>
+<%else%>
+  <%= smart_listing_update(:lab_rentals) %>
+<%end%>
