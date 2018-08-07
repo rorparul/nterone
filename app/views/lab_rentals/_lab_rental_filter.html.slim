@@ -20,7 +20,7 @@
   .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
     .input-group
       span.input-group-btn
-        = text_field_tag :_date_start, '', class: 'search form-control element-right-side',
+        = text_field_tag :_date_start, '', class: 'search form-control element-right-side search_by_date',
                                            style: 'border-radius: 4px;',
                                            data: { linked: '#date_start' },
                                            placeholder: t('default.placeholder.start_date'),
@@ -30,7 +30,7 @@
 
     .input-group
       span.input-group-btn
-        = text_field_tag :_date_end, '', class: 'search form-control element-right-side',
+        = text_field_tag :_date_end, '', class: 'search form-control element-right-side search_by_date',
                                          style: 'border-radius: 4px;',
                                          data: { linked: '#date_end' },
                                          placeholder: t('default.placeholder.end_date'),
@@ -49,7 +49,28 @@
   #calendar-view2  
 
 javascript:
-  $('.smart-listing-controls.input-inline').on('change', function(e){
+  $(".smart-listing-controls.form-inline").on('change' , function(){
     $(this).submit();
-  });
-                                                 
+  })
+
+  $(".search_by_date").on('change', function(){
+    date_start = $(this).val()
+    date_end = $(this).val()
+    if(date_start != "" && $(this).attr("id") == "_date_start"){
+      month = date_start.split("/")[0]
+      date = date_start.split("/")[1]
+      year = date_start.split("/")[2]
+      date_format = year + "-" + month + "-" + date
+      $("#date_start").val(date_format)
+    }
+    if($(this).attr("id") == "_date_end"){
+      if(date_end != ""){
+        month = date_end.split("/")[0]
+        date = date_end.split("/")[1]
+        year = date_end.split("/")[2]
+        date_format = year + "-" + month + "-" + date
+        $("#date_end").val(date_format)
+      }
+    }
+    $(".smart-listing-controls.form-inline").submit();
+  })
