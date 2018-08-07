@@ -35,12 +35,24 @@ class QuizQuestionForm extends React.Component {
     this.setState({ questions: this.state.questions })
   }
 
+  updateAnswer = (answer, answer_id, is_correct) => {
+    
+    for (var i = 0; i < answer.props.question.answers.length; i++) {
+      if(answer.props.question.answers[i].id == answer_id){
+        answer.props.question.answers[i].correct = is_correct
+      }
+    } 
+
+    this.setState({ questions: this.state.questions }) 
+  }
+
   renderAnswerForm (question) {
     if (question.type == '0') {
       return <QuizMultipleChoiceQuestionForm
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
+        updateAnswer={this.updateAnswer}
       />
     }
 
