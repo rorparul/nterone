@@ -19,9 +19,9 @@
         li.users_tab role="presentation"
           = link_to 'Instructors', '#', id: 'btn-instructors-view', class: "btn-list-view", data: {role: "instructors"}
         li.users_tab role="presentation"
-          = link_to 'Admin', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
+          = link_to 'Admins', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
         li.users_tab role="presentation"
-          = link_to 'Partner', '#', id: 'btn-partner-view', class: "btn-list-view", data: {role: "partners"}  
+          = link_to 'Partners', '#', id: 'btn-partner-view', class: "btn-list-view", data: {role: "partners"}
       #view-filter-controls.container-muted
         = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient element-left-side', role: 'button'
 
@@ -39,7 +39,7 @@
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
         = render partial: "search_inputs"
-      
+
       i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
 
       #list-view-container.users_listing.all_listing
@@ -48,18 +48,18 @@
 
       #list-view-container.users_listing.students_listing.hide
         #list-view
-          = smart_listing_render(:students) 
+          = smart_listing_render(:students)
 
       #list-view-container.users_listing.instructors_listing.hide
         #list-view
-          = smart_listing_render(:instructors)  
+          = smart_listing_render(:instructors)
 
       #list-view-container.users_listing.admins_listing.hide
         #list-view
           = smart_listing_render(:admins)
       #list-view-container.users_listing.partners_listing.hide
         #list-view
-          = smart_listing_render(:partners)           
+          = smart_listing_render(:partners)
 
 javascript:
   $('.permissions .people').addClass('active');
@@ -95,7 +95,7 @@ javascript:
   $(".mark_as_partner").on('click', function(){
     mass_edit_customer_type("partner_customer");
   });
-  
+
   $("#btn-all-view").on('click', function(){
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
@@ -124,7 +124,7 @@ javascript:
       data: {role: $(this).data('role'), filter: filter_value }
     })
   })
-  
+
   $( document ).ajaxStart(function() {
     $(".loading").css('display', 'block');
     $(".loading").css('opacity', '1');
