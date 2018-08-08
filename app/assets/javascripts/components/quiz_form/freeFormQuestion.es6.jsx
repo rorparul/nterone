@@ -21,9 +21,17 @@ class QuizFreeFormQuestionForm extends React.Component {
     return `${this.props.questionInputName}[lms_exam_answers_attributes][${id}]`
   }
 
+
+  renderAnswerId (answer) {
+    if(answer.lms_exam_question_id){
+      return  <input type='hidden' defaultValue={answer.id} name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
+    }
+  }
+
   renderAnswer = (answer) => {
     return (
       <div key={answer.id} className='answer'>
+        {this.renderAnswerId(answer)}
         <input
           className='form-control input-sm answer-text'
           placeholder='Enter correct Answer..'
