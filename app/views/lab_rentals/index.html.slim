@@ -50,8 +50,7 @@ javascript:
       $("#classes-list-view-container").removeClass('hide');
       $("#view-filter-controls").addClass("hidden")
       $("#classes-calendar-view-container").addClass("hidden");    
-      $(".people_loader").removeClass('hide');
-
+      $(".classes_view").html('<i class="fa fa-spinner fa-spin" style="font-size: 30px; position: absolute; right: 50%; top: 90%; color: rgb(15, 115, 185);"></i>')
       $.ajax({
         type: "GET",
         url: "/admin/classes",
