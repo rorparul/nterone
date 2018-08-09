@@ -238,14 +238,22 @@ class VideoOnDemandsController < ApplicationController
     order_item = current_user.order_items.find_by(orderable_type: 'VideoOnDemand', orderable_id: vod.id)
     order      = order_item.order
 
+    logger.info "order_item = #{order_item}\n"
+    logger.info "order = #{order}\n"
+
     post_object = {
       "orderId": order.id.to_s,
       "productCode": product_code,
       "email": current_user.email
     }
 
+    logger.info "post_object = #{post_object}\n"
+
     cpl_response = cpl_post_launch(post_object)
     json         = JSON.parse(cpl_response.body)
+
+    logger.info "cpl_response = #{cpl_response}\n"
+    logger.info "json = #{json}\n"
 
     redirect_to json['launchUrl']
   end
