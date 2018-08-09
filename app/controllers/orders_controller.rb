@@ -109,10 +109,14 @@ class OrdersController < ApplicationController
 
       # Save order:
       if @order.save
+        logger.info "@order = #{@order}"
+
         @order.order_items.each do |order_item|
           current_user.order_items << order_item
           pod_order = order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
+
+        logger.info "@order.any_cisco_private_label_products? = #{@order.any_cisco_private_label_products?}"
 
         cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
         cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
