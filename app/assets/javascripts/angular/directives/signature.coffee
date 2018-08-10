@@ -10,7 +10,6 @@ angular
           scope.job_title = user.businessTitle
           scope.phone = user.contactNumber
       scope.logos = [
-        { value: gon.logo_10_years, label: "<img src='"+gon.logo_10_years+"'/>" }
         { value: gon.logo_base, label: "<img src='"+gon.logo_base+"'/>" }
       ]
 
