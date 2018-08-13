@@ -28,11 +28,17 @@ class QuizCorrectOrderQuestionForm extends React.Component {
     this.props.updateQuestion()
   }
 
+  renderAnswerId (answer) {
+    if(answer.lms_exam_question_id){
+      return  <input type='hidden' name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
+    }
+  }
   renderAnswer = (answer) => {
     return (
       <div key={answer.id} className='answer'>
+        {this.renderAnswerId(answer)}
+        
         <input type='hidden' value='true' name={this.answerInputName(answer.id) + '[correct]'}/>
-
         <input className='form-control input-sm answer-text'
           placeholder='Enter Answer...'
           defaultValue={answer.answer_text}

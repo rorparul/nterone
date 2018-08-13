@@ -38,7 +38,7 @@ class Company < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :users
+  has_many :users,dependent: :nullify
   has_many :lab_rentals
   has_many :lab_courses
   has_many :account_opportunities, class_name: 'Opportunity', foreign_key: 'account_id'

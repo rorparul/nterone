@@ -35,12 +35,24 @@ class QuizQuestionForm extends React.Component {
     this.setState({ questions: this.state.questions })
   }
 
+  updateAnswer = (answer, answer_id, is_correct) => {
+    
+    for (var i = 0; i < answer.props.question.answers.length; i++) {
+      if(answer.props.question.answers[i].id == answer_id){
+        answer.props.question.answers[i].correct = is_correct
+      }
+    } 
+
+    this.setState({ questions: this.state.questions }) 
+  }
+
   renderAnswerForm (question) {
     if (question.type == '0') {
       return <QuizMultipleChoiceQuestionForm
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
+        updateAnswer={this.updateAnswer}
       />
     }
 
@@ -62,9 +74,15 @@ class QuizQuestionForm extends React.Component {
     }
   }
 
+  renderQuestionId (question) {
+    if (question.text != undefined) {
+      return  <input type='hidden' name={this.questionInputName(question.id) + '[id]'} value={question.id} />
+    }
+  }
+
   renderQuestion = (question) => {
     return <div key={question.id} className='question'>
-      <input type='hidden' name={this.questionInputName(question.id) + '[question_id]'} value={question.id} />
+      {this.renderQuestionId(question)}
       <input
         className='form-control input-sm question-text'
         placeholder='Enter your Question'
@@ -94,7 +112,6 @@ class QuizQuestionForm extends React.Component {
           onClick={this.addQuestion.bind(this)} >
           Add Question
         </button>
-
         {this.state.questions.map(q => this.renderQuestion(q))}
       </div>
     )
