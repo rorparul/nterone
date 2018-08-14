@@ -26,7 +26,7 @@ class QuizQuestionForm extends React.Component {
       if(this.state.questions[i].id == question.id){
         this.state.questions[i]._destroy = true
       }
-    } 
+    }
     this.setState({ questions: this.state.questions})
   }
 
@@ -47,21 +47,21 @@ class QuizQuestionForm extends React.Component {
   }
 
   updateAnswer = (answer, answer_id, is_correct) => {
-    
+
     for (var i = 0; i < answer.props.question.answers.length; i++) {
       if(answer.props.question.answers[i].id == answer_id){
         answer.props.question.answers[i].correct = is_correct
       }
-    } 
+    }
 
-    this.setState({ questions: this.state.questions }) 
+    this.setState({ questions: this.state.questions })
   }
 
-  removeAnswer  = (question, answer) => { 
+  removeAnswer  = (question, answer) => {
     question.answers = question.answers.map((ans)=> (
         ans.id === answer.id ? { ...ans, _destroy: true } : ans
       ))
-    this.setState({ questions: this.state.questions })  
+    this.setState({ questions: this.state.questions })
   }
 
   renderAnswerForm (question) {
@@ -71,7 +71,7 @@ class QuizQuestionForm extends React.Component {
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
         removeAnswer={this.removeAnswer}
-        updateAnswer={this.updateAnswer} 
+        updateAnswer={this.updateAnswer}
       />
     }
 
@@ -120,7 +120,7 @@ class QuizQuestionForm extends React.Component {
       </select>
       <br/>
       <input type='hidden' name={this.questionInputName(question.id) + '[_destroy]'} value={question._destroy} />
-      <a href="javascript:void(0)" onClick={(e) => this.removeQuestion(e, question) } className="text-danger">Remove Question</a>
+      <a href="javascript:void(0)" onClick={(e) => this.removeQuestion(e, question) } className="text-danger">Remove question and answers</a>
       {this.renderAnswerForm(question)}
     </div>
   }

@@ -20,7 +20,7 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
 
     this.props.addAnswer(this.props.question, answer)
   }
-  
+
   renderAnswerId (answer) {
     if(answer.lms_exam_question_id){
       return  <input type='hidden' defaultValue={answer.id} name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
@@ -51,11 +51,11 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
         <input type="checkbox" data-answerid={answer.id} checked={answer.correct} className='answer-correct'
         onChange={this.changeAnswerText.bind(answer, this)}
          />
-        
+
         <input name={this.answerInputName(answer.id) + '[correct]'} type="hidden" value={answer.correct} />
         <br/>
         <input type='hidden' name={this.answerInputName(answer.id) + '[_destroy]'} value={answer._destroy} />
-        <a href="javascript:void(0)" onClick={this.ChangedeleteValue.bind(this,answer) } className="text-danger">Remove Answer</a>
+        <a href="javascript:void(0)" onClick={this.ChangedeleteValue.bind(this,answer) } className="text-danger">Remove answer</a>
       </div>
     )
   }
