@@ -19,6 +19,17 @@ class QuizQuestionForm extends React.Component {
     this.setState({ questions })
   }
 
+
+  removeQuestion = (e, question) =>{
+    e.preventDefault()
+    for (var i = 0; i < this.state.questions.length; i++) {
+      if(this.state.questions[i].id == question.id){
+        this.state.questions[i]._destroy = true
+      }
+    }
+    this.setState({ questions: this.state.questions})
+  }
+
   typeChanged = (question, e) => {
     question.type = e.target.value
     question.answers = []
@@ -36,14 +47,21 @@ class QuizQuestionForm extends React.Component {
   }
 
   updateAnswer = (answer, answer_id, is_correct) => {
-    
+
     for (var i = 0; i < answer.props.question.answers.length; i++) {
       if(answer.props.question.answers[i].id == answer_id){
         answer.props.question.answers[i].correct = is_correct
       }
-    } 
+    }
 
-    this.setState({ questions: this.state.questions }) 
+    this.setState({ questions: this.state.questions })
+  }
+
+  removeAnswer  = (question, answer) => {
+    question.answers = question.answers.map((ans)=> (
+        ans.id === answer.id ? { ...ans, _destroy: true } : ans
+      ))
+    this.setState({ questions: this.state.questions })
   }
 
   renderAnswerForm (question) {
@@ -52,6 +70,7 @@ class QuizQuestionForm extends React.Component {
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
+        removeAnswer={this.removeAnswer}
         updateAnswer={this.updateAnswer}
       />
     }
@@ -69,6 +88,7 @@ class QuizQuestionForm extends React.Component {
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
+        removeAnswer={this.removeAnswer}
         updateQuestion={this.updateQuestion}
       />
     }
@@ -81,7 +101,7 @@ class QuizQuestionForm extends React.Component {
   }
 
   renderQuestion = (question) => {
-    return <div key={question.id} className='question'>
+    return <div key={question.id} className='question'  data-id={question.id} style={{display: (question._destroy == true) ? 'none' : 'block' }}>
       {this.renderQuestionId(question)}
       <input
         className='form-control input-sm question-text'
@@ -98,7 +118,9 @@ class QuizQuestionForm extends React.Component {
         <option value='1'>Free Choice</option>
         <option value='2'>Correct Order</option>
       </select>
-
+      <br/>
+      <input type='hidden' name={this.questionInputName(question.id) + '[_destroy]'} value={question._destroy} />
+      <a href="javascript:void(0)" onClick={(e) => this.removeQuestion(e, question) } className="text-danger">Remove question and answers</a>
       {this.renderAnswerForm(question)}
     </div>
   }
