@@ -32,10 +32,14 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
     this.props.updateAnswer(answer, parseInt(e.target.dataset.answerid), e.target.checked)
   }
 
+  ChangedeleteValue =(answer,e) =>{
+    this.props.removeAnswer(this.props.question, answer)
+  }
+
 
   renderAnswer = (answer) => {
     return (
-      <div key={answer.id} className='answer'>
+      <div key={answer.id} className='answer' style={{display: (answer._destroy == true) ? 'none' : 'block' }}>
         {this.renderAnswerId(answer)}
         <input
           className='form-control input-sm answer-text'
@@ -49,7 +53,9 @@ class QuizMultipleChoiceQuestionForm extends React.Component {
          />
         
         <input name={this.answerInputName(answer.id) + '[correct]'} type="hidden" value={answer.correct} />
-        
+        <br/>
+        <input type='hidden' name={this.answerInputName(answer.id) + '[_destroy]'} value={answer._destroy} />
+        <a href="javascript:void(0)" onClick={this.ChangedeleteValue.bind(this,answer) } className="text-danger">Remove Answer</a>
       </div>
     )
   }
