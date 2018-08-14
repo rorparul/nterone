@@ -57,13 +57,21 @@ class QuizQuestionForm extends React.Component {
     this.setState({ questions: this.state.questions }) 
   }
 
+  removeAnswer  = (question, answer) => { 
+    question.answers = question.answers.map((ans)=> (
+        ans.id === answer.id ? { ...ans, _destroy: true } : ans
+      ))
+    this.setState({ questions: this.state.questions })  
+  }
+
   renderAnswerForm (question) {
     if (question.type == '0') {
       return <QuizMultipleChoiceQuestionForm
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
-        updateAnswer={this.updateAnswer}
+        removeAnswer={this.removeAnswer}
+        updateAnswer={this.updateAnswer} 
       />
     }
 
@@ -80,6 +88,7 @@ class QuizQuestionForm extends React.Component {
         question={question}
         questionInputName={this.questionInputName(question.id)}
         addAnswer={this.addAnswer}
+        removeAnswer={this.removeAnswer}
         updateQuestion={this.updateQuestion}
       />
     }
@@ -109,9 +118,9 @@ class QuizQuestionForm extends React.Component {
         <option value='1'>Free Choice</option>
         <option value='2'>Correct Order</option>
       </select>
-      <input type='hidden' name={this.questionInputName(question.id) + '[_destroy]'} value={question._destroy} />
       <br/>
-      <a href="javascript:void(0)" onClick={(e) => this.removeQuestion(e, question) } class="text-danger">Remove</a>
+      <input type='hidden' name={this.questionInputName(question.id) + '[_destroy]'} value={question._destroy} />
+      <a href="javascript:void(0)" onClick={(e) => this.removeQuestion(e, question) } className="text-danger">Remove Question</a>
       {this.renderAnswerForm(question)}
     </div>
   }
