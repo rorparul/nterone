@@ -30,7 +30,6 @@ class LmsExamsController < ApplicationController
   end
 
   def update
-    debugger
     @exam = LmsExam.find(params[:id])
     @exam.update(exam_params)
     redirect_to :back
@@ -152,11 +151,12 @@ class LmsExamsController < ApplicationController
                                                                     :question_text,
                                                                     :question_type,
                                                                     :lms_exam_id,
+                                                                    :_destroy,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
                                                                                                   :position,
                                                                                                   :lms_exam_question_id,
-                                                                                                  :correct]])
+                                                                                                  :correct,:_destroy]])
   end
     
   def sanitize_page_params
