@@ -194,7 +194,7 @@ class Opportunity < ActiveRecord::Base
 
         order_item.update(
           orderable_id: event_id
-        )
+        ) if  order_item.present?
 
         order_items << order_item
       end
@@ -207,7 +207,7 @@ class Opportunity < ActiveRecord::Base
 
         order_item.update(
           orderable_id: video_on_demand_id
-        )
+        ) if  order_item.present?
 
         order_items << order_item
       end

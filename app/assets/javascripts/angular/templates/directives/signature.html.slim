@@ -35,10 +35,6 @@
               input-label[type="text" model="direct" label="Direct"]
             .col-xs-6
               input-label[type="text" model="skype" value="" label="Skype"]
-          .row
-            .col-xs-12
-              radio-label[type="text" radios="logos" model="logo_url" label="Logo"]
-
         #signature-social.tab-pane.fade role="tabpanel"
           .row
             .col-xs-12
@@ -140,7 +136,7 @@
 
       br
 
-      img alt="Logo" src="{{ logo_url }}" style="width: 350px;" ng-if="logo_url"
+      img src=(image_path("/assets/locales/en/logo-with-tagline.png")) style="width: 450px;"
 
       br
       br
