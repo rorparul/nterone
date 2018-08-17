@@ -10,7 +10,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_post_orders(order)
-    payment_type = 'CC' if ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type)
+    payment_type = ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type) ? 'CC' : 'PO'
 
     post_object = {
       "orderId": order.id.to_s,
