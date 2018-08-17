@@ -3,7 +3,7 @@ class VideoOnDemandsController < ApplicationController
 
   before_action :authenticate_user!, except: [:show, :play_video, :begin_quiz, :next_quiz_question, :exit_quiz, :show_scores]
   skip_before_action :verify_authenticity_token, only: [:exit_quiz]
-
+  before_action :sanitize_page_params, only: [:update]
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
@@ -77,7 +77,6 @@ class VideoOnDemandsController < ApplicationController
     @exam_types = LmsExam.exam_types
     @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
-
     @video_on_demand.video_modules.each do |video_module|
       unless video_module.videos.empty?
         @video_exists = true
@@ -91,12 +90,11 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
-
+    
     authorize @video_on_demand
-
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
-      redirect_to session[:previous_request_url]
+      redirect_to session[:current_request_url]
     else
       set_categories
 
@@ -250,6 +248,7 @@ class VideoOnDemandsController < ApplicationController
     redirect_to json['launchUrl']
   end
 
+
   private
 
   def video_on_demand_params
@@ -288,6 +287,7 @@ class VideoOnDemandsController < ApplicationController
                                                                        :title,
                                                                        :cdl_course_code,
                                                                        :_destroy,
+                                                                       lms_exams_attributes:[:id, :title, :description,:exam_type,:_destroy],
                                                                        videos_attributes: [:id,
                                                                                            :position,
                                                                                            :title,
@@ -326,5 +326,15 @@ class VideoOnDemandsController < ApplicationController
   def set_categories
     categories  = Category.current_region.active.select { |category| category if category.parent }
     @categories = categories.sort_by { |category| [category.platform.title, category.parent.title, category.title] }
+  end
+
+   def sanitize_page_params
+    if  params[:video_on_demand]["video_modules_attributes"].present?
+       params[:video_on_demand]["video_modules_attributes"].each do |key, video_module|
+          video_module["lms_exams_attributes"].each do |key,lms_exam|
+            lms_exam["exam_type"] = LmsExam.exam_types.key(lms_exam["exam_type"].to_i)
+          end
+       end 
+    end  
   end
 end

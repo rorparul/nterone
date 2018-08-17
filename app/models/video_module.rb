@@ -27,6 +27,7 @@ class VideoModule < ActiveRecord::Base
   has_many :lms_exams
 
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :lms_exams, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
 
