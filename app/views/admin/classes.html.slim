@@ -66,6 +66,11 @@ javascript:
 
     if($(this).data("loadCalander") == true){
       $('#calendar-view').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek'
+        },
         events: '/admin/classes.json',
         loading: function(isLoading, view) {
             if(isLoading) {
@@ -96,6 +101,11 @@ javascript:
     $('#view-filter-controls').addClass('hidden');
     if($(this).data("loadCalander") == true){
       $('#calendar-view-lab-calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek'
+        },
         events: '/lab-reservations.json',
         loading: function(isLoading, view) {
             if(isLoading) {

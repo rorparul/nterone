@@ -101,6 +101,11 @@ javascript:
 
       $("#classes-calendar-view-container").removeClass('hidden')
       $('#calendar-view2').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek'
+        },
         events: {
             url: '/admin/classes.json',
             dataType: "json"
@@ -140,6 +145,11 @@ javascript:
 
 
       $('#calendar-view').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek'
+        },
         events:{
             url: "/lab-reservations.json",
             dataType: "json"
