@@ -1,7 +1,5 @@
 .form-container
-
-  - if video_exists
-    = form_for [lms_exam], remote: false do |f|
+  = form_for [lms_exam], remote: false do |f|
 
       .form-group
         = f.label :title, 'Exam Title'
@@ -40,5 +38,3 @@
                 
       .form-buttons
         button.btn.btn-success type="submit" Upload
-  - else
-    .text-warning Please upload at least one video in the "General and Videos" section of this form.

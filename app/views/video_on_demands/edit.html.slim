@@ -9,13 +9,17 @@
           #vod-tabs
             ul.nav.nav-tabs role="tablist"
               li.active role="presentation"
-                a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  General and Videos 
+                a aria-controls="overview" data-toggle="tab" href="#overview" role="tab"  General and Videos
+              li role="presentation"
+                a aria-controls="quiz-assign" data-toggle="tab" href="#quiz-assign" role="tab" Video Module   
               li role="presentation"
                 a aria-controls="quiz-upload" data-toggle="tab" href="#quiz-upload" role="tab"  Quizzes and Tests
 
             .tab-content
               #overview.tab-pane.active role="tabpanel"
-                = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors}    
+                = render partial: "overview_form", locals: { platform: @platform, video_on_demand: @video_on_demand, categories: @categories, instructors: @instructors}
+              #quiz-assign.tab-pane.fade role="tabpanel"
+                = render partial: "assign_quiz_form", locals: { platform: @platform, video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types, assign_quize:  @assign_quize }     
               #quiz-upload.tab-pane.fade role="tabpanel"
                 = render partial: "lms_exam_upload_form", locals: { platform: @platform, video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }   
 
