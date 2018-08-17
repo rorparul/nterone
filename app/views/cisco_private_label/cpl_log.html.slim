@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      - @log.reverse.each do |log_item|
+        - log_item.each do |k, v|
+          p
+            strong = "#{k}: "
+            = v
+
+        hr

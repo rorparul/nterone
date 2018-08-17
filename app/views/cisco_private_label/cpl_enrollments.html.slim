@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      - @enrollments.reverse.each do |enrollment|
+        - enrollment.each do |k, v|
+          p
+            strong = "#{k}: "
+            = v
+
+        hr
