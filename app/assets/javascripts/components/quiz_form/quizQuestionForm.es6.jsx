@@ -13,6 +13,7 @@ class QuizQuestionForm extends React.Component {
     let questions = this.state.questions.concat([{
       id: this.state.questions.length,
       type: '0',
+      position: this.state.questions.length,
       answers: []
     }])
 
@@ -109,6 +110,14 @@ class QuizQuestionForm extends React.Component {
         defaultValue={question.text}
         name={this.questionInputName(question.id) + '[question_text]'}
       />
+
+      <input type='number'
+        className='input-sm question-position'
+        defaultValue={question.position}
+        name={this.questionInputName(question.id) + '[position]'}
+        style={{display: 'inline-block', width: 80, marginLeft: 10, marginRight: 10, height: 40}}
+      />
+
       <select
         name={this.questionInputName(question.id) + '[question_type]'}
         defaultValue={question.type}

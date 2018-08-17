@@ -23,6 +23,7 @@ module QuizHelper
         id: question.id,
         text: question.question_text,
         type: question_type_mapping(question.question_type),
+        position: question.position,
         answers: question.lms_exam_answers
       }
     end

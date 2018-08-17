@@ -151,6 +151,7 @@ class LmsExamsController < ApplicationController
                                                                     :question_text,
                                                                     :question_type,
                                                                     :lms_exam_id,
+                                                                    :position,
                                                                     :_destroy,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
