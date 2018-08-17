@@ -28,6 +28,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_orders()
+    new_request('/orders')
   end
 
   def cpl_post_orders_cancel(order)
@@ -59,6 +60,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_enrollments()
+    new_request('/enrollments')
   end
 
   def cpl_post_launch(post_object)
