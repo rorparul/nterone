@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180714065306) do
+ActiveRecord::Schema.define(version: 20180816142334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(version: 20180714065306) do
   end
 
   add_index "articles", ["origin_region"], name: "index_articles_on_origin_region", using: :btree
+
+  create_table "assign_quizes", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "lms_exam_id"
+    t.integer  "video_id"
+  end
 
   create_table "assigned_items", force: :cascade do |t|
     t.integer  "assigner_id"
@@ -176,15 +183,24 @@ ActiveRecord::Schema.define(version: 20180714065306) do
 
   create_table "chosen_courses", force: :cascade do |t|
     t.integer  "course_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "status"
-    t.boolean  "planned",        default: false
-    t.boolean  "attended",       default: false
-    t.boolean  "passed",         default: false
+    t.boolean  "planned",                          default: false
+    t.boolean  "attended",                         default: false
+    t.boolean  "passed",                           default: false
     t.integer  "user_id"
     t.integer  "origin_region"
-    t.text     "active_regions", default: [],                 array: true
+    t.text     "active_regions",                   default: [],                 array: true
+    t.boolean  "audit_complete",                   default: false
+    t.boolean  "completed_all_labs",               default: false
+    t.boolean  "met_with_course_director",         default: false
+    t.string   "audit_complete_by_user"
+    t.string   "completed_all_labs_by_user"
+    t.string   "met_with_course_director_by"
+    t.date     "audit_complete_by_date"
+    t.date     "completed_all_labs_by_date"
+    t.date     "met_with_course_director_by_date"
   end
 
   add_index "chosen_courses", ["origin_region"], name: "index_chosen_courses_on_origin_region", using: :btree
@@ -333,17 +349,6 @@ ActiveRecord::Schema.define(version: 20180714065306) do
   end
 
   add_index "dividers", ["origin_region"], name: "index_dividers_on_origin_region", using: :btree
-
-  create_table "employments", force: :cascade do |t|
-    t.string   "string"
-    t.string   "employment_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.time     "start_time"
-    t.time     "end_time"
-    t.date     "start_date"
-    t.date     "end_date"
-  end
 
   create_table "events", force: :cascade do |t|
     t.date     "start_date"
@@ -771,6 +776,8 @@ ActiveRecord::Schema.define(version: 20180714065306) do
     t.integer  "question_type",  default: 0
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+    t.integer  "lms_exam_id"
+    t.integer  "position"
   end
 
   add_index "lms_exam_questions", ["origin_region"], name: "index_lms_exam_questions_on_origin_region", using: :btree
@@ -1051,6 +1058,18 @@ ActiveRecord::Schema.define(version: 20180714065306) do
   add_index "relationships", ["origin_region"], name: "index_relationships_on_origin_region", using: :btree
   add_index "relationships", ["seller_id", "buyer_id"], name: "index_relationships_on_seller_id_and_buyer_id", unique: true, using: :btree
   add_index "relationships", ["seller_id"], name: "index_relationships_on_seller_id", using: :btree
+
+  create_table "resource_events", force: :cascade do |t|
+    t.string   "string"
+    t.string   "employment_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.time     "start_time"
+    t.time     "end_time"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "instructor_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"

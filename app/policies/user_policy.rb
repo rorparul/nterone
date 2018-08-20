@@ -2,7 +2,7 @@ class UserPolicy < ApplicationPolicy
   def index?
     @user.admin?
   end
-  
+
   def people?
     @user.admin? || @user.sales?
   end
@@ -53,7 +53,7 @@ class UserPolicy < ApplicationPolicy
 
   def update?
     # @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))
-    @user.admin? || @user.sales?
+    @user.admin? || @user.sales? || (@user == @record)
   end
 
   def mass_edit?
