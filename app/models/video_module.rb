@@ -24,12 +24,13 @@ class VideoModule < ActiveRecord::Base
   belongs_to :video_on_demand
   has_many   :videos, dependent: :destroy
 
-  has_many :lms_exams
-
+  has_many :assign_quizzes
+  
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :lms_exams, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assign_quizzes, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
+
 
   def watched_count(user)
     count = 0

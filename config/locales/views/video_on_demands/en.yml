@@ -42,9 +42,9 @@ en:
       title: "Title"
     partial_video_module_fields:
       add: "Add video"
-      module_videos: "Module Videos"
+      module_videos: "Module Content"
       position: "Position"
-      remove: "Remove video"
+      remove: "Remove module"
       title: "Title"
     select_js:
       edit_video_on_demand: "Edit Video On Demand"

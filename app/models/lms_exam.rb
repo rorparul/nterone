@@ -40,8 +40,7 @@ class LmsExam < ActiveRecord::Base
   has_many :lms_exam_attempts, dependent: :destroy
 
   belongs_to :video_on_demand
-  belongs_to :video_module
-  belongs_to :video
+
 
   validates :title, :description, :exam_type, presence: true
 
