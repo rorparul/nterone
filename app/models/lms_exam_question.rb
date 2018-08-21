@@ -10,6 +10,7 @@
 #  origin_region  :integer
 #  active_regions :text             default([]), is an Array
 #  lms_exam_id    :integer
+#  position       :integer
 #
 # Indexes
 #
