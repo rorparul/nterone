@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180803072440) do
+ActiveRecord::Schema.define(version: 20180816142334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,13 @@ ActiveRecord::Schema.define(version: 20180803072440) do
   end
 
   add_index "articles", ["origin_region"], name: "index_articles_on_origin_region", using: :btree
+
+  create_table "assign_quizes", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "lms_exam_id"
+    t.integer  "video_id"
+  end
 
   create_table "assigned_items", force: :cascade do |t|
     t.integer  "assigner_id"
@@ -769,6 +776,8 @@ ActiveRecord::Schema.define(version: 20180803072440) do
     t.integer  "question_type",  default: 0
     t.integer  "origin_region"
     t.text     "active_regions", default: [],              array: true
+    t.integer  "lms_exam_id"
+    t.integer  "position"
   end
 
   add_index "lms_exam_questions", ["origin_region"], name: "index_lms_exam_questions_on_origin_region", using: :btree

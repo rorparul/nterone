@@ -289,7 +289,15 @@ NterOne::Application.routes.draw do
     get 'admin/marketing',                              as: :admin_marketing
     get 'admin/settings'     => 'admin/settings#index', as: :admin_settings
     get 'admin/tools',                                  as: :admin_tools
-    get 'admin/cpl_log'      => 'admin#cpl_log',        as: :cpl_log
+  end
+
+  controller :cisco_private_label do
+    get 'cpl_log'                        => 'cisco_private_label#cpl_log',              as: :cpl_log
+    get 'cpl_orders'                     => 'cisco_private_label#cpl_orders',           as: :cpl_orders
+    get 'cpl_orders/:order_id/post'      => 'cisco_private_label#cpl_orders_post',      as: :cpl_orders_post
+    get 'cpl_orders/:order_id/cancel'    => 'cisco_private_label#cpl_orders_cancel',    as: :cpl_orders_cancel
+    get 'cpl_enrollments'                => 'cisco_private_label#cpl_enrollments',      as: :cpl_enrollments
+    get 'cpl_enrollments/:order_id/post' => 'cisco_private_label#cpl_enrollments_post', as: :cpl_enrollments_post
   end
 
   controller :my_account do
