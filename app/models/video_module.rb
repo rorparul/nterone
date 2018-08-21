@@ -25,6 +25,8 @@ class VideoModule < ActiveRecord::Base
   has_many   :videos, dependent: :destroy
 
   has_many :assign_quizzes
+  has_many :lms_exams,  dependent: :nullify
+
   
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :assign_quizzes, reject_if: :all_blank, allow_destroy: true
