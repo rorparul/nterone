@@ -3,7 +3,7 @@ class VideoOnDemandsController < ApplicationController
 
   before_action :authenticate_user!, except: [:show, :play_video, :begin_quiz, :next_quiz_question, :exit_quiz, :show_scores]
   skip_before_action :verify_authenticity_token, only: [:exit_quiz]
-  before_action :sanitize_page_params, only: [:update]
+
   def new
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = @platform.video_on_demands.build
@@ -287,7 +287,7 @@ class VideoOnDemandsController < ApplicationController
                                                                        :title,
                                                                        :cdl_course_code,
                                                                        :_destroy,
-                                                                       lms_exams_attributes:[:id, :title, :description,:exam_type,:_destroy],
+                                                                       assign_quizzes_attributes:[:id, :lms_exam_id,:_destroy],
                                                                        videos_attributes: [:id,
                                                                                            :position,
                                                                                            :title,

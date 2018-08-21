@@ -1,0 +1,6 @@
+.nested-fields.video-fields
+  .form-group
+    = f.label :lms_exam
+    = f.select(:lms_exam_id, options_for_select(@video_on_demand.lms_exams.map{|exam| [exam.title, exam.id]},:selected => f.object.lms_exam_id), {}, class: 'form-control  input-sm')  
+  = link_to_remove_association 'Remove Quiz', f
+  hr
