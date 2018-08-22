@@ -32,7 +32,6 @@ class LmsExamsController < ApplicationController
   def update
     @exam = LmsExam.find(params[:id])
     @exam.update(exam_params)
-
     redirect_to :back
   end
 
@@ -151,17 +150,22 @@ class LmsExamsController < ApplicationController
                                      lms_exam_questions_attributes: [:id,
                                                                     :question_text,
                                                                     :question_type,
+                                                                    :lms_exam_id,
+                                                                    :_destroy,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,
                                                                                                   :position,
-                                                                                                  :correct]])
+                                                                                                  :lms_exam_question_id,
+                                                                                                  :correct,:_destroy]])
   end
 
   def sanitize_page_params
     params[:lms_exam][:exam_type] = LmsExam.exam_types.key(params[:lms_exam][:exam_type].to_i)
-    params[:lms_exam][:lms_exam_questions_attributes].each do |key, question|
-      params[:lms_exam][:lms_exam_questions_attributes][key][:question_type] =
-        LmsExamQuestion.question_types.key(question[:question_type].to_i)
+    if params[:lms_exam][:lms_exam_questions_attributes].present?
+      params[:lms_exam][:lms_exam_questions_attributes].each do |key, question|
+        params[:lms_exam][:lms_exam_questions_attributes][key][:question_type] =
+          LmsExamQuestion.question_types.key(question[:question_type].to_i)
+      end
     end
   end
 end

@@ -42,7 +42,12 @@
 
                   - if order_item.orderable_type == "VideoOnDemand"
                     tr
-                      td = "VOD for #{order_item.orderable.full_title}"
+                      td
+                        = "VOD for #{order_item.orderable.full_title}"
+                        - if order_item.orderable.cisco_course_product_code.present?
+                          br
+                          = link_to '(1) Post CPL Order With Cisco', cpl_orders_post_path(@order.id), style: 'margin-right: 5px;'
+                          = link_to '(2) Enroll CPL Order With Cisco', cpl_enrollments_post_path(@order.id)
 
 javascript:
   $('.permissions .orders').addClass('active');

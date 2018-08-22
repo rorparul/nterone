@@ -10,12 +10,13 @@ module CiscoPrivateLabel
   end
 
   def cpl_post_orders(order)
-    payment_type = 'CC' if ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type)
+    payment_type = ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type) ? 'CC' : 'PO'
 
     post_object = {
       "orderId": order.id.to_s,
       "orderDate": DateTime.parse((order.created_at.utc - 10.seconds).to_s).rfc3339(3)[0..22] + 'Z',
       "paymentMethod": payment_type,
+      "paymentReferenceId": 'Not provided',
       "orderItems": order.cisco_private_label_products.map do |cplp|
         {
           "productCode": cplp.orderable.cisco_course_product_code,
@@ -30,6 +31,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_orders()
+    new_request('/orders')
   end
 
   def cpl_post_orders_cancel(order)
@@ -61,6 +63,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_enrollments()
+    new_request('/enrollments')
   end
 
   def cpl_post_launch(post_object)

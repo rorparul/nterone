@@ -28,11 +28,22 @@ class QuizCorrectOrderQuestionForm extends React.Component {
     this.props.updateQuestion()
   }
 
+  renderAnswerId (answer) {
+    if(answer.lms_exam_question_id){
+      return  <input type='hidden' name={this.answerInputName(answer.id) + '[id]'} value={answer.id} />
+    }
+  }
+
+  ChangedeleteValue =(answer,e) =>{
+    this.props.removeAnswer(this.props.question, answer)
+  }
+
   renderAnswer = (answer) => {
     return (
-      <div key={answer.id} className='answer'>
+      <div key={answer.id} className='answer' style={{display: (answer._destroy == true) ? 'none' : 'block' }}>
+        {this.renderAnswerId(answer)}
+        
         <input type='hidden' value='true' name={this.answerInputName(answer.id) + '[correct]'}/>
-
         <input className='form-control input-sm answer-text'
           placeholder='Enter Answer...'
           defaultValue={answer.answer_text}
@@ -45,6 +56,9 @@ class QuizCorrectOrderQuestionForm extends React.Component {
           defaultValue={answer.position}
           name={this.answerInputName(answer.id) + '[position]'}
         />
+        <br/>
+        <input type='hidden' name={this.answerInputName(answer.id) + '[_destroy]'} value={answer._destroy} />
+        <a href="javascript:void(0)" onClick={this.ChangedeleteValue.bind(this,answer) } className="text-danger">Remove</a>
       </div>
     )
   }

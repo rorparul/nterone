@@ -78,6 +78,8 @@
 #  sales_force_id          :string
 #  customer_type           :integer
 #  online_daily_rate       :decimal(8, 2)    default(0.0)
+#  employement_type        :integer
+#  rating                  :integer
 #
 # Indexes
 #
@@ -93,6 +95,7 @@
 #
 #  fk_rails_...  (company_id => companies.id)
 #
+
 require 'roo'
 class User < ActiveRecord::Base
   extend ActsAsTree::TreeView
@@ -162,7 +165,7 @@ class User < ActiveRecord::Base
   has_many :taught_events,            class_name: 'Event', foreign_key: 'instructor_id'
   has_many :taught_video_on_demands,  class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
   has_many :hacp_requests,            dependent:   :destroy
-  has_many :companies
+  has_many :companies,                dependent: :nullify
   has_many :opportunities,            class_name:  'Opportunity',
                                       foreign_key: 'employee_id'
   has_many :tasks
