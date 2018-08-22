@@ -30,8 +30,14 @@ class LmsExamsController < ApplicationController
 
   def update
     @exam = LmsExam.find(params[:id])
-    @exam.update(exam_params)
-    redirect_to :back
+
+    if @exam.update(exam_params)
+      flash[:success] = "Exam was updated successfully."
+    else
+      flash[:alert] = "Exam update failed."
+    end
+
+    redirect_to edit_platform_video_on_demand_path(@exam.video_on_demand.platform, @exam.video_on_demand)
   end
 
   def destroy
