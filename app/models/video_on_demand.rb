@@ -133,7 +133,9 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def exam_completed_by?(user)
-    lms_exam.present? ? lms_exam.completed_by?(user) : false
+    lms_exams.each do |lms_exam|
+      lms_exam.present? ? lms_exam.completed_by?(user) : false
+    end
   end
 
   def exam_attempts_for(user)
@@ -162,7 +164,7 @@ class VideoOnDemand < ActiveRecord::Base
     AssignedItem.exists?(student: user, item: self)
   end
 
-    
+
   private
 
   def ensure_not_purchased_or_in_cart

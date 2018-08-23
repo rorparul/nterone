@@ -70,7 +70,7 @@
                                   span.fa.fa-file-text-o
                                   span.count
                                     = exam_completed_ratio(video_module, current_user)
-                              - if @video_on_demand.lms_exam
+                              - if @video_on_demand.lms_exams
                                 span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default') style="margin: 0; box-shadow: 0px 0px 3px #888888;"
                                   span.fa.fa-check
                         .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
@@ -96,17 +96,17 @@
                                       td
                                         span.fa.fa-play
                                         span.text-muted title="Play Video" = video.title
-                                  - video.lms_exams.each do |lms_exam|
-                                    tr.quiz class="video-#{video.id}-quiz"
-                                      td.fit id="quiz-#{lms_exam.id}-status"
-                                        = taken_exam_status(current_user, lms_exam)
-                                      td
-                                        span.fa.fa-file-text-o
-                                        a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
-                                          = lms_exam.title
-                                        - if lms_exam.completed_by?(current_user)
-                                          a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
-                                            | Scores
+                                - video_module.assign_quizzes.map(&:lms_exam).each do |lms_exam|
+                                  tr.quiz class="video-#{video_module.id}-quiz"
+                                    td.fit id="quiz-#{lms_exam.id}-status"
+                                      = taken_exam_status(current_user, lms_exam)
+                                    td
+                                      span.fa.fa-file-text-o
+                                      a class="open-#{video_module.id} #{lms_exam_disabled_class(lms_exam, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true"
+                                        = lms_exam.title
+                                      - if lms_exam.completed_by?(current_user)
+                                        a.show-score href="#{show_scores_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true" style="margin-left: 5px;"
+                                          | Scores
 
                   - if @video_on_demand.cisco_course_product_code.present? && @video_on_demand.video_modules.empty?
                     .row

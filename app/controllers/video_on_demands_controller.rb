@@ -128,27 +128,27 @@ class VideoOnDemandsController < ApplicationController
 
   def init_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
   end
 
   def begin_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     @lms_exam_attempt = LmsExamAttempt.create(lms_exam: @quiz, user: current_user, started_at: Time.now)
 
-    all_questions = @quiz.lms_exam_questions.all
+    all_questions = @quiz.lms_exam_questions.order("position DESC")
     taken_questions = []
 
     @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
 
     available_questions = all_questions - taken_questions
-
-    @next_question = available_questions.sample
-
+    available_questions.each do |question|
+      @next_question = question
+    end  
     respond_to do |format|
       format.html { render :action => 'show' }
       format.js { render :action => 'begin_quiz' }
@@ -158,22 +158,22 @@ class VideoOnDemandsController < ApplicationController
   def next_quiz_question
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     save_answer
 
     @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
 
-    all_questions = @quiz.lms_exam_questions.all
+    all_questions = @quiz.lms_exam_questions.order("position DESC")
     taken_questions = []
 
     @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
 
     available_questions = all_questions - taken_questions
-
-    @next_question = available_questions.sample
-
+    available_questions.each do |question|
+      @next_question = question
+    end 
     unless @next_question == nil
       respond_to do |format|
         format.html { render :action => 'show' }
@@ -196,7 +196,6 @@ class VideoOnDemandsController < ApplicationController
 
     lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     lms_exam_attempt.update(completed_at: Time.now)
-
     if params[:next_video_id]
       @video = Video.find(params[:next_video_id])
 
@@ -303,7 +302,7 @@ class VideoOnDemandsController < ApplicationController
     return save_correct_order_answer if question.correct_order?
 
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
+    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])  
     attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
 
     attempt_answer.answer_text = params[:answer] if question.free_form?

@@ -10,7 +10,7 @@
     = f.text_field :cdl_course_code, class: 'form-control input-sm'
   h4 = t('video_on_demands.partial_video_module_fields.module_videos')
   .row
-    div.upload_video.col-md-2
+    div.upload_video
       #videos
         = f.fields_for :videos do |ff|
           = render 'video_fields', f: ff

@@ -54,4 +54,13 @@ class VideoModule < ActiveRecord::Base
       quiz.completed_by?(user) ? sum + 1 : sum
     end
   end
+
+
+  def next_video_module
+    next_video_module = nil
+    video_on_demand.video_modules.order(:position).each do |video_mod|
+      next_video_module = video_mod if video_mod.position > position
+    end
+    next_video_module
+  end
 end
