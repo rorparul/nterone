@@ -4,13 +4,13 @@
     = f.text_field :title, class: 'form-control input-sm'
   .form-group.position
     = f.label :position, t('video_on_demands.partial_video_module_fields.position')
-    = f.text_field :position, class: 'form-control input-sm'
+    = f.text_field :position , class: 'form-control input-sm add_position'
   .form-group
     = f.label :cdl_course_code, "CPL Slug"
     = f.text_field :cdl_course_code, class: 'form-control input-sm'
   h4 = t('video_on_demands.partial_video_module_fields.module_videos')
   .row
-    div.upload_video
+    div.upload_video.col-md-9
       #videos
         = f.fields_for :videos do |ff|
           = render 'video_fields', f: ff
@@ -24,7 +24,6 @@
   hr
             
 javascript:
-  $(".links").click(function(){
-    $(this).closest( "div.upload_video" ).removeClass("col-md-2");
-    $(this).closest( "div.upload_video" ).addClass("col-md-9")
+  $(".nested-fields.video-on-demand-fields").each(function(i){
+    $(this).find(".add_position").val(i)
   })

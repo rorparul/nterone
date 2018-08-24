@@ -4,7 +4,7 @@
     = f.text_field :title, class: 'form-control input-sm'
   .form-group.position
     = f.label :position, t('video_on_demands.partial_video_fields.position')
-    = f.text_field :position, class: 'form-control input-sm'
+    = f.text_field :position, class: 'form-control input-sm video_position'
   .form-group.free
     = f.label :free, t('video_on_demands.partial_video_fields.free')
     br
@@ -17,11 +17,8 @@
   hr
 
 javascript:
-  $(".nested-fields.video-fields").each(function(){
-    $(this).closest( "div.upload_video" ).addClass("col-md-9");
-    $(this).find(".remove_video").click(function(){
-      if($(this).closest( "div.upload_video" ).find(".video-fields").length == 1){
-        $(this).closest( "div.upload_video" ).removeClass("col-md-9");
-      }
+  $(".nested-fields.video-on-demand-fields").each(function(index){
+    $(this).find(".nested-fields.video-fields").each(function(i){
+      $(this).find(".video_position").val(i)
     })
   })
