@@ -64,7 +64,7 @@ class VideoOnDemand < ActiveRecord::Base
   has_many :videos,                    through:   :video_modules
   has_many :users,                     through:   :order_items
   has_one :image, as: :imageable, dependent: :destroy
-  has_many :lms_exams  
+  has_many :lms_exams
   accepts_nested_attributes_for :image
 
   accepts_nested_attributes_for :video_modules, reject_if: :all_blank, allow_destroy: true
