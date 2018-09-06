@@ -25,8 +25,6 @@ module CiscoPrivateLabel
       end
     }
 
-    logger.info "post_object = #{post_object}"
-
     new_request('/orders', post_object)
   end
 
@@ -87,8 +85,6 @@ module CiscoPrivateLabel
     http.use_ssl             = true
     http.verify_mode         = Rails.env.production? ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
 
-    logger.info "\n#{request.body}\n"
-
     http.request(request)
   end
 
@@ -97,7 +93,7 @@ module CiscoPrivateLabel
     client_secret  = Rails.env.production? ? '5C2E19a038b84B2Da16eB47f73CbE4cDu' : '9b308cFaC4Cb410Cad9D2B7711AD0446'
     grant_type     = 'client_credentials'
     scope          = 'IDENTITY'
-    url_base       = Rails.env.production? ? 'https://digital-learning.cisco.com/ckoauth/token' : 'https://private-label.cte.systems/ckoauth/token'
+    url_base       = Rails.env.production? ? 'https://digital-learning.cisco.com/lpapi/ckoauth/token' : 'https://private-label.cte.systems/ckoauth/token'
     url_params     = "?client_id=#{client_id}&client_secret=#{client_secret}&grant_type=#{grant_type}&scope=#{scope}"
     uri            = URI(url_base + url_params)
     cisco_response = Net::HTTP.get(uri)
