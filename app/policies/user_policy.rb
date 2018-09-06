@@ -51,9 +51,24 @@ class UserPolicy < ApplicationPolicy
     @user.admin? || @user.sales_manager?
   end
 
-  def update?
-    # @user.admin? || (@user.sales? && @user.children.find_by(id: @record.id))
+  def edit?
     @user.admin? || @user.sales? || (@user == @record)
+  end
+
+  def update?
+    return true if ['anthony@nterone.com', 'ryan@storberg.net'].include?(@user.email)
+
+    if edit?
+      admin_roles = @record.roles.select { |role| role.role == 1 }
+
+      if admin_roles.any? { |admin_role| admin_role.new_record? || admin_role.role_changed? }
+        false
+      else
+        true
+      end
+    else
+      false
+    end
   end
 
   def mass_edit?
@@ -79,5 +94,4 @@ class UserPolicy < ApplicationPolicy
   def leads_unsubscribe?
     user.has_any_role?(%i(admin sales_rep sales_manager))
   end
-
 end

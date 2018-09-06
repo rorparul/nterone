@@ -104,7 +104,7 @@ class OrderItem < ActiveRecord::Base
 
   def copy_current_orderable_price
     if self.cart_id
-       self.price = self.orderable.try(:price)
+      self.price = self.orderable.try(:price)
     end
   end
 
