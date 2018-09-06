@@ -211,7 +211,7 @@ class VideoOnDemandsController < ApplicationController
   def show_scores
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    #@video = Video.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     @lms_exam_attempts = LmsExamAttempt.where(lms_exam: @quiz, user: current_user)

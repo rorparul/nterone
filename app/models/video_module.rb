@@ -50,7 +50,7 @@ class VideoModule < ActiveRecord::Base
   end
 
   def completed_exams_count_for(user)
-    self.lms_exams.inject(0) do |sum, quiz|
+    self.assign_quizzes.map(&:lms_exam).inject(0) do |sum, quiz|
       quiz.completed_by?(user) ? sum + 1 : sum
     end
   end
