@@ -91,6 +91,15 @@
         a.nav-pill href="#{users_path}"
           = t('layouts.partial_tabs.people')
 
+    - if policy(:admin).resources?
+      li.dropdown.resource role="presentation"
+        a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+          | Resources
+          span.caret
+        ul.dropdown-menu
+            li.vendors
+              a href="#{contact_infos_path}"
+                | Applicants
     - if policy(:admin).website?
       li.dropdown.website role="presentation"
         a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -102,7 +111,7 @@
                 | Vendors
             li.courses
               a.nav-pill href="#{admin_courses_path}"
-                = t('admins.partial_tabs.courses')
+                = t('admins.partial_tabs.courses')            
 
     - if policy(:admin).tools?
       li.tools_and_resources role="presentation"

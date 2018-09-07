@@ -1,0 +1,36 @@
+.row
+  .col-xs-12
+    h4
+      strong.text-muted Applicants
+    - unless smart_listing.empty?
+      .table-responsive
+        table.table.table-condensed
+          thead
+            tr.background-muted
+              th.fit Id
+              th.fit Email
+              th.fit FirstName
+              th.fit LastName
+              th.fit Message
+              th.fit created_at
+              th.fit Actions
+          tbody
+            - smart_listing.collection.each do |contact|
+              tr
+                td = contact.id
+                td = contact.email
+                td = contact.first_name
+                td = contact.last_name
+                td = contact.message
+                td = contact.created_at
+                td
+                  = link_to contact_info_path(contact), target: '_blank' do
+                    i class="fa fa-eye" aria-hidden="true" 
+
+        .table-end
+      .container-muted
+        = smart_listing.paginate
+        = smart_listing.pagination_per_page_links
+    - else
+      .container-muted.text-center
+        = t('default.placeholder.no_records')

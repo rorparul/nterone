@@ -64,4 +64,9 @@ class AdminPolicy < Struct.new(:user, :admin)
   def cpl_log?
     user.has_any_role?(%i(admin))
   end
+
+  def resources?
+    user.has_any_role?(%i(admin))
+  end
+
 end

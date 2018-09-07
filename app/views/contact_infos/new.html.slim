@@ -10,7 +10,7 @@
   .row
     .col-xs-12.col-md-8.col-md-offset-2
       = render partial: 'layouts/about_us_nav_bar'
-      = @page.try(:content).try(:html_safe)
+      = render partial: 'form',  locals: { contact: @contact }
       hr
       / form
       p.text-muted
@@ -22,5 +22,5 @@ javascript:
   $('.btn-employment-opportunity').addClass('active')
 
   $('.fr-green').each(function(){
-    $(this).addClass("btn btn-primary");
+    $(this).addClass("btn btn-primary contact-info")
   })

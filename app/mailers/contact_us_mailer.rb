@@ -39,4 +39,16 @@ class ContactUsMailer < ApplicationMailer
       subject: @subject
     )
   end
+
+
+  def contact_info_email(contact)
+    @tld       = Rails.application.config.tld
+    @contact   = contact
+    @subject = "Applied on job"
+    mail(
+      to: 
+        "helpdesk@nterone.#{@tld}",
+    )
+  end
+    
 end
