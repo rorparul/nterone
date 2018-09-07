@@ -4,7 +4,7 @@ class ContactInfosController < ApplicationController
   helper SmartListing::Helper
 
   before_action :authenticate_user! , except: [:new, :create]
-  before_action :validate_authorization
+
   def index
     contacts = ContactInfo.all
 
