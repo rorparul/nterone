@@ -344,7 +344,7 @@ class User < ActiveRecord::Base
   end
 
   def past_events
-    events.where('end_date < ?', Date.today).order(:end_date)
+    events.where('start_date < ?', Date.today).order(:end_date)
   end
 
   def active_video_on_demands

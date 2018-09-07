@@ -11,7 +11,7 @@ es:
       active_self_paced_subscriptions: "Mis Suscripciones AutoEstudio Activas"
       build_my_training_plan: "Construir Mi Plan de Entrenamiento"
       certification_planning_tracking: "Planificación y Rastreo de Certificaciones"
-      completed_classes_subscriptions: "Mis Suscripciones y Clases Completadas"
+      completed_classes_subscriptions: "Mis Suscripciones y Clases Pendientes o Completadas"
       countdown: "Cuenta Regresiva"
       course: "Curso"
       date: "Fecha"
