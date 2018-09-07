@@ -1,9 +1,9 @@
 .nested-fields.video-fields
   .form-group.title
     = f.label :title, t('video_on_demands.partial_video_fields.title')
-    = f.text_field :title, class: 'form-control input-sm'
+    = f.text_field :title, class: 'form-control input-sm'  
   .form-group.position
-    = f.label :position, t('video_on_demands.partial_video_fields.position')
+    = f.label :position, t('video_on_demands.partial_video_fields.position')  
     = f.text_field :position, class: 'form-control input-sm video_position'
   .form-group.free
     = f.label :free, t('video_on_demands.partial_video_fields.free')
@@ -16,9 +16,3 @@
   = link_to_remove_association t('video_on_demands.partial_video_fields.remove'), f, class: 'remove_video'
   hr
 
-javascript:
-  $(".nested-fields.video-on-demand-fields").each(function(index){
-    $(this).find(".nested-fields.video-fields").each(function(i){
-      $(this).find(".video_position").val(i)
-    })
-  })

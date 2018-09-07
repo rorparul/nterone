@@ -41,7 +41,7 @@ en:
       remove: "Remove video"
       title: "Title"
     partial_video_module_fields:
-      add: "Add video"
+      add: "Add Video"
       module_videos: "Module Content"
       position: "Position"
       remove: "Remove module"

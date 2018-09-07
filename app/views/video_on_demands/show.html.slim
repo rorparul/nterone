@@ -91,7 +91,7 @@
                                       = taken_exam_status(current_user, lms_exam)
                                     td
                                       span.fa.fa-file-text-o
-                                      a class="open-#{video_module.id} #{lms_exam_disabled_class(lms_exam, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true"
+                                      a class="open-#{video_module.id}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true"
                                         = lms_exam.title
                                       - if lms_exam.completed_by?(current_user)
                                         a.show-score href="#{show_scores_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true" style="margin-left: 5px;"
