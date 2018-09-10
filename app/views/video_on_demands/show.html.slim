@@ -66,7 +66,7 @@
                           .table-responsive
                             table.table.table-condensed
                               tbody
-                                - video_module.videos.order(:position).each do |video|
+                                - video_module.videos.each do |video|
                                   tr.video
                                     td.fit id="video-#{video.id}-status"
                                       = video_status(current_user, video)
