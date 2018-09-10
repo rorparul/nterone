@@ -10,7 +10,7 @@ class RegistrationMailer < ApplicationMailer
 
     mail(
       to: @seller_email,
-      bcc: ["leslie@nterone.com"],
+      bcc: ["leslie@nterone.com", 'ryan@nterone.com'],
       subject:       'NterOne Registration Confirmation',
       template_path: 'mailers',
       template_name: 'student_added'
