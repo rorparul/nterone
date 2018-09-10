@@ -1,8 +1,9 @@
 h3 Email:
-p = @contact.email
+p = @applicant.email
 
 h3 FirstName:
-p = @contact.first_name
+p = @applicant.first_name
 
 h3 LastName:
-p = @contact.last_name
+p = @applicant.last_name
+p = link_to 'Download Resume',attachments["job_applicant.resume_upload.file.original_filename.to_s"].url

@@ -1,4 +1,4 @@
-class ContactInfosController < ApplicationController
+class JobApplicantsController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
 
   helper SmartListing::Helper
@@ -6,10 +6,15 @@ class ContactInfosController < ApplicationController
   before_action :authenticate_user! , except: [:new, :create]
 
   def index
-    contacts = ContactInfo.all
+    contacts = JobApplicant.all
 
     smart_listing_create(:contact_infos, contacts,
-      partial: "contact_infos/contact",
+      page_sizes: [10, 50, 100],
+      sort_attributes: [[:email, "email"],
+                        [:first_name, "first_name"],
+                         [:last_name, "last_name"],
+                        ],
+      partial: "job_applicants/contact",
       default_sort: { created_at: "desc" }
     )
 
@@ -21,35 +26,37 @@ class ContactInfosController < ApplicationController
 
 
   def new
-    @contact = ContactInfo.new
+    @contact = JobApplicant.new
   end
   
 
   def create
-    @contact = ContactInfo.new(contact_info_params)
+    @contact = JobApplicant.new(contact_info_params)
     if @contact.save
-      flash[:success] = "Successfully Applied."
+      flash[:success] = "Job Application successfully created."
       redirect_to employment_opportunity_path
     else
-      render :new
+      @page = Page.current_region.find_by(title: 'Employment Opportunity')
+      render "general/employment_opportunity"
     end   
   end
 
 
   def show
-    @conatct = ContactInfo.find(params["id"])
+    @conatct = JobApplicant.find(params["id"])
   end  
 
 
   private
 
     def contact_info_params
-      params.require(:contact_info).permit(
+      params.require(:job_applicant).permit(
         :first_name,
         :last_name,
         :email,
         :message,
-        :resume_upload
+        :resume_upload,
+        :phone
       )
     end
 

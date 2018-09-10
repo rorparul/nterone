@@ -48,4 +48,7 @@ class ResumeUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  def extension_white_list
+    %w(pdf)
+  end
 end

@@ -59,6 +59,7 @@ class GeneralController < ApplicationController
 
   def employment_opportunity
     @page = Page.current_region.find_by(title: 'Employment Opportunity')
+    @contact = JobApplicant.new
   end
 
   def labs

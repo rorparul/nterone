@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: contact_infos
+# Table name: job_applicants
 #
 #  id            :integer          not null, primary key
 #  first_name    :string
@@ -10,11 +10,12 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  resume_upload :string
+#  phone         :integer
 #
 
-class ContactInfo < ActiveRecord::Base
+class JobApplicant < ActiveRecord::Base
   mount_uploader :resume_upload, ResumeUploader
-  validates :email, :first_name, :last_name ,:resume_upload,  presence: :true
+  validates :email, :first_name, :last_name ,:phone,  presence: :true
   after_create :send_email_to_admin
 
 

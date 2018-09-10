@@ -8,24 +8,27 @@
         - @contact.errors.full_messages.each do |msg|
           li = msg
 
-  .form-group
-    = f.label :email, "Email"
-    = f.text_field :email, class: 'form-control'    
-  .form-group
+  .form-group.col-xs-6
     = f.label :first_name, "First Name"
     = f.text_field :first_name, class: 'form-control'
-  .form-group
+  .form-group.col-xs-6
     = f.label :last_name, "Last Name"
     = f.text_field :last_name, class: 'form-control'
-  .form-group
+  .form-group.col-xs-6
+    = f.label :email, "Email"
+    = f.email_field :email, class: 'form-control'   
+  .form-group.col-xs-6
+    = f.label :phobe, "Phone"
+    = f.text_field :phone, class: 'form-control'   
+  .form-group.col-xs-12
     = f.label :message, "Message"
     = f.text_area :message, class: 'form-control'  
-  .form-group
+  .form-group.col-xs-12
     = f.label :resume_upload, "Resume Upload"
-    = f.file_field :resume_upload 
-  .form-buttons
+    = f.file_field :resume_upload
+  .form-buttons.col-xs-12
     button.btn.btn-success type="submit"
-      = t('default.action.create')
-    button.btn.btn-default type="button" data-dismiss="modal"
-      = t('default.action.cancel')
+      = "Apply"
 
+hr.line_break
+  

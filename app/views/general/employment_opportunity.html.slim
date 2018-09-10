@@ -12,10 +12,11 @@
       = render partial: 'layouts/about_us_nav_bar'
       = @page.try(:content).try(:html_safe)
       hr
-      / form
+      h1.add_style = "Apply On Job!"
+      = render partial: 'job_applicants/form',  locals: { contact: @contact }
       p.text-muted
         em NterOne does not discriminate on the basis of race, sex, color, religion, age, national origin, marital status, disability, veteran status, genetic information, sexual orientation, gender identity or any other reason prohibited by law in provision of employment opportunities and benefits.
-
+      
 = render partial: 'shared/banner_footer'
 
 javascript:
@@ -24,3 +25,5 @@ javascript:
   $('.fr-green').each(function(){
     $(this).addClass("btn btn-primary");
   })
+
+

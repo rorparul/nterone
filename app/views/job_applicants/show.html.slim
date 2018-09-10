@@ -5,6 +5,8 @@
 
   p = "FirstName: #{@conatct&.first_name}"
 
-  p = "Phone: #{@conatct&.last_name}"
+  p = "LastName: #{@conatct&.last_name}"
 
-  p = "Message: #{@conatct&.message}"
+  p = "Phone: #{@conatct&.phone}"
+
+  p = link_to 'Download Resume', @conatct.resume_upload.url 

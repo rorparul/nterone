@@ -8,9 +8,12 @@
           thead
             tr.background-muted
               th.fit Id
-              th.fit Email
-              th.fit FirstName
-              th.fit LastName
+              th.fit
+                = smart_listing.sortable 'Email', :email
+              th.fit
+                = smart_listing.sortable 'FirstName', :first_name
+              th.fit 
+                = smart_listing.sortable 'LastName', :last_name
               th.fit Message
               th.fit created_at
               th.fit Actions
@@ -24,7 +27,7 @@
                 td = contact.message
                 td = contact.created_at
                 td
-                  = link_to contact_info_path(contact), target: '_blank' do
+                  = link_to job_applicant_path(contact), target: '_blank' do
                     i class="fa fa-eye" aria-hidden="true" 
 
         .table-end
@@ -34,3 +37,4 @@
     - else
       .container-muted.text-center
         = t('default.placeholder.no_records')
+        
