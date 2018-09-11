@@ -216,8 +216,8 @@ class AdminController < ApplicationController
         a << { 'title': event.title_with_instructor_and_state, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)', 'url': admin_classes_show_path(event) }
       end
       if event.class == ResourceEvent && event.instructor.present?
-        a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 188, 140)','url': resource_event_path(event)}  
-      end  
+        a << {'title': event.instructor_full_name_and_type, 'start': event.start_date.strftime("%Y-%m-%d"), 'end': (event.end_date + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 188, 140)','url': resource_event_path(event)}
+      end
     end
     return a.to_json
   end
