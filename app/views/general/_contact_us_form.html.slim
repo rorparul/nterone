@@ -16,17 +16,17 @@
 
     .form-group
       = f.label :name, t('general.partial_contact_us_form.name')
-      = f.text_field :name, class: 'form-control input-sm'
+      = f.text_field :name, class: 'form-control input-sm', required: true
 
     .row
       .col-xs-6
         .form-group
           = f.label :email, t('shared._contact_us_form.email')
-          = f.text_field :email, class: 'form-control input-sm'
+          = f.text_field :email, class: 'form-control input-sm', required: true
       .col-xs-6
         .form-group
           = f.label :phone, t('general.partial_contact_us_form.phone')
-          = f.text_field :phone, class: 'form-control input-sm'
+          = f.text_field :phone, class: 'form-control input-sm', required: true
 
     .form-group
       = f.label :message, t('general.partial_contact_us_form.questions_or_comments')
