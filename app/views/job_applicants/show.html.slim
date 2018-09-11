@@ -1,6 +1,7 @@
+= render 'layouts/tabs'
 .container
   .row
-    .col-xs-12
+    .col-xs-12.mb-60
       h4
         strong.text-muted = "Detail of applicant"
   
@@ -23,7 +24,7 @@
                 td.text-right
                   strong
                     = t('applicants.partial_show.phone')
-                td = "#{@conatct&.phone}"        
+                td = "#{@conatct&.phone}"
       .col-xs-12.col-md-6.table-col
         .table-responsive
           table#table-event-details.table.table-condensed
@@ -42,6 +43,8 @@
                 td.text-right
                   strong
                     = t('applicants.partial_show.download_resume')
-                td  = link_to 'Download Resume', @conatct.resume_upload.url                      
-              
+                td  = link_to 'Download Resume', @conatct.resume_upload.url
+
+javascript:
+  $('.permissions .resource').addClass('active');              
       
