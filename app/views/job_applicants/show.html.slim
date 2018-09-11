@@ -1,12 +1,47 @@
-.container style="margin-top: 40px;"
-  p = "ID: #{@conatct.id}"
-
-  p = "Email: #{@conatct&.email}"
-
-  p = "FirstName: #{@conatct&.first_name}"
-
-  p = "LastName: #{@conatct&.last_name}"
-
-  p = "Phone: #{@conatct&.phone}"
-
-  p = link_to 'Download Resume', @conatct.resume_upload.url 
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted = "Detail of applicant"
+  
+     
+      .col-xs-12.col-md-6.table-col
+        .table-responsive
+          table#table-event-details.table.table-condensed
+            tbody
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.first_name')
+                td = "#{@conatct&.first_name}"
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.email')
+                td = "#{@conatct&.email}"
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.phone')
+                td = "#{@conatct&.phone}"        
+      .col-xs-12.col-md-6.table-col
+        .table-responsive
+          table#table-event-details.table.table-condensed
+            tbody
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.last_name')
+                td = "#{@conatct&.last_name}"
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.message')
+                td = "#{@conatct&.message}"
+              tr
+                td.text-right
+                  strong
+                    = t('applicants.partial_show.download_resume')
+                td  = link_to 'Download Resume', @conatct.resume_upload.url                      
+              
+      

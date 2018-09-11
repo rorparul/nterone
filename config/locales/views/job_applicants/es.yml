@@ -1,0 +1,9 @@
+es:
+  applicants:
+    partial_show:
+      first_name: "Nombre de pila:"
+      last_name: "Apellido:"
+      email: "Email:"
+      download_resume: "Descargar curriculum vitae:"
+      phone: "Teléfono:"
+      message: "Mensaje:"

@@ -1,40 +1,36 @@
-.row
-  .col-xs-12
-    h4
-      strong.text-muted Applicants
-    - unless smart_listing.empty?
-      .table-responsive
-        table.table.table-condensed
-          thead
-            tr.background-muted
-              th.fit Id
-              th.fit
-                = smart_listing.sortable 'Email', :email
-              th.fit
-                = smart_listing.sortable 'FirstName', :first_name
-              th.fit 
-                = smart_listing.sortable 'LastName', :last_name
-              th.fit Message
-              th.fit created_at
-              th.fit Actions
-          tbody
-            - smart_listing.collection.each do |contact|
-              tr
-                td = contact.id
-                td = contact.email
-                td = contact.first_name
-                td = contact.last_name
-                td = contact.message
-                td = contact.created_at
-                td
-                  = link_to job_applicant_path(contact), target: '_blank' do
-                    i class="fa fa-eye" aria-hidden="true" 
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th.fit Id
+          th.fit
+            = smart_listing.sortable 'Email', :email
+          th.fit
+            = smart_listing.sortable 'FirstName', :first_name
+          th.fit 
+            = smart_listing.sortable 'LastName', :last_name
+          th.fit Message
+          th.fit created_at
+          th.fit Actions
+      tbody
+        - smart_listing.collection.each do |applicant|
+          tr
+            td = applicant.id
+            td = applicant.email
+            td = applicant.first_name
+            td = applicant.last_name
+            td = applicant.message
+            td = applicant&.created_at.strftime("%b. %d, %Y %I:%M %p")
+            td
+              = link_to job_applicant_path(applicant), target: '_blank' do
+                i class="fa fa-eye" aria-hidden="true" 
 
-        .table-end
-      .container-muted
-        = smart_listing.paginate
-        = smart_listing.pagination_per_page_links
-    - else
-      .container-muted.text-center
-        = t('default.placeholder.no_records')
-        
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted.text-center
+    = t('default.placeholder.no_records')
+    

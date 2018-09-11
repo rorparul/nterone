@@ -1,20 +1,21 @@
 class JobApplicantsController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
-
   helper SmartListing::Helper
 
-  before_action :authenticate_user! , except: [:new, :create]
+  before_action :authenticate_user!, except: [:new, :create]
+  before_action :validate_authorization, only: [:index, :show]
 
   def index
-    contacts = JobApplicant.all
-
-    smart_listing_create(:contact_infos, contacts,
-      page_sizes: [10, 50, 100],
+    applicants_scope = JobApplicant.all
+    applicants_scope = applicants_scope.custom_search(params[:filter]) if params[:filter].present?
+    @job_applicants = smart_listing_create(
+      :applicants,
+      applicants_scope,
+      partial: "job_applicants/contact",
       sort_attributes: [[:email, "email"],
                         [:first_name, "first_name"],
                          [:last_name, "last_name"],
                         ],
-      partial: "job_applicants/contact",
       default_sort: { created_at: "desc" }
     )
 
@@ -31,14 +32,25 @@ class JobApplicantsController < ApplicationController
   
 
   def create
+    @page = Page.current_region.find_by(title: 'Employment Opportunity')
     @contact = JobApplicant.new(contact_info_params)
-    if @contact.save
-      flash[:success] = "Job Application successfully created."
-      redirect_to employment_opportunity_path
+    if (params["g-recaptcha-response"].present? && verify_recaptcha)
+      begin
+        if @contact.save
+          flash[:success] = "Job Application successfully created."
+          redirect_to employment_opportunity_path
+        else
+          flash[:notice] = "Job Applicantion Failed"
+          render "general/employment_opportunity"
+        end
+      rescue => e
+        flash[:notice] = "Failed job application, Maximum limit of phone should be 10"
+        render "general/employment_opportunity"
+      end     
     else
-      @page = Page.current_region.find_by(title: 'Employment Opportunity')
+      flash[:notice] = "Job Applicantion Failed"
       render "general/employment_opportunity"
-    end   
+    end    
   end
 
 
@@ -60,10 +72,10 @@ class JobApplicantsController < ApplicationController
       )
     end
 
-  def validate_authorization
-    unless current_user.admin? || current_user.sales?
-      redirect_to root_path
-    end
-  end 
+    def validate_authorization
+      unless current_user.admin?
+        redirect_to root_path
+      end
+    end 
 
 end

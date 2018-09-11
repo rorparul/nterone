@@ -132,4 +132,13 @@ module ApplicationHelper
   def courses_for_select
     Course.active.includes(:platform).order('platforms.title', 'lower(abbreviation)')
   end
+    
+
+  def show_error(input, object)
+    if object.errors.full_messages.any?
+      if !object.errors.messages[input].blank?
+        object.errors.messages[input].join(",")
+      end
+    end
+  end
 end

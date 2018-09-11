@@ -1,31 +1,35 @@
 = form_for @contact do |f|
-  - if @contact.errors.any?
-    .alert.alert-danger.alert-dismissible
-      button.close type="button" data-dismiss="alert" aria-label="Close"
-        span aria-hidden="true" &times;
-      h4 = "#{pluralize(@contact.errors.count, 'error')}:"
-      ul
-        - @contact.errors.full_messages.each do |msg|
-          li = msg
-
   .form-group.col-xs-6
     = f.label :first_name, "First Name"
     = f.text_field :first_name, class: 'form-control'
+    .p.field_with_errors
+      = show_error(:first_name, f.object)
   .form-group.col-xs-6
     = f.label :last_name, "Last Name"
     = f.text_field :last_name, class: 'form-control'
+    .p.field_with_errors
+      = show_error(:last_name, f.object)
   .form-group.col-xs-6
     = f.label :email, "Email"
-    = f.email_field :email, class: 'form-control'   
+    = f.email_field :email, class: 'form-control' 
+    .p.field_with_errors
+      = show_error(:email, f.object)  
   .form-group.col-xs-6
     = f.label :phobe, "Phone"
-    = f.text_field :phone, class: 'form-control'   
+    = f.text_field :phone, class: 'form-control' 
+      .p.field_with_errors
+        = show_error(:phone, f.object)    
   .form-group.col-xs-12
     = f.label :message, "Message"
     = f.text_area :message, class: 'form-control'  
   .form-group.col-xs-12
     = f.label :resume_upload, "Resume Upload"
     = f.file_field :resume_upload
+    .p.field_with_errors  
+      = show_error(:resume_upload, f.object)
+  .form-group.col-xs-12    
+    #recapcha
+      = recaptcha_tags    
   .form-buttons.col-xs-12
     button.btn.btn-success type="submit"
       = "Apply"
