@@ -238,8 +238,8 @@ class VideoOnDemandsController < ApplicationController
     order_item = current_user.order_items.find_by(orderable_type: 'VideoOnDemand', orderable_id: vod.id)
     order      = order_item.order
 
-    logger.info "order_item = #{order_item}\n"
-    logger.info "order = #{order}\n"
+    logger.info "order_item = #{order_item}"
+    logger.info "order = #{order}"
 
     post_object = {
       "orderId": order.id.to_s,
@@ -247,13 +247,18 @@ class VideoOnDemandsController < ApplicationController
       "email": current_user.email
     }
 
-    logger.info "post_object = #{post_object}\n"
+    logger.info "post_object = #{post_object}"
 
     cpl_response = cpl_post_launch(post_object)
     json         = JSON.parse(cpl_response.body)
 
-    logger.info "cpl_response = #{cpl_response}\n"
-    logger.info "json = #{json}\n"
+    if json['message'].present? && json['message'].match("Error, Launch Date Should Between Course's Start Date and End Date").to_s.length > 0
+      flash[:alert] = "Your subscription has expired."
+      return redirect_to :back
+    end
+
+    logger.info "cpl_response = #{cpl_response}"
+    logger.info "json = #{json}"
 
     redirect_to json['launchUrl']
   end

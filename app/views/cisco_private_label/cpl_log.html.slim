@@ -1,0 +1,15 @@
+- content_for :actions do
+  li = link_to 'CPL Log', cpl_log_path
+  li = link_to 'CPL Orders', cpl_orders_path
+  li = link_to 'CPL Enrollments', cpl_enrollments_path
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2 style='margin-top: 40px;'
+      - @log.reverse.each do |log_item|
+        - log_item.each do |k, v|
+          p
+            strong = "#{k}: "
+            = v
+
+        hr

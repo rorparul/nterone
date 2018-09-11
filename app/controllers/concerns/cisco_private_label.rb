@@ -10,12 +10,13 @@ module CiscoPrivateLabel
   end
 
   def cpl_post_orders(order)
-    payment_type = 'CC' if ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type)
+    payment_type = ['Credit Card', 'Tarjeta de Credito'].include?(order.payment_type) ? 'CC' : 'PO'
 
     post_object = {
       "orderId": order.id.to_s,
       "orderDate": DateTime.parse((order.created_at.utc - 10.seconds).to_s).rfc3339(3)[0..22] + 'Z',
       "paymentMethod": payment_type,
+      "paymentReferenceId": 'Not provided',
       "orderItems": order.cisco_private_label_products.map do |cplp|
         {
           "productCode": cplp.orderable.cisco_course_product_code,
@@ -28,6 +29,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_orders()
+    new_request('/orders')
   end
 
   def cpl_post_orders_cancel(order)
@@ -59,6 +61,7 @@ module CiscoPrivateLabel
   end
 
   def cpl_get_enrollments()
+    new_request('/enrollments')
   end
 
   def cpl_post_launch(post_object)
@@ -72,7 +75,7 @@ module CiscoPrivateLabel
   end
 
   def new_request(url_endpoint, post_object = nil)
-    url_base                 = "https://ckprivatelabel#{Rails.env.production? ? nil : 'uat'}.cloudhub.io/api/v1"
+    url_base                 = Rails.env.production? ? 'https://digital-learning.cisco.com/lpapi/v1' : 'https://private-label.cte.systems/lpapi/v1'
     uri                      = URI.parse(url_base + url_endpoint)
     request                  = "Net::HTTP::#{post_object ? 'Post' : 'Get'}".constantize.new(uri.request_uri)
     request['Authorization'] = "Bearer #{new_access_token}"
@@ -80,21 +83,17 @@ module CiscoPrivateLabel
     request.body             = post_object.to_json
     http                     = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl             = true
-    http.verify_mode         = "OpenSSL::SSL::#{Rails.env.production? ? 'VERIFY_PEER' : 'VERIFY_NONE'}".constantize
-
-    logger.info "\n#{request.body}\n"
+    http.verify_mode         = Rails.env.production? ? OpenSSL::SSL::VERIFY_PEER : OpenSSL::SSL::VERIFY_NONE
 
     http.request(request)
   end
 
   def new_access_token
-    # client_id      = 'a1a1fc70e1e34c9291848cc17726c5e2'
-    # client_secret  = '9b308cFaC4Cb410Cad9D2B7711AD0446'
-    client_id      = '39450595357f4ad581184ccb5b1e67c0'
-    client_secret  = '5C2E19a038b84B2Da16eB47f73CbE4cDu'
+    client_id      = Rails.env.production? ? '39450595357f4ad581184ccb5b1e67c0' : 'a1a1fc70e1e34c9291848cc17726c5e2'
+    client_secret  = Rails.env.production? ? '5C2E19a038b84B2Da16eB47f73CbE4cDu' : '9b308cFaC4Cb410Cad9D2B7711AD0446'
     grant_type     = 'client_credentials'
     scope          = 'IDENTITY'
-    url_base       = "https://ckoauth#{Rails.env.production? ? nil : 'uat'}.cloudhub.io/ckoauth/api/token"
+    url_base       = Rails.env.production? ? 'https://digital-learning.cisco.com/lpapi/ckoauth/token' : 'https://private-label.cte.systems/ckoauth/token'
     url_params     = "?client_id=#{client_id}&client_secret=#{client_secret}&grant_type=#{grant_type}&scope=#{scope}"
     uri            = URI(url_base + url_params)
     cisco_response = Net::HTTP.get(uri)

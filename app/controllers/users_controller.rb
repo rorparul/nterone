@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include SmartListingConcerns
 
   before_action :set_user,       only: [:show, :show_as_lead, :show_as_contact, :edit, :edit_from_sales, :assign, :edit_from_my_queue, :update, :toggle_archived, :destroy]
-  before_action :authorize_user, except: [:show, :toggle_archived]
+  before_action :authorize_user, except: [:show, :update, :toggle_archived]
 
   def index
     respond_to do |format|
@@ -67,7 +67,11 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update_attributes(user_params)
+      @user.assign_attributes(user_params)
+
+      authorize @user
+
+      if @user.save(user_params)
         format.html do
           flash[:success] = 'User successfully updated!'
           redirect_to :back
