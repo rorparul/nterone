@@ -10,16 +10,15 @@ class LmsExamsController < ApplicationController
 
   def create
     @platform = Platform.find(exam_params[:platform_id])
-    @video = Video.find(exam_params[:video_id])
+    # @video = Video.find(exam_params[:video_id])
     @video_on_demand = VideoOnDemand.find(exam_params[:video_on_demand_id])
     @exam = LmsExam.new(exam_params.except(:platform_id, :video_on_demand_id))
     @question_types = LmsExamQuestion.question_types
 
-    @exam.video_on_demand = @video_on_demand if @exam.exam_type == 'test'
-    @exam.video_module = @video.video_module
-
+    @exam.video_on_demand = @video_on_demand
+    # @exam.video_module = @video.video_module
     if @exam.save
-      flash[:success] = "Exam was uploaded for the #{@exam.video.title} video of the #{@exam.video.video_module.title} module!"
+      flash[:success] = "Exam was uploaded successfully"
       redirect_to edit_platform_video_on_demand_path(@platform, @video_on_demand)
     end
   end
@@ -31,8 +30,14 @@ class LmsExamsController < ApplicationController
 
   def update
     @exam = LmsExam.find(params[:id])
-    @exam.update(exam_params)
-    redirect_to :back
+
+    if @exam.update(exam_params)
+      flash[:success] = "Exam was updated successfully."
+    else
+      flash[:alert] = "Exam update failed."
+    end
+
+    redirect_to edit_platform_video_on_demand_path(@exam.video_on_demand.platform, @exam.video_on_demand)
   end
 
   def destroy
@@ -151,6 +156,7 @@ class LmsExamsController < ApplicationController
                                                                     :question_text,
                                                                     :question_type,
                                                                     :lms_exam_id,
+                                                                    :position,
                                                                     :_destroy,
                                                                     lms_exam_answers_attributes: [:id,
                                                                                                   :answer_text,

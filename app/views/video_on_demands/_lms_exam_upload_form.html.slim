@@ -1,12 +1,5 @@
 .form-container
-
-  - if video_exists
-    = form_for [lms_exam], remote: false do |f|
-
-      .form-group
-        = f.label :video_id
-        br
-         = f.select :video_id, options_for_select(video_on_demand.videos.map{|video| ["#{video.title}", video.id]})
+  = form_for [lms_exam], remote: false do |f|
 
       .form-group
         = f.label :title, 'Exam Title'
@@ -36,15 +29,12 @@
           td Title
           td Actions
         tbody
-          - @video_on_demand.all_exams.each do |exam|
+          - @video_on_demand.lms_exams.each do |exam|
             tr
               td= exam.title
               td
                 = link_to 'Edit', edit_lms_exam_path(exam), class: 'edit-exam'
                 = link_to 'Remove', lms_exam_path(exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'destroy-exam'
-
-
+                
       .form-buttons
         button.btn.btn-success type="submit" Upload
-  - else
-    .text-warning Please upload at least one video in the "General and Videos" section of this form.

@@ -13,6 +13,7 @@ class QuizQuestionForm extends React.Component {
     let questions = this.state.questions.concat([{
       id: this.state.questions.length,
       type: '0',
+      position: this.state.questions.length,
       answers: []
     }])
 
@@ -109,7 +110,17 @@ class QuizQuestionForm extends React.Component {
         defaultValue={question.text}
         name={this.questionInputName(question.id) + '[question_text]'}
       />
+
+      <input type='number'
+        className='form-control input-sm question-position'
+        defaultValue={question.position}
+        name={this.questionInputName(question.id) + '[position]'}
+        style={{display: 'inline-block', width: 60, marginLeft: 10, marginRight: 10}}
+      />
+
       <select
+        className='form-control input-sm'
+        style={{display: 'inline-block', width: 120}}
         name={this.questionInputName(question.id) + '[question_type]'}
         defaultValue={question.type}
         onChange={this.typeChanged.bind(this, question)}
@@ -129,12 +140,12 @@ class QuizQuestionForm extends React.Component {
     console.log(this.props.questions)
     return (
       <div className='question-answer-form'>
+        {this.state.questions.map(q => this.renderQuestion(q))}
         <button
           className='add-question btn btn-default'
           onClick={this.addQuestion.bind(this)} >
           Add Question
         </button>
-        {this.state.questions.map(q => this.renderQuestion(q))}
       </div>
     )
   }

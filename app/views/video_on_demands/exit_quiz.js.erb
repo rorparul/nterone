@@ -1,6 +1,6 @@
 $('.modal-body').addClass('quiz-container')
-"<% if @video.next_video %>"
-  $('.modal-body').html("<form name=\"end-quiz\" action=\"<%= escape_javascript(exit_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\" data-remote=\"true\"><input type=\"hidden\" name=\"lms_exam_attempt\" value=\"<%= @lms_exam_attempt.id %>\"><input type='hidden' name='next_video_id' value='<%= @video.next_video.id %>'><p id='display-score'></p></form>");
+"<% if @video.next_video_module %>"
+  $('.modal-body').html("<form name=\"end-quiz\" action=\"<%= escape_javascript(exit_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\" data-remote=\"true\"><input type=\"hidden\" name=\"lms_exam_attempt\" value=\"<%= @lms_exam_attempt.id %>\"><input type='hidden' name='next_video_id' value='<%= @video.next_video_module.id %>'><p id='display-score'></p></form>");
   $('form[name=end-quiz]').append("<button class='btn btn-info btn-quiz-medium'>Next Video</button>");
 "<% else %>"
   $('.modal-body').html("<form name=\"end-quiz\" action=\"<%= escape_javascript(exit_quiz_platform_video_on_demands_path(@video_on_demand, @video, @quiz)) %>\" accept-charset=\"UTF-8\" method=\"POST\"><input type=\"hidden\" name=\"lms_exam_attempt\" value=\"<%= @lms_exam_attempt.id %>\"><p id='display-score'></p></form>");

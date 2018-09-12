@@ -1,0 +1,26 @@
+.form-container
+
+  - if @video_on_demand.video_modules.present?
+      table.table.table-hover.update-exam
+        tbody
+          - @video_on_demand.video_modules.each_with_index do |video_module, i|
+            - if video_module.present?
+              tr
+                - if i == 0
+                  td style=("\n    border: none;\n") 
+                    = video_module.title
+                  td style=("\n    border: none;\n") 
+                -else
+                  td = video_module.title
+                  td  
+              - video_module.lms_exams.each do |lms_exam|
+                tr 
+                  td  = lms_exam.title
+                  td 
+                    = link_to 'Edit', edit_lms_exam_path(lms_exam), class: 'edit-exam'
+                    = link_to 'Remove', lms_exam_path(lms_exam), method: :delete, data: {confirm: "Are you sure?"}, class: 'destroy-exam'    
+                  
+  - else
+    .text-warning Please add at least one quiz in the "General and Videos" section of this form.
+
+
