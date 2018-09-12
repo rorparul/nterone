@@ -33,11 +33,10 @@ module VideoOnDemandHelper
   end
 
   def get_videos_quizzes(object)
-    videos = object.videos
-    assign_quizzes = object.assign_quizzes
-    videos_quizzes = videos + assign_quizzes
-    videos_quizzes_by_position = videos_quizzes.sort{|a,b| a.position<=>b.position}
-    return videos_quizzes_by_position
+    videos             = object.videos
+    assign_quizzes     = object.assign_quizzes
+    videos_and_quizzes = videos + assign_quizzes
+    videos_and_quizzes.sort { |a, b| a.position && b.position ? a.position <=> b.position : a.position ? -1 : 1 }
   end
-    
+
 end
