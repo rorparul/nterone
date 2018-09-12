@@ -7,6 +7,7 @@
 #  updated_at      :datetime         not null
 #  lms_exam_id     :integer
 #  video_module_id :integer
+#  position        :integer
 #
 
 class AssignQuiz < ActiveRecord::Base

@@ -31,4 +31,13 @@ module VideoOnDemandHelper
   def vod_overal_progress(vod, user)
     "#{vod.overal_progress_percent_for(user)}% (#{vod.overal_progress_count_for(user)}/#{vod.overal_all_count_for(user)})"
   end
+
+  def get_videos_quizzes(object)
+    videos = object.videos
+    assign_quizzes = object.assign_quizzes
+    videos_quizzes = videos + assign_quizzes
+    videos_quizzes_by_position = videos_quizzes.sort{|a,b| a.position<=>b.position}
+    return videos_quizzes_by_position
+  end
+    
 end

@@ -1,15 +1,24 @@
-.nested-fields.video-fields
-  .form-group.title
-    = f.label :title, t('video_on_demands.partial_video_fields.title')
-    = f.text_field :title, class: 'form-control input-sm'  
-  .form-group.free
-    = f.label :free, t('video_on_demands.partial_video_fields.free')
-    br
-    = f.check_box :free, class: 'form-control input-sm'
-  .form-group.embed-code
-    = f.label :embed_code, t('video_on_demands.partial_video_fields.code')
-    = f.text_area :embed_code, class: 'form-control input-sm'
+- if (f.object.new_record? && !f.object.errors.messages.present?) || f.object == locals[:video_quiz]
+  .nested-fields.video-fields
+    .form-group.title
+      = f.label :title, t('video_on_demands.partial_video_fields.title')
+      = f.text_field :title, class: 'form-control input-sm'
+      = f.hidden_field :position, class: 'form-control input-sm video_position'
+    .form-group.free
+      = f.label :free, t('video_on_demands.partial_video_fields.free')
+      br
+      = f.check_box :free, class: 'form-control input-sm'
+    .form-group.embed-code
+      = f.label :embed_code, t('video_on_demands.partial_video_fields.code')
+      = f.text_area :embed_code, class: 'form-control input-sm'
 
-  = link_to_remove_association t('video_on_demands.partial_video_fields.remove'), f, class: 'remove_video'
-  hr
+    = link_to_remove_association t('video_on_demands.partial_video_fields.remove'), f, class: 'remove_video'
+    hr
 
+
+  javascript:
+   $(".nested-fields.video-on-demand-fields").each(function(index){
+      $(this).find(".nested-fields.video-fields").each(function(i){
+        $(this).find(".video_position").val(i)
+      })
+   })

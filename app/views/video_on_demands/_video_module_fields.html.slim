@@ -12,14 +12,26 @@
   .row
     div.upload_video.col-md-9
       #videos
-        = f.fields_for :videos do |ff|
-          = render 'video_fields', f: ff
-        = f.fields_for :assign_quizzes do |assign_quiz|
-          = render 'assign_quiz_fields', f: assign_quiz
+        - if f.object.new_record? && !f.object.errors.messages.present?
+          = f.fields_for :videos do |ff|
+            = render 'video_fields', f: ff
+          = f.fields_for :assign_quizzes do |assign_quiz|
+            = render 'assign_quiz_fields', f: assign_quiz
+        - else   
+          - get_videos_quizzes(f.object).each do |exam|
+            - if exam.class.name == "Video"
+              = f.fields_for :videos do |ff|
+                - if ff.object == exam
+                  = render 'video_fields', f: ff, :locals => {:video_quiz => exam } 
+            - else
+              = f.fields_for :assign_quizzes do |assign_quiz|
+                - if assign_quiz.object == exam
+                  = render 'assign_quiz_fields', f: assign_quiz, :locals => {:video_quiz => exam }
         .links
           = link_to_add_association t('video_on_demands.partial_video_module_fields.add'), f, :videos
-          = link_to_add_association 'Add Quiz', f, :assign_quizzes       
+          = link_to_add_association 'Add Quiz', f, :assign_quizzes 
 
   = link_to_remove_association t('video_on_demands.partial_video_module_fields.remove'), f
   hr
             
+

@@ -299,7 +299,7 @@ class VideoOnDemandsController < ApplicationController
                                                                        :title,
                                                                        :cdl_course_code,
                                                                        :_destroy,
-                                                                       assign_quizzes_attributes:[:id, :lms_exam_id,:_destroy],
+                                                                       assign_quizzes_attributes:[:id, :lms_exam_id,:position, :_destroy],
                                                                        videos_attributes: [:id,
                                                                                            :position,
                                                                                            :title,
