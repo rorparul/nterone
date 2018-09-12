@@ -25,11 +25,9 @@ class JobApplicantsController < ApplicationController
     end
   end
 
-
   def new
     @contact = JobApplicant.new
   end
-  
 
   def create
     @page = Page.current_region.find_by(title: 'Employment Opportunity')
@@ -40,42 +38,40 @@ class JobApplicantsController < ApplicationController
           flash[:success] = "Job Application successfully created."
           redirect_to employment_opportunity_path
         else
-          flash[:notice] = "Job Applicantion Failed"
+          flash[:alert] = "Job Application Failed"
           render "general/employment_opportunity"
         end
       rescue => e
-        flash[:notice] = "Failed job application, Maximum limit of phone should be 10"
+        flash[:alert] = "Failed job application, Maximum limit of phone should be 10"
         render "general/employment_opportunity"
-      end     
+      end
     else
-      flash[:notice] = "Job Applicantion Failed"
+      flash[:alert] = "Job Application Failed"
       render "general/employment_opportunity"
-    end    
+    end
   end
 
 
   def show
-    @conatct = JobApplicant.find(params["id"])
-  end  
-
+    @contact = JobApplicant.find(params["id"])
+  end
 
   private
 
-    def contact_info_params
-      params.require(:job_applicant).permit(
-        :first_name,
-        :last_name,
-        :email,
-        :message,
-        :resume_upload,
-        :phone
-      )
+  def contact_info_params
+    params.require(:job_applicant).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :message,
+      :resume_upload,
+      :phone
+    )
+  end
+
+  def validate_authorization
+    unless current_user.admin?
+      redirect_to root_path
     end
-
-    def validate_authorization
-      unless current_user.admin?
-        redirect_to root_path
-      end
-    end 
-
+  end
 end

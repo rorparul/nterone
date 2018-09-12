@@ -4,8 +4,8 @@
     .col-xs-12.mb-60
       h4
         strong.text-muted = "Detail of applicant"
-  
-     
+
+
       .col-xs-12.col-md-6.table-col
         .table-responsive
           table#table-event-details.table.table-condensed
@@ -14,17 +14,17 @@
                 td.text-right
                   strong
                     = t('applicants.partial_show.first_name')
-                td = "#{@conatct&.first_name}"
+                td = "#{@contact&.first_name}"
               tr
                 td.text-right
                   strong
                     = t('applicants.partial_show.email')
-                td = "#{@conatct&.email}"
+                td = "#{@contact&.email}"
               tr
                 td.text-right
                   strong
                     = t('applicants.partial_show.phone')
-                td = "#{@conatct&.phone}"
+                td = "#{@contact&.phone}"
       .col-xs-12.col-md-6.table-col
         .table-responsive
           table#table-event-details.table.table-condensed
@@ -33,18 +33,17 @@
                 td.text-right
                   strong
                     = t('applicants.partial_show.last_name')
-                td = "#{@conatct&.last_name}"
+                td = "#{@contact&.last_name}"
               tr
                 td.text-right
                   strong
                     = t('applicants.partial_show.message')
-                td = "#{@conatct&.message}"
+                td = "#{@contact&.message}"
               tr
                 td.text-right
                   strong
                     = t('applicants.partial_show.download_resume')
-                td  = link_to 'Download Resume', @conatct.resume_upload.url
+                td  = link_to 'Download Resume', @contact.resume_upload.url
 
 javascript:
-  $('.permissions .resource').addClass('active');              
-      
+  $('.permissions .resource').addClass('active');

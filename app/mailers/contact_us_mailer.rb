@@ -47,9 +47,9 @@ class ContactUsMailer < ApplicationMailer
     @subject = "Job Application successfully submitted."
     attachments["job_applicant.resume_upload.file.original_filename.to_s"] = job_applicant.resume_upload.read
     mail(
-      to: 
+      to:
         "helpdesk@nterone.#{@tld}", subject: @subject, attachments: attachments
     )
   end
-    
+
 end

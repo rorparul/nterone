@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907111605) do
+ActiveRecord::Schema.define(version: 20180912001054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,16 +227,6 @@ ActiveRecord::Schema.define(version: 20180907111605) do
   end
 
   add_index "companies", ["origin_region"], name: "index_companies_on_origin_region", using: :btree
-
-  create_table "contact_infos", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "message"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "resume_upload"
-  end
 
   create_table "contact_us_submissions", force: :cascade do |t|
     t.string   "name"
@@ -619,6 +609,17 @@ ActiveRecord::Schema.define(version: 20180907111605) do
   end
 
   add_index "interests", ["origin_region"], name: "index_interests_on_origin_region", using: :btree
+
+  create_table "job_applicants", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "message"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "resume_upload"
+    t.string   "phone",         default: ""
+  end
 
   create_table "lab_course_time_blocks", force: :cascade do |t|
     t.integer "lab_course_id"
