@@ -1,25 +1,34 @@
 ul#regions-list
   li
-    = link_to switch_tld_path('com') do
-      = "#{flag_icon(:us, id: 'my-flag', class: 'strong')} United States".html_safe
+    = link_to switch_tld_path('la'), class: "region_la", data: { region: "argentina" } do
+      = "#{flag_icon(:ar, id: 'my-flag', class: 'strong')} Argentina".html_safe
+  li
+    = link_to switch_tld_path('la'), class: "region_la", data: { region: "brazil" } do
+      = "#{flag_icon(:br, id: 'my-flag', class: 'strong')} Brazil".html_safe
   li
     = link_to switch_tld_path('ca') do
       = "#{flag_icon(:ca, id: 'my-flag', class: 'strong')} Canada".html_safe
   li
-    = link_to switch_tld_path('la'), class: "region_la" do
-      = "#{flag_icon(:do, id: 'my-flag', class: 'strong')} República Dominicana".html_safe
-  li
-    = link_to switch_tld_path('la'), class: "region_la", data: { region: "venezuela" } do
-      = "#{flag_icon(:ve, id: 'my-flag', class: 'strong')} Venezuela".html_safe
-  li
-    = link_to switch_tld_path('la'), class: "region_la", data: { region: "panama" } do
-      = "#{flag_icon(:pa, id: 'my-flag', class: 'strong')} Panamá".html_safe
+    = link_to switch_tld_path('la'), class: "region_la", data: { region: "chile" } do
+      = "#{flag_icon(:cl, id: 'my-flag', class: 'strong')} Chile".html_safe
   li
     = link_to switch_tld_path('la'), class: "region_la", data: { region: "colombia" } do
       = "#{flag_icon(:co, id: 'my-flag', class: 'strong')} Colombia".html_safe
   li
     = link_to switch_tld_path('in') do
       = "#{flag_icon(:in, id: 'my-flag', class: 'strong')} India".html_safe
+  li
+    = link_to switch_tld_path('la'), class: "region_la", data: { region: "panama" } do
+      = "#{flag_icon(:pa, id: 'my-flag', class: 'strong')} Panamá".html_safe
+  li
+    = link_to switch_tld_path('la'), class: "region_la" do
+      = "#{flag_icon(:do, id: 'my-flag', class: 'strong')} República Dominicana".html_safe
+  li
+    = link_to switch_tld_path('com') do
+      = "#{flag_icon(:us, id: 'my-flag', class: 'strong')} United States".html_safe
+  li
+    = link_to switch_tld_path('la'), class: "region_la", data: { region: "venezuela" } do
+      = "#{flag_icon(:ve, id: 'my-flag', class: 'strong')} Venezuela".html_safe
 
 javascript:
   $(".region_la").on("click", function() {

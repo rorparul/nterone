@@ -74,7 +74,6 @@ en:
     welcome:
       classes: "Featured Classes"
       classes_paragraph: "View a list of our most popular courses broken down by vendor."
-      banner: "welcome-banners/en/feeding-america.jpg"
       labs: "Labs"
       labs_paragraph: "Global Data Center Offering 24x7 Lab Access"
       vendor: "Courses by Vendor"
