@@ -3,7 +3,7 @@ module VideoHelper
     return if !user
 
     status = video.status_for(user) || ''
-    "<span class='status-circle #{status}'/>".html_safe
+    "<span class='status-circle #{status}' style='margin-left: 21px;' />".html_safe
   end
 
   def wistia_video_id(video)

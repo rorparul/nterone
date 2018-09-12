@@ -77,7 +77,6 @@ class VideoOnDemandsController < ApplicationController
     @exam_types = LmsExam.exam_types
     @question_types = LmsExamQuestion.question_types
     @video_on_demand.build_image unless @video_on_demand.image.present?
-
     @video_on_demand.video_modules.each do |video_module|
       unless video_module.videos.empty?
         @video_exists = true
@@ -91,12 +90,11 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
-
+    
     authorize @video_on_demand
-
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
-      redirect_to session[:previous_request_url]
+      redirect_to session[:current_request_url]
     else
       set_categories
 
@@ -130,27 +128,27 @@ class VideoOnDemandsController < ApplicationController
 
   def init_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
   end
 
   def begin_quiz
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     @lms_exam_attempt = LmsExamAttempt.create(lms_exam: @quiz, user: current_user, started_at: Time.now)
 
-    all_questions = @quiz.lms_exam_questions.all
+    all_questions = @quiz.lms_exam_questions.order("position DESC")
     taken_questions = []
 
     @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
 
     available_questions = all_questions - taken_questions
-
-    @next_question = available_questions.sample
-
+    available_questions.each do |question|
+      @next_question = question
+    end  
     respond_to do |format|
       format.html { render :action => 'show' }
       format.js { render :action => 'begin_quiz' }
@@ -160,22 +158,22 @@ class VideoOnDemandsController < ApplicationController
   def next_quiz_question
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    @video = VideoModule.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     save_answer
 
     @lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
 
-    all_questions = @quiz.lms_exam_questions.all
+    all_questions = @quiz.lms_exam_questions.order("position DESC")
     taken_questions = []
 
     @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
 
     available_questions = all_questions - taken_questions
-
-    @next_question = available_questions.sample
-
+    available_questions.each do |question|
+      @next_question = question
+    end 
     unless @next_question == nil
       respond_to do |format|
         format.html { render :action => 'show' }
@@ -198,7 +196,6 @@ class VideoOnDemandsController < ApplicationController
 
     lms_exam_attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
     lms_exam_attempt.update(completed_at: Time.now)
-
     if params[:next_video_id]
       @video = Video.find(params[:next_video_id])
 
@@ -214,7 +211,7 @@ class VideoOnDemandsController < ApplicationController
   def show_scores
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    @video = Video.find(params[:video_id])
+    #@video = Video.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     @lms_exam_attempts = LmsExamAttempt.where(lms_exam: @quiz, user: current_user)
@@ -263,6 +260,7 @@ class VideoOnDemandsController < ApplicationController
     redirect_to json['launchUrl']
   end
 
+
   private
 
   def video_on_demand_params
@@ -301,6 +299,7 @@ class VideoOnDemandsController < ApplicationController
                                                                        :title,
                                                                        :cdl_course_code,
                                                                        :_destroy,
+                                                                       assign_quizzes_attributes:[:id, :lms_exam_id,:position, :_destroy],
                                                                        videos_attributes: [:id,
                                                                                            :position,
                                                                                            :title,
@@ -316,7 +315,7 @@ class VideoOnDemandsController < ApplicationController
     return save_correct_order_answer if question.correct_order?
 
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
+    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])  
     attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
 
     attempt_answer.answer_text = params[:answer] if question.free_form?
@@ -339,5 +338,15 @@ class VideoOnDemandsController < ApplicationController
   def set_categories
     categories  = Category.current_region.active.select { |category| category if category.parent }
     @categories = categories.sort_by { |category| [category.platform.title, category.parent.title, category.title] }
+  end
+
+   def sanitize_page_params
+    if  params[:video_on_demand]["video_modules_attributes"].present?
+       params[:video_on_demand]["video_modules_attributes"].each do |key, video_module|
+          video_module["lms_exams_attributes"].each do |key,lms_exam|
+            lms_exam["exam_type"] = LmsExam.exam_types.key(lms_exam["exam_type"].to_i)
+          end
+       end 
+    end  
   end
 end

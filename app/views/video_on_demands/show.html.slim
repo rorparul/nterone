@@ -28,20 +28,7 @@
                 #accordion.panel-group role="tablist" aria-multiselectable="true"
                   - @video_on_demand.video_modules.order(:position).each_with_index do |video_module, index|
 
-                    / NOTE: The code in this 'if' block is deprecated:
-                    - if @video_on_demand.cisco_digital_learning?
-                      .row
-                        .col-xs-12
-                          .panel.panel-default
-                            .panel-body style="padding: 0 15px;"
-                              = image_tag "vendor-logos/cisco.png", style: 'height: 50px; margin-right: 10px;'
-                              - if user_signed_in? && current_user.active_video_on_demands.include?(@video_on_demand)
-                                = link_to "Digital Learning Portal for #{video_module.title}", cdl_show_path(video_module.id)
-                                i.fa.fa-external-link style='margin-left: 10px;'
-                              - else
-                                = video_module.title
-
-                    - elsif @video_on_demand.cisco_course_product_code.present?
+                    - if @video_on_demand.cisco_course_product_code.present?
                       .row
                         .col-xs-12
                           .panel.panel-default
@@ -65,48 +52,53 @@
                                 span.fa.fa-play
                                 span.count
                                   = video_completed_ratio(video_module, current_user)
-                              - if video_module.lms_exams.count > 0
+                              - if video_module.lms_exams
                                 span.label.item class=exam_completed_class(video_module, current_user) style="box-shadow: 0px 0px 3px #888888;"
                                   span.fa.fa-file-text-o
                                   span.count
                                     = exam_completed_ratio(video_module, current_user)
-                              - if @video_on_demand.lms_exam
-                                span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default') style="margin: 0; box-shadow: 0px 0px 3px #888888;"
-                                  span.fa.fa-check
+                                    
+                              / - if @video_on_demand.lms_exams
+                              /   span.label.item class=(@video_on_demand.exam_completed_by?(current_user) ? 'label-success' : 'label-default') style="margin: 0; box-shadow: 0px 0px 3px #888888;"
+                              /     span.fa.fa-check
+
                         .panel-collapse.collapse id="collapse#{index}" class=('in' if @video_on_demand.purchased_by?(current_user) || @video_on_demand.assigned_to?(current_user)) role="tabpanel" aria-labelledby="heading#{index}"
                           .table-responsive
                             table.table.table-condensed
                               tbody
-                                - video_module.videos.order(:position).each do |video|
-                                  tr.video
-                                    td.fit id="video-#{video.id}-status"
-                                      = video_status(current_user, video)
-                                    - if video.free
-                                      td
-                                        span.fa.fa-play
-                                        a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
-                                          = video.title
-                                        .label.label-info style="margin-left: 10px; box-shadow: 0px 0px 3px #888888;" Free Sample
-                                    - elsif user_signed_in? && video.permit_user?(current_user)
-                                      td
-                                        span.fa.fa-play
-                                        a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
-                                          = video.title
-                                    - else
-                                      td
-                                        span.fa.fa-play
-                                        span.text-muted title="Play Video" = video.title
-                                  - video.lms_exams.each do |lms_exam|
-                                    tr.quiz class="video-#{video.id}-quiz"
+                                - get_videos_quizzes(video_module).each do |video|
+                                  - if video.class.name == "Video"
+                                    tr.video
+                                      td.fit id="video-#{video.id}-status"
+                                        = video_status(current_user, video)
+                                      - if video.free
+                                        td
+                                          span.fa.fa-play
+                                          a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                            = video.title
+                                          .label.label-info style="margin-left: 10px; box-shadow: 0px 0px 3px #888888;" Free Sample
+                                      - elsif user_signed_in? && video.permit_user?(current_user)
+                                        td
+                                          span.fa.fa-play
+                                          a title="Play Video" href="#{play_video_platform_video_on_demands_path(video.video_module.video_on_demand, video)}" data-remote="true"
+                                            = video.title
+                                      - else
+                                        td
+                                          span.fa.fa-play
+                                          span.text-muted title="Play Video" = video.title
+                                  - else
+                                    - lms_exam = video.lms_exam
+                                    tr.quiz class="video-#{video_module.id}-quiz"
                                       td.fit id="quiz-#{lms_exam.id}-status"
                                         = taken_exam_status(current_user, lms_exam)
                                       td
                                         span.fa.fa-file-text-o
-                                        a class="open-#{video.id} #{quiz_disabled_class(video, current_user)}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true"
+                                        a class="open-#{video_module.id} #{@purchased ? '' : "disabled"}" title='Take Quiz' href="#{init_quiz_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true"
                                           = lms_exam.title
                                         - if lms_exam.completed_by?(current_user)
-                                          a.show-score href="#{show_scores_platform_video_on_demands_path(video.video_module.video_on_demand, video, lms_exam)}" data-remote="true" style="margin-left: 5px;"
-                                            | Scores
+                                          a.show-score href="#{show_scores_platform_video_on_demands_path(video_module.video_on_demand, video_module, lms_exam)}" data-remote="true" style="margin-left: 5px;"
+                                            | Scores          
+                                    
 
                   - if @video_on_demand.cisco_course_product_code.present? && @video_on_demand.video_modules.empty?
                     .row

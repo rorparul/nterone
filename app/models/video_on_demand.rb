@@ -63,10 +63,8 @@ class VideoOnDemand < ActiveRecord::Base
   has_many :video_modules,             dependent: :destroy
   has_many :videos,                    through:   :video_modules
   has_many :users,                     through:   :order_items
-
   has_one :image, as: :imageable, dependent: :destroy
-  has_one :lms_exam
-
+  has_many :lms_exams
   accepts_nested_attributes_for :image
 
   accepts_nested_attributes_for :video_modules, reject_if: :all_blank, allow_destroy: true
@@ -135,7 +133,9 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def exam_completed_by?(user)
-    lms_exam.present? ? lms_exam.completed_by?(user) : false
+    lms_exams.each do |lms_exam|
+      lms_exam.present? ? lms_exam.completed_by?(user) : false
+    end
   end
 
   def exam_attempts_for(user)
@@ -163,6 +163,7 @@ class VideoOnDemand < ActiveRecord::Base
   def assigned_to?(user)
     AssignedItem.exists?(student: user, item: self)
   end
+
 
   private
 

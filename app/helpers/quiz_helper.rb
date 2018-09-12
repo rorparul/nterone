@@ -9,11 +9,11 @@ module QuizHelper
     return if !user
 
     if lms_exam.completed_by?(user)
-      "<span class='status-circle completed'/>".html_safe
+      "<span class='status-circle completed' style='margin-left: 21px;'/>".html_safe
     elsif LmsExamAttempt.exists?(user: user, lms_exam: lms_exam)
-      "<span class='status-circle started'/>".html_safe
+      "<span class='status-circle started' style='margin-left: 21px;'/>".html_safe
     else
-      "<span class='status-circle'/>".html_safe
+      "<span class='status-circle' style='margin-left: 21px;'/>".html_safe
     end
   end
 
@@ -23,6 +23,7 @@ module QuizHelper
         id: question.id,
         text: question.question_text,
         type: question_type_mapping(question.question_type),
+        position: question.position,
         answers: question.lms_exam_answers
       }
     end

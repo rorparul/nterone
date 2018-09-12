@@ -18,7 +18,7 @@
     h4 Questions
     hr
     #questions
-      = react_component('QuizQuestionForm', { questions: questions_for_react(@exam.lms_exam_questions)})
+      = react_component('QuizQuestionForm', { questions: questions_for_react(@exam.lms_exam_questions.order("position ASC"))})
 
     .form-buttons
       button.btn.btn-success type="submit" Save
