@@ -35,14 +35,14 @@ class JobApplicantsController < ApplicationController
     @contact = JobApplicant.new(contact_info_params)
     if (params["g-recaptcha-response"].present? && verify_recaptcha)
       if @contact.save
-        flash[:success] = "Job Application successfully created."
+        flash[:success] = "Your resume has been submitted successfully"
         redirect_to employment_opportunity_path
       else
-        flash[:notice] = "Job Applicantion Failed"
+        flash[:alert] = "Resume submission has been failed"
         render "general/employment_opportunity"
       end
     else
-      flash[:alert] = "Job Application Failed"
+      flash[:alert] = "Resume submission has been failed"
       render "general/employment_opportunity"
     end
   end

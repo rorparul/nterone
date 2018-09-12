@@ -10,12 +10,12 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  resume_upload :string
-#  phone         :integer
+#  phone         :string           default("")
 #
 
 class JobApplicant < ActiveRecord::Base
   mount_uploader :resume_upload, ResumeUploader
-  validates :email, :first_name, :last_name ,:phone, :resume_upload,  presence: :true
+  validates :email, :first_name, :last_name, :phone, :resume_upload,  presence: :true
   after_create :send_email_to_admin
   include SearchCop
 
