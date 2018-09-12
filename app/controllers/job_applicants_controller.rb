@@ -12,6 +12,7 @@ class JobApplicantsController < ApplicationController
       :applicants,
       applicants_scope,
       partial: "job_applicants/contact",
+      page_sizes: [100, 50, 10],
       sort_attributes: [[:email, "email"],
                         [:first_name, "first_name"],
                          [:last_name, "last_name"],
@@ -35,16 +36,11 @@ class JobApplicantsController < ApplicationController
     @page = Page.current_region.find_by(title: 'Employment Opportunity')
     @contact = JobApplicant.new(contact_info_params)
     if (params["g-recaptcha-response"].present? && verify_recaptcha)
-      begin
-        if @contact.save
-          flash[:success] = "Job Application successfully created."
-          redirect_to employment_opportunity_path
-        else
-          flash[:notice] = "Job Applicantion Failed"
-          render "general/employment_opportunity"
-        end
-      rescue => e
-        flash[:notice] = "Failed job application, Maximum limit of phone should be 10"
+      if @contact.save
+        flash[:success] = "Job Application successfully created."
+        redirect_to employment_opportunity_path
+      else
+        flash[:notice] = "Job Applicantion Failed"
         render "general/employment_opportunity"
       end     
     else
