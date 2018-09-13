@@ -49,6 +49,26 @@
                   strong
                     = t('lab_rentals.partial_show.instructor_phone')
                 td = lab_rental.instructor_phone if lab_rental.instructor_phone
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.setup_by')
+                td = @lab_rental.setup_by_user.try(:full_name)
+                tr
+                  td.text-right
+                    strong
+                      = t('lab_rentals.partial_show.plus_instructor')
+                  td = @lab_rental.plus_instructor ? 'Yes' : "No"    
+                tr
+                  td.text-right
+                    strong
+                      = t('lab_rentals.partial_show.entered_into_crm')
+                  td = @lab_rental.entered_into_crm ? 'Yes' : "No"      
+                tr
+                  td.text-right
+                    strong
+                      = t('lab_rentals.partial_show.payment_received')
+                  td = @lab_rental.payment_received ? 'Yes' : "No"         
                                              
       .col-xs-12.col-md-6.table-col
         .responsive-table
@@ -59,12 +79,6 @@
                   strong
                     = t('lab_rentals.partial_show.confirmed')
                 td = lab_rental.confirmed ? t('lab_rentals.partial_show.affirmative') : t('lab_rentals.partial_show.unconfirmed') 
-
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.notes')
-                td = lab_rental.notes if lab_rental.notes 
               tr
                 td.text-right
                   strong
@@ -83,8 +97,33 @@
               tr
                 td.text-right
                   strong
+                    = t('lab_rentals.partial_show.tested_by')
+                td = @lab_rental.tested_by_user.try(:full_name)  
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.po_number')
+                td = @lab_rental.po_number       
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.invoice_number')
+                td = @lab_rental.invoice_number
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.poc')
+                td = @lab_rental.poc 
+              tr
+                td.text-right
+                  strong
                     = t('lab_rentals.partial_show.origin_region')
-                td = lab_rental.origin_region.gsub("-","").humanize if lab_rental.origin_region.present?    
+                td = lab_rental.origin_region.gsub("-","").humanize if lab_rental.origin_region.present?   
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.terms')
+                td = @lab_rental.terms ? 'Yes' : "No"     
               tr
                 td.text-right
                   strong
@@ -98,6 +137,8 @@
                     - elsif active_region == 'canada'
                       = flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
                     - elsif active_region == 'india'
-                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')                        
-                  
-              
+                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')  
+              tr 
+                td.text-right
+                  strong
+                td       

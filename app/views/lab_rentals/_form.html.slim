@@ -76,8 +76,8 @@
         .form-group
           = f.label :lab_course_id, t('lab_rentals.partial_form.course')
           span.required *
-          - if @lab_rental.company
-            = f.select :lab_course_id, @lab_rental.company.lab_courses.collect{ |course| [course.title, course.id] },
+          - if @lab_rental.company  
+            = f.select :lab_course_id,  LabCourse.all.collect{ |course| [course.title, course.id] },
                    { include_blank: t('generic.select.placeholder')},
                    { required: true, class: "form-control input-sm" }
           - else
@@ -164,31 +164,12 @@
           = f.select :tested_by, User.all_instructors.collect{ |user| [user.full_name, user.id] },
           { include_blank: t('default.placeholder.select') },
           { class: "form-control input-sm " }     
-    
-    .row
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.lab')
-        .form-group
-          = f.text_field :lab, class: 'form-control input-sm'  
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.partner')
-        .form-group
-          = f.text_field :partner, class: 'form-control input-sm'  
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.gmt')
-        .form-group
-          = f.text_field :gmt, class: 'form-control input-sm' 
 
     .row
       .col-xs-12.col-md-4
         label = t('lab_rentals.partial_form.number_of_pods')
         .form-group
           = f.number_field :number_of_pods, class: 'form-control input-sm' 
-
-      .col-xs-12.col-md-4
-        label = t('lab_rentals.partial_form.number_of_students')
-        .form-group
-          = f.number_field :number_of_students, class: 'form-control input-sm'
 
     .row
       .col-xs-12.col-md-4
