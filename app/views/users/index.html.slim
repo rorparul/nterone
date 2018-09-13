@@ -1,5 +1,8 @@
 = content_for :actions do
   li
+    = link_to job_applicants_path do
+      = "Job Applicants"
+  li
     = link_to sales_force_form_for_tasks_path, remote: true do
       = "Upload Sales Force Task Files"
   li
@@ -37,7 +40,7 @@
                 = link_to "Mark As Partner Customer", "javascript:void(0)", class: "classify_user_link mark_as_partner"
 
         = render partial: "search_inputs"
-      
+
       i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
 
       #list-view-container.users_listing.all_listing
@@ -46,15 +49,15 @@
 
       #list-view-container.users_listing.students_listing.hide
         #list-view
-          = smart_listing_render(:students) 
+          = smart_listing_render(:students)
 
       #list-view-container.users_listing.instructors_listing.hide
         #list-view
-          = smart_listing_render(:instructors)  
+          = smart_listing_render(:instructors)
 
       #list-view-container.users_listing.admins_listing.hide
         #list-view
-          = smart_listing_render(:admins)      
+          = smart_listing_render(:admins)
 
 javascript:
   $('.permissions .people').addClass('active');
@@ -90,7 +93,7 @@ javascript:
   $(".mark_as_partner").on('click', function(){
     mass_edit_customer_type("partner_customer");
   });
-  
+
   $("#btn-all-view").on('click', function(){
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
@@ -119,7 +122,7 @@ javascript:
       data: {role: $(this).data('role'), filter: filter_value }
     })
   })
-  
+
   $( document ).ajaxStart(function() {
     $(".loading").css('display', 'block');
     $(".loading").css('opacity', '1');
