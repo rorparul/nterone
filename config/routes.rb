@@ -47,6 +47,8 @@ NterOne::Application.routes.draw do
 
   resources :contact_us_submissions, only: [:index, :show]
 
+  resources :job_applicants
+
   resources :carts
   get 'cart/calculator'      => 'carts#calculator',      as: :cart_calculator
   get 'cart/render_discount' => 'carts#render_discount', as: :render_discount

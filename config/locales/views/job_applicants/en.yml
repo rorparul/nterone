@@ -1,0 +1,9 @@
+en:
+  applicants:
+    partial_show:
+      first_name: "First Name:"
+      last_name: "Last Name:"
+      email: "Email:"
+      download_resume: "Download Resume:"
+      phone: "Phone:"
+      message: "Message:"
