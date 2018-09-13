@@ -65,7 +65,7 @@ class QuizCorrectOrderQuestionForm extends React.Component {
 
   render () {
     return <div className='answers'>
-      {this.props.question.answers.map(answer => this.renderAnswer(answer))}
+      {this.props.question.answers.sort((a,b)=>(a.position - b.position)).map(answer => this.renderAnswer(answer))}
 
       <button
         onClick={this.addAnswerClicked.bind(this)}

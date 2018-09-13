@@ -40,16 +40,17 @@ class ContactUsMailer < ApplicationMailer
     )
   end
 
-
   def contact_info_email(job_applicant)
     @tld       = Rails.application.config.tld
-    @applicant   = job_applicant
-    @subject = "Job Application successfully submitted."
-    attachments["job_applicant.resume_upload.file.original_filename.to_s"] = job_applicant.resume_upload.read
+    @applicant = job_applicant
+    @subject   = "New Job Applicant"
+
+    # attachments['job_applicant.resume_upload.file.original_filename.to_s'] = job_applicant.resume_upload.read
+
+    attachments.inline["resume.pdf"] = job_applicant.resume_upload.read
+
     mail(
-      to:
-        "helpdesk@nterone.#{@tld}", subject: @subject, attachments: attachments
+      to: "helpdesk@nterone.#{@tld}", subject: @subject, attachments: attachments
     )
   end
-
 end

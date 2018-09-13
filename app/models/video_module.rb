@@ -24,11 +24,15 @@ class VideoModule < ActiveRecord::Base
   belongs_to :video_on_demand
   has_many   :videos, dependent: :destroy
 
-  has_many :lms_exams
+  has_many :assign_quizzes
+  has_many :lms_exams,  dependent: :nullify
 
+  
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assign_quizzes, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
+
 
   def watched_count(user)
     count = 0
@@ -46,8 +50,17 @@ class VideoModule < ActiveRecord::Base
   end
 
   def completed_exams_count_for(user)
-    self.lms_exams.inject(0) do |sum, quiz|
+    self.assign_quizzes.map(&:lms_exam).inject(0) do |sum, quiz|
       quiz.completed_by?(user) ? sum + 1 : sum
     end
+  end
+
+
+  def next_video_module
+    next_video_module = nil
+    video_on_demand.video_modules.order(:position).each do |video_mod|
+      next_video_module = video_mod if video_mod.position > position
+    end
+    next_video_module
   end
 end

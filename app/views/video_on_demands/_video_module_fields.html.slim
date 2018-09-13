@@ -4,19 +4,34 @@
     = f.text_field :title, class: 'form-control input-sm'
   .form-group.position
     = f.label :position, t('video_on_demands.partial_video_module_fields.position')
-    = f.text_field :position, class: 'form-control input-sm'
+    = f.text_field :position , class: 'form-control input-sm add_position'
   .form-group
     = f.label :cdl_course_code, "CPL Slug"
     = f.text_field :cdl_course_code, class: 'form-control input-sm'
-
   h4 = t('video_on_demands.partial_video_module_fields.module_videos')
   .row
-    .col-xs-10.col-md-10
+    div.upload_video.col-md-9
       #videos
-        = f.fields_for :videos do |ff|
-          = render 'video_fields', f: ff
+        - if f.object.new_record? && !f.object.errors.messages.present?
+          = f.fields_for :videos do |ff|
+            = render 'video_fields', f: ff
+          = f.fields_for :assign_quizzes do |assign_quiz|
+            = render 'assign_quiz_fields', f: assign_quiz
+        - else   
+          - get_videos_quizzes(f.object).each do |exam|
+            - if exam.class.name == "Video"
+              = f.fields_for :videos do |ff|
+                - if ff.object == exam
+                  = render 'video_fields', f: ff, :locals => {:video_quiz => exam } 
+            - else
+              = f.fields_for :assign_quizzes do |assign_quiz|
+                - if assign_quiz.object == exam
+                  = render 'assign_quiz_fields', f: assign_quiz, :locals => {:video_quiz => exam }
         .links
           = link_to_add_association t('video_on_demands.partial_video_module_fields.add'), f, :videos
+          = link_to_add_association 'Add Quiz', f, :assign_quizzes 
 
   = link_to_remove_association t('video_on_demands.partial_video_module_fields.remove'), f
   hr
+            
+
