@@ -71,5 +71,5 @@ class AdminPolicy < Struct.new(:user, :admin)
 
   def employment?
     user.has_any_role?(%i(admin))
-  end  
+  end
 end

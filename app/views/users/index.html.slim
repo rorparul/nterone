@@ -1,5 +1,8 @@
 = content_for :actions do
   li
+    = link_to job_applicants_path do
+      = "Job Applicants"
+  li
     = link_to sales_force_form_for_tasks_path, remote: true do
       = "Upload Sales Force Task Files"
   li

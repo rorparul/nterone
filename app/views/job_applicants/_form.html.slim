@@ -1,0 +1,46 @@
+.row
+  = form_for @contact do |f|
+    .col-xs-6
+      .form-group
+        = f.label :first_name, "First Name"
+        = f.text_field :first_name, class: 'form-control'
+        .p.field_with_errors
+          = show_error(:first_name, f.object)
+    .col-xs-6
+      .form-group
+        = f.label :last_name, "Last Name"
+        = f.text_field :last_name, class: 'form-control'
+        .p.field_with_errors
+          = show_error(:last_name, f.object)
+    .col-xs-6
+      .form-group
+        = f.label :email, "Email"
+        = f.email_field :email, class: 'form-control'
+        .p.field_with_errors
+          = show_error(:email, f.object)
+    .col-xs-6
+      .form-group
+        = f.label :phone, "Phone"
+        = f.text_field :phone, class: 'form-control'
+          .p.field_with_errors
+            = show_error(:phone, f.object)
+    .col-xs-12
+      .form-group
+        = f.label :message, "Message"
+        = f.text_area :message, class: 'form-control', rows: 10
+    .col-xs-12
+      .form-group
+        = f.label :resume_upload, "Resume Upload"
+        = f.file_field :resume_upload
+        .p.field_with_errors
+          = show_error(:resume_upload, f.object)
+    .col-xs-12
+      .form-group
+        #recapcha
+          = recaptcha_tags
+    .col-xs-12
+      .form-buttons
+        button.btn.btn-success type="submit"
+          = "Submit"
+
+  hr.line_break
