@@ -77,7 +77,7 @@
           = f.label :lab_course_id, t('lab_rentals.partial_form.course')
           span.required *
           - if @lab_rental.company  
-            = f.select :lab_course_id,  LabCourse.all.collect{ |course| [course.title, course.id] },
+            = f.select :lab_course_id,  @lab_rental.company.lab_courses.collect{ |course| [course.title, course.id] },
                    { include_blank: t('generic.select.placeholder')},
                    { required: true, class: "form-control input-sm" }
           - else
