@@ -63,13 +63,13 @@
                   td.text-right
                     strong
                       = t('lab_rentals.partial_show.entered_into_crm')
-                  td = @lab_rental.entered_into_crm ? 'Yes' : "No"      
-                tr
-                  td.text-right
-                    strong
-                      = t('lab_rentals.partial_show.payment_received')
-                  td = @lab_rental.payment_received ? 'Yes' : "No"         
-                                             
+                  td = @lab_rental.entered_into_crm ? 'Yes' : "No"
+              tr
+                td.text-right
+                  strong
+                    = t('lab_rentals.partial_show.course')
+                td = lab_rental.lab_course&.title if lab_rental.lab_course    
+                                 
       .col-xs-12.col-md-6.table-col
         .responsive-table
           table#table-event-details.table.table-condensed
@@ -84,11 +84,6 @@
                   strong
                     = t('lab_rentals.partial_show.company')
                 td = lab_rental.level == 'partner' ? lab_rental.company.try(:title) : t('lab_rentals.partial_listing.individual_level')               
-              tr
-                td.text-right
-                  strong
-                    = t('lab_rentals.partial_show.course')
-                td = lab_rental.course if lab_rental.course 
               tr
                 td.text-right
                   strong
@@ -137,8 +132,15 @@
                     - elsif active_region == 'canada'
                       = flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
                     - elsif active_region == 'india'
-                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')  
-              tr 
+                      = flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')
+              tr
                 td.text-right
                   strong
-                td       
+                    = t('lab_rentals.partial_show.payment_received')
+                td = @lab_rental.payment_received ? 'Yes' : "No"          
+              tr
+                td.text-right
+                td
+           
+                            
+                
