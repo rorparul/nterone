@@ -102,6 +102,7 @@ NterOne::Application.routes.draw do
 
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
+  get 'set_instructor_info' => "lab_rentals#set_instructor_info"
   post 'upload_path' => 'lab_rentals#upload'
   post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 

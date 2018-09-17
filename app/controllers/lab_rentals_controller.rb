@@ -6,8 +6,14 @@ class LabRentalsController < ApplicationController
 
   def index
     redirect_to root_path unless user_signed_in?
+
     lab_rentals_scope  = current_user.try(:admin?) ? LabRental.includes(:company).all : LabRental.where(company_id: current_user.try(:company_id))
-    lab_rentals_scope  = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
+    lab_rentals_scope = lab_rentals_scope.custom_search(params[:filter])  if params[:filter]
+
+    lab_rentals_scope = lab_rentals_scope.where(level: params[:level]) if params[:level].present?
+    params[:date_start] ||= params[:start]
+    params[:date_end] ||= params[:end]
+
     if params[:date_start].present? && params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where(first_day: params[:date_start]..params[:date_end])
     elsif params[:date_start].present?
@@ -15,23 +21,18 @@ class LabRentalsController < ApplicationController
     elsif params[:date_end].present?
       lab_rentals_scope  = lab_rentals_scope.where("first_day <= '#{params[:date_end]}'")
     end
-    if params[:date_start].present? && params[:date_end].present? &&  params[:level].present?
-      lab_rentals_scope  = lab_rentals_scope.where("(first_day >= '#{params[:date_start]}' AND first_day <= '#{params[:date_end]}') AND level = '#{params[:level]}'")
-    elsif params[:date_start].present? && params[:level].present?
-      lab_rentals_scope = lab_rentals_scope.where("first_day >= '#{params[:date_start]}' AND level = '#{params[:level]}'")
-    elsif params[:date_end].present? && params[:level].present?
-       lab_rentals_scope = lab_rentals_scope.where("first_day <= '#{params[:date_end]}' AND level = '#{params[:level]}'")
-    elsif params[:level].present?
-      lab_rentals_scope = lab_rentals_scope.where(level: params[:level])
-    end
 
+    rejected_lab_rental_ids = []
     lab_rentals_scope.each_with_index do |lab_rental, index|
       if lab_rental.level == 'individual'
-        lab_rentals_scope[index] = nil unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
+        rejected_lab_rental_ids << lab_rental.id unless OrderItem.where(orderable_type: 'LabRental', orderable_id: lab_rental.id, cart_id: nil).exists?
       end
     end
+
+    lab_rentals_scope = lab_rentals_scope.where("lab_rentals.id NOT IN (?)", rejected_lab_rental_ids) if rejected_lab_rental_ids.present?
     lab_rentals_scope.to_a.compact!
-    @lab_rentals = smart_listing_create(
+
+    @lab_rentals       = smart_listing_create(
       :lab_rentals,
       lab_rentals_scope,
       partial: "lab_rentals/listing",
@@ -47,11 +48,16 @@ class LabRentalsController < ApplicationController
 			[:twenty_four_hours, "twenty_four_hours"]],
     default_sort: { "first_day": "desc" }
     )
+
     respond_to do |format|
       format.html
       format.js
       format.json do
-        render json: get_all_lab_rental(lab_rentals_scope)
+        lab_rentals = lab_rentals_scope.map do |lab|
+                        last_day = lab.last_day.present? ? lab.last_day : lab.first_day
+                        { 'title': lab.lab_course.title, 'start': lab.first_day.strftime("%Y-%m-%d"), 'end': (last_day + 1.day).strftime("%Y-%m-%d"), 'color': 'rgb(15, 115, 185)'}
+                      end
+        render json: lab_rentals.to_json
       end
     end
   end
@@ -72,6 +78,7 @@ class LabRentalsController < ApplicationController
     company ||= current_user.company                       if current_user && current_user.admin? == false
     kind    = company.try(:form_type) ? company.form_type : 1
 
+    @last_lab_rental = company.lab_rentals.try(:last) if company.present?
     @lab_rental = LabRental.new(user_id: current_user.try(:id), company_id: company.try(:id), kind: kind)
     @lab_rental.lab_students.build if @lab_rental.kind == 2
   end
@@ -175,6 +182,10 @@ class LabRentalsController < ApplicationController
     redirect_to :back
   end
 
+  def set_instructor_info
+    @instructor = User.instructors.find(params[:instructor_id])
+  end
+
   private
 
   def set_lab_rental
@@ -208,11 +219,7 @@ class LabRentalsController < ApplicationController
       :level,
       :setup_by,
       :tested_by,
-      :lab,
-      :partner,
-      :gmt,
       :number_of_pods,
-      :number_of_students,
       :plus_instructor,
       :price,
       :po_number,
@@ -221,6 +228,7 @@ class LabRentalsController < ApplicationController
       :payment_received,
       :poc,
       :terms,
+      :instructor_id,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end
@@ -234,5 +242,4 @@ class LabRentalsController < ApplicationController
     end
     return a.to_json
   end
-
 end

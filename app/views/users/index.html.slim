@@ -22,9 +22,9 @@
         li.users_tab role="presentation"
           = link_to 'Instructors', '#', id: 'btn-instructors-view', class: "btn-list-view", data: {role: "instructors"}
         li.users_tab role="presentation"
-          = link_to 'Admins', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
+          = link_to 'Partners', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "partners"}
         li.users_tab role="presentation"
-          = link_to 'Partners', '#', id: 'btn-partner-view', class: "btn-list-view", data: {role: "partners"}
+          = link_to 'Admins', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
       #view-filter-controls.container-muted
         = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient element-left-side', role: 'button'
 
@@ -57,12 +57,13 @@
         #list-view
           = smart_listing_render(:instructors)
 
-      #list-view-container.users_listing.admins_listing.hide
-        #list-view
-          = smart_listing_render(:admins)
       #list-view-container.users_listing.partners_listing.hide
         #list-view
           = smart_listing_render(:partners)
+
+      #list-view-container.users_listing.admins_listing.hide
+        #list-view
+          = smart_listing_render(:admins)
 
 javascript:
   $('.permissions .people').addClass('active');

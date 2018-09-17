@@ -71,11 +71,29 @@ en:
       number_of_students: "Number of Students"
       start_time: "Start Time (EST)"
       time_zone: "Time Zone"
+    partial_show:
+      lab_details: "Lab Details"
+      setup_by: "SetUp By:"
+      tested_by: "Tested By:"
+      lab: "Lab:"
+      gmt: "GMT:"
+      number_of_pods: "Number of Pods:"
+      number_of_students: "Number Of Students:"
+      plus_instructor: "Plus Instructor:"
+      entered_into_crm: "Entered Into CRM:"
+      payment_received: "Payment Received:"
+      terms: "Terms:"
+      partner: "Partner:"
+      price: "Price:"
+      po_number: "PO Number:"
+      invoice_number: "Invoice Number:"
+      poc: "POC:"
+
     show_lab_students_js:
       lab_students: '[t]Lab Students'
     show_note:
       notes: "Note"
-    partial_show: 
+    partial_show:
       canceled: "Canceled:"
       company: "Partner:"
       confirmed: "Confirmed:"
@@ -92,7 +110,7 @@ en:
       start_time: "Start Time:"
       end_time: "End Time:"
       level: "Level:"
-      instructor_email: "Instructor Email:" 
+      instructor_email: "Instructor Email:"
       instructor_phone:  "Instructor Phone:"
       origin_region:  "Origin Region:"
       time_zone: "Time Zone:"
@@ -115,4 +133,3 @@ en:
       po_number: "PO Number:"
       invoice_number: "Invoice Number:"
       poc: "POC:"
-     

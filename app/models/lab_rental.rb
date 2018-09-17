@@ -54,6 +54,8 @@ class LabRental < ActiveRecord::Base
 	include SearchCop
   include Regions
 
+  TERMS = ["Due upon receipt", "Due upon booking", "7", "14", "30", "45"]
+
 	belongs_to :user
 	belongs_to :company
   belongs_to :lab_course
@@ -73,16 +75,16 @@ class LabRental < ActiveRecord::Base
   belongs_to :tested_by_user, foreign_key: :tested_by, class_name: "User"
 
 	search_scope :custom_search do
-    attributes :course, :instructor, :instructor_email, :location, :level 
+    attributes :course, :instructor, :instructor_email, :location, :level
     attributes :company => ["company.title"]
   end
 
   def instructor_name_and_lab_course_title
-    inst_details = "#{user.try(:full_name)} [#{lab_course.title}]" if user.present? && lab_course.present? 
+    inst_details = "#{user.try(:full_name)} [#{lab_course.title}]" if user.present? && lab_course.present?
     inst_details = "#{inst_details} [#{user.instructor_employment_date }]" if inst_details.present? && user.employments.present?
     return inst_details
-  end  
- 
+  end
+
 	private
 
 	def count_students

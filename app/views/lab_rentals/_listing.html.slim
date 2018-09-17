@@ -5,14 +5,14 @@
         thead
           tr
             th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course  
+              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
             - if current_user.admin?
               th.fit
                 = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
             th.fit
               = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
-            th.fit 
-              = smart_listing.sortable 'Pod Individual', :pods_individual  
+            th.fit
+              = smart_listing.sortable 'Pod Individual', :pods_individual
 
             th.fit
               = smart_listing.sortable 'Date', :first_day
@@ -45,7 +45,7 @@
                       span.fa.fa-eye style="margin-left: 5px;"
               - else
                 td.fit = rental.num_of_students
-              td.fit = rental.lab_course.try(:pods_individual) if rental.lab_course 
+              td.fit = rental.lab_course.try(:pods_individual) if rental.lab_course
               td.fit = rental.first_day.strftime("%b %d %Y") if rental.first_day
               td.fit
                 div = rental.start_time.strftime("%I:%M %p") if rental.start_time
@@ -71,8 +71,8 @@
                   i.fa.fa-check.text-success aria-hidden="true"
               td.fit
                 = link_to lab_rental_path(rental), target: '_blank', title:   t('events.partial_listing.view') do
-                  i class="fa fa-eye" aria-hidden="true"  
-                      
+                  i class="fa fa-eye" aria-hidden="true"
+
               td.fit
                 = link_to edit_lab_rental_path(rental) do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"
