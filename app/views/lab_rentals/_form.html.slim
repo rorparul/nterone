@@ -282,10 +282,10 @@ javascript:
       $("#all_instructor_option").prop("disabled", false)
       hideIntructorInfo()
     } else {
-      $("#all_instructor_option")[0].selectedIndex = 0
-      $("#all_instructor_option").prop("disabled", true)
       resetIntructorInfo()
       showIntructorInfo()
+      $("#all_instructor_option")[0].selectedIndex = 0
+      $("#all_instructor_option").prop("disabled", true)
     }
   })
 

@@ -97,4 +97,6 @@ es:
       time_zone: "Zona horaria"
       affirmative: "Sí"
       unconfirmed: "No"
-      active_regions: "Regiones activas"  
+      active_regions: "Regiones activas"
+      notes: "Nota:"
+

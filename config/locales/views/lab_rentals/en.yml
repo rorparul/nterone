@@ -88,6 +88,8 @@ en:
       po_number: "PO Number:"
       invoice_number: "Invoice Number:"
       poc: "POC:"
+      instructor_email: "Instructor Email:"
+      notes: "Note"
 
     show_lab_students_js:
       lab_students: '[t]Lab Students'
@@ -133,3 +135,4 @@ en:
       po_number: "PO Number:"
       invoice_number: "Invoice Number:"
       poc: "POC:"
+      end_time: "End Time:"
