@@ -1,3 +1,3 @@
 set :branch, ENV['BRANCH'] || 'master'
 
-server '18.213.111.187', user: fetch(:user), roles: %w(app db web)
+server '184.7.18.90', user: fetch(:user), roles: %w(app db web)
