@@ -78,6 +78,10 @@
         .form-group
           = f.label :heading, t('courses.partial_form.heading')
           = f.text_field :heading, class: 'form-control input-sm'
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :book_cost_per_student, t('courses.partial_form.book_cost_per_student')
+          = f.number_field :book_cost_per_student, class: 'form-control input-sm'
 
     .form-group
       = f.label :featured_course_summary, t('courses.partial_form.featured_course_summary')
