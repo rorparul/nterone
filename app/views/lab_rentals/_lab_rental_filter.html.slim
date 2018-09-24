@@ -5,16 +5,17 @@
       = text_field_tag :date_start
       = text_field_tag :date_end
       = select_tag :level
-    .input-group.form-inline.element-right-side
-      = select_tag :level, options_for_select([["All", ""],["Partner", "partner"],["Individual", "individual"]]), class: 'search form-control',
-                                           style: 'border-radius: 4px;'         
+    - if current_user.try(:admin?)
+      .input-group.form-inline.element-right-side
+        = select_tag :level, options_for_select([["All", ""],["Partner", "partner"],["Individual", "individual"]]), class: 'search form-control',
+                                             style: 'border-radius: 4px;'
     .input-group.element-right-side
       = text_field_tag :filter, '', class: 'search form-control',
                                     placeholder: t('default.action.search'),
                                     autocomplete: :off
       span.input-group-btn
         button.btn.btn-default.disabled type='submit'
-          span.glyphicon.glyphicon-search 
+          span.glyphicon.glyphicon-search
 
 
   .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
@@ -36,17 +37,17 @@
                                          placeholder: t('default.placeholder.end_date'),
                                          autocomplete: :off
 
-                                         
+
 #list-view-container
   #list-view
     = smart_listing_render(:lab_rentals)
-    i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);" 
+    i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
 #calendar-view-container
   i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
   #calendar-view
 #classes-calendar-view-container
   i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
-  #calendar-view2  
+  #calendar-view2
 
 javascript:
   $(".smart-listing-controls.form-inline").on('change' , function(){
