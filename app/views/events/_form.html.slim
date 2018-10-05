@@ -85,9 +85,13 @@
         .form-group
           = f.label :format, t('events.partial_form.format')
           = f.select :format,
-                    [['ClearConnect', 'ClearConnect'],
+                    [['On-site', 'On-site'],
                      ['Live Online', 'Live Online'],
-                     ['On-site', 'On-site']],
+                     ['Live Online Americas', 'Live Online Americas'],
+                     ['Live Online LATAM', 'Live Online LATAM'],
+                     ['Live Online APAC', 'Live Online APAC'],
+                     ['Live Online EMER', 'Live Online EMER'],
+                     ['ClearConnect', 'ClearConnect']],
                     { prompt: t('default.prompt.please_select') },
                     { class: 'form-control input-sm' }
     .row

@@ -472,7 +472,7 @@ class User < ActiveRecord::Base
 
   def daily_rate(event=nil)
     if event.present?
-      event.format == "Live Online" ? self.online_daily_rate : self.onsite_daily_rate
+      Event::LIVE_ONLINE_FORMATS.include?(event.format) ? self.online_daily_rate : self.onsite_daily_rate
     else
       self.onsite_daily_rate
     end
