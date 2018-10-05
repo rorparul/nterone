@@ -153,6 +153,7 @@ en:
       total_cost: "Total Cost + Commission:"
       vendor: "Vendor:"
       margin: "Margin"
+      employment_type: "Employment Type:"
     select_js:
       edit_event: "Edit Event"
     student_registered_classes:

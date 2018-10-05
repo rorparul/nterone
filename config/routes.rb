@@ -102,6 +102,7 @@ NterOne::Application.routes.draw do
 
   resources :lab_rentals, path: 'lab-reservations'
   get 'new_file' => 'lab_rentals#new_file'
+  get 'set_instructor_info' => "lab_rentals#set_instructor_info"
   post 'upload_path' => 'lab_rentals#upload'
   post 'checkout/lab_rental'     => 'lab_rentals#self_checkout',     as: :checkout_lab_rental
 
@@ -247,6 +248,7 @@ NterOne::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :instructors, only: [:index]
     resources :platforms, only: [:index]
     resources :checklists do
       member do
@@ -375,6 +377,9 @@ NterOne::Application.routes.draw do
       resources :users
     end
   end
+
+
+  resources :resource_events
 
   get  'cdl/:module_id' => 'cisco_digital_learning#show',     as: :cdl_show
   post 'cdl/callback'   => 'cisco_digital_learning#callback', as: :cdl_callback

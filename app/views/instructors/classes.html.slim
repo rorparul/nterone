@@ -1,16 +1,110 @@
+- if policy(:class).report?
+  - content_for :actions do
+    li = link_to t('default.partial_tabs.checklists'), admin_checklists_path
+    hr
+    li = link_to t('admins.classes.commissions_report'), new_reports_commission_path, remote: true
+    - if current_user.admin?
+      li = link_to t('admins.classes.profits_report'), new_reports_profit_sheet_path, remote: true
+      li = link_to t('admins.classes.utilization_report'), new_reports_instructor_utilization_path, remote: true
+
 = render 'layouts/tabs'
 
-.container
+.container-fluid
   .row
     .col-xs-12
-      .panel.panel-default
-        .panel-heading.panel-heading-with-search
-          .row
-            .col-xs-6
-              strong.text-muted
-                = t 'admin.admin_classes.row.classes.title'
+      ul.nav.nav-tabs 
+        li.active role="presentation" title='List View'
+          = link_to "javascript:void(0)", id: 'btn-list-view' do
+            span.glyphicon.glyphicon-th-list
+        li role="presentation" title='Calendar View'
+          = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
+            span.glyphicon.glyphicon-calendar
 
-        = smart_listing_render(:events)
+      #view-filter-controls.container-muted
+        div style='display: inline-block; margin-left: 604px;'
+          = smart_listing_controls_for(:events, { class: "input-search" }) do
+            .input-group.filter.element-right-side.pull-right
+              = text_field_tag :filter, '', class: "search form-control",
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
+              span class="input-group-btn"
+                button class="btn btn-default disabled" type="submit"
+                  span.glyphicon.glyphicon-search
+
+            - unless current_user.partner?
+              #end-date.list-view-element.element-right-side.pull-right
+                = date_select :date_end, :date_end,
+                  { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @end_date.try(:year), month: @end_date.try(:month), day: @end_date.try(:day) } },
+                  { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }
+              div.pull-right style='display: inline-block; margin: 6px 0 4px 10px;' -
+              #start-date.list-view-element.element-right-side.pull-right
+                = date_select :date_start, :date_start,
+                  { include_blank: false, use_short_month: true, start_year: 2005, end_year: 2030, default: { year: @start_date.try(:year), month: @start_date.try(:month), day: @start_date.try(:day) } },
+                  { disabled: false, class: 'input-date form-control', style: 'display: inline; width: auto;' }      
+            
+
+            
+
+        
+      #list-view-container
+        #list-view
+          = smart_listing_render(:events)
+
+      #calendar-view-container.hidden
+        i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+        #calendar-view
+
+  .row
+    .col-xs-12.text-center
+      #download-classes
+        = link_to t('admins.classes.xlsx'), student_registered_classes_path(format: 'xlsx')
 
 javascript:
-  $('.permissions .my-classes').addClass('active');
+  $('.permissions .classes').addClass('active');
+
+  $(document).on('click', '.event-link', function() {
+    $(this).closest('form').submit();
+  });
+
+  $("#calendar-view-container").addClass('hidden');
+
+  $("#btn-list-view").on('click', function() {
+    $("#btn-list-view").parent().addClass('active');
+    $("#btn-calender-view").parent().removeClass('active');
+
+    $("#list-view-container").removeClass('hidden');
+    $("#calendar-view-container").addClass('hidden');
+
+    $('#view-filter-controls').removeClass('hidden');
+  });
+
+  $("#btn-calender-view").on('click', function() {
+    $("#btn-list-view").parent().removeClass('active');
+    $("#btn-calender-view").parent().addClass('active');
+
+    $("#list-view-container").addClass('hidden');
+    $("#calendar-view-container").removeClass('hidden');
+
+    $('#view-filter-controls').addClass('hidden');
+
+    if($(this).data("loadCalander") == true){
+      $('#calendar-view').fullCalendar({
+        events: '/instructor/classes.json',
+        loading: function(isLoading, view) {
+            if(isLoading) {
+              $(".calander_loading").removeClass('hidden');
+            } else {
+              $(".calander_loading").addClass('hidden');
+            }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
+        }
+      })
+      $(this).data("loadCalander", false)
+    }
+  })
+

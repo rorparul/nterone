@@ -38,7 +38,7 @@ class LabCoursesController < ApplicationController
 		if @lab_course.save
 			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully created!"
-      redirect_to admin_website_path
+      redirect_to admin_marketing_path
 		else
 			render 'new'
 		end

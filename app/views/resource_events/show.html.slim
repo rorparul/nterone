@@ -1,0 +1,12 @@
+- content_for :page_title do
+- content_for :actions do
+  li
+    
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      = render partial: 'resource_events/show', locals: { event: @emp }
+
+

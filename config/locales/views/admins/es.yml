@@ -40,7 +40,7 @@ es:
       orders: "Ordenes"
       settings: "Ajustes"
       checklists: "Listas de verificación"
-      tools_and_resources: 'Herramientas y Recursos'
+      tools: 'Herramientas'
     website:
       active: "Activo"
       articles: "Articulos"

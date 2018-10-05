@@ -102,9 +102,9 @@
                     instructors_with_rate(@course.instructors, event),
                     { include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control input-sm', id: "selected_instructor_option" }
-
+         
           = f.select :instructor_id,
-                    instructors_with_rate(User.all_instructors_by_rate, event),
+                    instructors_with_rate(@all_instructor, event),
                     { include_blank: t('generic.prompt.please_select') },
                     { class: 'form-control all_instructor_option input-sm hide', id: "all_instructor_option", :disabled => true }
 

@@ -16,12 +16,14 @@
           th.fit = smart_listing.sortable "#{t('events.partial_listing.format')}", :format
           th.fit = t('events.partial_lmisting.instructor')
           th.fit title="#{t('events.partial_listing.registered')}" = t('events.partial_listing.r')
-          th.fit = t('events.partial_listing.revenue')
+          - unless params["view_type"].eql?("lab_classes_list_view")
+            th.fit = t('events.partial_listing.revenue')
           th.fit = smart_listing.sortable "#{t('events.partial_listing.lab_source')}", :lab_source
           th.fit title="#{t('events.partial_listing.public')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_public')}", :public
           th.fit title="#{t('events.partial_listing.guaranteed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_guaranteed')}", :guaranteed
           th.fit title="#{t('events.partial_listing.confirmed')}" = smart_listing.sortable "#{t('events.partial_listing.abbr_confirmed')}", :status
-          th.fit colspan="5"
+          - unless params["view_type"].eql?("lab_classes_list_view")
+            th.fit colspan="5"
 
       tbody
         - if @grouped_events.present?
@@ -30,7 +32,8 @@
               td(style="background-color: #D5DDF2;" colspan=12)
                 strong = date_str
               td(style="background-color: #D5DDF2;" colspan=12)
-                strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
+                - unless params["view_type"].eql?("lab_classes_list_view")
+                  strong $#{number_with_delimiter(number_with_precision(weekly_revenue(date_str, @queried_events), precision: 2))}
             - events.each do |event|
               = render partial: 'events/listing_event', locals: { event: event }
         - else

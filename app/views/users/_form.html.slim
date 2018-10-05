@@ -31,7 +31,7 @@
       .form-group
         = f.label :company_id, t('users.partial_form.company_name')
         = f.select :company_id,
-          Company.all.collect {|c| [ c.title, c.id ] },
+          Company.order(:title).collect {|c| [ c.title, c.id ] },
           { prompt: t('default.placeholder.select') },
           { class: "form-control input-sm" }
   fieldset
@@ -130,6 +130,17 @@
 
   .container-muted
     | For Instructor Role
+  
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :employement_type, t('users.partial_form.employement_type')
+        = f.select :employement_type, User.employement_types.keys.to_a.map { |emp_type| [emp_type.humanize, emp_type] }, options = {},html_options = { class: "form-control input-sm" }
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :rating, t('users.partial_form.rating')
+        = f.select :rating, options_for_select(User::Ratings),{:include_blank => 'Select One'},html_options = { class: "form-control input-sm" }
+
   .row
     .col-xs-12.col-md-6
       .form-group
@@ -160,7 +171,7 @@
           = t('users.partial_form.teachable_courses')
         #courses
           = f.fields_for :chosen_courses do |chosen_course|
-            = render 'users/chosen_course_fields', f: chosen_course
+            = render 'users/chosen_course_fields', f: chosen_course   
           .links
             = link_to_add_association 'Add Course', f, :chosen_courses
 

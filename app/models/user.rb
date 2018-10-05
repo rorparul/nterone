@@ -120,6 +120,8 @@ class User < ActiveRecord::Base
     partner_customer: 1
   }
 
+  enum employement_type: { employee: 0, contractor: 1 }
+
   # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
 
   belongs_to :company
@@ -170,6 +172,7 @@ class User < ActiveRecord::Base
                                       foreign_key: 'employee_id'
   has_many :tasks
   has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
+  has_many :employments,              class_name: 'ResourceEvent', foreign_key: 'instructor_id'  
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
@@ -182,8 +185,9 @@ class User < ActiveRecord::Base
 
   scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
   scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
+  scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :admins,                  -> { joins(:roles).where(roles: { role: 1 }).distinct }
-
+  scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
   scope :all_stage,               -> { where(status: [0, 1, 2, 3, 4]) }
@@ -213,6 +217,8 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  Ratings = [ ['1',1],['2',2],['3',3],['4',4],['5',5]]
 
   def developer?
     email == 'ryan@storberg.net'
@@ -490,6 +496,51 @@ class User < ActiveRecord::Base
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+
+  def next_upcoming_event
+    events.where("start_date >= :start_date", { start_date: Date.today }).order(:start_date).first
+  end  
+
+  def total_work_days
+    sum = 0;
+    past_events.map{|event| sum += event.length}
+    return sum
+  end
+  
+  def total_instructor_cost
+    past_events.sum(:cost_instructor).to_f
+  end  
+
+
+  def self.instructor_events_and_lab_rentals(instructors)
+    events = []
+    instructors.includes(:events, :lab_rentals).each do |ins|
+      ins.events.each{|e| events << e} unless ins.events.blank?
+    end
+    return events
+  end
+
+  def self.exclude_instructor_already_assigned(event)
+    ins =    all_instructors_by_rate.joins(:events).where("events.start_date >= ? AND events.end_date <= ?",event.start_date,event.end_date).uniq.map(&:id)
+    lab =   all_instructors_by_rate.joins(:lab_rentals).where("(lab_rentals.first_day >= ? AND lab_rentals.last_day <= ?)",event.start_date, event.end_date).uniq.map(&:id)
+    all_instructor = User.all_instructors_by_rate.where.not(:id=>[ins, lab])
+    return all_instructor
+  end 
+
+
+  def instructor_employment_date 
+    dates = self.employments.map{|emp| [emp.start_date, emp.end_date]}.uniq
+    employment_date = ""   
+    dates.each_with_index do |emp, index|
+      if index == 0
+        employment_date << "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}" 
+      else
+        employment_date << + "," + "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}"
+      end 
+    end
+    return employment_date
+  end    
 
   private
 
