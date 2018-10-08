@@ -147,7 +147,7 @@ class Course < ActiveRecord::Base
 
   def instructors
     # User.order("onsite_daily_rate asc").all_instructors.joins(:courses).where("courses.id = ?", self.id).uniq
-    course_instructor = self.chosen_courses.where(audit_complete: true,completed_all_labs:true, met_with_course_director: true).map(&:user_id)
+    course_instructor = self.chosen_courses.where(audit_complete: true, completed_all_labs: true, met_with_course_director: true).map(&:user_id)
     User.order("onsite_daily_rate asc").all_instructors.where(id: course_instructor)
   end
 end
