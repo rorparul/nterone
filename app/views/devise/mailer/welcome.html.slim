@@ -1,4 +1,4 @@
-- if @destination == 'external'
+- if @m360
   h3 M360:
   p = @m360
 
@@ -19,10 +19,10 @@ p
 p
   = t('devise.mailer.welcome.copy5')
   = t('devise.mailer.welcome.copy6')
-  a href="mailto:helpdesk@nterone.#{TopLevelDomain}" = "helpdesk@nterone.#{TopLevelDomain}"
+  a href="mailto:helpdesk@nterone.#{@tld}" = "helpdesk@nterone.#{@tld}"
   = t('devise.mailer.welcome.copy7')
-  a href="mailto:sales@nterone#{TopLevelDomain}"
-    = "sales@nterone.#{TopLevelDomain}"
+  a href="mailto:sales@nterone#{@tld}"
+    = "sales@nterone.#{@tld}"
   = t('devise.mailer.welcome.copy8')
   = t('devise.mailer.welcome.copy9')
   = t('devise.mailer.welcome.copy10')

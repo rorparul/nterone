@@ -122,7 +122,8 @@ class OrdersController < ApplicationController
         cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
 
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
-        OrderMailer.confirmation(current_user, @order, params["M360-Source"]).deliver_now
+        OrderMailer.confirmation_internal(current_user, @order).deliver_now
+        OrderMailer.confirmation_external(current_user, @order, params["M360-Source"]).deliver_now
 
         flash[:success] = t(".success")
 
@@ -162,7 +163,8 @@ class OrdersController < ApplicationController
           pod_order = true if order_item.orderable_type == 'LabRental' && order_item.orderable.level == 'individual'
         end
 
-        OrderMailer.confirmation(@guest, @order, params["M360-Source"]).deliver_now
+        OrderMailer.confirmation_internal(@guest, @order).deliver_now
+        OrderMailer.confirmation_external(@guest, @order, params["M360-Source"]).deliver_now
 
         flash[:success] = t(".success")
 
