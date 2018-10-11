@@ -9,6 +9,11 @@
     = link_to sales_force_form_for_other_path, remote: true do
       = "Upload Other Sales Force Files"
 
+= content_for :reports do
+  li
+    = link_to new_reports_members_engaged_path, remote: true do
+      | Members Engaged Report
+
 = render 'layouts/tabs'
 
 .container
@@ -18,13 +23,13 @@
         li.active.users_tab role="presentation"
           = link_to 'All', '#', id: 'btn-all-view'
         li.users_tab role="presentation"
-          = link_to 'Students', '#', id: 'btn-student-view', class: "btn-list-view", data: {role: "students"}
+          = link_to 'Students', '#', id: 'btn-student-view', class: "btn-list-view", data: { role: "students" }
         li.users_tab role="presentation"
-          = link_to 'Instructors', '#', id: 'btn-instructors-view', class: "btn-list-view", data: {role: "instructors"}
+          = link_to 'Instructors', '#', id: 'btn-instructors-view', class: "btn-list-view", data: { role: "instructors" }
         li.users_tab role="presentation"
-          = link_to 'Partners', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "partners"}
+          = link_to 'Partners', '#', id: 'btn-admin-view', class: "btn-list-view", data: { role: "partners" }
         li.users_tab role="presentation"
-          = link_to 'Admins', '#', id: 'btn-admin-view', class: "btn-list-view", data: {role: "admins"}
+          = link_to 'Admins', '#', id: 'btn-admin-view', class: "btn-list-view", data: { role: "admins" }
       #view-filter-controls.container-muted
         = link_to t('default.action.new'), new_user_invitation_path, remote: true, class: 'btn btn-green-gradient element-left-side', role: 'button'
 
@@ -70,6 +75,7 @@ javascript:
 
   function mass_edit_customer_type(customer_type) {
     user_ids = []
+
     $(".users_mass_edit_checkbox:checked").each(function(){
         user_ids.push($(this).val());
     });
@@ -78,60 +84,60 @@ javascript:
       url: "/users/mark_customers_type",
       dataType: 'json',
       method: "POST",
-      data: {user_ids: user_ids, mark_as: customer_type },
-      success:function(data) {
-        $.each(user_ids, function( index, value ) {
-          if(customer_type == "direct_customer"){
-            $(".customer_type_"+value).text("D");
-          }
-          else{
-            $(".customer_type_"+value).text("P");
+      data: { user_ids: user_ids, mark_as: customer_type },
+      success: function(data) {
+        $.each(user_ids, function(index, value) {
+          if (customer_type == "direct_customer") {
+            $(".customer_type_" + value).text("D");
+          } else {
+            $(".customer_type_" + value).text("P");
           }
         });
       }
     })
   }
 
-  $(".mark_as_direct").on('click', function(){
+  $(".mark_as_direct").on('click', function() {
     mass_edit_customer_type("direct_customer");
   });
 
-  $(".mark_as_partner").on('click', function(){
+  $(".mark_as_partner").on('click', function() {
     mass_edit_customer_type("partner_customer");
   });
 
-  $("#btn-all-view").on('click', function(){
+  $("#btn-all-view").on('click', function() {
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
     filter_value = $(".input-search").not('.hide').find("#filter").val();
     $("input.search").val(filter_value);
     $(".input-search").addClass("hide");
     $(".all_search").removeClass("hide");
+
     $.ajax({
       url: "/users.js",
       method: "GET",
-      data: {filter: filter_value}
+      data: { filter: filter_value }
     })
   })
 
-  $(".btn-list-view").on('click', function(){
+  $(".btn-list-view").on('click', function() {
     $(".users_tab").removeClass("active");
     $(this).parent().addClass("active");
     filter_value = $(".input-search").not('.hide').find("#filter").val();
     $("input.search").val(filter_value);
     $(".input-search").addClass("hide");
-    $("."+$(this).data('role')+"_search").removeClass("hide");
+    $("." + $(this).data('role') + "_search").removeClass("hide");
 
     $.ajax({
       url: "/users.js",
       method: "GET",
-      data: {role: $(this).data('role'), filter: filter_value }
+      data: { role: $(this).data('role'), filter: filter_value }
     })
   })
 
-  $( document ).ajaxStart(function() {
-    $(".loading").css('display', 'block');
-    $(".loading").css('opacity', '1');
-    $(".content").css('opacity', '0.2');
-    $(".people_loader").removeClass('hide');
-  });
+  // $( document ).ajaxStart(function() {
+  //   $(".loading").css('display', 'block');
+  //   $(".loading").css('opacity', '1');
+  //   $(".content").css('opacity', '0.2');
+  //   $(".people_loader").removeClass('hide');
+  // });

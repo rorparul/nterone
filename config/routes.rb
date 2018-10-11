@@ -275,10 +275,11 @@ NterOne::Application.routes.draw do
 
   namespace :reports do
     resources :commissions,             only: [:new, :create]
-    resources :profit_sheets,           only: [:new, :create]
-    resources :instructor_utilizations, only: [:new, :create]
-    resources :sales,                   only: [:new, :create]
     resources :events,                  only: [:new, :create]
+    resources :instructor_utilizations, only: [:new, :create]
+    resources :members_engaged,         only: [:new, :create]
+    resources :profit_sheets,           only: [:new, :create]
+    resources :sales,                   only: [:new, :create]
     resources :users,                   only: [:new, :create]
   end
 

@@ -172,7 +172,7 @@ class User < ActiveRecord::Base
                                       foreign_key: 'employee_id'
   has_many :tasks
   has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
-  has_many :employments,              class_name: 'ResourceEvent', foreign_key: 'instructor_id'  
+  has_many :employments,              class_name: 'ResourceEvent', foreign_key: 'instructor_id'
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true
@@ -183,15 +183,15 @@ class User < ActiveRecord::Base
   scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("onsite_daily_rate asc").distinct }
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
 
-  scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
-  scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
-  scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :admins,                  -> { joins(:roles).where(roles: { role: 1 }).distinct }
+  scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
+  scope :members,                 -> { joins(:roles).where(roles: { role: 4 }).distinct }
+  scope :members_engaged,         -> { members.where.not(last_sign_in_at: nil).where(customer_type: [nil, 0]) }
+  scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
   scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :leads,                   -> { where.not(status: [3, 4]) }
   scope :contacts,                -> { where(status: [3, 4]) }
   scope :all_stage,               -> { where(status: [0, 1, 2, 3, 4]) }
-  scope :members,                 -> { joins(:roles).where(roles: { role: 4 }) }
   scope :direct_customer,         -> { where(customer_type: 0) }
   scope :private_customer,        -> { where(customer_type: 1) }
 
@@ -500,17 +500,17 @@ class User < ActiveRecord::Base
 
   def next_upcoming_event
     events.where("start_date >= :start_date", { start_date: Date.today }).order(:start_date).first
-  end  
+  end
 
   def total_work_days
     sum = 0;
     past_events.map{|event| sum += event.length}
     return sum
   end
-  
+
   def total_instructor_cost
     past_events.sum(:cost_instructor).to_f
-  end  
+  end
 
 
   def self.instructor_events_and_lab_rentals(instructors)
@@ -526,21 +526,21 @@ class User < ActiveRecord::Base
     lab =   all_instructors_by_rate.joins(:lab_rentals).where("(lab_rentals.first_day >= ? AND lab_rentals.last_day <= ?)",event.start_date, event.end_date).uniq.map(&:id)
     all_instructor = User.all_instructors_by_rate.where.not(:id=>[ins, lab])
     return all_instructor
-  end 
+  end
 
 
-  def instructor_employment_date 
+  def instructor_employment_date
     dates = self.employments.map{|emp| [emp.start_date, emp.end_date]}.uniq
-    employment_date = ""   
+    employment_date = ""
     dates.each_with_index do |emp, index|
       if index == 0
-        employment_date << "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}" 
+        employment_date << "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}"
       else
         employment_date << + "," + "#{emp[0].to_formatted_s(:rfc822)}"+" to "+"#{emp[1].to_formatted_s(:rfc822)}"
-      end 
+      end
     end
     return employment_date
-  end    
+  end
 
   private
 
