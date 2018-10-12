@@ -39,6 +39,7 @@
 #  poc               :string
 #  terms             :string
 #  instructor_id     :integer
+#  provider          :string           default("")
 #
 # Indexes
 #
@@ -54,7 +55,8 @@ class LabRental < ActiveRecord::Base
 	include SearchCop
   include Regions
 
-  TERMS = ["Due upon receipt", "Due upon booking", "7", "14", "30", "45"]
+  TERMS     = ["Due upon receipt", "Due upon booking", "7", "14", "30", "45"]
+	PROVIDERS = ['NterOne', 'Cisco', 'Other']
 
 	belongs_to :user
 	belongs_to :company

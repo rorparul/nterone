@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180912093417) do
+ActiveRecord::Schema.define(version: 20181012151417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -690,6 +690,7 @@ ActiveRecord::Schema.define(version: 20180912093417) do
     t.string   "poc"
     t.string   "terms"
     t.integer  "instructor_id"
+    t.string   "provider",                                  default: ""
   end
 
   add_index "lab_rentals", ["lab_course_id"], name: "index_lab_rentals_on_lab_course_id", using: :btree

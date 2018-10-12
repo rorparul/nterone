@@ -228,6 +228,7 @@ class LabRentalsController < ApplicationController
       :poc,
       :terms,
       :instructor_id,
+      :provider,
       lab_students_attributes: [:id, :name, :email, :_destroy]
     )
   end

@@ -130,6 +130,12 @@
       hr style="margin-top: -4px;"
 
     .row
+      .col-xs-12.col-md-4
+        label = t('lab_rentals.partial_form.provider')
+        .form-group
+          = f.select :terms, LabRental::PROVIDERS,
+                   { include_blank: t('default.placeholder.select') },
+                   { class: "form-control" }
       - if current_user.try(:admin?)
         .col-xs-12.col-md-2
           .form-group

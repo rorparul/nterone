@@ -71,6 +71,7 @@ en:
       number_of_students: "Number of Students"
       start_time: "Start Time (EST)"
       time_zone: "Time Zone"
+      provider: 'Provider'
     partial_show:
       lab_details: "Lab Details"
       setup_by: "SetUp By:"

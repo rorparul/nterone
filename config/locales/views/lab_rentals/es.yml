@@ -70,11 +70,12 @@ es:
       notes: "Notas"
       number_of_students: "Número de Estudiantes"
       start_time: "Hora de Inicio(EST)"
+      provider: 'Proveedor'
     show_lab_students_js:
       lab_students: "Laboratorio de Estudiante"
     show_note:
       notes: "Nota"
-    partial_show: 
+    partial_show:
       canceled: "Cancelado"
       company: "Compañero"
       confirmed: "Confirmado"
@@ -91,7 +92,7 @@ es:
       start_time: "Hora de inicio"
       end_time: "Hora de finalización"
       level: "Nivel"
-      instructor_email: "Correo electrónico del instructor" 
+      instructor_email: "Correo electrónico del instructor"
       instructor_phone:  "Instructor Phone"
       origin_region:  "Región de origen"
       time_zone: "Zona horaria"
@@ -99,4 +100,3 @@ es:
       unconfirmed: "No"
       active_regions: "Regiones activas"
       notes: "Nota:"
-
