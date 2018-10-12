@@ -11,14 +11,12 @@
 
     - if @lab_rental.new_record?
       = f.hidden_field :kind
-
-    - if @lab_rental.new_record?
       = f.hidden_field :user_id
 
     .row
-      - if @lab_rental.new_record? && (current_user.try(:admin?) == false || !user_signed_in?)
+      - if @lab_rental.new_record? && (!user_signed_in? || current_user.has_any_role?(%i(admin lab_master)) == false)
         = f.hidden_field :company_id
-      - if @lab_rental.new_record? && current_user.try(:admin?)
+      - if @lab_rental.new_record? && (current_user.present? && current_user.has_any_role?(%i(admin lab_master)))
         .col-xs-12.col-md-4
           .form-group
             = f.label :company_id, t('lab_rentals.partial_form.company')
