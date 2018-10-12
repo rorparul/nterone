@@ -97,38 +97,26 @@
 #
 
 require 'roo'
-class User < ActiveRecord::Base
-  extend ActsAsTree::TreeView
-  extend ActsAsTree::TreeWalker
 
+class User < ActiveRecord::Base
+  extend  ActsAsTree::TreeView
+  extend  ActsAsTree::TreeWalker
   include RailsSettings::Extend
   include SearchCop
   include Regions
 
   acts_as_tree order: 'last_name'
 
-  enum status: {
-    open: 0,
-    contacted: 1,
-    pending_class: 2,
-    qualified: 3,
-    closed: 4
-  }
-
-  enum customer_type: {
-    direct_customer: 0,
-    partner_customer: 1
-  }
-
+  enum customer_type: { direct_customer: 0, partner_customer: 1 }
   enum employement_type: { employee: 0, contractor: 1 }
-
-  # enum employment: { not_applicable: 0, employee: 1, contractor: 2 }
+  enum status: { open: 0, contacted: 1, pending_class: 2, qualified: 3, closed: 4 }
 
   belongs_to :company
 
   has_one :interest,                 dependent:  :destroy
   has_one :cart,                     dependent:  :destroy
   has_one :lms_managers_associacion, foreign_key: :user_id, class_name: 'LmsManagedStudent'
+  has_one :lms_manager,              through: :lms_managers_associacion, source: 'manager'
 
   has_many :planned_subjects,         dependent:  :destroy
   has_many :subjects,                 through:    :planned_subjects
@@ -143,33 +131,23 @@ class User < ActiveRecord::Base
   has_many :lab_rentals
   has_many :individual_lab_rentals,   through: :order_items, source: :orderable, source_type: 'LabRental'
   has_many :posts
-  has_many :roles,                    dependent:   :destroy
-  has_many :seller_orders,            class_name:  'Order',
-                                      foreign_key: 'seller_id'
-  has_many :buyer_orders,             class_name:  'Order',
-                                      foreign_key: 'buyer_id'
+  has_many :roles,                    dependent: :destroy
+  has_many :seller_orders,            class_name: 'Order', foreign_key: 'seller_id'
+  has_many :buyer_orders,             class_name: 'Order', foreign_key: 'buyer_id'
   has_many :order_items
-  has_many :events,                   through:     :order_items,
-                                      source:      :orderable,
-                                      source_type: 'Event'
-  has_many :video_on_demands,         through:     :order_items,
-                                      source:      :orderable,
-                                      source_type: 'VideoOnDemand'
-  has_many :watched_videos,           dependent:   :destroy
-  has_many :videos,                   through:     :watched_videos
-  has_many :seller_relationships,     class_name:  'Relationship',
-                                      foreign_key: 'seller_id'
-  has_many :prospects,                through:     :seller_relationships,
-                                      source:      :buyer
-  has_one :lms_manager,               through: :lms_managers_associacion, source: 'manager'
+  has_many :events,                   through: :order_items, source: :orderable, source_type: 'Event'
+  has_many :video_on_demands,         through: :order_items, source: :orderable, source_type: 'VideoOnDemand'
+  has_many :watched_videos,           dependent: :destroy
+  has_many :videos,                   through: :watched_videos
+  has_many :seller_relationships,     class_name: 'Relationship', foreign_key: 'seller_id'
+  has_many :prospects,                through: :seller_relationships, source: :buyer
   has_many :lms_students,             through: :lms_students_associacion, source: 'user'
   has_many :lms_students_associacion, foreign_key: :manager_id, class_name: 'LmsManagedStudent'
   has_many :taught_events,            class_name: 'Event', foreign_key: 'instructor_id'
   has_many :taught_video_on_demands,  class_name: 'VideoOnDemand', foreign_key: 'instructor_id'
-  has_many :hacp_requests,            dependent:   :destroy
+  has_many :hacp_requests,            dependent: :destroy
   has_many :companies,                dependent: :nullify
-  has_many :opportunities,            class_name:  'Opportunity',
-                                      foreign_key: 'employee_id'
+  has_many :opportunities,            class_name: 'Opportunity', foreign_key: 'employee_id'
   has_many :tasks
   has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
   has_many :employments,              class_name: 'ResourceEvent', foreign_key: 'instructor_id'
@@ -182,11 +160,9 @@ class User < ActiveRecord::Base
   scope :all_instructors,         -> { joins(:roles).where(roles: { role: 7 }).order('last_name').order("onsite_daily_rate asc").distinct }
   scope :all_instructors_by_rate, -> { joins(:roles).where(roles: { role: 7 }).order("onsite_daily_rate asc").distinct }
   scope :all_sales,               -> { joins(:roles).where(roles: { role: [2, 3] }).order(:last_name) }
-
   scope :admins,                  -> { joins(:roles).where(roles: { role: 1 }).distinct }
   scope :students,                -> { joins(:roles).where(roles: { role: 4 }).distinct }
   scope :members,                 -> { joins(:roles).where(roles: { role: 4 }).distinct }
-  scope :members_engaged,         -> { members.where.not(last_sign_in_at: nil).where(customer_type: [nil, 0]) }
   scope :instructors,             -> { joins(:roles).where(roles: { role: 7 }).distinct }
   scope :partners,                -> { joins(:roles).where(roles: { role: 9 }).distinct }
   scope :leads,                   -> { where.not(status: [3, 4]) }
@@ -194,7 +170,6 @@ class User < ActiveRecord::Base
   scope :all_stage,               -> { where(status: [0, 1, 2, 3, 4]) }
   scope :direct_customer,         -> { where(customer_type: 0) }
   scope :private_customer,        -> { where(customer_type: 1) }
-
 
   search_scope :custom_search do
     attributes :first_name, :last_name, :email
@@ -216,7 +191,6 @@ class User < ActiveRecord::Base
       update_instructor_costs
     end
   end
-
 
   Ratings = [ ['1',1],['2',2],['3',3],['4',4],['5',5]]
 
@@ -250,6 +224,12 @@ class User < ActiveRecord::Base
     User.includes(:roles).where(roles: { role: 5 })
   end
 
+  def self.members_engaged
+    members_who_have_logged_in = joins(:roles).where(roles: { role: 4 }, customer_type: [nil, 0]).where.not(last_sign_in_at: nil)
+    members_who_have_an_order  = joins(:roles, :buyer_orders).where(roles: { role: 4 }, customer_type: [nil, 0])
+    (members_who_have_logged_in + members_who_have_an_order).uniq
+  end
+
   def password_complexity
     if password.present? and not password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/)
       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
@@ -270,10 +250,6 @@ class User < ActiveRecord::Base
   def taught_events_in_range(start_date, end_date)
     self.taught_events.where(start_date: start_date..end_date)
   end
-
-  # def self.only_students
-  #   joins(:roles).where(roles: {role: 4}).distinct
-  # end
 
   def my_plan_total_high
     planned_unattended_courses.inject(0) do |sum, course|
@@ -497,7 +473,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def next_upcoming_event
     events.where("start_date >= :start_date", { start_date: Date.today }).order(:start_date).first
   end
@@ -511,7 +486,6 @@ class User < ActiveRecord::Base
   def total_instructor_cost
     past_events.sum(:cost_instructor).to_f
   end
-
 
   def self.instructor_events_and_lab_rentals(instructors)
     events = []
@@ -527,7 +501,6 @@ class User < ActiveRecord::Base
     all_instructor = User.all_instructors_by_rate.where.not(:id=>[ins, lab])
     return all_instructor
   end
-
 
   def instructor_employment_date
     dates = self.employments.map{|emp| [emp.start_date, emp.end_date]}.uniq
