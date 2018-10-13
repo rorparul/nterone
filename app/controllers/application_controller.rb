@@ -66,6 +66,8 @@ class ApplicationController < ActionController::Base
                   :password_confirmation,
                   :source_name,
                   :source_user_id,
+                  :country,
+                  :state,
                   interest_attributes: [:id,
                                         :data_center,
                                         :collaboration,
