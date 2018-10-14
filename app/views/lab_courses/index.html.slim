@@ -1,0 +1,18 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      = link_to lab_rentals_path do
+        span style='margin: 27px 0; display: inline-block;'
+          i.fa.fa-chevron-left style='margin-right: 5px;'
+          | #{t('lab_rentals.new.back_to_lab_reservations')}
+      h4 style="margin-top: 10;"
+        strong.text-muted
+          = t('admins.website.lab_courses')
+      .container-muted
+        = link_to t('default.action.new'), new_lab_course_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: false
+      = smart_listing_render(:lab_courses)
+
+javascript:
+  $('.permissions .lab-rentals').addClass('active');

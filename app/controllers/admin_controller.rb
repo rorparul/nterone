@@ -132,7 +132,6 @@ class AdminController < ApplicationController
     manage_smart_listing(
       [
         'list_articles',
-        'list_lab_courses',
         'list_pages',
         'list_testimonials',
         'list_promotions'
@@ -167,13 +166,6 @@ class AdminController < ApplicationController
                                                        [:kind, "kind"],
                                                        [:title, "title"]],
                                      default_sort: { created_at: "asc" })
-  end
-
-  def list_lab_courses
-    @lab_courses = smart_listing_create(:lab_courses,
-                                        LabCourse.all,
-                                        partial: "lab_courses/listing",
-                                        default_sort: { title: "asc" })
   end
 
   def list_pages
@@ -221,6 +213,4 @@ class AdminController < ApplicationController
     end
     return a.to_json
   end
-
-
 end

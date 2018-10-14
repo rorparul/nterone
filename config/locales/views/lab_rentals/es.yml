@@ -13,6 +13,7 @@ es:
       search_by_date_start: "Fecha Comienzo"
       search_by_date_end: "Fecha Fin"
       upload_file: "Cargar archivo de reserva de laboratorio"
+      manage_lab_courses: 'Administrar Cursos de Laboratorio'
     mailers:
       reservation:
         copy1: "Gracias!"

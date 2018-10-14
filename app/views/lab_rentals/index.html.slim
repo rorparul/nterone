@@ -3,6 +3,9 @@
     li
       = link_to new_file_path, remote: true do
         = t('lab_rentals.index.upload_file')
+    li
+      = link_to lab_courses_path do
+        = t('lab_rentals.index.manage_lab_courses')
 
 = render 'layouts/tabs'
 
@@ -18,7 +21,7 @@
           = link_to "javascript:void(0)", id: 'btn-calender-view',class: 'calender_lab', data: { load_calander: "true" } do
             span.glyphicon.glyphicon-calendar
             |  Labs
-        - if current_user.admin?          
+        - if current_user.admin?
           li role="presentation" title='Classes List'
             = link_to "javascript:void(0)", id: 'list-view-classes', class: 'list_class' do
               span.glyphicon.glyphicon-th-list
@@ -50,7 +53,7 @@ javascript:
       $("#calendar-view-container").addClass('hidden');
       $("#classes-list-view-container").removeClass('hide');
       $("#view-filter-controls").addClass("hidden")
-      $("#classes-calendar-view-container").addClass("hidden");    
+      $("#classes-calendar-view-container").addClass("hidden");
       $(".classes_view").html('<i class="fa fa-spinner fa-spin" style="font-size: 30px; position: absolute; right: 50%; top: 90%; color: rgb(15, 115, 185);"></i>')
       $.ajax({
         type: "GET",
@@ -58,7 +61,7 @@ javascript:
         data: {view_type : "lab_classes_list_view"},
         dataType: "script"
       });
-    }  
+    }
   });
 
   $("#btn-list-view").on('click', function() {
@@ -77,15 +80,14 @@ javascript:
       $("#classes-calendar-view-container").addClass("hidden");
 
       $(".people_loader").removeClass('hide');
-      
+
       $.ajax({
         type: "GET",
         url: "/lab-reservations",
         dataType: "script",
         data: {view_type : "lab_list_view"},
       });
-    }  
-
+    }
   });
 
   $("#btn-calender-view-classes").on('click', function() {
@@ -128,7 +130,7 @@ javascript:
         }
 
       })
-    }  
+    }
   });
 
   $("#btn-calender-view").on('click', function() {
@@ -137,13 +139,12 @@ javascript:
       $("#btn-list-view").parent().removeClass('active');
       $("#btn-calender-view-classes").parent().removeClass('active')
       $("#list-view-classes").parent().removeClass('active')
-      
+
       $("#view-filter-controls").addClass('hidden');
       $("#calendar-view-container").removeClass('hidden');
       $("#list-view-container").addClass('hidden');
       $("#classes-list-view-container").addClass('hide');
-      $("#classes-calendar-view-container").addClass("hidden");    
-
+      $("#classes-calendar-view-container").addClass("hidden");
 
       $('#calendar-view').fullCalendar({
         header: {
@@ -174,6 +175,5 @@ javascript:
       if($(this).data("loadCalander") == true){
         $(this).data("loadCalander", false)
       }
-    }  
+    }
   });
-  

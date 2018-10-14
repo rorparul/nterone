@@ -37,14 +37,5 @@
         = link_to t('default.action.new'), new_discount_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: true
       = smart_listing_render(:promotions)
 
-  .row
-    .col-xs-12
-      h4 style="margin-top: 30px;"
-        strong.text-muted
-          = t('admins.website.lab_courses')
-      .container-muted
-        = link_to t('default.action.new'), new_lab_course_path, class: 'btn btn-green-gradient element-left-side', role: 'button', remote: false
-      = smart_listing_render(:lab_courses)
-
 javascript:
   $('.permissions .marketing').addClass('active');

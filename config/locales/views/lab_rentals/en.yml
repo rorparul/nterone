@@ -13,6 +13,7 @@ en:
       search_by_date_start: "Date Start"
       search_by_date_end: "Date End"
       upload_file: "Upload Lab Reservation File"
+      manage_lab_courses: 'Manage Lab Courses'
     mailers:
       reservation:
         copy1: "Thank you!"
