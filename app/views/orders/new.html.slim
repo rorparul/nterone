@@ -156,7 +156,7 @@
                   - if user_signed_in?
                     = current_user.try(:email)
                   - else
-                    = f.text_field :email, class: 'form-control input-sm'
+                    = f.text_field :email, class: 'form-control input-sm', required: true
 
             fieldset
               label

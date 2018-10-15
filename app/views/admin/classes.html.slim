@@ -41,16 +41,19 @@
 javascript:
   $('.permissions .classes').addClass('active');
 
+  $(document).on('click', '.event-link', function() {
+    $(this).closest('form').submit();
+  });
+
   $("#calendar-view-container").addClass('hidden');
 
   $("#btn-list-view").on('click', function() {
     $("#btn-list-view").parent().addClass('active');
     $("#btn-calender-view").parent().removeClass('active');
     $("#btn-calender-view-lab").parent().removeClass('active');
-
     $("#list-view-container").removeClass('hidden');
     $("#calendar-view-container").addClass('hidden');
-    $("#lab-calendar-view-container").addClass('hidden')
+    $("#lab-calendar-view-container").addClass('hidden');
     $('#view-filter-controls').removeClass('hidden');
   });
 
@@ -58,7 +61,6 @@ javascript:
     $("#btn-calender-view").parent().addClass('active');
     $("#btn-list-view").parent().removeClass('active');
     $("#btn-calender-view-lab").parent().removeClass('active');
-
     $("#list-view-container").addClass('hidden');
     $("#calendar-view-container").removeClass('hidden');
     $("#lab-calendar-view-container").addClass('hidden');
@@ -73,11 +75,11 @@ javascript:
         },
         events: '/admin/classes.json',
         loading: function(isLoading, view) {
-            if(isLoading) {
-              $(".calander_loading").removeClass('hidden');
-            } else {
-              $(".calander_loading").addClass('hidden');
-            }
+          if(isLoading) {
+            $(".calander_loading").removeClass('hidden');
+          } else {
+            $(".calander_loading").addClass('hidden');
+          }
         },
         eventClick: function(event) {
           if (event.url) {
@@ -86,7 +88,7 @@ javascript:
           }
         }
       })
-      $(this).data("loadCalander", false)
+      $(this).data("loadCalander", false);
     }
   })
 
@@ -94,11 +96,11 @@ javascript:
     $("#btn-calender-view-lab").parent().addClass('active');
     $("#btn-list-view").parent().removeClass('active');
     $("#btn-calender-view").parent().removeClass('active');
-
     $("#lab-calendar-view-container").removeClass('hidden');
     $("#list-view-container").addClass('hidden');
     $("#calendar-view-container").addClass('hidden');
     $('#view-filter-controls').addClass('hidden');
+
     if($(this).data("loadCalander") == true){
       $('#calendar-view-lab-calendar').fullCalendar({
         header: {
@@ -108,11 +110,11 @@ javascript:
         },
         events: '/lab-reservations.json',
         loading: function(isLoading, view) {
-            if(isLoading) {
-              $(".calander_loading").removeClass('hidden');
-            } else {
-              $(".calander_loading").addClass('hidden');
-            }
+          if(isLoading) {
+            $(".calander_loading").removeClass('hidden');
+          } else {
+            $(".calander_loading").addClass('hidden');
+          }
         },
         eventClick: function(event) {
           if (event.url) {
@@ -121,6 +123,6 @@ javascript:
           }
         }
       })
-      $(this).data("loadCalander", false)
+      $(this).data("loadCalander", false);
     }
   })
