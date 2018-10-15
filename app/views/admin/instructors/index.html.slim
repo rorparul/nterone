@@ -1,0 +1,90 @@
+= content_for :actions do
+  li
+    = link_to sales_force_form_for_tasks_path, remote: true do
+      = "Upload Sales Force Task Files"
+  li
+    = link_to sales_force_form_for_other_path, remote: true do
+      = "Upload Other Sales Force Files"
+
+= render 'layouts/tabs'
+
+.container-fluid
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs style='margin-bottom: 10px;'
+        li.active role="presentation" title='List View'
+          = link_to "javascript:void(0)", id: 'btn-list-view' do
+            span.glyphicon.glyphicon-th-list
+        li role="presentation" title='Calendar View'
+          = link_to "javascript:void(0)", id: 'btn-calender-view', data: { load_calander: "true" } do
+            span.glyphicon.glyphicon-calendar
+
+      #view-filter-controls.container-muted
+        div style='display: inline-block; margin-left: 1027px;'
+          = smart_listing_controls_for(:instructors, { class: "input-search" }) do
+            .input-group.filter.element-right-side.pull-right
+              = text_field_tag :filter, '', class: "search form-control",
+                                            placeholder: t('admins.classes.search'),
+                                            autocomplete: :off
+              span class="input-group-btn"
+                button class="btn btn-default disabled" type="submit"
+                  span.glyphicon.glyphicon-search        
+
+      #list-view-container.users_listing.instructors_listing
+        #list-view
+          = smart_listing_render(:instructors)
+
+      #calendar-view-container.hidden
+        i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+        #calendar-view      
+
+
+javascript:
+  $('.permissions .resources').addClass('active');
+
+  $("#calendar-view-container").addClass('hidden');
+
+  $("#btn-list-view").on('click', function() {
+    $("#btn-list-view").parent().addClass('active');
+    $("#btn-calender-view").parent().removeClass('active');
+
+    $("#list-view-container").removeClass('hidden');
+    $("#calendar-view-container").addClass('hidden');
+
+    $('#view-filter-controls').removeClass('hidden');
+  });
+
+  $("#btn-calender-view").on('click', function() {
+    $("#btn-list-view").parent().removeClass('active');
+    $("#btn-calender-view").parent().addClass('active');
+
+    $("#list-view-container").addClass('hidden');
+    $("#calendar-view-container").removeClass('hidden');
+
+    $('#view-filter-controls').addClass('hidden');
+    if($(this).data("loadCalander") == true){
+      $('#calendar-view').fullCalendar({
+        events: '/admin/instructors.json',
+        loading: function(isLoading, view) {
+            if(isLoading) {
+              $(".calander_loading").removeClass('hidden');
+            } else {
+              $(".calander_loading").addClass('hidden');
+            }
+        },
+        eventClick: function(event) {
+          if (event.url) {
+            window.open(event.url);
+            return false;
+          }
+        }
+      })
+     
+
+      $(this).data("loadCalander", false)
+    }
+  })
+
+
+
+

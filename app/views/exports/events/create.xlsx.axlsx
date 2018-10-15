@@ -44,7 +44,7 @@ wb.styles do |style|
         event.course.cisco_id,
         formatted_language(event.language),
         event.country_code,
-        event.format == 'Live Online' ? event.format : event.city,
+        Event::LIVE_ONLINE_FORMATS.include?(event.format) ? event.format : event.city,
         event.street,
         event.city,
         event.state,

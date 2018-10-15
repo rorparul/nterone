@@ -4,29 +4,21 @@
       table.table.table-condensed
         thead
           tr
-            th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
+            th.fit = smart_listing.sortable t('lab_rentals.partial_listing.course'), :lab_course
             - if current_user.admin?
-              th.fit
-                = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
-            th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
-            th.fit
-              = smart_listing.sortable 'Date', :first_day
-            th.fit Time
-            th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.location'), :location
-            th.fit
-              = smart_listing.sortable t('lab_rentals.partial_listing.instructor'), :instructor
-            th.fit
-              = t('lab_rentals.partial_listing.notes')
-            th.fit
-              = smart_listing.sortable t('24_hr'), :twenty_four_hours
-            th.fit
-              = smart_listing.sortable t('conf.'), :confirmed
-            th.fit
-              = smart_listing.sortable t('canc'), :canceled
-            th colspan='2'
+              th.fit = smart_listing.sortable t('lab_rentals.partial_listing.company'), :company
+            th.fit = smart_listing.sortable t('lab_rentals.partial_listing.no_of_students'), :num_of_students
+            th.fit = smart_listing.sortable 'Pods Ind.', :pods_individual
+            th.fit = smart_listing.sortable 'Pods Par.', :pods_partner
+            th.fit = smart_listing.sortable 'Date & Time', :first_day
+            th.fit Time Zone
+            th.fit = smart_listing.sortable t('lab_rentals.partial_listing.location'), :location
+            th.fit = smart_listing.sortable t('lab_rentals.partial_listing.instructor'), :instructor
+            th.fit = t('lab_rentals.partial_listing.notes')
+            th.fit = smart_listing.sortable t('24_hr'), :twenty_four_hours
+            th.fit = smart_listing.sortable t('conf.'), :confirmed
+            th.fit = smart_listing.sortable t('canc'), :canceled
+            th colspan='3'
         tbody
           - smart_listing.collection.each do |rental|
             tr
@@ -41,10 +33,12 @@
                       span.fa.fa-eye style="margin-left: 5px;"
               - else
                 td.fit = rental.num_of_students
-              td.fit = rental.first_day
+              td.fit = rental.lab_course.try(:pods_individual) if rental.lab_course
+              td.fit = rental.lab_course.try(:pods_partner) if rental.lab_course
               td.fit
-                div = rental.start_time.strftime("%I:%M %p") if rental.start_time
-                div = rental.end_time.strftime("%I:%M %p") if rental.start_time
+                div = rental.first_day.strftime("%b %d %Y") if rental.first_day
+                div = "#{rental.start_time.strftime("%I:%M %p")} - #{rental.end_time.strftime("%I:%M %p")}" if rental.start_time
+              td.fit = rental.time_zone if rental.time_zone
               td.fit = rental.location
               td
                 div = rental.instructor
@@ -63,6 +57,10 @@
               td.fit style="text-align: center;"
                 - if rental.canceled
                   i.fa.fa-check.text-success aria-hidden="true"
+              td.fit
+                = link_to lab_rental_path(rental), target: '_blank', title:   t('events.partial_listing.view') do
+                  i class="fa fa-eye" aria-hidden="true"
+
               td.fit
                 = link_to edit_lab_rental_path(rental) do
                   i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"

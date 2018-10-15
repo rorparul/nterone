@@ -1,0 +1,4 @@
+.form-container
+  = form_for :report, url: reports_members_engaged_index_path(format: :xlsx) do |f|
+    button.btn.btn-success
+      = t('reports.members_engaged._form.generate')

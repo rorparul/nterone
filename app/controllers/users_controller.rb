@@ -11,13 +11,13 @@ class UsersController < ApplicationController
 			format.any(:html, :js) do
         users_scope = current_user.partner? ? users_scope.where(company: current_user.company) : User.all
 
-        users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
+        users_scope = users_scope.custom_search(params[:filter]) if params[:filter].present?
         prepare_smart_listing(users_scope)
 
         if params[:role].present?
           prepare_role_smart_listing(params[:role], get_users_by_role)
         else
-          ["students", "instructors", "admins"].each do |role|
+          ["students", "instructors", "partners", "admins"].each do |role|
             prepare_role_smart_listing(role, users_scope.limit(1))
           end
         end
@@ -194,8 +194,12 @@ class UsersController < ApplicationController
       users_scope = current_user.partner? ? users_scope.where(company: current_user.company).students : User.students
     when "instructors"
       users_scope = current_user.partner? ? users_scope.where(company: current_user.company).instructors : User.instructors
+    when "partners"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).partners : User.partners
     when "admins"
       users_scope = current_user.partner? ? users_scope.where(company: current_user.company).admins : User.admins
+    when "partners"
+      users_scope = current_user.partner? ? users_scope.where(company: current_user.company).partners : User.partners
     end
     users_scope = users_scope.custom_search(params[:filter]) if params[:filter]
     users_scope
@@ -251,6 +255,8 @@ class UsersController < ApplicationController
       :street,
       :video_bio,
       :zipcode,
+      :employement_type,
+      :rating,
       filters: [
         :parent_id,
         :source_name,
@@ -267,7 +273,20 @@ class UsersController < ApplicationController
         :role,
         :_destroy
       ],
-      chosen_courses_attributes: [:id, :course_id, :_destroy]
+      chosen_courses_attributes: [
+        :id,
+        :course_id,
+        :audit_complete,
+        :completed_all_labs,
+        :met_with_course_director,
+        :audit_complete_by_user,
+        :audit_complete_by_date,
+        :completed_all_labs_by_user,
+        :completed_all_labs_by_date,
+        :met_with_course_director_by,
+        :met_with_course_director_by_date,
+        :_destroy
+      ]
     )
   end
 

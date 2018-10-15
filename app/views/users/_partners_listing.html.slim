@@ -1,0 +1,88 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th.fit.text-center
+            = check_box_tag :select_all, nil, nil, class: "select_all_users"
+          th.fit.text-center title='Region'
+            i.fa.fa-globe aria-hidden="true"
+          th.fit Company
+          th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
+          th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
+          th = smart_listing.sortable t('default.label.email'), :email
+          th.fit colspan='2'
+      tbody
+        - smart_listing.collection.each do |user|
+          tr
+            td.fit.text-center
+              = check_box_tag :users, user.id, nil, class: "users_mass_edit_checkbox"
+            td.fit.text-center
+              = region_label(resource.origin_region)
+            td
+              - if user.company.present?
+                = link_to user.company.title, company_path(user.company)
+              - else
+                | N/A
+            - if controller_name == 'users' && action_name == 'people'
+              td = link_to user.first_name, lead_users_path(user)
+              td = link_to user.last_name, lead_users_path(user)
+            / - elsif action_name == 'leads'
+            /   td = link_to user.first_name, contact_users_path(user)
+            /   td = link_to user.last_name, contact_users_path(user)
+            - else
+              td = user.first_name
+              td = user.last_name
+            td = user.email
+            - if controller_name == 'users' && action_name == 'people'
+              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+            - else
+              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning pull-right' do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+            td.fit = link_to user_path(user), title: 'Delete', method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger' do
+              i.text-danger class="fa fa-trash-o" aria-hidden="true"
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted.text-center
+    = t('default.placeholder.no_records')
+
+javascript:
+  $(".all_listing .users_mass_edit_checkbox").change(function() {
+    toggle_mass_edit();
+    if(!$(this).is(":checked")){
+      $(".all_listing .select_all_users").prop('checked', false);
+    }
+
+    if($(".all_listing .users_mass_edit_checkbox").length == $(".all_listing .users_mass_edit_checkbox:checked").length){
+      $(".all_listing .select_all_users").prop('checked', true);
+    }
+  });
+
+  $(".all_listing .select_all_users").on('change', function(){
+    if($(this).is(":checked")){
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
+    }else{
+      $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
+    }
+  });
+
+  if($(".all_listing .select_all_users").is(":checked")){
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', true).change();
+  }else{
+    $(".all_listing .users_mass_edit_checkbox").prop('checked', false).change();
+  }
+
+  function toggle_mass_edit() {
+    if($(".all_listing .users_mass_edit_checkbox:checked").length > 0) {
+      $("#dropdownMenu1").removeClass("disabled");
+    }
+    else{
+      $("#dropdownMenu1").addClass("disabled");
+    }
+  }
+
+  toggle_mass_edit();

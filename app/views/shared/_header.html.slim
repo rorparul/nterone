@@ -24,6 +24,13 @@
                       span.caret
                     ul.dropdown-menu.dropdown-menu-right
                       = yield :actions
+                - if content_for(:reports)
+                  .btn-group role='group'
+                    = link_to '#', class: 'btn btn-blue-gradient dropdown-toggle', role: 'button', data: { toggle: 'dropdown' }, 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+                      span.glyphicon.glyphicon-stats title="#{t('shared.header.reports')}"
+                      span.caret
+                    ul.dropdown-menu.dropdown-menu-right
+                      = yield :reports
                 = link_to '#', id: 'btn-menu', class: 'btn btn-blue-gradient', role: 'button' do
                   span.glyphicon.glyphicon-menu-hamburger title="#{t('shared.header.menu')}"
                 = link_to new_order_path, id: 'cart', class: 'btn btn-blue-gradient', role: 'button' do
@@ -88,19 +95,38 @@
               = "#{t('default.label.published')} #{post.created_at.strftime("%B %d, %Y")}"
 
 javascript:
+  $(function() {
+    prepare_header_for_viewport();
+  });
+
   $('#btn-menu').on('click', function(e) {
     e.preventDefault();
+    $('#nav-training, #nav-about-us').hide();
     $('#nav-2').toggle();
   });
 
   $('#training-dropdown-btn').on('click', function(e) {
     e.preventDefault();
-    $('#nav-about-us').hide();
+    $('#nav-2, #nav-about-us').hide();
     $('#nav-training').toggle();
   });
 
   $('#about-us-dropdown-btn').on('click', function(e) {
     e.preventDefault();
-    $('#nav-training').hide();
+    $('#nav-2, #nav-training').hide();
     $('#nav-about-us').toggle();
   });
+
+  $(window).resize(function() {
+    prepare_header_for_viewport();
+  });
+
+  function prepare_header_for_viewport() {
+    if ($(window).width() < 992) {
+      $('header').css('position', 'static');
+      $('main').css('padding-top', '0');
+    } else {
+      $('header').css('position', 'fixed');
+      $('main').css('padding-top', '89');
+    }
+  }

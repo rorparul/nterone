@@ -7,7 +7,7 @@
       button.btn.btn-default.disabled type="submit"
         span.glyphicon.glyphicon-search
 
-- ["students", "instructors", "admins"].each do |role|
+- ["students", "instructors", "admins","partners"].each do |role|
   = smart_listing_controls_for(role.to_sym, { class: "input-search  #{role}_search hide" }) do
     .input-group.filter.element-right-side
       = text_field_tag :filter, '', class: 'search form-control',

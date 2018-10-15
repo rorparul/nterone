@@ -60,7 +60,7 @@
                               = event.state
                               i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                         - else
-                          - if event.format == "Live Online"
+                          - if Event::LIVE_ONLINE_FORMATS.include?(event.format)
                             td.text-center
                               = t('general.featured_classes.webex')
                           - else

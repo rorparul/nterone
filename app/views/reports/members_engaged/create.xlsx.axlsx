@@ -1,0 +1,23 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  color = style.add_style(bg_color: '9CBA5F')
+
+  wb.add_worksheet(name: 'Members Engaged') do |sheet|
+    headers = [
+      "#{t('reports.members_engaged.create.first_name')}",
+      "#{t('reports.members_engaged.create.last_name')}",
+      "#{t('reports.members_engaged.create.email')}"
+    ]
+
+    sheet.add_row headers, style: Array.new(headers.size, color)
+
+    @members_engaged.each do |engaged_user|
+      sheet.add_row [
+        engaged_user.first_name,
+        engaged_user.last_name,
+        engaged_user.email
+      ]
+    end
+  end
+end

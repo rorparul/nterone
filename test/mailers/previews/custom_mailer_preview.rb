@@ -9,9 +9,4 @@ class CustomMailerPreview < ActionMailer::Preview
       welcome
     end
   end
-
-  def welcome_experts_exchange
-    user = User.second
-    CustomMailer.welcome_experts_exchange(user)
-  end
 end

@@ -27,6 +27,15 @@ en:
         end: "End"
         generate: "Generate"
         start: "Start"
+    members_engaged:
+      _form:
+        generate: 'Generate'
+      create:
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        email: 'Email'
+      new:
+        members_engaged: 'Members Engaged Report'
     profit_sheets:
       create_xls:
         class: "Class"

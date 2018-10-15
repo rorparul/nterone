@@ -2,16 +2,17 @@
 
 .container
   .row
-    .col-xs-12
-      .panel.panel-default
-        .panel-heading
-          strong.text-muted
-            = t('lab_courses.new.add_lab_course')
-        .panel-body
-          = render partial: "form", locals: { lab_course: @lab_course }
+    .col-xs-12.col-md-8.col-md-offset-2
+      = link_to lab_rentals_path do
+        span style='margin: 27px 0; display: inline-block;'
+          i.fa.fa-chevron-left style='margin-right: 5px;'
+          | #{t('lab_rentals.new.back_to_lab_reservations')}
+      h4
+        strong.text-muted = t('lab_courses.new.add_lab_course')
+      = render partial: "form", locals: { lab_course: @lab_course }
 
 javascript:
-  $('.permissions .website').addClass('active');
+  $('.permissions .lab-rentals').addClass('active');
 
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);

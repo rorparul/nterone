@@ -70,7 +70,7 @@ html
             td = @order.id
           tr
             td Customer ID:
-            td = @order.buyer.id
+            td = @order.buyer.try(:id)
 
     hr
 

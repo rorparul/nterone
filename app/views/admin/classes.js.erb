@@ -1,1 +1,4 @@
+$(".classes_view").html("<%= escape_javascript (render partial: 'admin/view_filter') %>");
 <%= smart_listing_update(:events) %>
+$(".people_loader").addClass('hide');
+$("#ajax_executed").val("false");

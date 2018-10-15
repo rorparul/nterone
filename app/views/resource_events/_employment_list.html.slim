@@ -1,0 +1,48 @@
+- unless smart_listing.empty?
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        thead
+          tr
+            th.fit Start Date
+            th.fit Start Time  
+            th.fit End Date
+            th.fit End Time  
+            th.fit Employment Type 
+            th.fit Instructor 
+            th colspan='2'
+        tbody
+          - smart_listing.collection.each do |employment|
+            tr
+              td.fit
+                div = employment.start_date.to_formatted_s(:rfc822) if employment.start_date
+              td.fit
+                div = employment.start_time.strftime("%I:%M %p") if employment.start_time  
+              td.fit
+                div = employment.end_date.to_formatted_s(:rfc822) if employment.end_date
+              td.fit
+                div = employment.end_time.strftime("%I:%M %p") if employment.end_time
+
+              td.fit
+                div = employment.employment_type if employment.employment_type
+              td.fit
+                div = employment.instructor.full_name if employment.instructor  
+                    
+              td.fit
+                = link_to edit_resource_event_path(employment) do
+                  i.fa.fa-pencil-square-o.text-warning aria-hidden="true" title="#{t('default.action.edit')}"
+              td.fit
+                = link_to resource_event_path(employment), method: :delete, data: { confirm: t('default.prompt.confirm_delete') } do
+                  i.text-danger class="fa fa-trash-o" aria-hidden="true" title="#{t('default.action.cancel')}"      
+
+  .panel-footer
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .panel-table
+    .table-responsive
+      table.table.table-condensed
+        tbody
+          tr
+            td.text-center
+              = t('default.placeholder.no_records')

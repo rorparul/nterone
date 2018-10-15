@@ -1,0 +1,53 @@
+- unless smart_listing.empty?
+  .table-responsive
+    table.table.table-condensed
+      thead
+        tr.background-muted
+          th.fit.text-center title='Region'
+            i.fa.fa-globe aria-hidden="true"
+          th.fit = smart_listing.sortable t('default.label.first_name'), :first_name
+          th.fit = smart_listing.sortable t('default.label.last_name'), :last_name
+          th = smart_listing.sortable t('default.label.email'), :email
+          th = smart_listing.sortable t('default.label.type'), :type
+          th = smart_listing.sortable t('default.label.days_worked'), :days_worked
+          th = smart_listing.sortable t('default.label.cost'), :cost
+          th = smart_listing.sortable t('default.label.next_working_day'), :next_working_day
+          th = smart_listing.sortable t('default.label.rating'), :rating
+          th.fit colspan='2'
+      tbody
+        - smart_listing.collection.each do |user|
+          tr
+            td.fit.text-center
+              = region_label(resource.origin_region)
+            - if action_name == 'leads'
+              td = link_to user.first_name, lead_users_path(user)
+              td = link_to user.last_name, lead_users_path(user)
+            - elsif action_name == 'contacts'
+              td = link_to user.first_name, contact_users_path(user)
+              td = link_to user.last_name, contact_users_path(user)
+            - else
+              td = user.first_name
+              td = user.last_name
+            td = user.email
+            td = user.try(:employement_type)
+            td = user.total_work_days
+            td = number_to_currency(user.total_instructor_cost, precision: 2)
+            td 
+              - if user.next_upcoming_event != nil
+                = link_to "#{user.next_upcoming_event.try(:start_date).to_formatted_s(:rfc822)}",admin_classes_show_path(user.next_upcoming_event.id), target: 'blank'
+            td = user.try(:rating)
+            - if action_name == 'leads' || action_name == 'contacts'
+              td.fit = link_to edit_from_sales_users_path(user), title: 'Edit', class: 'text-warning pull-right', remote: true do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+            - else
+              td.fit = link_to edit_user_path(user), title: 'Edit', class: 'text-warning pull-right' do
+                i.fa.fa-pencil-square-o.text-warning aria-hidden="true"
+            td.fit = link_to user_path(user), title: 'Delete', method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger' do
+              i.text-danger class="fa fa-trash-o" aria-hidden="true"
+    .table-end
+  .container-muted
+    = smart_listing.paginate
+    = smart_listing.pagination_per_page_links
+- else
+  .container-muted.text-center
+    = t('default.placeholder.no_records')

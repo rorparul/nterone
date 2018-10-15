@@ -1,0 +1,160 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12.col-md-8.col-md-offset-2
+      - if user_signed_in? && (current_user.company || current_user.admin?)
+        = link_to lab_rentals_path do
+          span style='margin: 27px 0; display: inline-block;'
+            i.fa.fa-chevron-left style='margin-right: 5px;'
+            | #{t('lab_rentals.new.back_to_lab_reservations')}
+      h4
+        strong.text-muted = t('lab_rentals.partial_show.lab_details')
+
+      .row.table-row
+        .col-xs-12.col-md-6.table-col
+          .panel-table
+            .responsive-table
+              table.table.table-condensed
+                tbody
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.course')
+                    td = @lab_rental&.lab_course&.title 
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.location')
+                    td = @lab_rental&.location
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.first_day')
+                    td = @lab_rental.first_day.strftime("%b %d %Y")   if @lab_rental.first_day
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.start_time')
+                    td = @lab_rental.start_time.strftime("%I:%M %p")  if @lab_rental.start_time
+                  tr   
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.instructor')
+                    td = @lab_rental.instructor if @lab_rental.instructor   
+                  tr   
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.instructor_email')
+                    td = @lab_rental.instructor_email if @lab_rental.instructor_email
+                  - if current_user.admin? 
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.setup_by')
+                      td = @lab_rental.setup_by_user.try(:full_name)
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.plus_instructor')
+                      td = @lab_rental.plus_instructor ? 'Yes' : "No"
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.entered_into_crm')
+                      td = @lab_rental.entered_into_crm ? 'Yes' : "No"    
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.payment_received')
+                      td = @lab_rental.payment_received ? 'Yes' : "No"  
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.terms')
+                      td = @lab_rental.terms ? 'Yes' : "No"
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.confirmed')
+                      td = @lab_rental.confirmed ? 'Yes' : "No"
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.payment_received')
+                      td = @lab_rental.payment_received ? 'Yes' : "No"       
+        .col-xs-12.col-md-6.table-col
+          .panel-table
+            .responsive-table
+              table.table.table-condensed
+                tbody
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.partner')
+                    td = @lab_rental.try(:level)
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.number_of_students')    
+                    td = @lab_rental.try(:num_of_students)
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.last_day')
+                    td = @lab_rental&.last_day.strftime("%b %d %Y") if @lab_rental.last_day
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.end_time')
+                    td = @lab_rental.end_time.strftime("%I:%M %p") if @lab_rental.end_time    
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.number_of_pods')
+                    td = @lab_rental.number_of_pods
+                  tr
+                    td.text-right
+                      strong
+                        = t('lab_rentals.partial_show.instructor_phone')
+                    td = @lab_rental.instructor_phone if  @lab_rental.instructor_phone
+                  - if current_user.admin? 
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.tested_by')
+                      td = @lab_rental.tested_by_user.try(:full_name) 
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.price')
+                      td = number_to_currency(@lab_rental.price, precision: 2)
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.po_number')
+                      td = @lab_rental.po_number
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.invoice_number')
+                      td = @lab_rental.invoice_number
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.poc')
+                      td = @lab_rental.poc
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.entered_into_crm')
+                      td = @lab_rental.entered_into_crm ? 'Yes' : "No"
+                    tr
+                      td.text-right
+                        strong
+                          = t('lab_rentals.partial_show.note')
+                      td = @lab_rental.notes     
+                         
+
+javascript:
+  $('.permissions .lab-rentals').addClass('active');
