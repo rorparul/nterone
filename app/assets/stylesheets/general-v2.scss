@@ -133,5 +133,12 @@ table {
 .country-state{
   text-align: center;
   text-align-last: center;
+  color: #999;
+  width: 302px;
 }  
+
+select.parsley-error{
+  color: #999;
+}
+
 

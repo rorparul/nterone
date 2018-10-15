@@ -12,8 +12,7 @@
   = f.country_select :country,  {include_blank: 'Select Country'},class: 'form-control country_field session-input country-state', required: true
   
   div.state-input-div style="display: none;"
-    = f.select :state, options_for_select(CS.states(:us).map{|k,v| [v,k]},{selected: f.object.state}),{include_blank: 'Select State'}, class: 'form-control session-input country-state state-input'
-
+    = f.select :state, options_for_select(CS.states(:us).map{|k,v| [v,k]},{selected: f.object.state}),{include_blank: 'Select State'}, class: 'form-control session-input country-state state-input',required: true
   - if @validatable
     em = "(#{@minimum_password_length} #{t('devise.registrations.new.copy1')})"
     br
@@ -77,24 +76,23 @@ javascript:
     if( ($(".country_field").val() == "US") || ($(".country_field").val() == "MX") || ($(".country_field").val() == "CA") ){
       $('.state-input-div').show()
       $(".state-input").prop('required', "true")
-    }
-    if(($(".country_field").val() != "US") || ($(".country_field").val() != "MX") || ($(".country_field").val() != "CA") ){
+    }else{
       $(".state-input").removeAttr('required')
     }
   });
-    $(".country_field").change(function(){
-      country = $(this).val()
-      if(country == "US" || country == "MX" || country == "CA"){
-        $('.state-input-div').show()
-        $(".state-input").prop('required', "true")
-        $.ajax({
-          type: "GET",
-          url: '/country_state',
-          data: {'country': country},
-          dataType: 'script'
-        });
-      }else{
-        $('.state-input-div').hide()
-        $(".state-input").removeAttr('required')
-      }
-    })
+  $(".country_field").change(function(){
+    country = $(this).val()
+    if(country == "US" || country == "MX" || country == "CA"){
+      $('.state-input-div').show()
+      $(".state-input").prop('required', "true")
+      $.ajax({
+        type: "GET",
+        url: '/country_state',
+        data: {'country': country},
+        dataType: 'script'
+      });
+    }else{
+      $('.state-input-div').hide()
+      $(".state-input").removeAttr('required')
+    }
+  })
