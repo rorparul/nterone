@@ -45,7 +45,7 @@ class LabCoursesController < ApplicationController
 		if @lab_course.save
 			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully created!"
-      redirect_to lab_courses_path
+      redirect_to :back
 		else
 			render 'new'
 		end
@@ -56,7 +56,7 @@ class LabCoursesController < ApplicationController
 		if @lab_course.update(lab_course_params)
 			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully updated!"
-			redirect_to lab_courses_path
+			redirect_to :back
 		else
 			render 'edit'
 		end
@@ -84,9 +84,8 @@ class LabCoursesController < ApplicationController
 			:pods_individual,
 			:pods_partner,
 			:title,
-			image_attributes: [
-				:file
-			]
+			active_regions: [],
+			image_attributes: [:file]
 		)
   end
 
