@@ -134,7 +134,6 @@ table {
   text-align: center;
   text-align-last: center;
   color: #999;
-  width: 302px;
 }  
 
 select.parsley-error{
@@ -142,3 +141,8 @@ select.parsley-error{
 }
 
 
+
+.country-state option{
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
