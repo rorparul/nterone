@@ -229,8 +229,9 @@ class OrdersController < ApplicationController
         cpl_post_orders(@order)      if @order.any_cisco_private_label_products?
         cpl_post_enrollments(@order) if @order.any_cisco_private_label_products?
 
-        OrderMailer.confirmation(current_user, @order).deliver_now
         OrderMailer.lab_rental_notification(current_user, order_pods).deliver_now if order_pods.any?
+        OrderMailer.confirmation_internal(current_user, @order).deliver_now
+        OrderMailer.confirmation_external(current_user, @order, params["M360-Source"]).deliver_now
 
         flash[:success] = 'You\'ve successfully completed your order. Please check your email for a confirmation.'
 
