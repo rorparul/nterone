@@ -120,29 +120,31 @@ table {
   margin: 0 0 15px 0;
   margin-left: 12px;
 }
- 
+
 .mt-50{
   margin-top: 50px;
-}    
+}
 
 .mb-60{
   margin-bottom: 60px;
 }
 
-
-.country-state{
+select.form-control.session-input.country-state {
   text-align: center;
   text-align-last: center;
   color: #999;
-}  
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  appearance: none;
+  border-radius: 0px;
+  height: 42px;
+}
 
 select.parsley-error{
   color: #999;
 }
 
-
-
-.country-state option{
+.country-state option {
   text-overflow: ellipsis;
   font-size: 12px;
 }

@@ -5,14 +5,14 @@
   = f.hidden_field :source_name,    value: cookies[:source_name]
   = f.hidden_field :source_user_id, value: cookies[:source_user_id]
 
-  = f.text_field  :first_name, autofocus: true,  placeholder: t('default.label.first_name'),    class: 'form-control sign-in-field session-input',          required: true
-  = f.text_field  :last_name,  autofocus: false, placeholder: t('default.label.last_name'),     class: 'form-control sign-in-field session-input',          required: true
-  = f.email_field :email,      autofocus: false, placeholder: t('default.label.email'), class: 'form-control regEmail sign-in-field session-input', required: true
+  = f.text_field  :first_name, autofocus: true,  placeholder: t('default.label.first_name'), class: 'form-control sign-in-field session-input',          required: true
+  = f.text_field  :last_name,  autofocus: false, placeholder: t('default.label.last_name'),  class: 'form-control sign-in-field session-input',          required: true
+  = f.email_field :email,      autofocus: false, placeholder: t('default.label.email'),      class: 'form-control regEmail sign-in-field session-input', required: true
 
-  = f.country_select :country,  {include_blank: 'Select Country'},class: 'form-control country_field session-input country-state', required: true
-  
+  = f.country_select :country, { include_blank: 'Country' }, class: 'form-control country_field session-input country-state', required: true
+
   div.state-input-div style="display: none;"
-    = f.select :state, options_for_select(CS.states(:us).map{|k,v| [v,k]},{selected: f.object.state}),{include_blank: 'Select State'}, class: 'form-control session-input country-state state-input',required: true
+    = f.select :state, options_for_select(CS.states(:us).map { |k,v| [v,k] }, { selected: f.object.state }), { include_blank: 'State/Province' }, class: 'form-control session-input country-state state-input', required: true
   - if @validatable
     em = "(#{@minimum_password_length} #{t('devise.registrations.new.copy1')})"
     br
