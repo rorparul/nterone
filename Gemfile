@@ -77,6 +77,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'wysiwyg-rails', '2.8.1'
 gem 'zip-zip'
+gem 'city-state'
 
 group :development do
   gem 'annotate'

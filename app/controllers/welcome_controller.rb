@@ -4,6 +4,12 @@ class WelcomeController < ApplicationController
     set_featured_courses
   end
 
+  def country_state
+    if params[:country].present?
+      @states = CS.states(params[:country]).map{|k,v| [v,k]}
+    end
+  end 
+
   private
 
   def set_featured_courses

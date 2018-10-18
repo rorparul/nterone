@@ -40,6 +40,7 @@ NterOne::Application.routes.draw do
   get 'dashboard' => 'dashboard#index', as: :dashboard
 
   get 'admin/' => 'admin#index'
+  get  '/country_state' => 'welcome#country_state', as: :country_state
 
   resources :pages
 
