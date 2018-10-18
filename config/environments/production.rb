@@ -98,8 +98,7 @@ NterOne::Application.configure do
     :ignore_crawlers => %w{Googlebot bingbot},
     :error_grouping => true,
     :email => {
-      :email_prefix         => "[NterOne/Company Website] ",
       :sender_address       => "'Exception Notification' <email@nterone.com>",
-      :exception_recipients => ['ryan@storberg.net']
+      :exception_recipients => ['ryanstorberg+lbexyfakdsmokux7kyxw@boards.trello.com']
     }
 end
