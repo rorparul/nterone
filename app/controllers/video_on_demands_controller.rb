@@ -90,7 +90,7 @@ class VideoOnDemandsController < ApplicationController
     @platform        = Platform.find(params[:platform_id])
     @video_on_demand = VideoOnDemand.find(params[:id])
     @video_on_demand.set_image(url_param: params['video_on_demand'], for: :image)
-    
+
     authorize @video_on_demand
     if @video_on_demand.update_attributes(video_on_demand_params)
       flash[:success] = 'Video On Demand successfully updated!'
@@ -148,7 +148,7 @@ class VideoOnDemandsController < ApplicationController
     available_questions = all_questions - taken_questions
     available_questions.each do |question|
       @next_question = question
-    end  
+    end
     respond_to do |format|
       format.html { render :action => 'show' }
       format.js { render :action => 'begin_quiz' }
@@ -173,7 +173,7 @@ class VideoOnDemandsController < ApplicationController
     available_questions = all_questions - taken_questions
     available_questions.each do |question|
       @next_question = question
-    end 
+    end
     unless @next_question == nil
       respond_to do |format|
         format.html { render :action => 'show' }
@@ -315,7 +315,7 @@ class VideoOnDemandsController < ApplicationController
     return save_correct_order_answer if question.correct_order?
 
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])  
+    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
     attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
 
     attempt_answer.answer_text = params[:answer] if question.free_form?
@@ -346,7 +346,7 @@ class VideoOnDemandsController < ApplicationController
           video_module["lms_exams_attributes"].each do |key,lms_exam|
             lms_exam["exam_type"] = LmsExam.exam_types.key(lms_exam["exam_type"].to_i)
           end
-       end 
-    end  
+       end
+    end
   end
 end

@@ -251,6 +251,7 @@ NterOne::Application.routes.draw do
   namespace :admin do
     resources :instructors, only: [:index]
     resources :platforms, only: [:index]
+    resources :video_on_demands, only: [:index]
     resources :checklists do
       member do
         get "events/:event_id", action: :show

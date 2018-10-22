@@ -102,6 +102,9 @@
             li.courses
               a.nav-pill href="#{admin_courses_path}"
                 = t('admins.partial_tabs.courses')
+            li.video_on_demands
+              a.nav-pill href="#{admin_video_on_demands_path}"
+                | VoDs
 
     - if policy(:admin).tools?
       li.tools_and_resources role="presentation"

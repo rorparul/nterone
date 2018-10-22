@@ -2,8 +2,6 @@ class Admin::PlatformsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_admin, only: [:index]
 
-  # layout 'admin'
-
   def index
     @platforms = Platform.active
   end
