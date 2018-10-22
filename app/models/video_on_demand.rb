@@ -81,7 +81,7 @@ class VideoOnDemand < ActiveRecord::Base
   scope :lms, -> { where(lms: true) }
 
   def self.search(query)
-    where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{params[:query].try(:downcase)}%").where.not(lms: true)
+    where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.try(:downcase)}%").where.not(lms: true)
   end
 
   def full_title
