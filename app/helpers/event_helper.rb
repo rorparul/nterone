@@ -9,7 +9,7 @@ module EventHelper
   end
 
   def live_online_location(event_format)
-    event_format.sub('Live Online ', '' )
+    event_format.sub('Live Online ', '')
   end
 
   def instructors_with_rate(instructors, event)
