@@ -47,7 +47,7 @@
                               th title="#{t('general.featured_classes.language')}"
                                 i.fa.fa-globe aria-hidden="true"
                               th = t('courses.show.location')
-                              th = t('courses.show.status')
+                              th = t('courses.show.start_time')
                               th = t('courses.show.price')
                               - if !user_signed_in? || (user_signed_in? && current_user.member?)
                                 th
@@ -67,7 +67,10 @@
                                     meta itemprop="endDate" content="#{event.end_date}"
                                       = "#{event.end_date.strftime("%-m/%-d/%y")}"
                                   td = "#{pluralize(event.length, 'Day')}"
-                                  - if event.format == "ClearConnect"
+                                  - if Event::LIVE_ONLINE_FORMATS.include?(event.format)
+                                    td.fit
+                                      | Live Online
+                                  - elsif event.format == "ClearConnect"
                                     td.fit.location-td style="cursor: help;"
                                       .for-tooltip data-toggle="tooltip" data-placement="top" title="ClearConnect allows you to join training remotely via webex, any video-conferencing system, or at the onsite location(s) listed."
                                         = event.format
@@ -76,19 +79,17 @@
                                     td.fit
                                       = event.format
                                   td.fit = event.language.upcase
-                                  - if event.city.present? || event.state.present? || event.street.present?
+                                  - if Event::LIVE_ONLINE_FORMATS.include?(event.format)
+                                    td.fit
+                                      = live_online_location(event.format)
+                                  - elsif event.city.present? || event.state.present? || event.street.present?
                                     td.fit.location-td style="cursor: help;"
                                       .for-tooltip data-toggle="tooltip" data-placement="top" title=[event.street, event.city].reject(&:blank?).join(', ')
                                         = event.state
                                         i.fa.fa-map-marker.text-danger aria-hidden="true" style="margin-left: 5px;"
                                   - else
-                                    - if Event::LIVE_ONLINE_FORMATS.include?(event.format)
-                                      td
-                                        = event.format
-                                    - else
-                                      td
-                                  td
-                                    = t('courses.show.availability')
+                                    td
+                                  td = event.start_time.strftime('%l:%M %p')
                                   - if event.price > 0.00
                                     td
                                       div itemprop="offers" itemscope="true" itemtype="http://schema.org/Offer"

@@ -54,7 +54,7 @@ es:
       edit_course: "Editar Curso"
     show:
       add_event: "Agregar Evento"
-      availability: "Disponible"
+      start_time: "Hora de Inicio"
       contact: "Contacto"
       course_outline: "Esquema del Curso"
       date: "Fecha"

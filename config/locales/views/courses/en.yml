@@ -54,7 +54,7 @@ en:
       edit_course: "Edit Courses"
     show:
       add_event: "Add Event"
-      availability: "Available"
+      start_time: "Start Time"
       contact: "Contact"
       course_outline: "Course Outline"
       date: "Date"

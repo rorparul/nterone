@@ -8,6 +8,10 @@ module EventHelper
     return 'EST' if time_zone == 'Eastern Time (US & Canada)'
   end
 
+  def live_online_location(event_format)
+    event_format.sub('Live Online ', '' )
+  end
+
   def instructors_with_rate(instructors, event)
     if event.present?
       selected_instructor = event.instructor
