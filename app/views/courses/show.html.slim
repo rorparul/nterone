@@ -159,7 +159,7 @@
           - if @course.pdf.url
             = link_to @course.pdf.url do
               span.fa.fa-file-pdf-o.text-danger
-              = t('courses.show.download_datasheet')
+              = " #{t('courses.show.download_datasheet')}"
           h5
             strong
               = t('courses.show.questions')
