@@ -6,16 +6,13 @@ class Lms::AssignManagerController < ApplicationController
   end
 
   def create
-    lms_managed_student = LmsManagedStudent.new(
-      user: current_user,
-      manager_id: assign_manager_params[:manager_id]
-    )
+    lms_managed_student = LmsManagedStudent.new(assign_manager_params)
 
     if lms_managed_student.save
-      flash[:success] = "you were successfully assigned to #{lms_managed_student.manager.full_name}"
+      flash[:success] = "You were successfully assigned to #{lms_managed_student.manager.full_name}."
       redirect_to lms_student_path(current_user)
     else
-      flash[:alert] = 'could not assign to manager'
+      flash[:alert] = 'Could not assign to manager.'
       redirect_to :back
     end
   end
@@ -23,6 +20,6 @@ class Lms::AssignManagerController < ApplicationController
   private
 
   def assign_manager_params
-    params.require(:assign_manager).permit(:manager_id)
+    params.require(:assign_manager).permit(:user_id, :manager_id)
   end
 end
