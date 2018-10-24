@@ -174,15 +174,14 @@ class VideoOnDemandsController < ApplicationController
     available_questions.each do |question|
       @next_question = question
     end 
+    @lms_exam_attempt.completed_at = Time.now
+    @lms_exam_attempt.save
     unless @next_question == nil
       respond_to do |format|
         format.html { render :action => 'show' }
         format.js { render :action => 'next_quiz_question' }
       end
     else
-      @lms_exam_attempt.completed_at = Time.now
-      @lms_exam_attempt.save
-
       respond_to do |format|
         format.html { render :action => 'show' }
         format.js { render :action => 'exit_quiz' }
@@ -313,13 +312,14 @@ class VideoOnDemandsController < ApplicationController
     question = LmsExamQuestion.find(params[:lms_exam_question])
 
     return save_correct_order_answer if question.correct_order?
-
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])  
-    attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
+    if params[:answer].present? || params[:answer_id].present?
+      answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer]) 
+      attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
 
-    attempt_answer.answer_text = params[:answer] if question.free_form?
-    attempt_answer.save
+      attempt_answer.answer_text = params[:answer] if question.free_form?
+      attempt_answer.save
+    end
   end
 
   def save_correct_order_answer
