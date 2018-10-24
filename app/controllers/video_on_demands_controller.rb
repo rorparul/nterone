@@ -49,7 +49,7 @@ class VideoOnDemandsController < ApplicationController
     @video_on_demand.build_image
   end
 
-  def  select_to_edit
+  def select_to_edit
     if video_on_demand_params[:id] == 'none'
       redirect_to select_platform_video_on_demands_path(Platform.find(params[:platform_id]))
     else
@@ -143,7 +143,7 @@ class VideoOnDemandsController < ApplicationController
     all_questions = @quiz.lms_exam_questions.order("position DESC")
     taken_questions = []
 
-    @lms_exam_attempt.lms_exam_attempt_answers.each{ |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
+    @lms_exam_attempt.lms_exam_attempt_answers.each { |lms_exam_attempt_answer| taken_questions << lms_exam_attempt_answer.lms_exam_question }
 
     available_questions = all_questions - taken_questions
     available_questions.each do |question|
@@ -173,13 +173,9 @@ class VideoOnDemandsController < ApplicationController
     available_questions = all_questions - taken_questions
     available_questions.each do |question|
       @next_question = question
-<<<<<<< HEAD
-    end 
+    end
     @lms_exam_attempt.completed_at = Time.now
     @lms_exam_attempt.save
-=======
-    end
->>>>>>> master
     unless @next_question == nil
       respond_to do |format|
         format.html { render :action => 'show' }
@@ -214,7 +210,6 @@ class VideoOnDemandsController < ApplicationController
   def show_scores
     @video_on_demand = VideoOnDemand.find(params[:platform_id])
     @platform = @video_on_demand.platform
-    #@video = Video.find(params[:video_id])
     @quiz = LmsExam.find(params[:id])
 
     @lms_exam_attempts = LmsExamAttempt.where(lms_exam: @quiz, user: current_user)
@@ -317,14 +312,9 @@ class VideoOnDemandsController < ApplicationController
 
     return save_correct_order_answer if question.correct_order?
     attempt = LmsExamAttempt.find(params[:lms_exam_attempt])
-<<<<<<< HEAD
     if params[:answer].present? || params[:answer_id].present?
-      answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer]) 
+      answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
       attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
-=======
-    answer = question.free_form? ? LmsExamAnswer.find(params[:answer_id]) : LmsExamAnswer.find(params[:answer])
-    attempt_answer = LmsExamAttemptAnswer.new(lms_exam_attempt: attempt, lms_exam_question: question, lms_exam_answer: answer)
->>>>>>> master
 
       attempt_answer.answer_text = params[:answer] if question.free_form?
       attempt_answer.save
