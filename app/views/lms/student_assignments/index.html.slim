@@ -17,11 +17,11 @@
         - @assignments.each do |assignment|
           .col-md-6
             .well
-              span.lead= assignment.item.title
-              =link_to 'Remove Assignment',
+              span.lead= assignment.item.try(:title)
+              = link_to 'Remove Assignment',
                 lms_student_assignment_path(@student, assignment),
                 class: 'label label-danger pull-right remove-assignment',
-                data: { method: :delete, :confirm => 'Are you sure?'}
+                data: { method: :delete, :confirm => 'Are you sure?' }
 
   .row
     .col-xs-12

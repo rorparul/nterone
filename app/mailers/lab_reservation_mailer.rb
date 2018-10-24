@@ -8,14 +8,14 @@ class LabReservationMailer < ApplicationMailer
       mail(
         to: user_email,
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Requested (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Requested (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )
     else
       mail(
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Requested (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Requested (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )
@@ -40,14 +40,14 @@ class LabReservationMailer < ApplicationMailer
       mail(
         to: user_email,
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Modified (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Modified (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )
     else
       mail(
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Modified (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Modified (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )
@@ -72,7 +72,7 @@ class LabReservationMailer < ApplicationMailer
       mail(
         to: @user.email,
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Canceled (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Canceled (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )
@@ -80,7 +80,7 @@ class LabReservationMailer < ApplicationMailer
       mail(
         to: user_email,
         bcc: 'techsupport@nterone.com',
-        subject: "Lab Reservation Canceled (##{@reservation.id})",
+        subject: "[ACTION REQUIRED] Lab Reservation Canceled (##{@reservation.id})",
         template_path: 'lab_rentals/mailers',
         template_name: 'reservation'
       )

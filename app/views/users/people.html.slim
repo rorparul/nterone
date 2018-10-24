@@ -1,3 +1,8 @@
+= content_for :reports do
+  li
+    = link_to new_reports_members_engaged_path, remote: true do
+      | Members Engaged Report
+
 = render 'layouts/tabs'
 
 .container

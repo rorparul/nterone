@@ -39,6 +39,7 @@
 #  poc               :string
 #  terms             :string
 #  instructor_id     :integer
+#  provider          :string           default("")
 #
 # Indexes
 #
@@ -52,7 +53,10 @@
 
 class LabRental < ActiveRecord::Base
 	include SearchCop
-include Regions
+  include Regions
+
+  TERMS     = ["Due upon receipt", "Due upon booking", "7", "14", "30", "45"]
+	PROVIDERS = ['NterOne', 'Cisco', 'Other']
 
 	belongs_to :user
 	belongs_to :company
@@ -69,9 +73,18 @@ include Regions
 
 	after_save :count_students, if: Proc.new { |model| model.kind == 2 && model.level == "partner" }
 
+  belongs_to :setup_by_user, foreign_key: :setup_by, class_name: "User"
+  belongs_to :tested_by_user, foreign_key: :tested_by, class_name: "User"
+
 	search_scope :custom_search do
-    attributes :course, :instructor, :instructor_email, :location
+    attributes :course, :instructor, :instructor_email, :location, :level
     attributes :company => ["company.title"]
+  end
+
+  def instructor_name_and_lab_course_title
+    inst_details = "#{user.try(:full_name)} [#{lab_course.title}]" if user.present? && lab_course.present?
+    inst_details = "#{inst_details} [#{user.instructor_employment_date }]" if inst_details.present? && user.employments.present?
+    return inst_details
   end
 
 	private
@@ -79,4 +92,5 @@ include Regions
 	def count_students
 		self.update_column(:num_of_students, self.lab_students.count)
 	end
+
 end

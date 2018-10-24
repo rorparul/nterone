@@ -2,8 +2,15 @@ class LabCoursesController < ApplicationController
 	include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
 
-	before_action :set_lab_course,       except: [:new, :create]
+	before_action :set_lab_course,       except: [:index, :new, :create]
 	before_action :authorize_lab_course, except: [:show, :time_select]
+
+	def index
+		@lab_courses = smart_listing_create(:lab_courses,
+																				LabCourse.all,
+																				partial: "lab_courses/listing",
+																				default_sort: { title: "asc" })
+	end
 
 	def show
 		authorize @lab_course
@@ -38,7 +45,7 @@ class LabCoursesController < ApplicationController
 		if @lab_course.save
 			create_topology if params[:topology]
 			flash[:success] = "Lab Course successfully created!"
-      redirect_to admin_website_path
+      redirect_to :back
 		else
 			render 'new'
 		end
@@ -77,9 +84,8 @@ class LabCoursesController < ApplicationController
 			:pods_individual,
 			:pods_partner,
 			:title,
-			image_attributes: [
-				:file
-			]
+			active_regions: [],
+			image_attributes: [:file]
 		)
   end
 

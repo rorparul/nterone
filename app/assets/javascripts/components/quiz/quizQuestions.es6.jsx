@@ -5,11 +5,11 @@ class QuizQuestions extends React.Component {
   }
 
   renderMultipleChoice = (answers) => {
-    return <div>
+    return <div className='answers-multiple-choice'>
       {answers.map(answer => {
         return <div key={answer.id}>
-          <input type='radio' name='answer' value={answer.id} />
-          {answer.answer_text}
+          <input type='radio' name='answer' value={answer.id} className='answer-input-multiple-choice'/>
+          <div className='answer-multiple-choice'>{answer.answer_text}</div>
           <br/>
         </div>
       })}
@@ -21,7 +21,7 @@ class QuizQuestions extends React.Component {
       {answers.map(answer => {
         return <div key={answer.id}>
           <input type='hidden' name='answer_id' value={answer.id} />
-          <input name='answer' placeholder='Enter correct answer'className='answer-text-input'/>
+          <input name='answer' placeholder='Enter correct answer' className='answer-text-input'/>
           <br/>
         </div>
       })}
@@ -29,12 +29,12 @@ class QuizQuestions extends React.Component {
   }
 
   renderCorrectOrder = (answers) => {
-    return <div className='quiz-answers'>
+    return <div className='answers-correct-order'>
       {answers.map((answer, i) => {
         return <div key={answer.id}>
           <input type='hidden' name={'answers[' + i + '][answer]'} value={answer.id} />
-          {answer.answer_text}
-          <input type='number' name={'answers[' + i + '][position]'} defaultValue={i + 1} className='position-input'/>
+          <input type='number' name={'answers[' + i + '][position]'} defaultValue={i + 1} className='answer-input-correct-order'/>
+          <div className='answer-correct-order'>{answer.answer_text}</div>
           <br/>
         </div>
       })}

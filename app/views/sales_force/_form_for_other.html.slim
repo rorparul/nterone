@@ -5,7 +5,7 @@
     .form-group
       = f.label :type, "Select File Type"
       br
-      = f.select :type, options_for_select(types), {prompt: "Please Select A File Type"}, class: 'form-control input-sm'
+      = f.select :type, options_for_select(types), { prompt: "Please Select A File Type" }, class: 'form-control input-sm'
 
     .form-group
       = f.file_field :file, class: 'form-control input-sm'

@@ -1,0 +1,77 @@
+#view-filter-controls.container-muted
+  = link_to t('default.action.new'), new_lab_rental_path, class: 'btn btn-green-gradient element-left-side', role: 'button'
+  = smart_listing_controls_for(:lab_rentals, { class: 'form-inline' }) do
+    .filter.hide
+      = text_field_tag :date_start
+      = text_field_tag :date_end
+      = select_tag :level
+    - if current_user.try(:admin?)
+      .input-group.form-inline.element-right-side
+        = select_tag :level, options_for_select([["All", ""],["Partner", "partner"],["Individual", "individual"]]), class: 'search form-control',
+                                             style: 'border-radius: 4px;'
+    .input-group.element-right-side
+      = text_field_tag :filter, '', class: 'search form-control',
+                                    placeholder: t('default.action.search'),
+                                    autocomplete: :off
+      span.input-group-btn
+        button.btn.btn-default.disabled type='submit'
+          span.glyphicon.glyphicon-search
+
+
+  .input-group.form-inline.pull-right.input-daterange[data={ provide: 'datepicker', 'date-language': I18n.locale.to_s }]
+    .input-group
+      span.input-group-btn
+        = text_field_tag :_date_start, '', class: 'search form-control element-right-side search_by_date',
+                                           style: 'border-radius: 4px;',
+                                           data: { linked: '#date_start' },
+                                           placeholder: t('default.placeholder.start_date'),
+                                           autocomplete: :off
+
+    div style='display: inline-block; margin: 6px 0 4px 10px;' -
+
+    .input-group
+      span.input-group-btn
+        = text_field_tag :_date_end, '', class: 'search form-control element-right-side search_by_date',
+                                         style: 'border-radius: 4px;',
+                                         data: { linked: '#date_end' },
+                                         placeholder: t('default.placeholder.end_date'),
+                                         autocomplete: :off
+
+
+#list-view-container
+  #list-view
+    = smart_listing_render(:lab_rentals)
+    i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
+#calendar-view-container
+  i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+  #calendar-view
+#classes-calendar-view-container
+  i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+  #calendar-view2
+
+javascript:
+  $(".smart-listing-controls.form-inline").on('change' , function(){
+    $(this).submit();
+  })
+
+  $(".search_by_date").on('change', function(){
+    date_start = $(this).val()
+    date_end = $(this).val()
+    if(date_start != "" && $(this).attr("id") == "_date_start"){
+      month = date_start.split("/")[0]
+      date = date_start.split("/")[1]
+      year = date_start.split("/")[2]
+      date_format = year + "-" + month + "-" + date
+      $("#date_start").val(date_format)
+    }
+    if($(this).attr("id") == "_date_end"){
+      if(date_end != ""){
+        month = date_end.split("/")[0]
+        date = date_end.split("/")[1]
+        year = date_end.split("/")[2]
+        date_format = year + "-" + month + "-" + date
+        $("#date_end").val(date_format)
+      }
+    }
+    $(".smart-listing-controls.form-inline").submit();
+  })

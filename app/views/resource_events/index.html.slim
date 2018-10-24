@@ -1,0 +1,26 @@
+= content_for :actions do
+  li
+    = link_to sales_force_form_for_tasks_path, remote: true do
+      = "Upload Sales Force Task Files"
+  li
+    = link_to sales_force_form_for_other_path, remote: true do
+      = "Upload Other Sales Force Files"
+
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs style='margin-bottom: 10px;'
+        li.active role="presentation" title='List View'
+          = link_to "javascript:void(0)", id: 'btn-list-view' do
+            span.glyphicon.glyphicon-th-list
+        
+      #view-filter-controls.container-muted
+        = link_to t('default.action.new'), new_resource_event_path, class: 'btn btn-green-gradient element-left-side', role: 'button'
+
+      #list-view-container
+        #list-view
+          = smart_listing_render(:resourse_events)  
+javascript:
+  $('.permissions .employments').addClass('active');

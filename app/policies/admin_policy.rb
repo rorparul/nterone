@@ -61,12 +61,15 @@ class AdminPolicy < Struct.new(:user, :admin)
     user.has_any_role?(%i(admin sales_rep sales_manager webmaster lab_admin))
   end
 
+  def resources?
+    user.has_any_role?(%i(admin sales_rep sales_manager webmaster))
+  end
+
   def cpl_log?
     user.has_any_role?(%i(admin))
   end
 
-  def resources?
+  def employment?
     user.has_any_role?(%i(admin))
   end
-
 end

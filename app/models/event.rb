@@ -70,6 +70,14 @@ class Event < ActiveRecord::Base
   include SearchCop
   include Regions
 
+  LIVE_ONLINE_FORMATS = [
+    'Live Online',
+    'Live Online Americas',
+    'Live Online LATAM',
+    'Live Online APAC',
+    'Live Online EMER'
+  ]
+
   enum language: {
     en: 0,
     es: 1
@@ -250,7 +258,7 @@ class Event < ActiveRecord::Base
     if city.present? || state.present?
       "#{city}, #{state}"
     else
-      format == 'Live Online' ? 'Webex' : ''
+      Event::LIVE_ONLINE_FORMATS.include?(format) ? format : ''
     end
   end
 
@@ -268,9 +276,9 @@ class Event < ActiveRecord::Base
 
   def title_with_instructor_and_state
     if state.present?
-      "#{instructor.full_name} [#{course.abbreviation}] [#{state}]"
+      "#{instructor.full_name} [#{course.abbreviation}] [#{state}] #{instructor.instructor_employment_date}"
     else
-      "#{instructor.full_name} [#{course.abbreviation}]"
+      "#{instructor.full_name} [#{course.abbreviation}] #{instructor.instructor_employment_date }"
     end
   end
 

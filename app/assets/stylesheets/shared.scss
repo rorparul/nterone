@@ -229,6 +229,7 @@ header {
     left: 0;
     background-color: white;
     display: none;
+    z-index: 10;
     // MOBILE
 
     ul {
@@ -254,14 +255,6 @@ header {
       }
     }
   }
-  // .alert {
-  //   border-radius: 0;
-  //   margin: 0;
-  //   .glyphicon {
-  //     margin-right: 15px;
-  //     vertical-align: -8%;
-  //   }
-  // }
   @media (min-width: 768px) {
     #logo {
       padding: 17px 0;

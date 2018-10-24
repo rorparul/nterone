@@ -1,31 +1,10 @@
 class OrderMailer < ApplicationMailer
-  def confirmation(user, order, m360 = nil)
-    @tld           = Rails.application.config.tld
-    @m360          = m360
-    @user          = user
-    @order         = order
-    @mad360_emails = {
-      ca: 'marketing360+m10780@bcc.mad360.net',
-      com: 'marketing360+m9874@bcc.mad360.net',
-      la: 'marketing360+m10794@bcc.mad360.net'
-    }
+  def confirmation_internal(user, order)
+    @tld   = Rails.application.config.tld
+    @user  = user
+    @order = order
 
-    attachments['nterone_receipt.pdf'] = WickedPdf.new.pdf_from_string(
-      render_to_string(
-        pdf: 'NterOne Receipt',
-        margin: { bottom: 32 },
-        template: 'orders/receipt.html.slim',
-        locals: { order: @order },
-        footer:  { html: { template: 'layouts/_footer.html.slim' } }
-      )
-    )
-
-    deliver_internal.deliver
-    deliver_external
-  end
-
-  def deliver_internal
-    @destination = 'internal'
+    attachments['nterone_receipt.pdf'] = generate_pdf_receipt(@order)
 
     mail(
       to: @user.email,
@@ -34,19 +13,42 @@ class OrderMailer < ApplicationMailer
         "helpdesk@nterone.#{@tld}",
         "billing@nterone.#{@tld}"
       ],
-      subject: "NterOne.#{@tld} Order Confirmation"
+      subject: "NterOne.#{@tld} Order Confirmation",
+      template_name: 'confirmation'
     )
   end
 
-  def deliver_external
-    @destination = 'external'
+  def confirmation_external(user, order, m360 = nil)
+    @tld   = Rails.application.config.tld
+    @m360  = m360
+    @user  = user
+    @order = order
+
+    attachments['nterone_receipt.pdf'] = generate_pdf_receipt(@order)
 
     mail(
       to: [
         'stephanie.pouse@madwiremedia.com',
-        @mad360_emails[@tld.to_sym]
+        {
+          ca: 'marketing360+m10780@bcc.mad360.net',
+          com: 'marketing360+m9874@bcc.mad360.net',
+          local: 'marketing360+m10794@bcc.mad360.net'
+        }[@tld.to_sym]
       ],
-      subject: "NterOne.#{@tld} Order Confirmation"
+      subject: "NterOne.#{@tld} Order Confirmation",
+      template_name: 'confirmation'
+    )
+  end
+
+  def generate_pdf_receipt(order)
+    WickedPdf.new.pdf_from_string(
+      render_to_string(
+        pdf: 'NterOne Receipt',
+        margin: { bottom: 32 },
+        template: 'orders/receipt.html.slim',
+        locals: { order: order },
+        footer:  { html: { template: 'layouts/_footer.html.slim' } }
+      )
     )
   end
 

@@ -39,6 +39,7 @@
 #  poc               :string
 #  terms             :string
 #  instructor_id     :integer
+#  provider          :string           default("")
 #
 # Indexes
 #

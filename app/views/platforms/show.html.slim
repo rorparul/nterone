@@ -22,8 +22,8 @@
         = t('platforms.show.edit_course')
       li = link_to new_platform_video_on_demand_path(@platform), remote: false do
         = t('platforms.show.add_video_on_demand')
-      li = link_to select_platform_video_on_demands_path(@platform), remote: true do
-        = t('platforms.show.edit_video_on_demand')
+      / li = link_to select_platform_video_on_demands_path(@platform), remote: true do
+      /   = t('platforms.show.edit_video_on_demand')
       li = link_to new_platform_exam_path(@platform), remote: true do
         = t('platforms.show.add_exam')
       li = link_to select_platform_exams_path(@platform), remote: true do

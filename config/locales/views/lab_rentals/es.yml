@@ -13,6 +13,7 @@ es:
       search_by_date_start: "Fecha Comienzo"
       search_by_date_end: "Fecha Fin"
       upload_file: "Cargar archivo de reserva de laboratorio"
+      manage_lab_courses: 'Administrar Cursos de Laboratorio'
     mailers:
       reservation:
         copy1: "Gracias!"
@@ -70,7 +71,33 @@ es:
       notes: "Notas"
       number_of_students: "Número de Estudiantes"
       start_time: "Hora de Inicio(EST)"
+      provider: 'Proveedor'
     show_lab_students_js:
       lab_students: "Laboratorio de Estudiante"
     show_note:
       notes: "Nota"
+    partial_show:
+      canceled: "Cancelado"
+      company: "Compañero"
+      confirmed: "Confirmado"
+      course: "Curso"
+      email: "Email"
+      individual_level: "Nivel individual"
+      instructor: "Instructor"
+      location: "Ubicación"
+      num_of_students: "Ubicación"
+      notes: "Nota"
+      phone: "Teléfono"
+      first_day: ""
+      last_day: "Primer día"
+      start_time: "Hora de inicio"
+      end_time: "Hora de finalización"
+      level: "Nivel"
+      instructor_email: "Correo electrónico del instructor"
+      instructor_phone:  "Instructor Phone"
+      origin_region:  "Región de origen"
+      time_zone: "Zona horaria"
+      affirmative: "Sí"
+      unconfirmed: "No"
+      active_regions: "Regiones activas"
+      notes: "Nota:"

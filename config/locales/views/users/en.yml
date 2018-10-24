@@ -23,6 +23,9 @@ en:
       video_bio: "Video Bio"
       zip: "Zip Code"
       teachable_courses: "Teachable Courses"
+      audit_complete: "Audit Complete"
+      completed_all_labs: "Completed All Labs"
+      met_with_course_director: "Met With Course Director"
     partial_index:
       last_active: "Last Active"
       purchases: "Purchases"

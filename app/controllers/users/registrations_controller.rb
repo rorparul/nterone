@@ -16,19 +16,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user.update_attributes(source_name: @cart.source_name, source_user_id: @cart.source_user_id)
       end
 
-      if @user.source_name == "experts-exchange"
-        CustomMailer.welcome_experts_exchange(@user).deliver_now
-      else
-        CustomMailer.welcome(@user, params['M360-Source']).deliver_now
-      end
+      CustomMailer.welcome_internal(@user).deliver_now
+      CustomMailer.welcome_external(@user, params['M360-Source']).deliver_now
 
       if params[:poker_chip_number]
         @user.settings.poker_chip_number = params[:poker_chip_number]
       end
-
-      # if @user.interest
-      #   Lead.create(buyer_id: @user.id, status: 'unassigned')
-      # end
     end
 
     if @user.persisted? && lms_path?

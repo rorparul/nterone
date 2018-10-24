@@ -1539,6 +1539,34 @@ hr {
   }
 }
 
+.answers-multiple-choice {
+  position: relative;
+  .answer-input-multiple-choice {
+    position: absolute;
+    top: 5;
+    left: 5;
+  }
+  .answer-multiple-choice {
+    padding-left: 35px;
+    box-sizing: border-box;
+  }
+}
+
+.answers-correct-order {
+  position: relative;
+  .answer-input-correct-order {
+    position: absolute;
+    top: 5;
+    left: 5;
+    width: 32px;
+    text-align: center;
+  }
+  .answer-correct-order {
+    padding-left: 48px;
+    box-sizing: border-box;
+  }
+}
+
 .update-exam {
   margin-bottom: 10px;
 

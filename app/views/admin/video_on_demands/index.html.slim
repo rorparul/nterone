@@ -1,0 +1,35 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      .panel.panel-default
+        .panel-heading
+          strong.text-muted
+            | VoDs
+        .panel-table
+          .table-responsive
+            table.table.table-condensed
+              thead
+                tr
+                  th Title
+                  th LMS
+                  th Regions
+                  th ID
+                  th.fit colspan='2'
+              tbody
+                - @video_on_demands.each do |video_on_demand|
+                  tr
+                    td = video_on_demand.title
+                    td.fit = video_on_demand.lms ? 'Yes' : 'No'
+                    td
+                      - video_on_demand.active_regions.each do |region|
+                        = region_label(region)
+                    td = video_on_demand.id
+                    td.fit
+                      = link_to t('default.action.edit'), edit_platform_video_on_demand_path(video_on_demand.platform, video_on_demand)
+                    td.fit
+                      = link_to t('default.action.delete'), platform_video_on_demand_path(video_on_demand.platform, video_on_demand), method: :delete, data: { confirm: "Are you sure?" }, class: 'text-danger'
+
+javascript:
+  $('.permissions .website').addClass('active');

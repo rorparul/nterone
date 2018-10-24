@@ -1,3 +1,5 @@
+= render 'layouts/tabs'
+
 .container
   .row
     .col-xs-12.col-md-8.col-md-offset-2
@@ -16,9 +18,12 @@
             = render partial: "lms_exam_upload_form", locals: { video_on_demand: @video_on_demand, video_exists: @video_exists, lms_exam: LmsExam.new, lms_exam_types: LmsExam.exam_types }
 
 javascript:
+  $('.permissions .website').addClass('active');
+  
   $('.form-buttons button.btn.btn-default').on('click', function() {
     location.replace(document.referrer);
   });
+
   $(function() {
     $( "#video-on-demand-new-tabs" ).tabs();
   });

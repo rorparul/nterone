@@ -5,7 +5,7 @@ module RegionHelper
     elsif region == 'latin_america'
       flag_icon(:do, id: 'my-flag', class: 'strong', title: 'Latin America')
     elsif region == 'canada'
-      flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Latin America')
+      flag_icon(:ca, id: 'my-flag', class: 'strong', title: 'Canada')
     elsif region == 'india'
       flag_icon(:in, id: 'my-flag', class: 'strong', title: 'India')
     end

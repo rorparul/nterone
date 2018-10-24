@@ -27,6 +27,15 @@ es:
         end: "Fin"
         generate: "Generar"
         start: "Inicio"
+    members_engaged:
+      _form:
+        generate: 'Generar'
+      create:
+        first_name: 'Nombre de pila'
+        last_name: 'Apellido'
+        email: 'Correo electrónico'
+      new:
+        members_engaged: 'Informe de Miembros Comprometidos'
     profit_sheets:
       create_xls:
         class: "Clases"

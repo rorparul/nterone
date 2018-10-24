@@ -80,6 +80,10 @@ class VideoOnDemand < ActiveRecord::Base
   scope :active, -> { where(archived: false) }
   scope :lms, -> { where(lms: true) }
 
+  def self.search(query)
+    where("LOWER(title) like :q OR LOWER(abbreviation) like :q", q: "%#{query.try(:downcase)}%").where.not(lms: true)
+  end
+
   def full_title
     if abbreviation.present?
       "#{abbreviation}: #{title}"
