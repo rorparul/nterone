@@ -10,15 +10,15 @@
     - @courses.each do |course|
       .col-xs-12.col-md-6.course-wrapper
         .resource-item.without-image
-          .course-links
+          .course-links.col-md-8
             = link_to course.full_title, platform_video_on_demand_path(course.platform, course)
             = link_to 'Exam Attempts', lms_student_course_path(@student, course), class: 'label label-info'
-        .results
-          span.label class=watched_count_class(course, @student)
-            | #{course.watched_count(@student)} / #{course.video_count} Videos Completed
-          br
-          span.label class=quizes_completed_class(course, @student)
-            | #{course.quizes_completed_count_by(@student)} / #{course.quizes_count} Exam Completed 
+          .results.col-md-4
+            span.label class=watched_count_class(course, @student)
+              | #{course.watched_count(@student)} / #{course.video_count} Videos Completed
+            br
+            span.label class=quizes_completed_class(course, @student)
+              | #{course.quizes_completed_count_by(@student)} / #{course.quizes_count} Exam Completed 
 
   .row
     .col-xs-12

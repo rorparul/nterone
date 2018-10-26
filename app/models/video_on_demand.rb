@@ -113,12 +113,13 @@ class VideoOnDemand < ActiveRecord::Base
 
   def quizes
     ids = video_modules.pluck(:id)
-    LmsExam.where(video_module_id: ids, exam_type: 0)
+    lms_exam_id = AssignQuiz.where(video_module_id: ids).map(&:lms_exam_id).uniq
+    LmsExam.where(id: lms_exam_id, exam_type: 0)
   end
 
   def all_exams
     ids = video_modules.pluck(:id)
-    LmsExam.where(video_module_id: ids)
+    AssignQuiz.where(video_module_id: ids).map(&:lms_exam_id).uniq
   end
 
   def all_videos
@@ -143,7 +144,7 @@ class VideoOnDemand < ActiveRecord::Base
   end
 
   def exam_attempts_for(user)
-    exam_ids = self.all_exams.pluck(:id)
+    exam_ids = self.all_exams
     LmsExamAttempt.where(user: user, lms_exam_id: exam_ids)
   end
 
