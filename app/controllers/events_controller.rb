@@ -96,38 +96,7 @@ class EventsController < ApplicationController
   end
 
   def upload
-    upload = ClassesUploader.upload(event_params[:file])
-
-    if upload[:failures].empty?
-      flash[:success] = "Successfully uploaded all classes."
-    else
-      flash[:alert] = ("<strong>#{view_context.pluralize(upload[:failures].count, 'Failure')}:</strong>" +
-                      "<br>" +
-                      "<table class='table table-condensed'>" +
-                        "<thead>" +
-                          "<tr>" +
-                            "<th>Course ID</th>" +
-                            "<th>Abbreviation</th>" +
-                            "<th>Language</th>" +
-                            "<th>Country Code</th>" +
-                            "<th>Location Name</th>" +
-                            "<th>Street Address</th>" +
-                            "<th>City</th>" +
-                            "<th>State/Province</th>" +
-                            "<th>Zip Code</th>" +
-                            "<th>Offering Start Date(DD-Mon-YYYY)</th>" +
-                            "<th>Offering End Date(DD-Mon-YYYY)</th>" +
-                            "<th>Delivery Type</th>" +
-                            "<th>Site ID</th>" +
-                          "</tr>" +
-                        "</thead>"+
-                        "<tbody>" +
-                          error_rows(upload[:failures]) +
-                        "</tbody>"+
-                      "</table>").html_safe
-    end
-
-    redirect_to :back
+    @upload = ClassesUploader.upload(event_params[:file])
   end
 
   def edit_in_house_note
@@ -218,30 +187,6 @@ class EventsController < ApplicationController
 
   def in_house_note_params
     params.require(:event).permit(:in_house_note)
-  end
-
-  def error_rows(events)
-    rows = ""
-
-    events.each do |event|
-      rows += "<tr>" +
-                "<td>#{event[:cisco_id]}</td>" +
-                "<td>#{event[:abbreviation]}</td>" +
-                "<td>#{event[:language]}</td>" +
-                "<td>#{event[:country_code]}</td>" +
-                "<td>#{event[:location]}</td>" +
-                "<td>#{event[:street]}</td>" +
-                "<td>#{event[:city]}</td>" +
-                "<td>#{event[:state]}</td>" +
-                "<td>#{event[:zipcode]}</td>" +
-                "<td>#{event[:start_date]}</td>" +
-                "<td>#{event[:end_date]}</td>" +
-                "<td>#{event[:format]}</td>" +
-                "<td>#{event[:site_id]}</td>" +
-              "</tr>"
-    end
-
-    rows
   end
 
   def set_event

@@ -1,0 +1,65 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      div.alert.alert-info role="alert"
+        = "Total Rows: #{@upload[:total]} - Total Rows Processed: #{@upload[:successes].count + @upload[:failures].count}"
+      - if @upload[:failures].any?
+        div.alert.alert-danger role="alert"
+          = "Failures: #{@upload[:failures].count}"
+      - if @upload[:duplicates].any?
+        div.alert.alert-warning role="alert"
+          = "Duplicates: #{@upload[:duplicates].count} (Not Recreated)"
+      - if @upload[:successes].any?
+        div.alert.alert-success role="alert"
+          = "Events Created: #{@upload[:successes].count}"
+
+      table.table.table-condensed
+        thead
+          tr
+            th Acronym
+            th Delivery Type
+            th State/Province
+            th City
+            th Start Date
+            th End Date
+            th Language
+            th Price
+        tbody
+          - @upload[:failures].each do |row|
+            tr.danger
+              td = row[:abbreviation]
+              td = row[:format]
+              td = row[:state]
+              td = row[:city]
+              td = row[:start_date]
+              td = row[:end_date]
+              td = row[:language]
+              td = row[:price]
+          - @upload[:duplicates].each do |row|
+            tr.warning
+              td = row[:abbreviation]
+              td = row[:format]
+              td = row[:state]
+              td = row[:city]
+              td = row[:start_date]
+              td = row[:end_date]
+              td = row[:language]
+              td = row[:price]
+          - @upload[:successes].each do |row|
+            tr.success
+              td = row[:abbreviation]
+              td = row[:format]
+              td = row[:state]
+              td = row[:city]
+              td = row[:start_date]
+              td = row[:end_date]
+              td = row[:language]
+              td = row[:price]
+
+javascript:
+  $('.permissions .classes').addClass('active');
+  $(function() {
+    $('main').css('padding-top', '89px');
+  });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181012151417) do
+ActiveRecord::Schema.define(version: 20181025213103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -408,6 +408,7 @@ ActiveRecord::Schema.define(version: 20181012151417) do
     t.string   "site_id"
     t.boolean  "archived",                                               default: false
     t.decimal  "book_cost_per_student",          precision: 8, scale: 2, default: 0.0
+    t.string   "upload_id"
   end
 
   add_index "events", ["checklist_id"], name: "index_events_on_checklist_id", using: :btree

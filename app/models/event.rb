@@ -59,6 +59,7 @@
 #  site_id                        :string
 #  archived                       :boolean          default(FALSE)
 #  book_cost_per_student          :decimal(8, 2)    default(0.0)
+#  upload_id                      :string
 #
 # Indexes
 #
