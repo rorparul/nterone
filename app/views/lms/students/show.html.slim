@@ -10,10 +10,10 @@
     - @courses.each do |course|
       .col-xs-12.col-md-6.course-wrapper
         .resource-item.without-image
-          .course-links.col-md-8
+          .course-links.col-md-8.col-xs-6
             = link_to course.full_title, platform_video_on_demand_path(course.platform, course)
             = link_to 'Exam Attempts', lms_student_course_path(@student, course), class: 'label label-info'
-          .results.col-md-4
+          .results.col-md-4.col-xs-6
             span.label class=watched_count_class(course, @student)
               | #{course.watched_count(@student)} / #{course.video_count} Videos Completed
             br
