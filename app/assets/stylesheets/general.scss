@@ -1905,3 +1905,13 @@ hr {
 .hide_excluded{
   margin-left: 10px;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .resource-item .course-links {
+      margin-top: 0px;
+  }
+  .nav-pills.permissions{
+    padding: inherit;
+  }
+}
