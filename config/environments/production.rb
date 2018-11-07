@@ -99,6 +99,6 @@ NterOne::Application.configure do
     :error_grouping => true,
     :email => {
       :sender_address       => "'Exception Notification' <email@nterone.com>",
-      :exception_recipients => ['ryanstorberg+lbexyfakdsmokux7kyxw@boards.trello.com']
+      :exception_recipients => ['ryan@storberg.net']
     }
 end
