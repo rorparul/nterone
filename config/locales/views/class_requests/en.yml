@@ -1,0 +1,8 @@
+en:
+  class_requests:
+    new:
+      add_class_request: 'Add Class Request'
+    edit:
+      update_class_request: 'Update Class Request'
+    index:
+      my_class_requests: 'My Class Requests'

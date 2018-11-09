@@ -1,0 +1,3 @@
+$('#myModal .modal-title').html("<%= t('class_requests.edit.update_class_request') %>");
+$('#myModal .modal-body').html("<%= escape_javascript(render partial: 'form', locals: { event: @event }) %>");
+$('#myModal').modal('show');

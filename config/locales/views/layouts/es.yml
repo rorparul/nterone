@@ -53,6 +53,7 @@ es:
       contacts: "Contactos"
       leads: "Lleva"
       marketing: "Márketing"
+      class_requests: 'Solicitudes de Clase'
       opportunities: "Oportunidades"
       sales_overview: "Visión de Conjunto"
       sales_details: "Detalles"

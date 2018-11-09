@@ -53,6 +53,7 @@ en:
       contacts: "Contacts"
       leads: "Leads"
       marketing: "Marketing"
+      class_requests: 'Class Requests'
       opportunities: "Opportunities"
       sales_overview: "Overview"
       sales_details: "Details"

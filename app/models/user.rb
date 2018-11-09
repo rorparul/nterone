@@ -151,6 +151,7 @@ class User < ActiveRecord::Base
   has_many :tasks
   has_many :rep_tasks,                class_name: 'Task', foreign_key: 'rep_id'
   has_many :employments,              class_name: 'ResourceEvent', foreign_key: 'instructor_id'
+  has_many :event_requests,           class_name: 'Event', foreign_key: 'sales_rep_id'
 
   accepts_nested_attributes_for :interest
   accepts_nested_attributes_for :roles, reject_if: :all_blank, allow_destroy: true

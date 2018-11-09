@@ -29,6 +29,15 @@
 
       = render partial: 'admin/view_filter'
 
+      #list-view-container
+        #list-view
+          = smart_listing_render(:events)
+          i.fa.fa-spinner.fa-spin.hide.people_loader style="font-size: 30px; position: absolute; right: 50%; top: 35%; color: rgb(15, 115, 185);"
+
+      #calendar-view-container.hidden
+        i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
+        #calendar-view
+
       #lab-calendar-view-container.hidden
         i.fa.fa-spinner.fa-spin.hidden.calander_loading style="font-size: 24px; position: absolute; right: 172px; top: 55px; color: rgb(15, 115, 185);"
         #calendar-view-lab-calendar
@@ -41,11 +50,15 @@
 javascript:
   $('.permissions .classes').addClass('active');
 
-  $(document).on('click', '.event-link', function() {
-    $(this).closest('form').submit();
+  $('#btn-queue-view').on('click', function() {
+    $("#btn-queue-view").parent().addClass('active');
+    $("#btn-calender-view").parent().removeClass('active');
+    $("#btn-calender-view-lab").parent().removeClass('active');
+    $("#list-view-container").removeClass('hidden');
+    $("#calendar-view-container").addClass('hidden');
+    $("#lab-calendar-view-container").addClass('hidden');
+    $('#view-filter-controls').removeClass('hidden');
   });
-
-  $("#calendar-view-container").addClass('hidden');
 
   $("#btn-list-view").on('click', function() {
     $("#btn-list-view").parent().addClass('active');
@@ -90,7 +103,7 @@ javascript:
       })
       $(this).data("loadCalander", false);
     }
-  })
+  });
 
   $("#btn-calender-view-lab").on('click', function(){
     $("#btn-calender-view-lab").parent().addClass('active');
@@ -125,4 +138,12 @@ javascript:
       })
       $(this).data("loadCalander", false);
     }
-  })
+  });
+
+  $(document).on('click', '.event-link', function() {
+    $(this).closest('form').submit();
+  });
+
+  $('.smart-listing-controls.input-search').on('change', function(e) {
+    $(this).submit();
+  });

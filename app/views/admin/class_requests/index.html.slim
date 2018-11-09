@@ -1,0 +1,14 @@
+= render 'layouts/tabs'
+
+.container
+  .row
+    .col-xs-12
+      h4
+        strong.text-muted = t('class_requests.index.my_class_requests')
+      .container-muted
+        = link_to t('default.action.new'), new_admin_class_request_path, class: 'btn btn-success btn-sm', style: 'margin-right: 15px;', role: 'button', remote: true
+
+      = smart_listing_render(:class_requests)
+
+javascript:
+  $('.permissions .sales').addClass('active');

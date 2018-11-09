@@ -13,6 +13,7 @@
     - if policy(:admin).sales?
       li.dropdown.sales role="presentation"
         a.dropdown-toggle.nav-pill data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+          = total_unprocessed_class_requests_badge
           | Sales
           span.caret
         ul.dropdown-menu
@@ -21,6 +22,10 @@
               a href="#{admin_sales_overview_path}"
                 = t('layouts.partial_tabs.sales_overview')
             hr
+          li
+            a href="#{admin_class_requests_path}"
+              = total_unprocessed_class_requests_badge
+              = t('layouts.partial_tabs.class_requests')
           li
             a href="#{opportunities_path}"
               = t('layouts.partial_tabs.opportunities')

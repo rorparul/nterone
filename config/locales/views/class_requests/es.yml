@@ -1,0 +1,8 @@
+es:
+  class_requests:
+    new:
+      add_class_request: 'Agregar Solicitud de Clase'
+    edit:
+      update_class_request: 'Actualizar Solicitud de Clase'
+    index:
+      my_class_requests: 'Mis Solicitudes de Clase'
