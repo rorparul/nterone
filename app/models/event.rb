@@ -294,7 +294,7 @@ class Event < ActiveRecord::Base
   end
 
   def ensure_not_purchased_or_in_cart
-    if users.empty?
+    if order_items.empty?
       return true
     else
       errors.add(:base, 'Order Items present')
