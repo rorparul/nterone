@@ -94,13 +94,14 @@ javascript:
     })
   }
 
+  var defaultUserFilter = {
+      id: "#{current_user.id}",
+      text: "#{current_user.last_name}, #{current_user.first_name}"
+  };
+  $('.search-sales-select-filter').val(defaultUserFilter.id)
   $("#people_stage").on('change', function(){
-    $.ajax({
-      url: "/users/people.js",
-      method: "GET",
-      data: { stage: $(this).val() }
-    })
-
+    $(".user_filter_stage").val($(this).val());
+    $(".smart-listing-controls").submit()
   })
 
   $(".mark_as_direct").on('click', function() {
