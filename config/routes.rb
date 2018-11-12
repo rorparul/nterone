@@ -269,6 +269,11 @@ NterOne::Application.routes.draw do
     get '/sales/overview'         => 'sales#overview'
     get '/sales/top_five_courses' => 'sales#top_five_courses'
     get '/sales/details'          => 'sales#details'
+    resources :class_requests, except: [:show] do
+      member do
+        get 'approve'
+      end
+    end
   end
 
   namespace :exports do
