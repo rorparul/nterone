@@ -117,9 +117,7 @@ class UsersController < ApplicationController
       format.js do
         if params[:user]
           users_scope = User.send(params[:stage]).where(clean_params(user_params[:filters]))
-        else
-          users_scope = User.send(params[:stage]).where(parent_id: current_user.id)
-        end
+        end  
         users_scope = users_scope.custom_search(params[:search]) if params[:search].present?
         prepare_smart_listing(users_scope)
       end
