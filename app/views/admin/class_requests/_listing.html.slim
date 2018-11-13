@@ -1,0 +1,39 @@
+.table-responsive
+  table.table.table-condensed
+    thead
+      tr.background-muted
+        - if current_user.admin? || current_user.sales_manager?
+          th Sales Rep
+        th Course
+        th Customer Name
+        th Start Date
+        th End Date
+        th Length
+        th Time Zone
+        th Country
+        th Students
+        th Format
+        th colspan='3'
+    tbody#class-requests
+      - smart_listing.collection.each do |event|
+        tr
+          - if current_user.admin? || current_user.sales_manager?
+            td = event.sales_rep.try(:full_name)
+          td = event.course.try(:abbreviation)
+          td = event.customer_name
+          td = event.start_date.strftime("%b %d %Y") if event.start_date.present?
+          td = event.end_date.strftime("%b %d %Y") if event.end_date.present?
+          td = event.length
+          td = event.time_zone
+          td = event.country_code
+          td = event.estimated_student_count
+          td = event.format
+          - if current_user.admin? || current_user.sales_manager?
+            td = link_to 'Approve', approve_admin_class_request_path(event), class: 'text-warning'
+          td = link_to 'View/Edit', edit_admin_class_request_path(event), remote: true, class: 'text-warning'
+          td = link_to 'Cancel', admin_class_request_path(event), method: :delete, data: { confirm: t('default.prompt.confirm_delete') }, class: 'text-danger'
+
+  .table-end
+.container-muted
+  = smart_listing.paginate
+  = smart_listing.pagination_per_page_links

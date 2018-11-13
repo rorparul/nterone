@@ -60,6 +60,10 @@
 #  archived                       :boolean          default(FALSE)
 #  book_cost_per_student          :decimal(8, 2)    default(0.0)
 #  upload_id                      :string
+#  approved                       :boolean          default(TRUE)
+#  sales_rep_id                   :integer
+#  customer_name                  :string           default("")
+#  estimated_student_count        :integer          default(0)
 #
 # Indexes
 #
@@ -68,6 +72,8 @@
 #
 
 class Event < ActiveRecord::Base
+  default_scope { where(approved: true) }
+
   include SearchCop
   include Regions
 
@@ -92,6 +98,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :course
   belongs_to :instructor, class_name: 'User'
+  belongs_to :sales_rep, class_name: 'User'
   belongs_to :checklist
 
   has_many :opportunities

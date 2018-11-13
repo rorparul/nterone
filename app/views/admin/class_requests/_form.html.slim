@@ -1,0 +1,156 @@
+.form-container
+  = form_for event, url: event.persisted? ? admin_class_request_path : admin_class_requests_path, remote: true do |f|
+    - if event.errors.any?
+      .alert.alert-danger.alert-dismissible
+        button.close type="button" data-dismiss="alert" aria-label="Close"
+          span aria-hidden="true" &times;
+        ul style="margin: 0; padding: 0;"
+          - event.errors.full_messages.each do |msg|
+            li style="list-style: none; text-align: left;" = msg
+
+    = f.hidden_field :approved, value: false
+    = f.hidden_field :sales_rep_id
+
+    .row
+      .col-xs-12
+        .form-group
+          = f.label :course_id, 'Course'
+          = f.select :course_id, grouped_options_for_select(grouped_courses_options(courses_for_select), f.object.course_id),
+            { include_blank: t('companies.partial_form.dropdown') },
+            { class: 'search-select course-select form-control', required: true }
+      .col-xs-12
+        .form-group
+          = f.label :customer_name, 'Customer Name'
+          = f.text_field :customer_name, class: 'form-control', required: true
+
+    hr
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_date, t('events.partial_form.start_date')
+          br
+          = f.date_select :start_date, {}, {}
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :start_time, t('events.partial_form.start_time')
+          br
+          = f.time_select :start_time, { ampm: true, default: { hour: "10", minute: "00" } }, {}
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :end_date, t('events.partial_form.end_date')
+          br
+          = f.date_select :end_date, {}, {}
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :end_time, t('events.partial_form.end_time')
+          br
+          = f.time_select :end_time, { ampm: true, default: { hour: "18", minute: "00" } }, {}
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :time_zone, t('events.partial_form.time_zone')
+          br
+          = f.time_zone_select :time_zone,
+                               ActiveSupport::TimeZone.us_zones,
+                               { default: t('events.partial_form.eastern_timezone') },
+                               { class: 'form-control' }
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :count_weekends, t('events.partial_form.count_weekends')
+          br
+          = f.check_box :count_weekends
+
+    hr
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :format, t('events.partial_form.format')
+          = f.select :format,
+                    [['On-site', 'On-site'],
+                     ['Live Online', 'Live Online'],
+                     ['Live Online Americas', 'Live Online Americas'],
+                     ['Live Online LATAM', 'Live Online LATAM'],
+                     ['Live Online APAC', 'Live Online APAC'],
+                     ['Live Online EMER', 'Live Online EMER'],
+                     ['ClearConnect', 'ClearConnect']],
+                    { prompt: t('default.prompt.please_select') },
+                    { class: 'form-control', required: true }
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :language, t('events.partial_form.language')
+          = f.select :language,
+                     [[t('events.partial_form.english'), 'en'],
+                      [t('events.partial_form.spanish'), 'es']],
+                     { prompt: t('default.prompt.please_select') },
+                     { class: 'form-control' }
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :country_code, t('events.partial_form.country_code')
+          = f.country_select :country_code,
+                     nil,
+                     { include_blank: t('default.prompt.please_select') },
+                     { class: 'form-control' }
+
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :state, t('events.partial_form.state')
+          = f.select :state,
+                     grouped_options_for_select([], event.state),
+                     { include_blank: t('default.prompt.please_select') },
+                     { class: 'form-control' }
+          = hidden_field_tag "selected_state", event.state
+
+
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :estimated_student_count, 'Estimated Student Count'
+          = f.number_field :estimated_student_count, class: 'form-control', required: true
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :price, t('events.partial_form.price')
+          .input-group
+            span.input-group-addon $
+            = f.text_field :price, data: { autonumeric: true }, class: 'form-control'
+
+    hr
+
+    .form-group
+      = f.label :in_house_note, t('events.partial_form.in_house_note')
+      = f.text_area :in_house_note, class: 'form-control', rows: 6
+
+    .form-buttons
+      button.btn.btn-success type="submit"
+        = t('default.action.submit')
+      button.btn.btn-default type="button" data-dismiss="modal"
+        = t('default.action.cancel')
+      - if event.id
+        = link_to t('default.action.delete'), admin_class_request_path(event),
+          method: :delete,
+          data: { confirm: t('default.prompt.confirm_delete') },
+          class: 'text-danger'
+
+javascript:
+  if($("#event_country_code").val() != '') {
+    $.ajax({
+      type: "GET",
+      url: "/state_list",
+      data: { country_code: $("#event_country_code").val() }
+    })
+  }
+
+  $("#event_country_code").on('change', function() {
+    $.ajax({
+      type: "GET",
+      url: "/state_list",
+      data: { country_code: $(this).val() }
+    })
+  })
