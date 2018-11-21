@@ -55,6 +55,7 @@ class Admin::ClassRequestsController < Admin::BaseController
     else
       flash[:alert] = 'There was an issue when attempting to cancel your class request.'
     end
+    redirect_to :back
   end
 
   private
