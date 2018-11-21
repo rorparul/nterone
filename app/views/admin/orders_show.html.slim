@@ -43,7 +43,7 @@
                   - if order_item.orderable_type == "VideoOnDemand"
                     tr
                       td
-                        = "VOD for #{order_item.orderable.full_title}"
+                        = "VOD for #{order_item.orderable.try(:full_title)}"
                         - if order_item.orderable.cisco_course_product_code.present?
                           br
                           = link_to '(1) Post CPL Order With Cisco', cpl_orders_post_path(@order.id), style: 'margin-right: 5px;'
